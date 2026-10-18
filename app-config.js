@@ -41,13 +41,13 @@ window.addEventListener('load', () => {
   if (!document.querySelector('link[data-performance-hub]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = './performance-hub.css?v=1';
+    link.href = './performance-hub.css?v=2';
     link.dataset.performanceHub = '1';
     document.head.appendChild(link);
   }
   if (!document.querySelector('script[data-performance-hub]')) {
     const script = document.createElement('script');
-    script.src = './performance-hub.js?v=1';
+    script.src = './performance-hub.js?v=2';
     script.dataset.performanceHub = '1';
     document.body.appendChild(script);
   }
