@@ -51,4 +51,17 @@ window.addEventListener('load', () => {
     script.dataset.performanceHub = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('link[data-refresh-orchestrator]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './refresh-orchestrator.css?v=1';
+    link.dataset.refreshOrchestrator = '1';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[data-refresh-orchestrator]')) {
+    const script = document.createElement('script');
+    script.src = './refresh-orchestrator.js?v=1';
+    script.dataset.refreshOrchestrator = '1';
+    document.body.appendChild(script);
+  }
 }, { once: true });
