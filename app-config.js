@@ -2,7 +2,14 @@ window.COMMAND_CENTER_CONFIG = {
   supabaseUrl: "https://gmlsucpwliegwlxymjvp.supabase.co",
   supabaseAnonKey: "sb_publishable_LLkZOIOmUX58mcN4HtsUgg_BhTSbiDq",
   refreshMs: 60000,
-  excludedProjectNames: ["Operating Order"]
+  excludedProjectNames: [
+    "Operating Order",
+    "Crestven Holdings",
+    "Crest Van Holdings",
+    "Outreach",
+    "Crowdskein",
+    "Loopwren"
+  ]
 };
 
 window.addEventListener('load', () => {
