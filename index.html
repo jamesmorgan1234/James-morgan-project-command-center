@@ -8,7 +8,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" sizes="192x192" href="./icon-192.png">
 <link rel="apple-touch-icon" href="./icon-192.png">
-<link rel="stylesheet" href="./styles.css?v=4">
+<link rel="stylesheet" href="./styles.css?v=5">
 </head>
 <body>
 <div id="boot" class="center-screen">Loading secure Command Center…</div>
@@ -18,11 +18,11 @@
       <h1>Master Project Command Center</h1>
       <div id="syncText" class="muted">Private data · waiting for sync</div>
     </div>
-    <div class="top-actions">
-      <button id="refreshBtn" class="btn">Refresh now</button>
-      <button id="signOutBtn" class="btn btn-ghost" hidden>Sign out</button>
-    </div>
   </header>
+
+  <section id="refreshStrip" class="refresh-strip" hidden>
+    <button id="refreshBtn" class="btn btn-primary refresh-btn">Refresh now</button>
+  </section>
 
   <main>
     <section id="authPanel" class="panel auth-panel" hidden>
@@ -50,39 +50,62 @@
     <section id="dashboard" hidden>
       <section class="stats" id="stats"></section>
 
-      <section class="toolbar panel">
-        <input id="searchInput" type="search" placeholder="Search projects, next actions, blockers…">
-        <select id="statusFilter"><option value="all">All statuses</option></select>
-        <select id="categoryFilter"><option value="all">All categories</option></select>
-      </section>
-
-      <section class="two-col">
-        <div>
-          <section class="panel attention">
-            <div class="section-head"><h2>What needs attention</h2><span id="attentionCount" class="badge"></span></div>
-            <div id="attentionList" class="list"></div>
-          </section>
-
-          <section class="panel">
-            <div class="section-head"><h2>Projects</h2><span id="projectCount" class="muted"></span></div>
-            <div id="projectGrid" class="project-grid"></div>
-          </section>
+      <section class="panel view-shell">
+        <div class="view-head">
+          <div>
+            <div id="viewEyebrow" class="eyebrow">Overview</div>
+            <h2 id="viewTitle">Portfolio overview</h2>
+            <p id="viewDescription" class="muted">Use the summary tiles above to open exactly what you want to work on.</p>
+          </div>
+          <button id="backHomeBtn" class="btn btn-ghost" hidden>Back to overview</button>
         </div>
 
-        <aside class="panel detail-panel" id="detailPanel">
-          <div class="muted">Select a project to see its next action, updates, blockers, and private KPIs.</div>
-        </aside>
-      </section>
+        <section id="homeView">
+          <div class="home-grid">
+            <div class="home-card">
+              <div class="section-head"><h3>Recent verified updates</h3><span class="muted">Newest first</span></div>
+              <div id="activityList" class="list"></div>
+            </div>
+            <div class="home-card how-to-card">
+              <h3>How to use this page</h3>
+              <p>Click a summary tile to open that slice of the portfolio. Every project has a current next step and a ready-to-copy continuation prompt.</p>
+              <p class="muted">Unknown money, sales, subscriber, or completion figures stay unrecorded until they can be verified.</p>
+            </div>
+          </div>
+        </section>
 
-      <section class="panel">
-        <div class="section-head"><h2>Recent verified updates</h2><span class="muted">Newest first</span></div>
-        <div id="activityList" class="list"></div>
+        <section id="projectView" hidden>
+          <section class="toolbar">
+            <input id="searchInput" type="search" placeholder="Search projects, next actions, blockers…">
+            <select id="statusFilter"><option value="all">All statuses</option></select>
+            <select id="categoryFilter"><option value="all">All categories</option></select>
+          </section>
+
+          <section class="two-col project-view-grid">
+            <div class="project-list-panel">
+              <div class="section-head"><h3 id="projectViewHeading">Projects</h3><span id="projectCount" class="muted"></span></div>
+              <div id="projectGrid" class="project-grid"></div>
+            </div>
+            <aside class="detail-panel" id="detailPanel">
+              <div class="muted">Select a project to see its next action, updates, blockers, KPIs, and continuation prompt.</div>
+            </aside>
+          </section>
+        </section>
+
+        <section id="revenueView" hidden>
+          <div id="revenueSummary" class="revenue-summary"></div>
+          <div id="revenueList" class="revenue-list"></div>
+        </section>
       </section>
     </section>
   </main>
+
+  <footer id="appFooter" class="app-footer" hidden>
+    <button id="signOutBtn" class="btn btn-ghost signout-bottom">Sign out</button>
+  </footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./app-config.js"></script>
-<script src="./app.js?v=6"></script>
+<script src="./app.js?v=7"></script>
 </body>
 </html>
