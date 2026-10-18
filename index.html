@@ -3,20 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#153c86">
-<title>Master Project Command Center</title>
+<meta name="theme-color" content="#04142f">
+<title>Command Center</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="./command-center-icon.svg">
 <link rel="apple-touch-icon" href="./command-center-icon.svg">
-<link rel="stylesheet" href="./styles.css?v=6">
+<link rel="stylesheet" href="./styles.css?v=7">
 </head>
 <body>
 <div id="boot" class="center-screen">Loading secure Command Center…</div>
 <div id="app" hidden>
   <header class="topbar">
-    <div>
-      <h1>Master Project Command Center</h1>
-      <div id="syncText" class="muted">Private data · waiting for sync</div>
+    <div class="brand-lockup">
+      <img class="brand-icon" src="./command-center-icon.svg" alt="Command Center">
+      <div class="brand-copy">
+        <h1>Command Center</h1>
+        <div class="brand-tagline">Projects • Progress • Priorities • Performance</div>
+        <div id="syncText" class="muted sync-line">Private data · waiting for sync</div>
+      </div>
     </div>
   </header>
 
