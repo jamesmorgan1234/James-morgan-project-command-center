@@ -13,6 +13,10 @@
 .hub-project-card.tone-green{--hub-accent:#36dda7;--hub-glow:rgba(54,221,167,.16)}
 .hub-project-card.tone-amber{--hub-accent:#ffd35a;--hub-glow:rgba(255,211,90,.15)}
 .hub-project-card.tone-purple{--hub-accent:#a88aff;--hub-glow:rgba(168,138,255,.16)}
+.hub-project-card.is-top-priority{border-width:2px;border-left-width:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 18px 40px rgba(0,0,0,.34),0 0 38px var(--hub-glow)}
+.hub-project-card.is-top-priority::before{background:radial-gradient(circle at 86% 0%,rgba(255,255,255,.07),transparent 24%),linear-gradient(120deg,rgba(255,255,255,.055),transparent 22%,transparent 76%,rgba(255,255,255,.03))}
+.hub-priority-ribbon{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:6px 10px;border:1px solid rgba(255,117,145,.35);border-radius:999px;background:rgba(118,23,56,.50);color:#ffb1c0;font-size:.68rem;font-weight:950;letter-spacing:.075em;text-transform:uppercase;box-shadow:0 0 18px rgba(255,96,125,.14)}
+.hub-priority-ribbon span{color:#ffd76a;text-shadow:0 0 10px rgba(255,215,106,.38)}
 .hub-project-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding-right:42px}
 .hub-project-name-wrap{min-width:0}
 .hub-project-name{font-size:clamp(1.55rem,2.7vw,2.3rem);font-weight:950;letter-spacing:-.03em;line-height:1.03;color:#fff}
@@ -52,6 +56,28 @@
 #projectView.project-hub-detail .continuation-prompt{min-height:230px}
 #projectView.project-hub-detail .kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 
+.refresh-strip{display:grid;gap:10px}
+.refresh-btn.refreshing{cursor:wait;opacity:.92}
+.refresh-visual{border:1px solid #1b5b8d;border-radius:14px;padding:11px 13px;background:linear-gradient(180deg,rgba(8,35,72,.96),rgba(5,23,50,.96));box-shadow:0 10px 24px rgba(0,0,0,.18),0 0 22px rgba(20,148,255,.08)}
+.refresh-visual-row{display:flex;align-items:center;gap:11px}
+.refresh-visual-copy{display:grid;gap:2px;min-width:0}
+.refresh-visual-copy strong{font-size:.86rem;color:#f5f9ff}
+.refresh-visual-copy small{font-size:.72rem;line-height:1.35;color:#93afd0}
+.refresh-spinner{width:22px;height:22px;flex:0 0 22px;border:3px solid rgba(94,181,255,.22);border-top-color:#35adff;border-right-color:#35adff;border-radius:50%;box-shadow:0 0 14px rgba(53,173,255,.18);animation:cc-spin .8s linear infinite}
+.refresh-check,.refresh-error-icon{width:22px;height:22px;flex:0 0 22px;border-radius:50%;display:grid;place-items:center;font-size:.78rem;font-weight:950}
+.refresh-check{background:rgba(34,201,137,.18);border:1px solid rgba(63,229,172,.42);color:#67e8b6;box-shadow:0 0 14px rgba(34,201,137,.16)}
+.refresh-check::before{content:'✓'}
+.refresh-error-icon{background:rgba(255,95,121,.16);border:1px solid rgba(255,95,121,.38);color:#ff8da0}
+.refresh-error-icon::before{content:'!'}
+.refresh-motion-track{height:4px;margin-top:10px;border-radius:999px;background:#06152e;overflow:hidden}
+.refresh-motion-track span{display:block;width:34%;height:100%;border-radius:999px;background:linear-gradient(90deg,transparent,#2ca8ff,#7bc8ff,transparent);animation:cc-refresh-sweep 1.15s ease-in-out infinite}
+.refresh-visual.is-complete{border-color:#176e57;background:linear-gradient(180deg,rgba(8,63,53,.88),rgba(5,33,38,.95))}
+.refresh-visual.is-complete .refresh-motion-track span{width:100%;background:linear-gradient(90deg,#22c989,#66e6b7);animation:none}
+.refresh-visual.is-error{border-color:#79344b;background:linear-gradient(180deg,rgba(73,20,48,.86),rgba(35,15,35,.95))}
+.refresh-visual.is-error .refresh-motion-track span{width:100%;background:linear-gradient(90deg,#ff5f79,#ff9bae);animation:none}
+@keyframes cc-spin{to{transform:rotate(360deg)}}
+@keyframes cc-refresh-sweep{0%{transform:translateX(-120%)}55%{transform:translateX(210%)}100%{transform:translateX(210%)}}
+
 @media(max-width:760px){
   #projectView.project-hub-list{padding-top:8px}
   .hub-project-card{padding:16px 16px 15px;border-radius:18px}
@@ -67,6 +93,8 @@
   .hub-back-btn{width:100%}
   #projectView.project-hub-detail .detail-panel.hub-detail-panel{padding:14px;border-radius:18px}
   #projectView.project-hub-detail .kpi-grid{grid-template-columns:1fr 1fr}
+  .refresh-visual{padding:10px 11px}
+  .refresh-visual-copy small{font-size:.68rem}
 }
 
 @media(max-width:430px){
@@ -78,4 +106,5 @@
   .hub-progress-head strong{font-size:1.05rem}
   .hub-progress-basis{font-size:.62rem}
   #projectView.project-hub-detail .kpi-grid{grid-template-columns:1fr}
+  .hub-priority-ribbon{font-size:.62rem;padding:5px 8px}
 }
