@@ -1,5 +1,5 @@
 window.COMMAND_CENTER_CONFIG = {
-  supabaseUrl: "__SUPABASE_URL__",
-  supabaseAnonKey: "__SUPABASE_PUBLISHABLE_KEY__",
+  supabaseUrl: "https://gmlsucpwliegwlxymjvp.supabase.co",
+  supabaseAnonKey: "sb_publishable_LLkZOIOmUX58mcN4HtsUgg_BhTSbiDq",
   refreshMs: 60000
 };
