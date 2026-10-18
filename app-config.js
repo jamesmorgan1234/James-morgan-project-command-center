@@ -18,4 +18,10 @@ window.addEventListener('load', () => {
     script.dataset.booksHub = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('script[data-next-up-label]')) {
+    const script = document.createElement('script');
+    script.src = './next-up-label.js?v=1';
+    script.dataset.nextUpLabel = '1';
+    document.body.appendChild(script);
+  }
 }, { once: true });
