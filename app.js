@@ -12,7 +12,7 @@
   const fmtDate = v => v ? new Date(v).toLocaleString() : '—';
 
   function show(el, yes=true){ if(el) el.hidden=!yes; }
-  function setSync(text){ $('syncText').textContent=text; }
+  function setSync(text){ if($('syncText')) $('syncText').textContent=text; }
   function configReady(){ return cfg.supabaseUrl && cfg.supabaseAnonKey && !cfg.supabaseUrl.startsWith('__') && !cfg.supabaseAnonKey.startsWith('__'); }
 
   async function bootApp(){
@@ -36,8 +36,7 @@
     for(const id of ['stats','projectGrid','detailPanel','activityList','revenueSummary','revenueList']) $(id)?.replaceChildren();
     cleanupRealtime();
     if(!session){
-      authorized=false; projects=[]; metrics=[]; activity=[];
-      show($('authPanel'),true); show($('claimPanel'),false); show($('dashboard'),false);
+      show($('authPanel'),true); show($('claimPanel'),false); show($('dashboard'),false); show($('appFooter'),false);
       setSync('Private data · sign in required'); return;
     }
     const {data,error}=await supabase.rpc('is_command_center_authorized');
@@ -104,13 +103,13 @@
   }
 
   function renderFilters(){
-    const sf=$('statusFilter'),cf=$('categoryFilter'); const sv=sf.value,cv=cf.value;
+    const sf=$('statusFilter'),cf=$('categoryFilter'); if(!sf||!cf) return;
+    const sv=sf.value,cv=cf.value;
     const statuses=[...new Set(projects.map(p=>p.status).filter(Boolean))].sort();
     const cats=[...new Set(projects.map(p=>p.category).filter(Boolean))].sort();
     sf.innerHTML='<option value="all">All statuses</option>'+statuses.map(x=>`<option>${esc(x)}</option>`).join('');
     cf.innerHTML='<option value="all">All categories</option>'+cats.map(x=>`<option>${esc(x)}</option>`).join('');
-    if(statuses.includes(sv))sf.value=sv; else sf.value='all';
-    if(cats.includes(cv))cf.value=cv; else cf.value='all';
+    sf.value=statuses.includes(sv)?sv:'all'; cf.value=cats.includes(cv)?cv:'all';
   }
 
   function viewMeta(){
@@ -118,7 +117,7 @@
     if(currentView==='attention') return ['Needs attention','Needs attention','Projects with a blocker, recovery state, paused state, or another attention flag.'];
     if(currentView==='earning') return ['Revenue','Projects earning','Projects with verified positive revenue records.'];
     if(currentView==='revenue') return ['Revenue','Verified revenue breakdown','Verified revenue by project. Unrecorded values stay unrecorded.'];
-    if(currentView==='all') return ['Projects','All projects','Search, filter, inspect, and continue any project.'];
+    if(currentView==='all') return ['Projects','All projects','Search, filter, inspect, update, and continue any project.'];
     return ['Overview','Portfolio overview','Use the summary tiles above to open exactly what you want to work on.'];
   }
 
@@ -134,13 +133,12 @@
   }
 
   function baseFilteredProjects(){
-    const q=$('searchInput').value.trim().toLowerCase(), sf=$('statusFilter').value, cf=$('categoryFilter').value;
+    const q=($('searchInput')?.value||'').trim().toLowerCase(), sf=$('statusFilter')?.value||'all', cf=$('categoryFilter')?.value||'all';
     return projects.filter(p=>{
       const hay=[p.name,p.category,p.status,p.verification,p.stage,p.next_action,p.blocker].join(' ').toLowerCase();
       return (sf==='all'||p.status===sf)&&(cf==='all'||p.category===cf)&&(!q||hay.includes(q));
     });
   }
-
   function filteredProjects(){
     let list=baseFilteredProjects();
     if(currentView==='active') list=list.filter(isActive);
@@ -171,69 +169,91 @@
     const env=recommendedEnvironment(p);
     const head=env==='Work'?`WORK EXECUTION PROMPT — ${p.name}`:`Continue ${p.name} from this exact Command Center state.`;
     const tail=env==='Work'
-      ? `This project is at a recorded Work boundary. Execute only the Work-specific portion that normal Chat cannot complete. Preserve all verified work and return a precise handoff to normal Chat as soon as that boundary is crossed.`
-      : `Continue automatically in normal Chat. Do all work that can genuinely be done there. Stop only for a real user authorization/login/payment requirement or a true Work-only capability boundary.`;
+      ? 'This project is at a recorded Work boundary. Execute only the Work-specific portion that normal Chat cannot complete. Preserve all verified work and return a precise handoff to normal Chat as soon as that boundary is crossed.'
+      : 'Continue automatically in normal Chat. Do all work that can genuinely be done there. Stop only for a real user authorization/login/payment requirement or a true Work-only capability boundary.';
     return `${head}\n\nStatus: ${p.status||'—'}\nVerification: ${p.verification||'—'}\nStage: ${p.stage||'—'}\nNext action: ${p.next_action||'—'}\nBlocker / integrity note: ${p.blocker||'None recorded.'}\nLast verified: ${p.last_verified||'—'}\nSource status: ${p.source_status||'—'}\n\n${tail}\nDo not redo completed work. Do not invent unverified facts. Verify current state before external changes and preserve the $0/free-first rule.`;
   }
 
   function renderDetail(){
-    const p=projects.find(x=>x.id===selectedId); if(!p){$('detailPanel').innerHTML='<div class="muted">Select a project.</div>';return;}
-    const ms=projectMetrics(p.id); const acts=activity.filter(a=>a.project_id===p.id).slice(0,8); const env=recommendedEnvironment(p);
-    $('detailPanel').innerHTML=`<div class="section-head"><div><div class="detail-title">${esc(p.name)}</div><div class="detail-sub">${esc(p.category||'')} · last verified ${esc(p.last_verified||'—')}</div></div><span class="badge ${cls(p.status)}">${esc(p.status||'')}</span></div><div class="project-meta"><span class="badge ${cls(p.verification)}">${esc(p.verification||'')}</span>${p.source_status?`<span class="badge source-badge">${esc(p.source_status)}</span>`:''}</div><div class="block"><h3>Next thing to do</h3><p>${esc(p.next_action||'—')}</p></div><div class="block"><h3>Blocker / integrity note</h3><p>${esc(p.blocker||'None recorded.')}</p></div><div class="block continuation-block" id="continuationBlock"><div class="section-head"><h3>Continue this project</h3><span class="badge ${env==='Work'?'attention':'active'}">${esc(env)}</span></div><p class="continuation-note">${env==='Work'?'This project is currently recorded at a genuine Work boundary.':'Use the dedicated project/series chat in normal Chat unless a genuine boundary appears.'}</p><textarea id="continuationPrompt" class="continuation-prompt" readonly></textarea><div class="continuation-actions"><button id="copyPromptBtn" class="btn btn-primary">Copy prompt</button><button id="openChatBtn" class="btn">Open ChatGPT</button></div><div id="copyMsg" class="message muted"></div></div><div class="block"><h3>Private KPIs</h3>${ms.length?`<div class="kpi-grid">${ms.map(m=>`<div class="kpi"><div class="k">${esc(m.label)}</div><div class="v">${esc(metricValue(m))}</div><div class="s">${m.verified?'Verified':'Unverified'} · ${esc(m.source||'manual')} · ${esc(fmtDate(m.updated_at))}</div></div>`).join('')}</div>`:'<div class="muted">No metrics recorded yet.</div>'}</div><div class="block"><h3>Recent updates</h3>${acts.length?`<div class="list">${acts.map(a=>`<div class="list-item"><strong>${esc(a.headline)}</strong><small>${esc(a.detail||'')} · ${esc(fmtDate(a.happened_at))}</small></div>`).join('')}</div>`:'<div class="muted">No recent updates recorded.</div>'}</div><button id="editProjectBtn" class="btn">Edit this project</button><div id="editHost"></div>`;
+    const p=projects.find(x=>x.id===selectedId);
+    if(!p){ $('detailPanel').innerHTML='<div class="muted">Select a project.</div>'; return; }
+    const ms=projectMetrics(p.id), acts=activity.filter(a=>a.project_id===p.id).slice(0,8), env=recommendedEnvironment(p);
+    $('detailPanel').innerHTML=`
+      <div class="section-head"><div><div class="detail-title">${esc(p.name)}</div><div class="detail-sub">${esc(p.category||'')} · last verified ${esc(p.last_verified||'—')}</div></div><span class="badge ${cls(p.status)}">${esc(p.status||'')}</span></div>
+      <div class="project-meta"><span class="badge ${cls(p.verification)}">${esc(p.verification||'')}</span>${p.source_status?`<span class="badge source-badge">${esc(p.source_status)}</span>`:''}</div>
+      <div class="block"><h3>Next thing to do</h3><p>${esc(p.next_action||'—')}</p></div>
+      <div class="block"><h3>Blocker / integrity note</h3><p>${esc(p.blocker||'None recorded.')}</p></div>
+      <div class="block continuation-block" id="continuationBlock"><div class="section-head"><h3>Continue this project</h3><span class="badge ${env==='Work'?'attention':'active'}">${esc(env)}</span></div><p class="continuation-note">${env==='Work'?'This project is currently recorded at a genuine Work boundary.':'Use the dedicated project/series chat in normal Chat unless a genuine boundary appears.'}</p><textarea id="continuationPrompt" class="continuation-prompt" readonly></textarea><div class="continuation-actions"><button id="copyPromptBtn" class="btn btn-primary">Copy prompt</button><button id="openChatBtn" class="btn">Open ChatGPT</button></div><div id="copyMsg" class="message muted"></div></div>
+      <div class="block"><div class="section-head"><h3>Update project information</h3><button id="editProjectBtn" class="btn btn-small">Enter / edit information</button></div><p class="muted" style="margin-top:6px">Update the saved status, verification, next action, blocker, or add a new project note.</p><div id="editHost"></div></div>
+      <div class="block"><h3>Private KPIs</h3>${ms.length?`<div class="kpi-grid">${ms.map(m=>`<div class="kpi"><div class="k">${esc(m.label)}</div><div class="v">${esc(metricValue(m))}</div><div class="s">${m.verified?'Verified':'Unverified'} · ${esc(m.source||'manual')} · ${esc(fmtDate(m.updated_at))}</div></div>`).join('')}</div>`:'<div class="muted">No metrics recorded yet.</div>'}</div>
+      <div class="block"><h3>Recent updates</h3>${acts.length?`<div class="list">${acts.map(a=>`<div class="list-item"><strong>${esc(a.headline)}</strong><small>${esc(a.detail||'')} · ${esc(fmtDate(a.happened_at))}</small></div>`).join('')}</div>`:'<div class="muted">No recent updates recorded.</div>'}</div>`;
     $('continuationPrompt').value=buildContinuationPrompt(p);
-    $('copyPromptBtn').onclick=()=>copyContinuationPrompt(p);
+    $('copyPromptBtn').onclick=()=>copyPrompt(p);
     $('openChatBtn').onclick=()=>window.open('https://chatgpt.com/','_blank','noopener');
     $('editProjectBtn').onclick=()=>renderEdit(p);
   }
 
-  async function copyContinuationPrompt(p){
-    const text=buildContinuationPrompt(p); let ok=false;
-    try{ await navigator.clipboard.writeText(text); ok=true; }catch(_e){
-      const ta=$('continuationPrompt'); ta.focus(); ta.select(); try{ok=document.execCommand('copy');}catch(_e2){}
-    }
-    $('copyMsg').textContent=ok?'Prompt copied. Open the dedicated project chat and paste it there.':'Copy failed. Select the prompt text manually.';
-  }
-
   function renderEdit(p){
-    $('editHost').innerHTML=`<div class="edit-form"><div class="row2"><label>Status<input id="eStatus" value="${esc(p.status||'')}"></label><label>Verification<input id="eVerify" value="${esc(p.verification||'')}"></label></div><label>Next action<textarea id="eNext" rows="3">${esc(p.next_action||'')}</textarea></label><label>Blocker<textarea id="eBlock" rows="3">${esc(p.blocker||'')}</textarea></label><button id="saveProjectBtn" class="btn btn-primary">Save private update</button><div id="editMsg" class="message"></div></div>`;
+    const host=$('editHost'); if(!host) return;
+    host.innerHTML=`<div class="edit-form"><div class="row2"><label>Status<input id="eStatus" value="${esc(p.status||'')}"></label><label>Verification<input id="eVerify" value="${esc(p.verification||'')}"></label></div><label>Next action<textarea id="eNext" rows="3">${esc(p.next_action||'')}</textarea></label><label>Blocker / integrity note<textarea id="eBlock" rows="3">${esc(p.blocker||'')}</textarea></label><label>New update note<textarea id="eNote" rows="4" placeholder="Type any new information you want saved with this project…"></textarea></label><div class="continuation-actions"><button id="saveProjectBtn" class="btn btn-primary">Save project update</button><button id="cancelEditBtn" class="btn">Cancel</button></div><div id="editMsg" class="message"></div></div>`;
+    $('cancelEditBtn').onclick=()=>{ host.innerHTML=''; };
     $('saveProjectBtn').onclick=async()=>{
+      const btn=$('saveProjectBtn'), msg=$('editMsg'); btn.disabled=true; msg.textContent='Saving…';
       const patch={status:$('eStatus').value.trim(),verification:$('eVerify').value.trim(),next_action:$('eNext').value.trim(),blocker:$('eBlock').value.trim(),updated_at:new Date().toISOString()};
-      const {error}=await supabase.from('projects').update(patch).eq('id',p.id); $('editMsg').textContent=error?error.message:'Saved.'; if(!error)refreshAll();
+      const note=$('eNote').value.trim();
+      const {error}=await supabase.from('projects').update(patch).eq('id',p.id);
+      if(error){ msg.textContent=error.message; btn.disabled=false; return; }
+      if(note){
+        const {error:noteError}=await supabase.from('activity').insert({owner_id:session.user.id,project_id:p.id,headline:'Manual Command Center update',detail:note,happened_at:new Date().toISOString()});
+        if(noteError){ msg.textContent='Project saved, but note failed: '+noteError.message; btn.disabled=false; await refreshAll(); return; }
+      }
+      msg.textContent='Saved.'; await refreshAll();
     };
   }
 
+  async function copyPrompt(p){
+    const text=buildContinuationPrompt(p), msg=$('copyMsg');
+    try{ await navigator.clipboard.writeText(text); if(msg) msg.textContent=`Copied. Paste this into ${recommendedEnvironment(p)}.`; }
+    catch(_){ const t=$('continuationPrompt'); if(t){ t.focus(); t.select(); } if(msg) msg.textContent='Clipboard access was blocked. The prompt is selected—copy it manually.'; }
+  }
+
   function renderRevenue(){
-    const hasRevenue=hasRecordedRevenue(), total=verifiedRevenueTotal();
-    $('revenueSummary').innerHTML=`<div><div class="eyebrow">Portfolio verified revenue</div><div class="revenue-total">${hasRevenue?esc(fmtMoney(total)):'Not recorded'}</div><p class="muted">Only records explicitly stored as verified revenue are counted. Deposits, balances due, estimates, or unverified sales are not included.</p></div>`;
-    const rows=projects.map(p=>({p,m:revenueMetric(p.id)})).sort((a,b)=>Number(b.m?.value_numeric||-1)-Number(a.m?.value_numeric||-1));
-    $('revenueList').innerHTML=rows.map(({p,m})=>`<div class="revenue-row"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(p.category||'')}</div></div><div class="revenue-value ${m?'':'not-recorded'}">${m?esc(fmtMoney(m.value_numeric)):'Not recorded'}</div><button class="btn btn-small" data-open-revenue="${esc(p.id)}">Open project</button></div>`).join('');
+    const hasRevenue=hasRecordedRevenue(), total=verifiedRevenueTotal(), earning=projects.filter(isEarning).length;
+    $('revenueSummary').innerHTML=`<div class="eyebrow">Verified revenue</div><div class="revenue-total">${hasRevenue?fmtMoney(total):'Not recorded'}</div><p class="muted">${hasRevenue?`${earning} project${earning===1?'':'s'} currently have verified positive revenue records.`:'No project has a verified revenue record yet.'}</p>`;
+    $('revenueList').innerHTML=projects.map(p=>{
+      const m=revenueMetric(p.id), val=m?fmtMoney(m.value_numeric):'Not recorded';
+      return `<div class="revenue-row"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(p.category||'')}</div></div><div class="revenue-value ${m?'':'not-recorded'}">${esc(val)}</div><button class="btn btn-small" data-open="${esc(p.id)}" data-from-revenue="1">Open project</button></div>`;
+    }).join('');
   }
 
   function renderActivity(){
-    $('activityList').innerHTML=activity.slice(0,18).map(a=>`<div class="list-item"><strong>${esc(a.headline)}</strong><small>${esc(a.detail||'')} · ${esc(a.project_id||'')} · ${esc(fmtDate(a.happened_at))}</small></div>`).join('')||'<div class="muted">No activity yet.</div>';
+    if(!$('activityList')) return;
+    $('activityList').innerHTML=activity.slice(0,12).map(a=>`<div class="list-item"><strong>${esc(a.headline)}</strong><small>${esc(a.detail||'')} · ${esc(a.project_id||'')} · ${esc(fmtDate(a.happened_at))}</small></div>`).join('')||'<div class="muted">No activity yet.</div>';
   }
 
-  function setView(view){
-    currentView=view;
-    if(view==='home') selectedId=null;
-    renderCurrentView();
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+  function setView(view){ currentView=view; selectedId=null; renderCurrentView(); }
 
   document.addEventListener('click',e=>{
-    const viewBtn=e.target.closest('[data-view]'); if(viewBtn){setView(viewBtn.dataset.view);return;}
-    const cont=e.target.closest('[data-continue]'); if(cont){e.stopPropagation(); selectedId=cont.dataset.continue; if(currentView==='home'||currentView==='revenue')currentView='all'; renderCurrentView(); setTimeout(()=>$('continuationBlock')?.scrollIntoView({behavior:'smooth',block:'center'}),50);return;}
-    const rev=e.target.closest('[data-open-revenue]'); if(rev){selectedId=rev.dataset.openRevenue; currentView='all'; renderCurrentView();return;}
-    const card=e.target.closest('[data-open]'); if(card){selectedId=card.dataset.open;renderProjects();return;}
+    const v=e.target.closest('[data-view]'); if(v){ setView(v.dataset.view); return; }
+    const c=e.target.closest('[data-continue]'); if(c){
+      e.stopPropagation(); selectedId=c.dataset.continue; if(!['all','active','attention','earning'].includes(currentView)) currentView='all'; renderCurrentView(); setTimeout(()=>document.getElementById('continuationBlock')?.scrollIntoView({behavior:'smooth',block:'start'}),50); return;
+    }
+    const b=e.target.closest('[data-open]'); if(b){
+      selectedId=b.dataset.open; if(currentView==='revenue') currentView='all'; renderCurrentView(); setTimeout(()=>document.getElementById('detailPanel')?.scrollIntoView({behavior:'smooth',block:'start'}),50); return;
+    }
   });
-  document.addEventListener('keydown',e=>{ const card=e.target.closest?.('[data-open]'); if(card&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectedId=card.dataset.open;renderProjects();} });
-  $('searchInput').addEventListener('input',renderProjects); $('statusFilter').addEventListener('change',renderProjects); $('categoryFilter').addEventListener('change',renderProjects);
+  document.addEventListener('keydown',e=>{ if(e.key==='Enter'&&e.target.matches('.project-card[data-open]')){ selectedId=e.target.dataset.open; renderProjects(); } });
+  $('searchInput')?.addEventListener('input',()=>{if(['all','active','attention','earning'].includes(currentView))renderProjects();});
+  $('statusFilter')?.addEventListener('change',()=>{if(['all','active','attention','earning'].includes(currentView))renderProjects();});
+  $('categoryFilter')?.addEventListener('change',()=>{if(['all','active','attention','earning'].includes(currentView))renderProjects();});
   $('backHomeBtn').onclick=()=>setView('home');
-  $('refreshBtn').onclick=()=>authorized&&refreshAll(); $('signOutBtn').onclick=()=>supabase?.auth.signOut();
+  $('refreshBtn').onclick=()=>authorized&&refreshAll();
+  $('signOutBtn').onclick=()=>supabase?.auth.signOut();
   $('signInBtn').onclick=async()=>{ $('authMsg').textContent='Signing in…'; const {error}=await supabase.auth.signInWithPassword({email:$('emailInput').value.trim(),password:$('passwordInput').value}); $('authMsg').textContent=error?error.message:'Signed in.'; };
   $('signUpBtn').onclick=async()=>{ $('authMsg').textContent='Creating account…'; const {error}=await supabase.auth.signUp({email:$('emailInput').value.trim(),password:$('passwordInput').value}); $('authMsg').textContent=error?error.message:'Account created. If email confirmation is required, confirm it, then sign in.'; };
   $('claimBtn').onclick=async()=>{ $('claimMsg').textContent='Connecting…'; const {data,error}=await supabase.rpc('claim_command_center',{p_code:$('claimCode').value}); $('claimMsg').textContent=error?error.message:(data?'Connected. Loading…':'Invalid or already-used setup code.'); if(data)route(); };
-  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&authorized)refreshAll();}); setInterval(()=>{if(authorized)refreshAll();},Math.max(30000,Number(cfg.refreshMs||60000)));
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&authorized)refreshAll();});
+  setInterval(()=>{if(authorized)refreshAll();},Math.max(30000,Number(cfg.refreshMs||60000)));
   if('serviceWorker' in navigator) window.addEventListener('load',()=>navigator.serviceWorker.register('./service-worker.js').catch(()=>{}));
   bootApp();
 })();
