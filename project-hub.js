@@ -4,6 +4,7 @@
   let hubClient = null;
   let hubMode = null;
   let loadingPromise = null;
+  let refreshing = false;
   let cache = { projects: [], metrics: [], activity: [] };
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
@@ -20,6 +21,15 @@
     return '';
   };
   const clamp = n => Math.max(0, Math.min(100, Math.round(Number(n) || 0)));
+  const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  function isListMode() { return hubMode === 'all-list' || hubMode === 'attention-list'; }
+  function isDetailMode() { return hubMode === 'all-detail' || hubMode === 'attention-detail'; }
+  function hubScope() { return String(hubMode || '').startsWith('attention') ? 'attention' : 'all'; }
+
+  function isAttention(p) {
+    return p.attention === true || /needs|blocked|recovery|paused/i.test(p.status || '') || /needs|unverified/i.test(p.verification || '');
+  }
 
   function projectMetrics(id) {
     return cache.metrics.filter(m => m.project_id === id);
@@ -75,6 +85,11 @@
     return cache.projects.find(p => String(p.name || '').trim().toLowerCase() === needle) || null;
   }
 
+  function projectsForScope(scope) {
+    const ordered = [...cache.projects].sort((a, b) => (Number(a.sort_order) || 999999) - (Number(b.sort_order) || 999999));
+    return scope === 'attention' ? ordered.filter(isAttention) : ordered;
+  }
+
   async function ensureClient() {
     if (hubClient) return hubClient;
     if (!window.supabase || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return null;
@@ -105,10 +120,11 @@
     return loadingPromise;
   }
 
-  function hubCard(p) {
+  function hubCard(p, { topPriority = false } = {}) {
     const progress = progressFor(p);
     const tone = toneFor(p);
-    return `<button class="hub-project-card tone-${tone}" data-open="${esc(p.id)}" type="button" aria-label="Open ${esc(p.name)}">
+    return `<button class="hub-project-card tone-${tone}${topPriority ? ' is-top-priority' : ''}" data-open="${esc(p.id)}" type="button" aria-label="Open ${esc(p.name)}">
+      ${topPriority ? '<div class="hub-priority-ribbon"><span>★</span> Top priority</div>' : ''}
       <div class="hub-project-head">
         <div class="hub-project-name-wrap">
           <div class="hub-project-name">${esc(p.name)}</div>
@@ -129,7 +145,7 @@
   function cleanupHubClasses() {
     const view = $('projectView');
     if (!view) return;
-    view.classList.remove('project-hub-list', 'project-hub-detail');
+    view.classList.remove('project-hub-list', 'project-hub-detail', 'attention-hub-list');
     const grid = $('projectGrid');
     if (grid) grid.classList.remove('hub-grid');
     const detail = $('detailPanel');
@@ -140,22 +156,26 @@
   }
 
   function renderHubList() {
-    if (hubMode !== 'list') return;
+    if (!isListMode()) return;
+    const scope = hubScope();
     const view = $('projectView');
     const grid = $('projectGrid');
     const detail = $('detailPanel');
     const listPanel = view?.querySelector('.project-list-panel');
     if (!view || view.hidden || !grid || !detail || !listPanel) return;
 
+    const list = projectsForScope(scope);
     view.classList.add('project-hub-list');
+    view.classList.toggle('attention-hub-list', scope === 'attention');
     view.classList.remove('project-hub-detail');
     grid.classList.add('hub-grid');
     detail.classList.remove('hub-detail-panel');
     listPanel.hidden = false;
     detail.hidden = true;
-    if ($('viewTitle')) $('viewTitle').textContent = 'All projects';
+    if ($('viewTitle')) $('viewTitle').textContent = scope === 'attention' ? 'Needs attention' : 'All projects';
 
-    grid.innerHTML = cache.projects.map(hubCard).join('') || '<div class="muted empty-state">No projects are currently recorded.</div>';
+    grid.innerHTML = list.map((p, index) => hubCard(p, { topPriority: scope === 'attention' && index === 0 })).join('') ||
+      `<div class="muted empty-state">${scope === 'attention' ? 'Nothing currently needs attention.' : 'No projects are currently recorded.'}</div>`;
   }
 
   function currentDetailProject() {
@@ -164,7 +184,8 @@
   }
 
   function enhanceDetail() {
-    if (hubMode !== 'detail') return;
+    if (!isDetailMode()) return;
+    const scope = hubScope();
     const view = $('projectView');
     const detail = $('detailPanel');
     const listPanel = view?.querySelector('.project-list-panel');
@@ -172,7 +193,7 @@
     const p = currentDetailProject();
     if (!p) return;
 
-    view.classList.remove('project-hub-list');
+    view.classList.remove('project-hub-list', 'attention-hub-list');
     view.classList.add('project-hub-detail');
     listPanel.hidden = true;
     detail.hidden = false;
@@ -186,7 +207,7 @@
 
     detail.querySelectorAll('.hub-detail-toolbar,.hub-current-state').forEach(el => el.remove());
     detail.insertAdjacentHTML('afterbegin', `<div class="hub-detail-toolbar">
-      <button class="btn btn-ghost hub-back-btn" type="button" data-hub-back>‹ All projects</button>
+      <button class="btn btn-ghost hub-back-btn" type="button" data-hub-back>‹ ${scope === 'attention' ? 'Needs attention' : 'All projects'}</button>
       <div class="hub-detail-progress">
         <div class="hub-progress-head"><span>Current scope</span><strong>${progress.pct}%</strong></div>
         <div class="hub-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress.pct}"><span class="hub-progress-fill" style="width:${progress.pct}%"></span></div>
@@ -205,8 +226,8 @@
     }
   }
 
-  async function openHubList() {
-    hubMode = 'list';
+  async function openHubList(scope = 'all') {
+    hubMode = `${scope}-list`;
     try {
       await loadHubData(true);
       renderHubList();
@@ -218,7 +239,6 @@
   }
 
   async function openHubDetail() {
-    hubMode = 'detail';
     try {
       await loadHubData(false);
       enhanceDetail();
@@ -229,12 +249,79 @@
 
   function scheduleReapply() {
     setTimeout(() => {
-      if (hubMode === 'list') {
+      if (isListMode()) {
         if (!$('projectGrid')?.firstElementChild?.classList.contains('hub-project-card')) renderHubList();
-      } else if (hubMode === 'detail') {
+      } else if (isDetailMode()) {
         if (!$('detailPanel')?.querySelector('.hub-detail-toolbar')) enhanceDetail();
       }
     }, 0);
+  }
+
+  function ensureRefreshVisual() {
+    const strip = $('refreshStrip');
+    const btn = $('refreshBtn');
+    if (!strip || !btn || $('refreshVisual')) return;
+    strip.insertAdjacentHTML('beforeend', `<div id="refreshVisual" class="refresh-visual" hidden aria-live="polite">
+      <div class="refresh-visual-row">
+        <span id="refreshVisualIcon" class="refresh-spinner" aria-hidden="true"></span>
+        <div class="refresh-visual-copy">
+          <strong id="refreshStatusTitle">Refreshing…</strong>
+          <small id="refreshStatusDetail">Synchronizing current Command Center data.</small>
+        </div>
+      </div>
+      <div class="refresh-motion-track" aria-hidden="true"><span></span></div>
+    </div>`);
+  }
+
+  function startRefreshVisual() {
+    ensureRefreshVisual();
+    const btn = $('refreshBtn');
+    const visual = $('refreshVisual');
+    const icon = $('refreshVisualIcon');
+    if (!btn || !visual) return;
+    refreshing = true;
+    btn.disabled = true;
+    btn.classList.add('refreshing');
+    btn.textContent = 'Refreshing…';
+    visual.hidden = false;
+    visual.classList.remove('is-complete', 'is-error');
+    if (icon) icon.className = 'refresh-spinner';
+    if ($('refreshStatusTitle')) $('refreshStatusTitle').textContent = 'Refreshing Command Center…';
+    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = 'Synchronizing current project data. Full chat-by-chat audit will activate after the canonical chat setup is finished.';
+  }
+
+  function finishRefreshVisual(ok = true) {
+    const btn = $('refreshBtn');
+    const visual = $('refreshVisual');
+    const icon = $('refreshVisualIcon');
+    if (!btn || !visual) return;
+    refreshing = false;
+    btn.disabled = false;
+    btn.classList.remove('refreshing');
+    btn.textContent = ok ? 'Refresh complete ✓' : 'Refresh failed — retry';
+    visual.hidden = false;
+    visual.classList.toggle('is-complete', ok);
+    visual.classList.toggle('is-error', !ok);
+    if (icon) icon.className = ok ? 'refresh-check' : 'refresh-error-icon';
+    if ($('refreshStatusTitle')) $('refreshStatusTitle').textContent = ok ? 'Refresh complete' : 'Refresh could not complete';
+    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = ok ? 'Current Command Center project data is synchronized.' : 'The current project data could not be fully synchronized. Try Refresh again.';
+    setTimeout(() => {
+      if (!refreshing && btn) btn.textContent = 'Refresh now';
+    }, 2200);
+    setTimeout(() => {
+      if (!refreshing && visual) visual.hidden = true;
+    }, 5200);
+  }
+
+  async function waitForBaseRefresh() {
+    const start = Date.now();
+    while (Date.now() - start < 15000) {
+      const text = String($('syncText')?.textContent || '');
+      if (/sync error/i.test(text)) throw new Error(text);
+      if (/^synced\s/i.test(text)) return text;
+      await delay(100);
+    }
+    return String($('syncText')?.textContent || '');
   }
 
   document.addEventListener('click', e => {
@@ -243,7 +330,8 @@
     if (back) {
       e.preventDefault();
       e.stopPropagation();
-      hubMode = 'list';
+      const scope = hubScope();
+      hubMode = `${scope}-list`;
       renderHubList();
       $('projectView')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       return;
@@ -251,7 +339,8 @@
 
     const viewButton = e.target.closest('[data-view]');
     if (viewButton) {
-      if (viewButton.dataset.view === 'all') setTimeout(openHubList, 0);
+      if (viewButton.dataset.view === 'all') setTimeout(() => openHubList('all'), 0);
+      else if (viewButton.dataset.view === 'attention') setTimeout(() => openHubList('attention'), 0);
       else {
         hubMode = null;
         setTimeout(cleanupHubClasses, 0);
@@ -262,23 +351,22 @@
     const projectView = $('projectView');
     const pathOpen = eventPath.find(node => node?.dataset?.open);
     const projectOpen = projectView && eventPath.includes(projectView) ? pathOpen : null;
-    if (projectOpen && hubMode === 'list') {
-      hubMode = 'detail';
+    if (projectOpen && isListMode()) {
+      const scope = hubScope();
+      hubMode = `${scope}-detail`;
       setTimeout(openHubDetail, 0);
       return;
     }
 
-    if (projectOpen) {
-      setTimeout(() => {
-        const title = String($('viewTitle')?.textContent || '').trim().toLowerCase();
-        if (title === 'all projects') openHubDetail();
-      }, 0);
+    if (projectOpen && isDetailMode()) {
+      setTimeout(openHubDetail, 0);
       return;
     }
 
     const pathContinue = eventPath.find(node => node?.dataset?.continue);
-    if (pathContinue && projectView && eventPath.includes(projectView) && hubMode === 'list') {
-      hubMode = 'detail';
+    if (pathContinue && projectView && eventPath.includes(projectView) && isListMode()) {
+      const scope = hubScope();
+      hubMode = `${scope}-detail`;
       setTimeout(openHubDetail, 0);
     }
   });
@@ -289,14 +377,18 @@
     observer.observe(projectView, { childList: true, subtree: true });
   }
 
-  $('refreshBtn')?.addEventListener('click', () => {
-    if (!hubMode) return;
-    setTimeout(async () => {
-      try {
-        await loadHubData(true);
-        if (hubMode === 'list') renderHubList();
-        if (hubMode === 'detail') enhanceDetail();
-      } catch (_) {}
-    }, 350);
+  ensureRefreshVisual();
+  $('refreshBtn')?.addEventListener('click', async () => {
+    if (refreshing) return;
+    startRefreshVisual();
+    try {
+      await Promise.all([delay(650), loadHubData(true), waitForBaseRefresh()]);
+      if (isListMode()) renderHubList();
+      if (isDetailMode()) enhanceDetail();
+      finishRefreshVisual(true);
+    } catch (error) {
+      console.warn('Command Center refresh visual detected a refresh problem:', error);
+      finishRefreshVisual(false);
+    }
   });
 })();
