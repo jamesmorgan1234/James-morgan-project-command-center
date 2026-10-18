@@ -9,6 +9,10 @@
 <link rel="icon" type="image/svg+xml" href="./command-center-icon.svg">
 <link rel="apple-touch-icon" href="./command-center-icon.svg">
 <link rel="stylesheet" href="./styles.css?v=7">
+<style>
+.view-shell:has(#homeView:not([hidden])) > .view-head{display:none!important}
+.home-grid{grid-template-columns:1fr!important}
+</style>
 </head>
 <body>
 <div id="boot" class="center-screen">Loading secure Command Center…</div>
@@ -69,11 +73,6 @@
             <div class="home-card">
               <div class="section-head"><h3>Recent verified updates</h3><span class="muted">Newest first</span></div>
               <div id="activityList" class="list"></div>
-            </div>
-            <div class="home-card how-to-card">
-              <h3>How to use this page</h3>
-              <p>Click a summary tile to open that slice of the portfolio. Every project has a current next step, editable project information, and a ready-to-copy continuation prompt.</p>
-              <p class="muted">Unknown money, sales, subscriber, or completion figures stay unrecorded until they can be verified.</p>
             </div>
           </div>
         </section>
