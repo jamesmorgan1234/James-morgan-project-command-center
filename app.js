@@ -2,7 +2,7 @@
   const cfg = window.COMMAND_CENTER_CONFIG || {};
   const $ = id => document.getElementById(id);
   const app = $('app'), boot = $('boot');
-  let supabase = null, session = null, authorized = false;
+  let supabase = null, session = null, authorized = false, routeVersion = 0;
   let projects = [], metrics = [], activity = [], selectedId = null, channel = null;
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
@@ -28,6 +28,11 @@
   }
 
   async function route(){
+    const version=++routeVersion;
+    authorized=false;
+    show($('dashboard'),false);
+    projects=[]; metrics=[]; activity=[]; selectedId=null;
+    for(const id of ['stats','attentionList','projectGrid','detailPanel','activityList']) $(id).replaceChildren();
     cleanupRealtime();
     if(!session){
       authorized=false; projects=[]; metrics=[]; activity=[];
@@ -36,7 +41,8 @@
     }
     show($('signOutBtn'),true);
     const {data,error}=await supabase.rpc('is_command_center_authorized');
-    if(error){ setSync('Authorization check failed'); return; }
+    if(version!==routeVersion || !session) return;
+    if(error){ show($('authPanel'),false); show($('claimPanel'),false); setSync('Authorization check failed'); return; }
     authorized=!!data;
     show($('authPanel'),false); show($('claimPanel'),!authorized); show($('dashboard'),authorized);
     if(authorized){ await refreshAll(); setupRealtime(); }
@@ -44,12 +50,15 @@
   }
 
   async function refreshAll(){
+    if(!authorized || !session) return;
+    const version=routeVersion;
     setSync('Refreshing private data…');
     const [p,m,a]=await Promise.all([
       supabase.from('projects').select('*').order('sort_order'),
       supabase.from('metrics').select('*').order('updated_at',{ascending:false}),
       supabase.from('activity').select('*').order('happened_at',{ascending:false}).limit(100)
     ]);
+    if(version!==routeVersion || !authorized || !session) return;
     const err=p.error||m.error||a.error;
     if(err){ setSync('Sync error · '+err.message); return; }
     projects=p.data||[]; metrics=m.data||[]; activity=a.data||[];
@@ -76,9 +85,10 @@
     const active=projects.filter(p=>/active|live/i.test(p.status||'')).length;
     const att=projects.filter(isAttention).length;
     const money=metrics.filter(m=>m.key==='verified_revenue_usd'&&m.verified&&m.value_numeric!==null).reduce((s,m)=>s+Number(m.value_numeric||0),0);
+    const hasRevenue=metrics.some(m=>m.key==='verified_revenue_usd'&&m.verified&&m.value_numeric!==null);
     const earning=new Set(metrics.filter(m=>m.key==='verified_revenue_usd'&&m.verified&&Number(m.value_numeric||0)>0).map(m=>m.project_id)).size;
     $('stats').innerHTML=[
-      ['Projects',projects.length],['Active / live',active],['Needs attention',att],['Verified revenue',fmtMoney(money)],['Projects earning',earning]
+      ['Projects',projects.length],['Active / live',active],['Needs attention',att],['Verified revenue',hasRevenue ? fmtMoney(money) : 'Not recorded'],['Projects earning',hasRevenue ? earning : 'Not recorded']
     ].map(([l,v])=>`<div class="stat"><div class="label">${esc(l)}</div><div class="value">${esc(v)}</div></div>`).join('');
   }
   function renderFilters(){
