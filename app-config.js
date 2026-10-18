@@ -38,4 +38,17 @@ window.addEventListener('load', () => {
     script.dataset.operatingOrderExclusion = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('link[data-performance-hub]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './performance-hub.css?v=1';
+    link.dataset.performanceHub = '1';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[data-performance-hub]')) {
+    const script = document.createElement('script');
+    script.src = './performance-hub.js?v=1';
+    script.dataset.performanceHub = '1';
+    document.body.appendChild(script);
+  }
 }, { once: true });
