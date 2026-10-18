@@ -61,8 +61,9 @@
   }
 
   function toneFor(p) {
+    const status = String(p.status || '').toLowerCase();
     const s = [p.status, p.stage, p.blocker].join(' ').toLowerCase();
-    if (/published|live/.test(p.status || '') && !/rebuild|needs|blocked/.test(s)) return 'green';
+    if (/published|live/.test(status) && !/rebuild|needs|blocked/.test(s)) return 'green';
     if (/blocked|needs attention|recovery/.test(s)) return 'red';
     if (/rebuild|in progress|active/.test(s)) return 'blue';
     if (/waiting|planning|paused/.test(s)) return 'amber';
@@ -154,10 +155,7 @@
     detail.hidden = true;
     if ($('viewTitle')) $('viewTitle').textContent = 'All projects';
 
-    const markup = cache.projects.map(hubCard).join('') || '<div class="muted empty-state">No projects are currently recorded.</div>';
-    if (!grid.firstElementChild?.classList.contains('hub-project-card') || grid.childElementCount !== cache.projects.length) {
-      grid.innerHTML = markup;
-    }
+    grid.innerHTML = cache.projects.map(hubCard).join('') || '<div class="muted empty-state">No projects are currently recorded.</div>';
   }
 
   function currentDetailProject() {
@@ -240,6 +238,7 @@
   }
 
   document.addEventListener('click', e => {
+    const eventPath = typeof e.composedPath === 'function' ? e.composedPath() : [];
     const back = e.target.closest('[data-hub-back]');
     if (back) {
       e.preventDefault();
@@ -260,7 +259,9 @@
       return;
     }
 
-    const projectOpen = e.target.closest('#projectView [data-open]');
+    const projectView = $('projectView');
+    const pathOpen = eventPath.find(node => node?.dataset?.open);
+    const projectOpen = projectView && eventPath.includes(projectView) ? pathOpen : null;
     if (projectOpen && hubMode === 'list') {
       hubMode = 'detail';
       setTimeout(openHubDetail, 0);
@@ -275,8 +276,8 @@
       return;
     }
 
-    const continueBtn = e.target.closest('#projectView [data-continue]');
-    if (continueBtn && hubMode === 'list') {
+    const pathContinue = eventPath.find(node => node?.dataset?.continue);
+    if (pathContinue && projectView && eventPath.includes(projectView) && hubMode === 'list') {
       hubMode = 'detail';
       setTimeout(openHubDetail, 0);
     }
