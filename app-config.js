@@ -1,7 +1,8 @@
 window.COMMAND_CENTER_CONFIG = {
   supabaseUrl: "https://gmlsucpwliegwlxymjvp.supabase.co",
   supabaseAnonKey: "sb_publishable_LLkZOIOmUX58mcN4HtsUgg_BhTSbiDq",
-  refreshMs: 60000
+  refreshMs: 60000,
+  excludedProjectNames: ["Operating Order"]
 };
 
 window.addEventListener('load', () => {
@@ -22,6 +23,12 @@ window.addEventListener('load', () => {
     const script = document.createElement('script');
     script.src = './next-up-label.js?v=1';
     script.dataset.nextUpLabel = '1';
+    document.body.appendChild(script);
+  }
+  if (!document.querySelector('script[data-operating-order-exclusion]')) {
+    const script = document.createElement('script');
+    script.src = './operating-order-exclusion.js?v=1';
+    script.dataset.operatingOrderExclusion = '1';
     document.body.appendChild(script);
   }
 }, { once: true });
