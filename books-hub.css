@@ -1,0 +1,11 @@
+.books-group-card{--hub-accent:#a88aff;--hub-glow:rgba(168,138,255,.18);background:radial-gradient(circle at 8% 18%,rgba(168,138,255,.20),transparent 30%),linear-gradient(110deg,rgba(49,39,105,.97),rgba(11,22,55,.98) 62%,rgba(25,25,70,.98))}
+.books-group-card::after{color:#c7b5ff;text-shadow:0 0 18px #9f83ff}
+.books-group-kicker{display:inline-flex;margin:0 0 10px;padding:5px 9px;border:1px solid rgba(184,159,255,.32);border-radius:999px;background:rgba(103,78,188,.24);color:#cdbdff;font-size:.66rem;font-weight:950;letter-spacing:.09em;text-transform:uppercase}
+.books-subhub-toolbar{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;margin:0 0 14px;padding:14px 15px;border:1px solid #4e4290;border-radius:18px;background:radial-gradient(circle at 10% 0%,rgba(168,138,255,.18),transparent 28%),linear-gradient(110deg,rgba(38,31,88,.96),rgba(8,24,53,.98));box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 28px rgba(151,118,255,.10)}
+.books-back-btn{min-width:128px;border-color:#5749a8;color:#d9cfff}
+.books-subhub-title-wrap{min-width:0}
+.books-subhub-title{font-size:clamp(1.6rem,3vw,2.35rem);font-weight:950;letter-spacing:-.035em;color:#fff}
+.books-subhub-subtitle{margin-top:4px;font-size:.78rem;color:#ad9fd7}
+#projectView.books-subhub-active .project-grid.hub-grid{grid-template-columns:1fr!important;gap:14px!important}
+#projectView.books-subhub-active .hub-project-card{border-left-width:5px}
+@media(max-width:760px){.books-subhub-toolbar{grid-template-columns:1fr;gap:9px;padding:12px}.books-back-btn{width:100%}.books-subhub-title{text-align:center}.books-subhub-subtitle{text-align:center}.books-group-kicker{font-size:.6rem}}
