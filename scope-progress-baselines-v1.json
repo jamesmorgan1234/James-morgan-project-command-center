@@ -1,0 +1,249 @@
+{
+  "contract_version": 1,
+  "revision": "2026-10-19-baseline-v1",
+  "projects": {
+    "command-center": {
+      "completed_weight": 28,
+      "total_weight": 29,
+      "percent": 97,
+      "items": [
+        {"id":"private-auth-security","label":"Private auth/security baseline","weight":4,"status":"complete","verified":true},
+        {"id":"canonical-source-registry","label":"Canonical source registry + refresh queue","weight":4,"status":"complete","verified":true},
+        {"id":"manual-full-refresh","label":"Manual Full Refresh cloud worker","weight":4,"status":"complete","verified":true},
+        {"id":"required-source-reconciliation","label":"18/18 projects + 34/34 required checkpoints reconciliation","weight":4,"status":"complete","verified":true},
+        {"id":"portfolio-kpi-framework","label":"Portfolio KPI/tracking framework","weight":4,"status":"complete","verified":true},
+        {"id":"books-performance","label":"Books performance integration","weight":4,"status":"complete","verified":true},
+        {"id":"mobile-ux","label":"Mobile accordion + fixed viewport","weight":2,"status":"complete","verified":true},
+        {"id":"system-area-diagnosis","label":"Dark theme/system-area diagnosis","weight":1,"status":"complete","verified":true},
+        {"id":"webapk-icon-assets","label":"Versioned WebAPK icon assets deployed","weight":1,"status":"complete","verified":true},
+        {"id":"webapk-icon-device-confirmation","label":"Installed WebAPK icon refresh confirmed on-device","weight":1,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-missing-hour": {
+      "completed_weight": 16,
+      "total_weight": 22,
+      "percent": 73,
+      "items": [
+        {"id":"book1-all-formats","label":"Book 1 Kindle/KDP Select/paperback/hardcover","weight":4,"status":"complete","verified":true},
+        {"id":"book2-all-formats","label":"Book 2 Kindle/KDP Select/paperback/hardcover","weight":4,"status":"complete","verified":true},
+        {"id":"book3-kindle","label":"Book 3 Kindle + KDP Select","weight":2,"status":"complete","verified":true},
+        {"id":"book3-print","label":"Book 3 paperback + hardcover","weight":2,"status":"pending","verified":false},
+        {"id":"book4-kindle","label":"Book 4 Kindle + KDP Select","weight":2,"status":"complete","verified":true},
+        {"id":"book4-print","label":"Book 4 paperback + hardcover","weight":2,"status":"pending","verified":false},
+        {"id":"book5-production","label":"Book 5 production package","weight":4,"status":"complete","verified":true},
+        {"id":"book5-kindle","label":"Book 5 Kindle + KDP Select publication","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-glasswing-pier": {
+      "completed_weight": 9,
+      "total_weight": 17,
+      "percent": 53,
+      "items": [
+        {"id":"book1-production","label":"Book 1 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book2-production","label":"Book 2 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book3-production","label":"Book 3 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book1-deploy","label":"Book 1 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"book2-deploy","label":"Book 2 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"book3-deploy","label":"Book 3 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"trilogy-kindle","label":"Complete trilogy Kindle/KDP Select deployment","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-unfired-world": {
+      "completed_weight": 9,
+      "total_weight": 17,
+      "percent": 53,
+      "items": [
+        {"id":"book1-production","label":"Book 1 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book2-production","label":"Book 2 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book3-production","label":"Book 3 production package","weight":3,"status":"complete","verified":true},
+        {"id":"book1-deploy","label":"Book 1 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"book2-deploy","label":"Book 2 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"book3-deploy","label":"Book 3 KDP deployment","weight":2,"status":"pending","verified":false},
+        {"id":"trilogy-kindle","label":"Complete trilogy Kindle/KDP Select deployment","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-workbooks": {
+      "completed_weight": 10,
+      "total_weight": 15,
+      "percent": 67,
+      "items": [
+        {"id":"daily-progress-planner","label":"Daily Progress Planner package","weight":2,"status":"complete","verified":true},
+        {"id":"stronger-you","label":"A Stronger You package","weight":2,"status":"complete","verified":true},
+        {"id":"simple-budgeting","label":"Simple Budgeting Workbook package","weight":2,"status":"complete","verified":true},
+        {"id":"take-control","label":"Take Control of Your Money package","weight":2,"status":"complete","verified":true},
+        {"id":"garage-door-blueprint","label":"Garage Door Business Blueprint package","weight":2,"status":"complete","verified":true},
+        {"id":"publish-daily-progress","label":"Publish Daily Progress Planner","weight":1,"status":"pending","verified":false},
+        {"id":"publish-stronger-you","label":"Publish A Stronger You","weight":1,"status":"pending","verified":false},
+        {"id":"publish-simple-budgeting","label":"Publish Simple Budgeting Workbook","weight":1,"status":"pending","verified":false},
+        {"id":"publish-take-control","label":"Publish Take Control of Your Money","weight":1,"status":"pending","verified":false},
+        {"id":"publish-garage-door-blueprint","label":"Publish Garage Door Business Blueprint","weight":1,"status":"pending","verified":false}
+      ]
+    },
+    "edge-finder": {
+      "completed_weight": 7,
+      "total_weight": 15,
+      "percent": 47,
+      "items": [
+        {"id":"protected-baseline","label":"Protected 0.7.7 baseline","weight":3,"status":"complete","verified":true},
+        {"id":"tests-562","label":"562/562 verified test checkpoint","weight":2,"status":"complete","verified":true},
+        {"id":"nfl-deep-scan-foundation","label":"NFL Deep Scan foundation","weight":2,"status":"complete","verified":true},
+        {"id":"phase-two-architecture","label":"Phase Two data/model architecture","weight":4,"status":"pending","verified":false},
+        {"id":"provider-verification","label":"Browser/provider verification","weight":2,"status":"pending","verified":false},
+        {"id":"production-release","label":"Production release verification","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "morgancommerce": {
+      "completed_weight": 4,
+      "total_weight": 15,
+      "percent": 27,
+      "items": [
+        {"id":"store-verified","label":"Correct Shopify store verified","weight":1,"status":"complete","verified":true},
+        {"id":"legacy-contained","label":"Legacy catalog archived/contained","weight":2,"status":"complete","verified":true},
+        {"id":"niche-locked","label":"Beauty/hair/self-care niche locked","weight":1,"status":"complete","verified":true},
+        {"id":"draft-audit","label":"Audit current draft products","weight":1,"status":"pending","verified":false},
+        {"id":"cj-sourcing","label":"CJdropshipping sourcing/linkage","weight":4,"status":"pending","verified":false},
+        {"id":"profit-validation","label":"Competitive landed-cost profitability validation","weight":3,"status":"pending","verified":false},
+        {"id":"active-catalog","label":"Activate rebuilt catalog","weight":3,"status":"pending","verified":false}
+      ]
+    },
+    "fanvue-veyla": {
+      "completed_weight": 4,
+      "total_weight": 7,
+      "percent": 57,
+      "items": [
+        {"id":"account-authenticated","label":"Authenticated Fanvue account","weight":1,"status":"complete","verified":true},
+        {"id":"subscriber-kpi","label":"Subscriber KPI","weight":1,"status":"complete","verified":true},
+        {"id":"revenue-kpi","label":"Revenue KPI","weight":1,"status":"complete","verified":true},
+        {"id":"revenue-per-model-kpi","label":"Revenue per model KPI","weight":1,"status":"complete","verified":true},
+        {"id":"purchases-kpi","label":"Purchases KPI","weight":1,"status":"pending","verified":false},
+        {"id":"ppv-kpi","label":"PPV sales KPI","weight":1,"status":"pending","verified":false},
+        {"id":"tips-kpi","label":"Tips KPI","weight":1,"status":"pending","verified":false}
+      ]
+    },
+    "morgans-garage-doors": {
+      "completed_weight": 8,
+      "total_weight": 12,
+      "percent": 67,
+      "items": [
+        {"id":"live-site","label":"Live Netlify site","weight":4,"status":"complete","verified":true},
+        {"id":"contact-checks","label":"Phone/email/text contact checks","weight":2,"status":"complete","verified":true},
+        {"id":"contract-template","label":"Approved reusable contract","weight":2,"status":"complete","verified":true},
+        {"id":"estimate-invoice-workflow","label":"Estimate/invoice documentation workflow","weight":2,"status":"pending","verified":false},
+        {"id":"payment-documentation","label":"Payment/business-account documentation workflow","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "margincrafttools": {
+      "completed_weight": 6,
+      "total_weight": 12,
+      "percent": 50,
+      "items": [
+        {"id":"active-products","label":"23 active Payhip products verified","weight":2,"status":"complete","verified":true},
+        {"id":"core-public","label":"13 core products public","weight":2,"status":"complete","verified":true},
+        {"id":"delivery-attachments","label":"Standalone delivery attachments verified","weight":2,"status":"complete","verified":true},
+        {"id":"visibility-restore","label":"Checklist + QuickQuote visibility restoration","weight":2,"status":"pending","verified":false},
+        {"id":"zip-integrity","label":"ZIP/package integrity verification","weight":2,"status":"pending","verified":false},
+        {"id":"delivery-email","label":"Post-purchase delivery/email verification","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "coupon-autopilot": {
+      "completed_weight": 4,
+      "total_weight": 12,
+      "percent": 33,
+      "items": [
+        {"id":"public-site-patch","label":"Public-site patch live","weight":2,"status":"complete","verified":true},
+        {"id":"rakuten-review","label":"Authenticated Rakuten advertiser review","weight":2,"status":"complete","verified":true},
+        {"id":"assignment-safeguard","label":"Future-assignment safeguard resolved","weight":2,"status":"pending","verified":false},
+        {"id":"everydrop-review","label":"Everydrop terms review","weight":1,"status":"pending","verified":false},
+        {"id":"coupon-feed-recheck","label":"Partnerships API/Coupon Feed recheck","weight":2,"status":"pending","verified":false},
+        {"id":"authorized-offers","label":"Authorized offer integration","weight":3,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-repeat-button": {
+      "completed_weight": 8,
+      "total_weight": 8,
+      "percent": 100,
+      "items": [
+        {"id":"paperback-live","label":"Paperback published/live","weight":4,"status":"complete","verified":true},
+        {"id":"hardcover-live","label":"Hardcover published/live","weight":4,"status":"complete","verified":true}
+      ]
+    },
+    "kdp-melted-cosmos": {
+      "completed_weight": 2,
+      "total_weight": 20,
+      "percent": 10,
+      "items": [
+        {"id":"book1-corrective","label":"Strange Worlds corrective interior","weight":2,"status":"pending","verified":false},
+        {"id":"book2-final","label":"Dreambeast Atlas final package","weight":2,"status":"complete","verified":true},
+        {"id":"book3-qc","label":"Rooms Beyond Geometry QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book4-qc","label":"Book 4 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book5-qc","label":"Book 5 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book6-qc","label":"Book 6 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book7-qc","label":"Book 7 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book8-qc","label":"Book 8 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book9-qc","label":"Book 9 QC-production","weight":2,"status":"pending","verified":false},
+        {"id":"book10-qc","label":"Book 10 QC-production","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "kdp-standalones": {
+      "completed_weight": 10,
+      "total_weight": 18,
+      "percent": 56,
+      "items": [
+        {"id":"pieces-package","label":"Pieces I Never Got Back package","weight":2,"status":"complete","verified":true},
+        {"id":"calmer-mind-package","label":"A Calmer Mind package","weight":2,"status":"complete","verified":true},
+        {"id":"broken-package","label":"Broken But Still Here package","weight":2,"status":"complete","verified":true},
+        {"id":"moving-forward-package","label":"Moving Forward Anyway package","weight":2,"status":"complete","verified":true},
+        {"id":"alpha-mindset-package","label":"The Alpha Mindset package","weight":2,"status":"complete","verified":true},
+        {"id":"last-hour-revision","label":"The Last Hour I Trusted You final revision/package","weight":2,"status":"pending","verified":false},
+        {"id":"publish-five","label":"Publish five completed titles","weight":5,"status":"pending","verified":false},
+        {"id":"publish-last-hour","label":"Publish The Last Hour I Trusted You when cleared","weight":1,"status":"pending","verified":false}
+      ]
+    },
+    "velo-clip": {
+      "completed_weight": 3,
+      "total_weight": 8,
+      "percent": 38,
+      "items": [
+        {"id":"checkpoint090","label":"Checkpoint090/OFFLINE_CANONICAL baseline","weight":2,"status":"complete","verified":true},
+        {"id":"tcp-tls-reachability","label":"Windows TCP/TLS reachability","weight":1,"status":"complete","verified":true},
+        {"id":"ca-trust","label":"Stable local-CA trust remedy","weight":2,"status":"pending","verified":false},
+        {"id":"https-reverify","label":"HTTPS readiness re-verification","weight":1,"status":"pending","verified":false},
+        {"id":"oauth-readiness","label":"OAuth/auth callback readiness","weight":2,"status":"pending","verified":false}
+      ]
+    },
+    "torevi": {
+      "completed_weight": 5,
+      "total_weight": 14,
+      "percent": 36,
+      "items": [
+        {"id":"base44-exit","label":"Base44-exit implementation","weight":4,"status":"complete","verified":true},
+        {"id":"head-verified","label":"Current branch HEAD identity verified","weight":1,"status":"complete","verified":true},
+        {"id":"validation-pass","label":"Current-HEAD validation/test pass","weight":3,"status":"pending","verified":false},
+        {"id":"security-verification","label":"OTP/resend/password-reset security verification","weight":2,"status":"pending","verified":false},
+        {"id":"production-cutover","label":"Production cutover","weight":4,"status":"pending","verified":false}
+      ]
+    },
+    "mini-movies": {
+      "completed_weight": 2,
+      "total_weight": 12,
+      "percent": 17,
+      "items": [
+        {"id":"production-test-setup","label":"S1E1 production-test setup","weight":2,"status":"complete","verified":true},
+        {"id":"visual-continuity","label":"Visual/ring continuity","weight":3,"status":"pending","verified":false},
+        {"id":"free-render-path","label":"$0 verified render path","weight":3,"status":"pending","verified":false},
+        {"id":"final-render","label":"Successful final render","weight":4,"status":"pending","verified":false}
+      ]
+    },
+    "revocapture": {
+      "completed_weight": 4,
+      "total_weight": 12,
+      "percent": 33,
+      "items": [
+        {"id":"cp105","label":"CP105 checkpoint","weight":4,"status":"complete","verified":true},
+        {"id":"restore-supabase","label":"Restore paused Supabase project","weight":2,"status":"pending","verified":false},
+        {"id":"telnyx-verification","label":"Telnyx verification","weight":2,"status":"pending","verified":false},
+        {"id":"call-rescue","label":"Call Rescue continuation","weight":4,"status":"pending","verified":false}
+      ]
+    }
+  }
+}
