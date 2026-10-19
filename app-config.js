@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-refresh-orchestrator]')) {
     const script = document.createElement('script');
-    script.src = './refresh-orchestrator.js?v=3';
+    script.src = './refresh-orchestrator.js?v=4';
     script.dataset.refreshOrchestrator = '1';
     document.body.appendChild(script);
   }
@@ -136,7 +136,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-source-health]')) {
     const script = document.createElement('script');
-    script.src = './source-health.js?v=1';
+    script.src = './source-health.js?v=2';
     script.dataset.sourceHealth = '1';
     document.body.appendChild(script);
   }
