@@ -36,7 +36,7 @@ assert.ok(hub.includes("m.key === 'current_scope_progress_percent'"));
 assert.ok(hub.includes("label: available ? `${progress.pct}%` : 'N/A'"));
 assert.ok(!hub.includes('let pct = 45'), 'status-word fallback must be removed');
 assert.ok(!hub.includes('Estimated from the current verified status'), 'heuristic progress wording must be removed');
-assert.ok(sw.includes("const CACHE='james-command-center-v36'"));
+assert.match(sw, /const CACHE='james-command-center-v\d+'/, 'service-worker must use an explicit versioned Command Center cache');
 assert.ok(sw.includes("url.pathname.endsWith('/project-hub.js')"), 'project hub must refresh network-first');
 assert.ok(migration.includes('command_center_scope_progress_from_checkpoint'));
 assert.ok(migration.includes('command_center_guard_project_scope_freshness'));
