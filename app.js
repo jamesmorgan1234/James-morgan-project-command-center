@@ -6,7 +6,7 @@
   let projects = [], metrics = [], activity = [], integrations = [], selectedId = null, channel = null;
   let currentView = 'home';
 
-  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const cls = s => { const x=String(s||'').toLowerCase(); if(x.includes('live'))return'live';if(x.includes('active'))return'active';if(x.includes('planning'))return'planning';if(x.includes('pause'))return'paused';if(x.includes('recover'))return'recovery';if(x.includes('verified'))return'verified';if(x.includes('mixed'))return'mixed';if(x.includes('blocked')||x.includes('unverified')||x.includes('attention')||x.includes('needs'))return'unverified';return''; };
   const fmtMoney = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:2}).format(Number(n||0));
   const fmtDate = v => v ? new Date(v).toLocaleString() : '—';
