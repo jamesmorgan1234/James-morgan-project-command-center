@@ -1,0 +1,30 @@
+name: Scope progress QA
+
+on:
+  pull_request:
+    paths:
+      - 'project-hub.js'
+      - 'service-worker.js'
+      - 'scope-progress-baselines-v1.json'
+      - 'CHECKPOINT_SCOPE_STANDARD.md'
+      - 'GLOBAL_CHECKPOINT_RULE.txt'
+      - 'supabase/migrations/20261019_verified_scope_progress.sql'
+      - 'tests/scope-progress.test.mjs'
+      - '.github/workflows/scope-progress-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  scope-progress-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run scope progress QA
+        run: node tests/scope-progress.test.mjs
