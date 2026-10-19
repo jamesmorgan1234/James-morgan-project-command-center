@@ -102,8 +102,8 @@
       {key:'all',label:'Projects',value:projects.length,sub:'Open full portfolio'},
       {key:'active',label:'Active / live',value:active,sub:'Open active projects'},
       {key:'attention',label:'Needs attention',value:att,sub:'Open action list'},
-      {key:'revenue',label:'Verified revenue',value:hasRevenue?fmtMoney(money):'N/A',sub:'Open company breakdown'},
-      {key:'earning',label:'Projects earning',value:earning,sub:hasRevenue?`Total ${fmtMoney(money)}`:'Revenue tracking not yet integrated'}
+      {key:'earning',label:'Projects earning',value:earning,sub:hasRevenue?`Total ${fmtMoney(money)}`:'Revenue tracking not yet integrated'},
+      {key:'revenue',label:'Verified revenue',value:hasRevenue?fmtMoney(money):'N/A',sub:'Open company breakdown'}
     ];
     $('stats').innerHTML=tiles.map(t=>`<button class="stat stat-button" data-view="${t.key}" aria-label="${esc(t.label)}"><div class="label">${esc(t.label)}</div><div class="value">${esc(t.value)}</div><div class="stat-sub">${esc(t.sub)}</div></button>`).join('');
   }
