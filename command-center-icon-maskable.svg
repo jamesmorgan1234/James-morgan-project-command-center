@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Command Center</title>
+  <desc id="desc">Android-safe maskable Command Center icon with inset border and centered text.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152f"/>
+      <stop offset="0.52" stop-color="#123979"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f4a"/>
+      <stop offset="1" stop-color="#1b4da4"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#a6d0ff"/>
+      <stop offset="1" stop-color="#658dff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="220" fill="#0a1d43" opacity=".26"/>
+  <rect x="74" y="74" width="364" height="364" rx="92" fill="url(#panel)"/>
+  <rect x="90" y="90" width="332" height="332" rx="80" fill="none" stroke="url(#rim)" stroke-width="8" opacity=".95"/>
+  <circle cx="256" cy="146" r="15" fill="#a8d0ff" opacity=".92"/>
+  <path d="M190 178h132" stroke="#9bc7ff" stroke-width="7" stroke-linecap="round" opacity=".58"/>
+  <text x="256" y="262" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="800" letter-spacing="3">COMMAND</text>
+  <text x="256" y="333" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="67" font-weight="900" letter-spacing="4">CENTER</text>
+</svg>
