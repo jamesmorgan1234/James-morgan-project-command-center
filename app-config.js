@@ -35,7 +35,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-books-revenue]')) {
     const script = document.createElement('script');
-    script.src = './books-revenue.js?v=1';
+    script.src = './books-revenue.js?v=2';
     script.dataset.booksRevenue = '1';
     document.body.appendChild(script);
   }
