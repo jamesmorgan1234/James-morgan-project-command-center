@@ -5,6 +5,7 @@
   let cache = { projects: [], metrics: [] };
   let loading = null;
   let timer = null;
+  let renderedPanelHtml = '';
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const norm = v => String(v || '').trim().toLowerCase();
@@ -149,7 +150,7 @@
     const models=modelGroups(ms);
     const modelList=models.length?models:fanvueFallback(p,ms);
 
-    detail.querySelector('#projectPerformancePanel')?.remove();
+    const existingPanel = detail.querySelector('#projectPerformancePanel');
     const anchor=detail.querySelector('.hub-current-state') || detail.querySelector('.project-meta');
     if(!anchor) return;
 
@@ -163,14 +164,18 @@
     const commerceHtml=commerceBreakdownHtml(p,ms);
     const extraHtml=extras.length?`<div class="perf-extra-grid">${extras.map(m=>`<div class="perf-mini"><small>${esc(m.label||m.key)}</small><strong>${esc(display(m))}</strong></div>`).join('')}</div>`:'';
 
-    anchor.insertAdjacentHTML('afterend',`<section id="projectPerformancePanel" class="block performance-panel">
+    const panelHtml = `<section id="projectPerformancePanel" class="block performance-panel">
       <div class="section-head"><h3>Lifetime performance</h3><span class="badge ${rev?'verified':''}">${rev?'Verified data':'Tracking ready'}</span></div>
       <div class="perf-primary-grid">${primary.map(([k,v])=>`<div class="perf-primary"><small>${esc(k)}</small><strong>${esc(v)}</strong></div>`).join('')}</div>
       ${modelHtml}
       ${commerceHtml}
       ${extraHtml}
       <div class="perf-source">${esc(sourceLine(ms))}</div>
-    </section>`);
+    </section>`;
+    if(existingPanel && renderedPanelHtml===panelHtml) return;
+    existingPanel?.remove();
+    anchor.insertAdjacentHTML('afterend',panelHtml);
+    renderedPanelHtml=panelHtml;
   }
 
   function queue(force=false){ clearTimeout(timer); timer=setTimeout(()=>render(force),80); }

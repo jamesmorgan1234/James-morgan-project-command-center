@@ -1,5 +1,5 @@
-const CACHE='james-command-center-v26';
-const STATIC=['./','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=9','./project-hub.js?v=3','./books-hub.css?v=1','./books-hub.js?v=1','./books-revenue.css?v=3','./books-revenue.js?v=4','./next-up-label.js?v=1','./operating-order-exclusion.js?v=2','./performance-hub.css?v=2','./performance-hub.js?v=3','./refresh-orchestrator.css?v=1','./refresh-orchestrator.js?v=3','./source-health.css?v=1','./source-health.js?v=1','./app-config.js','./manifest.webmanifest','./command-center-icon.svg','./icon-192.png','./icon-512.png'];
+const CACHE='james-command-center-v27';
+const STATIC=['./','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=9','./project-hub.js?v=3','./books-hub.css?v=1','./books-hub.js?v=1','./books-revenue.css?v=3','./books-revenue.js?v=4','./next-up-label.js?v=1','./operating-order-exclusion.js?v=2','./performance-hub.css?v=2','./performance-hub.js?v=4','./refresh-orchestrator.css?v=1','./refresh-orchestrator.js?v=3','./source-health.css?v=1','./source-health.js?v=1','./app-config.js','./manifest.webmanifest','./command-center-icon.svg','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(STATIC)));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));self.clients.claim();});
 self.addEventListener('fetch',e=>{
