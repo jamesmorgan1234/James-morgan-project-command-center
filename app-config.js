@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-performance-hub]')) {
     const script = document.createElement('script');
-    script.src = './performance-hub.js?v=2';
+    script.src = './performance-hub.js?v=3';
     script.dataset.performanceHub = '1';
     document.body.appendChild(script);
   }
