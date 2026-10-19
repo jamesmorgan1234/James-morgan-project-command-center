@@ -86,7 +86,7 @@
     });
   }
 
-  const n = v => Number.isFinite(Number(v)) ? Number(v) : null;
+  const n = v => (v!==null && v!==undefined && v!=='' && Number.isFinite(Number(v))) ? Number(v) : null;
   function metricCell(label,value,{currency=false,note='Verified'}={}){
     const ok=value!==null;
     const main=ok?(currency?money(value):whole(value)):'N/A';
