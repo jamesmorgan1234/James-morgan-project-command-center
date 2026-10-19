@@ -29,13 +29,13 @@ window.addEventListener('load', () => {
   if (!document.querySelector('link[data-books-revenue]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = './books-revenue.css?v=1';
+    link.href = './books-revenue.css?v=2';
     link.dataset.booksRevenue = '1';
     document.head.appendChild(link);
   }
   if (!document.querySelector('script[data-books-revenue]')) {
     const script = document.createElement('script');
-    script.src = './books-revenue.js?v=2';
+    script.src = './books-revenue.js?v=3';
     script.dataset.booksRevenue = '1';
     document.body.appendChild(script);
   }
