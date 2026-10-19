@@ -3,12 +3,12 @@
   const $ = id => document.getElementById(id);
   const app = $('app'), boot = $('boot');
   let supabase = null, session = null, authorized = false, routeVersion = 0;
-  let projects = [], metrics = [], activity = [], selectedId = null, channel = null;
+  let projects = [], metrics = [], activity = [], integrations = [], selectedId = null, channel = null;
   let currentView = 'home';
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  const cls = s => { const x=String(s||'').toLowerCase(); if(x.includes('live'))return'live';if(x.includes('active'))return'active';if(x.includes('planning'))return'planning';if(x.includes('pause'))return'paused';if(x.includes('recover'))return'recovery';if(x.includes('verified'))return'verified';if(x.includes('mixed'))return'mixed';if(x.includes('blocked')||x.includes('unverified')||x.includes('attention')||x.includes('needs'))return'unverified';return''; };
-  const fmtMoney = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Number(n||0));
+  const cls = s => { const x=String(s||'').toLowerCase(); if(x.includes('live'))return'live';if(x.includes('active'))return'active';if(x.includes('planning'))return'planning';if(x.includes('pause'))return'paused';if(x.includes('recover'))return'recovery';if(x.includes('unverified'))return'unverified';if(x.includes('verified'))return'verified';if(x.includes('mixed'))return'mixed';if(x.includes('blocked')||x.includes('attention')||x.includes('needs'))return'unverified';return''; };
+  const fmtMoney = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:2}).format(Number(n||0));
   const fmtDate = v => v ? new Date(v).toLocaleString() : '—';
 
   function show(el, yes=true){ if(el) el.hidden=!yes; }
@@ -32,7 +32,7 @@
     const version=++routeVersion;
     authorized=false;
     show($('dashboard'),false); show($('refreshStrip'),false); show($('appFooter'),false);
-    projects=[]; metrics=[]; activity=[]; selectedId=null; currentView='home';
+    projects=[]; metrics=[]; activity=[]; integrations=[]; selectedId=null; currentView='home';
     for(const id of ['stats','projectGrid','detailPanel','activityList','revenueSummary','revenueList']) $(id)?.replaceChildren();
     cleanupRealtime();
     if(!session){
@@ -52,15 +52,16 @@
     if(!authorized || !session) return;
     const version=routeVersion;
     setSync('Refreshing private data…');
-    const [p,m,a]=await Promise.all([
+    const [p,m,a,i]=await Promise.all([
       supabase.from('projects').select('*').order('sort_order'),
       supabase.from('metrics').select('*').order('updated_at',{ascending:false}),
-      supabase.from('activity').select('*').order('happened_at',{ascending:false}).limit(100)
+      supabase.from('activity').select('*').order('happened_at',{ascending:false}).limit(100),
+      supabase.from('tracking_integrations').select('*').order('updated_at',{ascending:false})
     ]);
     if(version!==routeVersion || !authorized || !session) return;
-    const err=p.error||m.error||a.error;
+    const err=p.error||m.error||a.error||i.error;
     if(err){ setSync('Sync error · '+err.message); return; }
-    projects=p.data||[]; metrics=m.data||[]; activity=a.data||[];
+    projects=p.data||[]; metrics=m.data||[]; activity=a.data||[]; integrations=i.data||[];
     if(selectedId && !projects.some(x=>x.id===selectedId)) selectedId=null;
     render(); setSync('Synced '+new Date().toLocaleTimeString());
   }
@@ -76,6 +77,11 @@
   function cleanupRealtime(){ if(channel&&supabase){supabase.removeChannel(channel);channel=null;} }
 
   function projectMetrics(id){ return metrics.filter(m=>m.project_id===id); }
+  function projectIntegrations(id){
+    const order={needs_integration:0,connected_unverified:1,blocked:2,connected_verified:3,not_applicable:4};
+    return integrations.filter(x=>x.project_id===id).sort((a,b)=>(order[a.status]??9)-(order[b.status]??9)||String(a.metric_label||'').localeCompare(String(b.metric_label||'')));
+  }
+  function integrationStatusLabel(v){ return String(v||'').replaceAll('_',' ').replace(/\b\w/g,c=>c.toUpperCase()); }
   function metricValue(m){ if(m.value_numeric!==null && m.value_numeric!==undefined){ if(m.unit==='USD') return fmtMoney(m.value_numeric); return `${m.value_numeric}${m.unit?` ${m.unit}`:''}`; } return m.value_text||'—'; }
   function revenueMetric(id){ return metrics.find(m=>m.project_id===id&&m.key==='verified_revenue_usd'&&m.verified&&m.value_numeric!==null); }
   function isAttention(p){ return p.attention===true || /needs|blocked|recovery|paused/i.test(p.status||'') || /needs|unverified/i.test(p.verification||''); }
@@ -96,8 +102,8 @@
       {key:'all',label:'Projects',value:projects.length,sub:'Open full portfolio'},
       {key:'active',label:'Active / live',value:active,sub:'Open active projects'},
       {key:'attention',label:'Needs attention',value:att,sub:'Open action list'},
-      {key:'revenue',label:'Verified revenue',value:hasRevenue?fmtMoney(money):'Not recorded',sub:'Open company breakdown'},
-      {key:'earning',label:'Projects earning',value:earning,sub:hasRevenue?`Total ${fmtMoney(money)}`:'No verified revenue yet'}
+      {key:'revenue',label:'Verified revenue',value:hasRevenue?fmtMoney(money):'N/A',sub:'Open company breakdown'},
+      {key:'earning',label:'Projects earning',value:earning,sub:hasRevenue?`Total ${fmtMoney(money)}`:'Revenue tracking not yet integrated'}
     ];
     $('stats').innerHTML=tiles.map(t=>`<button class="stat stat-button" data-view="${t.key}" aria-label="${esc(t.label)}"><div class="label">${esc(t.label)}</div><div class="value">${esc(t.value)}</div><div class="stat-sub">${esc(t.sub)}</div></button>`).join('');
   }
@@ -116,7 +122,7 @@
     if(currentView==='active') return ['Active / live','Active projects','Projects currently marked active or live.'];
     if(currentView==='attention') return ['Needs attention','Needs attention','Projects with a blocker, recovery state, paused state, or another attention flag.'];
     if(currentView==='earning') return ['Revenue','Projects earning','Projects with verified positive revenue records.'];
-    if(currentView==='revenue') return ['Revenue','Verified revenue breakdown','Verified revenue by project. Unrecorded values stay unrecorded.'];
+    if(currentView==='revenue') return ['Revenue','Verified revenue breakdown','Verified revenue by project. N/A means the live revenue source still needs integration or verification.'];
     if(currentView==='all') return ['Projects','All projects','Search, filter, inspect, update, and continue any project.'];
     return ['Overview','Portfolio overview','Use the summary tiles above to open exactly what you want to work on.'];
   }
@@ -177,7 +183,7 @@
   function renderDetail(){
     const p=projects.find(x=>x.id===selectedId);
     if(!p){ $('detailPanel').innerHTML='<div class="muted">Select a project.</div>'; return; }
-    const ms=projectMetrics(p.id), acts=activity.filter(a=>a.project_id===p.id).slice(0,8), env=recommendedEnvironment(p);
+    const ms=projectMetrics(p.id), ints=projectIntegrations(p.id), acts=activity.filter(a=>a.project_id===p.id).slice(0,8), env=recommendedEnvironment(p);
     $('detailPanel').innerHTML=`
       <div class="section-head"><div><div class="detail-title">${esc(p.name)}</div><div class="detail-sub">${esc(p.category||'')} · last verified ${esc(p.last_verified||'—')}</div></div><span class="badge ${cls(p.status)}">${esc(p.status||'')}</span></div>
       <div class="project-meta"><span class="badge ${cls(p.verification)}">${esc(p.verification||'')}</span>${p.source_status?`<span class="badge source-badge">${esc(p.source_status)}</span>`:''}</div>
@@ -186,6 +192,7 @@
       <div class="block continuation-block" id="continuationBlock"><div class="section-head"><h3>Continue this project</h3><span class="badge ${env==='Work'?'attention':'active'}">${esc(env)}</span></div><p class="continuation-note">${env==='Work'?'This project is currently recorded at a genuine Work boundary.':'Use the dedicated project/series chat in normal Chat unless a genuine boundary appears.'}</p><textarea id="continuationPrompt" class="continuation-prompt" readonly></textarea><div class="continuation-actions"><button id="copyPromptBtn" class="btn btn-primary">Copy prompt</button><button id="openChatBtn" class="btn">Open ChatGPT</button></div><div id="copyMsg" class="message muted"></div></div>
       <div class="block"><div class="section-head"><h3>Update project information</h3><button id="editProjectBtn" class="btn btn-small">Enter / edit information</button></div><p class="muted" style="margin-top:6px">Update the saved status, verification, next action, blocker, or add a new project note.</p><div id="editHost"></div></div>
       <div class="block"><h3>Private KPIs</h3>${ms.length?`<div class="kpi-grid">${ms.map(m=>`<div class="kpi"><div class="k">${esc(m.label)}</div><div class="v">${esc(metricValue(m))}</div><div class="s">${m.verified?'Verified':'Unverified'} · ${esc(m.source||'manual')} · ${esc(fmtDate(m.updated_at))}</div></div>`).join('')}</div>`:'<div class="muted">No metrics recorded yet.</div>'}</div>
+      <div class="block"><h3>Tracking integrations</h3>${ints.length?`<div class="list">${ints.map(x=>`<div class="list-item"><div class="section-head"><strong>${esc(x.metric_label)}</strong><span class="badge ${cls(integrationStatusLabel(x.status))}">${esc(integrationStatusLabel(x.status))}</span></div><small>${esc(x.provider||'Project-specific source')}${x.requires_user_authorization?' · Authorization required':''}${x.next_step?` · ${esc(x.next_step)}`:''}</small></div>`).join('')}</div>`:'<div class="muted">No tracking integration gaps recorded for this project.</div>'}</div>
       <div class="block"><h3>Recent updates</h3>${acts.length?`<div class="list">${acts.map(a=>`<div class="list-item"><strong>${esc(a.headline)}</strong><small>${esc(a.detail||'')} · ${esc(fmtDate(a.happened_at))}</small></div>`).join('')}</div>`:'<div class="muted">No recent updates recorded.</div>'}</div>`;
     $('continuationPrompt').value=buildContinuationPrompt(p);
     $('copyPromptBtn').onclick=()=>copyPrompt(p);
@@ -219,9 +226,9 @@
 
   function renderRevenue(){
     const hasRevenue=hasRecordedRevenue(), total=verifiedRevenueTotal(), earning=projects.filter(isEarning).length;
-    $('revenueSummary').innerHTML=`<div class="eyebrow">Verified revenue</div><div class="revenue-total">${hasRevenue?fmtMoney(total):'Not recorded'}</div><p class="muted">${hasRevenue?`${earning} project${earning===1?'':'s'} currently have verified positive revenue records.`:'No project has a verified revenue record yet.'}</p>`;
+    $('revenueSummary').innerHTML=`<div class="eyebrow">Verified revenue</div><div class="revenue-total">${hasRevenue?fmtMoney(total):'N/A'}</div><p class="muted">${hasRevenue?`${earning} project${earning===1?'':'s'} currently have verified positive revenue records.`:'N/A means no live revenue total has been verified yet.'}</p>`;
     $('revenueList').innerHTML=projects.map(p=>{
-      const m=revenueMetric(p.id), val=m?fmtMoney(m.value_numeric):'Not recorded';
+      const m=revenueMetric(p.id), val=m?fmtMoney(m.value_numeric):'N/A';
       return `<div class="revenue-row"><div><strong>${esc(p.name)}</strong><div class="muted">${esc(p.category||'')}</div></div><div class="revenue-value ${m?'':'not-recorded'}">${esc(val)}</div><button class="btn btn-small" data-open="${esc(p.id)}" data-from-revenue="1">Open project</button></div>`;
     }).join('');
   }

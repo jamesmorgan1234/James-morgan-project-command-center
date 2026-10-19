@@ -71,8 +71,8 @@
       updateTile('all', String(visible.length));
       updateTile('active', String(visible.filter(isActive).length));
       updateTile('attention', String(visible.filter(isAttention).length), 'Highest-priority moves');
-      updateTile('revenue', revenue.length ? money(totalRevenue) : 'Not recorded');
-      updateTile('earning', String(earningIds.size), revenue.length ? `Total ${money(totalRevenue)}` : 'No verified revenue yet');
+      updateTile('revenue', revenue.length ? money(totalRevenue) : 'N/A');
+      updateTile('earning', String(earningIds.size), revenue.length ? `Total ${money(totalRevenue)}` : 'Revenue tracking not yet integrated');
       scrubDom();
     } finally {
       syncing = false;

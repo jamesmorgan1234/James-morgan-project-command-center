@@ -47,7 +47,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-operating-order-exclusion]')) {
     const script = document.createElement('script');
-    script.src = './operating-order-exclusion.js?v=1';
+    script.src = './operating-order-exclusion.js?v=2';
     script.dataset.operatingOrderExclusion = '1';
     document.body.appendChild(script);
   }

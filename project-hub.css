@@ -4,6 +4,8 @@
 #projectView.project-hub-detail .project-list-panel{min-width:0}
 #projectView.project-hub-list .project-grid.hub-grid{grid-template-columns:1fr!important;gap:14px!important}
 #projectView.project-hub-list .project-list-panel>.section-head{display:none!important}
+#projectView:not(.project-hub-detail)>.toolbar{display:grid!important;grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+@media(max-width:760px){#projectView:not(.project-hub-detail)>.toolbar{grid-template-columns:1fr}}
 
 .hub-project-card{--hub-accent:#2da8ff;--hub-glow:rgba(45,168,255,.18);position:relative;width:100%;text-align:left;color:#f7fbff;border:1px solid rgba(71,154,221,.34);border-left:5px solid var(--hub-accent);border-radius:22px;padding:20px 22px 18px;background:radial-gradient(circle at 8% 20%,var(--hub-glow),transparent 28%),linear-gradient(110deg,rgba(9,40,81,.98),rgba(5,22,49,.98) 62%,rgba(8,29,59,.98));box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 16px 34px rgba(0,0,0,.26),0 0 30px var(--hub-glow);overflow:hidden;transition:transform .18s ease,border-color .18s ease,filter .18s ease}
 .hub-project-card::before{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,rgba(255,255,255,.045),transparent 22%,transparent 76%,rgba(255,255,255,.025))}

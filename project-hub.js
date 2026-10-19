@@ -86,7 +86,12 @@
   }
 
   function projectsForScope(scope) {
-    const ordered = [...cache.projects].sort((a, b) => (Number(a.sort_order) || 999999) - (Number(b.sort_order) || 999999));
+    const q = ($('searchInput')?.value || '').trim().toLowerCase();
+    const status = $('statusFilter')?.value || 'all', category = $('categoryFilter')?.value || 'all';
+    const ordered = cache.projects.filter(p =>
+      (status === 'all' || p.status === status) && (category === 'all' || p.category === category) &&
+      (!q || [p.name,p.category,p.status,p.verification,p.stage,p.next_action,p.blocker].join(' ').toLowerCase().includes(q))
+    ).sort((a, b) => (Number(a.sort_order) || 999999) - (Number(b.sort_order) || 999999));
     return scope === 'attention' ? ordered.filter(isAttention) : ordered;
   }
 
@@ -176,6 +181,11 @@
 
     grid.innerHTML = list.map((p, index) => hubCard(p, { topPriority: scope === 'attention' && index === 0 })).join('') ||
       `<div class="muted empty-state">${scope === 'attention' ? 'Nothing currently needs attention.' : 'No projects are currently recorded.'}</div>`;
+  }
+
+  $('searchInput')?.addEventListener('input', () => { if (isListMode()) renderHubList(); });
+  for (const id of ['statusFilter','categoryFilter']) {
+    $(id)?.addEventListener('change', () => { if (isListMode()) renderHubList(); });
   }
 
   function currentDetailProject() {
