@@ -47,8 +47,9 @@ begin
      or jsonb_typeof(scope_doc) <> 'object'
      or scope_doc ->> 'contract_version' is distinct from '1'
      or scope_items is null
-     or jsonb_typeof(scope_items) <> 'array'
-     or jsonb_array_length(scope_items) = 0 then
+     or jsonb_typeof(scope_items) <> 'array' then
+    manifest_valid := false;
+  elsif jsonb_array_length(scope_items) = 0 then
     manifest_valid := false;
   else
     for item in select value from jsonb_array_elements(scope_items)
@@ -175,6 +176,101 @@ after insert or update of state_json, verified, observed_at, captured_at
 on public.source_checkpoints
 for each row
 execute function public.command_center_scope_progress_from_checkpoint();
+
+-- If project state changes outside the latest scope-aware checkpoint, do not
+-- silently carry the previous percentage forward as if it were current.
+create or replace function public.command_center_guard_project_scope_freshness()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  latest_cp record;
+  metric_source text;
+  patch jsonb;
+  matches_checkpoint boolean := true;
+begin
+  if not (
+    new.status is distinct from old.status
+    or new.verification is distinct from old.verification
+    or new.stage is distinct from old.stage
+    or new.next_action is distinct from old.next_action
+    or new.blocker is distinct from old.blocker
+    or new.attention is distinct from old.attention
+  ) then
+    return new;
+  end if;
+
+  select sc.id, sc.state_json
+    into latest_cp
+  from public.source_checkpoints sc
+  where sc.owner_id = new.owner_id
+    and sc.project_id = new.id
+    and sc.verified = true
+  order by sc.observed_at desc, sc.captured_at desc, sc.created_at desc, sc.id desc
+  limit 1;
+
+  select m.source
+    into metric_source
+  from public.metrics m
+  where m.owner_id = new.owner_id
+    and m.project_id = new.id
+    and m.key = 'current_scope_progress_percent'
+  limit 1;
+
+  if latest_cp.id is not null and metric_source = 'checkpoint:' || latest_cp.id::text then
+    patch := latest_cp.state_json -> 'project_patch';
+
+    if new.status is distinct from old.status then
+      matches_checkpoint := matches_checkpoint and patch ? 'status' and new.status is not distinct from patch ->> 'status';
+    end if;
+    if new.verification is distinct from old.verification then
+      matches_checkpoint := matches_checkpoint and patch ? 'verification' and new.verification is not distinct from patch ->> 'verification';
+    end if;
+    if new.stage is distinct from old.stage then
+      matches_checkpoint := matches_checkpoint and patch ? 'stage' and new.stage is not distinct from patch ->> 'stage';
+    end if;
+    if new.next_action is distinct from old.next_action then
+      matches_checkpoint := matches_checkpoint and patch ? 'next_action' and new.next_action is not distinct from patch ->> 'next_action';
+    end if;
+    if new.blocker is distinct from old.blocker then
+      matches_checkpoint := matches_checkpoint and patch ? 'blocker' and new.blocker is not distinct from patch ->> 'blocker';
+    end if;
+    if new.attention is distinct from old.attention then
+      matches_checkpoint := matches_checkpoint and patch ? 'attention'
+        and new.attention = (lower(coalesce(patch ->> 'attention','false')) = 'true');
+    end if;
+
+    if matches_checkpoint then
+      return new;
+    end if;
+  end if;
+
+  update public.metrics
+  set value_numeric = null,
+      value_text = jsonb_build_object(
+        'status','stale',
+        'reason','Project state changed without a matching scope-aware checkpoint',
+        'project_updated_at',new.updated_at
+      )::text,
+      verified = false,
+      source = 'freshness_guard:project_update',
+      updated_at = now()
+  where owner_id = new.owner_id
+    and project_id = new.id
+    and key = 'current_scope_progress_percent';
+
+  return new;
+end;
+$$;
+
+drop trigger if exists command_center_project_scope_freshness_trg on public.projects;
+create trigger command_center_project_scope_freshness_trg
+after update of status, verification, stage, next_action, blocker, attention
+on public.projects
+for each row
+execute function public.command_center_guard_project_scope_freshness();
 
 create or replace function public.command_center_enforce_scope_freshness_on_refresh()
 returns trigger
