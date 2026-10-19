@@ -64,4 +64,17 @@ window.addEventListener('load', () => {
     script.dataset.refreshOrchestrator = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('link[data-source-health]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './source-health.css?v=1';
+    link.dataset.sourceHealth = '1';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[data-source-health]')) {
+    const script = document.createElement('script');
+    script.src = './source-health.js?v=1';
+    script.dataset.sourceHealth = '1';
+    document.body.appendChild(script);
+  }
 }, { once: true });
