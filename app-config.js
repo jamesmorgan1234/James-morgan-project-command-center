@@ -29,13 +29,13 @@ window.addEventListener('load', () => {
   if (!document.querySelector('link[data-books-revenue]')) {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = './books-revenue.css?v=3';
+    link.href = './books-revenue.css?v=4';
     link.dataset.booksRevenue = '1';
     document.head.appendChild(link);
   }
   if (!document.querySelector('script[data-books-revenue]')) {
     const script = document.createElement('script');
-    script.src = './books-revenue.js?v=4';
+    script.src = './books-revenue.js?v=5';
     script.dataset.booksRevenue = '1';
     document.body.appendChild(script);
   }
@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-performance-hub]')) {
     const script = document.createElement('script');
-    script.src = './performance-hub.js?v=4';
+    script.src = './performance-hub.js?v=5';
     script.dataset.performanceHub = '1';
     document.body.appendChild(script);
   }

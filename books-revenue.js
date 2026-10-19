@@ -329,6 +329,10 @@
     const unknown=books.filter(b=>b.publicationState==='unknown').length;
     if(books.length && published===0 && unknown===0) return na('Not published');
     if(published===0 && unknown>0) return na('Publication status not verified');
+    if(kind==='select' || kind==='kenp'){
+      const liveBooks=books.filter(b=>b.publicationState==='published');
+      if(liveBooks.length && !unknown && liveBooks.every(b=>b.selectState==='not_applicable')) return na('No Kindle / KDP Select edition');
+    }
     const v=agg[kind];
     return v!==null?num(v,'project'):na('Source not verified');
   }

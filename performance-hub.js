@@ -141,6 +141,10 @@
     const p=currentProject();
     if(!p) return;
     const ms=projectMetrics(p.id);
+    if(/^kdp-/i.test(p.id) && ms.some(m=>/^bookmap\.[^.]+\.metadata$/i.test(m.key||'') && m.verified===true)){
+      detail.querySelector('#projectPerformancePanel')?.remove();
+      return;
+    }
     const rev=revenueMetric(ms);
     const subscribers=subscriberMetric(ms);
     const customers=customersMetric(ms);
