@@ -52,6 +52,7 @@
     return [...groups.entries()].map(([slug,items])=>{
       const find = rx => items.find(x=>rx.test(x._key));
       const title=find(/^(title|name|display_name)$/i);
+      const status=find(/^(publication_status|status)$/i);
       const kdp=find(/^(kdp_royalties_usd|kdp_revenue_usd|royalties_usd|kdp_royalties)$/i);
       const select=find(/^(kdp_select_earnings_usd|kdp_select_usd|ku_earnings_usd|kindle_unlimited_earnings_usd|select_earnings_usd)$/i);
       const explicitTotal=find(/^(verified_lifetime_revenue_usd|lifetime_revenue_usd|total_revenue_usd|revenue_usd)$/i);
@@ -61,6 +62,7 @@
       return {
         slug,
         title:title?.value_text || slug.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),
+        status:status?.value_text || null,
         kdp:kv,
         select:sv,
         total,
@@ -120,7 +122,7 @@
 
   function bookRowsHtml(books){
     if(!books.length) return '';
-    return `<div class="book-revenue-list" data-books-revenue-ui>${books.map(b=>`<div class="book-revenue-row"><div class="book-revenue-title">${esc(b.title)}</div><div class="book-revenue-values"><span><small>KDP</small><strong>${b.kdp===null?'Not recorded':esc(money(b.kdp))}</strong></span><span><small>KDP Select / KU</small><strong>${b.select===null?'Not recorded':esc(money(b.select))}</strong></span><span><small>Total</small><strong>${b.total===null?'Not recorded':esc(money(b.total))}</strong></span></div></div>`).join('')}</div>`;
+    return `<div class="book-revenue-list" data-books-revenue-ui>${books.map(b=>`<div class="book-revenue-row"><div class="book-revenue-title-wrap"><div class="book-revenue-title">${esc(b.title)}</div>${b.status?`<small class="book-revenue-status">${esc(b.status)}</small>`:''}</div><div class="book-revenue-values"><span><small>KDP</small><strong>${b.kdp===null?'Not recorded':esc(money(b.kdp))}</strong></span><span><small>KDP Select / KU</small><strong>${b.select===null?'Not recorded':esc(money(b.select))}</strong></span><span><small>Total</small><strong>${b.total===null?'Not recorded':esc(money(b.total))}</strong></span></div></div>`).join('')}</div>`;
   }
 
   function decorateCards(){
