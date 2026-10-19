@@ -7,7 +7,7 @@
   let refreshing = false;
   let cache = { projects: [], metrics: [], activity: [] };
 
-  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const cls = s => {
     const x = String(s || '').toLowerCase();
     if (x.includes('live')) return 'live';
