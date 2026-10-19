@@ -7,7 +7,6 @@
   let reloading = false;
   const kicked = new Set();
 
-  const ACTIVE = new Set(['pending', 'processing']);
   const TERMINAL = new Set(['completed', 'partial', 'failed']);
 
   async function getClient() {
@@ -66,6 +65,20 @@
       `${info.counts.master_no_newer_work} no-newer-Work`,
       `${info.counts.missing} missing`
     ].join(' • ');
+  }
+
+  function showPendingIdle(row) {
+    const panel=ensurePanel();
+    if(!panel||!row) return;
+    panel.hidden=false;
+    const title=$('canonicalAuditTitle'),detail=$('canonicalAuditDetail'),badge=$('canonicalAuditBadge'),progress=$('canonicalAuditProgress'),fill=$('canonicalAuditFill');
+    const total=Number(row.projects_total||0);
+    if(title) title.textContent='Full Refresh ready';
+    if(detail) detail.textContent='A saved audit request is waiting. Press Full Refresh when you want to run it.';
+    if(badge){badge.textContent='Ready';badge.className='badge';}
+    if(fill) fill.style.width='0%';
+    if(progress) progress.textContent=total>0?`0 of ${total} tracked projects reconciled`:'Ready to run the live audit';
+    setButton('Full Refresh',false);
   }
 
   function showState(row) {
@@ -189,10 +202,13 @@
   async function restoreState(){
     const row=await latestRequest(); if(!row)return;
     const age=Date.now()-new Date(row.requested_at).getTime();
-    if(ACTIVE.has(row.status)){
+    if(row.status==='processing'){
       startPolling(row);
-      kickWorker(row).catch(showWorkerStartError);
-    }else if(age<6*60*60*1000){showState(row);}
+    }else if(row.status==='pending'){
+      showPendingIdle(row);
+    }else if(age<6*60*60*1000){
+      showState(row);
+    }
   }
 
   function initRestore(){
