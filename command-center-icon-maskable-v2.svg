@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Command Center</title>
+  <desc id="desc">Samsung-safe maskable Command Center icon with a continuous light-blue perimeter that stays inside adaptive-icon crop areas.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07152f"/>
+      <stop offset="0.52" stop-color="#123979"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1f4a"/>
+      <stop offset="1" stop-color="#1b4da4"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b2d8ff"/>
+      <stop offset="1" stop-color="#6e96ff"/>
+    </linearGradient>
+    <filter id="rimGlow" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="256" r="224" fill="#0a1d43" opacity=".20"/>
+  <rect x="52" y="52" width="408" height="408" rx="126" fill="url(#panel)"/>
+  <rect x="70" y="70" width="372" height="372" rx="112" fill="none" stroke="url(#rim)" stroke-width="10" opacity=".98" filter="url(#rimGlow)"/>
+  <circle cx="256" cy="146" r="15" fill="#afd4ff" opacity=".95"/>
+  <path d="M190 178h132" stroke="#a4ceff" stroke-width="7" stroke-linecap="round" opacity=".62"/>
+  <text x="256" y="262" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="59" font-weight="800" letter-spacing="3">COMMAND</text>
+  <text x="256" y="333" text-anchor="middle" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="67" font-weight="900" letter-spacing="4">CENTER</text>
+</svg>
