@@ -1,0 +1,18 @@
+#projectView:not(.project-hub-detail)>.toolbar{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;margin-bottom:14px!important}
+#projectView:not(.project-hub-detail)>.toolbar #statusFilter,
+#projectView:not(.project-hub-detail)>.toolbar #categoryFilter{display:none!important}
+#projectView:not(.project-hub-detail)>.toolbar #searchInput{width:100%!important;grid-column:1/-1!important}
+
+.books-portfolio-overview{margin:0 0 16px;padding:16px;border:1px solid rgba(168,138,255,.34);border-left:5px solid #a88aff;border-radius:18px;background:radial-gradient(circle at 8% 15%,rgba(168,138,255,.15),transparent 30%),linear-gradient(180deg,rgba(20,25,66,.96),rgba(7,20,47,.97));box-shadow:0 14px 30px rgba(0,0,0,.24),0 0 28px rgba(168,138,255,.08)}
+.books-portfolio-overview .books-portfolio-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}
+.books-portfolio-overview .books-portfolio-heading h3{margin:0;font-size:clamp(1.25rem,2.4vw,1.75rem);font-weight:950;color:#fff}
+.books-portfolio-overview .books-portfolio-heading p{margin:5px 0 0;color:#9fb3d1;font-size:.82rem;line-height:1.4}
+.books-portfolio-overview .book-revenue-primary{margin-top:12px}
+.books-portfolio-overview .kdp-snapshot-panel{margin-top:12px;background:rgba(6,18,43,.48)}
+.book-revenue-title-wrap[data-book-sequence]::before{content:attr(data-book-sequence);display:inline-flex;width:max-content;margin-bottom:3px;padding:3px 7px;border:1px solid rgba(104,179,255,.28);border-radius:999px;background:rgba(20,148,255,.10);color:#8fc8f4;font-size:.62rem;font-weight:900;letter-spacing:.055em;text-transform:uppercase}
+
+@media(max-width:720px){
+  .books-portfolio-overview{padding:13px;border-radius:16px}
+  .books-portfolio-overview .books-portfolio-heading{display:grid;grid-template-columns:1fr}
+  .books-portfolio-overview .books-portfolio-heading .badge{width:max-content}
+}
