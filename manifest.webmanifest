@@ -10,13 +10,13 @@
   "theme_color": "#04142f",
   "icons": [
     {
-      "src": "command-center-icon.svg",
+      "src": "command-center-icon-v2.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "command-center-icon-maskable.svg",
+      "src": "command-center-icon-maskable-v2.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
