@@ -36,38 +36,23 @@
   }
 
   function progressFor(p) {
-    const explicit = projectMetrics(p.id).find(m =>
-      ['current_scope_progress_percent', 'scope_progress_percent', 'completion_percent'].includes(m.key) &&
-      m.verified && m.value_numeric !== null && m.value_numeric !== undefined
-    );
-    if (explicit) return { pct: clamp(explicit.value_numeric), basis: 'Verified current-scope progress', verified: true };
+    const scopeMetric = projectMetrics(p.id).find(m => m.key === 'current_scope_progress_percent');
+    if (scopeMetric?.verified && scopeMetric.value_numeric !== null && scopeMetric.value_numeric !== undefined) {
+      return { pct: clamp(scopeMetric.value_numeric), basis: 'Verified weighted current scope', verified: true };
+    }
+    if (scopeMetric) {
+      return { pct: null, basis: 'Current-scope checkpoint is stale or incomplete', verified: false };
+    }
+    return { pct: null, basis: 'Verified current-scope baseline unavailable', verified: false };
+  }
 
-    const status = String(p.status || '').toLowerCase();
-    const stage = String(p.stage || '').toLowerCase();
-    const next = String(p.next_action || '').toLowerCase();
-    const blocker = String(p.blocker || '').toLowerCase();
-    const text = [status, stage, next, blocker].join(' ');
-    let pct = 45;
-
-    if (/published\s*\/\s*live|published and live/.test(status)) pct = 100;
-    else if (status === 'live' && /no build blocker|operational private command center/.test(text)) pct = 100;
-    else if (/production complete/.test(status)) pct = 92;
-    else if (/publishing in progress/.test(status)) pct = 88;
-    else if (/ready for production boundary/.test(status)) pct = 78;
-    else if (/blocked/.test(status) && /local build tested|release path blocked|before release|production has not changed/.test(text)) pct = 80;
-    else if (/active rebuild/.test(status)) pct = 60;
-    else if (/rebuild in progress/.test(status)) pct = 54;
-    else if (/mixed/.test(status)) pct = 55;
-    else if (/in progress/.test(status)) pct = 50;
-    else if (/infrastructure active/.test(status)) pct = 58;
-    else if (/active/.test(status)) pct = 68;
-    else if (/build state needs current verification/.test(status)) pct = 42;
-    else if (/needs current verification/.test(status)) pct = 38;
-    else if (/waiting on external response/.test(status)) pct = 45;
-    else if (/planning/.test(status)) pct = 22;
-    else if (/paused/.test(status)) pct = 35;
-
-    return { pct, basis: 'Estimated from the current verified status', verified: false };
+  function progressDisplay(progress) {
+    const available = progress.pct !== null && progress.pct !== undefined;
+    return {
+      label: available ? `${progress.pct}%` : 'N/A',
+      width: available ? progress.pct : 0,
+      aria: available ? `aria-valuenow="${progress.pct}"` : 'aria-valuetext="Not available"'
+    };
   }
 
   function toneFor(p) {
@@ -127,6 +112,7 @@
 
   function hubCard(p, { topPriority = false } = {}) {
     const progress = progressFor(p);
+    const pd = progressDisplay(progress);
     const tone = toneFor(p);
     return `<button class="hub-project-card tone-${tone}${topPriority ? ' is-top-priority' : ''}" data-open="${esc(p.id)}" type="button" aria-label="Open ${esc(p.name)}">
       ${topPriority ? '<div class="hub-priority-ribbon"><span>★</span> Top priority</div>' : ''}
@@ -137,9 +123,9 @@
         </div>
         <span class="badge ${cls(p.status)}">${esc(p.status || 'Status not recorded')}</span>
       </div>
-      <div class="hub-progress-head"><span>Current scope</span><strong>${progress.pct}%</strong></div>
-      <div class="hub-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress.pct}" aria-label="${esc(p.name)} current scope progress">
-        <span class="hub-progress-fill" style="width:${progress.pct}%"></span>
+      <div class="hub-progress-head"><span>Current scope</span><strong>${pd.label}</strong></div>
+      <div class="hub-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" ${pd.aria} aria-label="${esc(p.name)} current scope progress">
+        <span class="hub-progress-fill" style="width:${pd.width}%"></span>
       </div>
       <div class="hub-progress-basis">${esc(progress.basis)}</div>
       <div class="hub-project-next"><span>Next</span><strong>${esc(p.next_action || 'Next action not recorded')}</strong></div>
@@ -211,6 +197,7 @@
     if ($('viewTitle')) $('viewTitle').textContent = p.name;
 
     const progress = progressFor(p);
+    const pd = progressDisplay(progress);
     const tone = toneFor(p);
     detail.classList.remove('tone-blue', 'tone-red', 'tone-green', 'tone-amber', 'tone-purple');
     detail.classList.add(`tone-${tone}`);
@@ -219,8 +206,8 @@
     detail.insertAdjacentHTML('afterbegin', `<div class="hub-detail-toolbar">
       <button class="btn btn-ghost hub-back-btn" type="button" data-hub-back>‹ ${scope === 'attention' ? 'Needs attention' : 'All projects'}</button>
       <div class="hub-detail-progress">
-        <div class="hub-progress-head"><span>Current scope</span><strong>${progress.pct}%</strong></div>
-        <div class="hub-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${progress.pct}"><span class="hub-progress-fill" style="width:${progress.pct}%"></span></div>
+        <div class="hub-progress-head"><span>Current scope</span><strong>${pd.label}</strong></div>
+        <div class="hub-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" ${pd.aria}><span class="hub-progress-fill" style="width:${pd.width}%"></span></div>
         <div class="hub-progress-basis">${esc(progress.basis)}</div>
       </div>
     </div>`);
@@ -297,7 +284,7 @@
     visual.classList.remove('is-complete', 'is-error');
     if (icon) icon.className = 'refresh-spinner';
     if ($('refreshStatusTitle')) $('refreshStatusTitle').textContent = 'Refreshing Command Center…';
-    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = 'Synchronizing current project data. Full chat-by-chat audit will activate after the canonical chat setup is finished.';
+    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = 'Synchronizing current project data and verified scope progress.';
   }
 
   function finishRefreshVisual(ok = true) {
@@ -314,7 +301,7 @@
     visual.classList.toggle('is-error', !ok);
     if (icon) icon.className = ok ? 'refresh-check' : 'refresh-error-icon';
     if ($('refreshStatusTitle')) $('refreshStatusTitle').textContent = ok ? 'Refresh complete' : 'Refresh could not complete';
-    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = ok ? 'Current Command Center project data is synchronized.' : 'The current project data could not be fully synchronized. Try Refresh again.';
+    if ($('refreshStatusDetail')) $('refreshStatusDetail').textContent = ok ? 'Current verified project and scope data is synchronized.' : 'The current project data could not be fully synchronized. Try Refresh again.';
     setTimeout(() => {
       if (!refreshing && btn) btn.textContent = 'Refresh now';
     }, 2200);
