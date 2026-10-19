@@ -47,6 +47,30 @@
     btn.classList.toggle('refreshing', disabled);
   }
 
+  function recoveryInfo(row) {
+    const snap = row?.source_snapshot && typeof row.source_snapshot === 'object' ? row.source_snapshot : {};
+    const sources = Array.isArray(snap.sources) ? snap.sources : [];
+    const gaps = Array.isArray(snap.gaps) ? snap.gaps : (Array.isArray(snap.exact_source_gaps) ? snap.exact_source_gaps : []);
+    const counts = { exact: 0, alias: 0, handoff: 0, missing: 0 };
+    for (const source of sources) {
+      const method = String(source?.method || '').toLowerCase();
+      if (Object.prototype.hasOwnProperty.call(counts, method)) counts[method] += 1;
+    }
+    return { sources, gaps, counts };
+  }
+
+  function recoverySummary(row) {
+    const info = recoveryInfo(row);
+    if (!info.sources.length) return '';
+    const parts = [
+      `${info.counts.exact} exact`,
+      `${info.counts.alias} alias`,
+      `${info.counts.handoff} handoff`,
+      `${info.counts.missing} missing`
+    ];
+    return parts.join(' • ');
+  }
+
   function showState(row) {
     const panel = ensurePanel();
     if (!panel || !row) return;
@@ -59,6 +83,8 @@
     const total = Number(row.projects_total || 0);
     const checked = Number(row.projects_checked || 0);
     const pct = total > 0 ? Math.max(2, Math.min(100, Math.round((checked / total) * 100))) : (row.status === 'completed' ? 100 : 8);
+    const recovery = recoveryInfo(row);
+    const sourceSummary = recoverySummary(row);
     if (fill) fill.style.width = `${pct}%`;
     if (progress) progress.textContent = total > 0 ? `${checked} of ${total} tracked projects reconciled` : 'Waiting for the private ChatGPT audit worker';
 
@@ -71,23 +97,29 @@
     }
     if (row.status === 'processing') {
       if (title) title.textContent = 'Reconciling Master + Work sources';
-      if (detail) detail.textContent = row.summary || 'Checking canonical project chats, newer Work execution, and verified handoffs before writing any changes.';
+      if (detail) detail.textContent = row.summary || 'Checking exact canonical titles, approved title variants, newer Work execution, and verified handoffs before writing any changes.';
       if (badge) { badge.textContent = 'Auditing'; badge.className = 'badge active'; }
+      if (progress && sourceSummary) progress.textContent = `${checked} of ${total} tracked projects reconciled • ${sourceSummary}`;
       setButton('Auditing…', true);
       return;
     }
     if (row.status === 'completed') {
       if (title) title.textContent = 'Full Refresh complete';
-      if (detail) detail.textContent = row.summary || 'Canonical sources were reconciled and verified project data was written to the Command Center.';
+      const base = row.summary || 'Canonical sources were reconciled and verified project data was written to the Command Center.';
+      if (detail) detail.textContent = sourceSummary ? `${base} Source recovery: ${sourceSummary}.` : base;
       if (badge) { badge.textContent = 'Complete'; badge.className = 'badge verified'; }
       if (fill) fill.style.width = '100%';
+      if (progress) progress.textContent = sourceSummary || `${checked} of ${total} tracked projects reconciled`;
       setButton('Refresh complete ✓', false);
       return;
     }
     if (row.status === 'partial') {
       if (title) title.textContent = 'Refresh completed with gaps';
-      if (detail) detail.textContent = row.summary || row.error || 'Some canonical sources could not be verified. Existing verified data was preserved.';
+      const base = row.summary || row.error || 'Some canonical sources could not be verified. Existing verified data was preserved.';
+      const firstGap = recovery.gaps[0] ? ` First gap: ${recovery.gaps[0]}` : '';
+      if (detail) detail.textContent = `${base}${firstGap}`;
       if (badge) { badge.textContent = 'Partial'; badge.className = 'badge attention'; }
+      if (progress) progress.textContent = sourceSummary || `${checked} of ${total} tracked projects reconciled`;
       setButton('Refresh again', false);
       return;
     }
