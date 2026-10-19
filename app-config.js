@@ -123,7 +123,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-refresh-orchestrator]')) {
     const script = document.createElement('script');
-    script.src = './refresh-orchestrator.js?v=5';
+    script.src = './refresh-orchestrator.js?v=6';
     script.dataset.refreshOrchestrator = '1';
     document.body.appendChild(script);
   }
