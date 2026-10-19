@@ -46,12 +46,12 @@ Allowed active statuses are `pending`, `in_progress`, `blocked`, and `complete`.
 
 ## Weighting
 
-Weights represent relative current-scope size, not elapsed time:
+Weights represent relative current-scope size, not elapsed time. Use positive values consistently. Typical guidance is:
 
 - 1 = small bounded deliverable
 - 2 = normal deliverable
-- 4 = large feature / release / production unit
-- 8 = major multi-part scope block
+- 3–4 = large feature / release / production unit
+- 5–8 = major multi-part scope block
 
 Use the smallest set of independently verifiable items that still represents the actual work. Do not manipulate weights to force a desired percentage.
 
