@@ -195,6 +195,12 @@
     }else if(age<6*60*60*1000){showState(row);}
   }
 
+  function initRestore(){
+    ensurePanel();
+    setTimeout(restoreState,350);
+  }
+
   document.addEventListener('click',handleRefresh,true);
-  window.addEventListener('load',()=>{ensurePanel();setTimeout(restoreState,350);},{once:true});
+  if(document.readyState==='complete') initRestore();
+  else window.addEventListener('load',initRestore,{once:true});
 })();
