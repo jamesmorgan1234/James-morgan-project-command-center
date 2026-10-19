@@ -1,15 +1,20 @@
 :root{color-scheme:dark}
-html,body{background-color:#020b1d!important;touch-action:pan-y}
+html,body{background-color:#020b1d!important;touch-action:pan-y;max-width:100%;overflow-x:hidden}
 body{min-height:100dvh}
-#app{padding-bottom:calc(20px + env(safe-area-inset-bottom))}
-.dashboard-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;width:100%}
+#app{width:100%;max-width:1540px;min-width:0;padding-bottom:calc(20px + env(safe-area-inset-bottom));overflow-x:clip}
+.dashboard-stack{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;width:100%;max-width:100%;min-width:0}
 .dashboard-stack>.stats{display:contents!important}
-.dashboard-stack>.stat-button,.dashboard-stack>.view-shell{width:100%!important;min-width:0}
+.dashboard-stack>.stat-button,.dashboard-stack>.view-shell{width:100%!important;max-width:100%!important;min-width:0}
 .dashboard-stack>.view-shell{margin:0!important;padding:0!important;overflow:visible!important}
 .stat-button.is-open{filter:brightness(1.08)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(0,0,0,.28),0 16px 34px rgba(0,0,0,.34),0 0 0 2px rgba(79,181,255,.18)!important}
 .stat-button.is-open::after{content:'⌄'!important}
 @media(max-width:760px){
   .dashboard-stack{gap:10px;margin-bottom:16px}
   .dashboard-stack>.view-shell{padding:0!important}
-  #projectView,#revenueView{padding-top:12px!important}
+  #projectView,#revenueView{padding-top:12px!important;max-width:100%!important;min-width:0!important;overflow-x:hidden}
+  #projectView .project-view-grid,#projectView .project-list-panel,#projectView .project-grid{width:100%!important;max-width:100%!important;min-width:0!important}
+  #projectView .project-grid{grid-template-columns:minmax(0,1fr)!important;overflow-x:hidden}
+  #projectView .project-card,#projectView .hub-project-card{display:block;width:100%!important;max-width:100%!important;min-width:0!important;overflow:hidden!important}
+  #projectView .hub-project-head,#projectView .hub-project-name-wrap,#projectView .hub-project-next,#projectView .hub-project-next strong,#projectView .project-next,#projectView .project-meta{max-width:100%;min-width:0}
+  #projectView .hub-project-name,#projectView .hub-project-stage,#projectView .hub-project-next strong,#projectView .project-next,#projectView .badge{overflow-wrap:anywhere;word-break:break-word}
 }
