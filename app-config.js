@@ -60,7 +60,7 @@ window.addEventListener('load', () => {
   }
   if (!document.querySelector('script[data-refresh-orchestrator]')) {
     const script = document.createElement('script');
-    script.src = './refresh-orchestrator.js?v=1';
+    script.src = './refresh-orchestrator.js?v=2';
     script.dataset.refreshOrchestrator = '1';
     document.body.appendChild(script);
   }
