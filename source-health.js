@@ -22,7 +22,7 @@
         <div><div class="source-health-kicker">SOURCE HEALTH</div><strong id="sourceHealthTitle">Checking canonical sources…</strong></div>
         <span id="sourceHealthBadge" class="badge">Checking</span>
       </div>
-      <div id="sourceHealthSummary" class="source-health-summary">Reading the latest Master/Work recovery state.</div>
+      <div id="sourceHealthSummary" class="source-health-summary">Reading the latest persisted Master/Work checkpoint state.</div>
       <div id="sourceHealthProjects" class="source-health-projects"></div>
     </section>`);
     return document.getElementById('sourceHealthPanel');
@@ -45,7 +45,7 @@
     ]);
     if(healthRes.error){
       document.getElementById('sourceHealthTitle').textContent='Source health unavailable';
-      document.getElementById('sourceHealthSummary').textContent='The latest canonical-source health summary could not be loaded.';
+      document.getElementById('sourceHealthSummary').textContent='The latest persisted canonical-source health summary could not be loaded.';
       const badge=document.getElementById('sourceHealthBadge'); if(badge){badge.textContent='Unavailable';badge.className='badge unverified';}
       return;
     }
@@ -72,7 +72,7 @@
       .sort((a,b)=>Number(b.required_source_gaps||0)-Number(a.required_source_gaps||0) || String(names.get(a.project_id)||a.project_id).localeCompare(String(names.get(b.project_id)||b.project_id)));
     if(!list) return;
     if(!gaps.length){
-      list.innerHTML='<div class="source-health-ok">Every required canonical source has a verified recovery path.</div>';
+      list.innerHTML='<div class="source-health-ok">Every required canonical source has a verified persisted checkpoint.</div>';
       return;
     }
     const shown=gaps.slice(0,6);
@@ -80,7 +80,8 @@
   }
 
   function schedule(ms=500){clearTimeout(timer);timer=setTimeout(render,ms);}
-  document.addEventListener('click',e=>{if(e.target.closest('#refreshBtn')){schedule(2200);setTimeout(render,17000);}});
+  document.addEventListener('click',e=>{if(e.target.closest('#refreshBtn')){schedule(1200);setTimeout(render,5000);}});
+  document.addEventListener('commandcenter:audit-complete',()=>schedule(100));
   window.addEventListener('load',()=>{schedule(700);setTimeout(render,3000);},{once:true});
   const obs=new MutationObserver(()=>{if(document.getElementById('canonicalAuditPanel')&&!document.getElementById('sourceHealthPanel'))schedule(100);});
   obs.observe(document.documentElement,{childList:true,subtree:true});
