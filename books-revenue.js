@@ -4,6 +4,7 @@
   let cache = { projects: [], metrics: [] };
   let loading = null;
   let timer = null;
+  let mutating = false;
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const norm = v => String(v || '').trim().toLowerCase();
@@ -106,8 +107,6 @@
     return {total:recordedProjects?total:null,recordedProjects,totalProjects:projects.length,bookRows};
   }
 
-  function removeExisting(root=document){ root.querySelectorAll?.('[data-books-revenue-ui]').forEach(el=>el.remove()); }
-
   function decorateGroup(){
     const card=document.querySelector('[data-books-group]');
     if(!card) return;
@@ -162,16 +161,21 @@
 
   async function render(force=false){
     await load(force);
-    decorateGroup();
-    decorateCards();
-    decorateDetail();
+    mutating=true;
+    try{
+      decorateGroup();
+      decorateCards();
+      decorateDetail();
+    }finally{
+      setTimeout(()=>{mutating=false;},0);
+    }
   }
 
   function queue(force=false){clearTimeout(timer);timer=setTimeout(()=>render(force),90);}
   const projectView=document.getElementById('projectView');
-  if(projectView) new MutationObserver(()=>queue(false)).observe(projectView,{childList:true,subtree:true});
+  if(projectView) new MutationObserver(()=>{if(!mutating)queue(false);}).observe(projectView,{childList:true,subtree:true});
   const detail=document.getElementById('detailPanel');
-  if(detail) new MutationObserver(()=>queue(false)).observe(detail,{childList:true,subtree:true});
+  if(detail) new MutationObserver(()=>{if(!mutating)queue(false);}).observe(detail,{childList:true,subtree:true});
   document.addEventListener('click',e=>{
     if(e.target.closest('[data-open],[data-hub-back],[data-books-group],[data-books-back],[data-view]')) queue(false);
     if(e.target.closest('#refreshBtn')) setTimeout(()=>queue(true),1000);
