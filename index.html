@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#04142f">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#020b1d">
+<meta name="color-scheme" content="dark">
 <title>Command Center</title>
-<link rel="manifest" href="./manifest.webmanifest">
+<link rel="manifest" href="./manifest.webmanifest?v=3">
 <link rel="icon" type="image/svg+xml" href="./command-center-icon.svg">
 <link rel="apple-touch-icon" href="./command-center-icon.svg">
 <link rel="stylesheet" href="./styles.css?v=7">
@@ -29,6 +30,7 @@
 @media(max-width:760px){.stats{gap:10px!important}.stat-button{min-height:104px!important;grid-template-columns:48px max-content minmax(0,1fr) 24px!important;column-gap:11px!important;padding:14px 13px!important;border-radius:18px!important}.stat-button::before{width:44px!important;height:44px!important;border-radius:14px!important;font-size:1.18rem!important}.stat-button::after{font-size:1.85rem!important}.stat .value{font-size:clamp(1.5rem,6.2vw,2rem)!important;letter-spacing:-.04em!important}.stat .label{font-size:clamp(1.15rem,5.2vw,1.48rem)!important;line-height:1.02!important;letter-spacing:0!important}.stat-sub{font-size:.72rem!important;margin-top:5px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}.stat-button[data-view="revenue"]{grid-template-columns:48px minmax(0,1fr) max-content 24px!important}.stat-button[data-view="revenue"] .label{font-size:clamp(1.05rem,4.8vw,1.32rem)!important}.stat-button[data-view="revenue"] .value{font-size:clamp(.98rem,4.4vw,1.25rem)!important}.stat-button[data-view="earning"] .value{font-size:clamp(1.35rem,5.6vw,1.75rem)!important}}
 @media(max-width:390px){.stat-button{grid-template-columns:43px max-content minmax(0,1fr) 20px!important;column-gap:9px!important;padding:13px 10px!important}.stat-button::before{width:40px!important;height:40px!important}.stat .value{font-size:1.48rem!important}.stat .label{font-size:1.15rem!important}.stat-button[data-view="revenue"]{grid-template-columns:43px minmax(0,1fr) max-content 20px!important}.stat-button[data-view="revenue"] .label{font-size:1.02rem!important}.stat-button[data-view="revenue"] .value{font-size:.95rem!important}}
 </style>
+<link rel="stylesheet" href="./mobile-accordion-polish.css?v=1">
 </head>
 <body>
 <div id="boot" class="center-screen">Loading secure Command Center…</div>
@@ -74,7 +76,7 @@
     <section id="dashboard" hidden>
       <section class="stats" id="stats"></section>
 
-      <section class="panel view-shell">
+      <section class="panel view-shell" id="dashboardViewShell" hidden>
         <div class="view-head">
           <div>
             <div id="viewEyebrow" class="eyebrow">Overview</div>
@@ -120,5 +122,6 @@
 <script src="./app-config.js"></script>
 <script src="./app.js?v=10"></script>
 <script src="./project-hub.js?v=3"></script>
+<script src="./mobile-accordion-polish.js?v=1"></script>
 </body>
 </html>
