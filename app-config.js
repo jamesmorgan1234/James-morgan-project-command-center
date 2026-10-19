@@ -26,6 +26,19 @@ window.addEventListener('load', () => {
     script.dataset.booksHub = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('link[data-books-revenue]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './books-revenue.css?v=1';
+    link.dataset.booksRevenue = '1';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[data-books-revenue]')) {
+    const script = document.createElement('script');
+    script.src = './books-revenue.js?v=1';
+    script.dataset.booksRevenue = '1';
+    document.body.appendChild(script);
+  }
   if (!document.querySelector('script[data-next-up-label]')) {
     const script = document.createElement('script');
     script.src = './next-up-label.js?v=1';
