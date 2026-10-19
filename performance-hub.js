@@ -52,7 +52,13 @@
 
   function projectMetrics(id){ return cache.metrics.filter(m=>m.project_id===id); }
   function first(ms,keys){ for(const key of keys){ const m=ms.find(x=>x.key===key); if(m) return m; } return null; }
-  function revenueMetric(ms){ return first(ms,['verified_lifetime_revenue_usd','lifetime_revenue_usd','verified_revenue_usd']); }
+  function revenueMetric(ms){
+    for(const key of ['verified_lifetime_revenue_usd','lifetime_revenue_usd','verified_revenue_usd']){
+      const m=ms.find(x=>x.key===key && x.verified===true && x.value_numeric!==null && x.value_numeric!==undefined);
+      if(m) return m;
+    }
+    return null;
+  }
   function subscriberMetric(ms){ return first(ms,['subscriber_count','subscribers','subscriber_status']); }
   function customersMetric(ms){ return first(ms,['customer_count','customers']); }
   function salesMetric(ms){ return first(ms,['lifetime_sales','sales_count','orders','order_count','purchases','product_downloads_checkpoint']); }
@@ -108,8 +114,8 @@
   }
 
   function sourceLine(ms){
-    const sources=[...new Set(ms.filter(m=>m.source).map(m=>m.source))];
-    return sources.length ? `Verified sources on file: ${sources.slice(0,3).join(' • ')}` : 'No live analytics source is connected yet.';
+    const sources=[...new Set(ms.filter(m=>m.verified===true && m.source).map(m=>m.source))];
+    return sources.length ? `Verified sources on file: ${sources.slice(0,3).join(' • ')}` : 'No live verified analytics source is connected yet.';
   }
 
   function commerceBreakdownHtml(p,ms){
@@ -153,7 +159,7 @@
       ['Sales / orders', sales?display(sales):'Not recorded']
     ];
 
-    const modelHtml=modelList.length?`<div class="perf-models"><div class="perf-subhead">${p.id==='fanvue-veyla'?'Models':'Breakdown'}</div>${modelList.map(x=>`<div class="perf-model-card"><div class="perf-model-name">${esc(x.name)}</div><div class="perf-model-stats"><span><small>Subscribers</small><strong>${esc(x.subs?display(x.subs):'Not recorded')}</strong></span><span><small>Lifetime revenue</small><strong>${esc(x.rev?display(x.rev):'Not recorded')}</strong></span></div></div>`).join('')}</div>`:'';
+    const modelHtml=modelList.length?`<div class="perf-models"><div class="perf-subhead">${p.id==='fanvue-veyla'?'Models':'Breakdown'}</div>${modelList.map(x=>`<div class="perf-model-card"><div class="perf-model-name">${esc(x.name)}</div><div class="perf-model-stats"><span><small>Subscribers</small><strong>${esc(x.subs?display(x.subs):'Not recorded')}</strong></span><span><small>Lifetime revenue</small><strong>${esc(x.rev&&x.rev.verified===true?display(x.rev):'Not recorded')}</strong></span></div></div>`).join('')}</div>`:'';
     const commerceHtml=commerceBreakdownHtml(p,ms);
     const extraHtml=extras.length?`<div class="perf-extra-grid">${extras.map(m=>`<div class="perf-mini"><small>${esc(m.label||m.key)}</small><strong>${esc(display(m))}</strong></div>`).join('')}</div>`:'';
 
