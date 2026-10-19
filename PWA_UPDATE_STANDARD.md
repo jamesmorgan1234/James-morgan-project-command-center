@@ -11,17 +11,19 @@ Use this standard for Command Center and future private installed web/PWA apps u
 
 ## Manifest and theme updates
 
+- Keep the web app manifest URL stable. Do not rename or move the manifest merely to force an update; Chrome may treat a changed manifest location as a different update path.
 - Keep manifest `theme_color`, `background_color`, `display`, and related metadata aligned with the live app shell.
-- Version the manifest URL when making significant metadata changes so the browser has a clear new resource to retrieve.
 - Use a dark `theme-color` plus `color-scheme: dark` for dark apps so browser/system areas blend with the app where Android/Chrome permits it.
+- Treat OS navigation/status surfaces as platform-controlled. If the page itself is dark and the manifest/meta theme colors are correct, a remaining white Android system navigation area may not be controllable from normal PWA CSS/manifest settings. Do not force immersive/fullscreen mode solely to hide it.
 
 ## App icon updates
 
 - When an icon changes, use a new versioned icon filename instead of overwriting an old filename in place.
-- Update the manifest to reference the new `any` and `maskable` icon resources.
+- Update the manifest `icons` field to reference the new `any` and `maskable` icon URLs while keeping the manifest `id`, `start_url`, scope, and manifest location stable.
+- On current Chrome for Android, changing the icon URL/metadata is the standards-compliant trigger for an installed WebAPK icon refresh. Chrome may automatically apply a small visual change or may show a simple Review app update/Update confirmation for a larger identity/icon change.
+- There is no normal web API that can force Android to replace an installed launcher icon immediately. Launching the PWA lets Chrome re-check the manifest; the installed metadata update may still be asynchronous.
 - Do not make uninstall/reinstall the normal update path.
-- Allow Chrome/Android/WebAPK time to refresh installed metadata first.
-- If the platform requires user approval for a significant identity/icon change, prefer one simple Review/Update action.
+- Prefer one simple platform Review/Update action when Chrome/Android requires confirmation.
 - Only use uninstall/reinstall/re-add-to-home-screen as a last resort when the platform genuinely cannot refresh the installed metadata.
 
 ## Mobile behavior
