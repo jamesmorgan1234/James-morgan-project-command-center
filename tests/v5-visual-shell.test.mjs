@@ -1,0 +1,18 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const parts=[1,2,3,4,5,6].map(n=>fs.readFileSync(`command-center-v5-${n}.css`,'utf8'));
+const css=parts.join('\n');
+const js=fs.readFileSync('command-center-v5.js','utf8');
+const cfg=fs.readFileSync('app-config.js','utf8');
+const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
+for(const n of [1,2,3,4,5,6]) assert.match(cfg,new RegExp(`command-center-v5-${n}\\.css\\?v=1`));
+assert.match(cfg,/command-center-v5\.js\?v=1/);
+for(const [i,part] of parts.entries()) assert.equal((part.match(/\{/g)||[]).length,(part.match(/\}/g)||[]).length,`stylesheet ${i+1} has unbalanced braces`);
+for(const art of ['art-eclipse.svg','art-mountain.svg','art-chart.svg','art-road.svg','art-network.svg']) assert.match(css,new RegExp(art.replace('.','\\.')));
+for(const art of ['art-brain.svg','art-castle.svg','art-mountain-red.svg']) assert.match(js,new RegExp(art.replace('.','\\.')));
+assert.match(js,/Projects earning/); assert.match(js,/Highest-priority moves/); assert.match(js,/dataset\.cc5Icon/); assert.match(js,/cc5-project-ring/);
+assert.match(css,/\.stat-button\[data-view="revenue"\]\{display:none!important\}/);
+assert.match(css,/\.ccv4-pipeline-list/); assert.match(css,/\.ccv4-ring/); assert.match(css,/touch-action:pan-y/);
+assert.match(css,/body::after\{background:#000!important\}/);
+assert.equal(manifest.theme_color,'#000000');
+console.log('V5 visual shell QA passed.');

@@ -1,0 +1,12 @@
+html[data-command-center-theme="v5"] body::after{background:#000!important}
+html[data-command-center-theme="v5"] .project-card>.section-head{grid-column:2!important;grid-row:1/3!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:8px!important;margin:0!important}
+html[data-command-center-theme="v5"] .project-card>.section-head h3{font-size:1.22rem!important;line-height:1.05!important;margin:0!important;color:#fff!important;text-shadow:0 0 10px rgba(255,112,0,.25)!important}
+html[data-command-center-theme="v5"] .project-card>.section-head .muted{font-size:.76rem!important;color:#a8b7c6!important}
+html[data-command-center-theme="v5"] .project-card>.section-head .badge{font-size:.68rem!important;padding:4px 9px!important;border-radius:999px!important}
+html[data-command-center-theme="v5"] .project-card>.project-meta,html[data-command-center-theme="v5"] .project-card>.project-next,html[data-command-center-theme="v5"] .project-card>.metric-row,html[data-command-center-theme="v5"] .project-card>.card-actions{display:none!important}
+html[data-command-center-theme="v5"] .ccv4-roadmap-badge{border:1px solid #ff6d00!important;background:rgba(255,107,0,.09)!important;color:#ff9d2a!important;border-radius:999px!important;padding:5px 10px!important}
+html[data-command-center-theme="v5"] .ccv4-pipeline-plan{border-top:1px solid rgba(255,107,0,.28)!important;background:#050505!important;color:#b4c0ce!important}
+html[data-command-center-theme="v5"] .source-health-ok{color:#19e9a2!important}
+html[data-command-center-theme="v5"] .canonical-audit-progress{color:#879eb6!important}
+html[data-command-center-theme="v5"] .revenue-summary,html[data-command-center-theme="v5"] .revenue-list{border-color:#ff6e00!important;background:#060606!important}
+@media(max-width:760px){html[data-command-center-theme="v5"] .project-card>.section-head h3{font-size:1rem!important}html[data-command-center-theme="v5"] .project-card>.section-head .muted{font-size:.68rem!important}}
