@@ -5,6 +5,10 @@ on:
       - 'index.html'
       - 'command-center-v6.css'
       - 'command-center-v6.js'
+      - 'command-center-v6-2.css'
+      - 'command-center-v6-2.js'
+      - 'mobile-accordion-polish.css'
+      - 'mobile-accordion-polish.js'
       - 'app-config.js'
       - 'manifest.webmanifest'
       - 'service-worker.js'
@@ -12,6 +16,7 @@ on:
       - 'command-center-approved-icon-512.png'
       - 'tests/v6-exact-approved.test.mjs'
       - 'tests/pwa-icon-update.test.mjs'
+      - 'tests/mobile-navigation.test.mjs'
       - '.github/workflows/v6-exact-approved-qa.yml'
   workflow_dispatch:
 permissions:
@@ -25,6 +30,8 @@ jobs:
         with:
           node-version: '22'
       - run: node --check command-center-v6.js
+      - run: node --check command-center-v6-2.js
+      - run: node --check mobile-accordion-polish.js
       - run: node tests/v6-exact-approved.test.mjs
       - run: node tests/pwa-icon-update.test.mjs
       - run: node tests/mobile-navigation.test.mjs
