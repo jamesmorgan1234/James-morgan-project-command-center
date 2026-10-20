@@ -41,3 +41,4 @@ html[data-command-center-theme="v5"] input,html[data-command-center-theme="v5"] 
   html[data-command-center-theme="v5"] .cc5-card-chevron{font-size:2.2rem}
   html[data-command-center-theme="v5"] .toolbar{display:none!important}
   html[data-command-center-theme="v5"] .ccv4-pipeline-list{grid-template-columns:1fr!important}
+}
