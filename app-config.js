@@ -43,4 +43,5 @@ window.addEventListener('load', () => {
   addCss('commandCenterV6','./command-center-v6.css?v=1'); addJs('commandCenterV6','./command-center-v6.js?v=1');
   addCss('commandCenterV62','./command-center-v6-2.css?v=1'); addJs('commandCenterV62','./command-center-v6-2.js?v=1');
   addCss('commandCenterV6Art','./command-center-v6-art.css?v=1');
+  addCss('approvedBookCovers','./command-center-book-covers.css?v=2'); addJs('approvedBookCovers','./command-center-book-covers.js?v=2');
 }, { once: true });

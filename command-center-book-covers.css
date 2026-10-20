@@ -1,0 +1,19 @@
+html[data-command-center-theme="v6"] .cc7-approved-cover{
+  background-image:var(--cc7-atlas)!important;
+  background-size:4100% 100%!important;
+  background-position:var(--cc7-x) center!important;
+  background-repeat:no-repeat!important;
+  background-color:#040302!important;
+  padding:0!important;
+  image-rendering:auto!important;
+}
+html[data-command-center-theme="v6"] .cc7-approved-cover>b{display:none!important}
+html[data-command-center-theme="v6"] .cc7-approved-cover:before{
+  z-index:2!important;
+  background:rgba(10,5,2,.92)!important;
+  backdrop-filter:blur(2px)!important;
+}
+html[data-command-center-theme="v6"] .cc62-book-tile .cc7-approved-cover,
+html[data-command-center-theme="v6"] .book-revenue-row .cc7-approved-cover{
+  box-shadow:0 0 0 1px rgba(255,181,67,.3),0 0 13px rgba(255,92,0,.52)!important;
+}

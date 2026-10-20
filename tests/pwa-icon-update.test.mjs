@@ -19,7 +19,7 @@ assert.equal(icon.readUInt32BE(20),512,'approved launcher source height must be 
 assert.match(html,/rel="manifest" href="\.\/manifest\.webmanifest\?v=6"/);
 assert.match(html,/command-center-approved-icon-512\.png\?icon=6-browser/);
 assert.match(html,/meta name="theme-color" content="#000000"/);
-assert.match(sw,/james-command-center-v45/);
+assert.match(sw,/james-command-center-v47/);
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=6-approved'"));
 assert.match(sw,/pathname\.endsWith\('\/manifest\.webmanifest'\)/); assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-512\.png'\)/); assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
 assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Preserve the exact user-approved launcher artwork/); assert.match(standard,/command-center-approved-icon-512\.png/);

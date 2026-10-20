@@ -1,0 +1,27 @@
+name: Approved Book Cover Library QA
+on:
+  pull_request:
+    paths:
+      - 'book-cover-atlas-v2.webp'
+      - 'command-center-book-covers.js'
+      - 'command-center-book-covers.css'
+      - 'app-config.js'
+      - 'index.html'
+      - 'service-worker.js'
+      - 'tests/book-cover-library.test.mjs'
+      - '.github/workflows/book-cover-library-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  approved-covers:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check command-center-book-covers.js
+      - run: node tests/book-cover-library.test.mjs
+      - run: node tests/v6-exact-approved.test.mjs
+      - run: node tests/mobile-navigation.test.mjs
