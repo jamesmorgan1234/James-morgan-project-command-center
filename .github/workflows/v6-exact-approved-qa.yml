@@ -1,0 +1,32 @@
+name: V6 Exact Approved QA
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'command-center-v6.css'
+      - 'command-center-v6.js'
+      - 'app-config.js'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
+      - 'PWA_UPDATE_STANDARD.md'
+      - 'command-center-approved-icon-512.png'
+      - 'tests/v6-exact-approved.test.mjs'
+      - 'tests/pwa-icon-update.test.mjs'
+      - '.github/workflows/v6-exact-approved-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  exact-approved:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check command-center-v6.js
+      - run: node tests/v6-exact-approved.test.mjs
+      - run: node tests/pwa-icon-update.test.mjs
+      - run: node tests/mobile-navigation.test.mjs
+      - run: node tests/scope-progress.test.mjs
+      - run: node tests/v4-control-room.test.mjs
