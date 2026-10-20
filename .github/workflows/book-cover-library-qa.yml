@@ -2,7 +2,7 @@ name: Approved Book Cover Library QA
 on:
   pull_request:
     paths:
-      - 'book-cover-atlas-v1.webp'
+      - 'book-cover-atlas-v2.webp'
       - 'command-center-book-covers.js'
       - 'command-center-book-covers.css'
       - 'app-config.js'
