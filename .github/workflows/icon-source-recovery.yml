@@ -1,0 +1,91 @@
+name: Recover approved launcher icon source
+
+on:
+  push:
+    branches:
+      - cc-icon-source-recovery
+    paths:
+      - .github/workflows/icon-source-recovery.yml
+      - command-center-icon-v4.svg
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recover-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Extract exact selected #4 source and fully decode it
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, re
+          from PIL import Image
+
+          svg_path = Path('command-center-icon-v4.svg')
+          svg = svg_path.read_text(encoding='utf-8')
+          m = re.search(r'data:image/webp;base64,([A-Za-z0-9+/=]+)', svg)
+          if not m:
+              raise SystemExit('embedded WebP source not found')
+
+          webp = base64.b64decode(m.group(1), validate=True)
+          source = Path('recovered-approved-icon-source.webp')
+          source.write_bytes(webp)
+
+          with Image.open(source) as im:
+              if im.format != 'WEBP':
+                  raise SystemExit(f'unexpected source format: {im.format}')
+              if im.size != (512, 512):
+                  raise SystemExit(f'unexpected source size: {im.size}')
+              im.verify()
+
+          with Image.open(source) as im:
+              im.load()
+              pixels = im.convert('RGBA')
+              pixels.save('recovered-approved-icon-512.png', format='PNG')
+              pixels.resize((256, 256), Image.Resampling.LANCZOS).save(
+                  'recovered-approved-icon-256.png', format='PNG'
+              )
+
+          for name, expected_size in (
+              ('recovered-approved-icon-512.png', (512, 512)),
+              ('recovered-approved-icon-256.png', (256, 256)),
+          ):
+              p = Path(name)
+              with Image.open(p) as im:
+                  if im.format != 'PNG' or im.size != expected_size:
+                      raise SystemExit(f'{name}: invalid decoded image metadata')
+                  im.verify()
+              with Image.open(p) as im:
+                  im.load()
+
+          for name in (
+              'command-center-icon-v4.svg',
+              'recovered-approved-icon-source.webp',
+              'recovered-approved-icon-512.png',
+              'recovered-approved-icon-256.png',
+          ):
+              data = Path(name).read_bytes()
+              print(f'{name} bytes={len(data)} sha256={hashlib.sha256(data).hexdigest()}')
+
+          print('FULL_DECODE_OK selected-#4 embedded WebP and recovered PNGs')
+          PY
+
+      - name: Upload recovery artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: approved-icon-source-recovery
+          path: |
+            recovered-approved-icon-source.webp
+            recovered-approved-icon-512.png
+            recovered-approved-icon-256.png
+          if-no-files-found: error
+          retention-days: 7
