@@ -40,5 +40,7 @@ window.addEventListener('load', () => {
   addCss('refreshOrchestrator','./refresh-orchestrator.css?v=1'); addJs('refreshOrchestrator','./refresh-orchestrator.js?v=6');
   addCss('sourceHealth','./source-health.css?v=1'); addJs('sourceHealth','./source-health.js?v=2');
   addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
-  addCss('commandCenterV51','./command-center-v5-1.css?v=1'); addCss('commandCenterV52','./command-center-v5-2.css?v=1'); addCss('commandCenterV53','./command-center-v5-3.css?v=1'); addCss('commandCenterV54','./command-center-v5-4.css?v=1'); addCss('commandCenterV55','./command-center-v5-5.css?v=1'); addCss('commandCenterV56','./command-center-v5-6.css?v=1'); addJs('commandCenterV5','./command-center-v5.js?v=1');
+  addCss('commandCenterV6','./command-center-v6.css?v=1'); addJs('commandCenterV6','./command-center-v6.js?v=1');
+  addCss('commandCenterV62','./command-center-v6-2.css?v=1'); addJs('commandCenterV62','./command-center-v6-2.js?v=1');
+  addCss('commandCenterV6Art','./command-center-v6-art.css?v=1');
 }, { once: true });

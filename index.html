@@ -1,35 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-command-center-theme="v6">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#020b1d">
+<meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark">
 <title>Command Center</title>
-<link rel="manifest" href="./manifest.webmanifest?v=3">
-<link rel="icon" type="image/svg+xml" href="./command-center-icon.svg">
-<link rel="apple-touch-icon" href="./command-center-icon.svg">
+<link rel="manifest" href="./manifest.webmanifest?v=6">
+<link rel="icon" type="image/png" href="./command-center-approved-icon-512.png?icon=6-browser">
+<link rel="apple-touch-icon" href="./command-center-approved-icon-512.png?icon=6-apple">
 <link rel="stylesheet" href="./styles.css?v=7">
 <link rel="stylesheet" href="./project-hub.css?v=2">
-<style>
-.view-shell:has(#homeView:not([hidden])) > .view-head{display:none!important}
-#homeView{display:none!important}
-.stats{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
-.stat-button{grid-column:1!important;width:100%!important;min-height:118px!important;display:grid!important;grid-template-columns:64px minmax(90px,max-content) minmax(0,1fr) 36px!important;grid-template-rows:auto auto!important;column-gap:22px!important;align-items:center!important;padding:18px 24px!important;border-radius:22px!important;position:relative!important;overflow:hidden!important;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.09),inset 0 -1px 0 rgba(0,0,0,.24),0 16px 34px rgba(0,0,0,.30)!important}
-.stat-button::before{position:static!important;grid-column:1!important;grid-row:1/3!important;width:58px!important;height:58px!important;border-radius:18px!important;display:grid!important;place-items:center!important;align-self:center!important;border-width:1px!important;border-style:solid!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 30px currentColor!important}
-.stat-button::after{position:static!important;grid-column:4!important;grid-row:1/3!important;transform:none!important;justify-self:end!important;align-self:center!important;font-size:2.55rem!important;line-height:1!important;opacity:.98!important;text-shadow:0 0 18px currentColor}
-.stat .value{grid-column:2!important;grid-row:1/3!important;align-self:center!important;justify-self:start!important;margin:0!important;order:initial!important;font-size:clamp(2.25rem,4vw,3.45rem)!important;font-weight:950!important;line-height:.92!important;white-space:nowrap!important;letter-spacing:-.05em!important;color:#fff!important;text-shadow:0 0 24px rgba(255,255,255,.12)}
-.stat .label{grid-column:3!important;grid-row:1!important;align-self:end!important;justify-self:center!important;text-align:center!important;margin:0!important;order:initial!important;font-size:clamp(1.7rem,2.7vw,2.3rem)!important;font-weight:950!important;line-height:1!important;letter-spacing:.018em!important;text-transform:uppercase!important;color:#fff!important;text-shadow:0 2px 10px rgba(0,0,0,.28)}
-.stat-sub{grid-column:3!important;grid-row:2!important;align-self:start!important;justify-self:center!important;text-align:center!important;margin:8px 0 0!important;order:initial!important;display:block!important;font-size:.86rem!important;line-height:1.2!important;color:#a7bdd8!important}
-.stat-button[data-view="all"]{border-color:#1768a6!important;border-left:5px solid #25a8ff!important;background:radial-gradient(circle at 8% 50%,rgba(37,168,255,.22),transparent 24%),linear-gradient(105deg,rgba(10,58,111,.96),rgba(5,25,55,.97) 58%,rgba(5,34,69,.97))!important}.stat-button[data-view="all"]::before{content:'▣'!important;color:#22a8ff!important;background:linear-gradient(145deg,rgba(20,136,230,.28),rgba(4,55,103,.72))!important;border-color:rgba(80,190,255,.34)!important}.stat-button[data-view="all"]::after{color:#73bfff!important}
-.stat-button[data-view="attention"]{border-color:#71304b!important;border-left:5px solid #ff607d!important;background:radial-gradient(circle at 8% 50%,rgba(255,96,125,.20),transparent 24%),linear-gradient(105deg,rgba(80,22,57,.90),rgba(31,15,43,.97) 58%,rgba(48,16,39,.97))!important}.stat-button[data-view="attention"]::before{content:'!'!important;color:#ff7890!important;background:linear-gradient(145deg,rgba(215,54,88,.30),rgba(91,17,52,.72))!important;border-color:rgba(255,113,142,.34)!important}.stat-button[data-view="attention"]::after{color:#ff879c!important}
-.stat-button[data-view="active"]{border-color:#167760!important;border-left:5px solid #28d79b!important;background:radial-gradient(circle at 8% 50%,rgba(40,215,155,.20),transparent 24%),linear-gradient(105deg,rgba(9,78,67,.91),rgba(5,37,42,.97) 58%,rgba(7,50,47,.97))!important}.stat-button[data-view="active"]::before{content:'▶'!important;font-size:1.3rem!important;color:#35e6a7!important;background:linear-gradient(145deg,rgba(32,176,124,.30),rgba(6,78,62,.72))!important;border-color:rgba(69,231,177,.34)!important}.stat-button[data-view="active"]::after{color:#52e7b1!important}
-.stat-button[data-view="revenue"]{border-color:#5749a8!important;border-left:5px solid #9b80ff!important;background:radial-gradient(circle at 8% 50%,rgba(155,128,255,.22),transparent 24%),linear-gradient(105deg,rgba(57,47,122,.91),rgba(20,21,64,.97) 58%,rgba(36,29,82,.97))!important;grid-template-columns:64px minmax(0,1fr) max-content 36px!important}.stat-button[data-view="revenue"]::before{content:'▥'!important;color:#ae96ff!important;background:linear-gradient(145deg,rgba(128,103,230,.30),rgba(52,38,123,.72))!important;border-color:rgba(174,150,255,.36)!important}.stat-button[data-view="revenue"]::after{color:#c1adff!important}.stat-button[data-view="revenue"] .label{grid-column:2!important;grid-row:1/3!important;align-self:center!important;justify-self:center!important;font-size:clamp(1.7rem,2.7vw,2.3rem)!important}.stat-button[data-view="revenue"] .value{grid-column:3!important;grid-row:1!important;align-self:end!important;justify-self:center!important;font-size:clamp(1.55rem,2.4vw,2.05rem)!important;letter-spacing:-.025em!important}.stat-button[data-view="revenue"] .stat-sub{grid-column:3!important;grid-row:2!important;justify-self:center!important}
-.stat-button[data-view="earning"]{border-color:#82671e!important;border-left:5px solid #ffd34b!important;background:radial-gradient(circle at 8% 50%,rgba(255,211,75,.20),transparent 24%),linear-gradient(105deg,rgba(81,63,16,.92),rgba(41,30,9,.97) 58%,rgba(58,43,10,.97))!important}.stat-button[data-view="earning"]::before{content:'$'!important;color:#ffdc62!important;background:linear-gradient(145deg,rgba(210,166,38,.30),rgba(100,74,8,.72))!important;border-color:rgba(255,220,98,.38)!important}.stat-button[data-view="earning"]::after{color:#ffe074!important}
-.stat-button:hover{transform:translateY(-2px) scale(1.002)!important;filter:brightness(1.08)!important}
-@media(max-width:760px){.stats{gap:10px!important}.stat-button{min-height:104px!important;grid-template-columns:48px max-content minmax(0,1fr) 24px!important;column-gap:11px!important;padding:14px 13px!important;border-radius:18px!important}.stat-button::before{width:44px!important;height:44px!important;border-radius:14px!important;font-size:1.18rem!important}.stat-button::after{font-size:1.85rem!important}.stat .value{font-size:clamp(1.5rem,6.2vw,2rem)!important;letter-spacing:-.04em!important}.stat .label{font-size:clamp(1.15rem,5.2vw,1.48rem)!important;line-height:1.02!important;letter-spacing:0!important}.stat-sub{font-size:.72rem!important;margin-top:5px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}.stat-button[data-view="revenue"]{grid-template-columns:48px minmax(0,1fr) max-content 24px!important}.stat-button[data-view="revenue"] .label{font-size:clamp(1.05rem,4.8vw,1.32rem)!important}.stat-button[data-view="revenue"] .value{font-size:clamp(.98rem,4.4vw,1.25rem)!important}.stat-button[data-view="earning"] .value{font-size:clamp(1.35rem,5.6vw,1.75rem)!important}}
-@media(max-width:390px){.stat-button{grid-template-columns:43px max-content minmax(0,1fr) 20px!important;column-gap:9px!important;padding:13px 10px!important}.stat-button::before{width:40px!important;height:40px!important}.stat .value{font-size:1.48rem!important}.stat .label{font-size:1.15rem!important}.stat-button[data-view="revenue"]{grid-template-columns:43px minmax(0,1fr) max-content 20px!important}.stat-button[data-view="revenue"] .label{font-size:1.02rem!important}.stat-button[data-view="revenue"] .value{font-size:.95rem!important}}
-</style>
 <link rel="stylesheet" href="./mobile-accordion-polish.css?v=1">
 </head>
 <body>
@@ -37,7 +18,7 @@
 <div id="app" hidden>
   <header class="topbar">
     <div class="brand-lockup">
-      <img class="brand-icon" src="./command-center-icon.svg" alt="Command Center">
+      <img class="brand-icon" src="./command-center-approved-icon-512.png?icon=6-ui" alt="Command Center">
       <div class="brand-copy">
         <h1>Command Center</h1>
         <div class="brand-tagline">Projects • Progress • Priorities • Performance</div>
@@ -119,7 +100,7 @@
   </footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./app-config.js"></script>
+<script src="./app-config.js?v=6"></script>
 <script src="./app.js?v=10"></script>
 <script src="./project-hub.js?v=3"></script>
 <script src="./mobile-accordion-polish.js?v=1"></script>
