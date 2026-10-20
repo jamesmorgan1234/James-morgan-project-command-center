@@ -1,0 +1,53 @@
+html[data-command-center-theme="v6"],html[data-command-center-theme="v6"] body{background:#000!important;color-scheme:dark!important}
+html[data-command-center-theme="v6"] body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:env(safe-area-inset-bottom);background:#000!important;pointer-events:none;z-index:2147483646}
+html[data-command-center-theme="v6"] #dashboardStack{display:flex!important;flex-direction:column!important;width:100%!important;min-width:0!important}
+html[data-command-center-theme="v6"] #dashboardStack>#stats{display:contents!important}
+html[data-command-center-theme="v6"] #dashboardViewShell{align-self:stretch!important;width:100%!important;max-width:100%!important;min-width:0!important}
+html[data-command-center-theme="v6"] .stat-button.is-open{border-color:#ff8b18!important;box-shadow:0 0 0 1px #ff5e00,0 0 20px rgba(255,94,0,.78),inset 0 0 24px rgba(255,90,0,.10)!important}
+html[data-command-center-theme="v6"] .stat-button.is-open:after{content:'⌄'!important}
+html[data-command-center-theme="v6"] .refresh-btn{position:relative!important;padding-left:92px!important}
+html[data-command-center-theme="v6"] .refresh-btn:before{content:'↻'!important;position:absolute!important;left:26px!important;top:50%!important;transform:translateY(-50%)!important;width:54px!important;height:54px!important;display:grid!important;place-items:center!important;border:3px solid #ffe1a1!important;border-radius:50%!important;background:radial-gradient(circle,#ff8d16 0 42%,rgba(75,20,0,.92) 44% 100%)!important;color:#fff!important;font-size:2.15rem!important;line-height:1!important;text-shadow:0 0 8px #fff!important;box-shadow:0 0 14px #ff6500,inset 0 0 12px rgba(255,255,255,.28)!important}
+html[data-command-center-theme="v6"] .canonical-audit,html[data-command-center-theme="v6"] .source-health{padding-left:106px!important;min-height:185px!important}
+html[data-command-center-theme="v6"] .cc62-notice-emblem{position:absolute;left:20px;top:22px;width:66px;height:66px;display:grid;place-items:center;clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%);background:linear-gradient(135deg,#ff9f27,#692304 33%,#050403 40%,#050403 62%,#8f3205 76%,#ff9f27);box-shadow:0 0 16px rgba(255,93,0,.8);padding:4px;z-index:2}
+html[data-command-center-theme="v6"] .cc62-notice-emblem>span{width:100%;height:100%;display:grid;place-items:center;clip-path:inherit;background:radial-gradient(circle,#2c1003,#050403 69%);border:1px solid #ff6900;color:#ff9f28;font-size:2rem;font-weight:950;text-shadow:0 0 9px #ff6500}
+html[data-command-center-theme="v6"] .cc62-notice-emblem.is-database>span:before{content:'▤';font-size:2rem}
+html[data-command-center-theme="v6"] .cc62-notice-emblem.is-shield>span{font-size:1.65rem;border-radius:18px}
+html[data-command-center-theme="v6"] .cc62-project-view,html[data-command-center-theme="v6"] .cc62-detail-panel,html[data-command-center-theme="v6"] .cc62-revenue-view,html[data-command-center-theme="v6"] .cc62-deep-orange{background:#020202!important;color:#fff!important}
+html[data-command-center-theme="v6"] #projectView .project-view-grid,html[data-command-center-theme="v6"] #projectView.project-hub-detail .project-view-grid{grid-template-columns:minmax(0,1fr)!important;display:block!important}
+html[data-command-center-theme="v6"] #detailPanel{width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+html[data-command-center-theme="v6"] #detailPanel [data-cc62-internal="hidden"]{display:none!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel.cc62-kdp-performance{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important;padding:13px!important;border:2px solid #ff5e00!important;background:linear-gradient(180deg,#060504,#020202)!important;box-shadow:0 0 0 1px rgba(255,109,14,.36),0 0 14px rgba(255,86,0,.45),inset 0 0 18px rgba(255,86,0,.06)!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;width:100%!important;min-width:0!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary>span{min-width:0!important;min-height:82px!important;padding:10px!important;border:1px solid #3a312c!important;border-radius:4px!important;background:#050505!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary small{display:block!important;color:#aab9c8!important;font-size:.68rem!important;line-height:1.12!important;text-transform:none!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary strong{display:block!important;color:#fff!important;font-size:1.12rem!important;line-height:1.04!important;margin-top:5px!important;text-shadow:0 0 7px rgba(255,103,0,.35)!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] .cc62-books-strip{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:7px!important;overflow:visible!important;width:100%!important;min-width:0!important;padding:0!important;margin:0!important;scroll-snap-type:none!important}
+html[data-command-center-theme="v6"] .cc62-book-tile{display:block!important;min-width:0!important;width:auto!important;max-width:none!important;flex:none!important;padding:0!important;margin:0!important;border:0!important;background:transparent!important;overflow:visible!important}
+html[data-command-center-theme="v6"] .cc62-book-tile .book-revenue-title-wrap{display:block!important;min-width:0!important;text-align:center!important}
+html[data-command-center-theme="v6"] .cc62-book-tile .cc6-book-cover{width:100%!important;max-width:122px!important;height:auto!important;aspect-ratio:2/3!important;margin:0 auto 6px!important;border:1px solid #ff6500!important;border-radius:4px!important;box-shadow:0 0 11px rgba(255,92,0,.40)!important}
+html[data-command-center-theme="v6"] .cc62-book-tile .cc6-book-cover b{font-size:clamp(.44rem,1.45vw,.63rem)!important;line-height:1.02!important;letter-spacing:.055em!important;padding:0 1px!important}
+html[data-command-center-theme="v6"] .cc62-book-tile .book-revenue-title{display:block!important;font-size:clamp(.55rem,1.75vw,.78rem)!important;line-height:1.08!important;color:#e7eef5!important;text-align:center!important;white-space:normal!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] .cc62-book-tile .book-revenue-status,html[data-command-center-theme="v6"] .cc62-book-tile .book-revenue-values{display:none!important}
+html[data-command-center-theme="v6"] .cc62-publication-status{border:2px solid #ff5e00!important;background:#030303!important;box-shadow:0 0 12px rgba(255,84,0,.35)!important}
+html[data-command-center-theme="v6"] .cc62-publication-status .ccv4-pub-formats{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:7px!important}
+html[data-command-center-theme="v6"] .cc62-publication-status .ccv4-pub-formats>span{min-width:0!important;background:#050505!important;border:1px solid #3c3027!important}
+html[data-command-center-theme="v6"] .cc62-publication-status .ccv4-pub-formats small{font-size:.62rem!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] .cc62-snapshot-panel,html[data-command-center-theme="v6"] .cc62-tracking,html[data-command-center-theme="v6"] .cc62-capability-pipeline{border-color:#ff5e00!important;background:linear-gradient(180deg,#070504,#020202)!important;color:#fff!important;box-shadow:0 0 12px rgba(255,84,0,.28)!important}
+html[data-command-center-theme="v6"] .cc62-capability-pipeline .ccv4-pipeline-list{display:grid!important;gap:8px!important}
+html[data-command-center-theme="v6"] .cc62-capability-pipeline .ccv4-pipeline-item{border:1px solid #72330c!important;background:linear-gradient(90deg,rgba(255,85,0,.06),#030303 55%)!important}
+html[data-command-center-theme="v6"] .cc62-capability-pipeline .ccv4-ring{box-shadow:0 0 8px rgba(255,100,0,.45)!important}
+html[data-command-center-theme="v6"] .books-subhub-active,html[data-command-center-theme="v6"] .books-subhub-active *{--panel:#050403;--border:#ff5e00}
+html[data-command-center-theme="v6"] .books-subhub-active .hub-project-card,html[data-command-center-theme="v6"] .books-group-card,html[data-command-center-theme="v6"] .performance-panel,html[data-command-center-theme="v6"] .performance-card,html[data-command-center-theme="v6"] .revenue-summary,html[data-command-center-theme="v6"] .revenue-card{border-color:#ff5e00!important;background:linear-gradient(180deg,#070504,#020202)!important;color:#fff!important;box-shadow:0 0 10px rgba(255,83,0,.24)!important}
+@media(max-width:620px){
+ html[data-command-center-theme="v6"] .refresh-btn{padding-left:74px!important}
+ html[data-command-center-theme="v6"] .refresh-btn:before{left:18px!important;width:46px!important;height:46px!important;font-size:1.8rem!important}
+ html[data-command-center-theme="v6"] .canonical-audit,html[data-command-center-theme="v6"] .source-health{padding-left:84px!important;min-height:165px!important}
+ html[data-command-center-theme="v6"] .cc62-notice-emblem{left:14px!important;top:18px!important;width:56px!important;height:56px!important}
+ html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary>span{min-height:74px!important;padding:8px!important}
+ html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary small{font-size:.59rem!important}
+ html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary strong{font-size:.9rem!important}
+ html[data-command-center-theme="v6"] .cc62-books-strip{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:5px!important}
+ html[data-command-center-theme="v6"] .cc62-book-tile .cc6-book-cover{border-radius:3px!important;margin-bottom:4px!important}
+ html[data-command-center-theme="v6"] .cc62-publication-status .ccv4-pub-formats{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important}
+}
