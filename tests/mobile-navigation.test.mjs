@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 
 const mobile = readFileSync('mobile-accordion-polish.js', 'utf8');
 const mobileCss = readFileSync('mobile-accordion-polish.css', 'utf8');
+const v5Js = readFileSync('command-center-v5.js', 'utf8');
+const v5Css = [1,2,3,4,5,6].map(n=>readFileSync(`command-center-v5-${n}.css`,'utf8')).join('\n');
 const sw = readFileSync('service-worker.js', 'utf8');
 const html = readFileSync('index.html', 'utf8');
 const manifest = readFileSync('manifest.webmanifest', 'utf8');
@@ -21,12 +23,12 @@ assert.match(mobileCss, /touch-action:pan-y!important/, 'vertical touch panning 
 assert.match(mobileCss, /overscroll-behavior-y:auto!important/, 'system-bar hardening must not suppress Android vertical panning');
 
 assert.match(html, /viewport-fit=cover/, 'PWA must opt in to standards-based edge-to-edge handling');
-assert.match(html, /<meta name="theme-color" content="#020b1d">/, 'document theme color must remain dark');
 assert.equal(JSON.parse(manifest).display, 'standalone', 'PWA must remain standalone; do not hide Android controls with fullscreen');
-assert.equal(JSON.parse(manifest).theme_color, '#020b1d', 'manifest theme color must remain dark');
-assert.equal(JSON.parse(manifest).background_color, '#020b1d', 'manifest background must remain dark');
+assert.equal(JSON.parse(manifest).theme_color, '#000000', 'manifest theme color must use the V5 black system theme');
+assert.equal(JSON.parse(manifest).background_color, '#000000', 'manifest background must use the V5 black system theme');
+assert.match(v5Js, /setAttribute\('content','#000000'\)/, 'V5 must set the runtime theme meta to black');
+assert.match(v5Css, /body::after\{background:#000!important\}/, 'V5 must repaint the exposed safe-area/system-bar edge black');
 assert.match(mobile, /safe-area-inset-bottom/, 'page must paint/pad the safe-area region when Chrome exposes it');
-assert.match(mobile, /background-color:#020b1d/, 'system-bar-adjacent page background must stay dark');
 assert.doesNotMatch(manifest, /"display"\s*:\s*"fullscreen"/, 'must not force immersive/fullscreen to hide Android system navigation');
 
 const cacheVersionMatch = sw.match(/james-command-center-v(\d+)/);
