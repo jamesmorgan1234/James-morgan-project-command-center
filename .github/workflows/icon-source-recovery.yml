@@ -6,7 +6,6 @@ on:
       - cc-icon-source-recovery
     paths:
       - .github/workflows/icon-source-recovery.yml
-      - command-center-icon-v4.svg
   workflow_dispatch:
 
 permissions:
@@ -17,68 +16,64 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Install Pillow
         run: python -m pip install --disable-pip-version-check pillow
 
-      - name: Extract exact selected #4 source and fully decode it
+      - name: Recover exact approved icon from verified historical chunks
         shell: bash
         run: |
           set -euo pipefail
+          SOURCE_COMMIT=576616b363e50f9a3992a577a9bb0d6fe2503637
+          git fetch --no-tags --depth=1 origin "$SOURCE_COMMIT"
           python - <<'PY'
           from pathlib import Path
-          import base64, hashlib, re
+          import base64, hashlib, subprocess
           from PIL import Image
 
-          svg_path = Path('command-center-icon-v4.svg')
-          svg = svg_path.read_text(encoding='utf-8')
-          m = re.search(r'data:image/webp;base64,([A-Za-z0-9+/=]+)', svg)
-          if not m:
-              raise SystemExit('embedded WebP source not found')
+          source_commit = '576616b363e50f9a3992a577a9bb0d6fe2503637'
+          parts = [f'icon-part-{i:02d}.txt' for i in range(1, 6)]
+          encoded_parts = []
+          for part in parts:
+              raw = subprocess.check_output(['git', 'show', f'{source_commit}:{part}'])
+              encoded_parts.append(b''.join(raw.split()))
+          encoded = b''.join(encoded_parts)
+          png = base64.b64decode(encoded, validate=True)
 
-          encoded = m.group(1)
-          encoded += '=' * (-len(encoded) % 4)
-          webp = base64.b64decode(encoded, validate=True)
-          source = Path('recovered-approved-icon-source.webp')
-          source.write_bytes(webp)
+          p512 = Path('recovered-approved-icon-512.png')
+          p512.write_bytes(png)
 
-          with Image.open(source) as im:
-              if im.format != 'WEBP':
+          with Image.open(p512) as im:
+              if im.format != 'PNG':
                   raise SystemExit(f'unexpected source format: {im.format}')
               if im.size != (512, 512):
                   raise SystemExit(f'unexpected source size: {im.size}')
               im.verify()
 
-          with Image.open(source) as im:
+          with Image.open(p512) as im:
               im.load()
               pixels = im.convert('RGBA')
-              pixels.save('recovered-approved-icon-512.png', format='PNG')
               pixels.resize((256, 256), Image.Resampling.LANCZOS).save(
                   'recovered-approved-icon-256.png', format='PNG'
               )
 
-          for name, expected_size in (
-              ('recovered-approved-icon-512.png', (512, 512)),
-              ('recovered-approved-icon-256.png', (256, 256)),
-          ):
-              p = Path(name)
-              with Image.open(p) as im:
-                  if im.format != 'PNG' or im.size != expected_size:
-                      raise SystemExit(f'{name}: invalid decoded image metadata')
-                  im.verify()
-              with Image.open(p) as im:
-                  im.load()
+          p256 = Path('recovered-approved-icon-256.png')
+          with Image.open(p256) as im:
+              if im.format != 'PNG' or im.size != (256, 256):
+                  raise SystemExit('recovered 256px icon has invalid metadata')
+              im.verify()
+          with Image.open(p256) as im:
+              im.load()
 
-          for name in (
-              'command-center-icon-v4.svg',
-              'recovered-approved-icon-source.webp',
-              'recovered-approved-icon-512.png',
-              'recovered-approved-icon-256.png',
-          ):
+          for name in ('recovered-approved-icon-512.png', 'recovered-approved-icon-256.png'):
               data = Path(name).read_bytes()
               print(f'{name} bytes={len(data)} sha256={hashlib.sha256(data).hexdigest()}')
 
-          print('FULL_DECODE_OK selected-#4 embedded WebP and recovered PNGs')
+          print(f'SOURCE_COMMIT {source_commit}')
+          print('SOURCE_PARTS ' + ' '.join(parts))
+          print('FULL_DECODE_OK exact approved launcher icon recovered from verified chunks')
           PY
 
       - name: Upload recovery artifact
@@ -86,7 +81,6 @@ jobs:
         with:
           name: approved-icon-source-recovery
           path: |
-            recovered-approved-icon-source.webp
             recovered-approved-icon-512.png
             recovered-approved-icon-256.png
           if-no-files-found: error
