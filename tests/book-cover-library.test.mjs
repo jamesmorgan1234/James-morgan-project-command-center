@@ -55,20 +55,32 @@ assert.doesNotMatch(css,/cc7-direct/);
 // Air Fryer titles, both apostrophes, aliases, unknown titles, and repeat renders.
 const cases=[...titles.map((title,index)=>[title,index]),
   ['The Summer We Don\u2019t Leave',30],['THE SUMMER WE DON\u2018T LEAVE',30],
+  ['Electric Eden: Psychedelic Gardens Beyond Reality',5],
+  ['Cities That Dream: Surreal Worlds to Color',6],
+  ['Cathedral of Impossible Things: Strange Architecture to Color',7],
+  ['Celestial Oddities: Cosmic Creatures and Alien Worlds',8],
+  ['Mechanical Dreams: Surreal Machines, Clockwork Worlds & Impossible Devices',9],
   ['Melted Cosmos: Strange Worlds',0],['Unmapped title',null]];
-const rows=cases.map(([title])=>{
-  const wrap={children:[],querySelector(){return this.children[0] || null;},prepend(child){this.children.unshift(child);}};
-  return {wrap,parentElement:{children:[]},querySelector(selector){
-    return selector==='.book-revenue-title' ? {textContent:title} : wrap;
-  }};
-});
-for(const row of rows) row.parentElement.children=rows;
-const context={document:{documentElement:{},querySelectorAll(){return rows;},
-  createElement(){return {dataset:{},classList:{add(){}},style:{values:{},setProperty(key,value){this.values[key]=value;}},attrs:{},setAttribute(key,value){this.attrs[key]=value;}};},
-  addEventListener(){}},window:{addEventListener(){}},MutationObserver:class{observe(){}},
-  requestAnimationFrame(callback){callback();},setTimeout(){}};
-vm.runInNewContext(js,context);
-vm.runInNewContext(js,context);
+function renderCases(items){
+  const rows=items.map(([title])=>{
+    const wrap={children:[],dataset:{},querySelector(){return this.children[0] || null;},prepend(child){this.children.unshift(child);}};
+    return {wrap,style:{},parentElement:{children:[]},querySelector(selector){
+      if(selector==='.book-revenue-title') return {textContent:title};
+      if(selector==='.cc6-book-cover') return wrap.children[0] || null;
+      return wrap;
+    }};
+  });
+  for(const row of rows) row.parentElement.children=rows;
+  const list={querySelectorAll(){return rows;}};
+  const context={document:{documentElement:{},querySelectorAll(selector){return selector==='.book-revenue-list' ? [list] : rows;},
+    createElement(){return {dataset:{},classList:{add(){}},style:{values:{},setProperty(key,value){this.values[key]=value;}},attrs:{},setAttribute(key,value){this.attrs[key]=value;}};},
+    addEventListener(){}},window:{addEventListener(){}},MutationObserver:class{observe(){}},
+    requestAnimationFrame(callback){callback();},setTimeout(){}};
+  vm.runInNewContext(js,context);
+  vm.runInNewContext(js,context);
+  return rows;
+}
+const rows=renderCases(cases);
 rows.forEach((row,index)=>{
   const [title,slot]=cases[index];
   assert.equal(row.wrap.children.length,slot===null ? 0 : 1,`${title}: no missing or duplicate cover`);
@@ -80,5 +92,26 @@ rows.forEach((row,index)=>{
   assert.equal(cover.attrs.role,'img');
   assert.equal(cover.attrs['aria-label'],`${title} approved cover`);
 });
+
+for(const [start,slots] of [
+  [0,[8,7,6,5,4,3,2,1,0,9]], [20,[22,20,21]],
+  [23,[27,26,25,23,24]], [28,[28,30,29]], [31,[33,32,31]]
+]){
+  const items=slots.map(slot=>[titles[slot],slot]);
+  const rendered=renderCases(items);
+  rendered.forEach((row,index)=>{
+    const number=slots[index]-start+1;
+    assert.equal(row.style.order,String(number),'series layout follows canonical Book 1-to-N order');
+    assert.equal(row.wrap.dataset.bookSequence,`Book ${number}`);
+    assert.equal(row.wrap.children[0].dataset.number,String(number),'cover badge matches the title, not incoming row position');
+  });
+  assert.deepEqual(rendered.map(row=>Number(row.style.order)).sort((a,b)=>a-b),Array.from({length:slots.length},(_,index)=>index+1));
+}
+for(const slots of [[14,13,12,11,10],[19,18,17,16,15],[40,39,38,37,36,35,34]]){
+  for(const row of renderCases(slots.map(slot=>[titles[slot],slot]))){
+    assert.equal(row.style.order,undefined,'non-series batches retain their existing order');
+    assert.equal(row.wrap.dataset.bookSequence,undefined,'non-series batches must not acquire Book-number labels');
+  }
+}
 
 console.log('Approved book-cover library QA passed for all 41 supplied covers, including seven cookbook covers.');
