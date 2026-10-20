@@ -1,3 +1,4 @@
+@media(max-width:760px){
   html[data-command-center-theme="v5"] .ccv4-pipeline-row{grid-template-columns:48px 1fr 56px!important}
   html[data-command-center-theme="v5"] .perf-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
