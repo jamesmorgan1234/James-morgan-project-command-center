@@ -1,0 +1,10 @@
+  html[data-command-center-theme="v5"] .ccv4-pipeline-row{grid-template-columns:48px 1fr 56px!important}
+  html[data-command-center-theme="v5"] .perf-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:390px){
+  html[data-command-center-theme="v5"] .brand-copy h1{font-size:1.7rem!important}
+  html[data-command-center-theme="v5"] .stat-button{grid-template-columns:52px 46px minmax(0,1fr) 16px!important}
+  html[data-command-center-theme="v5"] .stat .label{font-size:1.08rem!important}
+  html[data-command-center-theme="v5"] .stat .value{font-size:1.7rem!important}
+}
+@media(prefers-reduced-motion:reduce){html[data-command-center-theme="v5"] *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
