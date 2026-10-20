@@ -29,7 +29,9 @@ assert.match(mobile, /safe-area-inset-bottom/, 'page must paint/pad the safe-are
 assert.match(mobile, /background-color:#020b1d/, 'system-bar-adjacent page background must stay dark');
 assert.doesNotMatch(manifest, /"display"\s*:\s*"fullscreen"/, 'must not force immersive/fullscreen to hide Android system navigation');
 
-assert.match(sw, /james-command-center-v38/, 'service-worker cache version must advance for the scroll hotfix');
+const cacheVersionMatch = sw.match(/james-command-center-v(\d+)/);
+assert.ok(cacheVersionMatch, 'service-worker cache must remain explicitly versioned');
+assert.ok(Number(cacheVersionMatch[1]) >= 38, 'service-worker cache must retain or advance past the verified scroll-hotfix version');
 assert.match(sw, /mobile-accordion-polish\.js/, 'updated mobile navigation controller must be cached');
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.js'\)/, 'mobile navigation controller must be network-first for clean updates');
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.css'\)/, 'mobile scroll CSS must be network-first for clean updates');
