@@ -5,6 +5,8 @@ on:
     paths:
       - 'manifest.webmanifest'
       - 'service-worker.js'
+      - 'command-center-approved-icon-512.png'
+      - 'command-center-approved-icon-256.png'
       - 'PWA_UPDATE_STANDARD.md'
       - 'tests/pwa-icon-update.test.mjs'
       - '.github/workflows/pwa-icon-update-qa.yml'
