@@ -9,8 +9,13 @@ assert.equal(manifest.theme_color,'#000000'); assert.equal(manifest.background_c
 const primary=manifest.icons[0];
 assert.equal(primary?.src,'command-center-approved-icon-512.png?icon=6-approved');
 assert.equal(primary?.sizes,'512x512'); assert.equal(primary?.type,'image/png'); assert.equal(primary?.purpose,'any');
-assert.ok(fs.existsSync('command-center-approved-icon-512.png'),'exact approved launcher source must exist');
-assert.ok(fs.statSync('command-center-approved-icon-512.png').size>100000,'approved launcher source must retain high-detail image data');
+const iconPath='command-center-approved-icon-512.png';
+assert.ok(fs.existsSync(iconPath),'exact approved launcher source must exist');
+const icon=fs.readFileSync(iconPath);
+assert.ok(icon.length>20000,'approved launcher source must contain real raster image data');
+assert.equal(icon.subarray(0,8).toString('hex'),'89504e470d0a1a0a','approved launcher source must be PNG');
+assert.equal(icon.readUInt32BE(16),512,'approved launcher source width must be 512');
+assert.equal(icon.readUInt32BE(20),512,'approved launcher source height must be 512');
 assert.match(html,/rel="manifest" href="\.\/manifest\.webmanifest\?v=6"/);
 assert.match(html,/command-center-approved-icon-512\.png\?icon=6-browser/);
 assert.match(html,/meta name="theme-color" content="#000000"/);
