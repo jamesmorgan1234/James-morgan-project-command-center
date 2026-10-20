@@ -140,4 +140,17 @@ window.addEventListener('load', () => {
     script.dataset.sourceHealth = '1';
     document.body.appendChild(script);
   }
+  if (!document.querySelector('link[data-command-center-v4]')) {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = './command-center-v4.css?v=1';
+    link.dataset.commandCenterV4 = '1';
+    document.head.appendChild(link);
+  }
+  if (!document.querySelector('script[data-command-center-v4]')) {
+    const script = document.createElement('script');
+    script.src = './command-center-v4.js?v=1';
+    script.dataset.commandCenterV4 = '1';
+    document.body.appendChild(script);
+  }
 }, { once: true });
