@@ -27,5 +27,3 @@ html[data-command-center-theme="v5"] #backHomeBtn,html[data-command-center-theme
 html[data-command-center-theme="v5"] #backHomeBtn::before,html[data-command-center-theme="v5"] .hub-back-btn::before{content:'‹';font-size:3rem!important;font-weight:700!important;line-height:1!important}
 html[data-command-center-theme="v5"] .toolbar{background:rgba(5,4,3,.8)!important;border:1px solid rgba(255,111,0,.38)!important;border-radius:12px!important;padding:8px!important;margin-bottom:10px!important}
 html[data-command-center-theme="v5"] .hub-grid,html[data-command-center-theme="v5"] .project-grid{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
-html[data-command-center-theme="v5"] .hub-project-card,html[data-command-center-theme="v5"] .project-card{
-  --cc5-card-art:url('./art-mountain.svg');
