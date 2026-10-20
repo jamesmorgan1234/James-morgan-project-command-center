@@ -1,0 +1,31 @@
+name: PWA icon update QA
+
+on:
+  pull_request:
+    paths:
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
+      - 'PWA_UPDATE_STANDARD.md'
+      - 'tests/pwa-icon-update.test.mjs'
+      - '.github/workflows/pwa-icon-update-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pwa-icon-update-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run PWA icon update QA
+        run: node tests/pwa-icon-update.test.mjs
+      - name: Run mobile navigation regression QA
+        run: node tests/mobile-navigation.test.mjs
+      - name: Run scope progress regression QA
+        run: node tests/scope-progress.test.mjs
