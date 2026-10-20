@@ -13,6 +13,6 @@ assert.notEqual(any?.src,mask?.src);
 assert.match(html,/rel="manifest" href="\.\/manifest\.webmanifest\?v=3"/);
 assert.match(sw,/james-command-center-v42/);
 assert.ok(sw.includes("'./command-center-icon-v5.svg'")); assert.ok(sw.includes("'./command-center-icon-v5-maskable.svg'"));
-assert.match(sw,/pathname\.endsWith\('\/manifest\.webmanifest'\)/); assert.match(sw,/pathname\.endsWith\('\/command-center-icon-v5\.svg'\)/); assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
+assert.match(sw,/pathname\.endsWith\('\/manifest\.webmanifest'\)/); assert.match(sw,/pathname\.includes\('\/command-center-v5-'\)/); assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
 assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Future icon revisions must advance/); assert.match(standard,/command-center-icon-v5\.svg/);
 console.log('PWA icon update pipeline QA passed.');
