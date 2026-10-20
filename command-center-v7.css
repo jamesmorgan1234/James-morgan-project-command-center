@@ -33,6 +33,13 @@ html[data-command-center-theme="v6"] .ccv4-pipeline-item,
 html[data-command-center-theme="v6"] .ccv4-pipeline-row,
 html[data-command-center-theme="v6"] .tracking-card,
 html[data-command-center-theme="v6"] .integration-card,
+html[data-command-center-theme="v6"] .list-item,
+html[data-command-center-theme="v6"] .metric-chip,
+html[data-command-center-theme="v6"] .kpi,
+html[data-command-center-theme="v6"] .continuation-block,
+html[data-command-center-theme="v6"] .continuation-prompt,
+html[data-command-center-theme="v6"] .revenue-summary,
+html[data-command-center-theme="v6"] .revenue-row,
 html[data-command-center-theme="v6"] [class*="blue"],
 html[data-command-center-theme="v6"] [class*="is-blue"]{
   background:#050505!important;
@@ -41,14 +48,21 @@ html[data-command-center-theme="v6"] [class*="is-blue"]{
   color:#fff!important;
   box-shadow:inset 0 0 12px rgba(255,101,7,.035)!important
 }
+html[data-command-center-theme="v6"] .list-item strong,
+html[data-command-center-theme="v6"] .metric-chip strong,
+html[data-command-center-theme="v6"] .kpi .v,
+html[data-command-center-theme="v6"] .continuation-prompt{color:#fff!important}
+html[data-command-center-theme="v6"] .list-item small,
+html[data-command-center-theme="v6"] .metric-chip,
+html[data-command-center-theme="v6"] .kpi .k,
+html[data-command-center-theme="v6"] .kpi .s{color:#b9c2cc!important}
 html[data-command-center-theme="v6"] .badge.active,
 html[data-command-center-theme="v6"] .badge.planning,
 html[data-command-center-theme="v6"] .badge.recovery,
 html[data-command-center-theme="v6"] .badge.mixed,
 html[data-command-center-theme="v6"] .ccv4-pub-state.is-pending{border:1px solid #ff6507!important;color:#fff!important}
 html[data-command-center-theme="v6"] #detailPanel [style*="rgb(13, 40, 77)"],
-html[data-command-center-theme="v6"] #detailPanel [style*="#0d284d"],
-html[data-command-center-theme="v6"] #detailPanel [style*="#12345"]{background:#050505!important;border-color:#ff6507!important;color:#fff!important}
+html[data-command-center-theme="v6"] #detailPanel [style*="#0d284d"]{background:#050505!important;border-color:#ff6507!important;color:#fff!important}
 
 /* Projects Earning becomes the larger two-row money card James requested. */
 html[data-command-center-theme="v6"] .stat-button[data-view="earning"]{
@@ -72,16 +86,18 @@ html[data-command-center-theme="v6"] #bookRevenuePanel>.book-revenue-primary{ord
 html[data-command-center-theme="v6"] #bookRevenuePanel>.book-revenue-note{order:4!important}
 html[data-command-center-theme="v6"] #kdpSnapshotPanel{display:none!important}
 html[data-command-center-theme="v6"] .cc6-book-cover{background-color:#050505!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+/* Never present generic scenery as if it were a real approved book cover. */
+html[data-command-center-theme="v6"] .cc6-book-cover:not(.has-approved-cover){background:#050505!important}
 html[data-command-center-theme="v6"] .cc6-book-cover.has-approved-cover b{display:none!important}
 html[data-command-center-theme="v6"] .cc6-book-cover.has-approved-cover{padding:0!important}
 
 /* Personal projects that do not need business-performance boxes. */
 html[data-command-center-theme="v6"] [data-cc7-hidden="true"]{display:none!important}
 
-/* Reduce repaint/flicker while panels are being decorated. */
+/* Reduce repaint/flicker without creating a new layout/scroll containing block. */
 html[data-command-center-theme="v6"] #dashboardViewShell,
 html[data-command-center-theme="v6"] #detailPanel,
-html[data-command-center-theme="v6"] #projectView{contain:layout style!important}
+html[data-command-center-theme="v6"] #projectView{contain:style!important}
 html[data-command-center-theme="v6"] .hub-project-card,
 html[data-command-center-theme="v6"] .stat-button,
 html[data-command-center-theme="v6"] #bookRevenuePanel{transform:translateZ(0);backface-visibility:hidden}
