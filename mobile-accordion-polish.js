@@ -27,6 +27,9 @@
       if (shell.parentNode !== stack) stack.append(shell);
     }
 
+    stack.style.setProperty('display', 'flex', 'important');
+    stack.style.setProperty('flex-direction', 'column', 'important');
+    stats.style.setProperty('display', 'contents', 'important');
     return { stack, stats, shell };
   }
 
@@ -34,13 +37,13 @@
     const parts = ensureStack();
     if (!parts) return;
 
-    const { stats, shell } = parts;
+    const { stack, stats, shell } = parts;
     const buttons = [...stats.querySelectorAll(STAT_SELECTOR)];
 
     buttons.forEach((button, index) => {
       const order = (index + 1) * 10;
       const isOpen = Boolean(view && button.dataset.view === view);
-      button.style.order = String(order);
+      button.style.setProperty('order', String(order), 'important');
       button.setAttribute('aria-controls', shell.id);
       button.setAttribute('aria-expanded', String(isOpen));
       button.classList.toggle('is-open', isOpen);
@@ -48,20 +51,26 @@
 
     if (!view) {
       shell.hidden = true;
-      shell.style.order = '999';
+      shell.style.setProperty('order', '999', 'important');
+      stack.dataset.openView = '';
+      shell.dataset.accordionUnder = '';
       return;
     }
 
     const active = buttons.find(button => button.dataset.view === view);
     if (!active) {
       shell.hidden = true;
-      shell.style.order = '999';
+      shell.style.setProperty('order', '999', 'important');
+      stack.dataset.openView = '';
+      shell.dataset.accordionUnder = '';
       return;
     }
 
     const activeOrder = Number(active.style.order || 0);
-    shell.style.order = String(activeOrder + 1);
+    shell.style.setProperty('order', String(activeOrder + 1), 'important');
     shell.hidden = false;
+    stack.dataset.openView = view;
+    shell.dataset.accordionUnder = view;
   }
 
   function navState(kind = 'home', view = 'home', projectId = null, scrollY = 0) {
@@ -231,7 +240,7 @@
       theme.name = 'theme-color';
       document.head.appendChild(theme);
     }
-    theme.content = '#020b1d';
+    theme.content = '#000000';
 
     let scheme = document.querySelector('meta[name="color-scheme"]');
     if (!scheme) {
@@ -241,18 +250,18 @@
     }
     scheme.content = 'dark';
 
-    document.documentElement.style.backgroundColor = '#020b1d';
+    document.documentElement.style.backgroundColor = '#000000';
     document.documentElement.style.colorScheme = 'dark';
-    if (document.body) document.body.style.backgroundColor = '#020b1d';
+    if (document.body) document.body.style.backgroundColor = '#000000';
 
     if (!document.getElementById('systemBarHardening')) {
       const style = document.createElement('style');
       style.id = 'systemBarHardening';
       style.textContent = `
-        html,body{background-color:#020b1d!important;color-scheme:dark!important}
+        html,body{background-color:#000000!important;color-scheme:dark!important}
         body{overscroll-behavior-y:none}
         #app{padding-bottom:max(20px,env(safe-area-inset-bottom))!important}
-        body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:env(safe-area-inset-bottom);background:#020b1d;pointer-events:none;z-index:2147483646}
+        body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:env(safe-area-inset-bottom);background:#000000;pointer-events:none;z-index:2147483646}
       `;
       document.head.appendChild(style);
     }
