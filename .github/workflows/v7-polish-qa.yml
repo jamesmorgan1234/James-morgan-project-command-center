@@ -1,0 +1,40 @@
+name: V7 Polish QA
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'app-config.js'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
+      - 'command-center-v7.css'
+      - 'command-center-v7.js'
+      - 'command-center-approved-icon-192.png'
+      - 'command-center-approved-icon-512.png'
+      - 'command-center-approved-icon-maskable-192.png'
+      - 'command-center-approved-icon-maskable-512.png'
+      - 'tests/v7-polish.test.mjs'
+      - 'tests/pwa-icon-update.test.mjs'
+      - 'tests/v6-exact-approved.test.mjs'
+      - 'tests/v5-visual-shell.test.mjs'
+      - '.github/workflows/v7-polish-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check command-center-v7.js
+      - run: node --check command-center-v6.js
+      - run: node --check mobile-accordion-polish.js
+      - run: node tests/v7-polish.test.mjs
+      - run: node tests/pwa-icon-update.test.mjs
+      - run: node tests/v6-exact-approved.test.mjs
+      - run: node tests/v5-visual-shell.test.mjs
+      - run: node tests/mobile-navigation.test.mjs
+      - run: node tests/scope-progress.test.mjs
+      - run: node tests/v4-control-room.test.mjs
