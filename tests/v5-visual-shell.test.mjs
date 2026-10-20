@@ -1,10 +1,13 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-const css=[1,2,3,4,5].map(n=>fs.readFileSync(`command-center-v5-${n}.css`,'utf8')).join('\n');
+const parts=[1,2,3,4,5,6].map(n=>fs.readFileSync(`command-center-v5-${n}.css`,'utf8'));
+const css=parts.join('\n');
 const js=fs.readFileSync('command-center-v5.js','utf8');
 const cfg=fs.readFileSync('app-config.js','utf8');
 const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
-for(const n of [1,2,3,4,5]) assert.match(cfg,new RegExp(`command-center-v5-${n}\\.css\\?v=1`)); assert.match(cfg,/command-center-v5\.js\?v=1/);
+for(const n of [1,2,3,4,5,6]) assert.match(cfg,new RegExp(`command-center-v5-${n}\\.css\\?v=1`));
+assert.match(cfg,/command-center-v5\.js\?v=1/);
+for(const [i,part] of parts.entries()) assert.equal((part.match(/\{/g)||[]).length,(part.match(/\}/g)||[]).length,`stylesheet ${i+1} has unbalanced braces`);
 for(const art of ['art-eclipse.svg','art-mountain.svg','art-chart.svg','art-road.svg','art-network.svg','art-brain.svg']) assert.match(css,new RegExp(art.replace('.','\\.')));
 assert.match(js,/Projects earning/); assert.match(js,/Highest-priority moves/); assert.match(js,/data-cc5-icon/); assert.match(js,/cc5-project-ring/);
 assert.match(css,/\.stat-button\[data-view="revenue"\]\{display:none!important\}/);
