@@ -6,7 +6,7 @@
   const normalize = value => String(value || '')
     .normalize('NFKD')
     .toLowerCase()
-    .replace(/['`]/g, "'")
+    .replace(/[’‘]/g, "'")
     .replace(/&/g, ' and ')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim();
