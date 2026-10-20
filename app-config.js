@@ -41,6 +41,7 @@ window.addEventListener('load', () => {
   addCss('sourceHealth','./source-health.css?v=1'); addJs('sourceHealth','./source-health.js?v=2');
   addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
   addCss('commandCenterV6','./command-center-v6.css?v=1'); addJs('commandCenterV6','./command-center-v6.js?v=1');
-  addCss('commandCenterV62','./command-center-v6-2.css?v=1'); addJs('commandCenterV62','./command-center-v6-2.js?v=1');
+  addCss('commandCenterV62','./command-center-v6-2.css?v=1');
   addCss('commandCenterV6Art','./command-center-v6-art.css?v=1');
+  addCss('commandCenterV7','./command-center-v7.css?v=1'); addJs('commandCenterV7','./command-center-v7.js?v=1');
 }, { once: true });
