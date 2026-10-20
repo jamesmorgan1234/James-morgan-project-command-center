@@ -1,6 +1,6 @@
 (() => {
-  const ATLAS = './book-cover-atlas-v1.webp?v=1';
-  const SLOT_COUNT = 34;
+  const ATLAS = './book-cover-atlas-v2.webp?v=2';
+  const SLOT_COUNT = 41;
   let scheduled = false;
 
   const normalize = value => String(value || '')
@@ -45,7 +45,14 @@
     ["The Summer We Don't Leave",30],
     ['The Empire Beneath the Glaze',31],
     ['The Shards Between Kingdoms',32],
-    ['The Earth After Firing',33]
+    ['The Earth After Firing',33],
+    ['Repeat Button',34],
+    ['Air Fryer Favorites',35],
+    ['Air Fryer Favorites Made Easy',36],
+    ['Comfort Food Favorites',37],
+    ['Home Cooking Made Simple',38],
+    ['Slow Cooker Comforts',39],
+    ['Sweet Creations',40]
   ];
 
   const aliases = new Map();
