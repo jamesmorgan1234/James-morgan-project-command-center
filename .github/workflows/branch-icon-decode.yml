@@ -4,7 +4,11 @@ on:
     branches:
       - cc-v6-exact-approved-build
     paths:
-      - 'icon-upload-base64-24.txt'
+      - 'icon-part-01.txt'
+      - 'icon-part-02.txt'
+      - 'icon-part-03.txt'
+      - 'icon-part-04.txt'
+      - 'icon-part-05.txt'
       - '.github/workflows/branch-icon-decode.yml'
 permissions:
   contents: write
@@ -17,7 +21,7 @@ jobs:
           ref: cc-v6-exact-approved-build
       - name: Decode approved launcher artwork
         run: |
-          base64 -d icon-upload-base64-24.txt > command-center-approved-icon-512.png
+          cat icon-part-01.txt icon-part-02.txt icon-part-03.txt icon-part-04.txt icon-part-05.txt | tr -d '\r\n ' | base64 -d > command-center-approved-icon-512.png
           python - <<'PY'
           from pathlib import Path
           p=Path('command-center-approved-icon-512.png')
