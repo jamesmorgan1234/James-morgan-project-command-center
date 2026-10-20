@@ -2,6 +2,7 @@
   const $ = id => document.getElementById(id);
   let scheduled = false;
   let applying = false;
+  let guardedBrand = null;
 
   const norm = value => String(value || '').trim().toLowerCase();
 
@@ -86,6 +87,7 @@
       const cover = row.querySelector('.cc6-book-cover');
       if (cover) {
         cover.dataset.number = String(correct);
+        cover.dataset.coverState = cover.classList.contains('has-approved-cover') ? 'approved' : 'awaiting-approved-asset';
         cover.setAttribute('aria-label',`Book ${correct}: ${row.querySelector('.book-revenue-title')?.textContent?.trim() || ''}`);
       }
     });
@@ -96,30 +98,37 @@
     if (snapshot) snapshot.dataset.cc7Hidden = 'true';
   }
 
-  function keepApprovedIconReferences() {
-    document.querySelectorAll('.brand-icon').forEach(img => {
-      if (!img.src.includes('command-center-approved-icon-512.png')) img.src = './command-center-approved-icon-512.png?icon=7-ui';
-    });
+  function ensureBrandGuard() {
+    const img = document.querySelector('.brand-icon');
+    if (!img) return;
+    const wanted = './command-center-approved-icon-512.png?icon=7-ui';
+    if (!img.getAttribute('src')?.includes('command-center-approved-icon-512.png')) img.setAttribute('src',wanted);
+    if (guardedBrand === img) return;
+    guardedBrand = img;
+    new MutationObserver(() => {
+      if (!img.getAttribute('src')?.includes('command-center-approved-icon-512.png')) img.setAttribute('src',wanted);
+    }).observe(img,{attributes:true,attributeFilter:['src']});
   }
 
-  function enforceBlackSystemTheme() {
+  function enforceThemeIdentity() {
+    if (document.documentElement.dataset.commandCenterTheme !== 'v6') document.documentElement.dataset.commandCenterTheme = 'v6';
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.content = '#000000';
+    if (meta && meta.content !== '#000000') meta.content = '#000000';
     document.documentElement.style.setProperty('background-color','#000000','important');
     document.body?.style.setProperty('background-color','#000000','important');
+    ensureBrandGuard();
   }
 
   function apply() {
     if (applying) return;
     applying = true;
     try {
+      enforceThemeIdentity();
       moveSyncUnderRefresh();
       decorateEarningsCard();
       hidePersonalPerformance();
       orderMissingHourBooks();
       removeDuplicateSnapshot();
-      keepApprovedIconReferences();
-      enforceBlackSystemTheme();
     } finally {
       applying = false;
     }
@@ -141,6 +150,9 @@
 
   const root = $('dashboard') || document.body;
   if (root) new MutationObserver(schedule).observe(root,{childList:true,subtree:true});
+  new MutationObserver(() => {
+    if (document.documentElement.dataset.commandCenterTheme !== 'v6') enforceThemeIdentity();
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['data-command-center-theme']});
   window.addEventListener('load',() => { apply(); setTimeout(apply,180); setTimeout(apply,700); },{once:true});
   apply();
 })();
