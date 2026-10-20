@@ -1,0 +1,26 @@
+name: V5 Visual Shell QA
+on:
+  pull_request:
+    paths:
+      - 'command-center-v5-*.css'
+      - 'command-center-v5.js'
+      - 'app-config.js'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
+      - 'tests/v5-visual-shell.test.mjs'
+      - '.github/workflows/v5-visual-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-shell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/v5-visual-shell.test.mjs
+      - run: node tests/pwa-icon-update.test.mjs
+      - run: node tests/mobile-navigation.test.mjs
+      - run: node tests/scope-progress.test.mjs
