@@ -1,0 +1,112 @@
+/* Command Center V7 — user-requested visual polish and stability overrides */
+html[data-command-center-theme="v6"],html[data-command-center-theme="v6"] body{background:#000!important;color-scheme:dark!important}
+html[data-command-center-theme="v6"] body:after{background:#000!important}
+
+/* Header: keep the approved emblem fully visible; sync status now lives below Refresh. */
+html[data-command-center-theme="v6"] .topbar{overflow:visible!important;min-height:138px!important;padding-bottom:10px!important}
+html[data-command-center-theme="v6"] .brand-lockup{align-items:center!important}
+html[data-command-center-theme="v6"] .brand-icon{object-fit:contain!important;object-position:center!important;overflow:visible!important;flex:none!important}
+html[data-command-center-theme="v6"] .brand-copy .sync-line{display:none!important}
+html[data-command-center-theme="v6"] .cc7-sync-dock{display:block!important;margin:-10px 6px 16px!important;padding:7px 12px!important;text-align:center!important;color:#aeb9c7!important;font-size:.82rem!important;line-height:1.25!important;letter-spacing:.02em!important;background:#030303!important;border:1px solid rgba(255,101,7,.44)!important;border-radius:6px!important;box-shadow:inset 0 0 16px rgba(255,91,0,.035)!important}
+html[data-command-center-theme="v6"] .cc7-sync-dock .sync-line{display:block!important;margin:0!important;color:#aeb9c7!important;font-size:inherit!important}
+
+/* Global rule from James: no blue bubbles anywhere. Black + white + thin orange replaces blue pills/cards. */
+html[data-command-center-theme="v6"] .badge.active,
+html[data-command-center-theme="v6"] .badge.planning,
+html[data-command-center-theme="v6"] .badge.recovery,
+html[data-command-center-theme="v6"] .badge.mixed,
+html[data-command-center-theme="v6"] .ccv4-pub-state.is-pending,
+html[data-command-center-theme="v6"] .ccv4-roadmap-badge,
+html[data-command-center-theme="v6"] .ccv4-plan-state,
+html[data-command-center-theme="v6"] .hub-back-btn,
+html[data-command-center-theme="v6"] .books-subhub-back,
+html[data-command-center-theme="v6"] .btn.btn-ghost,
+html[data-command-center-theme="v6"] .book-metric-cell,
+html[data-command-center-theme="v6"] .perf-primary,
+html[data-command-center-theme="v6"] .perf-mini,
+html[data-command-center-theme="v6"] .perf-model-card,
+html[data-command-center-theme="v6"] .perf-sales-row,
+html[data-command-center-theme="v6"] .ccv4-pub-formats>span,
+html[data-command-center-theme="v6"] .ccv4-compact-details summary,
+html[data-command-center-theme="v6"] .ccv4-pipeline-plan,
+html[data-command-center-theme="v6"] .ccv4-pipeline-item,
+html[data-command-center-theme="v6"] .ccv4-pipeline-row,
+html[data-command-center-theme="v6"] .tracking-card,
+html[data-command-center-theme="v6"] .integration-card,
+html[data-command-center-theme="v6"] .list-item,
+html[data-command-center-theme="v6"] .metric-chip,
+html[data-command-center-theme="v6"] .kpi,
+html[data-command-center-theme="v6"] .continuation-block,
+html[data-command-center-theme="v6"] .continuation-prompt,
+html[data-command-center-theme="v6"] .revenue-summary,
+html[data-command-center-theme="v6"] .revenue-row,
+html[data-command-center-theme="v6"] [class*="blue"],
+html[data-command-center-theme="v6"] [class*="is-blue"]{
+  background:#050505!important;
+  background-color:#050505!important;
+  border-color:#ff6507!important;
+  color:#fff!important;
+  box-shadow:inset 0 0 12px rgba(255,101,7,.035)!important
+}
+html[data-command-center-theme="v6"] .list-item strong,
+html[data-command-center-theme="v6"] .metric-chip strong,
+html[data-command-center-theme="v6"] .kpi .v,
+html[data-command-center-theme="v6"] .continuation-prompt{color:#fff!important}
+html[data-command-center-theme="v6"] .list-item small,
+html[data-command-center-theme="v6"] .metric-chip,
+html[data-command-center-theme="v6"] .kpi .k,
+html[data-command-center-theme="v6"] .kpi .s{color:#b9c2cc!important}
+html[data-command-center-theme="v6"] .badge.active,
+html[data-command-center-theme="v6"] .badge.planning,
+html[data-command-center-theme="v6"] .badge.recovery,
+html[data-command-center-theme="v6"] .badge.mixed,
+html[data-command-center-theme="v6"] .ccv4-pub-state.is-pending{border:1px solid #ff6507!important;color:#fff!important}
+html[data-command-center-theme="v6"] #detailPanel [style*="rgb(13, 40, 77)"],
+html[data-command-center-theme="v6"] #detailPanel [style*="#0d284d"]{background:#050505!important;border-color:#ff6507!important;color:#fff!important}
+
+/* Projects Earning becomes the larger two-row money card James requested. */
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"]{
+  min-height:220px!important;
+  grid-template-columns:100px minmax(0,1fr) 32px!important;
+  grid-template-rows:56px minmax(110px,1fr)!important;
+  padding:20px 20px!important
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .cc6-stat-icon{grid-column:1!important;grid-row:1/3!important;align-self:center!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .label{grid-column:2!important;grid-row:1!important;align-self:center!important;justify-self:center!important;text-align:center!important;white-space:nowrap!important;font-size:clamp(1.25rem,5.2vw,2rem)!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .value{grid-column:2!important;grid-row:2!important;align-self:center!important;justify-self:center!important;text-align:center!important;font-size:clamp(3rem,13vw,5rem)!important;letter-spacing:-.05em!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .stat-sub{display:none!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"]:after{grid-column:3!important;grid-row:1/3!important}
+
+/* Books: Books in Series first, KDP performance second; duplicate snapshot section removed. */
+html[data-command-center-theme="v6"] #bookRevenuePanel{display:flex!important;flex-direction:column!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel>.cc6-books-heading{order:0!important;margin-top:0!important;padding-top:0!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel>.book-revenue-list{order:1!important;margin-bottom:16px!important;padding-bottom:14px!important;border-bottom:1px solid rgba(255,101,7,.55)!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel>.section-head{order:2!important;margin-top:2px!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel>.book-revenue-primary{order:3!important}
+html[data-command-center-theme="v6"] #bookRevenuePanel>.book-revenue-note{order:4!important}
+html[data-command-center-theme="v6"] #kdpSnapshotPanel{display:none!important}
+html[data-command-center-theme="v6"] .cc6-book-cover{background-color:#050505!important;background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+/* Never present generic scenery as if it were a real approved book cover. */
+html[data-command-center-theme="v6"] .cc6-book-cover:not(.has-approved-cover){background:#050505!important}
+html[data-command-center-theme="v6"] .cc6-book-cover.has-approved-cover b{display:none!important}
+html[data-command-center-theme="v6"] .cc6-book-cover.has-approved-cover{padding:0!important}
+
+/* Personal projects that do not need business-performance boxes. */
+html[data-command-center-theme="v6"] [data-cc7-hidden="true"]{display:none!important}
+
+/* Reduce repaint/flicker without creating a new layout/scroll containing block. */
+html[data-command-center-theme="v6"] #dashboardViewShell,
+html[data-command-center-theme="v6"] #detailPanel,
+html[data-command-center-theme="v6"] #projectView{contain:style!important}
+html[data-command-center-theme="v6"] .hub-project-card,
+html[data-command-center-theme="v6"] .stat-button,
+html[data-command-center-theme="v6"] #bookRevenuePanel{transform:translateZ(0);backface-visibility:hidden}
+
+@media(max-width:620px){
+  html[data-command-center-theme="v6"] .topbar{min-height:126px!important}
+  html[data-command-center-theme="v6"] .brand-icon{width:94px!important;height:94px!important}
+  html[data-command-center-theme="v6"] .cc7-sync-dock{margin:-8px 4px 13px!important;font-size:.76rem!important}
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"]{min-height:205px!important;grid-template-columns:86px minmax(0,1fr) 26px!important;padding:16px 14px!important}
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .label{font-size:1.2rem!important}
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .value{font-size:3.2rem!important}
+}

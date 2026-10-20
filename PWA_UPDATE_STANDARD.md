@@ -18,7 +18,9 @@ Use this standard for Command Center and future private installed web/PWA apps u
 ## App icon updates
 - When an icon changes, change the icon URL/metadata in the manifest; never silently replace bytes behind an unchanged manifest icon entry.
 - Preserve the exact user-approved launcher artwork. Do not redraw, simplify, reinterpret, or substitute a lower-detail icon when the approved source asset is available.
-- Use a self-contained launcher asset that platform icon rasterizers can consume directly.
+- Use standards-clean PNG assets that platform icon rasterizers can decode completely; a file that merely has a PNG header is not sufficient.
+- Ship both 192×192 and 512×512 `purpose: any` assets and corresponding 192×192 and 512×512 `purpose: maskable` assets for Android/Chrome installation.
+- Keep important emblem detail inside the maskable safe area so adaptive icon cropping cannot reduce the approved mark to a blank/black launcher tile.
 - Chrome may treat substantial icon changes as identity-sensitive and require a Review app update confirmation.
 - There is no normal web API that can force Android to replace an installed launcher icon immediately.
 - Do not make uninstall/reinstall the normal update path for a correctly installed, updatable WebAPK.
@@ -31,9 +33,10 @@ Use this standard for Command Center and future private installed web/PWA apps u
 ## Command Center icon release rule
 - Keep the manifest identity stable: `id`, `start_url`, and `scope` remain `./`.
 - Current approved launcher source is `command-center-approved-icon-512.png`, the exact high-detail orange lightning/node Command Center artwork James approved.
-- `command-center-icon-v4.svg` may remain as a vector/fallback reference, but it must not replace the approved raster source as the primary launcher artwork.
+- The Command Center install set includes `command-center-approved-icon-192.png`, `command-center-approved-icon-512.png`, `command-center-approved-icon-maskable-192.png`, and `command-center-approved-icon-maskable-512.png`.
+- The current launcher source was normalized into a standards-clean PNG stream after the prior source was found to contain a malformed/truncated image stream that browsers could sometimes display but platform icon tooling could not reliably decode.
 - Future icon revisions must advance the icon URL/version metadata while preserving the stable application identity.
-- The service worker must treat the manifest and current launcher asset as network-first/no-store during update checks.
+- The service worker must treat the manifest and all current launcher assets as network-first/no-store during update checks.
 
 ## Mobile behavior
 - Preserve normal vertical scrolling and verified Android Back/scroll-restoration behavior.

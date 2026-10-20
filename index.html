@@ -6,9 +6,10 @@
 <meta name="theme-color" content="#000000">
 <meta name="color-scheme" content="dark">
 <title>Command Center</title>
-<link rel="manifest" href="./manifest.webmanifest?v=6">
-<link rel="icon" type="image/png" href="./command-center-approved-icon-512.png?icon=6-browser">
-<link rel="apple-touch-icon" href="./command-center-approved-icon-512.png?icon=6-apple">
+<link rel="manifest" href="./manifest.webmanifest?v=7">
+<link rel="icon" type="image/png" sizes="192x192" href="./command-center-approved-icon-192.png?icon=7-browser-192">
+<link rel="icon" type="image/png" sizes="512x512" href="./command-center-approved-icon-512.png?icon=7-browser-512">
+<link rel="apple-touch-icon" sizes="192x192" href="./command-center-approved-icon-192.png?icon=7-apple">
 <link rel="stylesheet" href="./styles.css?v=7">
 <link rel="stylesheet" href="./project-hub.css?v=2">
 <link rel="stylesheet" href="./mobile-accordion-polish.css?v=1">
@@ -18,11 +19,10 @@
 <div id="app" hidden>
   <header class="topbar">
     <div class="brand-lockup">
-      <img class="brand-icon" src="./command-center-approved-icon-512.png?icon=6-ui" alt="Command Center">
+      <img class="brand-icon" src="./command-center-approved-icon-512.png?icon=7-ui" alt="Command Center">
       <div class="brand-copy">
         <h1>Command Center</h1>
         <div class="brand-tagline">Projects • Progress • Priorities • Performance</div>
-        <div id="syncText" class="muted sync-line">Private data · waiting for sync</div>
       </div>
     </div>
   </header>
@@ -30,6 +30,7 @@
   <section id="refreshStrip" class="refresh-strip" hidden>
     <button id="refreshBtn" class="btn btn-primary refresh-btn">Refresh now</button>
   </section>
+  <div class="cc7-sync-dock"><div id="syncText" class="muted sync-line">Private data · waiting for sync</div></div>
 
   <main>
     <section id="authPanel" class="panel auth-panel" hidden>
@@ -100,7 +101,7 @@
   </footer>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="./app-config.js?v=6"></script>
+<script src="./app-config.js?v=7"></script>
 <script src="./app.js?v=10"></script>
 <script src="./project-hub.js?v=3"></script>
 <script src="./mobile-accordion-polish.js?v=1"></script>
