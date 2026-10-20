@@ -9,15 +9,16 @@ Use this standard for Command Center and future private installed web/PWA apps u
 - Keep navigation/app-shell requests network-first where practical and retain an offline fallback only for genuine network failure.
 
 ## Manifest and theme updates
-- Keep the web app manifest URL stable. Do not rename or move the manifest merely to force an update.
+- Keep the web app manifest path stable. Query-version changes are allowed for cache invalidation; do not move the manifest to a different identity path merely to force an update.
 - Keep manifest `id` stable. For Command Center it remains exactly `./`.
 - Keep `theme_color`, `background_color`, `display`, and related metadata aligned with the live shell.
 - Command Center uses `#000000` for both theme and background so Android/Chrome system surfaces have the best chance of blending black.
 - OS navigation/status surfaces remain platform-controlled; never force immersive mode merely to hide Back/Home/Recents.
 
 ## App icon updates
-- When an icon changes, change the icon URL/filename in the manifest; never silently replace bytes behind an unchanged manifest icon entry.
-- Use a self-contained launcher asset; avoid nested raster/data-URI dependencies that can fail in platform icon rasterizers.
+- When an icon changes, change the icon URL/metadata in the manifest; never silently replace bytes behind an unchanged manifest icon entry.
+- Preserve the exact user-approved launcher artwork. Do not redraw, simplify, reinterpret, or substitute a lower-detail icon when the approved source asset is available.
+- Use a self-contained launcher asset that platform icon rasterizers can consume directly.
 - Chrome may treat substantial icon changes as identity-sensitive and require a Review app update confirmation.
 - There is no normal web API that can force Android to replace an installed launcher icon immediately.
 - Do not make uninstall/reinstall the normal update path for a correctly installed, updatable WebAPK.
@@ -28,11 +29,11 @@ Use this standard for Command Center and future private installed web/PWA apps u
 - In that specific case, one final clean install can establish a healthy update-capable WebAPK after the corrected manifest is live.
 
 ## Command Center icon release rule
-- Keep `manifest.webmanifest?v=3` as the linked manifest location.
-- Keep manifest `id`, `start_url`, and `scope` unchanged.
-- Current approved launcher assets are `command-center-icon-v5.svg` and `command-center-icon-v5-maskable.svg`.
-- Future icon revisions must advance to new versioned filenames (v6, v7, and so on).
-- The service worker must treat the manifest and current launcher assets as network-first/no-store during update checks.
+- Keep the manifest identity stable: `id`, `start_url`, and `scope` remain `./`.
+- Current approved launcher source is `command-center-approved-icon-512.png`, the exact high-detail orange lightning/node Command Center artwork James approved.
+- `command-center-icon-v4.svg` may remain as a vector/fallback reference, but it must not replace the approved raster source as the primary launcher artwork.
+- Future icon revisions must advance the icon URL/version metadata while preserving the stable application identity.
+- The service worker must treat the manifest and current launcher asset as network-first/no-store during update checks.
 
 ## Mobile behavior
 - Preserve normal vertical scrolling and verified Android Back/scroll-restoration behavior.
