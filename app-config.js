@@ -13,144 +13,32 @@
       let baselineUserId = null;
       return originalOnAuthStateChange((event, session) => {
         const nextUserId = session?.user?.id || null;
-        if (event === 'INITIAL_SESSION') {
-          baselineCaptured = true;
-          baselineUserId = nextUserId;
-          return;
-        }
-        if (baselineCaptured && event === 'TOKEN_REFRESHED' && nextUserId === baselineUserId) {
-          baselineUserId = nextUserId;
-          return;
-        }
-        if (baselineCaptured && event === 'SIGNED_IN' && nextUserId && nextUserId === baselineUserId) {
-          return;
-        }
-        baselineCaptured = true;
-        baselineUserId = nextUserId;
-        callback(event, session);
+        if (event === 'INITIAL_SESSION') { baselineCaptured = true; baselineUserId = nextUserId; return; }
+        if (baselineCaptured && event === 'TOKEN_REFRESHED' && nextUserId === baselineUserId) { baselineUserId = nextUserId; return; }
+        if (baselineCaptured && event === 'SIGNED_IN' && nextUserId && nextUserId === baselineUserId) return;
+        baselineCaptured = true; baselineUserId = nextUserId; callback(event, session);
       });
     };
     return client;
   };
   lib.__commandCenterPrimaryAuthGuard = true;
 })();
-
 window.COMMAND_CENTER_CONFIG = {
   supabaseUrl: "https://gmlsucpwliegwlxymjvp.supabase.co",
   supabaseAnonKey: "sb_publishable_LLkZOIOmUX58mcN4HtsUgg_BhTSbiDq",
   refreshMs: 60000,
-  excludedProjectNames: [
-    "Operating Order",
-    "Crestven Holdings",
-    "Crest Van Holdings",
-    "Outreach",
-    "Crowdskein",
-    "Loopwren"
-  ]
+  excludedProjectNames: ["Operating Order","Crestven Holdings","Crest Van Holdings","Outreach","Crowdskein","Loopwren"]
 };
-
 window.addEventListener('load', () => {
-  if (!document.querySelector('link[data-books-hub]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './books-hub.css?v=1';
-    link.dataset.booksHub = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-books-hub]')) {
-    const script = document.createElement('script');
-    script.src = './books-hub.js?v=1';
-    script.dataset.booksHub = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-books-revenue]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './books-revenue.css?v=4';
-    link.dataset.booksRevenue = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-books-revenue]')) {
-    const script = document.createElement('script');
-    script.src = './books-revenue.js?v=5';
-    script.dataset.booksRevenue = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-ux-polish]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './ux-polish.css?v=1';
-    link.dataset.uxPolish = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-books-portfolio-polish]')) {
-    const script = document.createElement('script');
-    script.src = './books-portfolio-polish.js?v=1';
-    script.dataset.booksPortfolioPolish = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('script[data-next-up-label]')) {
-    const script = document.createElement('script');
-    script.src = './next-up-label.js?v=1';
-    script.dataset.nextUpLabel = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('script[data-operating-order-exclusion]')) {
-    const script = document.createElement('script');
-    script.src = './operating-order-exclusion.js?v=2';
-    script.dataset.operatingOrderExclusion = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-performance-hub]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './performance-hub.css?v=2';
-    link.dataset.performanceHub = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-performance-hub]')) {
-    const script = document.createElement('script');
-    script.src = './performance-hub.js?v=5';
-    script.dataset.performanceHub = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-refresh-orchestrator]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './refresh-orchestrator.css?v=1';
-    link.dataset.refreshOrchestrator = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-refresh-orchestrator]')) {
-    const script = document.createElement('script');
-    script.src = './refresh-orchestrator.js?v=6';
-    script.dataset.refreshOrchestrator = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-source-health]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './source-health.css?v=1';
-    link.dataset.sourceHealth = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-source-health]')) {
-    const script = document.createElement('script');
-    script.src = './source-health.js?v=2';
-    script.dataset.sourceHealth = '1';
-    document.body.appendChild(script);
-  }
-  if (!document.querySelector('link[data-command-center-v4]')) {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = './command-center-v4.css?v=1';
-    link.dataset.commandCenterV4 = '1';
-    document.head.appendChild(link);
-  }
-  if (!document.querySelector('script[data-command-center-v4]')) {
-    const script = document.createElement('script');
-    script.src = './command-center-v4.js?v=1';
-    script.dataset.commandCenterV4 = '1';
-    document.body.appendChild(script);
-  }
+  const addCss=(key,href)=>{if(document.querySelector(`link[data-${key}]`))return;const l=document.createElement('link');l.rel='stylesheet';l.href=href;l.dataset[key]='1';document.head.appendChild(l);};
+  const addJs=(key,src)=>{if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.dataset[key]='1';document.body.appendChild(s);};
+  addCss('booksHub','./books-hub.css?v=1'); addJs('booksHub','./books-hub.js?v=1');
+  addCss('booksRevenue','./books-revenue.css?v=4'); addJs('booksRevenue','./books-revenue.js?v=5');
+  addCss('uxPolish','./ux-polish.css?v=1'); addJs('booksPortfolioPolish','./books-portfolio-polish.js?v=1');
+  addJs('nextUpLabel','./next-up-label.js?v=1'); addJs('operatingOrderExclusion','./operating-order-exclusion.js?v=2');
+  addCss('performanceHub','./performance-hub.css?v=2'); addJs('performanceHub','./performance-hub.js?v=5');
+  addCss('refreshOrchestrator','./refresh-orchestrator.css?v=1'); addJs('refreshOrchestrator','./refresh-orchestrator.js?v=6');
+  addCss('sourceHealth','./source-health.css?v=1'); addJs('sourceHealth','./source-health.js?v=2');
+  addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
+  addCss('commandCenterV51','./command-center-v5-1.css?v=1'); addCss('commandCenterV52','./command-center-v5-2.css?v=1'); addCss('commandCenterV53','./command-center-v5-3.css?v=1'); addCss('commandCenterV54','./command-center-v5-4.css?v=1'); addCss('commandCenterV55','./command-center-v5-5.css?v=1'); addJs('commandCenterV5','./command-center-v5.js?v=1');
 }, { once: true });
