@@ -6,6 +6,10 @@ assert.doesNotMatch(cfg,/command-center-v5-[1-6]\.css\?v=1/,'legacy V5 CSS must 
 assert.doesNotMatch(cfg,/command-center-v5\.js\?v=1/,'legacy V5 controller must not fight V6 theme/icon state');
 assert.match(cfg,/command-center-v6\.css\?v=1/);
 assert.match(cfg,/command-center-v6\.js\?v=1/);
+assert.match(cfg,/command-center-v6-2\.css\?v=1/,'V6.2 exact visual hardening must load after V6');
+assert.match(cfg,/command-center-v6-2\.js\?v=1/,'V6.2 exact visual hardening must load after V6');
+assert.ok(cfg.indexOf('command-center-v6-2.css?v=1')>cfg.indexOf('command-center-v6.css?v=1'),'V6.2 CSS must load after base V6 CSS');
+assert.ok(cfg.indexOf('command-center-v6-2.js?v=1')>cfg.indexOf('command-center-v6.js?v=1'),'V6.2 JS must load after base V6 JS');
 assert.equal(manifest.theme_color,'#000000');
 assert.equal(manifest.icons[0]?.src,'command-center-approved-icon-512.png?icon=6-approved');
-console.log('V5 retirement / V6 migration QA passed.');
+console.log('V5 retirement / V6.2 migration QA passed.');
