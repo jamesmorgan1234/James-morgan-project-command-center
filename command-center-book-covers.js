@@ -27,6 +27,17 @@
     aliases.set(normalize(title), index);
     aliases.set(normalize(`Melted Cosmos ${title}`), index);
   }
+  for (const [title,index] of [
+    ['Electric Eden: Psychedelic Gardens Beyond Reality',5],
+    ['Cities That Dream: Surreal Worlds to Color',6],
+    ['Cathedral of Impossible Things: Strange Architecture to Color',7],
+    ['Celestial Oddities: Cosmic Creatures and Alien Worlds',8],
+    ['Mechanical Dreams: Surreal Machines, Clockwork Worlds & Impossible Devices',9]
+  ]) aliases.set(normalize(title), index);
+
+  // Only these title groups are ordered series; standalone/workbook/cookbook
+  // batches retain their existing order. End indexes are exclusive.
+  const seriesRanges = [[0,10],[20,23],[23,28],[28,31],[31,34]];
 
   function findIndex(title) {
     const key = normalize(title);
@@ -66,6 +77,20 @@
 
   function applyAll() {
     document.querySelectorAll('#bookRevenuePanel .book-revenue-row').forEach(applyCover);
+    document.querySelectorAll('.book-revenue-list').forEach(list => {
+      const rows = [...list.querySelectorAll(':scope > .book-revenue-row')];
+      const indexes = rows.map(row => findIndex(row.querySelector('.book-revenue-title')?.textContent || ''));
+      const series = seriesRanges.find(([start,end]) => indexes.length > 1 && indexes.every(index => index !== null && index >= start && index < end));
+      if (!series) return;
+      rows.forEach((row,index) => {
+        const number = indexes[index] - series[0] + 1;
+        row.style.order = String(number);
+        const wrap = row.querySelector('.book-revenue-title-wrap');
+        if (wrap) wrap.dataset.bookSequence = `Book ${number}`;
+        const cover = row.querySelector('.cc6-book-cover');
+        if (cover) cover.dataset.number = String(number);
+      });
+    });
   }
 
   function schedule() {
