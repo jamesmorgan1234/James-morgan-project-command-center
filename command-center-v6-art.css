@@ -1,0 +1,14 @@
+html[data-command-center-theme="v6"] .topbar{background:linear-gradient(90deg,rgba(0,0,0,.98) 0 42%,rgba(0,0,0,.54) 62%,rgba(0,0,0,.08)),url('./cc6-eclipse.webp') right center/cover no-repeat!important}
+html[data-command-center-theme="v6"] .view-head{background:linear-gradient(90deg,#030201 0 48%,rgba(0,0,0,.46) 68%,rgba(0,0,0,.06)),url('./cc6-eclipse.webp') right center/cover no-repeat!important}
+html[data-command-center-theme="v6"] #detailPanel>.section-head:first-of-type{background:linear-gradient(90deg,#0b0704 0 39%,rgba(5,3,2,.70) 62%,rgba(7,2,0,.18)),url('./cc6-eclipse.webp') right center/cover no-repeat!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="all"]{--cc6-card-art:url('./cc6-mountain.webp')!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="active"]{--cc6-card-art:url('./cc6-chart.webp')!important}
+html[data-command-center-theme="v6"] .stat-button[data-view="attention"]{--cc6-card-art:url('./cc6-road.webp')!important}
+html[data-command-center-theme="v6"] .hub-project-card[data-open^="kdp-"]{--cc6-art:url('./cc6-eclipse.webp')!important}
+html[data-command-center-theme="v6"] .hub-project-card[data-open="command-center"]{--cc6-art:url('./cc6-mountain.webp')!important}
+html[data-command-center-theme="v6"] .hub-project-card[data-open*="velo"],html[data-command-center-theme="v6"] .hub-project-card[data-open*="media"],html[data-command-center-theme="v6"] .hub-project-card[data-open*="movie"]{--cc6-art:url('./cc6-road.webp')!important}
+html[data-command-center-theme="v6"] .hub-project-card[data-open*="commerce"],html[data-command-center-theme="v6"] .hub-project-card[data-open*="shop"]{--cc6-art:url('./cc6-chart.webp')!important}
+@media(max-width:620px){
+ html[data-command-center-theme="v6"] .topbar{background-position:right center!important;background-size:auto 100%!important}
+ html[data-command-center-theme="v6"] .view-head{background-position:right center!important;background-size:auto 100%!important}
+}
