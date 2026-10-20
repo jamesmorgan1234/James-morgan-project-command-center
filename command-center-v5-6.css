@@ -1,3 +1,4 @@
+html[data-command-center-theme="v5"] body::after{background:#000!important}
 html[data-command-center-theme="v5"] .project-card>.section-head{grid-column:2!important;grid-row:1/3!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:8px!important;margin:0!important}
 html[data-command-center-theme="v5"] .project-card>.section-head h3{font-size:1.22rem!important;line-height:1.05!important;margin:0!important;color:#fff!important;text-shadow:0 0 10px rgba(255,112,0,.25)!important}
 html[data-command-center-theme="v5"] .project-card>.section-head .muted{font-size:.76rem!important;color:#a8b7c6!important}
