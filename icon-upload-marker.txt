@@ -1,0 +1,1 @@
+temporary marker to keep work moving while exact approved icon binary is replaced through Git data
