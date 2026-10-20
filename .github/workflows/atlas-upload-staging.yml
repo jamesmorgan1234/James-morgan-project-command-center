@@ -18,8 +18,8 @@ jobs:
           set -euo pipefail
           cat .cc-atlas-chunks/part-* > /tmp/atlas.b64
           base64 --decode /tmp/atlas.b64 > book-cover-atlas-v2.webp
-          test "$(wc -c < book-cover-atlas-v2.webp)" = "394318"
-          test "$(sha256sum book-cover-atlas-v2.webp | cut -d' ' -f1)" = "66cf21bda116275e3ffe130661cf9fe5df1ab98c868edaa7797cf4ca217d8224"
+          test "$(wc -c < book-cover-atlas-v2.webp)" = "189930"
+          test "$(sha256sum book-cover-atlas-v2.webp | cut -d' ' -f1)" = "701193f0aed70a8efceb0ec0bdcd13ef0d3718ba3e659b7a368b99877b208eba"
           python - <<'PY'
           from pathlib import Path
           p=Path('book-cover-atlas-v2.webp')
