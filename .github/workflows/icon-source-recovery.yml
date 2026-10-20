@@ -36,7 +36,9 @@ jobs:
           if not m:
               raise SystemExit('embedded WebP source not found')
 
-          webp = base64.b64decode(m.group(1), validate=True)
+          encoded = m.group(1)
+          encoded += '=' * (-len(encoded) % 4)
+          webp = base64.b64decode(encoded, validate=True)
           source = Path('recovered-approved-icon-source.webp')
           source.write_bytes(webp)
 
