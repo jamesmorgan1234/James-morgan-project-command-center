@@ -13,7 +13,8 @@ assert.match(js,/\['Context Builder'[^\]]+,100\]/,'Context Builder must be 100%'
 assert.match(js,/\['Task Queue \/ Planner'[^\]]+,100\]/,'Project Brain Phase 4 must be 100%');
 assert.match(js,/\['ChatGPT Handoff Loop'[^\]]+,100\]/,'Project Brain Phase 5 must be 100%');
 assert.match(js,/\['Scheduler Engine'[^\]]+,100\]/,'Automation Phase 1 must be 100%');
-for(const future of ['Condition Evaluator','Notification Delivery','Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History'])assert.match(js,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
+assert.match(js,/\['Condition Evaluator'[^\]]+,100\]/,'Automation Phase 2 must be 100%');
+for(const future of ['Notification Delivery','Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History'])assert.match(js,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
 assert.match(js,/capabilityProgress=item=>Math\.round\(item\.phases\.reduce/,'capability percentage must derive from phase values');
 assert.match(js,/Project Brain \$\{brainPct\}%/,'Project Brain home summary must derive from phase values');
 assert.match(js,/data-cc-brain-current-toggle/,'open capability bubble must be clickable again to close');
@@ -24,7 +25,9 @@ assert.match(js,/ccBrainContextMount/,'Project Brain must mount Context Builder'
 assert.match(js,/ccBrainPlannerMount/,'Project Brain must mount Task Queue / Planner');
 assert.match(js,/ccBrainHandoffMount/,'Project Brain must mount ChatGPT Handoff Loop');
 assert.match(js,/ccAutomationSchedulerMount/,'Automation must mount Scheduler Engine');
+assert.match(js,/ccAutomationConditionMount/,'Automation must mount Condition Evaluator');
 assert.match(js,/command-center-automation-scheduler\.css\?v=1/);assert.match(js,/command-center-automation-scheduler\.js\?v=1/);
+assert.match(js,/command-center-automation-condition\.css\?v=1/);assert.match(js,/command-center-automation-condition\.js\?v=1/);
 assert.match(js,/e\.state\?\.ccCommandCenterBrainCapability===capabilityOpen/,'nested workspace history must not collapse a Brain capability early');
 assert.match(cfg,/command-center-brain-home\.js\?v=5/);
 assert.match(cfg,/command-center-brain-planner\.js\?v=1/);
@@ -34,4 +37,6 @@ assert.ok(sw.includes("'./command-center-brain-planner.js?v=1'"));
 assert.ok(sw.includes("'./command-center-brain-handoff.js?v=1'"));
 assert.ok(sw.includes("'./command-center-automation-scheduler.css?v=1'"));
 assert.ok(sw.includes("'./command-center-automation-scheduler.js?v=1'"));
-console.log('Command Center Brain roadmap QA passed with Project Brain complete and Automation Phase 1 complete.');
+assert.ok(sw.includes("'./command-center-automation-condition.css?v=1'"));
+assert.ok(sw.includes("'./command-center-automation-condition.js?v=1'"));
+console.log('Command Center Brain roadmap QA passed with Project Brain complete and Automation Phases 1-2 complete.');
