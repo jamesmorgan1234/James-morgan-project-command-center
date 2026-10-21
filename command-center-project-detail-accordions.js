@@ -26,30 +26,33 @@
     })||null;
   }
 
-  function sources(root){
-    return {
-      roadmap:root?.querySelector(':scope > #ccProjectRoadmap')||root?.querySelector('#ccProjectRoadmap'),
-      performance:root?.querySelector(':scope > #projectPerformancePanel')||root?.querySelector('#projectPerformancePanel'),
-      tracking:trackingBlock(root)
-    };
+  function directSource(root,key){
+    if(key==='roadmap')return root?.querySelector(':scope > #ccProjectRoadmap')||null;
+    if(key==='performance')return root?.querySelector(':scope > #projectPerformancePanel')||null;
+    if(key==='tracking')return trackingBlock(root);
+    return null;
   }
 
-  function unwrapOldShell(shell){
+  function wrapperHasSource(shell,key){
     const body=shell?.querySelector(':scope > .cc-project-detail-body');
-    if(!body)return null;
-    const source=body.firstElementChild;
-    if(source&&shell.parentElement){shell.parentElement.insertBefore(source,shell);shell.remove();return source;}
-    shell?.remove();return null;
+    if(!body)return false;
+    if(key==='roadmap')return !!body.querySelector('#ccProjectRoadmap');
+    if(key==='performance')return !!body.querySelector('#projectPerformancePanel');
+    if(key==='tracking')return !!body.querySelector('[data-cc-project-detail-source="tracking"]');
+    return false;
   }
 
   function sourceFor(root,key){
     const existing=root?.querySelector(`:scope > .cc-project-detail-section[data-cc-detail-section="${key}"]`);
-    if(existing)return existing;
-    return sources(root)[key]||null;
+    if(existing){
+      if(wrapperHasSource(existing,key))return existing;
+      existing.remove();
+    }
+    return directSource(root,key);
   }
 
   function prepare(root,def){
-    let node=sourceFor(root,def.key);
+    const node=sourceFor(root,def.key);
     if(!node)return null;
     if(node.classList?.contains('cc-project-detail-section'))return node;
 
@@ -94,17 +97,16 @@
     markSecondary(root);
   }
 
-  function cleanNestedRoadmapState(){
-    if(!history.state?.ccProjectRoadmapCategory)return false;
-    history.go(-2);
-    return true;
+  function closeNestedAndSection(){
+    if(history.state?.ccProjectRoadmapCategory){history.go(-2);return true;}
+    return false;
   }
 
   function toggleSection(key){
     const token=currentToken();
     if(!token)return;
     if(openKey===key){
-      if(cleanNestedRoadmapState())return;
+      if(closeNestedAndSection())return;
       if(history.state?.[MARK]===key){history.back();return;}
       openKey=null;schedule();return;
     }
@@ -122,10 +124,7 @@
     schedule();
   }
 
-  function resetForProject(token){
-    projectToken=token;
-    openKey=null;
-  }
+  function resetForProject(token){projectToken=token;openKey=null;}
 
   function apply(){
     const root=detail();
