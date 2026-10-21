@@ -1,0 +1,36 @@
+name: Analytics complete QA
+
+on:
+  pull_request:
+    paths:
+      - 'ANALYTICS_STANDARD.md'
+      - 'command-center-analytics.css'
+      - 'command-center-analytics.js'
+      - 'command-center-analytics-completion.js'
+      - 'app-config.js'
+      - 'index.html'
+      - 'service-worker.js'
+      - 'supabase/migrations/20261021_analytics_*.sql'
+      - 'tests/analytics-complete.test.mjs'
+      - '.github/workflows/analytics-complete-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  analytics-complete-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse Analytics runtime
+        run: |
+          node --check command-center-analytics.js
+          node --check command-center-analytics-completion.js
+      - name: Run Analytics completion QA
+        run: node tests/analytics-complete.test.mjs
