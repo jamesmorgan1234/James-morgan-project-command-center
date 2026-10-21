@@ -27,7 +27,7 @@ for(const table of ['agent_sessions','agent_session_projects','agent_steps','age
   assert.match(schema,new RegExp(`alter table public\\.${table} enable row level security`,'i'),`${table} must use RLS`);
 }
 assert.doesNotMatch(schema,/grant\s+(?:select|insert|update|delete).*agent_.*to authenticated/i,'browser roles must not receive raw Agent table access');
-assert.match(browserHardening,/agent_owner_select_agent_sessions/,'owner RLS policies must be installed');
+assert.match(browserHardening,/create policy %I.*owner_id=\(select auth\.uid\(\)\).*is_command_center_authorized/s,'owner-scoped RLS policies must be generated for Agent tables');
 assert.match(browserHardening,/revoke execute on function public\.command_center_agent_record_work_result.*from authenticated/is,'browser must not fabricate Work results');
 assert.match(browserHardening,/revoke execute on function public\.command_center_agent_confirm_evidence.*from authenticated/is,'browser must not confirm executor evidence');
 assert.match(browserHardening,/grant execute on function public\.command_center_agent_record_work_result.*to service_role/is,'service runtime must retain executor access');
