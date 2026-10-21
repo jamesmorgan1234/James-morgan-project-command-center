@@ -14,7 +14,7 @@ on:
       - 'app-config.js'
       - 'index.html'
       - 'service-worker.js'
-      - 'supabase/migrations/20261021_roadmap_lineage_opportunity_engine.sql'
+      - 'supabase/migrations/**'
       - 'tests/project-roadmaps.test.mjs'
       - 'tests/roadmap-checkpoint-engine.test.mjs'
       - '.github/workflows/roadmap-checkpoint-qa.yml'
