@@ -28,7 +28,7 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('commandCenterExactMenus','./command-center-exact-menus.css?v=1'); addJs('commandCenterExactMenus','./command-center-exact-menus.js?v=1');
     addCss('commandCenterEarnings','./command-center-earnings.css?v=1'); addJs('commandCenterEarnings','./command-center-earnings.js?v=2');
     addCss('commandCenterBrainHome','./command-center-brain-home.css?v=4'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=3');
-    addCss('commandCenterBrainWorkspaces','./command-center-brain-workspaces.css?v=1'); addJs('commandCenterBrainMemory','./command-center-brain-memory.js?v=1'); addJs('commandCenterBrainBrainstorm','./command-center-brain-brainstorm.js?v=1');
+    addCss('commandCenterBrainWorkspaces','./command-center-brain-workspaces.css?v=1'); addJs('commandCenterBrainMemory','./command-center-brain-memory.js?v=1'); addJs('commandCenterBrainBrainstorm','./command-center-brain-brainstorm.js?v=1'); addCss('commandCenterBrainContext','./command-center-brain-context.css?v=1'); addJs('commandCenterBrainContext','./command-center-brain-context.js?v=1');
     addCss('projectRoadmaps','./project-roadmaps.css?v=1'); addJs('projectRoadmaps','./project-roadmaps.js?v=1');
     addCss('commandCenterUiConsistency','./command-center-ui-consistency.css?v=1'); addJs('commandCenterUiConsistency','./command-center-ui-consistency.js?v=1');
     addCss('projectDetailAccordions','./command-center-project-detail-accordions.css?v=1'); addJs('projectDetailAccordions','./command-center-project-detail-accordions.js?v=1');
