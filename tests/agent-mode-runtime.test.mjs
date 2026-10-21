@@ -7,6 +7,8 @@ const css=fs.readFileSync('command-center-agent-mode.css','utf8');
 const deviceUi=fs.readFileSync('command-center-agent-device-guidance.js','utf8');
 const deviceCss=fs.readFileSync('command-center-agent-device-guidance.css','utf8');
 const runnerUi=fs.readFileSync('command-center-agent-runner-status.js','utf8');
+const homeUi=fs.readFileSync('command-center-agent-home.js','utf8');
+const homeCss=fs.readFileSync('command-center-agent-home.css','utf8');
 const cfg=fs.readFileSync('app-config.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
 const sw=fs.readFileSync('service-worker.js','utf8');
@@ -29,8 +31,8 @@ const deviceReq=fs.readFileSync('supabase/migrations/20261021231000_agent_mode_d
 const toolHealth=fs.readFileSync('supabase/migrations/20261021231500_agent_mode_tool_health_gateway.sql','utf8');
 const serviceWork=fs.readFileSync('supabase/migrations/20261021232000_agent_mode_service_work_and_user_blockers.sql','utf8');
 
-for(const [name,src] of [['Agent Mode UI',ui],['Agent completion patch',completion],['Agent device guidance',deviceUi],['Agent runner status',runnerUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
-for(const [name,src] of [['Agent Mode CSS',css],['Agent device CSS',deviceCss]])assert.equal((src.match(/\{/g)||[]).length,(src.match(/\}/g)||[]).length,`${name} braces must balance`);
+for(const [name,src] of [['Agent Mode UI',ui],['Agent completion patch',completion],['Agent device guidance',deviceUi],['Agent runner status',runnerUi],['Agent home dashboard',homeUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
+for(const [name,src] of [['Agent Mode CSS',css],['Agent device CSS',deviceCss],['Agent home CSS',homeCss]])assert.equal((src.match(/\{/g)||[]).length,(src.match(/\}/g)||[]).length,`${name} braces must balance`);
 
 for(const table of ['agent_sessions','agent_session_projects','agent_steps','agent_step_evidence','agent_checkpoints','agent_step_attempts','agent_work_handoffs','agent_work_queue','agent_circuit_breakers','agent_tool_registry','agent_run_events']){
   assert.match(schema,new RegExp(`create table if not exists public\\.${table}`,'i'),`missing ${table}`);
@@ -99,6 +101,19 @@ assert.match(runnerUi,/Background runner active/);
 assert.match(runnerUi,/command_center_agent_tool_health/);
 assert.match(runnerUi,/awaiting first run/);
 
+assert.match(homeUi,/ccAgentHomeButton/,'home Agent button must exist');
+assert.match(homeUi,/Agent Control/,'home Agent control dashboard must exist');
+assert.match(homeUi,/Currently working on/);
+assert.match(homeUi,/Next task/);
+assert.match(homeUi,/Needs You/);
+assert.match(homeUi,/Approve Sol Medium/);
+assert.match(homeUi,/PC REQUIRED/);
+assert.match(homeUi,/I completed this/);
+assert.match(homeUi,/command_center_agent_approve_sol_medium_step/);
+assert.match(homeUi,/command_center_agent_complete_user_action/);
+assert.match(homeUi,/history\.pushState/,'Agent home dashboard must support physical/browser Back');
+assert.match(homeUi,/history\.back\(\)/,'Agent home dashboard must close through history');
+
 for(const label of ['Agent Session Model','Goal Intake','Step Executor','Tool Permission Gate','Verification Gate','Checkpoint & Resume','Failure Recovery','Cross-Project Agent Runs'])assert.ok(brain.includes(label),`Agent roadmap missing ${label}`);
 assert.match(ui,/This Project Only/);
 assert.match(ui,/Approve Sol Medium/);
@@ -110,9 +125,9 @@ assert.doesNotMatch(ui,/GPT-6 Astra/,'Agent UI must not expose Astra runtime opt
 assert.match(completion,/8 of 8 phases complete/);
 assert.match(completion,/100% · Complete/);
 
-for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-mode-completion.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
-for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-mode-completion.js?v=1','./app-config.js?v=26'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
-for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
+for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
+for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=1','./app-config.js?v=26'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-home.css','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
 assert.match(sw,/james-command-center-v70/);
 assert.match(html,/app-config\.js\?v=26/);
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover/,'protected viewport must remain exact');
@@ -126,4 +141,4 @@ assert.match(runnerStandard,/hourly/i);
 assert.match(runnerStandard,/PC REQUIRED/);
 assert.match(runnerStandard,/TinyFish Agent\/Browser are metered/);
 
-console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, completion patch, and PWA release assets are present.');
+console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, home Agent controls, completion patch, and PWA release assets are present.');
