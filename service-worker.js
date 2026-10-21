@@ -1,4 +1,4 @@
-const CACHE='james-command-center-v51';
+const CACHE='james-command-center-v52';
 const STATIC=[
   './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=10','./project-hub.js?v=3',
   './mobile-accordion-polish.css?v=1','./mobile-accordion-polish.js?v=1','./books-hub.css?v=1','./books-hub.js?v=1',
@@ -18,7 +18,23 @@ self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promis
 self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET')return;
   const url=new URL(e.request.url);
-  const freshAsset=url.hostname.includes('supabase.co')||url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp')||e.request.mode==='navigate';
+
+  if(e.request.mode==='navigate'){
+    const refresh=fetch(e.request,{cache:'no-store'}).then(r=>{
+      if(r&&r.ok&&url.origin===self.location.origin){
+        const copy=r.clone();
+        caches.open(CACHE).then(c=>c.put('./index.html',copy)).catch(()=>{});
+      }
+      return r;
+    }).catch(()=>null);
+    e.waitUntil(refresh.then(()=>{}));
+    e.respondWith(
+      caches.match('./index.html').then(cached=>cached||caches.match('./').then(root=>root||refresh.then(r=>r||Response.error())))
+    );
+    return;
+  }
+
+  const freshAsset=url.hostname.includes('supabase.co')||url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp');
   if(freshAsset){
     e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();if(url.origin===self.location.origin)caches.open(CACHE).then(c=>c.put(e.request,copy));return r;}).catch(()=>caches.match(e.request).then(x=>x||caches.match('./index.html'))));
     return;

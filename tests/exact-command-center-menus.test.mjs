@@ -31,7 +31,7 @@ assert.ok(cfg.indexOf('command-center-earnings.css?v=1')>cfg.indexOf('command-ce
 assert.ok(cfg.indexOf('command-center-brain-home.css?v=1')>cfg.indexOf('command-center-earnings.css?v=1'),'Brain home CSS must load after earnings');
 assert.ok(cfg.indexOf('command-center-brain-home.js?v=1')>cfg.indexOf('command-center-earnings.js?v=2'),'Brain home controller must load after earnings');
 assert.match(html,/app-config\.js\?v=12/);
-assert.match(sw,/james-command-center-v51/);
+assert.match(sw,/james-command-center-v52/);
 for(const asset of ['./command-center-exact-menus.css?v=1','./command-center-exact-menus.js?v=1','./command-center-earnings.css?v=1','./command-center-earnings.js?v=2','./command-center-brain-home.css?v=1','./command-center-brain-home.js?v=1']) assert.ok(sw.includes(`'${asset}'`),`${asset} must ship in PWA cache`);
 assert.match(sw,/pathname\.endsWith\('\/command-center-exact-menus\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-exact-menus\.css'\)/);

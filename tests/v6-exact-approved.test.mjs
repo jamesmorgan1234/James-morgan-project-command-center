@@ -47,5 +47,5 @@ const maskableIcons=manifest.icons.filter(icon=>icon.type==='image/png'&&icon.pu
 assert.ok(anyIcons.some(icon=>icon.sizes==='192x192'&&icon.src==='command-center-approved-icon-192.png?icon=9-approved-any'));
 assert.ok(anyIcons.some(icon=>icon.sizes==='512x512'&&icon.src==='command-center-approved-icon-512.png?icon=9-approved-any'));
 assert.ok(maskableIcons.some(icon=>icon.sizes==='512x512'&&icon.src==='command-center-approved-icon-512.png?icon=9-approved-maskable'));
-assert.match(sw,/james-command-center-v51/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
+assert.match(sw,/james-command-center-v52/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
 console.log('Command Center V6.2 exact-approved QA passed.');
