@@ -37,17 +37,21 @@ Until an account-wide Work usage source is available to Command Center, remainin
 
 The execution envelope is a **policy boundary**, not a billing estimate.
 
-## Current Work model ladder
+## Hard Work reasoning ceiling
 
-The current verified/user-visible ladder for this Command Center policy is:
+The current user-visible Work choices include higher Astra options, but **Agent Mode is not permitted to use any Work reasoning/model setting above `GPT-6.1 Sol Medium`.**
+
+The allowed Agent Mode Work ladder is therefore:
 
 1. `GPT-6 Luna High`
 2. `GPT-6.1 Sol Light`
 3. `GPT-6.1 Sol Medium`
-4. `GPT-6 Astra Light`
-5. `GPT-6 Astra Medium`
 
-If the product options change, re-verify the ladder before routing future Work.
+`GPT-6 Astra Light`, `GPT-6 Astra Medium`, and any future Work option stronger/more expensive than the user-approved ceiling are **prohibited for autonomous Agent Mode execution** unless the user explicitly changes this ceiling later.
+
+If Sol Medium is insufficient, Agent Mode must stop, preserve the verified checkpoint, explain the exact unresolved capability/reasoning blocker, and return control to the user. It must not silently escalate beyond the ceiling.
+
+This ceiling overrides older Agent Mode documentation that listed Astra as an available escalation rung.
 
 ## Envelope rule by model rung
 
@@ -87,30 +91,15 @@ Agent Mode may automatically run bounded small/moderate low-risk batches when th
 
 Escalation to Sol Light must be justified by the blocked operation, not by project importance or duration.
 
-### GPT-6.1 Sol Medium — restricted automatic envelope
+### GPT-6.1 Sol Medium — highest allowed Agent Mode Work rung
 
-Use for nontrivial interpretation/debugging or moderate complex Work-only execution.
+Use for nontrivial interpretation/debugging or moderately complex Work-only execution when Luna High and Sol Light are not reasonably sufficient.
 
-Automatic execution should generally be limited to a clearly bounded operation or short batch. Larger/open-ended use requires explicit user approval unless a future user-approved policy changes this boundary.
+This is the **absolute Agent Mode Work reasoning ceiling** under the current policy.
 
-### GPT-6 Astra Light — approval-first envelope
+Automatic execution should generally be limited to a clearly bounded operation or short/moderate batch whose risk remains low and whose scope is explicit. Larger/open-ended use at Sol Medium requires explicit user approval.
 
-Use only when the exact Work-only boundary genuinely needs stronger reasoning/capability.
-
-Because this rung can consume shared allowance faster, substantive execution requires explicit approval. A trivial emergency verification step may be proposed, but Agent Mode must not silently run an open-ended Astra Light task.
-
-### GPT-6 Astra Medium — narrowest envelope
-
-This is the highest current allowed Agent Mode Work rung and is never automatic by default.
-
-Every substantive use requires conspicuous explicit approval with:
-
-- exact blocked operation;
-- why lower rungs are insufficient;
-- bounded scope;
-- expected verification evidence;
-- outstanding Work jobs;
-- remaining Work allowance shown as `N/A` unless verifiably known.
+If Sol Medium cannot complete the blocked operation, Agent Mode must stop and report the blocker rather than selecting Astra or any stronger Work setting.
 
 ## Risk overrides model allowance
 
@@ -138,14 +127,14 @@ Do not treat `micro`, `small`, `moderate`, or `substantial` as direct proxies fo
 Examples:
 
 - a **moderate** batch of 150 repetitive UI clicks may still be Luna High and may fit the broad automatic envelope;
-- a **micro** five-minute debugging decision may require Astra Light and therefore need approval;
+- a **micro** five-minute debugging decision may require Sol Medium and therefore use the highest allowed rung;
 - a long task may remain low-rung when it is mechanically simple;
-- a short task may need a strong rung when reasoning complexity is high.
+- a short task may need the ceiling when reasoning complexity is high.
 
 Agent Mode classifies both:
 
 - `scope_class`: micro / small / moderate / substantial
-- `model_rung`: Luna High / Sol Light / Sol Medium / Astra Light / Astra Medium
+- `model_rung`: Luna High / Sol Light / Sol Medium
 
 Approval is determined from the combination of model rung, risk, scope, and protected boundaries.
 
@@ -202,12 +191,12 @@ Do not escalate for:
 - user-only legal/security decisions;
 - unsupported tool state.
 
-For a genuine capability failure, move only to the **next sufficient rung**, re-evaluate the execution envelope, and require approval if the new rung/policy requires it.
+For a genuine capability failure, move only to the **next sufficient allowed rung**, re-evaluate the execution envelope, and never exceed Sol Medium. If Sol Medium is insufficient, stop and report the blocker.
 
 ## Efficiency objective
 
 The optimization objective is:
 
-**Use normal chat for everything possible. When Work is irreducible, use the least-sufficient model and the broadest safe bounded execution envelope that minimizes handoff overhead without risking uncontrolled usage.**
+**Use normal chat for everything possible. When Work is irreducible, use the least-sufficient allowed model and the broadest safe bounded execution envelope that minimizes handoff overhead without risking uncontrolled usage.**
 
 This means Agent Mode should not ask for approval every few clicks on a safe Luna High task, but it also must not interpret low-rung Work as unlimited permission to operate across unrelated projects or protected actions.
