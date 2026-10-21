@@ -38,5 +38,6 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('commandCenterUiConsistency','./command-center-ui-consistency.css?v=1'); addJs('commandCenterUiConsistency','./command-center-ui-consistency.js?v=1');
     addCss('projectDetailAccordions','./command-center-project-detail-accordions.css?v=1'); addJs('projectDetailAccordions','./command-center-project-detail-accordions.js?v=1');
     addCss('agentMode','./command-center-agent-mode.css?v=1'); addJs('agentMode','./command-center-agent-mode.js?v=1');
+    addCss('agentDeviceGuidance','./command-center-agent-device-guidance.css?v=1'); addJs('agentDeviceGuidance','./command-center-agent-device-guidance.js?v=1');
   };
 })();
