@@ -3,8 +3,10 @@ name: Integrations complete QA
 on:
   pull_request:
     paths:
+      - 'INTEGRATIONS_PROVIDER_STANDARD.md'
       - 'command-center-integrations.css'
       - 'command-center-integrations.js'
+      - 'command-center-integrations-email.js'
       - 'command-center-integrations-completion.js'
       - 'app-config.js'
       - 'index.html'
@@ -31,6 +33,7 @@ jobs:
       - name: Parse Integrations runtime
         run: |
           node --check command-center-integrations.js
+          node --check command-center-integrations-email.js
           node --check command-center-integrations-completion.js
       - name: Run Integrations completion QA
         run: node tests/integrations-complete.test.mjs
