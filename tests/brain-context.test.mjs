@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 
 const migration=fs.readFileSync('supabase/migrations/20261021_brain_phase3_context_builder.sql','utf8');
 const js=fs.readFileSync('command-center-brain-context.js','utf8');
@@ -41,9 +42,30 @@ for(const method of ['build:collect','list','get','save','rebuild','archive','re
 assert.match(js,/100% · Complete/,'Phase 3 workspace must identify the completed phase');
 assert.doesNotMatch(js,/JSON\.stringify\([^)]*context_json/,'raw context JSON must not be exposed in the normal UI');
 
+const sandbox={window:{addEventListener(){}},document:{getElementById(){return null;}},navigator:{clipboard:{writeText:async()=>{}}},CustomEvent:class{},setTimeout(){},console,Date};
+vm.runInNewContext(js,sandbox);
+const api=sandbox.window.COMMAND_CENTER_BRAIN_CONTEXT;
+assert.ok(api,'Context Builder API must mount without requiring the UI');
+const base={status:'active',importance:3,sharing_scope:'private_project',tags:['alpha'],title:'Alpha decision',body:'Use the approved alpha path',updated_at:'2026-10-21T12:00:00Z',created_at:'2026-10-21T12:00:00Z'};
+const ranked=api.rankMemories([
+  {...base,id:'draft',trust_state:'draft',project_id:'p1'},
+  {...base,id:'locked',trust_state:'locked',project_id:'p1',title:'Locked alpha decision'},
+  {...base,id:'other-project',trust_state:'locked',project_id:'p2',title:'Other project alpha'}
+],api.tokenize('alpha decision'),'p1',10);
+assert.equal(ranked[0].id,'locked','locked memory in the selected project must outrank an equivalent draft');
+assert.ok(ranked.findIndex(x=>x.id==='draft')<ranked.findIndex(x=>x.id==='other-project')||!ranked.some(x=>x.id==='other-project'),'selected-project relevance must outrank unrelated project context');
+const deduped=api.dedupeMemories([
+  {...base,id:'old',trust_state:'observed',project_id:'p1',canonical_key:'asset:cover',updated_at:'2026-10-20T12:00:00Z'},
+  {...base,id:'approved',trust_state:'approved',project_id:'p1',canonical_key:'asset:cover',updated_at:'2026-10-21T12:00:00Z'},
+  {...base,id:'archived',status:'archived',trust_state:'locked',project_id:'p1',canonical_key:'asset:other'}
+],['alpha'],'p1',10);
+assert.equal(deduped.filter(x=>x.canonical_key==='asset:cover').length,1,'canonical duplicates must collapse to one authoritative memory');
+assert.equal(deduped.find(x=>x.canonical_key==='asset:cover').id,'approved','higher-authority canonical memory must win deduplication');
+assert.equal(deduped.some(x=>x.id==='archived'),false,'archived memory must not enter retrieval output');
+
 assert.match(home,/\['Context Builder'[^\]]+,100\]/,'Project Brain Phase 3 roadmap must be 100%');
 assert.match(home,/id=\\"ccBrainContextMount\\"/,'Project Brain detail must mount Context Builder');
-assert.match(home,/Project Brain 60%/,'Project Brain parent progress must derive to 60% after three of five complete');
+assert.match(home,/Project Brain \$\{brainPct\}%/,'Project Brain parent summary must derive from phase values');
 assert.match(cfg,/command-center-brain-context\.css\?v=1/);
 assert.match(cfg,/command-center-brain-context\.js\?v=1/);
 assert.ok(sw.includes("'./command-center-brain-context.css?v=1'"));
