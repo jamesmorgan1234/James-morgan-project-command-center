@@ -36,8 +36,8 @@ assert.match(css,/border-left:4px solid #ff6208!important/,'project section bubb
 assert.ok(cfg.indexOf('command-center-project-detail-accordions.css?v=1')>cfg.indexOf('command-center-ui-consistency.css?v=1'),'accordion CSS must load after final surface normalization');
 assert.ok(cfg.indexOf('command-center-project-detail-accordions.js?v=1')>cfg.indexOf('command-center-ui-consistency.js?v=1'),'accordion behavior must load after the existing UI consistency repair');
 
-assert.match(brain,/\['Context Builder'[^\]]+,0\]/,'this app-only repair must not claim Project Brain Phase 3 complete');
-assert.match(brain,/\['Task Queue \/ Planner'[^\]]+,0\]/,'this app-only repair must not claim Project Brain Phase 4 complete');
-assert.match(brain,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'this app-only repair must not claim Project Brain Phase 5 complete');
+assert.match(brain,/\['Context Builder'[^\]]+,100\]/,'Project Brain Phase 3 must reflect the completed Context Builder');
+assert.match(brain,/\['Task Queue \/ Planner'[^\]]+,0\]/,'Project Brain Phase 4 must remain planned');
+assert.match(brain,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'Project Brain Phase 5 must remain planned');
 
 console.log('Project detail accordion ordering/toggle/Back/book-performance/tracking/no-blue app QA passed.');
