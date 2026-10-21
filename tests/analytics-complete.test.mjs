@@ -19,9 +19,9 @@ assert.equal((css.match(/\{/g)||[]).length,(css.match(/\}/g)||[]).length,'Analyt
 for(const table of ['analytics_metric_catalog','analytics_metric_history','analytics_goals','analytics_anomalies']){
   assert.match(migration,new RegExp(`create table if not exists public\\.${table}`,'i'),`missing ${table}`);
   assert.match(migration,new RegExp(`alter table public\\.${table} enable row level security`,'i'),`${table} must use RLS`);
+  assert.match(migration,new RegExp(`revoke all on public\\.${table} from anon,authenticated`,'i'),`${table} must explicitly revoke implicit browser grants`);
 }
 for(const view of ['analytics_metric_series','analytics_latest_by_source','analytics_project_kpis','analytics_portfolio_rollups','analytics_goal_progress'])assert.match(migration,new RegExp(`view public\\.${view} with \\(security_invoker=true\\)`,'i'),`${view} must be a security-invoker view`);
-assert.match(migration,/revoke all on public\.analytics_metric_catalog,public\.analytics_metric_history,public\.analytics_goals,public\.analytics_anomalies from anon,authenticated/,'Analytics tables must not rely on implicit Data API grants');
 assert.match(migration,/grant select,update on public\.analytics_metric_catalog to authenticated/);
 assert.match(migration,/grant select on public\.analytics_metric_history to authenticated/);
 assert.match(migration,/grant select,insert,update,delete on public\.analytics_goals to authenticated/);
