@@ -5,7 +5,7 @@
   let retryTimer = null;
   let rendering = null;
 
-  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 
   function getClient(){
     if(window.COMMAND_CENTER_SUPABASE) return window.COMMAND_CENTER_SUPABASE;
