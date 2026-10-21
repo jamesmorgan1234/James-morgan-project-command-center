@@ -19,16 +19,7 @@ const STATIC=[
 ];
 
 self.addEventListener('install',e=>{
-  e.waitUntil((async()=>{
-    const cache=await caches.open(CACHE);
-    await cache.addAll(STATIC);
-    for(const src of SUPABASE_CDNS){
-      try{
-        const response=await fetch(src,{cache:'reload'});
-        if(response&&response.ok) await cache.put(src,response.clone());
-      }catch{}
-    }
-  })());
+  e.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(STATIC)));
   self.skipWaiting();
 });
 
