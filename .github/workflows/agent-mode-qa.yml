@@ -12,9 +12,13 @@ on:
       - 'command-center-agent-device-guidance.css'
       - 'command-center-agent-device-guidance.js'
       - 'command-center-agent-runner-status.js'
+      - 'command-center-agent-home.css'
+      - 'command-center-agent-home.js'
+      - 'command-center-agent-mode-completion.js'
       - 'app-config.js'
       - 'index.html'
       - 'service-worker.js'
+      - 'deployment-release-manifest.json'
       - 'supabase/migrations/*agent_mode*.sql'
       - 'tests/*.test.mjs'
       - '.github/workflows/agent-mode-qa.yml'
@@ -38,6 +42,8 @@ jobs:
           node --check command-center-agent-mode.js
           node --check command-center-agent-device-guidance.js
           node --check command-center-agent-runner-status.js
+          node --check command-center-agent-home.js
+          node --check command-center-agent-mode-completion.js
       - name: Run dedicated Agent Mode QA
         run: node tests/agent-mode-runtime.test.mjs
       - name: Run inherited Command Center regression suite
