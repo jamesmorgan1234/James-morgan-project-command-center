@@ -47,9 +47,9 @@ const normalizedTask=api.normalizeTaskPatch({title:'  First task  ',details:'   
 assert.match(home,/\['Task Queue \/ Planner'[^\]]+,100\]/,'Project Brain Phase 4 roadmap must be 100%');
 assert.match(home,/ccBrainPlannerMount/,'Project Brain detail must mount Phase 4 planner');
 assert.match(home,/e\.state\?\.ccCommandCenterBrainCapability===capabilityOpen/,'Brain Back handler must preserve nested planner history');
-assert.match(home,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'Phase 5 must remain planned');
+assert.match(home,/\['ChatGPT Handoff Loop'[^\]]+,100\]/,'Phase 5 must now be complete without regressing Phase 4');
 assert.match(cfg,/command-center-brain-planner\.css\?v=1/);assert.match(cfg,/command-center-brain-planner\.js\?v=1/);
 assert.ok(sw.includes("'./command-center-brain-planner.css?v=1'"));assert.ok(sw.includes("'./command-center-brain-planner.js?v=1'"));
 assert.match(sw,/pathname\.endsWith\('\/command-center-brain-planner\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-brain-planner\.css'\)/);
 assert.match(css,/background:#050302|background:#070504|background:#080503/,'planner surfaces must remain black');assert.match(css,/#ff/,'planner must retain orange accents');
-console.log('Project Brain Phase 4 Task Queue / Planner QA passed.');
+console.log('Project Brain Phase 4 Task Queue / Planner QA passed with Phase 5 integrated.');
