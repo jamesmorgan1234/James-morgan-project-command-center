@@ -32,6 +32,7 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('automationAdvanced','./command-center-automation-advanced.css?v=1'); addJs('automationAdvanced','./command-center-automation-advanced.js?v=1'); addJs('automationCompletion','./command-center-automation-completion.js?v=1');
     addCss('integrations','./command-center-integrations.css?v=1'); addJs('integrations','./command-center-integrations.js?v=1'); addJs('integrationsEmail','./command-center-integrations-email.js?v=1'); addJs('integrationsCompletion','./command-center-integrations-completion.js?v=1');
     addCss('analytics','./command-center-analytics.css?v=1'); addJs('analytics','./command-center-analytics.js?v=1'); addJs('analyticsCompletion','./command-center-analytics-completion.js?v=1');
+    addCss('security','./command-center-security.css?v=1'); addJs('security','./command-center-security.js?v=1'); addJs('securityCompletion','./command-center-security-completion.js?v=1');
     addCss('projectRoadmaps','./project-roadmaps.css?v=1'); addJs('projectRoadmaps','./project-roadmaps.js?v=1'); addJs('roadmapCheckpointRuntime','./roadmap-checkpoint-runtime.js?v=1');
     addCss('commandCenterUiConsistency','./command-center-ui-consistency.css?v=1'); addJs('commandCenterUiConsistency','./command-center-ui-consistency.js?v=1');
     addCss('projectDetailAccordions','./command-center-project-detail-accordions.css?v=1'); addJs('projectDetailAccordions','./command-center-project-detail-accordions.js?v=1');
