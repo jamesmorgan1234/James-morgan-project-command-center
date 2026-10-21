@@ -45,7 +45,8 @@
 
   function loadScript(src, timeoutMs = 7000) {
     return new Promise((resolve, reject) => {
-      const existing = [...document.scripts].find(s => s.src === new URL(src, location.href).href && s.dataset.ccLoaded === '1');
+      const absolute = new URL(src, location.href).href;
+      const existing = [...document.scripts].find(s => s.src === absolute && s.dataset.ccLoaded === '1');
       if (existing) { resolve(existing); return; }
       const script = document.createElement('script');
       script.src = src;
@@ -81,6 +82,7 @@
       const client = originalCreateClient(...args);
       if (primaryClientCreated) return client;
       primaryClientCreated = true;
+      window.COMMAND_CENTER_SUPABASE = client;
       const originalOnAuthStateChange = client.auth.onAuthStateChange.bind(client.auth);
       client.auth.onAuthStateChange = callback => {
         let baselineCaptured = false;
@@ -124,6 +126,7 @@
       await ensureSupabase();
       installPrimaryAuthGuard();
       for (const src of CORE_SCRIPTS) await loadScript(src, 7000);
+      window.COMMAND_CENTER_LOAD_ENHANCEMENTS?.();
     } catch (error) {
       showRecovery(error?.message || 'Secure startup failed.');
     } finally {
@@ -132,5 +135,6 @@
   }
 
   revealShell();
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(() => {});
   start(false);
 })();
