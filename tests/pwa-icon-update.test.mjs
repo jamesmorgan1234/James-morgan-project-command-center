@@ -87,7 +87,16 @@ assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approve
 assert.match(html,/rel="manifest" href="\.\/manifest\.webmanifest\?v=9"/);
 assert.match(html,/command-center-approved-icon-512\.png\?icon=7-browser/);
 assert.match(html,/meta name="theme-color" content="#000000"/);
-assert.match(sw,/james-command-center-v51/);
+assert.match(html,/rel="preconnect" href="https:\/\/cdn\.jsdelivr\.net" crossorigin/,'Supabase CDN connection should start before script execution');
+assert.match(html,/rel="preconnect" href="https:\/\/gmlsucpwliegwlxymjvp\.supabase\.co" crossorigin/,'Supabase API connection should be warmed early');
+for(const src of [
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
+  './app-config.js?v=12','./app.js?v=10','./project-hub.js?v=3','./mobile-accordion-polish.js?v=1'
+]){
+  const escaped=src.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  assert.match(html,new RegExp(`<script defer src="${escaped}"><\\/script>`),`${src} must not block first paint`);
+}
+assert.match(sw,/james-command-center-v52/);
 assert.ok(sw.includes("'./command-center-approved-icon-192.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-maskable'"));
@@ -95,5 +104,11 @@ assert.match(sw,/pathname\.endsWith\('\/manifest\.webmanifest'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-192\.png'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-512\.png'\)/);
 assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
+const navPos=sw.indexOf("if(e.request.mode==='navigate')");
+const freshPos=sw.indexOf('const freshAsset=');
+assert.ok(navPos>=0&&freshPos>navPos,'navigation fast path must run before network-first asset handling');
+assert.match(sw,/caches\.match\('\.\/index\.html'\)/,'installed PWA launch must use the cached shell immediately when available');
+assert.match(sw,/e\.waitUntil\(refresh\.then\(\(\)=>\{\}\)\)/,'cached launch must still refresh the shell in the background');
+assert.doesNotMatch(sw,/const freshAsset=[^;]*e\.request\.mode==='navigate'/,'navigation must not fall back into the network-first asset path');
 assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Preserve the exact user-approved launcher artwork/); assert.match(standard,/command-center-approved-icon-512\.png/);
-console.log('PWA approved orange icon QA passed with restored normal + maskable launcher slots.');
+console.log('PWA approved orange icon + fast-start QA passed.');
