@@ -15,7 +15,7 @@ assert.match(cfg,/command-center-v6\.css\?v=1/); assert.match(cfg,/command-cente
 assert.match(cfg,/command-center-v6-2\.css\?v=1/); assert.match(cfg,/command-center-v6-2\.js\?v=1/); assert.match(cfg,/command-center-v6-art\.css\?v=1/);
 assert.doesNotMatch(cfg,/command-center-v5\.js\?v=1/); assert.doesNotMatch(cfg,/command-center-v5-[1-6]\.css\?v=1/);
 assert.match(html,/data-command-center-theme="v6"/); assert.match(html,/meta name="theme-color" content="#000000"/);
-assert.match(html,/command-center-approved-icon-512\.png\?icon=7-ui/); assert.match(html,/manifest\.webmanifest\?v=7/);
+assert.match(html,/command-center-approved-icon-512\.png\?icon=7-ui/); assert.match(html,/manifest\.webmanifest\?v=8/);
 assert.match(css,/#stats\{display:contents!important\}/,'home submenu must be able to visually insert beneath the clicked card without moving/removing the DOM shell');
 assert.match(js,/const map = \{all:11,active:21,attention:31,earning:41\}/,'opened home menu must be ordered directly under its clicked tile');
 assert.match(js,/openView = tile\.dataset\.view/);
@@ -42,7 +42,10 @@ assert.match(artCss,/stat-button\[data-view="all"\][\s\S]*cc6-mountain\.webp/);
 assert.match(artCss,/stat-button\[data-view="active"\][\s\S]*cc6-chart\.webp/);
 assert.match(artCss,/stat-button\[data-view="attention"\][\s\S]*cc6-road\.webp/);
 assert.match(artCss,/\.topbar[\s\S]*cc6-eclipse\.webp/);
-assert.equal(manifest.icons[0]?.src,'command-center-approved-icon-512.png?icon=7-approved');
-assert.match(sw,/james-command-center-v49/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
+const raster=new Map(manifest.icons.filter(icon=>icon.type==='image/png').map(icon=>[icon.sizes,icon.src]));
+assert.equal(raster.get('192x192'),'command-center-approved-icon-192.png?icon=8-approved-192');
+assert.equal(raster.get('256x256'),'command-center-approved-icon-256.png?icon=8-approved-256');
+assert.equal(raster.get('512x512'),'command-center-approved-icon-512.png?icon=8-approved-512');
+assert.match(sw,/james-command-center-v50/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
 console.log('Command Center V6.2 exact-approved QA passed.');
 // Final protected-branch regression trigger after temporary icon staging cleanup.

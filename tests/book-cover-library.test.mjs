@@ -30,8 +30,8 @@ assert.ok(css.includes('.cc7-approved-cover>b{display:none!important}'));
 assert.match(css,/\.cc7-approved-cover:before\{[\s\S]*display:none!important;[\s\S]*content:none!important/,'redundant orange number overlay must stay removed');
 assert.ok(cfg.includes("command-center-book-covers.css?v=2"));
 assert.ok(cfg.includes("command-center-book-covers.js?v=2"));
-assert.ok(html.includes('app-config.js?v=9'));
-assert.ok(sw.includes("james-command-center-v49"));
+assert.ok(html.includes('app-config.js?v=10'));
+assert.ok(sw.includes("james-command-center-v50"));
 assert.ok(sw.includes("book-cover-atlas-v2.webp?v=2"));
 assert.ok(sw.includes("command-center-book-covers.js?v=2"));
 assert.ok(sw.includes("command-center-book-covers.css?v=2"));
@@ -52,8 +52,6 @@ assert.deepEqual(Array.from(entries,entry=>entry[1]),Array.from({length:41},(_,i
 assert.doesNotMatch(js,/findDirect|COMMAND_CENTER_EXTRA_COVERS|cc7-direct/);
 assert.doesNotMatch(css,/cc7-direct/);
 
-// Exercise the actual controller, including exact-match priority for the two
-// Air Fryer titles, both apostrophes, aliases, unknown titles, and repeat renders.
 const cases=[...titles.map((title,index)=>[title,index]),
   ['The Summer We Don\u2019t Leave',30],['THE SUMMER WE DON\u2018T LEAVE',30],
   ['Electric Eden: Psychedelic Gardens Beyond Reality',5],

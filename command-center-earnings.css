@@ -1,0 +1,81 @@
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"]{
+  min-height:256px!important;
+  grid-template-columns:110px minmax(0,1fr) 34px!important;
+  grid-template-rows:auto 1fr auto!important;
+  column-gap:18px!important;
+  padding:22px 20px!important;
+  --cc6-card-art:url('./art-chart.svg')!important;
+  background:linear-gradient(90deg,#0c0907 0%,#050403 44%,rgba(17,7,2,.94) 100%)!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .cc6-stat-icon{
+  grid-column:1!important;
+  grid-row:1/4!important;
+  justify-self:start!important;
+  align-self:center!important;
+  width:92px!important;
+  height:92px!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .label{
+  grid-column:2!important;
+  grid-row:1!important;
+  align-self:start!important;
+  justify-self:center!important;
+  width:100%!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  font-size:clamp(1.55rem,6vw,2.35rem)!important;
+  text-transform:none!important;
+  letter-spacing:-.02em!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .value{
+  grid-column:2!important;
+  grid-row:2!important;
+  align-self:center!important;
+  justify-self:center!important;
+  text-align:center!important;
+  font-size:clamp(3.15rem,13vw,5.4rem)!important;
+  letter-spacing:-.055em!important;
+  color:#fff!important;
+  text-shadow:0 0 12px rgba(255,183,51,.75),0 0 30px rgba(255,92,0,.35)!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .stat-sub{
+  grid-column:2!important;
+  grid-row:3!important;
+  align-self:end!important;
+  justify-self:center!important;
+  margin:0!important;
+  text-align:center!important;
+  color:#b7c1cc!important;
+  font-size:.9rem!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="earning"]:after{
+  grid-column:3!important;
+  grid-row:1/4!important;
+}
+html[data-command-center-theme="v6"] .cc-earnings-cash-mark{
+  position:absolute!important;
+  right:62px!important;
+  bottom:18px!important;
+  width:82px!important;
+  height:58px!important;
+  display:grid!important;
+  place-items:center!important;
+  color:#ffad2e!important;
+  opacity:.7!important;
+  filter:drop-shadow(0 0 9px rgba(255,99,0,.8))!important;
+  pointer-events:none!important;
+  z-index:1!important;
+}
+html[data-command-center-theme="v6"] .cc-earnings-cash-mark svg{width:100%!important;height:100%!important}
+@media(max-width:620px){
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"]{
+    min-height:240px!important;
+    grid-template-columns:84px minmax(0,1fr) 28px!important;
+    column-gap:10px!important;
+    padding:18px 14px!important;
+  }
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .cc6-stat-icon{width:68px!important;height:68px!important}
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .label{font-size:1.38rem!important}
+  html[data-command-center-theme="v6"] .stat-button[data-view="earning"] .value{font-size:clamp(2.65rem,13vw,4.2rem)!important}
+  html[data-command-center-theme="v6"] .cc-earnings-cash-mark{right:46px!important;bottom:14px!important;width:64px!important;height:46px!important;opacity:.58!important}
+}
