@@ -1,0 +1,36 @@
+name: Integrations complete QA
+
+on:
+  pull_request:
+    paths:
+      - 'command-center-integrations.css'
+      - 'command-center-integrations.js'
+      - 'command-center-integrations-completion.js'
+      - 'app-config.js'
+      - 'index.html'
+      - 'service-worker.js'
+      - 'supabase/migrations/20261021_integrations_*.sql'
+      - 'supabase/functions/command-center-integration-webhook/**'
+      - 'tests/integrations-complete.test.mjs'
+      - '.github/workflows/integrations-complete-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  integrations-complete-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse Integrations runtime
+        run: |
+          node --check command-center-integrations.js
+          node --check command-center-integrations-completion.js
+      - name: Run Integrations completion QA
+        run: node tests/integrations-complete.test.mjs
