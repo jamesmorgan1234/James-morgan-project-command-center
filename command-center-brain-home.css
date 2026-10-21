@@ -1,0 +1,27 @@
+html[data-command-center-theme="v6"] #projectGrid [data-cc-brain-open]{display:none!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button{
+  --cc6-card-art:url('./art-brain.svg')!important;
+  border:2px solid #ff5c00!important;
+  background:linear-gradient(90deg,#090705 0%,#050403 52%,rgba(22,8,2,.96) 100%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 0 0 1px rgba(255,99,0,.08),0 12px 28px rgba(0,0,0,.3),0 0 26px rgba(255,92,0,.13)!important;
+  min-height:142px!important;
+  color:#fff!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-home-button::before{
+  content:'◉'!important;
+  color:#ff9b23!important;
+  background:rgba(255,92,0,.10)!important;
+  border:1px solid rgba(255,115,28,.28)!important;
+  box-shadow:0 0 24px rgba(255,92,0,.17)!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-home-button::after{color:#ff8a1f!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .label{color:#fff!important;font-size:1rem!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .value{font-size:1.38rem!important;color:#fff!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .stat-sub{color:#b6aaa2!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button:focus-visible{outline:2px solid #ff9a2f!important;outline-offset:3px!important}
+html[data-command-center-theme="v6"] #ccBrainHomeRoadmap{margin-top:8px}
+@media(max-width:760px){
+  html[data-command-center-theme="v6"] .cc-brain-home-button{min-height:132px!important}
+}

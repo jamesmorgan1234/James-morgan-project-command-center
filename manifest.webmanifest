@@ -9,9 +9,8 @@
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
-    {"src":"command-center-approved-icon-192.png?icon=8-approved-192","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"command-center-approved-icon-256.png?icon=8-approved-256","sizes":"256x256","type":"image/png","purpose":"any"},
-    {"src":"command-center-approved-icon-512.png?icon=8-approved-512","sizes":"512x512","type":"image/png","purpose":"any"},
-    {"src":"command-center-icon-v4.svg?icon=6-vector-fallback","sizes":"any","type":"image/svg+xml","purpose":"any"}
+    {"src":"command-center-approved-icon-192.png?icon=9-approved-any","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"command-center-approved-icon-512.png?icon=9-approved-any","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"command-center-approved-icon-512.png?icon=9-approved-maskable","sizes":"512x512","type":"image/png","purpose":"maskable"}
   ]
 }
