@@ -17,8 +17,10 @@ for(const originalPlaceholder of ['Recurring Report Jobs','Action Queue Runner',
 assert.match(completion,/8 of 8 phases complete/,'Automation completion layer must expose all eight phases complete');
 assert.match(completion,/badge\.textContent='100% · Complete'/,'Automation completion layer must mark remaining phase badges complete');
 assert.match(completion,/bar\.style\.width='100%'/,'Automation completion layer must fill remaining phase progress bars');
+assert.match(completion,/let mount=document\.getElementById\('ccAutomationAdvancedMount'\),created=false/,'Automation mount creation must be tracked explicitly');
+assert.match(completion,/if\(!mount\)\{mount=document\.createElement\('div'\);mount\.id='ccAutomationAdvancedMount';detail\.appendChild\(mount\);created=true;\}/,'mount must be created only when absent');
 assert.match(completion,/if\(created\)window\.COMMAND_CENTER_AUTOMATION_ADVANCED\?\.mount\?\.\(\)/,'advanced workspace must mount only when a new Automation detail mount is created');
-assert.doesNotMatch(completion,/window\.COMMAND_CENTER_AUTOMATION_ADVANCED\?\.mount\?\.\(\);\s*\n\s*}/,'completion observer must not blindly remount on every mutation');
+assert.equal((completion.match(/COMMAND_CENTER_AUTOMATION_ADVANCED\?\.mount\?\.\(\)/g)||[]).length,1,'completion observer must contain exactly one guarded advanced-workspace mount call');
 assert.match(js,/capabilityProgress=item=>Math\.round\(item\.phases\.reduce/,'base capability percentage must still derive from its phase values');
 assert.match(js,/Project Brain \$\{brainPct\}%/,'Project Brain home summary must derive from phase values');
 assert.match(js,/data-cc-brain-current-toggle/,'open capability bubble must be clickable again to close');
