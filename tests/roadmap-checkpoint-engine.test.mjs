@@ -33,8 +33,8 @@ assert.match(migration,/dependencies_satisfied/,'dependency gate must participat
 assert.match(migration,/quality_gate_passed/,'quality gate must participate in verified progress');
 assert.match(precision,/trunc\(\(completed_weight \* 100\.0\) \/ total_weight, 1\)/,'scope progress must truncate rather than round upward');
 assert.match(precision,/trunc\(\(phase_completed_weight\*100\.0\)\/phase_total_weight,1\)/,'phase progress must truncate rather than round upward');
-assert.match(precision,/category_completed_weight := category_completed_weight \+ \(phase_weight \* phase_completed_weight \/ phase_total_weight\)/,'category math must use exact child fractions before display truncation');
-assert.match(precision,/roadmap_completed_weight := roadmap_completed_weight \+ \(category_weight \* category_completed_weight \/ category_total_weight\)/,'roadmap math must use exact category fractions before display truncation');
+assert.match(precision,/category_completed_weight := category_completed_weight[\s\S]*?phase_weight \* phase_completed_weight \/ phase_total_weight/,'category math must use exact child fractions before display truncation');
+assert.match(precision,/roadmap_completed_weight := roadmap_completed_weight[\s\S]*?category_weight \* category_completed_weight \/ category_total_weight/,'roadmap math must use exact category fractions before display truncation');
 assert.match(precision,/64\.96% therefore displays\/stores as 64\.9%/,'precision contract must explicitly prevent 64.96 becoming 65.0');
 
 for(const term of ['Idempotent continuation','Checkpoint ancestry','Resume contract','Scarce-resource protection','Reopen semantics','State and evidence are separate concepts'])assert.ok(execution.includes(term),`missing execution rule: ${term}`);
