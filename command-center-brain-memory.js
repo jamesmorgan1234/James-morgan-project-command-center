@@ -1,18 +1,12 @@
 (() => {
   const TYPES=['decision','fact','preference','constraint','checkpoint','reference','note'];
   const ORIGINS=['manual','system','project','chat','import'];
-  const cfg=window.COMMAND_CENTER_CONFIG||{};
-  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const PATCH_KEYS=['project_id','memory_type','title','body','tags','importance','origin','metadata'];
+  const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const normTags=value=>[...new Set((Array.isArray(value)?value:String(value||'').split(',')).map(x=>String(x).trim().toLowerCase()).filter(Boolean))].slice(0,20);
-  let client=null;
   let state={memories:[],projects:[],mounted:null,editingId:null,query:'',project:'all',type:'all',showArchived:false,busy:false};
 
-  function getClient(){
-    if(client) return client;
-    if(!window.supabase?.createClient||!cfg.supabaseUrl||!cfg.supabaseAnonKey) return null;
-    client=window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:false,detectSessionInUrl:false}});
-    return client;
-  }
+  function getClient(){ return window.COMMAND_CENTER_SUPABASE||null; }
 
   async function getAuthorizedUser(){
     const db=getClient();
@@ -24,21 +18,37 @@
     return session.user;
   }
 
-  function cleanInput(input={}){
-    const memory_type=TYPES.includes(input.memory_type)?input.memory_type:'note';
-    const origin=ORIGINS.includes(input.origin)?input.origin:'manual';
+  function normalizeField(key,value){
+    if(key==='project_id') return value||null;
+    if(key==='memory_type') return TYPES.includes(value)?value:'note';
+    if(key==='title') return String(value||'').trim().slice(0,160);
+    if(key==='body') return String(value||'').trim();
+    if(key==='tags') return normTags(value);
+    if(key==='importance') return Math.min(5,Math.max(1,Number(value)||3));
+    if(key==='origin') return ORIGINS.includes(value)?value:'manual';
+    if(key==='metadata') return value&&typeof value==='object'&&!Array.isArray(value)?value:{};
+    return value;
+  }
+
+  function cleanCreate(input={}){
     return {
-      project_id:input.project_id||null,
-      memory_type,
-      title:String(input.title||'').trim().slice(0,160),
-      body:String(input.body||'').trim(),
-      tags:normTags(input.tags),
-      importance:Math.min(5,Math.max(1,Number(input.importance)||3)),
-      origin,
-      metadata:input.metadata&&typeof input.metadata==='object'&&!Array.isArray(input.metadata)?input.metadata:{},
-      status:input.status==='archived'?'archived':'active',
-      archived_at:input.status==='archived'?(input.archived_at||new Date().toISOString()):null
+      project_id:normalizeField('project_id',input.project_id),
+      memory_type:normalizeField('memory_type',input.memory_type),
+      title:normalizeField('title',input.title),
+      body:normalizeField('body',input.body),
+      tags:normalizeField('tags',input.tags),
+      importance:normalizeField('importance',input.importance),
+      origin:normalizeField('origin',input.origin),
+      metadata:normalizeField('metadata',input.metadata),
+      status:'active',
+      archived_at:null
     };
+  }
+
+  function cleanPatch(patch={}){
+    const allowed={};
+    for(const key of PATCH_KEYS) if(Object.prototype.hasOwnProperty.call(patch,key)) allowed[key]=normalizeField(key,patch[key]);
+    return allowed;
   }
 
   async function list(options={}){
@@ -59,7 +69,7 @@
   async function remember(input={}){
     const db=getClient(),user=await getAuthorizedUser();
     if(!db||!user) throw new Error('Durable Memory requires an authorized Command Center session.');
-    const row=cleanInput(input);
+    const row=cleanCreate(input);
     if(!row.title) throw new Error('Memory title is required.');
     row.owner_id=user.id;
     const {data,error}=await db.from('brain_memories').insert(row).select('*').single();
@@ -70,9 +80,9 @@
   async function update(id,patch={}){
     const db=getClient(),user=await getAuthorizedUser();
     if(!db||!user) throw new Error('Durable Memory requires an authorized Command Center session.');
-    const allowed=cleanInput({...patch,status:patch.status||'active'});
-    delete allowed.owner_id;
-    if(!allowed.title) throw new Error('Memory title is required.');
+    const allowed=cleanPatch(patch);
+    if(Object.prototype.hasOwnProperty.call(allowed,'title')&&!allowed.title) throw new Error('Memory title is required.');
+    if(!Object.keys(allowed).length) throw new Error('No memory fields were supplied to update.');
     const {data,error}=await db.from('brain_memories').update(allowed).eq('id',id).eq('owner_id',user.id).select('*').single();
     if(error) throw error;
     return data;
@@ -210,9 +220,7 @@
 
   function wire(){
     const root=state.mounted;
-    root.addEventListener('input',e=>{
-      if(e.target.matches('[data-memory-search]')){state.query=e.target.value;renderList();}
-    });
+    root.addEventListener('input',e=>{ if(e.target.matches('[data-memory-search]')){state.query=e.target.value;renderList();} });
     root.addEventListener('change',e=>{
       if(e.target.matches('[data-memory-project-filter]')){state.project=e.target.value;renderList();}
       if(e.target.matches('[data-memory-type-filter]')){state.type=e.target.value;renderList();}
