@@ -9,7 +9,7 @@
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
-    {"src":"command-center-approved-icon-512.png?icon=6-approved","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"command-center-approved-icon-512.png?icon=7-approved","sizes":"512x512","type":"image/png","purpose":"any"},
     {"src":"command-center-icon-v4.svg?icon=6-vector-fallback","sizes":"any","type":"image/svg+xml","purpose":"any"}
   ]
 }
