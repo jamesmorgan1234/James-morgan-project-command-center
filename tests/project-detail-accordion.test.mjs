@@ -22,6 +22,10 @@ assert.match(js,/history\.back\(\)/,'same open bubble must close through browser
 assert.match(js,/history\.pushState/,'opening a section must create a Back depth');
 assert.match(js,/history\.replaceState/,'switching open project sections must not pile up unnecessary history');
 assert.match(js,/ccProjectRoadmapCategory/,'closing the Roadmap bubble must account for a nested roadmap category');
+assert.match(js,/#projectPerformancePanel/,'standard project performance panel must feed Lifetime Performance');
+assert.match(js,/#bookRevenuePanel/,'book-series revenue panel must also feed Lifetime Performance');
+assert.match(js,/ccv4-compact-details/,'existing compact Tracking Integrations content must be detected');
+assert.match(js,/compact\.open=true|setAttribute\('open',''\)/,'hidden nested tracking details must be forced open inside the outer Tracking bubble');
 
 assert.match(mobile,/ccProjectDetailAccordion/,'mobile navigation must yield detail-section history to the project accordion controller');
 assert.match(mobile,/ccProjectDetailAccordionBase/,'mobile navigation must preserve the section-collapse landing state');
@@ -36,4 +40,4 @@ assert.match(brain,/\['Context Builder'[^\]]+,0\]/,'this app-only repair must no
 assert.match(brain,/\['Task Queue \/ Planner'[^\]]+,0\]/,'this app-only repair must not claim Project Brain Phase 4 complete');
 assert.match(brain,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'this app-only repair must not claim Project Brain Phase 5 complete');
 
-console.log('Project detail accordion ordering/toggle/Back/no-blue app QA passed.');
+console.log('Project detail accordion ordering/toggle/Back/book-performance/tracking/no-blue app QA passed.');
