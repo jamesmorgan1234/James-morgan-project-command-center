@@ -16,11 +16,9 @@ const cfg=fs.readFileSync('app-config.js','utf8');
 const sw=fs.readFileSync('service-worker.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
 
-assert.doesNotThrow(()=>new Function(ui),'Integrations UI must parse');
-assert.doesNotThrow(()=>new Function(emailUi),'Email records UI must parse');
-assert.doesNotThrow(()=>new Function(completion),'Integrations completion patch must parse');
-assert.equal((css.match(/\{/g)||[]).length,(css.match(/\}/g)||[]).length,'Integrations CSS braces must balance');
-for(const table of ['integration_connections','integration_permissions','integration_sync_runs','integration_source_events','integration_metrics','integration_write_requests','integration_webhook_endpoints','integration_health_events'])assert.ok(migration.includes(`public.${table}`),`missing ${table}`);
+assert.doesNotThrow(()=>new Function(ui));assert.doesNotThrow(()=>new Function(emailUi));assert.doesNotThrow(()=>new Function(completion));
+assert.equal((css.match(/\{/g)||[]).length,(css.match(/\}/g)||[]).length);
+for(const table of ['integration_connections','integration_permissions','integration_sync_runs','integration_source_events','integration_metrics','integration_write_requests','integration_webhook_endpoints','integration_health_events'])assert.ok(migration.includes(`public.${table}`));
 assert.match(records,/create table if not exists public\.integration_records/);assert.match(records,/email\.message/);assert.match(records,/Full sensitive bodies are not stored by the generic normalizer/);assert.match(records,/integration_records_select_own/);
 assert.match(migration,/One row per provider account\/profile\/channel\. Multiple rows for the same provider are expected and supported/);assert.doesNotMatch(migration,/unique\s*\(owner_id\s*,\s*provider_key\s*\)/i);assert.match(migration,/owner_id,provider_key,external_account_id/);
 assert.match(migration,/social\.followers/);assert.match(migration,/social\.subscribers/);assert.match(migration,/revenue\.reported/);assert.match(migration,/content\.watch_time_seconds/);assert.match(migration,/scope_authorized/);assert.match(migration,/authorization_state<>'authorized'/);assert.match(migration,/configuration_preserved/);assert.match(migration,/idempotency_key/);assert.match(migration,/enable row level security/g);
@@ -32,5 +30,5 @@ assert.match(ui,/Account \/ channel label/);assert.match(ui,/Followers/);assert.
 assert.match(emailUi,/integration_records/);assert.match(emailUi,/Yahoo, Gmail, Outlook, Proton/);assert.match(emailUi,/email_metadata/);assert.match(emailUi,/email_content/);assert.match(emailUi,/Full body content requires an explicit deeper-content permission/);
 assert.match(completion,/8 of 8 phases complete/);assert.match(completion,/ccIntegrationsMount/);
 for(const asset of ['command-center-integrations.css?v=1','command-center-integrations.js?v=1','command-center-integrations-email.js?v=1','command-center-integrations-completion.js?v=1']){assert.ok(cfg.includes(asset));assert.ok(sw.includes(asset));}
-assert.match(cfg,/command-center-analytics\.js\?v=1/,'Analytics release must preserve and extend Integrations');assert.match(sw,/james-command-center-v67/);assert.match(html,/app-config\.js\?v=23/);assert.match(html,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(html,/cc-startup-repair-attempted-v63/);
-console.log('Integrations QA preserved under Analytics release, including multi-account social and multi-mailbox email support.');
+assert.match(cfg,/command-center-analytics\.js\?v=1/);assert.match(cfg,/command-center-security\.js\?v=1/,'Security release must preserve and extend Integrations');assert.match(sw,/james-command-center-v68/);assert.match(html,/app-config\.js\?v=24/);assert.match(html,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(html,/cc-startup-repair-attempted-v63/);
+console.log('Integrations QA preserved under Security release, including multi-account social and multi-mailbox email support.');

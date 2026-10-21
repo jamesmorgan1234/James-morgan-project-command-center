@@ -92,7 +92,7 @@
   async function boot(){
     installTopEdgeRefreshGuard();
     try{
-      await loadLocal('./app-config.js?v=23',6000);
+      await loadLocal('./app-config.js?v=24',6000);
       await loadLocal('./startup-loader.js?v=3',6000);
       sessionStorage.removeItem(REPAIR_KEY);
     }catch(error){
