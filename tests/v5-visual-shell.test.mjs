@@ -11,5 +11,8 @@ assert.match(cfg,/command-center-v6-2\.js\?v=1/,'V6.2 exact visual hardening mus
 assert.ok(cfg.indexOf('command-center-v6-2.css?v=1')>cfg.indexOf('command-center-v6.css?v=1'),'V6.2 CSS must load after base V6 CSS');
 assert.ok(cfg.indexOf('command-center-v6-2.js?v=1')>cfg.indexOf('command-center-v6.js?v=1'),'V6.2 JS must load after base V6 JS');
 assert.equal(manifest.theme_color,'#000000');
-assert.equal(manifest.icons[0]?.src,'command-center-approved-icon-512.png?icon=7-approved');
+const raster=new Map(manifest.icons.filter(icon=>icon.type==='image/png').map(icon=>[icon.sizes,icon.src]));
+assert.equal(raster.get('192x192'),'command-center-approved-icon-192.png?icon=8-approved-192');
+assert.equal(raster.get('256x256'),'command-center-approved-icon-256.png?icon=8-approved-256');
+assert.equal(raster.get('512x512'),'command-center-approved-icon-512.png?icon=8-approved-512');
 console.log('V5 retirement / V6.2 migration QA passed.');
