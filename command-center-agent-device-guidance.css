@@ -1,0 +1,6 @@
+.cc-agent-device-banner{margin:12px 0 14px;padding:14px 15px;border:1px solid rgba(255,145,0,.48);border-radius:14px;background:rgba(255,145,0,.09);box-shadow:inset 0 0 0 1px rgba(255,255,255,.015)}
+.cc-agent-device-banner.pc{border-color:rgba(255,145,0,.75);background:rgba(255,145,0,.13)}
+.cc-agent-device-title{font-size:.82rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#ff9b1a;margin-bottom:4px}
+.cc-agent-device-reason{font-weight:800;color:#fff;margin-bottom:5px}
+.cc-agent-device-instructions{color:#e8e8e8;line-height:1.45;margin-bottom:7px}
+.cc-agent-device-resume{font-size:.82rem;color:#aeb4bd;line-height:1.4}
