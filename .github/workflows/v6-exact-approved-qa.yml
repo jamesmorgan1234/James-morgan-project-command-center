@@ -21,6 +21,8 @@ on:
       - 'command-center-brain-brainstorm.js'
       - 'project-roadmaps.css'
       - 'project-roadmaps.js'
+      - 'command-center-project-detail-accordions.css'
+      - 'command-center-project-detail-accordions.js'
       - 'app-integrity-repair.js'
       - 'supabase/migrations/**'
       - 'operating-order-exclusion.js'
@@ -59,6 +61,7 @@ jobs:
       - run: node --check command-center-brain-memory.js
       - run: node --check command-center-brain-brainstorm.js
       - run: node --check project-roadmaps.js
+      - run: node --check command-center-project-detail-accordions.js
       - run: node --check app-integrity-repair.js
       - run: node --check refresh-orchestrator.js
       - run: node --check source-health.js
@@ -71,6 +74,7 @@ jobs:
       - run: node tests/brain-memory.test.mjs
       - run: node tests/brain-brainstorm.test.mjs
       - run: node tests/project-roadmaps.test.mjs
+      - run: node tests/project-detail-accordion.test.mjs
       - run: node tests/app-integrity.test.mjs
       - run: node tests/refresh-stability.test.mjs
       - run: node tests/pwa-icon-update.test.mjs
