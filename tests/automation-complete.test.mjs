@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
 const sql=fs.readFileSync('supabase/migrations/20261021_automation_phases4_8_completion.sql','utf8');
+const indexes=fs.readFileSync('supabase/migrations/20261021_automation_phases4_8_fk_indexes.sql','utf8');
 const ui=fs.readFileSync('command-center-automation-advanced.js','utf8');
 const completion=fs.readFileSync('command-center-automation-completion.js','utf8');
 const css=fs.readFileSync('command-center-automation-advanced.css','utf8');
@@ -46,6 +47,17 @@ assert.match(sql,/if found and sr\.status='succeeded' then/,'workflow retries mu
 assert.match(sql,/resume_state=jsonb_build_object/,'workflow execution must persist resumable state');
 assert.match(sql,/automation_run_events/,'run transitions must be durably recorded');
 assert.match(sql,/on conflict\(owner_id,idempotency_key\)/,'report/action/notification retry paths must suppress duplicate side effects');
+
+for(const requiredIndex of [
+  'automation_schedules_project_fk_idx','automation_schedules_condition_fk_idx','automation_conditions_project_fk_idx',
+  'automation_condition_evaluations_project_fk_idx','automation_condition_evaluations_condition_fk_idx','automation_dispatch_project_fk_idx',
+  'automation_dispatch_condition_fk_idx','automation_notifications_project_fk_idx','automation_notifications_schedule_fk_idx',
+  'automation_notifications_condition_fk_idx','automation_report_definitions_project_fk_idx','automation_report_runs_project_fk_idx',
+  'automation_report_runs_definition_fk_idx','automation_report_runs_run_fk_idx','automation_action_definitions_project_fk_idx',
+  'automation_action_executions_definition_fk_idx','automation_action_executions_run_fk_idx','automation_runs_project_fk_idx',
+  'automation_runs_schedule_fk_idx','automation_run_events_owner_fk_idx','automation_workflow_steps_project_fk_idx',
+  'automation_workflow_runs_workflow_fk_idx','automation_workflow_step_runs_owner_fk_idx','automation_workflow_step_runs_step_fk_idx'
+])assert.ok(indexes.includes(requiredIndex),`missing Automation FK covering index ${requiredIndex}`);
 
 assert.doesNotMatch(sql,/insert into public\.automation_(report_definitions|action_definitions|workflows|schedules)\s*\([^)]*\)\s*values\s*\([^)]*'QA'/i,'migration must not seed fake user automation data');
 assert.doesNotMatch(sql,/OPENAI_API_KEY|service_role_key|sk-[A-Za-z0-9]/,'automation completion must not add paid/secret client dependencies');
