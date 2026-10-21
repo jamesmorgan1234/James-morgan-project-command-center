@@ -1,4 +1,5 @@
 const CACHE='james-command-center-v69';
+// Deployment release v25/v69: touching this shared runtime asset forces the complete release gate on one exact head.
 const SUPABASE_CDNS=[
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
   'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
