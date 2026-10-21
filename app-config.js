@@ -7,6 +7,7 @@
     const client = originalCreateClient(...args);
     if (primaryClientCreated) return client;
     primaryClientCreated = true;
+    window.COMMAND_CENTER_SUPABASE = client;
     const originalOnAuthStateChange = client.auth.onAuthStateChange.bind(client.auth);
     client.auth.onAuthStateChange = callback => {
       let baselineCaptured = false;
@@ -47,5 +48,6 @@ window.addEventListener('load', () => {
   addCss('commandCenterExactMenus','./command-center-exact-menus.css?v=1'); addJs('commandCenterExactMenus','./command-center-exact-menus.js?v=1');
   addCss('commandCenterEarnings','./command-center-earnings.css?v=1'); addJs('commandCenterEarnings','./command-center-earnings.js?v=2');
   addCss('commandCenterBrainHome','./command-center-brain-home.css?v=3'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=3');
+  addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1');
   addCss('commandCenterBrainMemory','./command-center-brain-memory.css?v=1'); addJs('commandCenterBrainMemory','./command-center-brain-memory.js?v=1');
 }, { once: true });
