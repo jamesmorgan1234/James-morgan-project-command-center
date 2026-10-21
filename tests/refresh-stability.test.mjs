@@ -16,8 +16,9 @@ const mobileCss=fs.readFileSync('mobile-accordion-polish.css','utf8');
 const consistency=fs.readFileSync('command-center-ui-consistency.js','utf8');
 const accordions=fs.readFileSync('command-center-project-detail-accordions.js','utf8');
 const context=fs.readFileSync('command-center-brain-context.js','utf8');
+const planner=fs.readFileSync('command-center-brain-planner.js','utf8');
 
-for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health],['startup loader',loader],['app config',cfg],['app integrity repair',integrity],['mobile accordion',mobile],['UI consistency',consistency],['project detail accordions',accordions],['Brain Context Builder',context]]){
+for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health],['startup loader',loader],['app config',cfg],['app integrity repair',integrity],['mobile accordion',mobile],['UI consistency',consistency],['project detail accordions',accordions],['Brain Context Builder',context],['Brain Task Queue / Planner',planner]]){
   assert.doesNotThrow(()=>new Function(text),`${name} must parse as JavaScript`);
 }
 
@@ -47,6 +48,7 @@ assert.match(cfg,/operating-order-exclusion\.js\?v=3/);
 assert.match(cfg,/refresh-orchestrator\.js\?v=7/);
 assert.match(cfg,/source-health\.js\?v=3/);
 assert.match(cfg,/command-center-brain-home\.css\?v=4/);
+assert.match(cfg,/command-center-brain-home\.js\?v=4/);
 assert.match(cfg,/app-integrity-repair\.js\?v=2/);
 assert.match(cfg,/command-center-ui-consistency\.css\?v=1/);
 assert.match(cfg,/command-center-ui-consistency\.js\?v=1/);
@@ -54,31 +56,23 @@ assert.match(cfg,/command-center-project-detail-accordions\.css\?v=1/);
 assert.match(cfg,/command-center-project-detail-accordions\.js\?v=1/);
 assert.match(cfg,/command-center-brain-context\.css\?v=1/);
 assert.match(cfg,/command-center-brain-context\.js\?v=1/);
+assert.match(cfg,/command-center-brain-planner\.css\?v=1/);
+assert.match(cfg,/command-center-brain-planner\.js\?v=1/);
 assert.match(cfg,/s\.async=false/,'enhancement scripts must preserve their intended order');
 assert.doesNotMatch(cfg,/window\.addEventListener\('load'/,'enhancements must not race the core on window load');
 
-assert.match(html,/app-config\.js\?v=18/,'self-healing bootstrap must request the Phase 3 config');
+assert.match(html,/app-config\.js\?v=19/,'self-healing bootstrap must request the Phase 4 config');
 assert.match(html,/startup-loader\.js\?v=3/,'self-healing bootstrap must request the repaired startup loader');
 assert.match(html,/navigator\.serviceWorker\.getRegistrations\(\)/,'broken local runtime must be recoverable without asking the user to clear site data');
 assert.match(html,/key\.startsWith\('james-command-center-'\)/,'automatic repair must clear only Command Center caches');
 assert.match(html,/command-center-startup-shell\.css\?v=1/,'critical approved startup shell must be local and immediately available');
 assert.doesNotMatch(html,/<script[^>]+src="https:\/\//i,'fresh install must not block first paint on an external script');
-assert.match(sw,/james-command-center-v61/,'Phase 3 must advance the installed-app cache');
+assert.match(sw,/james-command-center-v62/,'Phase 4 must advance the installed-app cache');
 assert.match(sw,/Promise\.allSettled\(STATIC\.map\(asset=>cache\.add\(asset\)\)\)/,'one optional cache failure must not abort worker installation');
 assert.match(sw,/fetchWithTimeout\(e\.request,3500\)/,'navigation network refresh must be bounded');
 assert.match(sw,/SUPABASE_CDNS=\[/,'service worker must recognize both secure runtime sources');
 assert.match(sw,/caches\.match\(url\.href\)/,'installed app reopen must be able to reuse a successfully cached secure runtime');
-assert.match(sw,/pathname\.endsWith\('\/startup-loader\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/operating-order-exclusion\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/refresh-orchestrator\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/source-health\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/app-integrity-repair\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-ui-consistency\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-ui-consistency\.css'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-project-detail-accordions\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-project-detail-accordions\.css'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-brain-context\.js'\)/);
-assert.match(sw,/pathname\.endsWith\('\/command-center-brain-context\.css'\)/);
+for(const path of ['startup-loader.js','operating-order-exclusion.js','refresh-orchestrator.js','source-health.js','app-integrity-repair.js','command-center-ui-consistency.js','command-center-ui-consistency.css','command-center-project-detail-accordions.js','command-center-project-detail-accordions.css','command-center-brain-context.js','command-center-brain-context.css','command-center-brain-planner.js','command-center-brain-planner.css'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`missing fresh asset ${path}`);
 assert.match(sw,/if\(url\.origin!==self\.location\.origin\)return/,'Supabase API requests must remain outside the app-shell cache path');
 const installBlock=sw.slice(sw.indexOf("self.addEventListener('install'"),sw.indexOf("self.addEventListener('activate'"));
 assert.doesNotMatch(installBlock,/fetch\s*\(/,'service-worker install must never depend on a remote runtime');
@@ -98,5 +92,7 @@ assert.doesNotMatch(mobile,/overscroll-behavior-y/,'mobile navigation must not a
 assert.doesNotMatch(mobileCss,/overflow-y\s*:|touch-action\s*:|overscroll-behavior-y\s*:/,'mobile shell CSS must leave native vertical scrolling alone');
 assert.match(accordions,/history\.pushState/,'project section expansion must participate in Android Back history');
 assert.match(accordions,/history\.back\(\)/,'same project section bubble must close through that same history');
+assert.match(planner,/history\.pushState/,'Phase 4 plan expansion must participate in Android Back history');
+assert.match(planner,/history\.back\(\)/,'same Phase 4 plan bubble must close through history');
 
-console.log('Refresh/reload + self-healing startup + native-scroll + project-accordion + Phase 3 stability QA passed.');
+console.log('Refresh/reload + self-healing startup + native-scroll + project-accordion + Phase 4 stability QA passed.');
