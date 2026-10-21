@@ -15,7 +15,7 @@
     service:{key:'service-operations',title:'Service Operations',symbol:'▣',phases:[['offer','Offer / Service Definition'],['lead-intake','Lead Intake'],['estimate-booking','Estimate / Booking'],['delivery','Job Delivery'],['payment-records','Payment / Records']]}
   };
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  const pct=v=>Math.max(0,Math.min(100,Math.round((Number(v)||0)/10)*10));
+  const pct=v=>Math.max(0,Math.min(100,Math.round(Number(v)||0)));
   let projects=[],metrics=[],loading=null,currentProjectId=null,openCategory=null,observer=null;
   function db(){return window.COMMAND_CENTER_SUPABASE||null;}
   function categoriesFor(p){const text=`${p?.id||''} ${p?.name||''} ${p?.category||''}`.toLowerCase();const list=BASE.map(x=>({...x,phases:x.phases.map(p=>[...p])}));if(/kdp-|book|cookbook|workbook|coloring|saga|trilogy/.test(text))list.splice(1,0,SPECIAL.publishing);if(/commerce|shopify|store|coupon|digital products|margin|garage/.test(text))list.splice(2,0,SPECIAL.commerce);if(/veloclip|mini movies|fanvue|creator|content|video|media/.test(text))list.splice(2,0,SPECIAL.content);if(/service business|garage door/.test(text))list.splice(2,0,SPECIAL.service);return list;}
