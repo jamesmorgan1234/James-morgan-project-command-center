@@ -27,7 +27,35 @@
   }
   function projectName(id){return state.projects.find(p=>p.id===id)?.name||'Command Center-wide';}
   function contextName(id){return state.contexts.find(c=>c.id===id)?.title||'No context packet';}
-  function activePlanStatus(p){return p.status!=='archived'&&p.archived_at==null;}
+  function activePlanStatus(p){return ['draft','active'].includes(p.status)&&p.archived_at==null;}
+  function normalizePlanPatch(patch={}){
+    const allowed={};
+    if('title' in patch){const title=String(patch.title??'').trim();if(!title)throw new Error('Plan title is required.');allowed.title=title.slice(0,220);}
+    if('objective' in patch)allowed.objective=String(patch.objective??'').trim();
+    for(const key of ['project_id','context_packet_id','target_date','source_ref'])if(key in patch)allowed[key]=patch[key]||null;
+    if('metadata' in patch)allowed.metadata=patch.metadata&&typeof patch.metadata==='object'?patch.metadata:{};
+    if('priority' in patch)allowed.priority=clampPriority(patch.priority);
+    if('status' in patch&&PLAN_STATUSES.includes(patch.status))allowed.status=patch.status;
+    return allowed;
+  }
+  function normalizeTaskPatch(patch={}){
+    const allowed={};
+    if('title' in patch){const title=String(patch.title??'').trim();if(!title)throw new Error('Task title is required.');allowed.title=title.slice(0,220);}
+    if('details' in patch)allowed.details=String(patch.details??'').trim();
+    for(const key of ['plan_id','project_id','context_packet_id','parent_id','source_ref'])if(key in patch)allowed[key]=patch[key]||null;
+    if('metadata' in patch)allowed.metadata=patch.metadata&&typeof patch.metadata==='object'?patch.metadata:{};
+    if('priority' in patch)allowed.priority=clampPriority(patch.priority);
+    if('sort_order' in patch)allowed.sort_order=Math.max(0,Number(patch.sort_order)||0);
+    if('due_at' in patch)allowed.due_at=isoOrNull(patch.due_at);
+    if('status' in patch&&TASK_STATUSES.includes(patch.status))allowed.status=patch.status;
+    return allowed;
+  }
+  function resolveContextScope(projectId,contextPacketId){
+    const project=projectId||null,contextId=contextPacketId||null;if(!contextId)return project;
+    const packet=state.contexts.find(c=>c.id===contextId);if(!packet)throw new Error('Selected context packet is not available.');
+    if(packet.project_id&&project&&packet.project_id!==project)throw new Error('This context packet belongs to a different project.');
+    return project||packet.project_id||null;
+  }
   function deriveGroundedTasks(packet){
     if(!packet)return [];
     const j=packet.context_json||{},out=[],seen=new Set();
@@ -37,10 +65,10 @@
       out.push({title:clean.slice(0,220),details:String(details||'').trim(),source_ref:source||`context:${packet.id}`,metadata:{planner_seed:'context',planner_seed_type:type,context_packet_id:packet.id}});
     };
     for(const p of (j.projects||[])){
-      if(p.next_action)add(p.next_action,`Verified next action from ${p.name||'project state'}.`,p.source_ref||`context:${packet.id}`,'project_next_action');
-      if(p.blocker)add(`Resolve blocker: ${p.blocker}`,`Blocker recorded for ${p.name||'project state'}.`,p.source_ref||`context:${packet.id}`,'project_blocker');
+      if(p.next_action)add(p.next_action,`Next action from ${p.name||'project state'} in the saved Context Builder packet.`,p.source_ref||`context:${packet.id}`,'project_next_action');
+      if(p.blocker)add(`Resolve blocker: ${p.blocker}`,`Blocker recorded for ${p.name||'project state'} in the saved Context Builder packet.`,p.source_ref||`context:${packet.id}`,'project_blocker');
     }
-    for(const x of (j.tracking_integrations||[]))if(x.next_step)add(x.next_step,`Tracking integration next step for ${x.project_name||x.metric_label||'project tracking'}.`,x.source_ref||`context:${packet.id}`,'tracking_next_step');
+    for(const x of (j.tracking_integrations||[]))if(x.next_step)add(x.next_step,`Tracking integration next step for ${x.project_name||x.metric_label||'project tracking'} from the saved Context Builder packet.`,x.source_ref||`context:${packet.id}`,'tracking_next_step');
     return out;
   }
   function duplicateSeedKeys(planId){
@@ -51,7 +79,7 @@
     const c=db(),u=await authUser();if(!c||!u)throw new Error('Task Queue / Planner requires an authorized Command Center session.');
     const [pr,ctx,plans,tasks]=await Promise.all([
       c.from('projects').select('id,name,category,status,verification,sort_order').eq('owner_id',u.id).order('sort_order'),
-      c.from('brain_context_packets').select('id,project_id,title,purpose,query_text,context_json,source_snapshot,status,updated_at').eq('owner_id',u.id).eq('status','active').order('updated_at',{ascending:false}).limit(200),
+      c.from('brain_context_packets').select('id,project_id,title,purpose,query_text,context_json,source_snapshot,status,updated_at').eq('owner_id',u.id).order('updated_at',{ascending:false}).limit(300),
       c.from('brain_plans').select('*').eq('owner_id',u.id).order('updated_at',{ascending:false}).limit(300),
       c.from('brain_tasks').select('*').eq('owner_id',u.id).order('sort_order').order('created_at').limit(1000)
     ]);
@@ -62,15 +90,23 @@
   async function createPlan(input={}){
     const c=db(),u=await authUser();if(!c||!u)throw new Error('Not authorized.');
     const title=String(input.title||'').trim();if(!title)throw new Error('Plan title is required.');
-    const row={owner_id:u.id,project_id:input.project_id||null,context_packet_id:input.context_packet_id||null,title:title.slice(0,220),objective:String(input.objective||'').trim(),status:PLAN_STATUSES.includes(input.status)?input.status:'draft',priority:clampPriority(input.priority),target_date:input.target_date||null,source_ref:input.source_ref||null,metadata:input.metadata||{}};
+    const projectId=resolveContextScope(input.project_id,input.context_packet_id);
+    const row={owner_id:u.id,project_id:projectId,context_packet_id:input.context_packet_id||null,title:title.slice(0,220),objective:String(input.objective??'').trim(),status:PLAN_STATUSES.includes(input.status)?input.status:'draft',priority:clampPriority(input.priority),target_date:input.target_date||null,source_ref:input.source_ref||null,metadata:input.metadata&&typeof input.metadata==='object'?input.metadata:{}};
     const {data,error}=await c.from('brain_plans').insert(row).select('*').single();if(error)throw error;return data;
   }
   async function updatePlan(id,patch={}){
     const c=db(),u=await authUser();if(!c||!u)throw new Error('Not authorized.');
-    const allowed={};
-    for(const key of ['project_id','context_packet_id','title','objective','target_date','source_ref','metadata'])if(key in patch)allowed[key]=patch[key]||null;
-    if('priority' in patch)allowed.priority=clampPriority(patch.priority);
-    if('status' in patch&&PLAN_STATUSES.includes(patch.status)){allowed.status=patch.status;allowed.completed_at=patch.status==='completed'?new Date().toISOString():null;allowed.archived_at=patch.status==='archived'?new Date().toISOString():null;}
+    const allowed=normalizePlanPatch(patch),current=state.plans.find(p=>p.id===id);
+    if('project_id' in patch||'context_packet_id' in patch){
+      const nextProject='project_id' in patch?patch.project_id:current?.project_id;
+      const nextContext='context_packet_id' in patch?patch.context_packet_id:current?.context_packet_id;
+      allowed.project_id=resolveContextScope(nextProject,nextContext);
+    }
+    if('status' in allowed){
+      if(allowed.status==='completed')allowed.completed_at=new Date().toISOString();
+      else if(allowed.status!=='archived')allowed.completed_at=null;
+      allowed.archived_at=allowed.status==='archived'?new Date().toISOString():null;
+    }
     const {data,error}=await c.from('brain_plans').update(allowed).eq('id',id).eq('owner_id',u.id).select('*').single();if(error)throw error;return data;
   }
   async function createTask(input={}){
@@ -78,17 +114,17 @@
     const title=String(input.title||'').trim();if(!title)throw new Error('Task title is required.');
     const siblings=state.tasks.filter(t=>t.plan_id===(input.plan_id||null)&&t.status!=='archived');
     const nextOrder=siblings.length?Math.max(...siblings.map(t=>Number(t.sort_order)||0))+10:10;
-    const row={owner_id:u.id,plan_id:input.plan_id||null,project_id:input.project_id||null,context_packet_id:input.context_packet_id||null,parent_id:input.parent_id||null,title:title.slice(0,220),details:String(input.details||'').trim(),status:TASK_STATUSES.includes(input.status)?input.status:'backlog',priority:clampPriority(input.priority),sort_order:Number.isInteger(Number(input.sort_order))?Math.max(0,Number(input.sort_order)):nextOrder,due_at:isoOrNull(input.due_at),source_ref:input.source_ref||null,metadata:input.metadata||{}};
+    const row={owner_id:u.id,plan_id:input.plan_id||null,project_id:input.project_id||null,context_packet_id:input.context_packet_id||null,parent_id:input.parent_id||null,title:title.slice(0,220),details:String(input.details??'').trim(),status:TASK_STATUSES.includes(input.status)?input.status:'backlog',priority:clampPriority(input.priority),sort_order:Number.isInteger(Number(input.sort_order))?Math.max(0,Number(input.sort_order)):nextOrder,due_at:isoOrNull(input.due_at),source_ref:input.source_ref||null,metadata:input.metadata&&typeof input.metadata==='object'?input.metadata:{}};
     const {data,error}=await c.from('brain_tasks').insert(row).select('*').single();if(error)throw error;return data;
   }
   async function updateTask(id,patch={}){
     const c=db(),u=await authUser();if(!c||!u)throw new Error('Not authorized.');
-    const allowed={};
-    for(const key of ['plan_id','project_id','context_packet_id','parent_id','title','details','source_ref','metadata'])if(key in patch)allowed[key]=patch[key]||null;
-    if('priority' in patch)allowed.priority=clampPriority(patch.priority);
-    if('sort_order' in patch)allowed.sort_order=Math.max(0,Number(patch.sort_order)||0);
-    if('due_at' in patch)allowed.due_at=isoOrNull(patch.due_at);
-    if('status' in patch&&TASK_STATUSES.includes(patch.status)){allowed.status=patch.status;allowed.completed_at=patch.status==='done'?new Date().toISOString():null;allowed.archived_at=patch.status==='archived'?new Date().toISOString():null;}
+    const allowed=normalizeTaskPatch(patch);
+    if('status' in allowed){
+      if(allowed.status==='done')allowed.completed_at=new Date().toISOString();
+      else if(allowed.status!=='archived')allowed.completed_at=null;
+      allowed.archived_at=allowed.status==='archived'?new Date().toISOString():null;
+    }
     const {data,error}=await c.from('brain_tasks').update(allowed).eq('id',id).eq('owner_id',u.id).select('*').single();if(error)throw error;return data;
   }
   async function moveTask(id,direction){
@@ -107,7 +143,7 @@
 
   function status(text,error=false){const el=state.host?.querySelector('[data-planner-status]');if(el){el.textContent=text||'';el.classList.toggle('error',!!error);}}
   function optionProjects(includeAll=false){return `${includeAll?'<option value="all">All projects</option>':'<option value="">Command Center-wide</option>'}${state.projects.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('')}`;}
-  function optionContexts(){return `<option value="">No context packet</option>${state.contexts.map(c=>`<option value="${esc(c.id)}">${esc(c.title)}</option>`).join('')}`;}
+  function optionContexts(){return `<option value="">No context packet</option>${state.contexts.filter(c=>c.status==='active').map(c=>`<option value="${esc(c.id)}">${esc(c.title)}</option>`).join('')}`;}
   function taskBadge(s){return String(s||'backlog').replaceAll('_',' ');}
   function filteredPlans(){
     let rows=state.plans.filter(p=>state.showArchived||p.status!=='archived');
@@ -121,7 +157,7 @@
   }
   function renderPlan(p){
     const progress=planProgress(p.id),tasks=planTasks(p.id).sort(taskSort),open=state.openPlanId===p.id;
-    return `<section class="cc-planner-plan ${open?'open':''}" data-plan-id="${esc(p.id)}"><button type="button" class="cc-planner-plan-toggle" data-plan-toggle aria-expanded="${open?'true':'false'}"><span><strong>${esc(p.title)}</strong><small>${esc(projectName(p.project_id))} · ${esc(p.status)} · Priority ${esc(p.priority)}</small></span><span class="cc-planner-progress"><b>${progress.pct}%</b><small>${progress.done}/${progress.total} tasks done</small></span><span class="cc-planner-chevron">${open?'⌃':'›'}</span></button>${open?`<div class="cc-planner-plan-body"><div class="cc-planner-objective"><span>Objective</span><p>${esc(p.objective||'No objective recorded yet.')}</p><div class="cc-planner-meta"><span>Context: ${esc(contextName(p.context_packet_id))}</span><span>Target: ${esc(p.target_date||'—')}</span></div></div><div class="cc-planner-plan-actions"><button data-plan-add-task>Add task</button>${p.context_packet_id?'<button data-plan-seed>Seed from verified context</button>':''}<button data-plan-edit>Edit plan</button>${p.status==='archived'?'<button data-plan-restore>Restore</button>':'<button data-plan-archive>Archive plan</button>'}</div><form class="cc-planner-task-form" data-task-form hidden><div class="cc-planner-form-grid"><label class="wide">Task title<input name="title" maxlength="220" required></label><label class="wide">Details<textarea name="details" rows="3"></textarea></label><label>Status<select name="status">${TASK_STATUSES.filter(s=>s!=='archived').map(s=>`<option value="${s}">${taskBadge(s)}</option>`).join('')}</select></label><label>Priority<select name="priority">${[5,4,3,2,1].map(n=>`<option value="${n}" ${n===p.priority?'selected':''}>${n}</option>`).join('')}</select></label><label>Due<input name="due_at" type="datetime-local"></label></div><div class="cc-planner-form-actions"><button type="button" data-task-cancel>Cancel</button><button class="primary" type="submit">Save task</button></div></form><div class="cc-planner-queue">${tasks.length?tasks.map(t=>renderTask(t,p)).join(''):'<div class="cc-memory-empty">No tasks yet. Add a task or seed grounded next actions from the linked Context Builder packet.</div>'}</div></div>`:''}</section>`;
+    return `<section class="cc-planner-plan ${open?'open':''}" data-plan-id="${esc(p.id)}"><button type="button" class="cc-planner-plan-toggle" data-plan-toggle aria-expanded="${open?'true':'false'}"><span><strong>${esc(p.title)}</strong><small>${esc(projectName(p.project_id))} · ${esc(p.status)} · Priority ${esc(p.priority)}</small></span><span class="cc-planner-progress"><b>${progress.pct}%</b><small>${progress.done}/${progress.total} tasks done</small></span><span class="cc-planner-chevron">${open?'⌃':'›'}</span></button>${open?`<div class="cc-planner-plan-body"><div class="cc-planner-objective"><span>Objective</span><p>${esc(p.objective||'No objective recorded yet.')}</p><div class="cc-planner-meta"><span>Context: ${esc(contextName(p.context_packet_id))}</span><span>Target: ${esc(p.target_date||'—')}</span></div></div><div class="cc-planner-plan-actions"><button data-plan-add-task>Add task</button>${p.context_packet_id?'<button data-plan-seed>Seed from context</button>':''}<button data-plan-edit>Edit plan</button>${p.status==='archived'?'<button data-plan-restore>Restore</button>':'<button data-plan-archive>Archive plan</button>'}</div><form class="cc-planner-task-form" data-task-form hidden><div class="cc-planner-form-grid"><label class="wide">Task title<input name="title" maxlength="220" required></label><label class="wide">Details<textarea name="details" rows="3"></textarea></label><label>Status<select name="status">${TASK_STATUSES.filter(s=>s!=='archived').map(s=>`<option value="${s}">${taskBadge(s)}</option>`).join('')}</select></label><label>Priority<select name="priority">${[5,4,3,2,1].map(n=>`<option value="${n}" ${n===p.priority?'selected':''}>${n}</option>`).join('')}</select></label><label>Due<input name="due_at" type="datetime-local"></label></div><div class="cc-planner-form-actions"><button type="button" data-task-cancel>Cancel</button><button class="primary" type="submit">Save task</button></div></form><div class="cc-planner-queue">${tasks.length?tasks.map(t=>renderTask(t,p)).join(''):'<div class="cc-memory-empty">No tasks yet. Add a task or seed grounded next actions from the linked Context Builder packet.</div>'}</div></div>`:''}</section>`;
   }
   function render(){
     if(!state.host)return;
@@ -154,7 +190,7 @@
       section.querySelector('[data-plan-add-task]')?.addEventListener('click',()=>{const f=section.querySelector('[data-task-form]');if(f)f.hidden=false;});
       section.querySelector('[data-task-cancel]')?.addEventListener('click',()=>{const f=section.querySelector('[data-task-form]');if(f){f.hidden=true;f.reset();}});
       section.querySelector('[data-task-form]')?.addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget,fd=new FormData(f);try{status('Saving task…');await createTask({plan_id:plan.id,project_id:plan.project_id,context_packet_id:plan.context_packet_id,title:fd.get('title'),details:fd.get('details'),status:fd.get('status'),priority:fd.get('priority'),due_at:fd.get('due_at')});f.reset();f.hidden=true;await refresh('Task saved.');}catch(err){status(err?.message||'Task save failed.',true);}});
-      section.querySelector('[data-plan-seed]')?.addEventListener('click',async()=>{const packet=state.contexts.find(c=>c.id===plan.context_packet_id),candidate=deriveGroundedTasks(packet).filter(t=>!duplicateSeedKeys(plan.id).has(norm(t.title)));if(!candidate.length){status('No new grounded next actions were found in this context packet.');return;}if(!confirm(`Create ${candidate.length} grounded task${candidate.length===1?'':'s'} from this verified context packet?`))return;try{status('Seeding grounded tasks…');const made=await seedPlanFromContext(plan.id);await refresh(`${made.length} grounded task${made.length===1?'':'s'} added.`);}catch(err){status(err?.message||'Context seeding failed.',true);}});
+      section.querySelector('[data-plan-seed]')?.addEventListener('click',async()=>{const packet=state.contexts.find(c=>c.id===plan.context_packet_id),candidate=deriveGroundedTasks(packet).filter(t=>!duplicateSeedKeys(plan.id).has(norm(t.title)));if(!candidate.length){status('No new grounded next actions were found in this context packet.');return;}if(!confirm(`Create ${candidate.length} grounded task${candidate.length===1?'':'s'} from this saved Context Builder packet?`))return;try{status('Seeding grounded tasks…');const made=await seedPlanFromContext(plan.id);await refresh(`${made.length} grounded task${made.length===1?'':'s'} added.`);}catch(err){status(err?.message||'Context seeding failed.',true);}});
       section.querySelector('[data-plan-edit]')?.addEventListener('click',()=>fillPlanForm(plan));
       section.querySelector('[data-plan-archive]')?.addEventListener('click',async()=>{if(!confirm('Archive this plan? Its tasks stay attached and can be restored later.'))return;try{await updatePlan(plan.id,{status:'archived'});state.openPlanId=null;await refresh('Plan archived.');}catch(e){status(e?.message||'Archive failed.',true);}});
       section.querySelector('[data-plan-restore]')?.addEventListener('click',async()=>{try{await updatePlan(plan.id,{status:'draft'});await refresh('Plan restored.');}catch(e){status(e?.message||'Restore failed.',true);}});
@@ -168,7 +204,7 @@
   }
   async function mount(){
     const host=document.getElementById('ccBrainPlannerMount');if(!host)return;state.host=host;
-    host.innerHTML=`<section class="cc-brain-memory-panel cc-brain-planner-panel"><div class="cc-brain-tool-head"><div><span>Phase 4 workspace</span><h4>Task Queue / Planner</h4><p>Turn goals and trusted Context Builder packets into ordered, persistent execution queues. Progress is derived only from saved task state.</p></div><b>100% · Complete</b></div><div class="cc-planner-toolbar"><input data-planner-search type="search" placeholder="Search plans…"><select data-planner-project></select><select data-planner-status><option value="active">Active + draft</option><option value="all">All statuses</option>${PLAN_STATUSES.filter(s=>!['archived'].includes(s)).map(s=>`<option value="${s}">${s}</option>`).join('')}</select><button data-planner-new>New plan</button></div><label class="cc-memory-toggle"><input data-planner-archived type="checkbox"> Show archived plans</label><form data-plan-form hidden><div class="cc-planner-form-grid"><label class="wide">Plan title<input name="title" maxlength="220" required></label><label class="wide">Objective<textarea name="objective" rows="3"></textarea></label><label>Project<select name="project_id"></select></label><label>Context packet<select name="context_packet_id"></select></label><label>Status<select name="status">${PLAN_STATUSES.filter(s=>s!=='archived').map(s=>`<option value="${s}">${s}</option>`).join('')}</select></label><label>Priority<select name="priority">${[5,4,3,2,1].map(n=>`<option value="${n}" ${n===3?'selected':''}>${n}</option>`).join('')}</select></label><label>Target date<input name="target_date" type="date"></label></div><div class="cc-planner-form-actions"><button type="button" data-plan-cancel>Cancel</button><button class="primary" type="submit">Save plan</button></div></form><div class="cc-memory-status" data-planner-status></div><div class="cc-planner-list" data-planner-list></div></section>`;
+    host.innerHTML=`<section class="cc-brain-memory-panel cc-brain-planner-panel"><div class="cc-brain-tool-head"><div><span>Phase 4 workspace</span><h4>Task Queue / Planner</h4><p>Turn goals and saved Context Builder packets into ordered, persistent execution queues. Progress is derived only from saved task state.</p></div><b>100% · Complete</b></div><div class="cc-planner-toolbar"><input data-planner-search type="search" placeholder="Search plans…"><select data-planner-project></select><select data-planner-status><option value="active">Active + draft</option><option value="all">All statuses</option>${PLAN_STATUSES.filter(s=>!['archived'].includes(s)).map(s=>`<option value="${s}">${s}</option>`).join('')}</select><button data-planner-new>New plan</button></div><label class="cc-memory-toggle"><input data-planner-archived type="checkbox"> Show archived plans</label><form data-plan-form hidden><div class="cc-planner-form-grid"><label class="wide">Plan title<input name="title" maxlength="220" required></label><label class="wide">Objective<textarea name="objective" rows="3"></textarea></label><label>Project<select name="project_id"></select></label><label>Context packet<select name="context_packet_id"></select></label><label>Status<select name="status">${PLAN_STATUSES.filter(s=>s!=='archived').map(s=>`<option value="${s}">${s}</option>`).join('')}</select></label><label>Priority<select name="priority">${[5,4,3,2,1].map(n=>`<option value="${n}" ${n===3?'selected':''}>${n}</option>`).join('')}</select></label><label>Target date<input name="target_date" type="date"></label></div><div class="cc-planner-form-actions"><button type="button" data-plan-cancel>Cancel</button><button class="primary" type="submit">Save plan</button></div></form><div class="cc-memory-status" data-planner-status></div><div class="cc-planner-list" data-planner-list></div></section>`;
     try{await load();}catch(e){status(e?.message||'Planner load failed.',true);return;}
     host.querySelector('[data-planner-project]').innerHTML=optionProjects(true);host.querySelector('[data-plan-form] [name="project_id"]').innerHTML=optionProjects(false);host.querySelector('[data-plan-form] [name="context_packet_id"]').innerHTML=optionContexts();
     host.querySelector('[data-planner-search]').addEventListener('input',e=>{state.query=e.target.value;render();});
@@ -181,7 +217,7 @@
     render();status('Planner ready.');
   }
 
-  window.COMMAND_CENTER_BRAIN_PLANNER={load,createPlan,updatePlan,createTask,updateTask,moveTask,seedPlanFromContext,deriveGroundedTasks,planProgress,taskSort,mount,refresh};
+  window.COMMAND_CENTER_BRAIN_PLANNER={load,createPlan,updatePlan,createTask,updateTask,moveTask,seedPlanFromContext,deriveGroundedTasks,planProgress,taskSort,normalizePlanPatch,normalizeTaskPatch,resolveContextScope,mount,refresh};
   window.addEventListener('command-center:brain-capability-open',e=>{if(e.detail?.name==='Project Brain')setTimeout(mount,0);});
   window.addEventListener('command-center:brain-planner-refresh',()=>refresh());
   window.addEventListener('popstate',e=>{if(state.openPlanId&&!e.state?.ccBrainPlannerPlan){state.openPlanId=null;render();}});
