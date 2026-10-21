@@ -66,6 +66,8 @@ assert.match(earningsCss,/white-space:nowrap!important/,'Project Earnings title 
 assert.match(earningsCss,/\.cc-earnings-cash-mark/,'Project Earnings must include a real-money visual');
 assert.match(earningsJs,/Project Earnings/);
 assert.match(earningsJs,/money \|\| 'N\/A'/,'unavailable revenue must show N/A rather than fabricated zero');
+assert.match(earningsJs,/\^\\\$0\\\.00\\s\+tracked\$/,'legacy unintegrated $0.00 placeholder must be treated as unavailable, not verified revenue');
+assert.match(earningsJs,/minimumFractionDigits:2,maximumFractionDigits:2/,'verified money, including zero, must render with two decimal places');
 assert.match(earningsJs,/project.*earning verified revenue/,'verified project count remains visible');
 
 assert.match(js,/icon=7-ui/);
