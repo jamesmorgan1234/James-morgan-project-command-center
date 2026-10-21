@@ -21,6 +21,8 @@ on:
       - 'command-center-brain-brainstorm.js'
       - 'command-center-brain-context.css'
       - 'command-center-brain-context.js'
+      - 'command-center-brain-planner.css'
+      - 'command-center-brain-planner.js'
       - 'project-roadmaps.css'
       - 'project-roadmaps.js'
       - 'command-center-project-detail-accordions.css'
@@ -63,6 +65,7 @@ jobs:
       - run: node --check command-center-brain-memory.js
       - run: node --check command-center-brain-brainstorm.js
       - run: node --check command-center-brain-context.js
+      - run: node --check command-center-brain-planner.js
       - run: node --check project-roadmaps.js
       - run: node --check command-center-project-detail-accordions.js
       - run: node --check app-integrity-repair.js
@@ -77,6 +80,7 @@ jobs:
       - run: node tests/brain-memory.test.mjs
       - run: node tests/brain-brainstorm.test.mjs
       - run: node tests/brain-context.test.mjs
+      - run: node tests/brain-planner.test.mjs
       - run: node tests/project-roadmaps.test.mjs
       - run: node tests/project-detail-accordion.test.mjs
       - run: node tests/app-integrity.test.mjs

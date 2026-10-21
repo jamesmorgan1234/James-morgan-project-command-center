@@ -1,0 +1,45 @@
+html[data-command-center-theme] .cc-brain-planner-panel{border-left-color:#ff7b17}
+html[data-command-center-theme] .cc-planner-toolbar{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(150px,.8fr) minmax(145px,.75fr) auto;gap:8px;margin-bottom:10px}
+html[data-command-center-theme] .cc-planner-toolbar input,html[data-command-center-theme] .cc-planner-toolbar select,html[data-command-center-theme] [data-plan-form] input,html[data-command-center-theme] [data-plan-form] select,html[data-command-center-theme] [data-plan-form] textarea,html[data-command-center-theme] .cc-planner-task-form input,html[data-command-center-theme] .cc-planner-task-form select,html[data-command-center-theme] .cc-planner-task-form textarea{width:100%;min-width:0;border:1px solid #71330f;border-radius:5px;background:#070504;color:#fff;padding:9px 10px;font:inherit;outline:none}
+html[data-command-center-theme] .cc-planner-toolbar button,html[data-command-center-theme] .cc-planner-plan-actions button{border:1px solid #ff8b2b;background:linear-gradient(180deg,#f56a0a,#b73a00);color:#fff;font-weight:900;padding:9px 12px;border-radius:4px}
+html[data-command-center-theme] [data-plan-form],html[data-command-center-theme] .cc-planner-task-form{margin:0 0 12px;padding:12px;border:1px solid #71330f;background:#0b0705}
+html[data-command-center-theme] [data-plan-form][hidden],html[data-command-center-theme] .cc-planner-task-form[hidden]{display:none!important}
+html[data-command-center-theme] .cc-planner-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+html[data-command-center-theme] .cc-planner-form-grid label{display:grid;gap:4px;color:#c4ccd4;font-size:.76rem;font-weight:800}
+html[data-command-center-theme] .cc-planner-form-grid .wide{grid-column:1/-1}
+html[data-command-center-theme] .cc-planner-form-grid textarea{resize:vertical;line-height:1.4}
+html[data-command-center-theme] .cc-planner-form-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:9px}
+html[data-command-center-theme] .cc-planner-form-actions button{border:1px solid #77401f;background:#0b0705;color:#ffd8b6;border-radius:4px;padding:7px 10px;font-weight:800}
+html[data-command-center-theme] .cc-planner-form-actions .primary{border-color:#ff7211;background:linear-gradient(180deg,#ef6509,#a83200);color:#fff}
+html[data-command-center-theme] .cc-planner-list{display:grid;gap:10px}
+html[data-command-center-theme] .cc-planner-plan{border:1px solid #653014;background:#050302;box-shadow:0 0 16px rgba(255,95,0,.06)}
+html[data-command-center-theme] .cc-planner-plan.open{border-color:#a84b10;box-shadow:0 0 20px rgba(255,95,0,.12)}
+html[data-command-center-theme] .cc-planner-plan-toggle{width:100%;display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;text-align:left;border:0;background:linear-gradient(90deg,#0d0805,#050302);color:#fff;padding:13px 14px}
+html[data-command-center-theme] .cc-planner-plan-toggle>span:first-child{display:grid;gap:4px}
+html[data-command-center-theme] .cc-planner-plan-toggle strong{font-size:1rem;color:#fff}
+html[data-command-center-theme] .cc-planner-plan-toggle small{font-size:.72rem;color:#9ca9b6}
+html[data-command-center-theme] .cc-planner-progress{text-align:right;display:grid;gap:2px}
+html[data-command-center-theme] .cc-planner-progress b{color:#ff9d3a;font-size:1.02rem}
+html[data-command-center-theme] .cc-planner-chevron{font-size:1.25rem;color:#ff7f19}
+html[data-command-center-theme] .cc-planner-plan-body{border-top:1px solid #4a2412;padding:12px;background:linear-gradient(180deg,#090604,#040302)}
+html[data-command-center-theme] .cc-planner-objective{padding:10px 11px;border:1px solid #3f291e;background:#070504;margin-bottom:10px}
+html[data-command-center-theme] .cc-planner-objective>span{font-size:.68rem;font-weight:950;text-transform:uppercase;letter-spacing:.11em;color:#ff9b35}
+html[data-command-center-theme] .cc-planner-objective p{margin:5px 0 7px;color:#d4d9df;line-height:1.42;white-space:pre-wrap}
+html[data-command-center-theme] .cc-planner-meta{display:flex;flex-wrap:wrap;gap:7px;color:#8fa0b0;font-size:.69rem}
+html[data-command-center-theme] .cc-planner-plan-actions{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}
+html[data-command-center-theme] .cc-planner-plan-actions button:nth-last-child(-n+2){background:#0b0705;border-color:#77401f;color:#ffd8b6}
+html[data-command-center-theme] .cc-planner-queue{display:grid;gap:8px}
+html[data-command-center-theme] .cc-planner-task{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 11px;border:1px solid #4d2b1c;border-left:4px solid #ff6d0b;background:#080503}
+html[data-command-center-theme] .cc-planner-task.status-in_progress{border-left-color:#ffb12f}
+html[data-command-center-theme] .cc-planner-task.status-ready{border-left-color:#ff8420}
+html[data-command-center-theme] .cc-planner-task.status-blocked{border-left-color:#e45c5c}
+html[data-command-center-theme] .cc-planner-task.status-done{border-left-color:#48d98a;opacity:.86}
+html[data-command-center-theme] .cc-planner-task-title{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+html[data-command-center-theme] .cc-planner-task-title strong{color:#fff}
+html[data-command-center-theme] .cc-planner-task-main p{margin:5px 0 6px;color:#bcc6cf;line-height:1.4;white-space:pre-wrap}
+html[data-command-center-theme] .cc-planner-pill{border:1px solid #633016;background:#140a05;color:#ffad4c;border-radius:999px;padding:2px 6px;font-size:.64rem;font-weight:900;text-transform:uppercase}
+html[data-command-center-theme] .cc-planner-pill.priority{border-color:#55452c;color:#f1d274}
+html[data-command-center-theme] .cc-planner-task-actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+html[data-command-center-theme] .cc-planner-task-actions button,html[data-command-center-theme] .cc-planner-task-actions select{border:1px solid #5f3822;background:#0b0705;color:#ffd8b6;border-radius:4px;padding:6px 8px;font-size:.72rem;font-weight:800}
+html[data-command-center-theme] .cc-planner-task-actions select{color:#fff}
+@media(max-width:760px){html[data-command-center-theme] .cc-planner-toolbar{grid-template-columns:1fr 1fr}html[data-command-center-theme] .cc-planner-toolbar input{grid-column:1/-1}html[data-command-center-theme] .cc-planner-toolbar button{grid-column:1/-1}html[data-command-center-theme] .cc-planner-form-grid{grid-template-columns:1fr}html[data-command-center-theme] .cc-planner-form-grid .wide{grid-column:auto}html[data-command-center-theme] .cc-planner-plan-toggle{grid-template-columns:minmax(0,1fr) auto}html[data-command-center-theme] .cc-planner-progress{grid-column:1/2;text-align:left}html[data-command-center-theme] .cc-planner-chevron{grid-column:2;grid-row:1/3}html[data-command-center-theme] .cc-planner-task{grid-template-columns:1fr}html[data-command-center-theme] .cc-planner-task-actions{justify-content:flex-start}html[data-command-center-theme] .cc-planner-plan-actions{display:grid;grid-template-columns:1fr 1fr}html[data-command-center-theme] .cc-planner-plan-actions button{width:100%}}

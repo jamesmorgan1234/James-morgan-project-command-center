@@ -10,7 +10,7 @@ for(const phase of ['Durable Memory','Brainstorm Workspace','Context Builder','T
 assert.match(js,/\['Durable Memory'[^\]]+,100\]/,'Durable Memory must be 100%');
 assert.match(js,/\['Brainstorm Workspace'[^\]]+,100\]/,'Brainstorm Workspace must be 100%');
 assert.match(js,/\['Context Builder'[^\]]+,100\]/,'Context Builder must be 100%');
-assert.match(js,/\['Task Queue \/ Planner'[^\]]+,0\]/,'Phase 4 must remain planned');
+assert.match(js,/\['Task Queue \/ Planner'[^\]]+,100\]/,'Phase 4 must be 100%');
 assert.match(js,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'Phase 5 must remain planned');
 assert.match(js,/capabilityProgress=item=>Math\.round\(item\.phases\.reduce/,'capability percentage must derive from phase values');
 assert.match(js,/Project Brain \$\{brainPct\}%/,'Project Brain home summary must derive from phase values');
@@ -19,6 +19,10 @@ assert.match(js,/ccCommandCenterBrainCapability/,'capability drill-down must own
 assert.match(js,/ccBrainMemoryMount/,'Project Brain must mount Durable Memory');
 assert.match(js,/ccBrainBrainstormMount/,'Project Brain must mount Brainstorm Workspace');
 assert.match(js,/ccBrainContextMount/,'Project Brain must mount Context Builder');
-assert.match(cfg,/command-center-brain-home\.js\?v=3/);
-assert.ok(sw.includes("'./command-center-brain-home.js?v=3'"));
-console.log('Command Center Brain capability roadmap QA passed.');
+assert.match(js,/ccBrainPlannerMount/,'Project Brain must mount Task Queue / Planner');
+assert.match(js,/e\.state\?\.ccCommandCenterBrainCapability===capabilityOpen/,'nested Phase 4 history must not collapse Project Brain early');
+assert.match(cfg,/command-center-brain-home\.js\?v=4/);
+assert.match(cfg,/command-center-brain-planner\.js\?v=1/);
+assert.ok(sw.includes("'./command-center-brain-home.js?v=4'"));
+assert.ok(sw.includes("'./command-center-brain-planner.js?v=1'"));
+console.log('Command Center Brain capability roadmap QA passed through Phase 4.');
