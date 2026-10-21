@@ -8,7 +8,7 @@
   const openByProject = new Map();
 
   const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
-  const tenth = v => Math.max(0,Math.min(100,Math.round((Number(v)||0)*10)/10));
+  const tenth = v => Math.max(0,Math.min(100,Math.floor((Number(v)||0)*10+Number.EPSILON)/10));
   const pctLabel = v => Number.isInteger(v) ? String(v) : Number(v).toFixed(1);
   const meta = m => { try { return JSON.parse(m?.value_text || '{}'); } catch { return {}; } };
 
