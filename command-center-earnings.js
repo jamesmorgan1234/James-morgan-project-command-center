@@ -4,8 +4,12 @@
 
   function normalizeMoney(raw){
     const text=String(raw||'').trim();
-    const match=text.match(/(?:Total\s*)?(\$[\d,]+(?:\.\d{1,2})?)/i);
-    return match ? match[1] : null;
+    if(/not yet integrated|source not available|^\$0\.00\s+tracked$/i.test(text)) return null;
+    const match=text.match(/(?:Total\s*)?\$([\d,]+(?:\.\d{1,2})?)/i);
+    if(!match) return null;
+    const amount=Number(match[1].replaceAll(',',''));
+    if(!Number.isFinite(amount)) return null;
+    return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(amount);
   }
 
   function decorate(){
