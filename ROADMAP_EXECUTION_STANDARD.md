@@ -102,7 +102,7 @@ Progress is a consequence of verified scope state, never a control target.
 
 When meaningful new scope is accepted, update the denominator and record the scope-change reason. It is valid for progress to decrease after scope expands. Never manipulate weights to preserve a desired percentage.
 
-Display verified progress to one decimal place when the calculation produces a fractional value. Do not round 64.6% upward to 65%; show 64.6%. Whole values may display without `.0`.
+Display verified progress to one decimal place when the calculation produces a fractional value, but never round upward into progress that has not actually been completed. Truncate downward to the displayed tenth: 64.96% displays as 64.9%, and 65% is not shown until the verified calculation is at least 65.0%. Whole values may display without `.0`.
 
 ## Reopen semantics
 
