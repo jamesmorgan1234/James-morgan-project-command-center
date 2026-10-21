@@ -1,0 +1,56 @@
+html[data-command-center-theme="v6"] .cc-brain-memory-panel{
+  margin:18px 0 4px!important;padding:18px!important;border:2px solid #ff5d00!important;border-left:6px solid #ff730f!important;
+  clip-path:polygon(2% 0,98% 0,100% 5%,100% 95%,98% 100%,2% 100%,0 95%,0 5%)!important;
+  background:linear-gradient(135deg,rgba(255,92,0,.10),transparent 28%),linear-gradient(180deg,#0b0806 0%,#040302 100%)!important;
+  box-shadow:0 0 0 1px rgba(255,111,24,.16),0 0 24px rgba(255,91,0,.18),inset 0 0 24px rgba(255,92,0,.05)!important;color:#fff!important
+}
+html[data-command-center-theme="v6"] .cc-brain-memory-head{display:flex!important;gap:14px!important;align-items:flex-start!important;justify-content:space-between!important;margin-bottom:16px!important}
+html[data-command-center-theme="v6"] .cc-brain-memory-kicker{font-size:.72rem!important;font-weight:950!important;letter-spacing:.15em!important;text-transform:uppercase!important;color:#ff9d27!important}
+html[data-command-center-theme="v6"] .cc-brain-memory-head h4{margin:4px 0 5px!important;font-size:clamp(1.45rem,5vw,2rem)!important;line-height:1!important;color:#fff!important;text-shadow:0 0 9px rgba(255,101,0,.35)!important}
+html[data-command-center-theme="v6"] .cc-brain-memory-head p{margin:0!important;max-width:640px!important;color:#aebac7!important;line-height:1.45!important}
+html[data-command-center-theme="v6"] .cc-brain-memory-progress{flex:0 0 auto!important;border:1px solid #ff720d!important;background:#1a0a03!important;color:#ffb241!important;border-radius:999px!important;padding:7px 10px!important;font-size:.76rem!important;font-weight:950!important;white-space:nowrap!important;box-shadow:0 0 12px rgba(255,92,0,.22)!important}
+html[data-command-center-theme="v6"] .cc-memory-toolbar{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(140px,.8fr) minmax(130px,.65fr) auto!important;gap:9px!important;align-items:center!important;margin-bottom:12px!important}
+html[data-command-center-theme="v6"] .cc-memory-toolbar input,html[data-command-center-theme="v6"] .cc-memory-toolbar select,
+html[data-command-center-theme="v6"] .cc-memory-form input,html[data-command-center-theme="v6"] .cc-memory-form select,html[data-command-center-theme="v6"] .cc-memory-form textarea{
+  width:100%!important;min-width:0!important;border:1px solid #75310c!important;border-radius:4px!important;background:#080605!important;color:#fff!important;padding:10px 11px!important;font:inherit!important;outline:none!important
+}
+html[data-command-center-theme="v6"] .cc-memory-toolbar input:focus,html[data-command-center-theme="v6"] .cc-memory-toolbar select:focus,
+html[data-command-center-theme="v6"] .cc-memory-form input:focus,html[data-command-center-theme="v6"] .cc-memory-form select:focus,html[data-command-center-theme="v6"] .cc-memory-form textarea:focus{border-color:#ff7a13!important;box-shadow:0 0 0 2px rgba(255,102,0,.16)!important}
+html[data-command-center-theme="v6"] .cc-memory-add-btn{min-height:42px!important;border:1px solid #ff9b34!important;background:linear-gradient(180deg,#ff7610,#d94a00)!important;color:#fff!important;font-weight:950!important;padding:9px 15px!important;clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px)!important;box-shadow:0 0 14px rgba(255,92,0,.32)!important}
+html[data-command-center-theme="v6"] .cc-memory-archive-toggle{display:inline-flex!important;align-items:center!important;gap:7px!important;color:#b8c0c9!important;font-size:.82rem!important;margin:0 0 13px 2px!important;user-select:none!important}
+html[data-command-center-theme="v6"] .cc-memory-archive-toggle input{accent-color:#ff6507!important}
+html[data-command-center-theme="v6"] .cc-memory-form{margin:0 0 14px!important;padding:14px!important;border:1px solid #8a390e!important;background:linear-gradient(180deg,#0e0906,#060403)!important;box-shadow:inset 0 0 18px rgba(255,92,0,.05)!important}
+html[data-command-center-theme="v6"] .cc-memory-form[hidden]{display:none!important}
+html[data-command-center-theme="v6"] .cc-memory-form-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important}
+html[data-command-center-theme="v6"] .cc-memory-form label{display:grid!important;gap:5px!important;color:#c7d0da!important;font-size:.78rem!important;font-weight:850!important;letter-spacing:.02em!important}
+html[data-command-center-theme="v6"] .cc-memory-form .cc-memory-wide{grid-column:1/-1!important}
+html[data-command-center-theme="v6"] .cc-memory-form textarea{min-height:112px!important;resize:vertical!important;line-height:1.45!important}
+html[data-command-center-theme="v6"] .cc-memory-form-actions{display:flex!important;justify-content:flex-end!important;gap:8px!important;margin-top:10px!important}
+html[data-command-center-theme="v6"] .cc-memory-form-actions button,html[data-command-center-theme="v6"] .cc-memory-card-actions button{border:1px solid #8b3b12!important;background:#0b0705!important;color:#ffd7ae!important;border-radius:4px!important;padding:8px 11px!important;font-weight:850!important}
+html[data-command-center-theme="v6"] .cc-memory-form-actions .primary{border-color:#ff7a14!important;background:linear-gradient(180deg,#ef650a,#a93200)!important;color:#fff!important}
+html[data-command-center-theme="v6"] .cc-memory-status{min-height:20px!important;margin:5px 1px 10px!important;color:#9eafc0!important;font-size:.82rem!important}
+html[data-command-center-theme="v6"] .cc-memory-status.error{color:#ff7d8c!important}
+html[data-command-center-theme="v6"] .cc-memory-list{display:grid!important;gap:10px!important}
+html[data-command-center-theme="v6"] .cc-memory-card{position:relative!important;padding:13px 14px!important;border:1px solid #73300d!important;border-left:4px solid #ff6507!important;background:linear-gradient(90deg,#0b0806,#050403 68%,rgba(255,89,0,.05))!important;box-shadow:0 0 14px rgba(255,82,0,.08)!important}
+html[data-command-center-theme="v6"] .cc-memory-card.archived{opacity:.66!important;border-left-color:#6f6259!important}
+html[data-command-center-theme="v6"] .cc-memory-card-head{display:flex!important;gap:10px!important;align-items:flex-start!important;justify-content:space-between!important}
+html[data-command-center-theme="v6"] .cc-memory-card h5{margin:2px 0 3px!important;font-size:1.02rem!important;color:#fff!important}
+html[data-command-center-theme="v6"] .cc-memory-meta{display:flex!important;gap:6px!important;flex-wrap:wrap!important;color:#98a8b8!important;font-size:.72rem!important}
+html[data-command-center-theme="v6"] .cc-memory-pill{border:1px solid #653014!important;background:#130a05!important;color:#ffac48!important;border-radius:999px!important;padding:3px 7px!important;font-weight:850!important}
+html[data-command-center-theme="v6"] .cc-memory-card p{margin:9px 0 7px!important;color:#c5ced7!important;line-height:1.46!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] .cc-memory-tags{display:flex!important;gap:5px!important;flex-wrap:wrap!important;margin-top:7px!important}
+html[data-command-center-theme="v6"] .cc-memory-tag{font-size:.69rem!important;color:#b9c5d0!important;border:1px solid #413229!important;background:#090705!important;padding:3px 6px!important;border-radius:3px!important}
+html[data-command-center-theme="v6"] .cc-memory-card-actions{display:flex!important;gap:7px!important;justify-content:flex-end!important;margin-top:9px!important}
+html[data-command-center-theme="v6"] .cc-memory-empty{padding:20px!important;border:1px dashed #674025!important;text-align:center!important;color:#91a2b3!important;background:#070504!important}
+@media(max-width:720px){
+  html[data-command-center-theme="v6"] .cc-brain-memory-panel{padding:14px!important}
+  html[data-command-center-theme="v6"] .cc-brain-memory-head{display:block!important}
+  html[data-command-center-theme="v6"] .cc-brain-memory-progress{display:inline-block!important;margin-top:10px!important}
+  html[data-command-center-theme="v6"] .cc-memory-toolbar{grid-template-columns:1fr 1fr!important}
+  html[data-command-center-theme="v6"] .cc-memory-toolbar input{grid-column:1/-1!important}
+  html[data-command-center-theme="v6"] .cc-memory-add-btn{grid-column:1/-1!important}
+  html[data-command-center-theme="v6"] .cc-memory-form-grid{grid-template-columns:1fr!important}
+  html[data-command-center-theme="v6"] .cc-memory-form .cc-memory-wide{grid-column:auto!important}
+  html[data-command-center-theme="v6"] .cc-memory-card-head{display:block!important}
+  html[data-command-center-theme="v6"] .cc-memory-card-actions{justify-content:flex-start!important;flex-wrap:wrap!important}
+}
