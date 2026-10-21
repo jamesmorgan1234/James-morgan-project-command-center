@@ -1,6 +1,6 @@
 (() => {
   const CAPABILITIES = [
-    ['Project Brain','Durable Memory → Brainstorm Workspace → Context Builder → Task Queue / Planner → ChatGPT Handoff Loop.','◉'],
+    ['Project Brain','Durable Memory ✓ → Brainstorm Workspace → Context Builder → Task Queue / Planner → ChatGPT Handoff Loop.','◉'],
     ['Automation','Checks, alerts and scheduled jobs.','↻'],
     ['Integrations','Connected services and data sources.','⌁'],
     ['Analytics','Verified performance, progress and operational reporting.','▥'],
@@ -40,7 +40,8 @@
   }
 
   function renderCapability([name,description,symbol]){
-    return `<article class="cc-brain-capability"><span class="cc-cap-icon">${esc(symbol)}</span><strong>${esc(name)}</strong><small>${esc(description)}</small><span class="badge planning">0% · Planned</span></article>`;
+    const phaseOne=name==='Project Brain';
+    return `<article class="cc-brain-capability" data-brain-capability="${esc(name)}"><span class="cc-cap-icon">${esc(symbol)}</span><strong>${esc(name)}</strong><small>${esc(description)}</small><span class="badge ${phaseOne?'active':'planning'}">${phaseOne?'20% · Phase 1 complete':'0% · Planned'}</span></article>`;
   }
 
   function openBrain(pushHistory){
@@ -76,15 +77,17 @@
       <div class="cc-brain-roadmap-head">
         <span class="cc-exact-menu-icon"><span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 11c-5-3-10 1-9 6-5 1-6 8-2 11-2 5 3 10 8 8 2 5 9 4 10-1V15c0-4-4-7-7-4zm10 0c5-3 10 1 9 6 5 1 6 8 2 11 2 5-3 10-8 8-2 5-9 4-10-1V15c0-4 4-7 7-4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span></span>
         <h3>Command Center Brain</h3>
-        <p>What Command Center itself will be able to do, and what still needs to be built, connected, upgraded or verified.</p>
+        <p>What Command Center itself can do now, and what still needs to be built, connected, upgraded or verified.</p>
       </div>
-      <div class="cc-brain-capabilities">${CAPABILITIES.map(renderCapability).join('')}</div>`;
+      <div class="cc-brain-capabilities">${CAPABILITIES.map(renderCapability).join('')}</div>
+      <div id="ccBrainMemoryMount"></div>`;
     shell.insertBefore(section,home||project||revenue||null);
     section.querySelector('[data-cc-brain-home-back]')?.addEventListener('click',()=>closeBrain(true));
     if(title) title.textContent='Command Center Brain';
-    if(description) description.textContent='Command Center capability roadmap';
+    if(description) description.textContent='Command Center capability roadmap · Project Brain 20%';
     section.scrollIntoView({block:'start'});
     ensureHomeButton();
+    window.dispatchEvent(new CustomEvent('command-center:brain-open'));
     if(pushHistory) history.pushState({...history.state,ccCommandCenterBrainHome:true},'',location.href);
   }
 
