@@ -7,6 +7,7 @@
     const client = originalCreateClient(...args);
     if (primaryClientCreated) return client;
     primaryClientCreated = true;
+    window.COMMAND_CENTER_SUPABASE = client;
     const originalOnAuthStateChange = client.auth.onAuthStateChange.bind(client.auth);
     client.auth.onAuthStateChange = callback => {
       let baselineCaptured = false;
