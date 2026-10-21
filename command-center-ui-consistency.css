@@ -1,0 +1,74 @@
+html[data-command-center-theme="v6"]{--cc-ui-black:#030303;--cc-ui-black-2:#080503;--cc-ui-orange:#ff5e00;--cc-ui-orange-soft:#7a3510;--cc-ui-muted:#aa9787}
+
+/* Global V6 surface lock: no legacy blue cards/bubbles. */
+html[data-command-center-theme="v6"] #detailPanel,
+html[data-command-center-theme="v6"] #detailPanel .block,
+html[data-command-center-theme="v6"] #detailPanel .kpi,
+html[data-command-center-theme="v6"] #detailPanel .list-item,
+html[data-command-center-theme="v6"] #detailPanel .metric-chip,
+html[data-command-center-theme="v6"] #detailPanel .performance-panel,
+html[data-command-center-theme="v6"] #detailPanel .perf-primary,
+html[data-command-center-theme="v6"] #detailPanel .perf-mini,
+html[data-command-center-theme="v6"] #detailPanel .perf-model-card,
+html[data-command-center-theme="v6"] #detailPanel .perf-model-stats>span,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-row,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-empty,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-compact-body,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-compact-body .list-item,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-control-panel,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-utility-panel,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-pipeline-item,
+html[data-command-center-theme="v6"] .home-card,
+html[data-command-center-theme="v6"] .revenue-summary,
+html[data-command-center-theme="v6"] .revenue-row,
+html[data-command-center-theme="v6"] .revenue-card{
+  background:linear-gradient(180deg,var(--cc-ui-black-2),var(--cc-ui-black))!important;
+  border-color:var(--cc-ui-orange-soft)!important;
+  color:#fff!important;
+  box-shadow:0 0 0 1px rgba(255,94,0,.05),0 0 12px rgba(255,84,0,.16)!important;
+}
+html[data-command-center-theme="v6"] #detailPanel .performance-panel,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-control-panel,
+html[data-command-center-theme="v6"] #detailPanel .ccv4-utility-panel,
+html[data-command-center-theme="v6"] .revenue-summary{border-color:var(--cc-ui-orange)!important}
+html[data-command-center-theme="v6"] #detailPanel .perf-subhead,
+html[data-command-center-theme="v6"] #detailPanel .block h3,
+html[data-command-center-theme="v6"] #detailPanel .kpi .k,
+html[data-command-center-theme="v6"] #detailPanel .list-item small,
+html[data-command-center-theme="v6"] #detailPanel .perf-primary small,
+html[data-command-center-theme="v6"] #detailPanel .perf-mini small,
+html[data-command-center-theme="v6"] #detailPanel .perf-model-stats small,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat small{color:#c5aa94!important}
+html[data-command-center-theme="v6"] #detailPanel .perf-source,
+html[data-command-center-theme="v6"] #detailPanel .kpi .s{color:#9f8a79!important}
+html[data-command-center-theme="v6"] #detailPanel .perf-primary strong,
+html[data-command-center-theme="v6"] #detailPanel .perf-mini strong,
+html[data-command-center-theme="v6"] #detailPanel .perf-model-name,
+html[data-command-center-theme="v6"] #detailPanel .perf-model-stats strong,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-name,
+html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat strong,
+html[data-command-center-theme="v6"] #detailPanel .list-item strong,
+html[data-command-center-theme="v6"] #detailPanel .kpi .v{color:#fff!important}
+
+html[data-command-center-theme="v6"] .badge.active,
+html[data-command-center-theme="v6"] .badge.ready{background:#1b1008!important;border-color:#7f461c!important;color:#ffb365!important}
+html[data-command-center-theme="v6"] .btn:not(.refresh-btn){background:#090603!important;border-color:#7a3510!important;color:#ffd3ad!important;box-shadow:none!important}
+html[data-command-center-theme="v6"] .btn-primary:not(.refresh-btn){background:linear-gradient(180deg,#ef6509,#a83200)!important;border-color:#ff7211!important;color:#fff!important}
+html[data-command-center-theme="v6"] input,
+html[data-command-center-theme="v6"] select,
+html[data-command-center-theme="v6"] textarea{background:#060403!important;border-color:#71330f!important;color:#fff!important}
+
+/* Refresh status remains military black/orange instead of falling back to legacy blue. */
+html[data-command-center-theme="v6"] .refresh-visual{background:linear-gradient(180deg,#0a0603,#030303)!important;border-color:#7c3811!important;box-shadow:0 0 12px rgba(255,84,0,.18)!important}
+html[data-command-center-theme="v6"] .refresh-spinner{border-color:rgba(255,126,34,.25)!important;border-top-color:#ff7a16!important;border-right-color:#ff7a16!important;box-shadow:0 0 14px rgba(255,92,0,.20)!important}
+html[data-command-center-theme="v6"] .refresh-motion-track{background:#160a04!important}
+html[data-command-center-theme="v6"] .refresh-motion-track span{background:linear-gradient(90deg,transparent,#ff6a08,#ffad47,transparent)!important}
+html[data-command-center-theme="v6"] .refresh-visual.is-complete{border-color:#176e57!important;background:linear-gradient(180deg,rgba(8,63,53,.88),rgba(5,33,38,.95))!important}
+html[data-command-center-theme="v6"] .refresh-visual.is-error{border-color:#79344b!important;background:linear-gradient(180deg,rgba(73,20,48,.86),rgba(35,15,35,.95))!important}
+
+/* Brain must behave like every other homepage accordion: button stays visible and detail opens immediately beneath it. */
+html[data-command-center-theme="v6"] #ccBrainHomeButton{order:35!important}
+html[data-command-center-theme="v6"] #ccBrainHomeButton.is-open{border-color:#ff8b18!important;box-shadow:0 0 0 1px #ff5e00,0 0 20px rgba(255,94,0,.78),inset 0 0 24px rgba(255,90,0,.10)!important}
+html[data-command-center-theme="v6"] #ccBrainHomeButton.is-open::after{content:'⌄'!important}
+html[data-command-center-theme="v6"] #ccBrainHomeRoadmap.cc-brain-inline-roadmap{order:36!important;width:100%!important;max-width:100%!important;min-width:0!important;align-self:stretch!important;margin:8px 0 10px!important}
