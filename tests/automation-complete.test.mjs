@@ -21,6 +21,6 @@ for(const label of ['Recurring Report Jobs','Action Queue Runner','Cross-Project
 for(const rpc of ['command_center_queue_report','command_center_queue_action','command_center_queue_workflow','command_center_retry_automation_run'])assert.ok(ui.includes(rpc));
 assert.match(completion,/8 of 8 phases complete/);assert.match(completion,/ccAutomationAdvancedMount/);
 for(const asset of ['command-center-automation-advanced.css?v=1','command-center-automation-advanced.js?v=1','command-center-automation-completion.js?v=1']){assert.ok(cfg.includes(asset));assert.ok(sw.includes(`'./${asset}'`));assert.ok(sw.includes(`pathname.endsWith('/${asset.split('?')[0]}')`));}
-assert.match(cfg,/command-center-integrations\.js\?v=1/,'later Integrations release must preserve Automation assets while extending the app');
-assert.match(index,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(index,/cc-startup-repair-attempted-v63/);assert.match(sw,/james-command-center-v66/,'Automation must remain intact under the Integrations release cache');
-console.log('Automation Phases 4–8 completion QA preserved under Integrations release.');
+assert.match(cfg,/command-center-integrations\.js\?v=1/);assert.match(cfg,/command-center-analytics\.js\?v=1/,'Analytics release must preserve Automation while extending the app');
+assert.match(index,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(index,/cc-startup-repair-attempted-v63/);assert.match(sw,/james-command-center-v67/,'Automation must remain intact under the Analytics release cache');
+console.log('Automation Phases 4–8 completion QA preserved under Analytics release.');
