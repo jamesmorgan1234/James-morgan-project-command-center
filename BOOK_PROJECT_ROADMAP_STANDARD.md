@@ -143,6 +143,25 @@ Each recipe/page must be verified for:
 - consistent recurring placement, spacing, banner treatment, headers/footers, and visual rhythm across the book;
 - title, cover, recipe content, photography, and interior layout feeling like one coherent product.
 
+### Recipe evidence and consensus rule
+
+Recipe correctness must be independently verified; one internet result is never sufficient evidence merely because it appears first or is convenient.
+
+When auditing a recipe:
+
+- compare multiple credible, independently sourced references where external verification is appropriate;
+- prefer established culinary authorities, reputable publications, recognized chefs/cookbook sources, cultural or regional authorities, and sources close to the dish's documented tradition or origin when relevant;
+- look for consensus in core ingredients, ratios, technique, temperature, timing, and expected finished result;
+- treat broad agreement across many genuinely independent credible sources as stronger evidence than one outlier source;
+- do not count duplicated/scraped/copy-pasted versions of the same recipe as independent evidence simply because they appear on many websites;
+- investigate meaningful disagreements instead of blindly choosing the numerical majority;
+- recognize legitimate regional, family, historical, dietary, or stylistic variants and label the book's chosen version accurately when more than one version is valid;
+- flag implausible quantities, missing required steps, unsafe cooking guidance, ingredient/instruction mismatches, or a finished result that could not reasonably follow from the written method;
+- verify food-safety-sensitive temperatures or handling guidance against authoritative current sources rather than popularity alone;
+- do not mark the recipe accuracy gate complete until the chosen recipe is coherent, reproducible, properly characterized, and supported by the strongest available evidence.
+
+The goal is not to copy the most common recipe. The goal is to produce an original, humanized recipe that is technically sound and faithful to the intended dish, using consensus and authoritative evidence to catch mistakes.
+
 ### Cookbook benchmark rule
 
 When the user designates a previously completed cookbook as the quality benchmark, its verified layout, typography hierarchy, image treatment, page density, recipe structure, and overall polish become the reference standard for later cookbook QC unless the user explicitly approves a new system.
