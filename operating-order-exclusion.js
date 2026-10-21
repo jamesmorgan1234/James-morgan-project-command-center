@@ -4,12 +4,21 @@
   let client = null;
   let hiddenIds = new Set();
   let syncing = false;
+  let scrubQueued = false;
 
   const norm = v => String(v || '').trim().toLowerCase();
   const isExcludedName = name => excludedNames.has(norm(name));
   const isAttention = p => p.attention === true || /needs|blocked|recovery|paused/i.test(p.status || '') || /needs|unverified/i.test(p.verification || '');
   const isActive = p => /active|live/i.test(p.status || '');
   const money = n => new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',maximumFractionDigits:2}).format(Number(n || 0));
+
+  function getClient() {
+    if (window.COMMAND_CENTER_SUPABASE) return window.COMMAND_CENTER_SUPABASE;
+    if (client) return client;
+    if (!window.supabase || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return null;
+    client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true,autoRefreshToken:false,detectSessionInUrl:false}});
+    return client;
+  }
 
   function scrubDom() {
     document.querySelectorAll('[data-open],[data-continue]').forEach(el => {
@@ -34,28 +43,35 @@
     if (detail && isExcludedName(detailName)) detail.replaceChildren();
   }
 
+  function scheduleScrub() {
+    if (scrubQueued) return;
+    scrubQueued = true;
+    requestAnimationFrame(() => { scrubQueued = false; scrubDom(); });
+  }
+
+  function setText(node, value) {
+    if (node && node.textContent !== value) node.textContent = value;
+  }
+
   function updateTile(view, value, subtext) {
     const tile = document.querySelector(`.stat-button[data-view="${view}"]`);
     if (!tile) return;
-    const valueEl = tile.querySelector('.value');
-    if (valueEl) valueEl.textContent = value;
-    if (subtext !== undefined) {
-      const sub = tile.querySelector('.stat-sub');
-      if (sub) sub.textContent = subtext;
-    }
+    setText(tile.querySelector('.value'), value);
+    if (subtext !== undefined) setText(tile.querySelector('.stat-sub'), subtext);
   }
 
   async function syncExclusions() {
-    if (syncing || !window.supabase || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
+    if (syncing) return;
+    const c = getClient();
+    if (!c) return;
     syncing = true;
     try {
-      if (!client) client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {auth:{persistSession:true,autoRefreshToken:false,detectSessionInUrl:false}});
-      const { data: sessionData } = await client.auth.getSession();
+      const { data: sessionData } = await c.auth.getSession();
       if (!sessionData?.session) return;
 
       const [pRes, mRes] = await Promise.all([
-        client.from('projects').select('id,name,status,verification,attention'),
-        client.from('metrics').select('project_id,key,verified,value_numeric')
+        c.from('projects').select('id,name,status,verification,attention'),
+        c.from('metrics').select('project_id,key,verified,value_numeric')
       ]);
       if (pRes.error || mRes.error) return;
 
@@ -79,16 +95,15 @@
     }
   }
 
-  const observer = new MutationObserver(() => {
-    scrubDom();
-    clearTimeout(observer._t);
-    observer._t = setTimeout(syncExclusions, 60);
-  });
+  const observer = new MutationObserver(scheduleScrub);
   observer.observe(document.documentElement, {childList:true,subtree:true});
 
   window.addEventListener('load', syncExclusions, {once:true});
+  document.addEventListener('commandcenter:audit-complete', () => setTimeout(syncExclusions, 150));
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') setTimeout(syncExclusions, 250); });
   document.addEventListener('click', e => {
-    if (e.target.closest('#refreshBtn,[data-view]')) setTimeout(syncExclusions, 250);
+    if (e.target.closest('[data-view]')) scheduleScrub();
   });
+  setInterval(syncExclusions, Math.max(60000, Number(cfg.refreshMs || 60000)));
   setTimeout(syncExclusions, 250);
 })();

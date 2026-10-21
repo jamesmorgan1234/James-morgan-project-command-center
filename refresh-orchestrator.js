@@ -4,12 +4,11 @@
   let client = null;
   let pollTimer = null;
   let activeRequestId = null;
-  let reloading = false;
   const kicked = new Set();
-
-  const TERMINAL = new Set(['completed', 'partial', 'failed']);
+  const TERMINAL = new Set(['completed','partial','failed']);
 
   async function getClient() {
+    if (window.COMMAND_CENTER_SUPABASE) return window.COMMAND_CENTER_SUPABASE;
     if (client) return client;
     if (!window.supabase || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return null;
     client = window.supabase.createClient(cfg.supabaseUrl,cfg.supabaseAnonKey,{auth:{persistSession:true,autoRefreshToken:false,detectSessionInUrl:false}});
@@ -152,11 +151,12 @@
     const {data:sourceRows}=await c.from('project_sources').select('project_id').eq('owner_id',user.id).eq('active',true);
     const total=new Set((sourceRows||[]).map(x=>x.project_id)).size||null;
     const {data,error}=await c.from('refresh_requests').insert({owner_id:user.id,status:'pending',projects_total:total,projects_checked:0}).select('*').single();
-    if(error) throw error; return data;
+    if(error) throw error;
+    return data;
   }
 
   async function kickWorker(row){
-    if(!row?.id || kicked.has(row.id) || row.status==='completed' || row.status==='partial' || row.status==='failed') return;
+    if(!row?.id || kicked.has(row.id) || TERMINAL.has(row.status)) return;
     kicked.add(row.id);
     const c=await getClient();
     if(!c){kicked.delete(row.id);throw new Error('Command Center data connection unavailable.');}
@@ -173,42 +173,61 @@
     setButton('Retry Refresh',false);
   }
 
+  function notifyRefreshComplete(row){
+    const detail={status:row.status,id:row.id};
+    document.dispatchEvent(new CustomEvent('commandcenter:audit-complete',{detail}));
+    document.dispatchEvent(new CustomEvent('commandcenter:data-refresh-requested',{detail}));
+    if(document.visibilityState==='visible') document.dispatchEvent(new Event('visibilitychange'));
+  }
+
   function stopPolling(){if(pollTimer)clearInterval(pollTimer);pollTimer=null;}
+
   async function pollOnce(){
-    if(!activeRequestId)return;
-    const c=await getClient(); if(!c)return;
+    if(!activeRequestId) return;
+    const c=await getClient(); if(!c) return;
     const {data,error}=await c.from('refresh_requests').select('*').eq('id',activeRequestId).maybeSingle();
-    if(error||!data)return;
+    if(error||!data) return;
     showState(data);
     if(TERMINAL.has(data.status)){
-      stopPolling();activeRequestId=null;
-      document.dispatchEvent(new CustomEvent('commandcenter:audit-complete',{detail:{status:data.status,id:data.id}}));
-      if((data.status==='completed'||data.status==='partial')&&!reloading){reloading=true;setTimeout(()=>window.location.reload(),1100);}
+      stopPolling();
+      activeRequestId=null;
+      notifyRefreshComplete(data);
     }
   }
-  function startPolling(row){if(!row?.id)return;activeRequestId=row.id;showState(row);stopPolling();pollTimer=setInterval(pollOnce,1500);setTimeout(pollOnce,350);}
+
+  function startPolling(row){
+    if(!row?.id) return;
+    activeRequestId=row.id;
+    showState(row);
+    stopPolling();
+    pollTimer=setInterval(pollOnce,1500);
+    setTimeout(pollOnce,350);
+  }
 
   async function handleRefresh(e){
-    const btn=e.target.closest('#refreshBtn'); if(!btn)return;
-    e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();if(btn.disabled)return;
+    const btn=e.target.closest('#refreshBtn');
+    if(!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    if(btn.disabled) return;
     setButton('Starting live audit…',true);
     try{
       const row=await createRequest();
       startPolling(row);
       kickWorker(row).catch(showWorkerStartError);
-    }catch(err){showWorkerStartError(err);}
+    }catch(err){
+      showWorkerStartError(err);
+    }
   }
 
   async function restoreState(){
-    const row=await latestRequest(); if(!row)return;
+    const row=await latestRequest();
+    if(!row) return;
     const age=Date.now()-new Date(row.requested_at).getTime();
-    if(row.status==='processing'){
-      startPolling(row);
-    }else if(row.status==='pending'){
-      showPendingIdle(row);
-    }else if(age<6*60*60*1000){
-      showState(row);
-    }
+    if(row.status==='processing') startPolling(row);
+    else if(row.status==='pending') showPendingIdle(row);
+    else if(age<6*60*60*1000) showState(row);
   }
 
   function initRestore(){
