@@ -29,6 +29,8 @@ on:
       - 'command-center-automation-scheduler.js'
       - 'command-center-automation-condition.css'
       - 'command-center-automation-condition.js'
+      - 'command-center-automation-notification.css'
+      - 'command-center-automation-notification.js'
       - 'project-roadmaps.css'
       - 'project-roadmaps.js'
       - 'command-center-project-detail-accordions.css'
@@ -75,6 +77,7 @@ jobs:
       - run: node --check command-center-brain-handoff.js
       - run: node --check command-center-automation-scheduler.js
       - run: node --check command-center-automation-condition.js
+      - run: node --check command-center-automation-notification.js
       - run: node --check project-roadmaps.js
       - run: node --check command-center-project-detail-accordions.js
       - run: node --check app-integrity-repair.js
@@ -93,6 +96,7 @@ jobs:
       - run: node tests/brain-handoff.test.mjs
       - run: node tests/automation-scheduler.test.mjs
       - run: node tests/automation-condition.test.mjs
+      - run: node tests/automation-notification.test.mjs
       - run: node tests/project-roadmaps.test.mjs
       - run: node tests/project-detail-accordion.test.mjs
       - run: node tests/app-integrity.test.mjs
