@@ -51,8 +51,8 @@ assert.match(home,/\['ChatGPT Handoff Loop'[^\]]+,100\]/,'Project Brain Phase 5 
 assert.match(home,/ccBrainHandoffMount/,'Project Brain detail must mount Phase 5');
 assert.match(home,/Project Brain \$\{brainPct\}%/,'Project Brain percentage must still derive from phase values');
 assert.match(cfg,/command-center-brain-home\.js\?v=5/);
-assert.match(cfg,/command-center-brain-handoff\.css\?v=1/);assert.match(cfg,/command-center-brain-handoff\.js\?v=1/);
-assert.match(html,/app-config\.js\?v=20/);assert.match(html,/cc-startup-repair-attempted-v63/);
-assert.match(sw,/james-command-center-v64/);assert.ok(sw.includes("'./app-config.js?v=20'"));assert.ok(sw.includes("'./command-center-brain-home.js?v=5'"));assert.ok(sw.includes("'./command-center-brain-handoff.css?v=1'"));assert.ok(sw.includes("'./command-center-brain-handoff.js?v=1'"));assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.css'\)/);
+assert.match(cfg,/command-center-brain-handoff\.css\?v=1/);assert.match(cfg,/command-center-brain-handoff\.js\?v=1/);assert.match(cfg,/roadmap-checkpoint-runtime\.js\?v=1/);
+assert.match(html,/app-config\.js\?v=21/);assert.match(html,/cc-startup-repair-attempted-v63/);
+assert.match(sw,/james-command-center-v65/);assert.ok(sw.includes("'./app-config.js?v=21'"));assert.ok(sw.includes("'./command-center-brain-home.js?v=5'"));assert.ok(sw.includes("'./command-center-brain-handoff.css?v=1'"));assert.ok(sw.includes("'./command-center-brain-handoff.js?v=1'"));assert.ok(sw.includes("'./roadmap-checkpoint-runtime.js?v=1'"));assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.css'\)/);
 
 console.log('Project Brain Phase 5 ChatGPT Handoff Loop QA passed.');
