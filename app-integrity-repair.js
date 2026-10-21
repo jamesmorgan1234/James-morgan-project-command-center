@@ -11,7 +11,7 @@
     if(hard){hard.textContent=hard.textContent.replace(/overscroll-behavior-y\s*:\s*[^;}]+;?/g,'').replace(/touch-action\s*:\s*[^;}]+;?/g,'').replace(/overflow-y\s*:\s*[^;}]+;?/g,'');}
   }
   function installPullToRefreshGuard(){
-    if(window.__COMMAND_CENTER_PULL_GUARD)return;
+    if(window.__COMMAND_CENTER_PULL_GUARD||window.__COMMAND_CENTER_EARLY_PULL_GUARD)return;
     window.__COMMAND_CENTER_PULL_GUARD=true;
     let startX=0,startY=0,armed=false;
     const top=()=>Math.max(0,Number(window.scrollY||document.scrollingElement?.scrollTop||0))<=0;
