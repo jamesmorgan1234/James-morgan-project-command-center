@@ -1,0 +1,9 @@
+html,body{background:#000!important;color-scheme:dark!important}
+body{color:#fff;background:radial-gradient(circle at 78% -5%,rgba(255,111,13,.12),transparent 28%),linear-gradient(180deg,#070402 0%,#030201 52%,#050301 100%)!important}
+#app{background:transparent!important}
+.brand-copy h1,.topbar h1{color:#fff!important}.brand-tagline{color:#c7aa8d!important}.sync-line{color:#8d7a68!important}
+.panel,.detail-panel{background:linear-gradient(180deg,rgba(20,12,6,.98),rgba(8,5,3,.98))!important;border-color:rgba(255,127,24,.34)!important;color:#fff!important}
+.btn{border-color:#6c3516!important;background:#21130a!important;color:#fff3e5!important}.btn-primary,.refresh-btn{color:#1b0b00!important;border-color:#ff9a34!important;background:linear-gradient(90deg,#ff650b,#ff9429 52%,#ff6c0c)!important;box-shadow:0 10px 30px rgba(255,103,7,.20),inset 0 1px 0 rgba(255,255,255,.24)!important}
+.stat-button{border-color:rgba(255,130,24,.44)!important;border-left:4px solid #ff7412!important;background:radial-gradient(circle at 8% 50%,rgba(255,118,15,.16),transparent 23%),linear-gradient(105deg,#171008,#080503 58%,#100804)!important;color:#fff!important}
+.stat-button::before,.stat-button::after{color:#ff9d35!important}.stat .label{color:#fff9f2!important}.stat .value{color:#fff!important}.stat-sub{color:#bca48a!important}
+.center-screen{background:#000!important;color:#c7aa8d!important}
