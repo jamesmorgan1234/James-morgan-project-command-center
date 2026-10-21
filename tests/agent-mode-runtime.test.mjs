@@ -2,17 +2,20 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
 const ui=fs.readFileSync('command-center-agent-mode.js','utf8');
+const completion=fs.readFileSync('command-center-agent-mode-completion.js','utf8');
 const css=fs.readFileSync('command-center-agent-mode.css','utf8');
 const deviceUi=fs.readFileSync('command-center-agent-device-guidance.js','utf8');
 const deviceCss=fs.readFileSync('command-center-agent-device-guidance.css','utf8');
 const runnerUi=fs.readFileSync('command-center-agent-runner-status.js','utf8');
 const cfg=fs.readFileSync('app-config.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
+const sw=fs.readFileSync('service-worker.js','utf8');
 const brain=fs.readFileSync('command-center-brain-home.js','utf8');
 const standard=fs.readFileSync('AGENT_MODE_STANDARD.md','utf8');
 const workStandard=fs.readFileSync('AGENT_MODE_WORK_ENVELOPE_STANDARD.md','utf8');
 const retryStandard=fs.readFileSync('AGENT_MODE_RETRY_CIRCUIT_BREAKER_STANDARD.md','utf8');
 const booksStandard=fs.readFileSync('AGENT_MODE_BOOKS_POLICY.md','utf8');
+const runnerStandard=fs.readFileSync('AGENT_MODE_BACKGROUND_RUNNER_STANDARD.md','utf8');
 const schema=fs.readFileSync('supabase/migrations/20261021224000_agent_mode_schema.sql','utf8');
 const core=fs.readFileSync('supabase/migrations/20261021224100_agent_mode_core_rpcs.sql','utf8');
 const work=fs.readFileSync('supabase/migrations/20261021224200_agent_mode_work_rpcs.sql','utf8');
@@ -24,8 +27,9 @@ const fkIndexes=fs.readFileSync('supabase/migrations/20261021224700_agent_mode_f
 const serviceRunner=fs.readFileSync('supabase/migrations/20261021230000_agent_mode_service_runner_gateway.sql','utf8');
 const deviceReq=fs.readFileSync('supabase/migrations/20261021231000_agent_mode_device_requirements.sql','utf8');
 const toolHealth=fs.readFileSync('supabase/migrations/20261021231500_agent_mode_tool_health_gateway.sql','utf8');
+const serviceWork=fs.readFileSync('supabase/migrations/20261021232000_agent_mode_service_work_and_user_blockers.sql','utf8');
 
-for(const [name,src] of [['Agent Mode UI',ui],['Agent device guidance',deviceUi],['Agent runner status',runnerUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
+for(const [name,src] of [['Agent Mode UI',ui],['Agent completion patch',completion],['Agent device guidance',deviceUi],['Agent runner status',runnerUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
 for(const [name,src] of [['Agent Mode CSS',css],['Agent device CSS',deviceCss]])assert.equal((src.match(/\{/g)||[]).length,(src.match(/\}/g)||[]).length,`${name} braces must balance`);
 
 for(const table of ['agent_sessions','agent_session_projects','agent_steps','agent_step_evidence','agent_checkpoints','agent_step_attempts','agent_work_handoffs','agent_work_queue','agent_circuit_breakers','agent_tool_registry','agent_run_events']){
@@ -38,7 +42,7 @@ assert.match(browserHardening,/revoke execute on function public\.command_center
 assert.match(browserHardening,/revoke execute on function public\.command_center_agent_confirm_evidence.*from authenticated/is,'browser must not confirm executor evidence');
 assert.match(browserHardening,/grant execute on function public\.command_center_agent_record_work_result.*to service_role/is,'service runtime must retain executor access');
 
-for(const phrase of ['GPT-6 Luna High','GPT-6.1 Sol Light','GPT-6.1 Sol Medium'])assert.ok((work+workHardening+controls+serviceRunner).includes(phrase),`missing allowed model ${phrase}`);
+for(const phrase of ['GPT-6 Luna High','GPT-6.1 Sol Light','GPT-6.1 Sol Medium'])assert.ok((work+workHardening+controls+serviceRunner+serviceWork).includes(phrase),`missing allowed model ${phrase}`);
 assert.doesNotMatch(work,/GPT-6 Astra (?:Light|Medium)/,'Astra must not be accepted in Agent Work runtime');
 assert.doesNotMatch(workHardening,/GPT-6 Astra (?:Light|Medium)/,'Astra must not be accepted by hardened Work start');
 assert.match(core,/Invalid or prohibited Work model rung/,'server-side model validation required');
@@ -70,13 +74,23 @@ assert.match(serviceRunner,/command_center_agent_service_checkpoint/);
 assert.match(serviceRunner,/revoke execute on function public\.command_center_agent_service_status\(uuid,uuid\) from public,anon,authenticated/);
 assert.match(serviceRunner,/grant execute on function public\.command_center_agent_service_status\(uuid,uuid\) to service_role/);
 
+assert.match(serviceWork,/command_center_agent_service_prepare_work_handoff/);
+assert.match(serviceWork,/Normal-chat exhaustion gate has not passed/);
+assert.match(serviceWork,/command_center_agent_service_block_step/);
+assert.match(serviceWork,/required_environment/);
+assert.match(serviceWork,/command_center_agent_complete_user_action/);
+assert.match(serviceWork,/verification_pending/,'user completion must require downstream verification');
+assert.match(serviceWork,/from public,anon,authenticated/,'service Work/blocker RPCs must be hidden from browser roles');
+
 assert.match(deviceReq,/required_environment/);
 assert.match(deviceReq,/user_action_instructions/);
 assert.match(deviceReq,/resume_after_user_action/);
 assert.match(deviceUi,/PC REQUIRED/);
 assert.match(deviceUi,/PHONE REQUIRED/);
 assert.match(deviceUi,/LOCAL BROWSER REQUIRED/);
-assert.match(deviceUi,/Agent Mode can resume from this checkpoint/);
+assert.match(deviceUi,/I completed this/);
+assert.match(deviceUi,/command_center_agent_complete_user_action/);
+assert.match(deviceUi,/Verification queued/);
 
 assert.match(toolHealth,/command_center_agent_tool_health/);
 assert.match(toolHealth,/command_center_agent_service_upsert_tool_health/);
@@ -93,8 +107,14 @@ assert.match(ui,/Work allowance \$\{m\.work_allowance_remaining\?\?'N\/A'\}/,'un
 assert.match(ui,/command_center_agent_create_project_only_session/);
 assert.match(ui,/command_center_agent_approve_sol_medium_step/);
 assert.doesNotMatch(ui,/GPT-6 Astra/,'Agent UI must not expose Astra runtime options');
+assert.match(completion,/8 of 8 phases complete/);
+assert.match(completion,/100% · Complete/);
 
-for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
+for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-mode-completion.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
+for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-mode-completion.js?v=1','./app-config.js?v=26'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
+assert.match(sw,/james-command-center-v70/);
+assert.match(html,/app-config\.js\?v=26/);
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover/,'protected viewport must remain exact');
 assert.match(html,/cc-startup-repair-attempted-v63/,'startup repair marker must remain protected');
 
@@ -102,5 +122,8 @@ for(const phrase of ['Sol Medium','Astra','normal chat','Books'])assert.ok(stand
 assert.match(workStandard,/GPT-6\.1 Sol Medium/);
 assert.match(retryStandard,/Failure must produce information/i);
 assert.match(booksStandard,/explicit/i);
+assert.match(runnerStandard,/hourly/i);
+assert.match(runnerStandard,/PC REQUIRED/);
+assert.match(runnerStandard,/TinyFish Agent\/Browser are metered/);
 
-console.log('Agent Mode runtime QA passed: scope, permissions, verification, Work ceiling, retry safety, project-only controls, service runner, device guidance, and tool health are present.');
+console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, completion patch, and PWA release assets are present.');
