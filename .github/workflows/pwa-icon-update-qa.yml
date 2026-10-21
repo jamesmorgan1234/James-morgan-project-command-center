@@ -3,12 +3,16 @@ name: PWA icon update QA
 on:
   pull_request:
     paths:
+      - 'index.html'
+      - 'app-config.js'
+      - 'startup-loader.js'
       - 'manifest.webmanifest'
       - 'service-worker.js'
       - 'command-center-approved-icon-512.png'
       - 'command-center-approved-icon-256.png'
       - 'PWA_UPDATE_STANDARD.md'
       - 'tests/pwa-icon-update.test.mjs'
+      - 'tests/startup-boot.test.mjs'
       - '.github/workflows/pwa-icon-update-qa.yml'
   workflow_dispatch:
 
@@ -25,6 +29,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Parse startup controller
+        run: node --check startup-loader.js
+      - name: Parse app config
+        run: node --check app-config.js
+      - name: Run first-launch boot QA
+        run: node tests/startup-boot.test.mjs
       - name: Run PWA icon update QA
         run: node tests/pwa-icon-update.test.mjs
       - name: Run mobile navigation regression QA

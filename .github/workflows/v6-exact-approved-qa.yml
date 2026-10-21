@@ -3,6 +3,7 @@ on:
   pull_request:
     paths:
       - 'index.html'
+      - 'startup-loader.js'
       - 'command-center-v6.css'
       - 'command-center-v6.js'
       - 'command-center-v6-2.css'
@@ -32,6 +33,7 @@ on:
       - 'tests/exact-command-center-menus.test.mjs'
       - 'tests/brain-capability-roadmaps.test.mjs'
       - 'tests/refresh-stability.test.mjs'
+      - 'tests/startup-boot.test.mjs'
       - 'tests/pwa-icon-update.test.mjs'
       - 'tests/mobile-navigation.test.mjs'
       - '.github/workflows/v6-exact-approved-qa.yml'
@@ -46,6 +48,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --check startup-loader.js
+      - run: node --check app-config.js
       - run: node --check command-center-v6.js
       - run: node --check command-center-v6-2.js
       - run: node --check command-center-exact-menus.js
@@ -54,6 +58,7 @@ jobs:
       - run: node --check source-health.js
       - run: node --check operating-order-exclusion.js
       - run: node --check mobile-accordion-polish.js
+      - run: node tests/startup-boot.test.mjs
       - run: node tests/v6-exact-approved.test.mjs
       - run: node tests/exact-command-center-menus.test.mjs
       - run: node tests/brain-capability-roadmaps.test.mjs
