@@ -1,0 +1,46 @@
+{
+  "manifest_schema_version": 1,
+  "release_family": "command-center-deployment-v1",
+  "production_branch": "main",
+  "hosting_provider": "github_pages",
+  "release_identity": {
+    "app_config_version": 25,
+    "pwa_cache_version": 69,
+    "startup_repair_marker": "cc-startup-repair-attempted-v63"
+  },
+  "required_qa": [
+    "Approved Book Cover Library QA",
+    "PWA icon update QA",
+    "Mobile navigation QA",
+    "Scope progress QA",
+    "Roadmap checkpoint QA",
+    "V4 control room QA",
+    "V5 Visual Shell QA",
+    "V6 Exact Approved QA",
+    "Automation complete QA",
+    "Integrations complete QA",
+    "Analytics complete QA",
+    "Security complete QA",
+    "Deployment complete QA"
+  ],
+  "protected_contracts": {
+    "viewport": "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover",
+    "android_vertical_scrolling": true,
+    "physical_back_deepest_first": true,
+    "scroll_restoration": true,
+    "pull_to_refresh_disabled": true,
+    "black_system_surfaces": true,
+    "pwa_identity_preserved": true
+  },
+  "protected_assets": {
+    "approved_icon_256_sha256": "ebca3a41a48f417abb5ec037710a99cd82f128b0c320d0820e1e82e3612d80ea",
+    "approved_icon_512_sha256": "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa",
+    "book_cover_atlas_sha256": "f133a3e6027e682f1f8e7149c5096ff42185095e6cc0488e32ded8cbe724199c"
+  },
+  "rollback": {
+    "mode": "manual_workflow_opens_pr",
+    "direct_main_push": false,
+    "automatic_merge": false,
+    "target_must_be_main_ancestor": true
+  }
+}
