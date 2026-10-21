@@ -93,7 +93,7 @@
   function initHistory() {
     history.scrollRestoration = 'manual'; history.replaceState(navState('home', 'home', null, window.scrollY), '');
     window.addEventListener('popstate', event => {
-      if (event.state?.ccCommandCenterBrainHome || event.state?.ccCommandCenterBrainCapability || event.state?.ccProjectRoadmapCategory) return;
+      if (event.state?.ccCommandCenterBrainHome || event.state?.ccCommandCenterBrainCapability || event.state?.ccProjectRoadmapCategory || event.state?.ccProjectDetailAccordion || event.state?.ccProjectDetailAccordionBase) return;
       if (!isOurState(event.state)) return; restoreNavigation(event.state);
     });
   }
