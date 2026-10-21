@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://gmlsucpwliegwlxymjvp.supabase.co" crossorigin>
 <link rel="stylesheet" href="./styles.css?v=7">
 <link rel="stylesheet" href="./project-hub.css?v=2">
-<link rel="stylesheet" href="./mobile-accordion-polish.css?v=3">
+<link rel="stylesheet" href="./mobile-accordion-polish.css?v=4">
 <link rel="stylesheet" href="./command-center-startup-shell.css?v=1">
 </head>
 <body>
@@ -56,14 +56,52 @@
   <footer id="appFooter" class="app-footer" hidden><button id="signOutBtn" class="btn btn-ghost signout-bottom">Sign out</button></footer>
 </div>
 <script>
-window.__COMMAND_CENTER_BOOT_WATCHDOG=setTimeout(function(){
-  if(window.__COMMAND_CENTER_STARTUP_LOADER_STARTED)return;
-  var boot=document.getElementById('boot'),app=document.getElementById('app'),sync=document.getElementById('syncText'),main=document.querySelector('#app main');
-  if(boot)boot.hidden=true;if(app)app.hidden=false;if(sync)sync.textContent='Startup loader unavailable · reload ready';
-  if(main&&!document.getElementById('startupRecovery')){var panel=document.createElement('section');panel.id='startupRecovery';panel.className='panel auth-panel';panel.innerHTML='<h2>Command Center startup needs another try</h2><p class="muted">The local startup controller did not begin. Reload the app to retry.</p><button id="retryStartupBtn" class="btn btn-primary">Reload Command Center</button>';main.prepend(panel);var button=document.getElementById('retryStartupBtn');if(button)button.onclick=function(){location.reload();};}
-},4000);
+(() => {
+  window.__COMMAND_CENTER_BOOTSTRAP_STARTED=true;
+  const REPAIR_KEY='cc-startup-repair-attempted-v58';
+  const $=id=>document.getElementById(id);
+  let repairing=false;
+
+  function reveal(message){const boot=$('boot'),app=$('app'),sync=$('syncText');if(boot)boot.hidden=true;if(app)app.hidden=false;if(sync)sync.textContent=message;}
+  function showRecovery(message){
+    reveal('Startup recovery ready');
+    let panel=$('startupRecovery');
+    if(!panel){panel=document.createElement('section');panel.id='startupRecovery';panel.className='panel auth-panel';document.querySelector('#app main')?.prepend(panel);}
+    if(!panel)return;
+    const safe=String(message||'The local startup files could not be loaded.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    panel.innerHTML=`<h2>Command Center startup needs repair</h2><p class="muted">${safe}</p><button id="retryStartupBtn" class="btn btn-primary">Repair and reload Command Center</button>`;
+    $('retryStartupBtn')?.addEventListener('click',()=>{sessionStorage.removeItem(REPAIR_KEY);repairRuntime();},{once:true});
+  }
+  function loadLocal(src,timeoutMs=6000){return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.async=false;let settled=false;const finish=(ok,error)=>{if(settled)return;settled=true;clearTimeout(timer);script.onload=script.onerror=null;if(ok)resolve(script);else{script.remove();reject(error||new Error(`Failed to load ${src}`));}};const timer=setTimeout(()=>finish(false,new Error(`Timed out loading ${src}`)),timeoutMs);script.onload=()=>finish(true);script.onerror=()=>finish(false,new Error(`Failed to load ${src}`));document.body.appendChild(script);});}
+  async function repairRuntime(){
+    if(repairing)return;repairing=true;reveal('Repairing local startup cache…');
+    try{
+      if('serviceWorker' in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.allSettled(regs.map(reg=>reg.unregister()));}
+      if('caches' in window){const keys=await caches.keys();await Promise.allSettled(keys.filter(key=>key.startsWith('james-command-center-')).map(key=>caches.delete(key)));}
+    }catch{}
+    sessionStorage.setItem(REPAIR_KEY,'1');
+    location.replace(`./?cc-repair=${Date.now()}`);
+  }
+  function installTopEdgeRefreshGuard(){
+    if(window.__COMMAND_CENTER_EARLY_PULL_GUARD)return;window.__COMMAND_CENTER_EARLY_PULL_GUARD=true;let startX=0,startY=0,armed=false;
+    const atTop=()=>Math.max(0,Number(window.scrollY||document.scrollingElement?.scrollTop||0))<=0;
+    document.addEventListener('touchstart',event=>{if(event.touches.length!==1){armed=false;return;}const t=event.touches[0];startX=t.clientX;startY=t.clientY;armed=atTop();},{passive:true,capture:true});
+    document.addEventListener('touchmove',event=>{if(!armed||event.touches.length!==1)return;const t=event.touches[0],dx=t.clientX-startX,dy=t.clientY-startY;if(dy<-10){armed=false;return;}if(dy>10&&Math.abs(dy)>Math.abs(dx)*1.1)event.preventDefault();},{passive:false,capture:true});
+    const reset=()=>{armed=false;};document.addEventListener('touchend',reset,{passive:true,capture:true});document.addEventListener('touchcancel',reset,{passive:true,capture:true});
+  }
+  async function boot(){
+    installTopEdgeRefreshGuard();
+    try{
+      await loadLocal('./app-config.js?v=15',6000);
+      await loadLocal('./startup-loader.js?v=3',6000);
+      sessionStorage.removeItem(REPAIR_KEY);
+    }catch(error){
+      if(sessionStorage.getItem(REPAIR_KEY)!=='1'){await repairRuntime();return;}
+      showRecovery(error?.message||'Local startup controller unavailable after cache repair.');
+    }
+  }
+  boot();
+})();
 </script>
-<script defer src="./app-config.js?v=14"></script>
-<script defer src="./startup-loader.js?v=2"></script>
 </body>
 </html>

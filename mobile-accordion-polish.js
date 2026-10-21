@@ -87,7 +87,7 @@
     let theme = document.querySelector('meta[name="theme-color"]'); if (!theme) { theme = document.createElement('meta'); theme.name = 'theme-color'; document.head.appendChild(theme); } theme.content = '#000000';
     let scheme = document.querySelector('meta[name="color-scheme"]'); if (!scheme) { scheme = document.createElement('meta'); scheme.name = 'color-scheme'; document.head.appendChild(scheme); } scheme.content = 'dark';
     document.documentElement.style.backgroundColor = '#000000'; document.documentElement.style.colorScheme = 'dark'; if (document.body) document.body.style.backgroundColor = '#000000';
-    if (!document.getElementById('systemBarHardening')) { const style = document.createElement('style'); style.id = 'systemBarHardening'; style.textContent = `html,body{background-color:#000000!important;color-scheme:dark!important}body{overscroll-behavior-y:contain}#app{padding-bottom:max(20px,env(safe-area-inset-bottom))!important}body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:env(safe-area-inset-bottom);background:#000000;pointer-events:none;z-index:2147483646}`; document.head.appendChild(style); }
+    if (!document.getElementById('systemBarHardening')) { const style = document.createElement('style'); style.id = 'systemBarHardening'; style.textContent = `html,body{background-color:#000000!important;color-scheme:dark!important}#app{padding-bottom:max(20px,env(safe-area-inset-bottom))!important}body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:env(safe-area-inset-bottom);background:#000000;pointer-events:none;z-index:2147483646}`; document.head.appendChild(style); }
   }
 
   function initHistory() {
