@@ -5,6 +5,12 @@
   const labelFor=e=>e==='pc'?'PC REQUIRED':e==='phone'?'PHONE REQUIRED':e==='local_browser'?'LOCAL BROWSER REQUIRED':e==='any_device'?'USER ACTION REQUIRED':'USER ACTION REQUIRED';
   const detailFor=e=>e==='pc'?'This step must be completed from your computer.':e==='phone'?'This step must be completed from your phone.':e==='local_browser'?'This step needs your signed-in browser on your computer.':'This step needs your action, but either device can be used.';
 
+  async function rpc(name,args={}){
+    const c=window.COMMAND_CENTER_SUPABASE;if(!c)throw new Error('Command Center connection unavailable.');
+    const {data:{session},error}=await c.auth.getSession();if(error||!session?.user)throw new Error('Authorized Command Center session required.');
+    const gate=await c.rpc('is_command_center_authorized');if(gate.error||!gate.data)throw new Error('Command Center authorization required.');
+    const res=await c.rpc(name,args);if(res.error)throw res.error;return res.data;
+  }
   function requiredStep(st){
     const rows=st?.steps||[];
     const current=rows.find(x=>x.id===st?.session?.current_step_id);
@@ -16,7 +22,14 @@
     const env=String(step.required_environment||step.metadata?.required_environment||'any_device').toLowerCase();
     const instructions=step.user_action_instructions||step.metadata?.user_action_instructions||step.details||'Complete the required user-only action, then return to Command Center.';
     const resume=step.resume_after_user_action ?? step.metadata?.resume_after_user_action ?? true;
-    return `<aside class="cc-agent-device-banner ${env==='pc'||env==='local_browser'?'pc':''}" data-agent-device-banner><div class="cc-agent-device-title">${esc(labelFor(env))}</div><div class="cc-agent-device-reason">${esc(detailFor(env))}</div><div class="cc-agent-device-instructions">${esc(instructions)}</div><div class="cc-agent-device-resume">${resume?'Agent Mode can resume from this checkpoint after the requirement is satisfied.':'Return to Command Center after completing this step; further authorization may still be required.'}</div></aside>`;
+    return `<aside class="cc-agent-device-banner ${env==='pc'||env==='local_browser'?'pc':''}" data-agent-device-banner><div class="cc-agent-device-title">${esc(labelFor(env))}</div><div class="cc-agent-device-reason">${esc(detailFor(env))}</div><div class="cc-agent-device-instructions">${esc(instructions)}</div><div class="cc-agent-device-resume">${resume?'Agent Mode can resume from this checkpoint after the requirement is satisfied.':'Return to Command Center after completing this step; further authorization may still be required.'}</div>${step.status==='needs_user_action'?`<div class="cc-agent-device-actions"><button class="btn cc-agent-btn-primary" type="button" data-agent-user-action-done="${esc(step.id)}">I completed this</button><span data-agent-device-message></span></div>`:''}</aside>`;
+  }
+  function bind(host){
+    host?.querySelectorAll('[data-agent-user-action-done]').forEach(btn=>btn.addEventListener('click',async()=>{
+      const msg=btn.parentElement?.querySelector('[data-agent-device-message]');btn.disabled=true;if(msg)msg.textContent=' Marking for verification…';
+      try{await rpc('command_center_agent_complete_user_action',{p_step_id:btn.dataset.agentUserActionDone,p_note:'Owner reports required action completed from Command Center'});if(msg)msg.textContent=' Verification queued.';setTimeout(refresh,100);}
+      catch(error){btn.disabled=false;if(msg)msg.textContent=` ${error.message||String(error)}`;}
+    }));
   }
   function mountBanner(host,st){
     if(!host)return;
@@ -24,8 +37,10 @@
     const step=requiredStep(st);if(!step)return;
     const html=banner(step);if(!html)return;
     const holder=document.createElement('div');holder.innerHTML=html;
+    const node=holder.firstElementChild;
     const anchor=host.querySelector('.cc-agent-kicker')?.parentElement===host?host.querySelector('.cc-agent-kicker'):host.firstElementChild;
-    if(anchor)anchor.insertAdjacentElement('afterend',holder.firstElementChild);else host.prepend(holder.firstElementChild);
+    if(anchor)anchor.insertAdjacentElement('afterend',node);else host.prepend(node);
+    bind(host);
   }
   async function activeStatus(projectId=null){
     const api=window.COMMAND_CENTER_AGENT_MODE;if(!api?.listSessions||!api?.status)return null;
