@@ -15,7 +15,7 @@
     service:{key:'service-operations',title:'Service Operations',symbol:'▣',phases:[['offer','Offer / Service Definition'],['lead-intake','Lead Intake'],['estimate-booking','Estimate / Booking'],['delivery','Job Delivery'],['payment-records','Payment / Records']]}
   };
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
-  const pct=v=>Math.max(0,Math.min(100,Math.round((Number(v)||0)*10)/10));
+  const pct=v=>Math.max(0,Math.min(100,Math.floor((Number(v)||0)*10+Number.EPSILON)/10));
   const pctLabel=v=>Number.isInteger(v)?String(v):v.toFixed(1);
   let projects=[],metrics=[],loading=null,currentProjectId=null,openCategory=null,observer=null;
   function db(){return window.COMMAND_CENTER_SUPABASE||null;}
