@@ -41,11 +41,12 @@ const interval=api.normalizeSchedule({name:'Hourly check',job_label:'Review prio
 const weekly=api.normalizeSchedule({name:'Weekly review',job_label:'Review plan',schedule_kind:'weekly',local_time:'08:15',weekdays:['1','3','1','6'],timezone:'UTC'});assert.deepEqual(Array.from(weekly.weekdays),[1,3,6]);assert.equal(weekly.local_time,'08:15:00');assert.throws(()=>api.normalizeSchedule({name:'No days',job_label:'Review',schedule_kind:'weekly',local_time:'08:00',weekdays:[],timezone:'UTC'}),/at least one weekday/);
 
 assert.match(home,/\['Scheduler Engine'[^\]]+,100\]/,'Automation Phase 1 must remain 100%');
-assert.match(home,/\['Condition Evaluator'[^\]]+,100\]/,'Automation Phase 2 must be 100% without regressing Scheduler Engine');
-for(const future of ['Notification Delivery','Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History','Failure Recovery'])assert.match(home,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
+assert.match(home,/\['Condition Evaluator'[^\]]+,100\]/,'Automation Phase 2 must remain 100%');
+assert.match(home,/\['Notification Delivery'[^\]]+,100\]/,'Automation Phase 3 must be 100% without regressing Scheduler Engine');
+for(const future of ['Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History','Failure Recovery'])assert.match(home,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
 assert.match(home,/ccAutomationSchedulerMount/,'Automation detail must mount Scheduler Engine');
 assert.match(home,/command-center-automation-scheduler\.css\?v=1/);assert.match(home,/command-center-automation-scheduler\.js\?v=1/);
 assert.ok(sw.includes("'./command-center-automation-scheduler.css?v=1'"));assert.ok(sw.includes("'./command-center-automation-scheduler.js?v=1'"));assert.match(sw,/pathname\.endsWith\('\/command-center-automation-scheduler\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-automation-scheduler\.css'\)/);
 assert.match(css,/background:linear-gradient\(180deg,#080503,#030303\)!important/,'scheduler surfaces must stay black');assert.match(css,/#ff6208/,'scheduler must retain orange Command Center accents');assert.doesNotMatch(css,/#071a36|#0a2347|#0a2146|#081a38|#0a2147/,'Scheduler Engine must not reintroduce legacy blue structural surfaces');
 
-console.log('Automation Phase 1 Scheduler Engine regression QA passed with Phase 2 integrated.');
+console.log('Automation Phase 1 Scheduler Engine regression QA passed with Phases 2-3 integrated.');

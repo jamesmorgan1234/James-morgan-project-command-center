@@ -53,6 +53,6 @@ assert.match(home,/Project Brain \$\{brainPct\}%/,'Project Brain percentage must
 assert.match(cfg,/command-center-brain-home\.js\?v=5/);
 assert.match(cfg,/command-center-brain-handoff\.css\?v=1/);assert.match(cfg,/command-center-brain-handoff\.js\?v=1/);
 assert.match(html,/app-config\.js\?v=20/);assert.match(html,/cc-startup-repair-attempted-v63/);
-assert.match(sw,/james-command-center-v63/);assert.ok(sw.includes("'./app-config.js?v=20'"));assert.ok(sw.includes("'./command-center-brain-home.js?v=5'"));assert.ok(sw.includes("'./command-center-brain-handoff.css?v=1'"));assert.ok(sw.includes("'./command-center-brain-handoff.js?v=1'"));assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.css'\)/);
+assert.match(sw,/james-command-center-v64/);assert.ok(sw.includes("'./app-config.js?v=20'"));assert.ok(sw.includes("'./command-center-brain-home.js?v=5'"));assert.ok(sw.includes("'./command-center-brain-handoff.css?v=1'"));assert.ok(sw.includes("'./command-center-brain-handoff.js?v=1'"));assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-brain-handoff\.css'\)/);
 
 console.log('Project Brain Phase 5 ChatGPT Handoff Loop QA passed.');

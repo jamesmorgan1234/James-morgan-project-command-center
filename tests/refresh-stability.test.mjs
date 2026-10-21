@@ -70,7 +70,7 @@ assert.match(html,/navigator\.serviceWorker\.getRegistrations\(\)/,'broken local
 assert.match(html,/key\.startsWith\('james-command-center-'\)/,'automatic repair must clear only Command Center caches');
 assert.match(html,/command-center-startup-shell\.css\?v=1/,'critical approved startup shell must be local and immediately available');
 assert.doesNotMatch(html,/<script[^>]+src="https:\/\//i,'fresh install must not block first paint on an external script');
-assert.match(sw,/james-command-center-v63/,'Phase 5 must advance the installed-app cache');
+assert.match(sw,/james-command-center-v64/,'Automation Phase 3 must advance the installed-app cache');
 assert.match(sw,/Promise\.allSettled\(STATIC\.map\(asset=>cache\.add\(asset\)\)\)/,'one optional cache failure must not abort worker installation');
 assert.match(sw,/fetchWithTimeout\(e\.request,3500\)/,'navigation network refresh must be bounded');
 assert.match(sw,/SUPABASE_CDNS=\[/,'service worker must recognize both secure runtime sources');

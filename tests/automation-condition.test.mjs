@@ -35,7 +35,7 @@ assert.match(js,/\.eq\('verified',true\)/,'Condition Evaluator UI must only offe
 assert.match(js,/rpc\('command_center_evaluate_condition'/,'manual evaluation must use the protected database evaluator');
 assert.match(js,/history\.pushState\(\{\.\.\.history\.state,ccAutomationCondition:id\}/,'condition detail must own a Back-history level');
 assert.match(js,/history\.back\(\)/,'same open condition bubble must close through history');
-assert.match(js,/does not send notifications, generate reports, or execute actions/,'Phase 2 must not pretend later automation phases exist');
+assert.match(js,/does not send notifications, generate reports, or execute actions/,'Phase 2 copy must preserve its original boundary even after Phase 3 integration');
 assert.doesNotMatch(js,/localStorage\.setItem|sessionStorage\.setItem/,'condition persistence must not use browser storage as source of truth');
 assert.doesNotMatch(js,/JSON\.stringify\(/,'normal Condition Evaluator UI must not expose raw JSON');
 
@@ -51,9 +51,10 @@ const condition=api.normalizeCondition({name:' Ready to publish ',project_id:'pr
 assert.throws(()=>api.normalizeCondition({name:'No project',project_id:'',match_mode:'all',clauses:[{source:'project',field:'status',operator:'eq',expected:'Live'}]}),/Choose a project/);
 
 assert.match(home,/\['Scheduler Engine'[^\]]+,100\]/,'Automation Phase 1 must remain 100%');
-assert.match(home,/\['Condition Evaluator'[^\]]+,100\]/,'Automation Phase 2 must be 100%');
-for(const future of ['Notification Delivery','Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History','Failure Recovery'])assert.match(home,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
-assert.match(home,/ccAutomationSchedulerMount/);assert.match(home,/ccAutomationConditionMount/);
+assert.match(home,/\['Condition Evaluator'[^\]]+,100\]/,'Automation Phase 2 must remain 100%');
+assert.match(home,/\['Notification Delivery'[^\]]+,100\]/,'Automation Phase 3 must be 100% without regressing Condition Evaluator');
+for(const future of ['Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History','Failure Recovery'])assert.match(home,new RegExp(`\\['${future.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}'[^\\]]+,0\\]`),`${future} must remain planned`);
+assert.match(home,/ccAutomationSchedulerMount/);assert.match(home,/ccAutomationConditionMount/);assert.match(home,/ccAutomationNotificationMount/);
 assert.match(home,/command-center-automation-condition\.css\?v=1/);assert.match(home,/command-center-automation-condition\.js\?v=1/);
 assert.ok(sw.includes("'./command-center-automation-condition.css?v=1'"));assert.ok(sw.includes("'./command-center-automation-condition.js?v=1'"));
 assert.match(sw,/pathname\.endsWith\('\/command-center-automation-condition\.js'\)/);assert.match(sw,/pathname\.endsWith\('\/command-center-automation-condition\.css'\)/);
@@ -61,4 +62,4 @@ assert.match(css,/background:linear-gradient\(180deg,#080503,#030303\)!important
 assert.match(css,/#ff6208/,'Condition Evaluator must retain orange Command Center accents');
 assert.doesNotMatch(css,/#071a36|#0a2347|#0a2146|#081a38|#0a2147/,'Condition Evaluator must not reintroduce legacy blue structural surfaces');
 
-console.log('Automation Phase 2 Condition Evaluator schema, trust boundary, scheduler integration, UI, Back behavior, and PWA QA passed.');
+console.log('Automation Phase 2 Condition Evaluator regression QA passed with Phase 3 integrated.');
