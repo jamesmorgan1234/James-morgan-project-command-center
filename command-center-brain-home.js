@@ -15,7 +15,7 @@
     'Agent Mode':{symbol:'✦',description:'Verified autonomous execution after prerequisite capabilities are ready.',phases:[['Agent Session Model','Create a bounded agent run with an explicit goal, scope and owner.',0],['Goal Intake','Convert a user-approved objective into a structured agent objective.',0],['Step Executor','Execute one approved plan step at a time through supported tools.',0],['Tool Permission Gate','Block tool actions that fall outside the run’s explicit permissions.',0],['Verification Gate','Verify each completed step before the agent advances.',0],['Checkpoint & Resume','Persist agent state so a run can safely resume after interruption.',0],['Failure Recovery','Detect a failed step and recover without silently skipping or duplicating work.',0],['Cross-Project Agent Runs','Allow one authorized agent run to coordinate verified work across multiple projects.',0]]}
   };
   const $=id=>document.getElementById(id);
-  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   let brainOpen=false,capabilityOpen=null,restore=null;
   const phaseStatus=p=>p===100?'Complete':p===0?'Planned':'In Progress';
   const phaseClass=p=>p===100?'active':p===0?'planning':'active';
