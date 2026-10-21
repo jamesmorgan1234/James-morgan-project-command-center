@@ -58,7 +58,7 @@
 <script>
 (() => {
   window.__COMMAND_CENTER_BOOTSTRAP_STARTED=true;
-  const REPAIR_KEY='cc-startup-repair-attempted-v59';
+  const REPAIR_KEY='cc-startup-repair-attempted-v60';
   const $=id=>document.getElementById(id);
   let repairing=false;
 
@@ -92,7 +92,7 @@
   async function boot(){
     installTopEdgeRefreshGuard();
     try{
-      await loadLocal('./app-config.js?v=16',6000);
+      await loadLocal('./app-config.js?v=17',6000);
       await loadLocal('./startup-loader.js?v=3',6000);
       sessionStorage.removeItem(REPAIR_KEY);
     }catch(error){

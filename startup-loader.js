@@ -11,7 +11,7 @@
   const CORE_SCRIPTS = [
     './app.js?v=10',
     './project-hub.js?v=3',
-    './mobile-accordion-polish.js?v=2'
+    './mobile-accordion-polish.js?v=3'
   ];
   let starting = false;
   let coreLoaded = false;
