@@ -7,6 +7,7 @@
     const client = originalCreateClient(...args);
     if (primaryClientCreated) return client;
     primaryClientCreated = true;
+    window.COMMAND_CENTER_SUPABASE = client;
     const originalOnAuthStateChange = client.auth.onAuthStateChange.bind(client.auth);
     client.auth.onAuthStateChange = callback => {
       let baselineCaptured = false;
@@ -35,10 +36,10 @@ window.addEventListener('load', () => {
   addCss('booksHub','./books-hub.css?v=1'); addJs('booksHub','./books-hub.js?v=1');
   addCss('booksRevenue','./books-revenue.css?v=4'); addJs('booksRevenue','./books-revenue.js?v=5');
   addCss('uxPolish','./ux-polish.css?v=1'); addJs('booksPortfolioPolish','./books-portfolio-polish.js?v=1');
-  addJs('nextUpLabel','./next-up-label.js?v=1'); addJs('operatingOrderExclusion','./operating-order-exclusion.js?v=2');
+  addJs('nextUpLabel','./next-up-label.js?v=1'); addJs('operatingOrderExclusion','./operating-order-exclusion.js?v=3');
   addCss('performanceHub','./performance-hub.css?v=2'); addJs('performanceHub','./performance-hub.js?v=5');
-  addCss('refreshOrchestrator','./refresh-orchestrator.css?v=1'); addJs('refreshOrchestrator','./refresh-orchestrator.js?v=6');
-  addCss('sourceHealth','./source-health.css?v=1'); addJs('sourceHealth','./source-health.js?v=2');
+  addCss('refreshOrchestrator','./refresh-orchestrator.css?v=1'); addJs('refreshOrchestrator','./refresh-orchestrator.js?v=7');
+  addCss('sourceHealth','./source-health.css?v=1'); addJs('sourceHealth','./source-health.js?v=3');
   addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
   addCss('commandCenterV6','./command-center-v6.css?v=1'); addJs('commandCenterV6','./command-center-v6.js?v=1');
   addCss('commandCenterV62','./command-center-v6-2.css?v=1'); addJs('commandCenterV62','./command-center-v6-2.js?v=1');
@@ -46,5 +47,5 @@ window.addEventListener('load', () => {
   addCss('approvedBookCovers','./command-center-book-covers.css?v=2'); addJs('approvedBookCovers','./command-center-book-covers.js?v=2');
   addCss('commandCenterExactMenus','./command-center-exact-menus.css?v=1'); addJs('commandCenterExactMenus','./command-center-exact-menus.js?v=1');
   addCss('commandCenterEarnings','./command-center-earnings.css?v=1'); addJs('commandCenterEarnings','./command-center-earnings.js?v=2');
-  addCss('commandCenterBrainHome','./command-center-brain-home.css?v=3'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=2');
+  addCss('commandCenterBrainHome','./command-center-brain-home.css?v=4'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=2');
 }, { once: true });
