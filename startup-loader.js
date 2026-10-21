@@ -41,7 +41,7 @@
       main?.prepend(panel);
     }
     if (!panel) return;
-    const safe = String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+    const safe = String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     const actionLabel = coreLoaded ? 'Reload Command Center' : 'Retry secure startup';
     panel.innerHTML = `<h2>Command Center could not finish starting</h2><p class="muted">${safe}</p><button id="retryStartupBtn" class="btn btn-primary">${actionLabel}</button>`;
     $('retryStartupBtn')?.addEventListener('click', () => { if (coreLoaded) location.reload(); else start(true); }, { once: true });
