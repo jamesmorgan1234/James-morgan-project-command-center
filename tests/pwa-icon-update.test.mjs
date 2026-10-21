@@ -80,7 +80,7 @@ fullyDecodePng('command-center-approved-icon-256.png',256,256);
 assert.match(html,/rel="manifest" href="\.\/manifest\.webmanifest\?v=7"/);
 assert.match(html,/command-center-approved-icon-512\.png\?icon=7-browser/);
 assert.match(html,/meta name="theme-color" content="#000000"/);
-assert.match(sw,/james-command-center-v48/);
+assert.match(sw,/james-command-center-v49/);
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=7-approved'"));
 assert.match(sw,/pathname\.endsWith\('\/manifest\.webmanifest'\)/); assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-512\.png'\)/); assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
 assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Preserve the exact user-approved launcher artwork/); assert.match(standard,/command-center-approved-icon-512\.png/);
