@@ -31,5 +31,6 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('commandCenterBrainWorkspaces','./command-center-brain-workspaces.css?v=1'); addJs('commandCenterBrainMemory','./command-center-brain-memory.js?v=1'); addJs('commandCenterBrainBrainstorm','./command-center-brain-brainstorm.js?v=1');
     addCss('projectRoadmaps','./project-roadmaps.css?v=1'); addJs('projectRoadmaps','./project-roadmaps.js?v=1');
     addCss('commandCenterUiConsistency','./command-center-ui-consistency.css?v=1'); addJs('commandCenterUiConsistency','./command-center-ui-consistency.js?v=1');
+    addCss('projectDetailAccordions','./command-center-project-detail-accordions.css?v=1'); addJs('projectDetailAccordions','./command-center-project-detail-accordions.js?v=1');
   };
 })();
