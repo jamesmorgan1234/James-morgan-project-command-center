@@ -1,6 +1,6 @@
 # Command Center checkpoint + current-scope progress standard
 
-This file defines the canonical progress contract for Command Center. `COMMAND_CENTER_OPERATING_MODEL.md` defines the execution/resume contract, and project-type standards such as `BOOK_PROJECT_ROADMAP_STANDARD.md` define additional completion gates.
+This file defines the canonical progress contract for Command Center. `COMMAND_CENTER_OPERATING_MODEL.md` and `ROADMAP_EXECUTION_STANDARD.md` define the execution/resume contract, and project-type standards such as `BOOK_PROJECT_ROADMAP_STANDARD.md` plus `BOOK_QA_GATES_STANDARD.md` define additional completion gates.
 
 ## Goal
 
@@ -46,13 +46,54 @@ Example shape:
       }
     }
 
-Allowed active statuses are `pending`, `in_progress`, `blocked`, and `complete`. `excluded` removes an item from the denominator.
+Allowed active scope statuses are `pending`, `in_progress`, `blocked`, and `complete`. `excluded` removes an item from the denominator.
 
 ## Roadmap manifest
 
 When a project has a defined roadmap, the checkpoint should also include the complete current `state_json.roadmap` manifest. Roadmap categories, phases, and work units use stable IDs so a later chat can recover the exact first incomplete unit without recreating completed work.
 
-A roadmap unit may include project-specific gates such as `quality_gate_passed`, `live_verified`, `approved`, or asset-range metadata. A unit only contributes verified completion after every gate required by that project type has passed.
+Canonical shape:
+
+    {
+      "roadmap": {
+        "contract_version": 1,
+        "template": "project-type-or-project-specific-template",
+        "revision": "roadmap-revision-id",
+        "categories": [
+          {
+            "id": "category-id",
+            "label": "Category",
+            "weight": 1,
+            "phases": [
+              {
+                "id": "phase-id",
+                "label": "Phase",
+                "weight": 2,
+                "state": "in_progress",
+                "active": true,
+                "depends_on": [],
+                "required_gates": ["quality"],
+                "work_units": [
+                  {
+                    "id": "stable-work-unit-id",
+                    "label": "Recoverable unit",
+                    "weight": 1,
+                    "state": "verified",
+                    "verified": true,
+                    "quality_gate_passed": true,
+                    "dependencies_satisfied": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+
+New roadmap manifests should use the state model in `ROADMAP_EXECUTION_STANDARD.md`. Legacy `status = complete` plus `verified = true` remains compatible.
+
+A roadmap unit may include project-specific gates such as humanization, continuity, accuracy, theme alignment, colorability, duplicate checks, live verification, publication verification, approval/lock state, and exact asset/page/chapter/recipe ranges. A unit only contributes verified completion after every gate required by that project type has passed.
 
 Approved/locked work must remain identifiable in the checkpoint. Recovery must continue after it unless the user explicitly reopens it.
 
@@ -60,11 +101,13 @@ Approved/locked work must remain identifiable in the checkpoint. Recovery must c
 
 A meaningful checkpoint should make recovery deterministic. It should identify, as applicable:
 
+- `checkpoint_id` and parent/known-good checkpoint references where available;
 - the latest verified completed unit;
 - protected/approved/locked units and assets;
-- generated-but-unverified work;
+- generated/implemented-but-unverified work;
 - the first incomplete unit;
 - the exact next resumable action;
+- actions forbidden on resume;
 - relevant commit, PR, deployment, publication, package, or asset identifiers;
 - the most recent known-good pre-change/post-change references when applicable.
 
@@ -85,11 +128,13 @@ Use the smallest set of independently verifiable items that still represents the
 
 Only active items count in total scope weight.
 
-Only items with `status = complete` and `verified = true` count as completed weight. When a project-type standard requires additional gates, those gates must also pass before the item can be verified complete.
+Only items with `status = complete` and `verified = true` count as completed scope weight. When a project-type standard requires additional gates, those gates must also pass before the item can be verified complete.
 
 Current scope percent = `completed verified weight / total active scope weight * 100`.
 
-Roadmap category/phase percentages are calculated from their own verified weighted units using the same principle. Do not round to coarse 10% buckets merely for display; retain the defensible calculated percentage and round only to the UI precision chosen for readability.
+Roadmap phase/category/project percentages are calculated from their verified weighted units using the same principle. Parent percentages must use the exact child completion fractions before display precision is applied; do not compound rounding from child display values.
+
+Do not snap percentages to coarse 10% buckets. For display, preserve one decimal place without ever overstating completion: truncate downward to the displayed tenth. Example: a verified calculation of 64.96% displays as 64.9%; 65% is not displayed until the verified calculation is at least 65.0%.
 
 No partial credit is inferred for `in_progress` or `blocked` items unless the roadmap explicitly defines smaller independently verifiable work units that have themselves completed.
 
