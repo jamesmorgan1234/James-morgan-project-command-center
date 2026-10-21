@@ -15,8 +15,9 @@ const mobile=fs.readFileSync('mobile-accordion-polish.js','utf8');
 const mobileCss=fs.readFileSync('mobile-accordion-polish.css','utf8');
 const consistency=fs.readFileSync('command-center-ui-consistency.js','utf8');
 const accordions=fs.readFileSync('command-center-project-detail-accordions.js','utf8');
+const context=fs.readFileSync('command-center-brain-context.js','utf8');
 
-for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health],['startup loader',loader],['app config',cfg],['app integrity repair',integrity],['mobile accordion',mobile],['UI consistency',consistency],['project detail accordions',accordions]]){
+for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health],['startup loader',loader],['app config',cfg],['app integrity repair',integrity],['mobile accordion',mobile],['UI consistency',consistency],['project detail accordions',accordions],['Brain Context Builder',context]]){
   assert.doesNotThrow(()=>new Function(text),`${name} must parse as JavaScript`);
 }
 
@@ -51,16 +52,18 @@ assert.match(cfg,/command-center-ui-consistency\.css\?v=1/);
 assert.match(cfg,/command-center-ui-consistency\.js\?v=1/);
 assert.match(cfg,/command-center-project-detail-accordions\.css\?v=1/);
 assert.match(cfg,/command-center-project-detail-accordions\.js\?v=1/);
+assert.match(cfg,/command-center-brain-context\.css\?v=1/);
+assert.match(cfg,/command-center-brain-context\.js\?v=1/);
 assert.match(cfg,/s\.async=false/,'enhancement scripts must preserve their intended order');
 assert.doesNotMatch(cfg,/window\.addEventListener\('load'/,'enhancements must not race the core on window load');
 
-assert.match(html,/app-config\.js\?v=17/,'self-healing bootstrap must request the repaired config');
+assert.match(html,/app-config\.js\?v=18/,'self-healing bootstrap must request the Phase 3 config');
 assert.match(html,/startup-loader\.js\?v=3/,'self-healing bootstrap must request the repaired startup loader');
 assert.match(html,/navigator\.serviceWorker\.getRegistrations\(\)/,'broken local runtime must be recoverable without asking the user to clear site data');
 assert.match(html,/key\.startsWith\('james-command-center-'\)/,'automatic repair must clear only Command Center caches');
 assert.match(html,/command-center-startup-shell\.css\?v=1/,'critical approved startup shell must be local and immediately available');
 assert.doesNotMatch(html,/<script[^>]+src="https:\/\//i,'fresh install must not block first paint on an external script');
-assert.match(sw,/james-command-center-v60/,'repair must advance the installed-app cache');
+assert.match(sw,/james-command-center-v61/,'Phase 3 must advance the installed-app cache');
 assert.match(sw,/Promise\.allSettled\(STATIC\.map\(asset=>cache\.add\(asset\)\)\)/,'one optional cache failure must not abort worker installation');
 assert.match(sw,/fetchWithTimeout\(e\.request,3500\)/,'navigation network refresh must be bounded');
 assert.match(sw,/SUPABASE_CDNS=\[/,'service worker must recognize both secure runtime sources');
@@ -74,6 +77,8 @@ assert.match(sw,/pathname\.endsWith\('\/command-center-ui-consistency\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-ui-consistency\.css'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-project-detail-accordions\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/command-center-project-detail-accordions\.css'\)/);
+assert.match(sw,/pathname\.endsWith\('\/command-center-brain-context\.js'\)/);
+assert.match(sw,/pathname\.endsWith\('\/command-center-brain-context\.css'\)/);
 assert.match(sw,/if\(url\.origin!==self\.location\.origin\)return/,'Supabase API requests must remain outside the app-shell cache path');
 const installBlock=sw.slice(sw.indexOf("self.addEventListener('install'"),sw.indexOf("self.addEventListener('activate'"));
 assert.doesNotMatch(installBlock,/fetch\s*\(/,'service-worker install must never depend on a remote runtime');
@@ -94,4 +99,4 @@ assert.doesNotMatch(mobileCss,/overflow-y\s*:|touch-action\s*:|overscroll-behavi
 assert.match(accordions,/history\.pushState/,'project section expansion must participate in Android Back history');
 assert.match(accordions,/history\.back\(\)/,'same project section bubble must close through that same history');
 
-console.log('Refresh/reload + self-healing startup + native-scroll + project-accordion stability regression QA passed.');
+console.log('Refresh/reload + self-healing startup + native-scroll + project-accordion + Phase 3 stability QA passed.');
