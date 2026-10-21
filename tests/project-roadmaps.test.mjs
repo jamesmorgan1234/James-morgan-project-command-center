@@ -11,10 +11,10 @@ for(const category of ['Core Build','Automation','Integrations','Analytics','Sec
 for(const special of ['Publishing','Commerce Operations','Content Engine','Service Operations'])assert.ok(js.includes(special),`missing specialized roadmap fallback category ${special}`);
 assert.match(js,/roadmap\.\$\{catKey\}\.\$\{phaseKey\}\.progress_percent/,'fallback phase percentages must come from phase-specific metrics');
 assert.match(js,/x\.verified&&x\.value_numeric!==null&&x\.value_numeric!==undefined/,'only verified numeric fallback phase metrics may count');
-assert.match(js,/Math\.round\(\(Number\(v\)\|\|0\)\*10\)\/10/,'roadmap percentages must preserve one-decimal verified precision');
+assert.match(js,/Math\.floor\(\(Number\(v\)\|\|0\)\*10\+Number\.EPSILON\)\/10/,'roadmap percentages must truncate to one decimal rather than overstate progress');
 assert.doesNotMatch(js,/Math\.round\(\(Number\(v\)\|\|0\)\/10\)\*10/,'roadmap must not snap verified progress to 10 percent buckets');
 assert.match(runtime,/roadmap\.current_progress_percent/,'checkpoint runtime must prefer the verified current roadmap metric');
-assert.match(runtime,/Math\.round\(\(Number\(v\)\|\|0\)\*10\)\/10/,'checkpoint runtime must display one-decimal precision');
+assert.match(runtime,/Math\.floor\(\(Number\(v\)\|\|0\)\*10\+Number\.EPSILON\)\/10/,'checkpoint runtime must never round progress upward into the next tenth/whole percent');
 assert.match(runtime,/checkpoint-derived verified roadmap/i,'checkpoint runtime must identify checkpoint-derived progress');
 assert.match(runtime,/ccCheckpointRoadmapCategory/,'checkpoint roadmap category must own a Back-history level');
 assert.match(js,/N\/A · Baseline pending/,'missing fallback progress must display N/A instead of an invented percentage');
