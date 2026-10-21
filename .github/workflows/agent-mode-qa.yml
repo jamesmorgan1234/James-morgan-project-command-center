@@ -9,6 +9,9 @@ on:
       - 'AGENT_MODE_*.md'
       - 'command-center-agent-mode.css'
       - 'command-center-agent-mode.js'
+      - 'command-center-agent-device-guidance.css'
+      - 'command-center-agent-device-guidance.js'
+      - 'command-center-agent-runner-status.js'
       - 'app-config.js'
       - 'index.html'
       - 'service-worker.js'
@@ -31,7 +34,10 @@ jobs:
         with:
           node-version: '22'
       - name: Parse Agent Mode runtime
-        run: node --check command-center-agent-mode.js
+        run: |
+          node --check command-center-agent-mode.js
+          node --check command-center-agent-device-guidance.js
+          node --check command-center-agent-runner-status.js
       - name: Run dedicated Agent Mode QA
         run: node tests/agent-mode-runtime.test.mjs
       - name: Run inherited Command Center regression suite
