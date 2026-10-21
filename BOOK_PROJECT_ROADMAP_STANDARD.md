@@ -35,28 +35,15 @@ Generation capacity is a limited resource. Never regenerate a verified or approv
 For image-heavy projects:
 
 - generate one correct unit or a deliberately bounded small batch before scaling when output-mode drift is possible;
+- for coloring books, use 5 images/pages as the default working batch size; 10 is the hard maximum, not the default;
+- after each coloring-book batch, verify output mode, uniqueness, style consistency, printability, and page-by-page compliance before accepting the batch;
+- if a batch shows drift, repetition, collage behavior, or generation instability, reduce the next batch size rather than increasing it;
 - verify individual-page output when individual pages are required;
 - reject collage/contact-sheet/multi-panel output when the locked specification requires one page per asset;
 - detect duplicate or near-duplicate outputs before accepting a batch;
 - record completed asset IDs/ranges and the next required asset in the checkpoint;
 - once verified/approved, lock the asset or batch and resume after it;
 - do not spend additional generation credits recreating locked work unless the user explicitly reopens it.
-
-### Coloring-book image batch rule
-
-For coloring books and similar high-volume page-art projects, the default production batch is **5 images/pages at a time**. The generation system may technically support up to 10 images in one request, but **10 is a hard ceiling, not the normal batch size**.
-
-Use this sequence by default:
-
-1. Generate up to 5 individual page images.
-2. Verify that every output is an individual page, not a collage/contact sheet/multi-panel composition.
-3. Check theme/style consistency, uniqueness, printable linework, page composition, and the project-specific acceptance criteria.
-4. Reject or repair only failed units; do not regenerate the entire successful batch.
-5. Save a verified checkpoint identifying the exact accepted page/asset range.
-6. Lock that accepted batch.
-7. Continue with the next batch of up to 5.
-
-A batch larger than 5 should be used only when there is a specific reason and the current output mode has already been verified stable. Never exceed 10 images in one generation request. If failures, repetition, tool strain, or output drift appear, reduce the next batch size rather than retrying a large batch.
 
 ## Canonical checkpoint contents
 
@@ -107,7 +94,7 @@ Series percentage derives from verified weighted book-level and series-level uni
 
 1. Book Identity + Approved Cover
 2. Interior Art System + Output Rules
-3. Page Production by explicit ranges/batches (default 5-image batches; hard maximum 10)
+3. Page Production by explicit ranges/batches
 4. Interior Assembly + Page Count
 5. Duplicate / Composition / Theme QC
 6. Production Files
@@ -130,12 +117,49 @@ Series percentage derives from verified weighted book-level and series-level uni
 1. Concept + Audience + Book Promise
 2. Recipe/Content Inventory
 3. Recipe Drafting + Humanization
-4. Consistency / Usefulness / Accuracy QC
-5. Approved Visual + Interior System
-6. Interior Assembly + Uniformity QC
-7. Cover + Production Files
-8. Metadata + Pricing
-9. Publishing + Live Verification
+4. Recipe Accuracy + Usefulness QC
+5. Finished-Dish Image Match + Image Quality QC
+6. Approved Visual + Interior System
+7. Page-by-Page Typography / Layout / Page-Fill QC
+8. Interior Assembly + Uniformity QC
+9. Cover + Production Files
+10. Metadata + Pricing
+11. Publishing + Live Verification
+
+## Cookbook-specific production standard
+
+Cookbook completion requires both content correctness and page-level visual correctness. A recipe page is not complete merely because the recipe text and an image are present.
+
+Each recipe/page must be verified for:
+
+- recipe title, ingredients, quantities, instructions, yield/serving information, timing, notes, and other required content being internally consistent and plausible;
+- the finished-food image visibly matching the actual recipe rather than showing a generic, unrelated, or materially different dish;
+- the food image representing the intended finished result at a professional, appetizing, publication-quality level;
+- no obviously impossible garnish, ingredient, cooking state, vessel, texture, color, or presentation that contradicts the recipe;
+- typography sized for the physical page and reading distance, not merely technically fitting in the document;
+- headings, ingredient lists, methods, notes, captions, and page numbers following the locked hierarchy;
+- the content filling the page intentionally, without abnormally tiny type, huge dead zones, cramped overflow, arbitrary scaling, or elements falling outside safe margins;
+- image dimensions/crop/placement fitting the locked visual system;
+- consistent recurring placement, spacing, banner treatment, headers/footers, and visual rhythm across the book;
+- title, cover, recipe content, photography, and interior layout feeling like one coherent product.
+
+### Cookbook benchmark rule
+
+When the user designates a previously completed cookbook as the quality benchmark, its verified layout, typography hierarchy, image treatment, page density, recipe structure, and overall polish become the reference standard for later cookbook QC unless the user explicitly approves a new system.
+
+Do not assume the benchmark from memory alone when the exact approved files or screenshots can be recovered. Recover and verify the benchmark before using it as the comparison standard.
+
+### Cookbook recovery rule
+
+Cookbook QA should be resumable at the recipe/page level. A checkpoint should identify exact ranges or recipe IDs that are:
+
+- verified/locked;
+- content-correct but still needing image QC;
+- image-correct but still needing layout/typography QC;
+- needing revision;
+- not yet checked.
+
+If a cookbook freezes during QC, resume at the first recipe/page that has not passed all required gates. Do not regenerate or reformat already verified recipe pages unless that exact unit is explicitly reopened.
 
 ## Progress calculation
 
@@ -144,6 +168,8 @@ Use stable roadmap units and weights that reflect actual remaining scope. Only u
 Do not award progress simply because a generation call ran, text was produced, an image exists, or a file was exported.
 
 If scope expands materially, update the roadmap denominator and allow the displayed percentage to move down accurately.
+
+Verified percentage values may be displayed with one decimal place when the underlying weighted calculation produces fractional progress. Do not round upward to the next whole percent for presentation. For example, 64.6% remains 64.6%; 65% is shown only when the verified calculation is actually 65.0% or greater. Whole-number values may be displayed without a trailing `.0`.
 
 ## Protected approved work
 
