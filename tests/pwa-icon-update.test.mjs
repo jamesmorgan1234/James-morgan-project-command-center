@@ -96,7 +96,7 @@ for(const src of [
   const escaped=src.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   assert.match(html,new RegExp(`<script defer src="${escaped}"><\\/script>`),`${src} must not block first paint`);
 }
-assert.match(sw,/james-command-center-v53/);
+assert.match(sw,/james-command-center-v54/);
 assert.ok(sw.includes("'./command-center-approved-icon-192.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-maskable'"));
