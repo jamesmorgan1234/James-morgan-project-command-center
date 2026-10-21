@@ -42,6 +42,22 @@ For image-heavy projects:
 - once verified/approved, lock the asset or batch and resume after it;
 - do not spend additional generation credits recreating locked work unless the user explicitly reopens it.
 
+### Coloring-book image batch rule
+
+For coloring books and similar high-volume page-art projects, the default production batch is **5 images/pages at a time**. The generation system may technically support up to 10 images in one request, but **10 is a hard ceiling, not the normal batch size**.
+
+Use this sequence by default:
+
+1. Generate up to 5 individual page images.
+2. Verify that every output is an individual page, not a collage/contact sheet/multi-panel composition.
+3. Check theme/style consistency, uniqueness, printable linework, page composition, and the project-specific acceptance criteria.
+4. Reject or repair only failed units; do not regenerate the entire successful batch.
+5. Save a verified checkpoint identifying the exact accepted page/asset range.
+6. Lock that accepted batch.
+7. Continue with the next batch of up to 5.
+
+A batch larger than 5 should be used only when there is a specific reason and the current output mode has already been verified stable. Never exceed 10 images in one generation request. If failures, repetition, tool strain, or output drift appear, reduce the next batch size rather than retrying a large batch.
+
 ## Canonical checkpoint contents
 
 A meaningful book checkpoint should preserve, as applicable:
@@ -91,7 +107,7 @@ Series percentage derives from verified weighted book-level and series-level uni
 
 1. Book Identity + Approved Cover
 2. Interior Art System + Output Rules
-3. Page Production by explicit ranges/batches
+3. Page Production by explicit ranges/batches (default 5-image batches; hard maximum 10)
 4. Interior Assembly + Page Count
 5. Duplicate / Composition / Theme QC
 6. Production Files
