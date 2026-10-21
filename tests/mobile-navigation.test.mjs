@@ -25,8 +25,12 @@ assert.match(mobileCss, /\.dashboard-stack>\.stats\{display:contents!important\}
 
 assert.match(mobileCss, /html\{[^}]*overflow-y:auto!important/, 'document root must remain vertically scrollable');
 assert.match(mobileCss, /body\{[^}]*overflow-y:visible!important/, 'body must not become a locked nested scroll container');
-assert.match(mobileCss, /touch-action:pan-y!important/, 'vertical touch panning must be explicitly allowed');
-assert.match(mobileCss, /overscroll-behavior-y:auto!important/, 'system-bar hardening must not suppress Android vertical panning');
+assert.match(mobileCss, /touch-action:pan-y!important/, 'normal vertical touch panning must remain explicitly allowed');
+assert.match(mobileCss, /html\{[^}]*overscroll-behavior-y:none!important/, 'document root must suppress browser pull-to-refresh at its scroll boundary');
+assert.match(mobileCss, /body\{[^}]*overscroll-behavior-y:none!important/, 'body must suppress browser pull-to-refresh without blocking vertical scrolling');
+assert.doesNotMatch(mobileCss, /overscroll-behavior-y:auto!important/, 'Android pull-to-refresh must not be re-enabled');
+assert.match(html, /mobile-accordion-polish\.css\?v=2/, 'the installed shell must request the pull-to-refresh guard version');
+assert.ok(sw.includes("'./mobile-accordion-polish.css?v=2'"), 'the pull-to-refresh guard must ship in the installed-app cache');
 
 assert.match(html, /viewport-fit=cover/, 'PWA must opt in to standards-based edge-to-edge handling');
 assert.equal(JSON.parse(manifest).display, 'standalone', 'PWA must remain standalone; do not hide Android controls with fullscreen');
@@ -46,4 +50,4 @@ assert.match(sw, /mobile-accordion-polish\.js/, 'updated mobile navigation contr
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.js'\)/, 'mobile navigation controller must be network-first for clean updates');
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.css'\)/, 'mobile scroll CSS must be network-first for clean updates');
 
-console.log('Mobile accordion/back/system-bar/scroll QA passed.');
+console.log('Mobile accordion/back/system-bar/scroll/pull-to-refresh QA passed.');
