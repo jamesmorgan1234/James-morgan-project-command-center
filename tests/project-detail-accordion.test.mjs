@@ -37,7 +37,7 @@ assert.ok(cfg.indexOf('command-center-project-detail-accordions.css?v=1')>cfg.in
 assert.ok(cfg.indexOf('command-center-project-detail-accordions.js?v=1')>cfg.indexOf('command-center-ui-consistency.js?v=1'),'accordion behavior must load after the existing UI consistency repair');
 
 assert.match(brain,/\['Context Builder'[^\]]+,100\]/,'Project Brain Phase 3 must reflect the completed Context Builder');
-assert.match(brain,/\['Task Queue \/ Planner'[^\]]+,0\]/,'Project Brain Phase 4 must remain planned');
+assert.match(brain,/\['Task Queue \/ Planner'[^\]]+,100\]/,'Project Brain Phase 4 must reflect the completed Planner');
 assert.match(brain,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'Project Brain Phase 5 must remain planned');
 
-console.log('Project detail accordion ordering/toggle/Back/book-performance/tracking/no-blue app QA passed.');
+console.log('Project detail accordion ordering/toggle/Back/book-performance/tracking/no-blue app QA passed through Phase 4.');
