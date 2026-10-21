@@ -2,12 +2,22 @@
   const APPROVED='./command-center-approved-icon-512.png?icon=7-ui';
   let scheduled=false;
   function setStyle(el,name,value){if(!el)return;if(el.style.getPropertyValue(name)!==value||el.style.getPropertyPriority(name)!=='important')el.style.setProperty(name,value,'important');}
+  function clearStyle(el,name){if(el?.style?.getPropertyValue(name))el.style.removeProperty(name);}
   function enforceScrollContract(){
     const root=document.documentElement,body=document.body,app=document.getElementById('app');
-    setStyle(root,'overflow-x','hidden');setStyle(root,'overflow-y','auto');setStyle(root,'touch-action','pan-y');setStyle(root,'overscroll-behavior-y','contain');setStyle(root,'-webkit-overflow-scrolling','touch');
-    setStyle(body,'overflow-x','hidden');setStyle(body,'overflow-y','visible');setStyle(body,'touch-action','pan-y');setStyle(body,'overscroll-behavior-y','contain');setStyle(body,'min-height','100dvh');
-    setStyle(app,'overflow-x','clip');setStyle(app,'overflow-y','visible');setStyle(app,'min-height','100dvh');
-    const hard=document.getElementById('systemBarHardening');if(hard&&hard.textContent.includes('overscroll-behavior-y:none'))hard.textContent=hard.textContent.replace(/overscroll-behavior-y\s*:\s*none/g,'overscroll-behavior-y:contain');
+    for(const el of [root,body,app])for(const name of ['overflow-y','touch-action','overscroll-behavior-y','-webkit-overflow-scrolling'])clearStyle(el,name);
+    setStyle(root,'overflow-x','hidden');setStyle(body,'overflow-x','hidden');setStyle(body,'min-height','100dvh');setStyle(app,'overflow-x','clip');setStyle(app,'min-height','100dvh');
+    const hard=document.getElementById('systemBarHardening');
+    if(hard){hard.textContent=hard.textContent.replace(/overscroll-behavior-y\s*:\s*[^;}]+;?/g,'').replace(/touch-action\s*:\s*[^;}]+;?/g,'').replace(/overflow-y\s*:\s*[^;}]+;?/g,'');}
+  }
+  function installPullToRefreshGuard(){
+    if(window.__COMMAND_CENTER_PULL_GUARD)return;
+    window.__COMMAND_CENTER_PULL_GUARD=true;
+    let startX=0,startY=0,armed=false;
+    const top=()=>Math.max(0,Number(window.scrollY||document.scrollingElement?.scrollTop||0))<=0;
+    document.addEventListener('touchstart',event=>{if(event.touches.length!==1){armed=false;return;}const t=event.touches[0];startX=t.clientX;startY=t.clientY;armed=top();},{passive:true,capture:true});
+    document.addEventListener('touchmove',event=>{if(!armed||event.touches.length!==1)return;const t=event.touches[0],dx=t.clientX-startX,dy=t.clientY-startY;if(dy<-10){armed=false;return;}if(dy>10&&Math.abs(dy)>Math.abs(dx)*1.1)event.preventDefault();},{passive:false,capture:true});
+    const reset=()=>{armed=false;};document.addEventListener('touchend',reset,{passive:true,capture:true});document.addEventListener('touchcancel',reset,{passive:true,capture:true});
   }
   function enforceApprovedIdentity(){
     const icon=document.querySelector('.brand-icon');if(icon&&!String(icon.getAttribute('src')||'').includes('command-center-approved-icon-512.png'))icon.setAttribute('src',APPROVED);
@@ -26,8 +36,8 @@
     const finish=()=>{if(!active)return;active=false;const threshold=Math.max(64,Math.min(120,card.offsetWidth*.22));if(axis==='horizontal'&&Math.abs(dx)>=threshold){const map=store();map[key]=signature();localStorage.setItem('ccv4-dismissed-notices',JSON.stringify(map));const dir=dx<0?-1:1;card.style.transform=`translate3d(${dir*120}%,0,0)`;card.style.opacity='0';setTimeout(()=>{card.hidden=true;card.style.transform='';card.style.opacity='';},210);}else{card.style.transform='';card.style.opacity='';}axis=null;dx=0;};
     card.addEventListener('pointerup',finish,{passive:true});card.addEventListener('pointercancel',finish,{passive:true});return card;
   }
-  function repair(){enforceScrollContract();enforceApprovedIdentity();safeSwipe(document.getElementById('canonicalAuditPanel'));safeSwipe(document.getElementById('sourceHealthPanel'));}
+  function repair(){enforceScrollContract();installPullToRefreshGuard();enforceApprovedIdentity();safeSwipe(document.getElementById('canonicalAuditPanel'));safeSwipe(document.getElementById('sourceHealthPanel'));}
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;repair();});}
   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true,attributes:true,attributeFilter:['src','href']});
-  window.addEventListener('load',()=>{repair();setTimeout(repair,250);setTimeout(repair,1000);},{once:true});document.addEventListener('commandcenter:audit-complete',()=>setTimeout(repair,80));repair();window.COMMAND_CENTER_INTEGRITY=Object.freeze({repair,enforceScrollContract,enforceApprovedIdentity});
+  window.addEventListener('load',()=>{repair();setTimeout(repair,250);setTimeout(repair,1000);},{once:true});document.addEventListener('commandcenter:audit-complete',()=>setTimeout(repair,80));repair();window.COMMAND_CENTER_INTEGRITY=Object.freeze({repair,enforceScrollContract,installPullToRefreshGuard,enforceApprovedIdentity});
 })();
