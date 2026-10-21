@@ -19,6 +19,14 @@ self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET')return;
   const url=new URL(e.request.url);
 
+  // Private API traffic must always stay network-native. Never substitute index.html
+  // for a Supabase response; doing so makes the client render the entire app shell
+  // inside the sync error line after a transient refresh/network failure.
+  if(url.hostname.includes('supabase.co')){
+    e.respondWith(fetch(e.request,{cache:'no-store'}));
+    return;
+  }
+
   if(e.request.mode==='navigate'){
     const refresh=fetch(e.request,{cache:'no-store'}).then(r=>{
       if(r&&r.ok&&url.origin===self.location.origin){
@@ -34,9 +42,9 @@ self.addEventListener('fetch',e=>{
     return;
   }
 
-  const freshAsset=url.hostname.includes('supabase.co')||url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp');
+  const freshAsset=url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp');
   if(freshAsset){
-    e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();if(url.origin===self.location.origin)caches.open(CACHE).then(c=>c.put(e.request,copy));return r;}).catch(()=>caches.match(e.request).then(x=>x||caches.match('./index.html'))));
+    e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();if(url.origin===self.location.origin)caches.open(CACHE).then(c=>c.put(e.request,copy));return r;}).catch(()=>caches.match(e.request).then(x=>x||Response.error())));
     return;
   }
   e.respondWith(caches.match(e.request).then(cached=>cached||fetch(e.request).then(r=>{const copy=r.clone();if(url.origin===self.location.origin)caches.open(CACHE).then(c=>c.put(e.request,copy));return r;})));
