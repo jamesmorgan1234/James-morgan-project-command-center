@@ -1,5 +1,6 @@
 (() => {
   let applying=false;
+  let framePending=false;
   const cashSvg='<svg viewBox="0 0 96 64" fill="none" stroke="currentColor" stroke-width="3"><rect x="8" y="10" width="64" height="38" rx="5"/><circle cx="40" cy="29" r="9"/><path d="M15 18h7M58 40h7M75 30c8 0 13 5 13 11s-5 11-13 11c-4 0-8-1-11-3M77 23v36"/></svg>';
 
   function normalizeMoney(raw){
@@ -12,7 +13,12 @@
     return new Intl.NumberFormat(undefined,{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(amount);
   }
 
+  function setTextIfChanged(node,next){
+    if(node.textContent!==next) node.textContent=next;
+  }
+
   function decorate(){
+    framePending=false;
     if(applying) return;
     const card=document.querySelector('.stat-button[data-view="earning"]');
     if(!card) return;
@@ -30,11 +36,14 @@
       if(!sub.dataset.ccEarningSource) sub.dataset.ccEarningSource=sourceText;
 
       const money=normalizeMoney(sourceText);
-      label.textContent='Project Earnings';
-      value.textContent=money || 'N/A';
-      sub.textContent=money
+      const nextValue=money || 'N/A';
+      const nextSub=money
         ? `${originalCount} project${originalCount==='1'?'':'s'} earning verified revenue`
         : 'Revenue source not available yet';
+
+      setTextIfChanged(label,'Project Earnings');
+      setTextIfChanged(value,nextValue);
+      setTextIfChanged(sub,nextSub);
 
       if(!card.querySelector('.cc-earnings-cash-mark')){
         const mark=document.createElement('span');
@@ -48,8 +57,14 @@
     }
   }
 
+  function scheduleDecorate(){
+    if(framePending) return;
+    framePending=true;
+    requestAnimationFrame(decorate);
+  }
+
   const stats=document.getElementById('stats');
-  if(stats) new MutationObserver(()=>requestAnimationFrame(decorate)).observe(stats,{childList:true,subtree:true,characterData:true});
+  if(stats) new MutationObserver(scheduleDecorate).observe(stats,{childList:true,subtree:true,characterData:true});
   window.addEventListener('load',()=>{decorate();setTimeout(decorate,250);setTimeout(decorate,900);},{once:true});
   decorate();
 })();
