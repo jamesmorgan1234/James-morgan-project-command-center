@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 
 const mobile = readFileSync('mobile-accordion-polish.js', 'utf8');
 const mobileCss = readFileSync('mobile-accordion-polish.css', 'utf8');
+const integrity = readFileSync('app-integrity-repair.js', 'utf8');
 const v6Js = readFileSync('command-center-v6.js', 'utf8');
 const v6Css = readFileSync('command-center-v6.css', 'utf8');
 const sw = readFileSync('service-worker.js', 'utf8');
@@ -23,16 +24,16 @@ assert.match(mobile, /shell\.dataset\.accordionUnder = view/, 'opened shell must
 assert.match(mobileCss, /\.dashboard-stack\{display:flex!important;flex-direction:column!important/, 'dashboard accordion must use a forced column flex layout');
 assert.match(mobileCss, /\.dashboard-stack>\.stats\{display:contents!important\}/, 'stats wrapper must not trap the submenu at the bottom');
 
-assert.match(mobileCss, /html\{[^}]*overflow-y:auto!important/, 'document root must remain vertically scrollable');
-assert.match(mobileCss, /body\{[^}]*overflow-y:visible!important/, 'body must not become a locked nested scroll container');
-assert.match(mobileCss, /html\{[^}]*touch-action:pan-y!important/, 'document root must allow normal vertical touch panning');
-assert.match(mobileCss, /body\{[^}]*touch-action:pan-y!important/, 'body must allow normal vertical touch panning');
-assert.match(mobileCss, /html\{[^}]*overscroll-behavior-y:contain!important/, 'document root must contain top-edge overscroll so Android pull-to-refresh cannot take over');
-assert.match(mobileCss, /body\{[^}]*overscroll-behavior-y:contain!important/, 'body must contain overscroll while preserving normal scrolling');
-assert.doesNotMatch(mobileCss, /overscroll-behavior-y:none!important/, 'do not use the Android PWA scroll-locking none regression');
-assert.doesNotMatch(mobileCss, /overscroll-behavior-y:auto!important/, 'Android pull-to-refresh must not be re-enabled');
-assert.match(html, /mobile-accordion-polish\.css\?v=3/, 'the installed shell must request the scroll-safe pull-to-refresh guard version');
-assert.ok(sw.includes("'./mobile-accordion-polish.css?v=3'"), 'the scroll-safe pull-to-refresh guard must ship in the installed-app cache');
+assert.doesNotMatch(mobileCss, /overflow-y\s*:/, 'mobile CSS must not create or force a document vertical scroll container');
+assert.doesNotMatch(mobileCss, /touch-action\s*:/, 'mobile CSS must not redefine root touch panning');
+assert.doesNotMatch(mobileCss, /overscroll-behavior-y\s*:/, 'mobile CSS must not change Android document overscroll behavior');
+assert.doesNotMatch(mobile, /overscroll-behavior-y/, 'mobile controller must not inject a root overscroll rule');
+assert.match(integrity, /installPullToRefreshGuard/, 'pull-to-refresh prevention must be gesture scoped');
+assert.match(integrity, /dy>10&&Math\.abs\(dy\)>Math\.abs\(dx\)\*1\.1\)event\.preventDefault/, 'only a downward gesture that begins at the top may be prevented');
+assert.match(html, /installTopEdgeRefreshGuard/, 'startup shell must protect the top edge before enhancements load');
+assert.match(html, /mobile-accordion-polish\.css\?v=4/, 'the installed shell must request the native-scroll mobile CSS');
+assert.ok(sw.includes("'./mobile-accordion-polish.css?v=4'"), 'the native-scroll mobile CSS must ship in the installed-app cache');
+assert.ok(sw.includes("'./mobile-accordion-polish.js?v=2'"), 'the repaired mobile navigation controller must ship in the installed-app cache');
 
 assert.match(html, /viewport-fit=cover/, 'PWA must opt in to standards-based edge-to-edge handling');
 assert.equal(JSON.parse(manifest).display, 'standalone', 'PWA must remain standalone; do not hide Android controls with fullscreen');
@@ -47,9 +48,8 @@ assert.doesNotMatch(manifest, /"display"\s*:\s*"fullscreen"/, 'must not force im
 
 const cacheVersionMatch = sw.match(/james-command-center-v(\d+)/);
 assert.ok(cacheVersionMatch, 'service-worker cache must remain explicitly versioned');
-assert.ok(Number(cacheVersionMatch[1]) >= 43, 'service-worker cache must retain or advance past the V6 update version');
-assert.match(sw, /mobile-accordion-polish\.js/, 'updated mobile navigation controller must be cached');
-assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.js'\)/, 'mobile navigation controller must be network-first for clean updates');
-assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.css'\)/, 'mobile scroll CSS must be network-first for clean updates');
+assert.ok(Number(cacheVersionMatch[1]) >= 58, 'service-worker cache must include the self-healing startup repair');
+assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.js'\)/, 'mobile navigation controller must remain in the fresh-asset set');
+assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.css'\)/, 'mobile CSS must remain in the fresh-asset set');
 
-console.log('Mobile accordion/back/system-bar/scroll/pull-to-refresh QA passed.');
+console.log('Mobile accordion/back/system-bar/native-scroll/top-edge-refresh QA passed.');
