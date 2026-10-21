@@ -6,11 +6,12 @@ const exclusions=fs.readFileSync('operating-order-exclusion.js','utf8');
 const health=fs.readFileSync('source-health.js','utf8');
 const css=fs.readFileSync('command-center-brain-home.css','utf8');
 const cfg=fs.readFileSync('app-config.js','utf8');
+const loader=fs.readFileSync('startup-loader.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
 const sw=fs.readFileSync('service-worker.js','utf8');
 const v4=fs.readFileSync('command-center-v4.js','utf8');
 
-for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health]]){
+for(const [name,text] of [['refresh orchestrator',orchestrator],['exclusion sync',exclusions],['source health',health],['startup loader',loader],['app config',cfg]]){
   assert.doesNotThrow(()=>new Function(text),`${name} must parse as JavaScript`);
 }
 
@@ -31,21 +32,29 @@ assert.match(health,/2500/,'Source Health retry must be bounded rather than a ti
 assert.match(health,/commandcenter:data-refresh-requested/,'Source Health must refresh after the in-place audit refresh signal');
 assert.match(health,/window\.COMMAND_CENTER_SUPABASE/,'Source Health must reuse the canonical client when available');
 
-assert.match(cfg,/window\.COMMAND_CENTER_SUPABASE = client/,'the primary authenticated Supabase client must be shared with helper modules');
+assert.match(loader,/window\.COMMAND_CENTER_SUPABASE = client/,'startup must expose the primary authenticated Supabase client to helper modules');
+assert.match(loader,/Retry secure startup/,'startup failures must be visible and retryable');
+assert.match(loader,/COMMAND_CENTER_LOAD_ENHANCEMENTS/,'enhancements must wait until core startup is available');
 assert.match(cfg,/operating-order-exclusion\.js\?v=3/);
 assert.match(cfg,/refresh-orchestrator\.js\?v=7/);
 assert.match(cfg,/source-health\.js\?v=3/);
 assert.match(cfg,/command-center-brain-home\.css\?v=4/);
+assert.match(cfg,/s\.async=false/,'enhancement scripts must preserve their intended order');
+assert.doesNotMatch(cfg,/window\.addEventListener\('load'/,'enhancements must not race the core on window load');
 
-assert.match(html,/https:\/\/cdn\.jsdelivr\.net\/npm\/@supabase\/supabase-js@2\.118\.0/,'startup client version must be pinned');
-assert.match(html,/app-config\.js\?v=13/,'repair config version must load from the shell');
-assert.match(sw,/james-command-center-v55/,'repair must advance the installed-app cache');
-assert.match(sw,/SUPABASE_CDN='https:\/\/cdn\.jsdelivr\.net\/npm\/@supabase\/supabase-js@2\.118\.0'/,'service worker must cache the exact pinned startup client');
-assert.match(sw,/caches\.match\(SUPABASE_CDN\)/,'installed app reopen must be able to reuse the cached startup client');
+assert.match(html,/app-config\.js\?v=13/,'repair config must load from the local shell');
+assert.match(html,/startup-loader\.js\?v=1/,'resilient startup loader must load from the local shell');
+assert.doesNotMatch(html,/<script[^>]+src="https:\/\//i,'fresh install must not block first paint on an external script');
+assert.match(sw,/james-command-center-v56/,'repair must advance the installed-app cache');
+assert.match(sw,/SUPABASE_CDNS=\[/,'service worker must recognize both secure runtime sources');
+assert.match(sw,/caches\.match\(url\.href\)/,'installed app reopen must be able to reuse a successfully cached startup runtime');
+assert.match(sw,/pathname\.endsWith\('\/startup-loader\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/operating-order-exclusion\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/refresh-orchestrator\.js'\)/);
 assert.match(sw,/pathname\.endsWith\('\/source-health\.js'\)/);
 assert.match(sw,/if\(url\.origin!==self\.location\.origin\)return/,'Supabase API requests must remain outside the app-shell cache path');
+const installBlock=sw.slice(sw.indexOf("self.addEventListener('install'"),sw.indexOf("self.addEventListener('activate'"));
+assert.doesNotMatch(installBlock,/fetch\s*\(/,'service-worker install must never depend on the remote Supabase runtime');
 
 assert.match(css,/Military-tech Refresh control/,'military-tech Refresh body must remain');
 assert.match(css,/\.refresh-btn::before,[\s\S]*\.refresh-btn::after\{content:none!important;display:none!important\}/,'left emblem and right arrow decorations must both be removed');
@@ -56,4 +65,4 @@ assert.match(v4,/wireSwipeDismiss\(\$\('canonicalAuditPanel'\)\)/,'source audit 
 assert.match(v4,/wireSwipeDismiss\(\$\('sourceHealthPanel'\)\)/,'source health card must remain swipe-dismissable');
 assert.match(v4,/touch-action|ccv4Swipe|pointerdown/,'swipe dismissal wiring must remain present');
 
-console.log('Refresh/reload stability regression QA passed.');
+console.log('Refresh/reload + first-launch stability regression QA passed.');
