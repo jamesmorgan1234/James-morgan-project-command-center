@@ -1,56 +1,104 @@
-# Command Center Agent Mode micro-Work policy
+# Command Center Agent Mode bounded Work policy
 
-This policy refines `AGENT_MODE_STANDARD.md` and `AGENT_MODE_OPTIMIZATION_STANDARD.md` with the newest user instruction. Where those older drafts say all Work consumption asks first, this newer policy controls.
+This policy supplements `AGENT_MODE_STANDARD.md`, `AGENT_MODE_OPTIMIZATION_STANDARD.md`, and `AGENT_MODE_WORK_ENVELOPE_STANDARD.md`.
 
-## Automatic micro-Work is allowed
+The earlier micro-only automatic Work rule has been superseded by the newest explicit James Morgan policy. Automatic Work may extend beyond micro scope when the exact blocker fits the bounded low-risk Luna High or Sol Light envelope described below. Protected boundaries still override model cost and scope size.
 
-A genuine Work-only `micro` step may run automatically without a separate approval prompt when **all** of the following are true:
+## Mandatory Normal-Chat Exhaustion Gate
 
-1. The Normal-Chat Exhaustion Gate proves the exact operation cannot be completed by available normal-chat/Command Center capabilities.
-2. The step is the smallest independently useful blocked operation and does not broaden project scope.
-3. The operation is low-risk and does not cross another protected boundary such as spending, legal acceptance, identity/MFA/CAPTCHA, destructive change, security permission escalation, public publishing, production deployment, or locked-asset replacement unless that separate boundary is already explicitly authorized under its governing rule.
-4. The Work model is the least-sufficient model for the exact blocked operation. Mechanical/simple browser microsteps default toward `GPT-6 Luna High` when sufficient.
-5. No stronger model is chosen merely because the surrounding project is large, difficult, important, or long-running.
-6. The handoff is recorded in the Work handoff ledger before execution.
-7. The returned result is verified against canonical evidence.
-8. Control returns immediately to normal chat after the microstep is verified.
+No Work handoff is eligible until Agent Mode proves the exact operation cannot currently be completed with normal-chat/Command Center capabilities.
+
+Work convenience, task length, coding difficulty, repetition, or project importance are not valid reasons.
+
+## Luna High automatic envelope
+
+A bounded low-risk Luna High Work step or batch may run automatically without a separate approval prompt when all of the following are true:
+
+1. Normal chat cannot perform the exact operation.
+2. The step is inside the current explicit project/objective scope.
+3. The operation is mechanical/simple enough for Luna High.
+4. The scope class is `micro`, `small`, or `moderate`.
+5. The account/provider and permitted action types are explicit.
+6. No protected boundary is crossed.
+7. The Work handoff ledger is written before execution.
+8. Retry/circuit-breaker rules are active.
+9. Returned evidence can be verified canonically.
+10. Control returns to normal chat after the blocker is resolved.
+
+A long click-heavy sequence may remain Luna High when it is still bounded, low-risk, and mechanically simple. Duration alone does not force escalation.
+
+## Sol Light automatic envelope
+
+Sol Light is allowed automatically for bounded low-risk `small` or `moderate` Work-only operations that require modest interpretation, branching, or troubleshooting beyond Luna High.
+
+Automatic Sol Light requires:
+
+- explicit bounded objective and project scope;
+- explicit account/provider context;
+- explicit permitted actions and stop conditions;
+- no protected boundary;
+- no active conflicting Agent Mode Work handoff;
+- verification criteria and expected returned evidence;
+- retry/circuit-breaker enforcement.
+
+Do not select Sol Light merely because the surrounding project is large, important, or time-consuming.
+
+## Sol Medium approval boundary
+
+`GPT-6.1 Sol Medium` is the absolute Agent Mode Work ceiling and is approval-required before first use for the specific blocker.
+
+Before requesting Sol Medium, Agent Mode must determine whether the blocker can be split so most execution remains in normal chat, Luna High, or Sol Light.
+
+If Sol Medium fails, Agent Mode must stop and block the step unless a materially changed state later justifies a new user-authorized attempt.
+
+Agent Mode must never select Astra or any stronger Work model.
+
+## Protected boundaries always stop automatic Work
+
+Automatic Luna/Sol Light permission does not authorize:
+
+- spending, purchases, subscriptions, paid APIs, ads, credits, or paid trials;
+- legal acceptance/attestations;
+- MFA/CAPTCHA/identity verification;
+- credential/security recovery or permission escalation;
+- destructive/irreversible operations;
+- unexpected account ownership decisions;
+- locked asset replacement;
+- unexpected scope expansion;
+- publishing/production actions outside an already-authorized high-level unit;
+- Books work outside explicit named Books authorization;
+- any other action whose governing rule requires user approval.
+
+Risk may shrink the automatic envelope. It may never enlarge it.
 
 ## Project switching rule
 
-A Work-only microstep is **not** by itself a reason to switch projects. The normal behavior is:
+A Work-only step is not by itself a reason to switch projects.
 
-**normal chat progress → bounded automatic Work microstep → verify → resume the same project in normal chat.**
+Normal behavior is:
 
-Agent Mode switches to another eligible project only when the current project remains blocked because:
+**normal chat progress → smallest bounded Work blocker → verify → resume the same project in normal chat.**
 
-- the blocker is not eligible for automatic micro-Work;
-- user approval/action is required;
-- the provider/account/tool is unavailable;
-- a protected boundary requires explicit authorization;
-- a Work handoff is already outstanding and cannot yet be reconciled;
-- or another dependency cannot currently be satisfied.
+Switch projects only when the current project remains genuinely blocked by user action/approval, MFA/CAPTCHA, account login, provider outage, unavailable dependency, unresolved external response, Work outside the automatic envelope, or another real blocker.
 
-## What still requires approval
+## Concurrency
 
-Automatic micro-Work permission does **not** grant unlimited Work privileges.
+Default active Agent Mode Work handoffs remains **1**.
 
-A separate explicit approval is still required for:
+Other projects may continue normal-chat work and queue their Work-only blockers. Do not start unrelated Work sessions concurrently merely because their model rung is low.
 
-- `small`, `moderate`, or `substantial` Work unless another newer explicit policy authorizes it;
-- open-ended Work;
-- cross-project Work execution;
-- multiple simultaneous Work sessions beyond the default concurrency guard;
-- escalation to stronger Work models when the exact blocker does not clearly justify the change;
-- any protected action that independently requires user authorization.
+## Retry circuit breaker
 
-If classification is uncertain between `micro` and a larger class, Agent Mode must not silently choose `micro`; it should ask or keep the step blocked until the scope is clarified by evidence.
+No failed Work operation may be blindly repeated. Follow `AGENT_MODE_RETRY_CIRCUIT_BREAKER_STANDARD.md`.
+
+At most one automatic retry is allowed for a genuinely transient failure. Later attempts require materially changed state. Two meaningful failed attempts normally block the step.
 
 ## Usage honesty
 
-Automatic micro-Work does not change the usage uncertainty rule. Until a trustworthy account-wide Work usage source exists, remaining Work allowance and exact percentage cost remain `N/A`. Agent Mode records its own handoff/model/duration evidence without pretending that ledger equals the OpenAI account usage meter.
+Automatic bounded Work does not change usage uncertainty. Until a trustworthy account-wide Work usage source exists, total allowance, remaining allowance, and predicted percentage cost remain `N/A`.
+
+Agent Mode records only its own verified handoffs and never presents that ledger as the OpenAI account usage meter.
 
 ## Governing objective
 
-The intended loop is:
-
-**do everything possible in normal chat at High reasoning → use the smallest automatic low-cost Work microstep only when genuinely necessary → verify it → return immediately to normal chat → continue the same project.**
+**Do everything possible in normal chat first. When Work is genuinely irreducible, use the least-sufficient allowed model and the broadest safe bounded envelope, verify the returned result, and immediately resume in normal chat.**
