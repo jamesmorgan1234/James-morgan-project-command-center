@@ -2,140 +2,129 @@
 
 This standard supplements `AGENT_MODE_STANDARD.md`. Its purpose is to maximize what Command Center/normal chat completes directly, minimize scarce Work usage, preserve $0/free-first operation, and make Agent Mode measurable, reversible, resumable, and resistant to unnecessary escalation.
 
+The newest explicit James Morgan instruction controls over older drafts.
+
 ## 1. Normal-Chat Exhaustion Gate
 
 Work is not eligible merely because a task is difficult, tedious, long, repetitive, technical, repository-related, database-related, or browser-like.
 
-Before any Work proposal, Agent Mode must prove the exact blocked operation cannot be completed by currently available normal-chat/Command Center capabilities.
-
-The exhaustion check includes, when relevant:
+Before any Work handoff, Agent Mode must prove the exact blocked operation cannot be completed by currently available normal-chat/Command Center capabilities, including when relevant:
 
 - highest available normal-chat reasoning;
-- web research and current-source verification;
+- web research/current-source verification;
 - GitHub repository/branch/file/PR/workflow capabilities;
 - Supabase/database/schema/RPC/Edge Function capabilities;
 - connected apps/plugins/connectors;
-- file retrieval and file transformation;
+- file retrieval/transformation;
 - document, PDF, spreadsheet, presentation, image, and code tools;
-- image generation/editing where appropriate;
-- browser-capable normal-chat tools when available;
-- API/provider actions exposed through connected tools;
-- local computation/testing/QA capabilities;
-- existing Command Center Automation, Integrations, Analytics, Security, Deployment, and Brain capabilities.
+- browser-capable normal-chat tools;
+- provider APIs exposed through available tools;
+- local computation/testing/QA;
+- Project Brain, Automation, Integrations, Analytics, Security, and Deployment.
 
-`Work would be easier`, `Work is more convenient`, `this is a coding task`, `this may take a long time`, or `normal chat does not want to do it` are never valid Work-boundary reasons.
-
-The valid boundary must be concrete, such as an account/session interaction, provider UI operation, local-machine-only operation, unsupported browser flow, or other capability that is genuinely unavailable in the current normal-chat environment.
+`Work would be easier`, `this is coding`, `this is tedious`, or `this may take a long time` are never valid reasons.
 
 ## 2. Dynamic Capability Registry
 
-Agent Mode maintains a current capability registry rather than assuming old limitations remain true.
-
-For each capability, record:
+Agent Mode maintains a current capability/tool-health registry. Track:
 
 - capability key;
 - available environment (`normal_chat`, `work`, `external_tool`, `user_only`);
-- connected tool/provider when applicable;
+- provider/tool;
+- available/unavailable;
+- authenticated/needs_auth;
 - read/write/action capability;
-- account/session requirement;
 - free/paid state;
 - authorization requirement;
-- last verified availability;
-- known limitations.
+- last successful use;
+- error classification;
+- approved fallback;
+- last verified availability.
 
-If normal chat gains a capability that previously required Work, Agent Mode must route future matching work back to normal chat automatically.
-
-No capability regression: old Work-routing decisions never become permanent merely because they were once necessary.
+If normal chat gains a capability that previously required Work, future matching work moves back to normal chat. No old limitation becomes permanent merely because it once existed.
 
 ## 3. Smallest-Blocker Splitter
 
 A larger task must be decomposed around the irreducible blocker.
 
-Example:
+If steps 1–17 are normal-chat-capable, step 18 is Work-only, and 19–30 return to normal chat, then normal chat completes 1–17, only step 18 goes to Work, evidence is verified, and normal chat resumes at 19.
 
-- normal chat completes steps 1–17;
-- step 18 requires an unavailable account-bound UI action;
-- only step 18 is prepared for Work/user action;
-- returned evidence is verified;
-- normal chat resumes steps 19 onward.
-
-Agent Mode must never hand the surrounding project, phase, book, build, or workflow to Work merely because one step is blocked.
+Never hand the surrounding project, phase, book, build, or workflow to Work because one operation is blocked.
 
 ## 4. Pre-Handoff Compression
 
-Before a Work handoff, normal chat completes every preparatory action it can so Work spends usage executing rather than thinking/researching.
+Before Work, normal chat prepares everything it can:
 
-Prepare, when applicable:
-
-- exact file(s);
-- exact repository/branch/path;
-- exact account/provider target;
-- exact URLs/IDs;
-- exact text/copy;
-- exact values/settings;
-- already-made decisions;
-- validation criteria;
-- exact allowed clicks/actions;
+- exact files;
+- repository/branch/path;
+- account/provider/URL/IDs;
+- exact copy/text/values/settings;
+- decisions already made;
+- allowed actions/clicks;
 - forbidden actions;
+- validation criteria;
 - expected returned evidence;
-- exact resume point after return.
+- exact resume point.
 
-The handoff should contain no research or reasoning that normal chat could have completed first.
+Work should execute rather than research/reason about things normal chat could have prepared.
 
-## 5. Adjacent Micro-Task Bundling
+## 5. Adjacent Low-Risk Bundling
 
-Tiny Work-only actions may be bundled when all are:
+Compatible Work-only actions may be bundled only when they are in the same account/session/provider context, already known, low-risk, inside the same explicit authorization, and safer/more efficient together than repeated handoffs.
 
-- in the same account/session/provider context;
-- already known before the handoff;
-- low-risk;
-- covered by the same authorization scope;
-- cheaper/safer to perform together than by repeatedly reopening Work.
+Do not bundle unrelated projects, accounts, protected actions, or scope expansions.
 
-Unrelated projects, accounts, protected actions, or scope expansions must not be bundled merely to reduce handoff count.
+## 6. Work Model Least-Sufficient Escalation — hard ceiling
 
-## 6. Work Model Least-Sufficient Escalation
-
-Current Work ladder:
+Allowed Agent Mode Work ladder:
 
 1. `GPT-6 Luna High`
 2. `GPT-6.1 Sol Light`
 3. `GPT-6.1 Sol Medium`
-4. `GPT-6 Astra Light`
-5. `GPT-6 Astra Medium`
 
-Model choice is based on the exact blocked operation, not project size, duration, prestige, urgency, or number of surrounding tasks.
+`GPT-6.1 Sol Medium` is the absolute Agent Mode ceiling.
 
-A long click-heavy browser session may remain appropriate for Luna High. A short but genuinely difficult reasoning/debugging boundary may require a stronger rung.
+`GPT-6 Astra Light`, `GPT-6 Astra Medium`, and anything stronger are prohibited inside Agent Mode. Astra is reserved only for a separate manual user-requested review outside Agent Mode.
 
-Escalation requires a reason classification:
+Model choice is based on the exact blocked operation, not project size, duration, importance, urgency, or surrounding workload.
 
-- `capability_insufficient` — stronger reasoning may help;
-- `account_auth_required` — stronger model will not help;
-- `captcha_or_mfa` — stronger model will not help;
-- `permission_denied` — stronger model will not help;
-- `provider_outage` — stronger model will not help;
-- `missing_input` — resolve input, do not escalate model;
-- `tool_unavailable` — route/reconnect/install; do not blindly escalate;
-- `execution_complexity` — may justify next rung.
+### Luna High
 
-Agent Mode may escalate only when the failure reason indicates model capability is actually relevant.
+Use for mechanical/simple browser execution, navigation, uploads of prepared files, entering verified values, copying prepared text, routine forms, repetitive provider/account UI steps, and mechanical checks.
+
+When bounded and low-risk, `micro`, `small`, and `moderate` Luna High batches may run automatically without asking after every click.
+
+### Sol Light
+
+Use when a Work-only operation needs modest interpretation, branching, or troubleshooting.
+
+Bounded low-risk `small`/`moderate` Sol Light batches may run automatically when exact scope, allowed actions, account/provider, verification criteria, and stop conditions are explicit.
+
+### Sol Medium
+
+Use only for the smallest genuine Work-only blocker requiring nontrivial reasoning beyond Luna/Sol Light.
+
+First Agent Mode use of Sol Medium for that blocker requires explicit user approval. Before requesting it, split the blocker if possible so most work remains in normal chat/Luna/Sol Light.
+
+If Sol Medium fails, block the step. Do not escalate to Astra.
+
+Escalation is allowed only when failure classification shows reasoning capability is relevant, such as `capability_insufficient` or justified `execution_complexity`.
+
+Never escalate for MFA/CAPTCHA, missing credentials/input, permission denial, provider outage, account ownership/legal/security decisions, rate limits, or unsupported tool state.
 
 ## 7. Work Concurrency Guard and Queue
 
 Default maximum active Agent Mode Work handoffs: **1**.
 
-If additional projects hit Work-only blockers:
+If other projects hit Work-only blockers:
 
-- keep progressing their normal-chat work;
-- place blocked Work steps into the Work queue;
+- continue all possible normal-chat work;
+- queue blocked Work steps;
 - deduplicate equivalent blockers;
-- bundle compatible adjacent micro-tasks where appropriate;
-- do not fan the portfolio into simultaneous Work sessions.
+- bundle compatible adjacent low-risk work only within the same authorized context;
+- do not fan unrelated projects into Work concurrently.
 
-Additional concurrency requires a concrete benefit and explicit approval unless a future verified usage policy permits it.
-
-The queue records priority, blocker, project, model proposal, approval state, and whether normal-chat work can continue independently.
+The queue records project, step, priority, blocker, proposed model rung, scope/risk class, approval state, retry/circuit-breaker state, and whether normal-chat work can continue independently.
 
 ## 8. Work Usage Uncertainty Rule
 
@@ -143,147 +132,109 @@ Until Command Center has a trustworthy account-wide Work usage source:
 
 - total Work allowance = `N/A`;
 - remaining Work allowance = `N/A`;
-- percentage expected for a proposed handoff = `N/A`;
+- predicted percentage cost = `N/A`;
 - usage by unrelated/manual chats = unknown.
 
-Agent Mode may truthfully track only its own verified handoffs, selected model, duration, state, and project attribution.
-
-Never convert that internal ledger into a fake account-wide percentage.
+Agent Mode may truthfully track only its own verified handoffs, model rung, timestamps when known, state, and project attribution. Never convert that internal ledger into a fake account-wide percentage.
 
 ## 9. Work Return Contract
 
-Every Work handoff must return a structured result containing:
+Every Work handoff should return structured evidence containing:
 
 - handoff/run ID;
-- exact actions actually performed;
-- exact actions not performed;
+- actions actually performed;
+- actions not performed;
 - success/failure per action;
-- provider/account/repository/file IDs where relevant;
-- screenshots/files/commit/PR/run IDs or other evidence where available;
-- blockers encountered;
+- provider/account/repository/file IDs when relevant;
+- screenshots/files/commit/PR/run IDs or other evidence when available;
+- blockers;
+- failure classification;
 - unexpected changes;
-- final verified/claimed state;
-- exact recommended normal-chat resume point.
+- exact normal-chat resume point.
 
-Work must not silently continue into later project steps outside the bounded handoff.
-
-Normal chat verifies the returned evidence before the Agent Mode step can become `verified`.
+Normal chat verifies returned evidence before a step can become `verified`.
 
 ## 10. Free Tool Discovery and Installation Policy
 
-Command Center is **$0/free-first**.
+Command Center remains **$0/free-first**.
 
-Agent Mode may discover an additional tool/plugin/connector/library/application when it materially expands normal-chat capability or removes a recurring Work boundary.
+Agent Mode may recommend/use an additional free tool/plugin/connector/library/application only when it materially expands normal-chat capability or removes a recurring Work blocker.
 
-Rules:
+Prefer built-in tools, already-connected tools, open-source tools, and genuinely free usable tiers. Do not buy, subscribe, start paid trials, use paid API credits, spend money, silently install software, or silently connect accounts.
 
-- prefer existing built-in/connected capabilities first;
-- proposed tool must have a genuinely free usable path for the required function;
-- no paid subscriptions, paid APIs, credits, trials requiring later payment, ads spend, or purchases without explicit authorization;
-- never silently install software or connect an account where user approval is required;
-- evaluate privacy/security and required permissions before recommending connection;
-- prefer open-source/local/free-tier tools when they meet the requirement;
-- do not add a tool solely because it exists;
-- record what capability gap the tool solves;
-- if installation is user/device-bound, Agent Mode prepares the smallest exact installation/connection instruction and resumes afterward.
-
-A free tool that allows future work to stay in normal chat is preferable to repeated Work handoffs when it is safe and maintainable.
+If user/device installation or account authorization is required, isolate that narrow boundary and resume afterward.
 
 ## 11. Tool Health and Fallback Registry
 
-For each important tool/connector, Agent Mode tracks:
+Temporary tool failure does not automatically become Work. Try safe normal-chat fallback/reconnect routes first.
 
-- connected/available/unavailable;
-- authenticated/needs_auth;
-- read/write/action scope;
-- last successful use;
-- error category;
-- approved fallback.
-
-A temporary tool failure should not automatically become a Work handoff. First try a safe approved normal-chat fallback or reconnect path when available.
+If a newly available tool means something no longer needs Work, future routing must return to normal chat.
 
 ## 12. Dry-Run / Shadow Mode
 
-High-impact or newly introduced autonomous routines should support a dry-run mode before broad execution.
+High-impact or newly introduced autonomous routines should support dry-run/shadow mode.
 
-Dry-run produces:
+Dry run shows proposed steps, tools, Work steps/model rungs, protected boundaries, expected side effects, expected evidence, and impact radius. It performs no externally visible side effect.
 
-- proposed steps;
-- proposed tools;
-- proposed protected boundaries;
-- expected side effects;
-- expected verification evidence;
-- Work handoffs that would be required;
-- project/asset impact radius.
-
-Dry-run must not perform externally visible side effects.
-
-Use one-before-many: validate one representative unit before scaling actions that affect money, reputation, publishing, deployment, accounts, communications, security, or scarce generation resources.
+Use one-before-many for money, reputation, publishing, deployment, accounts, communications, security, analytics, or other high-impact areas.
 
 ## 13. Impact-Radius Gate
 
-Before side effects, classify the expected impact radius:
+Classify impact before side effects:
 
-- `local_unit` — one internal/isolated unit;
-- `single_project` — one project only;
-- `multi_project` — multiple explicitly listed projects;
-- `public_or_account` — external/public/account effect;
-- `portfolio_wide` — broad Command Center effect.
+- `local_unit`;
+- `single_project`;
+- `multi_project`;
+- `public_or_account`;
+- `portfolio_wide`.
 
-Higher impact requires stronger verification/authorization and smaller initial execution batches.
-
-Agent Mode may not infer portfolio-wide permission from a single-project goal.
+Larger impact requires stronger authorization/verification and smaller initial batches. Single-project authorization never silently becomes portfolio authorization.
 
 ## 14. Per-Project Autonomy Profiles
 
-Projects may define an autonomy profile without weakening global protections.
+Projects may define an autonomy profile without weakening global protections. Profiles may narrow Work or protected-action execution, but may not raise the Sol Medium ceiling or bypass global gates.
 
-Examples:
+Examples include:
 
-- `normal_chat_auto` — routine normal-chat work may proceed automatically;
-- `work_ask` — every Work use asks first;
-- `work_micro_auto` — only explicitly pre-authorized micro Work boundaries may run automatically if a future policy enables this;
-- `publish_ask` — publishing always asks;
-- `account_actions_ask` — account actions always ask;
-- `generation_bounded` — use project-specific generation batch limits;
-- `financial_protected` — money/spending always protected.
+- `normal_chat_auto`;
+- `work_luna_bounded_auto`;
+- `work_sol_light_bounded_auto`;
+- `work_sol_medium_approval`;
+- `publish_ask`;
+- `account_actions_ask`;
+- `generation_bounded`;
+- `financial_protected`.
 
-Newest explicit user instruction overrides a stored project profile.
+Newest explicit user instruction overrides a stored profile.
 
 ## 15. Pause, Kill Switch, and Safe Stop
 
-Every Agent Mode run supports:
+Every run supports:
 
-- pause after current safe atomic operation;
+- pause after current safe atomic action;
 - cancel before the next unstarted side effect;
 - stop on unexpected scope expansion;
 - stop on authorization mismatch;
 - stop on repeated failure;
-- stop on tool/provider integrity uncertainty;
-- stop on resource/spend boundary;
-- resume from the latest verified checkpoint.
+- stop on provider/tool integrity uncertainty;
+- stop on protected resource/spend boundary;
+- resume from latest verified checkpoint.
 
-Stopping must preserve verified completed work and must not roll back unrelated successful units unless rollback is explicitly required.
+Stopping preserves verified completed work.
 
 ## 16. Dependency and Critical-Path Scheduling
 
-For multi-step/multi-project work, Agent Mode should progress tasks that can advance in normal chat while another project is blocked.
+Normally maintain one primary execution lane at a time:
 
-Prioritize by:
+**Project A → progress until complete or genuinely blocked → checkpoint → continue same project.**
 
-- explicit user priority;
-- dependency/critical path;
-- unblock value;
-- deadline when verified;
-- risk;
-- ability to make progress without protected resources;
-- avoidance of duplicated work.
+A Work microstep alone is not a reason to switch projects. Switch only when the current project remains genuinely blocked by user approval/action, MFA/CAPTCHA, account login, provider outage, unavailable dependency, unresolved external response, Work outside the automatic envelope, or another real blocker.
 
-Do not idle the whole portfolio because one project waits on Work/account authorization.
+When blocked, checkpoint exactly and continue eligible work on another explicitly authorized project rather than idling.
 
 ## 17. Duplicate-Side-Effect Lock
 
-Before any externally visible action, Agent Mode checks whether equivalent evidence already proves the action happened.
+Before externally visible actions, check whether equivalent canonical evidence already proves the action happened.
 
 Protect against duplicate:
 
@@ -296,56 +247,54 @@ Protect against duplicate:
 - account changes;
 - generation batches;
 - Work handoffs;
-- integration writes.
+- Integration writes.
 
-Idempotency/evidence keys are preferred whenever the underlying system supports them.
+Use idempotency/evidence keys when available.
 
 ## 18. Verification Strength Levels
 
-Verification evidence can be classified:
+Evidence strength:
 
-- `self_report_only` — insufficient for completion;
-- `tool_result` — useful but may require downstream check;
-- `canonical_record` — durable provider/database/repository evidence;
-- `live_verified` — production/published/external state independently checked.
+- `self_report_only` — insufficient;
+- `tool_result`;
+- `canonical_record`;
+- `live_verified`.
 
-A roadmap gate specifies the minimum evidence strength required.
+A step’s gate specifies the minimum appropriate strength. If evidence cannot prove completion, the step remains incomplete.
 
-## 19. Efficiency Metrics
+## 19. Retry Circuit Breaker and No-Progress Watchdog
 
-Agent Mode measures efficiency without turning metrics into arbitrary targets.
+`AGENT_MODE_RETRY_CIRCUIT_BREAKER_STANDARD.md` is mandatory.
 
-Useful metrics:
+The same failed operation in the same state may not simply run again. At most one automatic retry is permitted for a genuinely transient failure. Later attempts require materially changed state. Failure must be classified before retrying.
+
+Two meaningful failed attempts on the same operation normally block the step. State change can reopen it.
+
+Repeated Work failures across projects that indicate a shared systemic problem pause new Work handoffs for the affected capability/provider while normal-chat work continues.
+
+Failure must produce information. If the next attempt has no new information or changed state, the retry is forbidden.
+
+## 20. Efficiency Metrics and Continuous Re-evaluation
+
+Measure efficiency without gaming percentages:
 
 - total steps;
 - normal-chat steps;
-- Work handoffs;
+- Work steps/handoffs;
 - Work handoff rate;
-- normal-chat completion rate;
 - Work avoidance rate;
-- average Work handoff scope class;
-- handoffs by model rung;
-- escalations by reason;
+- model distribution;
+- escalations and reason;
 - duplicate actions prevented;
+- retries prevented by circuit breaker;
 - resumed runs without redoing verified work;
-- user interventions required;
+- user interventions;
 - verification failures caught before advancement.
 
-Example:
+These are observational metrics, not arbitrary targets. Never hide genuinely required Work to improve a percentage.
 
-- total steps: 47
-- normal-chat steps: 44
-- Work steps: 3
-- Work handoff rate: 6.3%
+At checkpoints and after tool/platform changes, re-evaluate whether recurring blockers can now be handled in normal chat.
 
-These are observational metrics. Agent Mode must not manipulate scope or hide required Work simply to improve a percentage.
+The governing objective is:
 
-## 20. Continuous Capability Re-evaluation
-
-At reasonable checkpoints and after tool/plugin/platform changes, Agent Mode re-evaluates whether recurring blockers can now be handled in normal chat.
-
-If a safe free tool or newly available normal-chat capability eliminates a Work boundary, update routing for future steps.
-
-The optimization objective is:
-
-**If normal chat can accomplish the result safely and correctly, normal chat must do it. Work is used only for the smallest irreducible capability gap.**
+**If normal chat can accomplish the result safely and correctly, normal chat must do it. Work is used only for the smallest irreducible capability gap, with the least-sufficient allowed model and the broadest safe bounded envelope.**
