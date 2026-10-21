@@ -1,25 +1,27 @@
 html[data-command-center-theme="v6"]{--cc-ui-black:#030303;--cc-ui-black-2:#080503;--cc-ui-orange:#ff5e00;--cc-ui-orange-soft:#7a3510;--cc-ui-muted:#aa9787}
 
-/* Global V6 surface lock: no legacy blue cards/bubbles. */
-html[data-command-center-theme="v6"] #detailPanel,
-html[data-command-center-theme="v6"] #detailPanel .block,
-html[data-command-center-theme="v6"] #detailPanel .kpi,
-html[data-command-center-theme="v6"] #detailPanel .list-item,
-html[data-command-center-theme="v6"] #detailPanel .metric-chip,
-html[data-command-center-theme="v6"] #detailPanel .performance-panel,
-html[data-command-center-theme="v6"] #detailPanel .perf-primary,
-html[data-command-center-theme="v6"] #detailPanel .perf-mini,
-html[data-command-center-theme="v6"] #detailPanel .perf-model-card,
-html[data-command-center-theme="v6"] #detailPanel .perf-model-stats>span,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-row,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-empty,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-compact-body,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-compact-body .list-item,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-control-panel,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-utility-panel,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-pipeline-item,
+/* Global V6 surface lock: legacy blue cards/bubbles are not part of the approved Command Center shell. */
+html[data-command-center-theme="v6"] .panel:not(.view-shell),
 html[data-command-center-theme="v6"] .home-card,
+html[data-command-center-theme="v6"] .detail-panel,
+html[data-command-center-theme="v6"] .block,
+html[data-command-center-theme="v6"] .kpi,
+html[data-command-center-theme="v6"] .list-item,
+html[data-command-center-theme="v6"] .metric-chip,
+html[data-command-center-theme="v6"] .project-card,
+html[data-command-center-theme="v6"] .performance-panel,
+html[data-command-center-theme="v6"] .perf-primary,
+html[data-command-center-theme="v6"] .perf-mini,
+html[data-command-center-theme="v6"] .perf-model-card,
+html[data-command-center-theme="v6"] .perf-model-stats>span,
+html[data-command-center-theme="v6"] .perf-sales-row,
+html[data-command-center-theme="v6"] .perf-sales-stat,
+html[data-command-center-theme="v6"] .perf-sales-empty,
+html[data-command-center-theme="v6"] .ccv4-compact-body,
+html[data-command-center-theme="v6"] .ccv4-compact-body .list-item,
+html[data-command-center-theme="v6"] .ccv4-control-panel,
+html[data-command-center-theme="v6"] .ccv4-utility-panel,
+html[data-command-center-theme="v6"] .ccv4-pipeline-item,
 html[data-command-center-theme="v6"] .revenue-summary,
 html[data-command-center-theme="v6"] .revenue-row,
 html[data-command-center-theme="v6"] .revenue-card{
@@ -28,29 +30,39 @@ html[data-command-center-theme="v6"] .revenue-card{
   color:#fff!important;
   box-shadow:0 0 0 1px rgba(255,94,0,.05),0 0 12px rgba(255,84,0,.16)!important;
 }
-html[data-command-center-theme="v6"] #detailPanel .performance-panel,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-control-panel,
-html[data-command-center-theme="v6"] #detailPanel .ccv4-utility-panel,
+html[data-command-center-theme="v6"] .performance-panel,
+html[data-command-center-theme="v6"] .ccv4-control-panel,
+html[data-command-center-theme="v6"] .ccv4-utility-panel,
 html[data-command-center-theme="v6"] .revenue-summary{border-color:var(--cc-ui-orange)!important}
-html[data-command-center-theme="v6"] #detailPanel .perf-subhead,
-html[data-command-center-theme="v6"] #detailPanel .block h3,
-html[data-command-center-theme="v6"] #detailPanel .kpi .k,
-html[data-command-center-theme="v6"] #detailPanel .list-item small,
-html[data-command-center-theme="v6"] #detailPanel .perf-primary small,
-html[data-command-center-theme="v6"] #detailPanel .perf-mini small,
-html[data-command-center-theme="v6"] #detailPanel .perf-model-stats small,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat small{color:#c5aa94!important}
-html[data-command-center-theme="v6"] #detailPanel .perf-source,
-html[data-command-center-theme="v6"] #detailPanel .kpi .s{color:#9f8a79!important}
-html[data-command-center-theme="v6"] #detailPanel .perf-primary strong,
-html[data-command-center-theme="v6"] #detailPanel .perf-mini strong,
-html[data-command-center-theme="v6"] #detailPanel .perf-model-name,
-html[data-command-center-theme="v6"] #detailPanel .perf-model-stats strong,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-name,
-html[data-command-center-theme="v6"] #detailPanel .perf-sales-stat strong,
-html[data-command-center-theme="v6"] #detailPanel .list-item strong,
-html[data-command-center-theme="v6"] #detailPanel .kpi .v{color:#fff!important}
+html[data-command-center-theme="v6"] .perf-subhead,
+html[data-command-center-theme="v6"] .block h3,
+html[data-command-center-theme="v6"] .kpi .k,
+html[data-command-center-theme="v6"] .list-item small,
+html[data-command-center-theme="v6"] .perf-primary small,
+html[data-command-center-theme="v6"] .perf-mini small,
+html[data-command-center-theme="v6"] .perf-model-stats small,
+html[data-command-center-theme="v6"] .perf-sales-stat small{color:#c5aa94!important}
+html[data-command-center-theme="v6"] .perf-source,
+html[data-command-center-theme="v6"] .kpi .s{color:#9f8a79!important}
+html[data-command-center-theme="v6"] .perf-primary strong,
+html[data-command-center-theme="v6"] .perf-mini strong,
+html[data-command-center-theme="v6"] .perf-model-name,
+html[data-command-center-theme="v6"] .perf-model-stats strong,
+html[data-command-center-theme="v6"] .perf-sales-name,
+html[data-command-center-theme="v6"] .perf-sales-stat strong,
+html[data-command-center-theme="v6"] .list-item strong,
+html[data-command-center-theme="v6"] .kpi .v{color:#fff!important}
 
+/* Generic pills/buttons/fields must inherit the same black/orange system rather than the original blue theme. */
+html[data-command-center-theme="v6"] .badge{background:#130a05!important;border-color:#653014!important;color:#ffac48!important}
+html[data-command-center-theme="v6"] .badge.live,
+html[data-command-center-theme="v6"] .badge.verified{background:rgba(18,145,93,.20)!important;border-color:#16865f!important;color:#69e4ad!important}
+html[data-command-center-theme="v6"] .badge.attention,
+html[data-command-center-theme="v6"] .badge.unverified,
+html[data-command-center-theme="v6"] .badge.recovery{background:rgba(220,50,78,.16)!important;border-color:#b83a54!important;color:#ff91a4!important}
+html[data-command-center-theme="v6"] .badge.paused,
+html[data-command-center-theme="v6"] .badge.mixed,
+html[data-command-center-theme="v6"] .badge.planning{background:#1b1008!important;border-color:#7f461c!important;color:#e9b45f!important}
 html[data-command-center-theme="v6"] .badge.active,
 html[data-command-center-theme="v6"] .badge.ready{background:#1b1008!important;border-color:#7f461c!important;color:#ffb365!important}
 html[data-command-center-theme="v6"] .btn:not(.refresh-btn){background:#090603!important;border-color:#7a3510!important;color:#ffd3ad!important;box-shadow:none!important}
@@ -67,7 +79,7 @@ html[data-command-center-theme="v6"] .refresh-motion-track span{background:linea
 html[data-command-center-theme="v6"] .refresh-visual.is-complete{border-color:#176e57!important;background:linear-gradient(180deg,rgba(8,63,53,.88),rgba(5,33,38,.95))!important}
 html[data-command-center-theme="v6"] .refresh-visual.is-error{border-color:#79344b!important;background:linear-gradient(180deg,rgba(73,20,48,.86),rgba(35,15,35,.95))!important}
 
-/* Brain must behave like every other homepage accordion: button stays visible and detail opens immediately beneath it. */
+/* Brain behaves like every other homepage accordion: button stays visible and detail opens immediately beneath it. */
 html[data-command-center-theme="v6"] #ccBrainHomeButton{order:35!important}
 html[data-command-center-theme="v6"] #ccBrainHomeButton.is-open{border-color:#ff8b18!important;box-shadow:0 0 0 1px #ff5e00,0 0 20px rgba(255,94,0,.78),inset 0 0 24px rgba(255,90,0,.10)!important}
 html[data-command-center-theme="v6"] #ccBrainHomeButton.is-open::after{content:'⌄'!important}
