@@ -6,7 +6,7 @@ const SUPABASE_CDNS=[
 ];
 const STATIC=[
   './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=10','./project-hub.js?v=3','./startup-loader.js?v=1',
-  './mobile-accordion-polish.css?v=2','./mobile-accordion-polish.js?v=1','./books-hub.css?v=1','./books-hub.js?v=1',
+  './mobile-accordion-polish.css?v=3','./mobile-accordion-polish.js?v=1','./books-hub.css?v=1','./books-hub.js?v=1',
   './books-revenue.css?v=4','./books-revenue.js?v=5','./ux-polish.css?v=1','./books-portfolio-polish.js?v=1',
   './next-up-label.js?v=1','./operating-order-exclusion.js?v=3','./performance-hub.css?v=2','./performance-hub.js?v=5',
   './refresh-orchestrator.css?v=1','./refresh-orchestrator.js?v=7','./source-health.css?v=1','./source-health.js?v=3',
