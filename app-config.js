@@ -37,5 +37,6 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('projectRoadmaps','./project-roadmaps.css?v=1'); addJs('projectRoadmaps','./project-roadmaps.js?v=1'); addJs('roadmapCheckpointRuntime','./roadmap-checkpoint-runtime.js?v=1');
     addCss('commandCenterUiConsistency','./command-center-ui-consistency.css?v=1'); addJs('commandCenterUiConsistency','./command-center-ui-consistency.js?v=1');
     addCss('projectDetailAccordions','./command-center-project-detail-accordions.css?v=1'); addJs('projectDetailAccordions','./command-center-project-detail-accordions.js?v=1');
+    addCss('agentMode','./command-center-agent-mode.css?v=1'); addJs('agentMode','./command-center-agent-mode.js?v=1');
   };
 })();
