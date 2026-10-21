@@ -96,7 +96,7 @@ for(const src of [
   const escaped=src.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   assert.match(html,new RegExp(`<script defer src="${escaped}"><\\/script>`),`${src} must not block first paint`);
 }
-assert.match(sw,/james-command-center-v52/);
+assert.match(sw,/james-command-center-v53/);
 assert.ok(sw.includes("'./command-center-approved-icon-192.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-maskable'"));
@@ -105,10 +105,14 @@ assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-192\.png'\)
 assert.match(sw,/pathname\.endsWith\('\/command-center-approved-icon-512\.png'\)/);
 assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/);
 const navPos=sw.indexOf("if(e.request.mode==='navigate')");
+const originGuardPos=sw.indexOf('if(url.origin!==self.location.origin)return;');
 const freshPos=sw.indexOf('const freshAsset=');
-assert.ok(navPos>=0&&freshPos>navPos,'navigation fast path must run before network-first asset handling');
+assert.ok(navPos>=0&&originGuardPos>navPos&&freshPos>originGuardPos,'navigation shell may be cached, but cross-origin API/CDN requests must bypass the asset handler');
 assert.match(sw,/caches\.match\('\.\/index\.html'\)/,'installed PWA launch must use the cached shell immediately when available');
 assert.match(sw,/e\.waitUntil\(refresh\.then\(\(\)=>\{\}\)\)/,'cached launch must still refresh the shell in the background');
 assert.doesNotMatch(sw,/const freshAsset=[^;]*e\.request\.mode==='navigate'/,'navigation must not fall back into the network-first asset path');
+assert.doesNotMatch(sw,/url\.hostname\.includes\('supabase\.co'\)/,'Supabase API traffic must not be classified as a cacheable static asset');
+const assetHandler=sw.slice(sw.indexOf('if(freshAsset){'),sw.indexOf("e.respondWith(caches.match(e.request)",sw.indexOf('if(freshAsset){')));
+assert.doesNotMatch(assetHandler,/index\.html/,'static asset failure must never substitute the HTML app shell');
 assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Preserve the exact user-approved launcher artwork/); assert.match(standard,/command-center-approved-icon-512\.png/);
-console.log('PWA approved orange icon + fast-start QA passed.');
+console.log('PWA approved orange icon + fast-start + API isolation QA passed.');

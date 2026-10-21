@@ -1,6 +1,6 @@
 html[data-command-center-theme="v6"] #projectGrid [data-cc-brain-open]{display:none!important}
 html[data-command-center-theme="v6"] .cc-brain-home-button{
-  --cc6-card-art:url('./art-brain.svg')!important;
+  --cc6-card-art:url('./art-road.svg')!important;
   border:2px solid #ff5c00!important;
   background:linear-gradient(90deg,#090705 0%,#050403 52%,rgba(22,8,2,.96) 100%)!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 0 0 1px rgba(255,99,0,.08),0 12px 28px rgba(0,0,0,.3),0 0 26px rgba(255,92,0,.13)!important;
@@ -8,20 +8,60 @@ html[data-command-center-theme="v6"] .cc-brain-home-button{
   color:#fff!important;
   position:relative!important;
   overflow:hidden!important;
+  display:grid!important;
+  grid-template-columns:86px minmax(0,1fr) 34px!important;
+  grid-template-rows:1fr!important;
+  gap:14px!important;
+  align-items:center!important;
+  padding:16px 16px!important;
 }
-html[data-command-center-theme="v6"] .cc-brain-home-button::before{
-  content:'◉'!important;
-  color:#ff9b23!important;
-  background:rgba(255,92,0,.10)!important;
-  border:1px solid rgba(255,115,28,.28)!important;
-  box-shadow:0 0 24px rgba(255,92,0,.17)!important;
+html[data-command-center-theme="v6"] .cc-brain-home-button::after{color:#ff8a1f!important;grid-column:3!important;grid-row:1!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .cc-brain-home-icon{
+  grid-column:1!important;grid-row:1!important;width:74px!important;height:74px!important;display:grid!important;place-items:center!important;
+  clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%)!important;
+  background:linear-gradient(135deg,#ff9c22,#5e2105 35%,#050403 42%,#050403 62%,#8d3207 76%,#ff9c22)!important;
+  box-shadow:0 0 18px rgba(255,91,0,.88)!important;padding:4px!important;position:relative!important;z-index:2!important
 }
-html[data-command-center-theme="v6"] .cc-brain-home-button::after{color:#ff8a1f!important}
-html[data-command-center-theme="v6"] .cc-brain-home-button .label{color:#fff!important;font-size:1rem!important}
-html[data-command-center-theme="v6"] .cc-brain-home-button .value{font-size:1.38rem!important;color:#fff!important}
-html[data-command-center-theme="v6"] .cc-brain-home-button .stat-sub{color:#b6aaa2!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .cc-brain-home-icon>span{width:100%!important;height:100%!important;display:grid!important;place-items:center!important;clip-path:inherit!important;background:radial-gradient(circle,#2b1104 0%,#070504 65%)!important;border:1px solid #ff6c05!important;color:#ff9f25!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .cc-brain-home-icon svg{width:42px!important;height:42px!important;filter:drop-shadow(0 0 6px #ff6a00)!important}
+html[data-command-center-theme="v6"] .cc-brain-home-button .value{
+  grid-column:2!important;grid-row:1!important;justify-self:start!important;align-self:center!important;margin:0!important;
+  font-size:clamp(1.55rem,6.3vw,2.3rem)!important;line-height:1.04!important;font-weight:950!important;letter-spacing:-.025em!important;
+  color:#fff!important;text-align:left!important;text-shadow:0 0 10px rgba(255,103,0,.30)!important;white-space:normal!important
+}
+html[data-command-center-theme="v6"] .cc-brain-home-button .label,html[data-command-center-theme="v6"] .cc-brain-home-button .stat-sub{display:none!important}
 html[data-command-center-theme="v6"] .cc-brain-home-button:focus-visible{outline:2px solid #ff9a2f!important;outline-offset:3px!important}
 html[data-command-center-theme="v6"] #ccBrainHomeRoadmap{margin-top:8px}
-@media(max-width:760px){
-  html[data-command-center-theme="v6"] .cc-brain-home-button{min-height:132px!important}
+
+/* Refresh stays orange but gets the same finished sci-fi control language as the dashboard cards. */
+html[data-command-center-theme="v6"] .refresh-btn{
+  position:relative!important;isolation:isolate!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;
+  min-height:96px!important;padding:14px 92px 14px 108px!important;border:3px solid #ff5d00!important;border-left:7px solid #ff6507!important;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.16),transparent 22% 70%,rgba(255,176,53,.12)),
+    repeating-linear-gradient(135deg,rgba(255,205,110,.06) 0 6px,transparent 6px 16px),
+    linear-gradient(180deg,#ff760d 0%,#ff5d00 48%,#d63d00 100%)!important;
+  box-shadow:inset 0 0 0 2px rgba(255,191,80,.35),inset 0 -16px 26px rgba(82,8,0,.38),0 0 24px rgba(255,84,0,.78)!important;
+  text-shadow:0 0 10px rgba(255,255,255,.72),0 2px 0 rgba(95,18,0,.65)!important
+}
+html[data-command-center-theme="v6"] .refresh-btn::before{
+  content:'↻'!important;position:absolute!important;left:20px!important;top:50%!important;transform:translateY(-50%)!important;width:68px!important;height:68px!important;
+  display:grid!important;place-items:center!important;clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%)!important;
+  background:radial-gradient(circle,#5b2109 0%,#1a0903 62%,#080301 100%)!important;border:2px solid #ffd07b!important;color:#fff4df!important;
+  font-size:2.55rem!important;font-weight:900!important;line-height:1!important;box-shadow:0 0 0 3px rgba(255,119,20,.32),0 0 18px rgba(255,209,112,.75)!important;z-index:2!important
+}
+html[data-command-center-theme="v6"] .refresh-btn::after{
+  content:'›'!important;position:absolute!important;right:24px!important;top:50%!important;transform:translateY(-52%)!important;color:#ffe0a7!important;
+  font-size:3.3rem!important;font-weight:300!important;line-height:1!important;text-shadow:0 0 12px #7f1f00,0 0 18px #ffb23f!important;opacity:.95!important;z-index:2!important
+}
+html[data-command-center-theme="v6"] .refresh-btn:active{transform:translateY(1px)!important;filter:brightness(.96)!important}
+
+@media(max-width:540px){
+  html[data-command-center-theme="v6"] .cc-brain-home-button{min-height:126px!important;grid-template-columns:72px minmax(0,1fr) 28px!important;gap:10px!important;padding:14px 13px!important}
+  html[data-command-center-theme="v6"] .cc-brain-home-button .cc-brain-home-icon{width:64px!important;height:64px!important}
+  html[data-command-center-theme="v6"] .cc-brain-home-button .cc-brain-home-icon svg{width:36px!important;height:36px!important}
+  html[data-command-center-theme="v6"] .cc-brain-home-button .value{font-size:clamp(1.38rem,7vw,1.8rem)!important}
+  html[data-command-center-theme="v6"] .refresh-btn{min-height:88px!important;padding-left:90px!important;padding-right:66px!important}
+  html[data-command-center-theme="v6"] .refresh-btn::before{left:15px!important;width:60px!important;height:60px!important;font-size:2.2rem!important}
+  html[data-command-center-theme="v6"] .refresh-btn::after{right:17px!important;font-size:2.8rem!important}
 }

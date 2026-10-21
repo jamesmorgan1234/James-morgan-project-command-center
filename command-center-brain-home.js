@@ -29,7 +29,7 @@
       button.type='button';
       button.className='stat stat-button cc-brain-home-button';
       button.setAttribute('aria-label','Open Command Center Brain roadmap');
-      button.innerHTML='<div class="value">Command Center Brain</div><div class="label">Capability Roadmap</div><div class="stat-sub">What Command Center can do next, and what still needs built or connected.</div>';
+      button.innerHTML='<span class="cc-brain-home-icon" aria-hidden="true"><span><svg viewBox="0 0 48 48"><path d="M12 39c7-3 7-9 9-15s4-11 15-15" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M18 37l-4 3 5 1M31 11l5-3-1 5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M23 31l3-2M27 23l3-2M31 16l3-2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span></span><div class="value">Command Center Brain</div>';
       button.addEventListener('click',()=>openBrain(true));
     }
     button.style.setProperty('order','40','important');
