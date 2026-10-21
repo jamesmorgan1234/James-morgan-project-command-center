@@ -13,10 +13,6 @@
   let brainOpen=false;
   let restore=null;
 
-  function homeVisible(){
-    return !$('projectView')?.hidden===false ? false : true;
-  }
-
   function isHomeOverview(){
     const project=$('projectView');
     const revenue=$('revenueView');
@@ -36,6 +32,7 @@
       button.innerHTML='<div class="value">Command Center Brain</div><div class="label">Capability Roadmap</div><div class="stat-sub">What Command Center can do next, and what still needs built or connected.</div>';
       button.addEventListener('click',()=>openBrain(true));
     }
+    button.style.setProperty('order','40','important');
     const earning=stats.querySelector('.stat-button[data-view="earning"]');
     if(earning && button.nextElementSibling!==earning) stats.insertBefore(button,earning);
     else if(!button.isConnected) stats.appendChild(button);
