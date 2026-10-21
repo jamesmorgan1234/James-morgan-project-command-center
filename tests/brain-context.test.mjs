@@ -67,7 +67,7 @@ assert.equal(deduped.find(x=>x.canonical_key==='asset:cover').id,'approved','hig
 assert.equal(deduped.some(x=>x.id==='archived'),false,'archived memory must not enter retrieval output');
 
 assert.match(home,/\['Context Builder'[^\]]+,100\]/,'Project Brain Phase 3 roadmap must be 100%');
-assert.match(home,/id=\\"ccBrainContextMount\\"/,'Project Brain detail must mount Context Builder');
+assert.match(home,/id="ccBrainContextMount"/,'Project Brain detail must mount Context Builder');
 assert.match(home,/Project Brain \$\{brainPct\}%/,'Project Brain parent summary must derive from phase values');
 assert.match(cfg,/command-center-brain-context\.css\?v=1/);
 assert.match(cfg,/command-center-brain-context\.js\?v=1/);
