@@ -1,4 +1,6 @@
 (() => {
+  if(window.__COMMAND_CENTER_STARTUP_RUNTIME_ACTIVE)return;
+  window.__COMMAND_CENTER_STARTUP_RUNTIME_ACTIVE=true;
   window.__COMMAND_CENTER_STARTUP_LOADER_STARTED = true;
   clearTimeout(window.__COMMAND_CENTER_BOOT_WATCHDOG);
 
@@ -9,7 +11,7 @@
   const CORE_SCRIPTS = [
     './app.js?v=10',
     './project-hub.js?v=3',
-    './mobile-accordion-polish.js?v=1'
+    './mobile-accordion-polish.js?v=2'
   ];
   let starting = false;
   let coreLoaded = false;
