@@ -168,7 +168,7 @@ begin
 
   if new.status='archived' then
     new.archived_at:=coalesce(new.archived_at,now());
-  elsif old is null or new.status<>'archived' then
+  else
     new.archived_at:=null;
   end if;
 
