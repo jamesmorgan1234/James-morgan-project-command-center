@@ -14,8 +14,9 @@
     const pct=detail.querySelector('.cc-brain-capability-percent');if(pct&&pct.textContent!=='100%')pct.textContent='100%';
     const kicker=detail.querySelector('.cc-brain-capability-kicker');if(kicker&&kicker.textContent!=='8 of 8 phases complete')kicker.textContent='8 of 8 phases complete';
     const current=detail.previousElementSibling;if(current?.matches?.('[data-cc-brain-current-toggle]')){const badge=current.querySelector('.badge');if(badge)badge.textContent='100% · Complete';const spans=current.querySelectorAll('.cc-brain-capability-foot > span');if(spans[1])spans[1].textContent='8 of 8 phases complete';}
-    if(!document.getElementById('ccAutomationAdvancedMount')){const mount=document.createElement('div');mount.id='ccAutomationAdvancedMount';detail.appendChild(mount);}
-    window.COMMAND_CENTER_AUTOMATION_ADVANCED?.mount?.();
+    let mount=document.getElementById('ccAutomationAdvancedMount'),created=false;
+    if(!mount){mount=document.createElement('div');mount.id='ccAutomationAdvancedMount';detail.appendChild(mount);created=true;}
+    if(created)window.COMMAND_CENTER_AUTOMATION_ADVANCED?.mount?.();
   }
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(patch);}
   window.addEventListener('command-center:brain-capability-open',e=>{if(e.detail?.name==='Automation')schedule();});
