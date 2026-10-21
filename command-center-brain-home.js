@@ -1,17 +1,110 @@
 (() => {
-  const CAPABILITIES = [
-    ['Project Brain','Durable Memory ✓ → Brainstorm Workspace → Context Builder → Task Queue / Planner → ChatGPT Handoff Loop.','◉'],
-    ['Automation','Checks, alerts and scheduled jobs.','↻'],
-    ['Integrations','Connected services and data sources.','⌁'],
-    ['Analytics','Verified performance, progress and operational reporting.','▥'],
-    ['Security','Permissions, safeguards and protected execution controls.','⬡'],
-    ['Deployment','Release, hosting, update and rollback controls.','▲'],
-    ['Agent Mode','Verified autonomous execution after prerequisite capabilities are complete.','✦']
-  ];
+  const ROADMAPS = {
+    'Project Brain': {
+      symbol:'◉',
+      description:'Persistent memory, context, planning and ChatGPT handoff infrastructure.',
+      phases:[
+        ['Durable Memory','Persist owner-scoped, project-aware memory across reloads and devices.','complete'],
+        ['Brainstorm Workspace','Capture and organize ideas before they become committed work.','planned'],
+        ['Context Builder','Assemble the relevant memory and verified project state into a reusable context packet.','planned'],
+        ['Task Queue / Planner','Turn goals and context into an ordered, trackable execution queue.','planned'],
+        ['ChatGPT Handoff Loop','Send prepared context and tasks into the ChatGPT workflow and receive verified results back.','planned']
+      ]
+    },
+    'Automation': {
+      symbol:'↻',
+      description:'Scheduled and conditional Command Center work.',
+      phases:[
+        ['Scheduler Engine','Run a defined Command Center job at a date, time, or recurring cadence.','planned'],
+        ['Condition Evaluator','Evaluate a saved condition and decide whether its trigger is true.','planned'],
+        ['Notification Delivery','Deliver a Command Center alert when a configured trigger fires.','planned'],
+        ['Recurring Report Jobs','Generate a saved report automatically on its configured schedule.','planned'],
+        ['Action Queue Runner','Execute pre-authorized routine actions from a controlled queue.','planned'],
+        ['Cross-Project Workflow Chains','Run dependent automation steps across more than one project.','planned'],
+        ['Run History','Persist the result and status of every automation execution.','planned'],
+        ['Failure Recovery','Safely retry or resume a failed automation run without duplicating completed work.','planned']
+      ]
+    },
+    'Integrations': {
+      symbol:'⌁',
+      description:'Connected services, permissions and synchronized external data.',
+      phases:[
+        ['Connection Registry','Maintain one canonical registry of connected providers, accounts and connection states.','planned'],
+        ['Permission & Scope Mapping','Record exactly what data and actions each connection is allowed to use.','planned'],
+        ['Read Sync','Pull authorized source data into Command Center.','planned'],
+        ['Data Normalization','Map provider-specific fields into Command Center canonical data structures.','planned'],
+        ['Connection Health','Detect stale, expired or broken integrations.','planned'],
+        ['Write Actions','Send an explicitly authorized change back to a connected service.','planned'],
+        ['Webhook / Realtime Intake','Accept supported push updates from connected services.','planned'],
+        ['Reconnect & Recovery','Restore an expired or broken integration without losing its configuration.','planned']
+      ]
+    },
+    'Analytics': {
+      symbol:'▥',
+      description:'Verified metrics, rollups, history and operational signals.',
+      phases:[
+        ['Metric Catalog','Define the canonical metric names, units, verification state and source rules.','planned'],
+        ['Project KPI Views','Show verified KPIs for one project in a dedicated analytics view.','planned'],
+        ['Portfolio Rollups','Aggregate compatible verified metrics across projects.','planned'],
+        ['Time-Series History','Persist metric history so changes can be measured over time.','planned'],
+        ['Trend Comparison','Compare current and historical performance without inventing missing data.','planned'],
+        ['Goal Tracking','Store targets and measure verified progress toward them.','planned'],
+        ['Anomaly Detection','Flag meaningful verified metric changes that fall outside expected patterns.','planned']
+      ]
+    },
+    'Security': {
+      symbol:'⬡',
+      description:'Identity, permissions, protected execution and auditability.',
+      phases:[
+        ['Identity & Session Controls','Define and enforce who may enter Command Center and how sessions are handled.','planned'],
+        ['Row-Level Data Isolation','Verify that private records remain isolated to the authorized owner.','planned'],
+        ['Permission Registry','Maintain a canonical map of permissions for users, tools and connections.','planned'],
+        ['Action Authorization Gates','Require the correct approval before protected or high-impact actions execute.','planned'],
+        ['Secrets Isolation','Keep credentials and secret material out of public client code and normal UI.','planned'],
+        ['Audit Trail','Persist who or what performed each protected Command Center action.','planned'],
+        ['Security Alerts','Surface meaningful authentication, permission or integrity failures.','planned'],
+        ['Access Revocation & Recovery','Revoke compromised access and restore a safe authorized state.','planned']
+      ]
+    },
+    'Deployment': {
+      symbol:'▲',
+      description:'Release, validation, health, versioning and rollback controls.',
+      phases:[
+        ['Release Manifest','Record the exact files, versions and intended production scope for a release.','planned'],
+        ['Pre-Deploy Validation','Run the required checks before a production release can proceed.','planned'],
+        ['Deployment Pipeline','Publish an authorized release through one controlled deployment path.','planned'],
+        ['Post-Deploy Health Check','Verify the exact deployed version and its critical live behaviors.','planned'],
+        ['Version History','Maintain a durable history of released production versions.','planned'],
+        ['Rollback','Restore the last known-good production release through a controlled path.','planned'],
+        ['PWA Update Control','Coordinate service-worker and installed-app updates without breaking identity or launch behavior.','planned']
+      ]
+    },
+    'Agent Mode': {
+      symbol:'✦',
+      description:'Verified autonomous execution after prerequisite capabilities are ready.',
+      phases:[
+        ['Agent Session Model','Create a bounded agent run with an explicit goal, scope and owner.','planned'],
+        ['Goal Intake','Convert a user-approved objective into a structured agent objective.','planned'],
+        ['Step Executor','Execute one approved plan step at a time through supported tools.','planned'],
+        ['Tool Permission Gate','Block tool actions that fall outside the run’s explicit permissions.','planned'],
+        ['Verification Gate','Verify each completed step before the agent advances.','planned'],
+        ['Checkpoint & Resume','Persist agent state so a run can safely resume after interruption.','planned'],
+        ['Failure Recovery','Detect a failed step and recover without silently skipping or duplicating work.','planned'],
+        ['Cross-Project Agent Runs','Allow one authorized agent run to coordinate verified work across multiple projects.','planned']
+      ]
+    }
+  };
   const $=id=>document.getElementById(id);
   const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   let brainOpen=false;
+  let capabilityOpen=null;
   let restore=null;
+
+  function phaseProgress(capability){
+    const phases=ROADMAPS[capability]?.phases||[];
+    const completed=phases.filter(([, ,status])=>status==='complete').length;
+    return {completed,total:phases.length,percent:phases.length?Math.round(completed/phases.length*100):0};
+  }
 
   function isHomeOverview(){
     const project=$('projectView');
@@ -39,9 +132,63 @@
     button.hidden=!isHomeOverview();
   }
 
-  function renderCapability([name,description,symbol]){
-    const phaseOne=name==='Project Brain';
-    return `<article class="cc-brain-capability" data-brain-capability="${esc(name)}"><span class="cc-cap-icon">${esc(symbol)}</span><strong>${esc(name)}</strong><small>${esc(description)}</small><span class="badge ${phaseOne?'active':'planning'}">${phaseOne?'20% · Phase 1 complete':'0% · Planned'}</span></article>`;
+  function renderCapability(name){
+    const item=ROADMAPS[name];
+    const progress=phaseProgress(name);
+    const phaseWord=progress.total===1?'phase':'phases';
+    return `<button type="button" class="cc-brain-capability cc-brain-capability-button" data-brain-capability="${esc(name)}" aria-label="Open ${esc(name)} roadmap">
+      <span class="cc-cap-icon" aria-hidden="true">${esc(item.symbol)}</span><strong>${esc(name)}</strong><small>${esc(item.description)}</small>
+      <span class="cc-brain-capability-foot"><span class="badge ${progress.percent?'active':'planning'}">${progress.percent}%</span><span>${progress.total} ${phaseWord}</span><span class="cc-cap-open" aria-hidden="true">›</span></span>
+    </button>`;
+  }
+
+  function renderPhase([name,description,status],index){
+    const complete=status==='complete';
+    return `<article class="cc-brain-phase ${complete?'complete':'planned'}">
+      <span class="cc-brain-phase-number">Phase ${index+1}</span>
+      <div class="cc-brain-phase-copy"><strong>${esc(name)}</strong><p>${esc(description)}</p></div>
+      <span class="badge ${complete?'active':'planning'}">${complete?'Complete':'Planned'}</span>
+    </article>`;
+  }
+
+  function renderCapabilityDetail(name){
+    const section=$('ccBrainHomeRoadmap');
+    const item=ROADMAPS[name];
+    if(!section||!item) return;
+    capabilityOpen=name;
+    const progress=phaseProgress(name);
+    const body=section.querySelector('[data-brain-roadmap-body]');
+    if(!body) return;
+    body.innerHTML=`<button type="button" class="cc-brain-back cc-brain-capability-back" data-cc-brain-capability-back>‹ All capabilities</button>
+      <section class="cc-brain-capability-detail" data-brain-capability-detail="${esc(name)}">
+        <div class="cc-brain-capability-detail-head"><span class="cc-cap-icon" aria-hidden="true">${esc(item.symbol)}</span><div><div class="cc-brain-capability-kicker">${progress.completed} of ${progress.total} phases complete</div><h4>${esc(name)}</h4><p>${esc(item.description)}</p></div><span class="cc-brain-capability-percent">${progress.percent}%</span></div>
+        <div class="cc-brain-phase-list">${item.phases.map(renderPhase).join('')}</div>
+        ${name==='Project Brain'?'<div id="ccBrainMemoryMount"></div>':''}
+      </section>`;
+    body.querySelector('[data-cc-brain-capability-back]')?.addEventListener('click',()=>closeCapability(true));
+    section.scrollIntoView({block:'start'});
+    if(name==='Project Brain') window.dispatchEvent(new CustomEvent('command-center:brain-open'));
+  }
+
+  function renderCapabilityOverview(){
+    const section=$('ccBrainHomeRoadmap');
+    const body=section?.querySelector('[data-brain-roadmap-body]');
+    if(!body) return;
+    capabilityOpen=null;
+    body.innerHTML=`<div class="cc-brain-capabilities">${Object.keys(ROADMAPS).map(renderCapability).join('')}</div>`;
+    body.querySelectorAll('[data-brain-capability]').forEach(button=>button.addEventListener('click',()=>openCapability(button.dataset.brainCapability,true)));
+  }
+
+  function openCapability(name,pushHistory){
+    if(!ROADMAPS[name]) return;
+    renderCapabilityDetail(name);
+    if(pushHistory) history.pushState({...history.state,ccCommandCenterBrainCapability:name},'',location.href);
+  }
+
+  function closeCapability(useHistory){
+    if(!capabilityOpen) return;
+    if(useHistory && history.state?.ccCommandCenterBrainCapability){ history.back(); return; }
+    renderCapabilityOverview();
   }
 
   function openBrain(pushHistory){
@@ -64,6 +211,7 @@
       description:description?.textContent||''
     };
     brainOpen=true;
+    capabilityOpen=null;
     stats.hidden=true;
     shell.hidden=false;
     if(home) home.hidden=true;
@@ -77,27 +225,25 @@
       <div class="cc-brain-roadmap-head">
         <span class="cc-exact-menu-icon"><span><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 11c-5-3-10 1-9 6-5 1-6 8-2 11-2 5 3 10 8 8 2 5 9 4 10-1V15c0-4-4-7-7-4zm10 0c5-3 10 1 9 6 5 1 6 8 2 11 2 5-3 10-8 8-2 5-9 4-10-1V15c0-4 4-7 7-4z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span></span>
         <h3>Command Center Brain</h3>
-        <p>What Command Center itself can do now, and what still needs to be built, connected, upgraded or verified.</p>
+        <p>Open any capability to see every implementation phase. Each phase is intentionally narrow enough to build, verify and checkpoint independently.</p>
       </div>
-      <div class="cc-brain-capabilities">${CAPABILITIES.map(renderCapability).join('')}</div>
-      <div id="ccBrainMemoryMount"></div>`;
+      <div data-brain-roadmap-body></div>`;
     shell.insertBefore(section,home||project||revenue||null);
     section.querySelector('[data-cc-brain-home-back]')?.addEventListener('click',()=>closeBrain(true));
+    renderCapabilityOverview();
     if(title) title.textContent='Command Center Brain';
-    if(description) description.textContent='Command Center capability roadmap · Project Brain 20%';
+    if(description) description.textContent='Capability roadmap · open a capability to view every phase';
     section.scrollIntoView({block:'start'});
     ensureHomeButton();
-    window.dispatchEvent(new CustomEvent('command-center:brain-open'));
     if(pushHistory) history.pushState({...history.state,ccCommandCenterBrainHome:true},'',location.href);
   }
 
   function closeBrain(useHistory){
     if(!brainOpen) return;
-    if(useHistory && history.state?.ccCommandCenterBrainHome){
-      history.back();
-      return;
-    }
+    if(capabilityOpen){ closeCapability(useHistory); return; }
+    if(useHistory && history.state?.ccCommandCenterBrainHome){ history.back(); return; }
     brainOpen=false;
+    capabilityOpen=null;
     $('ccBrainHomeRoadmap')?.remove();
     const shell=$('dashboardViewShell');
     const stats=$('stats');
@@ -119,7 +265,10 @@
     ensureHomeButton();
   }
 
-  window.addEventListener('popstate',()=>{if(brainOpen) closeBrain(false);});
+  window.addEventListener('popstate',()=>{
+    if(capabilityOpen){ closeCapability(false); return; }
+    if(brainOpen) closeBrain(false);
+  });
   const stats=$('stats');
   if(stats) new MutationObserver(ensureHomeButton).observe(stats,{childList:true,subtree:false});
   const shell=$('dashboardViewShell');
