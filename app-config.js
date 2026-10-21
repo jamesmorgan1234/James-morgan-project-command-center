@@ -40,6 +40,7 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('agentMode','./command-center-agent-mode.css?v=1'); addJs('agentMode','./command-center-agent-mode.js?v=1');
     addCss('agentDeviceGuidance','./command-center-agent-device-guidance.css?v=1'); addJs('agentDeviceGuidance','./command-center-agent-device-guidance.js?v=1');
     addJs('agentRunnerStatus','./command-center-agent-runner-status.js?v=1');
+    addCss('agentHome','./command-center-agent-home.css?v=1'); addJs('agentHome','./command-center-agent-home.js?v=1');
     addJs('agentModeCompletion','./command-center-agent-mode-completion.js?v=1');
   };
 })();
