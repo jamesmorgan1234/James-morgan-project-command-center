@@ -1,4 +1,7 @@
 (() => {
+  window.__COMMAND_CENTER_STARTUP_LOADER_STARTED = true;
+  clearTimeout(window.__COMMAND_CENTER_BOOT_WATCHDOG);
+
   const SUPABASE_SOURCES = [
     'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
     'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
@@ -9,6 +12,8 @@
     './mobile-accordion-polish.js?v=1'
   ];
   let starting = false;
+  let coreLoaded = false;
+  let stateWatchdog = null;
 
   const $ = id => document.getElementById(id);
 
@@ -26,7 +31,7 @@
   }
 
   function showRecovery(message) {
-    revealShell('Secure connection unavailable · retry ready');
+    revealShell('Secure connection unavailable · recovery ready');
     let panel = $('startupRecovery');
     if (!panel) {
       panel = document.createElement('section');
@@ -36,11 +41,15 @@
       main?.prepend(panel);
     }
     if (!panel) return;
+    const actionLabel = coreLoaded ? 'Reload Command Center' : 'Retry secure startup';
     panel.innerHTML = `
       <h2>Command Center could not finish starting</h2>
-      <p class="muted">${String(message || 'The secure connection library did not load.').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}</p>
-      <button id="retryStartupBtn" class="btn btn-primary">Retry secure startup</button>`;
-    $('retryStartupBtn')?.addEventListener('click', () => start(true), { once: true });
+      <p class="muted">${String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}</p>
+      <button id="retryStartupBtn" class="btn btn-primary">${actionLabel}</button>`;
+    $('retryStartupBtn')?.addEventListener('click', () => {
+      if (coreLoaded) location.reload();
+      else start(true);
+    }, { once: true });
   }
 
   function loadScript(src, timeoutMs = 7000) {
@@ -117,6 +126,17 @@
     throw lastError || new Error('Secure connection library unavailable.');
   }
 
+  function armStateWatchdog() {
+    clearTimeout(stateWatchdog);
+    stateWatchdog = setTimeout(() => {
+      const resolved = ['authPanel','claimPanel','dashboard'].some(id => {
+        const el = $(id);
+        return el && !el.hidden;
+      });
+      if (!resolved) showRecovery('The secure session did not resolve into a usable Command Center state.');
+    }, 10000);
+  }
+
   async function start(force = false) {
     if (starting) return;
     starting = true;
@@ -126,7 +146,9 @@
       await ensureSupabase();
       installPrimaryAuthGuard();
       for (const src of CORE_SCRIPTS) await loadScript(src, 7000);
+      coreLoaded = true;
       window.COMMAND_CENTER_LOAD_ENHANCEMENTS?.();
+      armStateWatchdog();
     } catch (error) {
       showRecovery(error?.message || 'Secure startup failed.');
     } finally {
