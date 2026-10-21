@@ -26,9 +26,7 @@
     if (sync) sync.textContent = message;
   }
 
-  function removeRecovery() {
-    $('startupRecovery')?.remove();
-  }
+  function removeRecovery() { $('startupRecovery')?.remove(); }
 
   function showRecovery(message) {
     revealShell('Secure connection unavailable · recovery ready');
@@ -41,15 +39,10 @@
       main?.prepend(panel);
     }
     if (!panel) return;
+    const safe = String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     const actionLabel = coreLoaded ? 'Reload Command Center' : 'Retry secure startup';
-    panel.innerHTML = `
-      <h2>Command Center could not finish starting</h2>
-      <p class="muted">${String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}</p>
-      <button id="retryStartupBtn" class="btn btn-primary">${actionLabel}</button>`;
-    $('retryStartupBtn')?.addEventListener('click', () => {
-      if (coreLoaded) location.reload();
-      else start(true);
-    }, { once: true });
+    panel.innerHTML = `<h2>Command Center could not finish starting</h2><p class="muted">${safe}</p><button id="retryStartupBtn" class="btn btn-primary">${actionLabel}</button>`;
+    $('retryStartupBtn')?.addEventListener('click', () => { if (coreLoaded) location.reload(); else start(true); }, { once: true });
   }
 
   function loadScript(src, timeoutMs = 7000) {
@@ -67,13 +60,8 @@
         settled = true;
         clearTimeout(timer);
         script.onload = script.onerror = null;
-        if (ok) {
-          script.dataset.ccLoaded = '1';
-          resolve(script);
-        } else {
-          script.remove();
-          reject(error || new Error(`Failed to load ${src}`));
-        }
+        if (ok) { script.dataset.ccLoaded = '1'; resolve(script); }
+        else { script.remove(); reject(error || new Error(`Failed to load ${src}`)); }
       };
       const timer = setTimeout(() => finish(false, new Error(`Timed out loading ${src}`)), timeoutMs);
       script.onload = () => finish(true);
@@ -88,6 +76,8 @@
     const originalCreateClient = lib.createClient.bind(lib);
     let primaryClientCreated = false;
     lib.createClient = (...args) => {
+      const primaryUrl = window.COMMAND_CENTER_CONFIG?.supabaseUrl;
+      if (primaryClientCreated && window.COMMAND_CENTER_SUPABASE && (!primaryUrl || args[0] === primaryUrl)) return window.COMMAND_CENTER_SUPABASE;
       const client = originalCreateClient(...args);
       if (primaryClientCreated) return client;
       primaryClientCreated = true;
@@ -119,9 +109,7 @@
         await loadScript(src, 5500);
         if (window.supabase?.createClient) return;
         lastError = new Error('Secure library loaded without a usable client.');
-      } catch (error) {
-        lastError = error;
-      }
+      } catch (error) { lastError = error; }
     }
     throw lastError || new Error('Secure connection library unavailable.');
   }
@@ -129,10 +117,7 @@
   function armStateWatchdog() {
     clearTimeout(stateWatchdog);
     stateWatchdog = setTimeout(() => {
-      const resolved = ['authPanel','claimPanel','dashboard'].some(id => {
-        const el = $(id);
-        return el && !el.hidden;
-      });
+      const resolved = ['authPanel','claimPanel','dashboard'].some(id => { const el = $(id); return el && !el.hidden; });
       if (!resolved) showRecovery('The secure session did not resolve into a usable Command Center state.');
     }, 10000);
   }
@@ -149,11 +134,8 @@
       coreLoaded = true;
       window.COMMAND_CENTER_LOAD_ENHANCEMENTS?.();
       armStateWatchdog();
-    } catch (error) {
-      showRecovery(error?.message || 'Secure startup failed.');
-    } finally {
-      starting = false;
-    }
+    } catch (error) { showRecovery(error?.message || 'Secure startup failed.'); }
+    finally { starting = false; }
   }
 
   revealShell();

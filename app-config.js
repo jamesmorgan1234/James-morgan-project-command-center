@@ -26,6 +26,9 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('approvedBookCovers','./command-center-book-covers.css?v=2'); addJs('approvedBookCovers','./command-center-book-covers.js?v=2');
     addCss('commandCenterExactMenus','./command-center-exact-menus.css?v=1'); addJs('commandCenterExactMenus','./command-center-exact-menus.js?v=1');
     addCss('commandCenterEarnings','./command-center-earnings.css?v=1'); addJs('commandCenterEarnings','./command-center-earnings.js?v=2');
-    addCss('commandCenterBrainHome','./command-center-brain-home.css?v=4'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=2');
+    addCss('commandCenterBrainHome','./command-center-brain-home.css?v=4'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=3');
+    addCss('commandCenterBrainWorkspaces','./command-center-brain-workspaces.css?v=1'); addJs('commandCenterBrainMemory','./command-center-brain-memory.js?v=1'); addJs('commandCenterBrainBrainstorm','./command-center-brain-brainstorm.js?v=1');
+    addCss('projectRoadmaps','./project-roadmaps.css?v=1'); addJs('projectRoadmaps','./project-roadmaps.js?v=1');
+    addJs('appIntegrityRepair','./app-integrity-repair.js?v=1');
   };
 })();

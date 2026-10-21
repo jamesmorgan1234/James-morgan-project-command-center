@@ -1,0 +1,39 @@
+html[data-command-center-theme] .cc-brain-memory-panel{margin:16px 0 4px;padding:16px;border:1px solid #8f430f;border-left:5px solid #ff6f0e;background:linear-gradient(135deg,rgba(255,102,12,.09),transparent 30%),linear-gradient(180deg,#0d0805,#050302);box-shadow:0 0 22px rgba(255,95,0,.11);color:#fff}
+html[data-command-center-theme] .cc-brain-tool-head{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+html[data-command-center-theme] .cc-brain-tool-head>div>span{font-size:.7rem;font-weight:950;letter-spacing:.13em;text-transform:uppercase;color:#ff9b35}
+html[data-command-center-theme] .cc-brain-tool-head h4{margin:4px 0 5px;font-size:1.45rem;color:#fff}
+html[data-command-center-theme] .cc-brain-tool-head p{margin:0;max-width:720px;color:#aeb8c3;line-height:1.45}
+html[data-command-center-theme] .cc-brain-tool-head>b{flex:0 0 auto;border:1px solid #ff7614;background:#1a0b04;color:#ffb14c;border-radius:999px;padding:7px 10px;font-size:.75rem;white-space:nowrap}
+html[data-command-center-theme] .cc-memory-toolbar{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(130px,.8fr) minmax(120px,.7fr) minmax(120px,.7fr) auto;gap:8px;margin-bottom:10px}
+html[data-command-center-theme] .cc-memory-toolbar input,html[data-command-center-theme] .cc-memory-toolbar select,html[data-command-center-theme] [data-memory-form] input,html[data-command-center-theme] [data-memory-form] select,html[data-command-center-theme] [data-memory-form] textarea,html[data-command-center-theme] [data-idea-form] input,html[data-command-center-theme] [data-idea-form] select,html[data-command-center-theme] [data-idea-form] textarea{width:100%;min-width:0;border:1px solid #71330f;border-radius:5px;background:#070504;color:#fff;padding:9px 10px;font:inherit;outline:none}
+html[data-command-center-theme] .cc-memory-toolbar button{border:1px solid #ff8b2b;background:linear-gradient(180deg,#f56a0a,#b73a00);color:#fff;font-weight:900;padding:9px 12px;border-radius:4px}
+html[data-command-center-theme] .cc-memory-toggle{display:inline-flex;align-items:center;gap:6px;color:#aab5c0;font-size:.8rem;margin:0 0 10px}
+html[data-command-center-theme] [data-memory-form],html[data-command-center-theme] [data-idea-form]{margin:0 0 12px;padding:12px;border:1px solid #71330f;background:#0b0705}
+html[data-command-center-theme] [data-memory-form][hidden],html[data-command-center-theme] [data-idea-form][hidden]{display:none!important}
+html[data-command-center-theme] .cc-memory-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+html[data-command-center-theme] .cc-memory-form-grid label{display:grid;gap:4px;color:#c4ccd4;font-size:.76rem;font-weight:800}
+html[data-command-center-theme] .cc-memory-form-grid .wide{grid-column:1/-1}
+html[data-command-center-theme] .cc-memory-form-grid textarea{min-height:96px;resize:vertical;line-height:1.4}
+html[data-command-center-theme] .cc-memory-form-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:9px}
+html[data-command-center-theme] .cc-memory-form-actions button,html[data-command-center-theme] .cc-memory-actions button,html[data-command-center-theme] .cc-idea-actions button{border:1px solid #77401f;background:#0b0705;color:#ffd8b6;border-radius:4px;padding:7px 10px;font-weight:800}
+html[data-command-center-theme] .cc-memory-form-actions .primary,html[data-command-center-theme] .cc-idea-actions .primary{border-color:#ff7211;background:linear-gradient(180deg,#ef6509,#a83200);color:#fff}
+html[data-command-center-theme] .cc-memory-status{min-height:19px;margin:5px 0 9px;color:#99a8b8;font-size:.8rem}
+html[data-command-center-theme] .cc-memory-status.error{color:#ff8290}
+html[data-command-center-theme] .cc-memory-list{display:grid;gap:9px}
+html[data-command-center-theme] .cc-memory-card,html[data-command-center-theme] .cc-idea-card{padding:12px 13px;border:1px solid #633016;border-left:4px solid #ff6708;background:linear-gradient(90deg,#0c0806,#050302 72%,rgba(255,98,0,.04))}
+html[data-command-center-theme] .cc-memory-card.archived{opacity:.66;border-left-color:#75685f}
+html[data-command-center-theme] .cc-memory-card h5,html[data-command-center-theme] .cc-idea-card h5{margin:4px 0;font-size:1rem;color:#fff}
+html[data-command-center-theme] .cc-memory-card p,html[data-command-center-theme] .cc-idea-card p{margin:7px 0;color:#c7cfd7;line-height:1.43;white-space:pre-wrap;overflow-wrap:anywhere}
+html[data-command-center-theme] .cc-memory-meta{display:flex;gap:5px;flex-wrap:wrap;color:#94a2b1;font-size:.69rem}
+html[data-command-center-theme] .cc-memory-pill{border:1px solid #653014;background:#130a05;color:#ffac48;border-radius:999px;padding:3px 7px;font-weight:850}
+html[data-command-center-theme] .cc-memory-pill.trust{border-color:#554c2e;color:#f3d87a}
+html[data-command-center-theme] .cc-memory-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+html[data-command-center-theme] .cc-memory-tags span{font-size:.67rem;color:#b7c0ca;border:1px solid #403029;background:#080604;padding:3px 6px;border-radius:3px}
+html[data-command-center-theme] .cc-memory-source{display:block;color:#8fa0b0;margin-top:5px}
+html[data-command-center-theme] .cc-memory-actions,html[data-command-center-theme] .cc-idea-actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;margin-top:8px}
+html[data-command-center-theme] .cc-memory-empty{padding:18px;border:1px dashed #624028;text-align:center;color:#91a0ae;background:#070504}
+html[data-command-center-theme] .cc-brainstorm-panel{border-left-color:#ff9a2e}
+html[data-command-center-theme] .cc-idea-card.stage-ready{border-left-color:#ffad32}
+html[data-command-center-theme] .cc-idea-card.stage-committed{border-left-color:#48d98a}
+html[data-command-center-theme] .cc-idea-card.stage-archived{opacity:.62;border-left-color:#73665e}
+@media(max-width:760px){html[data-command-center-theme] .cc-brain-tool-head{display:block}html[data-command-center-theme] .cc-brain-tool-head>b{display:inline-block;margin-top:9px}html[data-command-center-theme] .cc-memory-toolbar{grid-template-columns:1fr 1fr}html[data-command-center-theme] .cc-memory-toolbar input{grid-column:1/-1}html[data-command-center-theme] .cc-memory-toolbar button{grid-column:1/-1}html[data-command-center-theme] .cc-memory-form-grid{grid-template-columns:1fr}html[data-command-center-theme] .cc-memory-form-grid .wide{grid-column:auto}html[data-command-center-theme] .cc-memory-actions,html[data-command-center-theme] .cc-idea-actions{justify-content:flex-start}}

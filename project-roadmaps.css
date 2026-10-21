@@ -1,0 +1,24 @@
+html[data-command-center-theme] .cc-project-roadmap{margin-top:12px;border:1px solid rgba(255,126,22,.42);border-radius:16px;padding:14px;background:radial-gradient(circle at 92% 0%,rgba(255,103,5,.10),transparent 28%),linear-gradient(180deg,#130b06,#090503);box-shadow:0 14px 30px rgba(0,0,0,.28),0 0 24px rgba(255,103,6,.05)}
+html[data-command-center-theme] .cc-project-roadmap-head{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+html[data-command-center-theme] .cc-project-roadmap-head>div>span{font-size:.66rem;letter-spacing:.12em;font-weight:950;color:#ff932f}
+html[data-command-center-theme] .cc-project-roadmap-head h3{margin:3px 0 2px;font-size:1.08rem;color:#fff8ef}
+html[data-command-center-theme] .cc-project-roadmap-head p{margin:0;max-width:78ch;font-size:.75rem;line-height:1.4;color:#a9927e}
+html[data-command-center-theme] .cc-project-roadmap-head>b{padding:5px 9px;border:1px solid #764019;border-radius:999px;background:#211209;color:#ffb166;font-size:.66rem;white-space:nowrap}
+html[data-command-center-theme] .cc-project-roadmap-list{display:grid;gap:8px}
+html[data-command-center-theme] .cc-project-roadmap-category{border:1px solid rgba(255,123,19,.25);border-radius:13px;overflow:hidden;background:linear-gradient(100deg,rgba(255,105,8,.05),rgba(4,3,2,.18) 58%)}
+html[data-command-center-theme] .cc-project-roadmap-category-button{width:100%;min-height:66px;display:grid;grid-template-columns:42px minmax(0,1fr) auto 20px;gap:10px;align-items:center;padding:9px 11px;border:0;background:transparent;color:inherit;text-align:left}
+html[data-command-center-theme] .cc-project-roadmap-icon{width:38px;height:38px;display:grid;place-items:center;border:1px solid #814116;border-radius:10px;background:#160b05;color:#ff9637;font-weight:950}
+html[data-command-center-theme] .cc-project-roadmap-category-button strong{display:block;color:#fff6ed;font-size:.95rem}
+html[data-command-center-theme] .cc-project-roadmap-category-button small{display:block;color:#9f8b79;margin-top:2px}
+html[data-command-center-theme] .cc-project-roadmap-category-button>b{color:#ff9a37;font-size:1.25rem}
+html[data-command-center-theme] .cc-project-roadmap-pct,html[data-command-center-theme] .cc-project-roadmap-na{display:inline-flex;padding:4px 8px;border-radius:999px;border:1px solid #7f461c;background:#1b1008;color:#ffb365;font-size:.68rem;font-weight:900;white-space:nowrap}
+html[data-command-center-theme] .cc-project-roadmap-na{border-color:#554536;color:#a99684}
+html[data-command-center-theme] .cc-project-roadmap-phases{display:grid;gap:7px;padding:0 10px 10px}
+html[data-command-center-theme] .cc-project-roadmap-phases[hidden]{display:none!important}
+html[data-command-center-theme] .cc-project-roadmap-phase{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border:1px solid #4e2c18;background:#090603}
+html[data-command-center-theme] .cc-project-roadmap-phase>span{font-size:.65rem;text-transform:uppercase;color:#9d8876;font-weight:800}
+html[data-command-center-theme] .cc-project-roadmap-phase strong{display:block;color:#e9ddd1;font-size:.82rem}
+html[data-command-center-theme] .cc-project-roadmap-track{height:5px;margin-top:6px;border-radius:999px;background:#1b120d;overflow:hidden}
+html[data-command-center-theme] .cc-project-roadmap-track i{display:block;height:100%;background:linear-gradient(90deg,#ff6508,#ffa33e);box-shadow:0 0 9px rgba(255,110,10,.35)}
+html[data-command-center-theme] .cc-brain-card[data-cc-brain-open]{display:none!important}
+@media(max-width:760px){html[data-command-center-theme] .cc-project-roadmap-head{display:block}html[data-command-center-theme] .cc-project-roadmap-head>b{display:inline-block;margin-top:8px}html[data-command-center-theme] .cc-project-roadmap-category-button{grid-template-columns:38px minmax(0,1fr) 18px}html[data-command-center-theme] .cc-project-roadmap-category-button>.cc-project-roadmap-pct,html[data-command-center-theme] .cc-project-roadmap-category-button>.cc-project-roadmap-na{grid-column:2/3;justify-self:start}html[data-command-center-theme] .cc-project-roadmap-category-button>b{grid-column:3;grid-row:1/3}html[data-command-center-theme] .cc-project-roadmap-phase{grid-template-columns:54px minmax(0,1fr)}html[data-command-center-theme] .cc-project-roadmap-phase>.cc-project-roadmap-pct,html[data-command-center-theme] .cc-project-roadmap-phase>.cc-project-roadmap-na{grid-column:2}}

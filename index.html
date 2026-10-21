@@ -59,7 +59,6 @@
 
     <section id="dashboard" hidden>
       <section class="stats" id="stats"></section>
-
       <section class="panel view-shell" id="dashboardViewShell" hidden>
         <div class="view-head">
           <div>
@@ -69,27 +68,21 @@
           </div>
           <button id="backHomeBtn" class="btn btn-ghost" hidden>Back to overview</button>
         </div>
-
         <section id="homeView"></section>
-
         <section id="projectView" hidden>
           <section class="toolbar">
             <input id="searchInput" type="search" placeholder="Search projects, next actions, blockers…">
             <select id="statusFilter"><option value="all">All statuses</option></select>
             <select id="categoryFilter"><option value="all">All categories</option></select>
           </section>
-
           <section class="two-col project-view-grid">
             <div class="project-list-panel">
               <div class="section-head"><h3 id="projectViewHeading">Projects</h3><span id="projectCount" class="muted"></span></div>
               <div id="projectGrid" class="project-grid"></div>
             </div>
-            <aside class="detail-panel" id="detailPanel">
-              <div class="muted">Select a project to see its next action, updates, blockers, KPIs, editable information, and continuation prompt.</div>
-            </aside>
+            <aside class="detail-panel" id="detailPanel"><div class="muted">Select a project to see its next action, updates, blockers, KPIs, editable information, and continuation prompt.</div></aside>
           </section>
         </section>
-
         <section id="revenueView" hidden>
           <div id="revenueSummary" class="revenue-summary"></div>
           <div id="revenueList" class="revenue-list"></div>
@@ -98,29 +91,17 @@
     </section>
   </main>
 
-  <footer id="appFooter" class="app-footer" hidden>
-    <button id="signOutBtn" class="btn btn-ghost signout-bottom">Sign out</button>
-  </footer>
+  <footer id="appFooter" class="app-footer" hidden><button id="signOutBtn" class="btn btn-ghost signout-bottom">Sign out</button></footer>
 </div>
 <script>
 window.__COMMAND_CENTER_BOOT_WATCHDOG=setTimeout(function(){
   if(window.__COMMAND_CENTER_STARTUP_LOADER_STARTED)return;
   var boot=document.getElementById('boot'),app=document.getElementById('app'),sync=document.getElementById('syncText'),main=document.querySelector('#app main');
-  if(boot)boot.hidden=true;
-  if(app)app.hidden=false;
-  if(sync)sync.textContent='Startup loader unavailable · reload ready';
-  if(main&&!document.getElementById('startupRecovery')){
-    var panel=document.createElement('section');
-    panel.id='startupRecovery';
-    panel.className='panel auth-panel';
-    panel.innerHTML='<h2>Command Center startup needs another try</h2><p class="muted">The local startup controller did not begin. Reload the app to retry.</p><button id="retryStartupBtn" class="btn btn-primary">Reload Command Center</button>';
-    main.prepend(panel);
-    var button=document.getElementById('retryStartupBtn');
-    if(button)button.onclick=function(){location.reload();};
-  }
+  if(boot)boot.hidden=true;if(app)app.hidden=false;if(sync)sync.textContent='Startup loader unavailable · reload ready';
+  if(main&&!document.getElementById('startupRecovery')){var panel=document.createElement('section');panel.id='startupRecovery';panel.className='panel auth-panel';panel.innerHTML='<h2>Command Center startup needs another try</h2><p class="muted">The local startup controller did not begin. Reload the app to retry.</p><button id="retryStartupBtn" class="btn btn-primary">Reload Command Center</button>';main.prepend(panel);var button=document.getElementById('retryStartupBtn');if(button)button.onclick=function(){location.reload();};}
 },4000);
 </script>
-<script defer src="./app-config.js?v=13"></script>
-<script defer src="./startup-loader.js?v=1"></script>
+<script defer src="./app-config.js?v=14"></script>
+<script defer src="./startup-loader.js?v=2"></script>
 </body>
 </html>
