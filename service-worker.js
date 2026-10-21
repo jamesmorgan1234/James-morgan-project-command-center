@@ -1,4 +1,5 @@
 const CACHE='james-command-center-v56';
+const PREVIOUS_CACHE='james-command-center-v55';
 const SUPABASE_CDNS=[
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
   'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
@@ -24,7 +25,7 @@ self.addEventListener('install',e=>{
 });
 
 self.addEventListener('activate',e=>{
-  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))));
+  e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE||k===PREVIOUS_CACHE).map(k=>caches.delete(k)))));
   self.clients.claim();
 });
 
