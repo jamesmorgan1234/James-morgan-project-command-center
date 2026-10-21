@@ -1,0 +1,56 @@
+name: Agent Mode QA
+
+on:
+  push:
+    branches:
+      - cc-agent-mode-complete
+  pull_request:
+    paths:
+      - 'AGENT_MODE_*.md'
+      - 'command-center-agent-mode.css'
+      - 'command-center-agent-mode.js'
+      - 'command-center-agent-device-guidance.css'
+      - 'command-center-agent-device-guidance.js'
+      - 'command-center-agent-runner-status.js'
+      - 'command-center-agent-home.css'
+      - 'command-center-agent-home.js'
+      - 'command-center-agent-mode-completion.js'
+      - 'app-config.js'
+      - 'index.html'
+      - 'service-worker.js'
+      - 'deployment-release-manifest.json'
+      - 'supabase/migrations/*agent_mode*.sql'
+      - 'tests/*.test.mjs'
+      - '.github/workflows/agent-mode-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  agent-mode-exact-head:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse Agent Mode runtime
+        run: |
+          node --check command-center-agent-mode.js
+          node --check command-center-agent-device-guidance.js
+          node --check command-center-agent-runner-status.js
+          node --check command-center-agent-home.js
+          node --check command-center-agent-mode-completion.js
+      - name: Run dedicated Agent Mode QA
+        run: node tests/agent-mode-runtime.test.mjs
+      - name: Run inherited Command Center regression suite
+        shell: bash
+        run: |
+          set -euo pipefail
+          for test_file in tests/*.test.mjs; do
+            echo "==> $test_file"
+            node "$test_file"
+          done
