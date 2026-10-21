@@ -4,6 +4,8 @@ import { readFileSync } from 'node:fs';
 const mobile = readFileSync('mobile-accordion-polish.js', 'utf8');
 const mobileCss = readFileSync('mobile-accordion-polish.css', 'utf8');
 const integrity = readFileSync('app-integrity-repair.js', 'utf8');
+const accordions = readFileSync('command-center-project-detail-accordions.js','utf8');
+const accordionCss = readFileSync('command-center-project-detail-accordions.css','utf8');
 const v6Js = readFileSync('command-center-v6.js', 'utf8');
 const v6Css = readFileSync('command-center-v6.css', 'utf8');
 const sw = readFileSync('service-worker.js', 'utf8');
@@ -24,6 +26,15 @@ assert.match(mobile, /shell\.dataset\.accordionUnder = view/, 'opened shell must
 assert.match(mobileCss, /\.dashboard-stack\{display:flex!important;flex-direction:column!important/, 'dashboard accordion must use a forced column flex layout');
 assert.match(mobileCss, /\.dashboard-stack>\.stats\{display:contents!important\}/, 'stats wrapper must not trap the submenu at the bottom');
 
+assert.match(accordions,/ccProjectDetailAccordion/,'project detail sections must own a history level');
+assert.match(accordions,/ccProjectDetailAccordionBase/,'project detail sections must preserve a Back landing state');
+assert.match(accordions,/history\.pushState/,'opening a project detail section must push history');
+assert.match(accordions,/history\.back\(\)/,'tapping the same open project detail bubble must close through history');
+assert.match(accordions,/history\.replaceState/,'switching detail bubbles must not stack unnecessary history levels');
+assert.match(mobile,/ccProjectDetailAccordion/,'global mobile navigation must leave project detail history to its owner');
+assert.match(mobile,/ccProjectDetailAccordionBase/,'global mobile navigation must not navigate away when a detail bubble closes');
+assert.match(accordionCss,/#backHomeBtn,[\s\S]*\.cc-brain-back\{display:none!important\}/,'redundant visual Back arrows must not remain visible');
+
 assert.doesNotMatch(mobileCss, /overflow-y\s*:/, 'mobile CSS must not create or force a document vertical scroll container');
 assert.doesNotMatch(mobileCss, /touch-action\s*:/, 'mobile CSS must not redefine root touch panning');
 assert.doesNotMatch(mobileCss, /overscroll-behavior-y\s*:/, 'mobile CSS must not change Android document overscroll behavior');
@@ -33,7 +44,7 @@ assert.match(integrity, /dy>10&&Math\.abs\(dy\)>Math\.abs\(dx\)\*1\.1\)event\.pr
 assert.match(html, /installTopEdgeRefreshGuard/, 'startup shell must protect the top edge before enhancements load');
 assert.match(html, /mobile-accordion-polish\.css\?v=4/, 'the installed shell must request the native-scroll mobile CSS');
 assert.ok(sw.includes("'./mobile-accordion-polish.css?v=4'"), 'the native-scroll mobile CSS must ship in the installed-app cache');
-assert.ok(sw.includes("'./mobile-accordion-polish.js?v=2'"), 'the repaired mobile navigation controller must ship in the installed-app cache');
+assert.ok(sw.includes("'./mobile-accordion-polish.js?v=3'"), 'the repaired mobile navigation controller must ship in the installed-app cache');
 
 assert.match(html, /viewport-fit=cover/, 'PWA must opt in to standards-based edge-to-edge handling');
 assert.equal(JSON.parse(manifest).display, 'standalone', 'PWA must remain standalone; do not hide Android controls with fullscreen');
@@ -48,8 +59,9 @@ assert.doesNotMatch(manifest, /"display"\s*:\s*"fullscreen"/, 'must not force im
 
 const cacheVersionMatch = sw.match(/james-command-center-v(\d+)/);
 assert.ok(cacheVersionMatch, 'service-worker cache must remain explicitly versioned');
-assert.ok(Number(cacheVersionMatch[1]) >= 58, 'service-worker cache must include the self-healing startup repair');
+assert.ok(Number(cacheVersionMatch[1]) >= 60, 'service-worker cache must include the project accordion release');
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.js'\)/, 'mobile navigation controller must remain in the fresh-asset set');
 assert.match(sw, /url\.pathname\.endsWith\('\/mobile-accordion-polish\.css'\)/, 'mobile CSS must remain in the fresh-asset set');
+assert.match(sw, /url\.pathname\.endsWith\('\/command-center-project-detail-accordions\.js'\)/, 'project accordion controller must remain in the fresh-asset set');
 
-console.log('Mobile accordion/back/system-bar/native-scroll/top-edge-refresh QA passed.');
+console.log('Mobile accordion/back/system-bar/native-scroll/project-detail/top-edge-refresh QA passed.');
