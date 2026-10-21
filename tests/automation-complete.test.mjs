@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 const sql=fs.readFileSync('supabase/migrations/20261021_automation_phases4_8_completion.sql','utf8');
 const indexes=fs.readFileSync('supabase/migrations/20261021_automation_phases4_8_fk_indexes.sql','utf8');
+const resume=fs.readFileSync('supabase/migrations/20261021_automation_phases4_8_resume_fix.sql','utf8');
 const ui=fs.readFileSync('command-center-automation-advanced.js','utf8');
 const completion=fs.readFileSync('command-center-automation-completion.js','utf8');
 const css=fs.readFileSync('command-center-automation-advanced.css','utf8');
@@ -47,6 +48,12 @@ assert.match(sql,/if found and sr\.status='succeeded' then/,'workflow retries mu
 assert.match(sql,/resume_state=jsonb_build_object/,'workflow execution must persist resumable state');
 assert.match(sql,/automation_run_events/,'run transitions must be durably recorded');
 assert.match(sql,/on conflict\(owner_id,idempotency_key\)/,'report/action/notification retry paths must suppress duplicate side effects');
+
+assert.match(resume,/Returned execution failures are handled without raising through the root/,'resume fix must explicitly preserve prior successful work');
+assert.match(resume,/if r\.run_kind='action' then[\s\S]*?return 'retrying';[\s\S]*?else[\s\S]*?Workflow run has no target/,'returned action failures must enter retry state without escaping through root rollback');
+assert.match(resume,/v_result:=command_center_private\.execute_workflow\(r\.target_id,r\.id\);[\s\S]*?if coalesce\(\(v_result->>'success'\)::boolean,false\) is false then[\s\S]*?return 'retrying';/,'returned workflow failures must persist retry state without rolling back completed steps');
+assert.doesNotMatch(resume,/raise exception '%'\s*,\s*coalesce\(v_result->>'error'/,'returned action/workflow failures must not be rethrown after durable step state is written');
+assert.match(resume,/metadata=metadata\|\|jsonb_build_object\('last_result',v_result\)/,'retry state must retain the returned failure result');
 
 for(const requiredIndex of [
   'automation_schedules_project_fk_idx','automation_schedules_condition_fk_idx','automation_conditions_project_fk_idx',
