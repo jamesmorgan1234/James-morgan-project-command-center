@@ -46,5 +46,5 @@ window.addEventListener('load', () => {
   addCss('approvedBookCovers','./command-center-book-covers.css?v=2'); addJs('approvedBookCovers','./command-center-book-covers.js?v=2');
   addCss('commandCenterExactMenus','./command-center-exact-menus.css?v=1'); addJs('commandCenterExactMenus','./command-center-exact-menus.js?v=1');
   addCss('commandCenterEarnings','./command-center-earnings.css?v=1'); addJs('commandCenterEarnings','./command-center-earnings.js?v=2');
-  addCss('commandCenterBrainHome','./command-center-brain-home.css?v=3'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=2');
+  addCss('commandCenterBrainHome','./command-center-brain-home.css?v=3'); addCss('commandCenterBrainRoadmaps','./command-center-brain-roadmaps.css?v=1'); addJs('commandCenterBrainHome','./command-center-brain-home.js?v=3');
 }, { once: true });
