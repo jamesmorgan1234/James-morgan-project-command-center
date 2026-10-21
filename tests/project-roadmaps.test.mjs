@@ -9,7 +9,8 @@ for(const category of ['Core Build','Automation','Integrations','Analytics','Sec
 for(const special of ['Publishing','Commerce Operations','Content Engine','Service Operations'])assert.ok(js.includes(special),`missing specialized roadmap category ${special}`);
 assert.match(js,/roadmap\.\$\{catKey\}\.\$\{phaseKey\}\.progress_percent/,'phase percentages must come from phase-specific metrics');
 assert.match(js,/x\.verified&&x\.value_numeric!==null&&x\.value_numeric!==undefined/,'only verified numeric phase metrics may count');
-assert.match(js,/Math\.round\(\(Number\(v\)\|\|0\)\/10\)\*10/,'project roadmap phase percentages must snap to 10% increments');
+assert.match(js,/Math\.round\(Number\(v\)\|\|0\)/,'project roadmap phase percentages must preserve verified progress to 1 percent display precision');
+assert.doesNotMatch(js,/Math\.round\(\(Number\(v\)\|\|0\)\/10\)\*10/,'project roadmap must not snap verified progress to 10 percent buckets');
 assert.match(js,/N\/A · Baseline pending/,'missing progress must display N/A instead of an invented percentage');
 assert.match(js,/values\.every\(v=>v!==null\)/,'category percentage must derive only when every phase is verified');
 assert.match(js,/ccProjectRoadmapCategory/,'open category must own a Back-history level');
