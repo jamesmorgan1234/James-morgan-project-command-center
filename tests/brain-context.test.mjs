@@ -35,6 +35,9 @@ assert.match(js,/dedupeMemories/,'deduplication must be exposed for future Brain
 assert.match(js,/source_snapshot/,'packets must retain provenance snapshots');
 assert.match(js,/context_json/,'packets must retain reusable structured context');
 assert.match(js,/context_text/,'packets must provide a human-readable handoff surface');
+assert.match(js,/brainstorm_excluded_until_committed:true/,'uncommitted brainstorming must remain outside trusted context');
+assert.match(js,/Uncommitted Brainstorm items are excluded until they are deliberately committed to Durable Memory/,'human-readable provenance must explain the Brainstorm trust boundary');
+assert.match(js,/const defaultTitle=projectId\?`\$\{projectLabel\(cleanProjects\[0\]\)\} — Context Packet`:'Command Center — Context Packet'/,'Command Center-wide builds must not be mislabeled as one matched project');
 assert.match(js,/from\('brain_context_packets'\)\.insert/,'saved packets must persist to Supabase');
 assert.match(js,/from\('brain_context_packets'\)\.update/,'packets must support rebuild/archive/restore');
 assert.doesNotMatch(js,/localStorage\.setItem/,'Context Builder must not use browser storage as source of truth');
