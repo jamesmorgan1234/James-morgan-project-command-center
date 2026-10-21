@@ -43,6 +43,6 @@ assert.match(artCss,/stat-button\[data-view="active"\][\s\S]*cc6-chart\.webp/);
 assert.match(artCss,/stat-button\[data-view="attention"\][\s\S]*cc6-road\.webp/);
 assert.match(artCss,/\.topbar[\s\S]*cc6-eclipse\.webp/);
 assert.equal(manifest.icons[0]?.src,'command-center-approved-icon-512.png?icon=7-approved');
-assert.match(sw,/james-command-center-v48/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
+assert.match(sw,/james-command-center-v49/); assert.match(sw,/command-center-v6\.css\?v=1/); assert.match(sw,/command-center-v6\.js\?v=1/); assert.match(sw,/command-center-v6-2\.css\?v=1/); assert.match(sw,/command-center-v6-2\.js\?v=1/); assert.match(sw,/command-center-v6-art\.css\?v=1/);
 console.log('Command Center V6.2 exact-approved QA passed.');
 // Final protected-branch regression trigger after temporary icon staging cleanup.

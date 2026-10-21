@@ -1,0 +1,180 @@
+name: Stage Android install icon repair
+on:
+  push:
+    branches:
+      - cc-remove-book-number-overlay
+    paths:
+      - '.github/workflows/stage-pwa-install-icon-fix.yml'
+permissions:
+  contents: write
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify locked approved raster sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(sha256sum command-center-approved-icon-512.png | awk '{print $1}')" = 'fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa'
+          test "$(sha256sum command-center-approved-icon-256.png | awk '{print $1}')" = 'ebca3a41a48f417abb5ec037710a99cd82f128b0c320d0820e1e82e3612d80ea'
+      - name: Generate exact 192px derivative from approved 512px source
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y imagemagick
+          fi
+          convert command-center-approved-icon-512.png -filter Lanczos -resize 192x192! -strip PNG24:command-center-approved-icon-192.png
+          test "$(identify -format '%wx%h' command-center-approved-icon-192.png)" = '192x192'
+          sha256sum command-center-approved-icon-192.png | tee /tmp/icon192.sha
+      - name: Stage manifest, cache, browser refs, and QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import json, hashlib
+
+          sha192 = hashlib.sha256(Path('command-center-approved-icon-192.png').read_bytes()).hexdigest()
+
+          manifest_path = Path('manifest.webmanifest')
+          manifest = json.loads(manifest_path.read_text())
+          assert manifest['id'] == './' and manifest['start_url'] == './' and manifest['scope'] == './'
+          assert manifest['display'] == 'standalone'
+          assert manifest['theme_color'] == '#000000' and manifest['background_color'] == '#000000'
+          manifest['icons'] = [
+              {'src':'command-center-approved-icon-192.png?icon=8-approved-192','sizes':'192x192','type':'image/png','purpose':'any'},
+              {'src':'command-center-approved-icon-256.png?icon=8-approved-256','sizes':'256x256','type':'image/png','purpose':'any'},
+              {'src':'command-center-approved-icon-512.png?icon=8-approved-512','sizes':'512x512','type':'image/png','purpose':'any'},
+              {'src':'command-center-icon-v4.svg?icon=6-vector-fallback','sizes':'any','type':'image/svg+xml','purpose':'any'}
+          ]
+          manifest_path.write_text(json.dumps(manifest, indent=2) + '\n')
+
+          index = Path('index.html').read_text()
+          replacements = {
+              'manifest.webmanifest?v=7':'manifest.webmanifest?v=8',
+              'command-center-approved-icon-512.png?icon=7-browser':'command-center-approved-icon-512.png?icon=8-browser',
+              'command-center-approved-icon-512.png?icon=7-apple':'command-center-approved-icon-512.png?icon=8-apple',
+              'command-center-approved-icon-512.png?icon=7-ui':'command-center-approved-icon-512.png?icon=8-ui',
+          }
+          for old,new in replacements.items():
+              assert old in index, old
+              index = index.replace(old,new)
+          Path('index.html').write_text(index)
+
+          exact_js = Path('command-center-exact-menus.js').read_text()
+          for old,new in [('icon=7-ui','icon=8-ui'),('icon=7-browser','icon=8-browser'),('icon=7-apple','icon=8-apple')]:
+              assert old in exact_js, old
+              exact_js = exact_js.replace(old,new)
+          Path('command-center-exact-menus.js').write_text(exact_js)
+
+          sw = Path('service-worker.js').read_text()
+          assert "const CACHE='james-command-center-v49';" in sw
+          sw = sw.replace("const CACHE='james-command-center-v49';","const CACHE='james-command-center-v50';")
+          assert "'./manifest.webmanifest?v=7'" in sw
+          sw = sw.replace("'./manifest.webmanifest?v=7'","'./manifest.webmanifest?v=8'")
+          old_icon = "'./command-center-approved-icon-512.png?icon=7-approved'"
+          assert old_icon in sw
+          new_icons = "'./command-center-approved-icon-192.png?icon=8-approved-192','./command-center-approved-icon-256.png?icon=8-approved-256','./command-center-approved-icon-512.png?icon=8-approved-512'"
+          sw = sw.replace(old_icon,new_icons)
+          old_fresh = "url.pathname.endsWith('/command-center-approved-icon-512.png')"
+          assert old_fresh in sw
+          new_fresh = "url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-256.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')"
+          sw = sw.replace(old_fresh,new_fresh)
+          Path('service-worker.js').write_text(sw)
+
+          pwa = Path('tests/pwa-icon-update.test.mjs').read_text()
+          pwa = pwa.replace("import zlib from 'node:zlib';","import zlib from 'node:zlib';\nimport { createHash } from 'node:crypto';")
+          start = pwa.index("const manifest=JSON.parse")
+          replacement = f'''const manifest=JSON.parse(fs.readFileSync('manifest.webmanifest','utf8'));
+const html=fs.readFileSync('index.html','utf8');
+const sw=fs.readFileSync('service-worker.js','utf8');
+const standard=fs.readFileSync('PWA_UPDATE_STANDARD.md','utf8');
+assert.equal(manifest.id,'./'); assert.equal(manifest.start_url,'./'); assert.equal(manifest.scope,'./'); assert.equal(manifest.display,'standalone');
+assert.equal(manifest.theme_color,'#000000'); assert.equal(manifest.background_color,'#000000');
+const rasterIcons=new Map(manifest.icons.filter(icon=>icon.type==='image/png').map(icon=>[icon.sizes,icon]));
+assert.equal(rasterIcons.get('192x192')?.src,'command-center-approved-icon-192.png?icon=8-approved-192');
+assert.equal(rasterIcons.get('192x192')?.purpose,'any');
+assert.equal(rasterIcons.get('256x256')?.src,'command-center-approved-icon-256.png?icon=8-approved-256');
+assert.equal(rasterIcons.get('512x512')?.src,'command-center-approved-icon-512.png?icon=8-approved-512');
+fullyDecodePng('command-center-approved-icon-192.png',192,192);
+fullyDecodePng('command-center-approved-icon-256.png',256,256);
+fullyDecodePng('command-center-approved-icon-512.png',512,512);
+assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approved-icon-192.png')).digest('hex'),'{sha192}');
+assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approved-icon-256.png')).digest('hex'),'ebca3a41a48f417abb5ec037710a99cd82f128b0c320d0820e1e82e3612d80ea');
+assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approved-icon-512.png')).digest('hex'),'fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa');
+assert.match(html,/rel="manifest" href="\\.\\/manifest\\.webmanifest\\?v=8"/);
+assert.match(html,/command-center-approved-icon-512\\.png\\?icon=8-browser/);
+assert.match(html,/meta name="theme-color" content="#000000"/);
+assert.match(sw,/james-command-center-v50/);
+assert.ok(sw.includes("'./command-center-approved-icon-192.png?icon=8-approved-192'"));
+assert.ok(sw.includes("'./command-center-approved-icon-256.png?icon=8-approved-256'"));
+assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=8-approved-512'"));
+assert.match(sw,/pathname\\.endsWith\\('\\/manifest\\.webmanifest'\\)/); assert.match(sw,/pathname\\.endsWith\\('\\/command-center-approved-icon-192\\.png'\\)/); assert.match(sw,/pathname\\.endsWith\\('\\/command-center-approved-icon-256\\.png'\\)/); assert.match(sw,/pathname\\.endsWith\\('\\/command-center-approved-icon-512\\.png'\\)/); assert.match(sw,/fetch\\(e\\.request,\\{{cache:'no-store'\\}}\\)/);
+assert.match(standard,/Update Status: Not updatable/); assert.match(standard,/Preserve the exact user-approved launcher artwork/); assert.match(standard,/command-center-approved-icon-512\\.png/);
+console.log('PWA exact approved icon pipeline QA passed with 192/256/512 full PNG decoding.');
+'''
+          pwa = pwa[:start] + replacement
+          Path('tests/pwa-icon-update.test.mjs').write_text(pwa)
+
+          v6 = Path('tests/v6-exact-approved.test.mjs').read_text()
+          v6 = v6.replace('icon=7-ui','icon=8-ui').replace('manifest.webmanifest\\?v=7','manifest.webmanifest\\?v=8').replace('james-command-center-v49','james-command-center-v50')
+          Path('tests/v6-exact-approved.test.mjs').write_text(v6)
+
+          exact = Path('tests/exact-command-center-menus.test.mjs').read_text()
+          exact = exact.replace('james-command-center-v49','james-command-center-v50').replace('icon=7-ui','icon=8-ui').replace('icon=7-browser','icon=8-browser').replace('icon=7-apple','icon=8-apple')
+          Path('tests/exact-command-center-menus.test.mjs').write_text(exact)
+
+          covers = Path('tests/book-cover-library.test.mjs').read_text()
+          covers = covers.replace('james-command-center-v49','james-command-center-v50')
+          Path('tests/book-cover-library.test.mjs').write_text(covers)
+
+          standard = Path('PWA_UPDATE_STANDARD.md').read_text()
+          needle = "- Current approved launcher source is `command-center-approved-icon-512.png`, the exact high-detail orange lightning/node Command Center artwork James approved.\n"
+          assert needle in standard
+          addition = needle + f"- Android/Chrome install surfaces also ship exact raster derivatives at 256px and 192px. The 192px derivative is generated only from the locked 512px source with no redraw or substitution; SHA-256 `{sha192}`.\n"
+          standard = standard.replace(needle, addition)
+          Path('PWA_UPDATE_STANDARD.md').write_text(standard)
+
+          for workflow_path in ['.github/workflows/pwa-icon-update-qa.yml','.github/workflows/v6-exact-approved-qa.yml']:
+              path=Path(workflow_path)
+              text=path.read_text()
+              if "      - 'command-center-approved-icon-192.png'" not in text:
+                  anchor="      - 'command-center-approved-icon-512.png'"
+                  assert anchor in text
+                  text=text.replace(anchor,"      - 'command-center-approved-icon-192.png'\n      - 'command-center-approved-icon-256.png'\n"+anchor)
+              path.write_text(text)
+          PY
+      - name: Remove temporary staging workflows
+        shell: bash
+        run: |
+          rm -f .github/workflows/generate-android-icon-192.yml
+          rm -f .github/workflows/stage-pwa-install-icon-fix.yml
+      - name: Run icon and protected regression QA before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check command-center-exact-menus.js
+          node tests/pwa-icon-update.test.mjs
+          node tests/v6-exact-approved.test.mjs
+          node tests/exact-command-center-menus.test.mjs
+          node tests/book-cover-library.test.mjs
+          node tests/mobile-navigation.test.mjs
+          node tests/scope-progress.test.mjs
+          node tests/v4-control-room.test.mjs
+      - name: Commit staged repair to branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Stage exact Android install icon and menu repairs'
+          git push origin HEAD:cc-remove-book-number-overlay

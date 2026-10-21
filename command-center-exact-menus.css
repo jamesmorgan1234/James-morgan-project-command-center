@@ -1,0 +1,253 @@
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] #projectView,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] #projectView,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] #projectView{
+  background:#000!important;
+}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] #projectGrid,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] #projectGrid,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] #projectGrid{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:12px!important;
+}
+
+/* Exact menu frame shared by Projects, Active / Live, and Next Up. */
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{
+  --cc-exact-art:url('./art-mountain.svg');
+  position:relative!important;
+  width:100%!important;
+  min-height:132px!important;
+  margin:0!important;
+  padding:16px 126px 16px 116px!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  text-align:left!important;
+  color:#fff!important;
+  border:2px solid #ff5c00!important;
+  border-left-width:5px!important;
+  border-radius:5px!important;
+  clip-path:polygon(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%)!important;
+  background:linear-gradient(90deg,#090705 0 48%,rgba(5,3,2,.92) 68%,rgba(5,2,1,.76) 100%)!important;
+  box-shadow:0 0 0 1px rgba(255,146,34,.30),0 0 14px rgba(255,83,0,.70),inset 0 0 26px rgba(255,84,0,.07)!important;
+}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card::before,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card::before,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card::before{
+  content:""!important;
+  position:absolute!important;
+  z-index:-1!important;
+  inset:0 0 0 47%!important;
+  background:var(--cc-exact-art) right center/cover no-repeat!important;
+  opacity:.72!important;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 26%)!important;
+  mask-image:linear-gradient(90deg,transparent,#000 26%)!important;
+  pointer-events:none!important;
+}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card::after,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card::after,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card::after{
+  content:'›'!important;
+  position:absolute!important;
+  right:17px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  color:#ffad2e!important;
+  font-size:3.15rem!important;
+  line-height:1!important;
+  text-shadow:0 0 10px #ff5e00!important;
+  opacity:1!important;
+}
+
+/* Exact left octagonal emblem. */
+html[data-command-center-theme="v6"] .cc-exact-menu-icon{
+  position:absolute!important;
+  left:17px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:82px!important;
+  height:82px!important;
+  display:grid!important;
+  place-items:center!important;
+  clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%)!important;
+  background:linear-gradient(135deg,#ff9f25,#642304 35%,#050403 43%,#050403 64%,#6f2805 78%,#ff9f25)!important;
+  box-shadow:0 0 18px rgba(255,91,0,.82)!important;
+  padding:4px!important;
+  z-index:3!important;
+}
+html[data-command-center-theme="v6"] .cc-exact-menu-icon>span{
+  width:100%!important;
+  height:100%!important;
+  display:grid!important;
+  place-items:center!important;
+  clip-path:inherit!important;
+  background:radial-gradient(circle,#2a1003,#050403 68%)!important;
+  border:1px solid #ff6500!important;
+  color:#ffa026!important;
+  text-shadow:0 0 9px #ff6500!important;
+}
+html[data-command-center-theme="v6"] .cc-exact-menu-icon svg{width:43px!important;height:43px!important;filter:drop-shadow(0 0 5px #ff6a00)!important}
+
+html[data-command-center-theme="v6"] .cc-exact-menu-name{
+  color:#fff!important;
+  font-size:clamp(1.12rem,4.8vw,1.58rem)!important;
+  font-weight:950!important;
+  line-height:1.05!important;
+  text-shadow:0 0 6px rgba(255,103,0,.28)!important;
+}
+html[data-command-center-theme="v6"] .cc-exact-menu-copy{
+  margin-top:9px!important;
+  max-width:72%!important;
+  color:#aab8c6!important;
+  font-size:.87rem!important;
+  line-height:1.28!important;
+}
+
+/* Projects: real progress ring, as shown in the locked Projects screen. */
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card{padding-right:128px!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .cc6-project-ring{
+  display:grid!important;
+  right:45px!important;
+  width:68px!important;
+  height:68px!important;
+}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-stage{max-width:62%!important}
+html[data-command-center-theme="v6"] .cc-exact-project-summary{
+  position:relative!important;
+  min-height:108px!important;
+  padding:17px 70px 17px 116px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:18px!important;
+  border:2px solid #ff5c00!important;
+  border-left-width:5px!important;
+  clip-path:polygon(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%)!important;
+  background:linear-gradient(90deg,#090705,#030303 62%,rgba(30,8,0,.82))!important;
+  box-shadow:0 0 0 1px rgba(255,146,34,.28),0 0 14px rgba(255,83,0,.62)!important;
+  color:#fff!important;
+}
+html[data-command-center-theme="v6"] .cc-exact-project-summary .cc-exact-menu-icon{left:17px!important}
+html[data-command-center-theme="v6"] .cc-exact-summary-number{font-size:2.6rem!important;font-weight:950!important;line-height:1!important;color:#fff!important;text-shadow:0 0 9px rgba(255,104,0,.58)!important}
+html[data-command-center-theme="v6"] .cc-exact-summary-copy{display:grid!important;gap:4px!important;padding-left:18px!important;border-left:1px solid #ff6a00!important}
+html[data-command-center-theme="v6"] .cc-exact-summary-copy strong{font-size:1.08rem!important;text-transform:uppercase!important;color:#fff!important}
+html[data-command-center-theme="v6"] .cc-exact-summary-copy span{font-size:.8rem!important;color:#aab8c6!important}
+
+/* Active / Live: scope text column, not a circular ring. */
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{padding-right:170px!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-meta,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-next{
+  position:relative!important;
+  z-index:2!important;
+  max-width:68%!important;
+}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head{display:block!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head h3{font-size:clamp(1.12rem,4.8vw,1.58rem)!important;color:#fff!important;text-shadow:0 0 6px rgba(255,103,0,.28)!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head .muted{display:none!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head>.badge{display:inline-flex!important;margin-top:8px!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-meta{display:none!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-next{margin-top:9px!important;color:#aab8c6!important;font-size:.87rem!important;border:0!important;padding:0!important;background:none!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-next strong{display:none!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .metric-row,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .card-actions{display:none!important}
+html[data-command-center-theme="v6"] .cc-exact-active-scope{
+  position:absolute!important;
+  right:54px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  width:92px!important;
+  z-index:3!important;
+  padding-left:16px!important;
+  border-left:1px solid #ff6a00!important;
+  text-align:left!important;
+}
+html[data-command-center-theme="v6"] .cc-exact-active-scope strong{display:block!important;font-size:1.55rem!important;line-height:1!important;color:#fff!important;text-shadow:0 0 7px rgba(255,103,0,.38)!important}
+html[data-command-center-theme="v6"] .cc-exact-active-scope span{display:block!important;margin-top:4px!important;font-size:.72rem!important;color:#aab8c6!important}
+
+/* Next Up: no progress ring; status plus next action exactly like the locked queue screen. */
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card{padding-right:58px!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .cc6-project-ring,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-progress-head,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-progress-track,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-progress-basis,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-stage,
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-priority-ribbon{display:none!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-head{display:block!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-head>.badge{display:inline-flex!important;margin-top:9px!important}
+html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .cc-exact-next-copy{display:block!important}
+
+/* Command Center Brain roadmap detail. This is a visible roadmap only, not Project Brain functionality. */
+html[data-command-center-theme="v6"] .cc-brain-roadmap{
+  display:grid!important;
+  gap:12px!important;
+  width:100%!important;
+  padding:0!important;
+  background:#000!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-roadmap-head{
+  position:relative!important;
+  min-height:142px!important;
+  padding:20px 24px 20px 116px!important;
+  border:2px solid #ff5c00!important;
+  clip-path:polygon(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%)!important;
+  background:linear-gradient(90deg,#090705 0 42%,rgba(5,3,2,.84)),url('./art-brain.svg') right center/52% auto no-repeat!important;
+  box-shadow:0 0 0 1px rgba(255,146,34,.3),0 0 16px rgba(255,83,0,.68)!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-roadmap-head h3{margin:0!important;font-size:1.55rem!important;color:#fff!important;text-shadow:0 0 7px rgba(255,102,0,.42)!important}
+html[data-command-center-theme="v6"] .cc-brain-roadmap-head p{margin:8px 0 0!important;max-width:68%!important;color:#aab8c6!important;font-size:.88rem!important;line-height:1.35!important}
+html[data-command-center-theme="v6"] .cc-brain-back{
+  width:100%!important;
+  min-height:50px!important;
+  border:1px solid #ff6500!important;
+  background:#100602!important;
+  color:#ffb12e!important;
+  font-weight:900!important;
+  border-radius:4px!important;
+  box-shadow:0 0 10px rgba(255,87,0,.24)!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-capabilities{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+html[data-command-center-theme="v6"] .cc-brain-capability{
+  position:relative!important;
+  min-height:110px!important;
+  padding:16px 16px 16px 78px!important;
+  border:1px solid #ff5e00!important;
+  border-radius:4px!important;
+  background:linear-gradient(100deg,#080503,#020202 66%,rgba(72,20,0,.22))!important;
+  box-shadow:0 0 10px rgba(255,84,0,.30)!important;
+  color:#fff!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-capability .cc-cap-icon{position:absolute!important;left:13px!important;top:17px!important;width:50px!important;height:50px!important;display:grid!important;place-items:center!important;border:1px solid #ff6500!important;border-radius:50%!important;background:#100602!important;color:#ffa025!important;font-size:1.45rem!important;box-shadow:0 0 10px rgba(255,88,0,.42)!important}
+html[data-command-center-theme="v6"] .cc-brain-capability strong{display:block!important;font-size:1rem!important;color:#fff!important}
+html[data-command-center-theme="v6"] .cc-brain-capability small{display:block!important;margin-top:6px!important;color:#9facb9!important;line-height:1.3!important}
+html[data-command-center-theme="v6"] .cc-brain-capability .badge{display:inline-flex!important;margin-top:8px!important;background:rgba(70,76,84,.30)!important;border-color:#5c6671!important;color:#bcc7d2!important}
+
+@media(max-width:620px){
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{
+    min-height:116px!important;
+    padding:12px 78px 12px 86px!important;
+  }
+  html[data-command-center-theme="v6"] .cc-exact-menu-icon{left:11px!important;width:64px!important;height:64px!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-icon svg{width:35px!important;height:35px!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-name,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head h3{font-size:1.12rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-copy,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-next{font-size:.74rem!important;max-width:76%!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card{padding-right:86px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .cc6-project-ring{right:31px!important;width:55px!important;height:55px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card{padding-right:45px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{padding-right:118px!important}
+  html[data-command-center-theme="v6"] .cc-exact-active-scope{right:32px!important;width:70px!important;padding-left:10px!important}
+  html[data-command-center-theme="v6"] .cc-exact-active-scope strong{font-size:1.15rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-project-summary{min-height:92px!important;padding:13px 18px 13px 86px!important;gap:10px!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-number{font-size:2rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy{padding-left:10px!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy strong{font-size:.88rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy span{font-size:.68rem!important}
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head{min-height:125px!important;padding:16px 14px 16px 86px!important;background-size:60% auto!important}
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head h3{font-size:1.18rem!important}
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head p{font-size:.73rem!important;max-width:76%!important}
+  html[data-command-center-theme="v6"] .cc-brain-capabilities{grid-template-columns:1fr!important}
+}

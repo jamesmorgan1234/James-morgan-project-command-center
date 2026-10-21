@@ -27,10 +27,11 @@ assert.ok(js.includes("book-cover-atlas-v2.webp?v=2"));
 assert.ok(js.includes("cc7-approved-cover"));
 assert.ok(css.includes('background-size:4100% 100%'));
 assert.ok(css.includes('.cc7-approved-cover>b{display:none!important}'));
+assert.match(css,/\.cc7-approved-cover:before\{[\s\S]*display:none!important;[\s\S]*content:none!important/,'redundant orange number overlay must stay removed');
 assert.ok(cfg.includes("command-center-book-covers.css?v=2"));
 assert.ok(cfg.includes("command-center-book-covers.js?v=2"));
-assert.ok(html.includes('app-config.js?v=8'));
-assert.ok(sw.includes("james-command-center-v48"));
+assert.ok(html.includes('app-config.js?v=9'));
+assert.ok(sw.includes("james-command-center-v49"));
 assert.ok(sw.includes("book-cover-atlas-v2.webp?v=2"));
 assert.ok(sw.includes("command-center-book-covers.js?v=2"));
 assert.ok(sw.includes("command-center-book-covers.css?v=2"));
@@ -103,7 +104,7 @@ for(const [start,slots] of [
     const number=slots[index]-start+1;
     assert.equal(row.style.order,String(number),'series layout follows canonical Book 1-to-N order');
     assert.equal(row.wrap.dataset.bookSequence,`Book ${number}`);
-    assert.equal(row.wrap.children[0].dataset.number,String(number),'cover badge matches the title, not incoming row position');
+    assert.equal(row.wrap.children[0].dataset.number,String(number),'cover sequence metadata matches the title, not incoming row position');
   });
   assert.deepEqual(rendered.map(row=>Number(row.style.order)).sort((a,b)=>a-b),Array.from({length:slots.length},(_,index)=>index+1));
 }
