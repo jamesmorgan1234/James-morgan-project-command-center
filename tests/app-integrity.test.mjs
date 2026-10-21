@@ -1,0 +1,16 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const js=fs.readFileSync('app-integrity-repair.js','utf8');
+const startup=fs.readFileSync('startup-loader.js','utf8');
+const shell=fs.readFileSync('command-center-startup-shell.css','utf8');
+const mobile=fs.readFileSync('mobile-accordion-polish.js','utf8');
+const mobileCss=fs.readFileSync('mobile-accordion-polish.css','utf8');
+const projectCss=fs.readFileSync('project-roadmaps.css','utf8');
+const html=fs.readFileSync('index.html','utf8');
+const sw=fs.readFileSync('service-worker.js','utf8');
+assert.doesNotThrow(()=>new Function(js));assert.doesNotThrow(()=>new Function(startup));assert.doesNotThrow(()=>new Function(mobile));
+assert.match(js,/overflow-y','auto'/);assert.match(js,/touch-action','pan-y'/);assert.match(js,/overscroll-behavior-y','contain'/);assert.doesNotMatch(js,/setPointerCapture/);assert.match(js,/Math\.abs\(x\)>Math\.abs\(y\)\*1\.15\?'horizontal':'vertical'/);assert.match(js,/cloneNode\(true\)/);assert.match(js,/command-center-approved-icon-512\.png/);
+assert.match(projectCss,/cc-brain-card\[data-cc-brain-open\]\{display:none!important\}/,'duplicate Brain list card must stay visually removed without observer churn');
+assert.match(mobile,/body\{overscroll-behavior-y:contain\}/);assert.match(mobile,/ccCommandCenterBrainCapability/);assert.match(mobile,/ccProjectRoadmapCategory/);assert.match(mobileCss,/html\{[^}]*overflow-y:auto!important/);assert.match(mobileCss,/body\{[^}]*overflow-y:visible!important/);
+assert.match(startup,/primaryClientCreated && window\.COMMAND_CENTER_SUPABASE/);assert.match(shell,/background:#000!important/);assert.match(shell,/#ff7412|#ff650b/);assert.match(html,/command-center-startup-shell\.css\?v=1/);assert.match(sw,/james-command-center-v57/);assert.ok(sw.includes("'./command-center-startup-shell.css?v=1'"));
+console.log('Combined app integrity / scrolling / identity QA passed.');
