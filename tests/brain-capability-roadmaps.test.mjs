@@ -9,13 +9,16 @@ for(const name of ['Project Brain','Automation','Integrations','Analytics','Secu
 for(const phase of ['Durable Memory','Brainstorm Workspace','Context Builder','Task Queue / Planner','ChatGPT Handoff Loop','Scheduler Engine','Condition Evaluator','Notification Delivery','Recurring Report Jobs','Action Queue Runner','Cross-Project Workflow Chains','Run History','Failure Recovery','Connection Registry','Permission & Scope Mapping','Read Sync','Data Normalization','Connection Health','Write Actions','Webhook / Realtime Intake','Reconnect & Recovery','Metric Catalog','Project KPI Views','Portfolio Rollups','Time-Series History','Trend Comparison','Goal Tracking','Anomaly Detection','Identity & Session Controls','Row-Level Data Isolation','Permission Registry','Action Authorization Gates','Secrets Isolation','Audit Trail','Security Alerts','Access Revocation & Recovery','Release Manifest','Pre-Deploy Validation','Deployment Pipeline','Post-Deploy Health Check','Version History','Rollback','PWA Update Control','Agent Session Model','Goal Intake','Step Executor','Tool Permission Gate','Verification Gate','Checkpoint & Resume','Cross-Project Agent Runs'])assert.ok(js.includes(phase),`missing roadmap phase ${phase}`);
 assert.match(js,/\['Durable Memory'[^\]]+,100\]/,'Durable Memory must be 100%');
 assert.match(js,/\['Brainstorm Workspace'[^\]]+,100\]/,'Brainstorm Workspace must be 100%');
-assert.match(js,/\['Context Builder'[^\]]+,0\]/,'Phase 3 must remain planned');
+assert.match(js,/\['Context Builder'[^\]]+,100\]/,'Context Builder must be 100%');
+assert.match(js,/\['Task Queue \/ Planner'[^\]]+,0\]/,'Phase 4 must remain planned');
+assert.match(js,/\['ChatGPT Handoff Loop'[^\]]+,0\]/,'Phase 5 must remain planned');
 assert.match(js,/capabilityProgress=item=>Math\.round\(item\.phases\.reduce/,'capability percentage must derive from phase values');
-assert.match(js,/Project Brain 40% · Phases 1 and 2 complete/,'Project Brain must report the derived 40% after phases 1 and 2');
+assert.match(js,/Project Brain \$\{brainPct\}%/,'Project Brain home summary must derive from phase values');
 assert.match(js,/data-cc-brain-current-toggle/,'open capability bubble must be clickable again to close');
 assert.match(js,/ccCommandCenterBrainCapability/,'capability drill-down must own a Back-history level');
 assert.match(js,/ccBrainMemoryMount/,'Project Brain must mount Durable Memory');
 assert.match(js,/ccBrainBrainstormMount/,'Project Brain must mount Brainstorm Workspace');
+assert.match(js,/ccBrainContextMount/,'Project Brain must mount Context Builder');
 assert.match(cfg,/command-center-brain-home\.js\?v=3/);
 assert.ok(sw.includes("'./command-center-brain-home.js?v=3'"));
 console.log('Command Center Brain capability roadmap QA passed.');
