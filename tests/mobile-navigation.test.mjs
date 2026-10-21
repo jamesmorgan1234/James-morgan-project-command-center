@@ -25,12 +25,14 @@ assert.match(mobileCss, /\.dashboard-stack>\.stats\{display:contents!important\}
 
 assert.match(mobileCss, /html\{[^}]*overflow-y:auto!important/, 'document root must remain vertically scrollable');
 assert.match(mobileCss, /body\{[^}]*overflow-y:visible!important/, 'body must not become a locked nested scroll container');
-assert.match(mobileCss, /touch-action:pan-y!important/, 'normal vertical touch panning must remain explicitly allowed');
-assert.match(mobileCss, /html\{[^}]*overscroll-behavior-y:none!important/, 'document root must suppress browser pull-to-refresh at its scroll boundary');
-assert.match(mobileCss, /body\{[^}]*overscroll-behavior-y:none!important/, 'body must suppress browser pull-to-refresh without blocking vertical scrolling');
+assert.match(mobileCss, /html\{[^}]*touch-action:pan-y!important/, 'document root must allow normal vertical touch panning');
+assert.match(mobileCss, /body\{[^}]*touch-action:pan-y!important/, 'body must allow normal vertical touch panning');
+assert.match(mobileCss, /html\{[^}]*overscroll-behavior-y:contain!important/, 'document root must contain top-edge overscroll so Android pull-to-refresh cannot take over');
+assert.match(mobileCss, /body\{[^}]*overscroll-behavior-y:contain!important/, 'body must contain overscroll while preserving normal scrolling');
+assert.doesNotMatch(mobileCss, /overscroll-behavior-y:none!important/, 'do not use the Android PWA scroll-locking none regression');
 assert.doesNotMatch(mobileCss, /overscroll-behavior-y:auto!important/, 'Android pull-to-refresh must not be re-enabled');
-assert.match(html, /mobile-accordion-polish\.css\?v=2/, 'the installed shell must request the pull-to-refresh guard version');
-assert.ok(sw.includes("'./mobile-accordion-polish.css?v=2'"), 'the pull-to-refresh guard must ship in the installed-app cache');
+assert.match(html, /mobile-accordion-polish\.css\?v=3/, 'the installed shell must request the scroll-safe pull-to-refresh guard version');
+assert.ok(sw.includes("'./mobile-accordion-polish.css?v=3'"), 'the scroll-safe pull-to-refresh guard must ship in the installed-app cache');
 
 assert.match(html, /viewport-fit=cover/, 'PWA must opt in to standards-based edge-to-edge handling');
 assert.equal(JSON.parse(manifest).display, 'standalone', 'PWA must remain standalone; do not hide Android controls with fullscreen');
