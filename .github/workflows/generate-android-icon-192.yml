@@ -1,0 +1,50 @@
+name: Generate exact Android 192 icon
+on:
+  push:
+    branches:
+      - cc-remove-book-number-overlay
+    paths:
+      - '.github/workflows/generate-android-icon-192.yml'
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Verify exact approved source
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected='fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa'
+          actual="$(sha256sum command-center-approved-icon-512.png | awk '{print $1}')"
+          test "$actual" = "$expected"
+          file command-center-approved-icon-512.png
+      - name: Generate exact 192px derivative
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! command -v convert >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y imagemagick
+          fi
+          convert command-center-approved-icon-512.png -filter Lanczos -resize 192x192! -strip PNG24:command-center-approved-icon-192.png
+          identify command-center-approved-icon-192.png
+          dims="$(identify -format '%wx%h' command-center-approved-icon-192.png)"
+          test "$dims" = '192x192'
+          sha256sum command-center-approved-icon-192.png
+      - name: Commit generated binary to repair branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add command-center-approved-icon-192.png
+          if git diff --cached --quiet; then
+            echo '192px icon already current.'
+            exit 0
+          fi
+          git commit -m 'Add exact approved 192px Android launcher icon'
+          git push origin HEAD:cc-remove-book-number-overlay
