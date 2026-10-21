@@ -28,7 +28,7 @@
 
   function directSource(root,key){
     if(key==='roadmap')return root?.querySelector(':scope > #ccProjectRoadmap')||null;
-    if(key==='performance')return root?.querySelector(':scope > #projectPerformancePanel')||null;
+    if(key==='performance')return root?.querySelector(':scope > #projectPerformancePanel')||root?.querySelector(':scope > #bookRevenuePanel')||null;
     if(key==='tracking')return trackingBlock(root);
     return null;
   }
@@ -37,7 +37,7 @@
     const body=shell?.querySelector(':scope > .cc-project-detail-body');
     if(!body)return false;
     if(key==='roadmap')return !!body.querySelector('#ccProjectRoadmap');
-    if(key==='performance')return !!body.querySelector('#projectPerformancePanel');
+    if(key==='performance')return !!body.querySelector('#projectPerformancePanel,#bookRevenuePanel');
     if(key==='tracking')return !!body.querySelector('[data-cc-project-detail-source="tracking"]');
     return false;
   }
@@ -70,7 +70,11 @@
     shell.append(toggle,body);
     body.append(node);
     node.dataset.ccProjectDetailSource=def.key;
-    if(def.key==='tracking')node.dataset.ccv4Compact='1';
+    if(def.key==='tracking'){
+      node.dataset.ccv4Compact='1';
+      const compact=node.querySelector('.ccv4-compact-details');
+      if(compact)compact.open=true;
+    }
     toggle.addEventListener('click',()=>toggleSection(def.key));
     return shell;
   }
@@ -91,6 +95,7 @@
       shell.classList.toggle('is-open',isOpen);
       const btn=shell.querySelector(':scope > .cc-project-detail-toggle');
       const body=shell.querySelector(':scope > .cc-project-detail-body');
+      if(def.key==='tracking')shell.querySelector('.ccv4-compact-details')?.setAttribute('open','');
       if(btn){btn.setAttribute('aria-expanded',String(isOpen));btn.setAttribute('aria-label',`${isOpen?'Close':'Open'} ${def.label}`);}
       if(body)body.hidden=!isOpen;
     });
