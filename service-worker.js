@@ -1,7 +1,10 @@
-const CACHE='james-command-center-v55';
-const SUPABASE_CDN='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0';
+const CACHE='james-command-center-v56';
+const SUPABASE_CDNS=[
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
+  'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
+];
 const STATIC=[
-  './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=10','./project-hub.js?v=3',
+  './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=10','./project-hub.js?v=3','./startup-loader.js?v=1',
   './mobile-accordion-polish.css?v=1','./mobile-accordion-polish.js?v=1','./books-hub.css?v=1','./books-hub.js?v=1',
   './books-revenue.css?v=4','./books-revenue.js?v=5','./ux-polish.css?v=1','./books-portfolio-polish.js?v=1',
   './next-up-label.js?v=1','./operating-order-exclusion.js?v=3','./performance-hub.css?v=2','./performance-hub.js?v=5',
@@ -19,10 +22,12 @@ self.addEventListener('install',e=>{
   e.waitUntil((async()=>{
     const cache=await caches.open(CACHE);
     await cache.addAll(STATIC);
-    try{
-      const response=await fetch(SUPABASE_CDN,{cache:'reload'});
-      if(response&&response.ok) await cache.put(SUPABASE_CDN,response.clone());
-    }catch{}
+    for(const src of SUPABASE_CDNS){
+      try{
+        const response=await fetch(src,{cache:'reload'});
+        if(response&&response.ok) await cache.put(src,response.clone());
+      }catch{}
+    }
   })());
   self.skipWaiting();
 });
@@ -36,13 +41,13 @@ self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET')return;
   const url=new URL(e.request.url);
 
-  if(url.href===SUPABASE_CDN){
-    e.respondWith(caches.match(SUPABASE_CDN).then(cached=>{
+  if(SUPABASE_CDNS.includes(url.href)){
+    e.respondWith(caches.match(url.href).then(cached=>{
       if(cached){
-        e.waitUntil(fetch(SUPABASE_CDN,{cache:'no-store'}).then(r=>{if(r&&r.ok)return caches.open(CACHE).then(c=>c.put(SUPABASE_CDN,r.clone()));}).catch(()=>{}));
+        e.waitUntil(fetch(url.href,{cache:'no-store'}).then(r=>{if(r&&r.ok)return caches.open(CACHE).then(c=>c.put(url.href,r.clone()));}).catch(()=>{}));
         return cached;
       }
-      return fetch(e.request).then(r=>{if(r&&r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(SUPABASE_CDN,copy)).catch(()=>{});}return r;});
+      return fetch(e.request).then(r=>{if(r&&r.ok){const copy=r.clone();caches.open(CACHE).then(c=>c.put(url.href,copy)).catch(()=>{});}return r;});
     }));
     return;
   }
@@ -64,7 +69,7 @@ self.addEventListener('fetch',e=>{
 
   if(url.origin!==self.location.origin)return;
 
-  const freshAsset=url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/operating-order-exclusion.js')||url.pathname.endsWith('/refresh-orchestrator.js')||url.pathname.endsWith('/source-health.js')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/command-center-brain-roadmaps.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp');
+  const freshAsset=url.pathname.endsWith('/startup-loader.js')||url.pathname.endsWith('/app-config.js')||url.pathname.endsWith('/project-hub.js')||url.pathname.endsWith('/mobile-accordion-polish.js')||url.pathname.endsWith('/mobile-accordion-polish.css')||url.pathname.endsWith('/operating-order-exclusion.js')||url.pathname.endsWith('/refresh-orchestrator.js')||url.pathname.endsWith('/source-health.js')||url.pathname.endsWith('/command-center-v4.js')||url.pathname.endsWith('/command-center-v4.css')||url.pathname.endsWith('/command-center-v6.js')||url.pathname.endsWith('/command-center-v6.css')||url.pathname.endsWith('/command-center-v6-2.js')||url.pathname.endsWith('/command-center-v6-2.css')||url.pathname.endsWith('/command-center-v6-art.css')||url.pathname.endsWith('/command-center-book-covers.js')||url.pathname.endsWith('/command-center-book-covers.css')||url.pathname.endsWith('/command-center-exact-menus.js')||url.pathname.endsWith('/command-center-exact-menus.css')||url.pathname.endsWith('/command-center-earnings.js')||url.pathname.endsWith('/command-center-earnings.css')||url.pathname.endsWith('/command-center-brain-home.js')||url.pathname.endsWith('/command-center-brain-home.css')||url.pathname.endsWith('/command-center-brain-roadmaps.css')||url.pathname.endsWith('/book-cover-atlas-v2.webp')||url.pathname.endsWith('/manifest.webmanifest')||url.pathname.endsWith('/command-center-approved-icon-192.png')||url.pathname.endsWith('/command-center-approved-icon-512.png')||url.pathname.endsWith('/cc6-eclipse.webp')||url.pathname.endsWith('/cc6-mountain.webp')||url.pathname.endsWith('/cc6-chart.webp')||url.pathname.endsWith('/cc6-road.webp');
   if(freshAsset){
     e.respondWith(fetch(e.request,{cache:'no-store'}).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r;}).catch(()=>caches.match(e.request).then(x=>x||Response.error())));
     return;
