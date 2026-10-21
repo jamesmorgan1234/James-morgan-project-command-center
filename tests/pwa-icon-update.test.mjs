@@ -91,12 +91,12 @@ assert.match(html,/rel="preconnect" href="https:\/\/cdn\.jsdelivr\.net" crossori
 assert.match(html,/rel="preconnect" href="https:\/\/gmlsucpwliegwlxymjvp\.supabase\.co" crossorigin/,'Supabase API connection should be warmed early');
 for(const src of [
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
-  './app-config.js?v=12','./app.js?v=10','./project-hub.js?v=3','./mobile-accordion-polish.js?v=1'
+  './app-config.js?v=13','./app.js?v=10','./project-hub.js?v=3','./mobile-accordion-polish.js?v=1'
 ]){
   const escaped=src.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
   assert.match(html,new RegExp(`<script defer src="${escaped}"><\\/script>`),`${src} must not block first paint`);
 }
-assert.match(sw,/james-command-center-v54/);
+assert.match(sw,/james-command-center-v55/);
 assert.ok(sw.includes("'./command-center-approved-icon-192.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-any'"));
 assert.ok(sw.includes("'./command-center-approved-icon-512.png?icon=9-approved-maskable'"));
