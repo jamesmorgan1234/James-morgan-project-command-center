@@ -1,4 +1,4 @@
-const CACHE='james-command-center-v47';
+const CACHE='james-command-center-v48';
 const STATIC=[
   './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./app.js?v=10','./project-hub.js?v=3',
   './mobile-accordion-polish.css?v=1','./mobile-accordion-polish.js?v=1','./books-hub.css?v=1','./books-hub.js?v=1',
@@ -8,7 +8,7 @@ const STATIC=[
   './command-center-v4.css?v=1','./command-center-v4.js?v=1','./command-center-v6.css?v=1','./command-center-v6.js?v=1',
   './command-center-v6-2.css?v=1','./command-center-v6-2.js?v=1','./command-center-v6-art.css?v=1',
   './command-center-book-covers.css?v=2','./command-center-book-covers.js?v=2','./book-cover-atlas-v2.webp?v=2','./app-config.js?v=8',
-  './manifest.webmanifest?v=6','./command-center-approved-icon-512.png?icon=6-approved','./command-center-icon-v4.svg?icon=6-vector-fallback',
+  './manifest.webmanifest?v=7','./command-center-approved-icon-512.png?icon=7-approved','./command-center-icon-v4.svg?icon=6-vector-fallback',
   './cc6-eclipse.webp','./cc6-mountain.webp','./cc6-chart.webp','./cc6-road.webp',
   './art-brain.svg','./art-castle.svg','./art-chart.svg','./art-eclipse.svg','./art-mountain-red.svg','./art-mountain.svg','./art-network.svg','./art-road.svg'
 ];

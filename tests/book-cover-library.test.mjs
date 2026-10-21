@@ -30,7 +30,7 @@ assert.ok(css.includes('.cc7-approved-cover>b{display:none!important}'));
 assert.ok(cfg.includes("command-center-book-covers.css?v=2"));
 assert.ok(cfg.includes("command-center-book-covers.js?v=2"));
 assert.ok(html.includes('app-config.js?v=8'));
-assert.ok(sw.includes("james-command-center-v47"));
+assert.ok(sw.includes("james-command-center-v48"));
 assert.ok(sw.includes("book-cover-atlas-v2.webp?v=2"));
 assert.ok(sw.includes("command-center-book-covers.js?v=2"));
 assert.ok(sw.includes("command-center-book-covers.css?v=2"));
