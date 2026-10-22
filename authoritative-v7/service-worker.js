@@ -1,14 +1,22 @@
-const CACHE='command-center-v7-clean-1';
+const CACHE='command-center-v7-clean-2';
 const CORE=[
   './index.html',
   './theme.css?v=1',
   './layout.css?v=1',
+  './artwork.css?v=1',
   './app.js?v=1',
   './data.js',
   './config.js',
   './control-modules.js',
   './manifest.webmanifest',
   './offline.html',
+  './assets/landscape-eclipse.svg',
+  './assets/neural-globe.svg',
+  './assets/analytics-grid.svg',
+  './assets/road-mountains.svg',
+  './assets/network-globe.svg',
+  './assets/header-planet.svg',
+  './assets/time-portal.svg',
   '../command-center-approved-icon-192.png',
   '../command-center-approved-icon-512.png'
 ];
@@ -34,7 +42,6 @@ self.addEventListener('fetch',event=>{
   if(request.method!=='GET')return;
   const url=new URL(request.url);
   if(url.origin!==self.location.origin)return;
-
   if(request.mode==='navigate'){
     event.respondWith((async()=>{
       try{
@@ -50,7 +57,6 @@ self.addEventListener('fetch',event=>{
     })());
     return;
   }
-
   event.respondWith((async()=>{
     const cached=await caches.match(request);
     if(cached)return cached;
