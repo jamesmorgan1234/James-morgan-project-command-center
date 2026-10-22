@@ -1,74 +1,26 @@
 <!doctype html>
-<html lang="en" data-command-center-theme="v6">
+<html lang="en" data-command-center-runtime="v7-clean">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="theme-color" content="#000000">
-<meta name="color-scheme" content="dark">
-<title>Command Center</title>
-<link rel="manifest" href="./manifest.webmanifest?v=9">
-<link rel="icon" type="image/png" href="./command-center-approved-icon-512.png?icon=7-browser">
-<link rel="apple-touch-icon" href="./command-center-approved-icon-512.png?icon=7-apple">
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
-<link rel="preconnect" href="https://gmlsucpwliegwlxymjvp.supabase.co" crossorigin>
-<link rel="stylesheet" href="./styles.css?v=7">
-<link rel="stylesheet" href="./project-hub.css?v=2" data-projectHub="1">
-<link rel="stylesheet" href="./mobile-accordion-polish.css?v=4" data-mobileAccordionPolish="1">
-<link rel="stylesheet" href="./command-center-startup-shell.css?v=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <title>Command Center</title>
+  <link rel="manifest" href="./manifest.webmanifest?v=10">
+  <link rel="icon" type="image/png" href="./command-center-approved-icon-512.png?cc7-root=2">
+  <link rel="apple-touch-icon" href="./command-center-approved-icon-512.png?cc7-root=2">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://gmlsucpwliegwlxymjvp.supabase.co" crossorigin>
+  <link rel="stylesheet" href="./authoritative-v7/theme.css?v=4">
+  <link rel="stylesheet" href="./authoritative-v7/layout.css?v=4">
+  <link rel="stylesheet" href="./authoritative-v7/artwork.css?v=4">
 </head>
 <body>
-<div id="boot" class="center-screen">Loading secure Command Center…</div>
-<div id="app" hidden>
-  <header class="topbar">
-    <div class="brand-lockup">
-      <img class="brand-icon" src="./command-center-approved-icon-512.png?icon=7-ui" alt="Command Center">
-      <div class="brand-copy">
-        <h1>Command Center</h1>
-        <div class="brand-tagline">Projects • Progress • Priorities • Performance</div>
-        <div id="syncText" class="muted sync-line">Private data · waiting for sync</div>
-      </div>
-    </div>
-  </header>
-  <section id="refreshStrip" class="refresh-strip" hidden><button id="refreshBtn" class="btn btn-primary refresh-btn">Refresh now</button></section>
-  <main>
-    <section id="authPanel" class="panel auth-panel" hidden>
-      <h2>Secure sign in</h2><p class="muted">Your project details and business metrics are private and only load after authentication.</p>
-      <div class="form-grid"><label>Email<input id="emailInput" type="email" autocomplete="username"></label><label>Password<input id="passwordInput" type="password" autocomplete="current-password"></label></div>
-      <div class="row gap"><button id="signInBtn" class="btn btn-primary">Sign in</button><button id="signUpBtn" class="btn">Create account</button></div><div id="authMsg" class="message"></div>
-    </section>
-    <section id="claimPanel" class="panel auth-panel" hidden>
-      <h2>Connect this account</h2><p class="muted">Enter the one-time setup code for this private Command Center.</p><label>Setup code<input id="claimCode" type="password" autocomplete="one-time-code"></label><button id="claimBtn" class="btn btn-primary">Connect my Command Center</button><div id="claimMsg" class="message"></div>
-    </section>
-    <section id="dashboard" hidden>
-      <section class="stats" id="stats"></section>
-      <section class="panel view-shell" id="dashboardViewShell" hidden>
-        <div class="view-head"><div><div id="viewEyebrow" class="eyebrow">Overview</div><h2 id="viewTitle">Portfolio overview</h2><p id="viewDescription" class="muted">Use the summary tiles above to open exactly what you want to work on.</p></div><button id="backHomeBtn" class="btn btn-ghost" hidden>Back to overview</button></div>
-        <section id="homeView"></section>
-        <section id="projectView" hidden>
-          <section class="toolbar"><input id="searchInput" type="search" placeholder="Search projects, next actions, blockers…"><select id="statusFilter"><option value="all">All statuses</option></select><select id="categoryFilter"><option value="all">All categories</option></select></section>
-          <section class="two-col project-view-grid"><div class="project-list-panel"><div class="section-head"><h3 id="projectViewHeading">Projects</h3><span id="projectCount" class="muted"></span></div><div id="projectGrid" class="project-grid"></div></div><aside class="detail-panel" id="detailPanel"><div class="muted">Select a project to see its next action, updates, blockers, KPIs, editable information, and continuation prompt.</div></aside></section>
-        </section>
-        <section id="revenueView" hidden><div id="revenueSummary" class="revenue-summary"></div><div id="revenueList" class="revenue-list"></div></section>
-      </section>
-    </section>
-  </main>
-  <footer id="appFooter" class="app-footer" hidden><button id="signOutBtn" class="btn btn-ghost signout-bottom">Sign out</button></footer>
-</div>
-<script>
-(() => {
-  window.__COMMAND_CENTER_BOOTSTRAP_STARTED=true;
-  const REPAIR_KEY='cc-startup-repair-attempted-v65';
-  const $=id=>document.getElementById(id);
-  let repairing=false;
-  function reveal(message){const boot=$('boot'),app=$('app'),sync=$('syncText');if(boot)boot.hidden=true;if(app)app.hidden=false;if(sync)sync.textContent=message;}
-  function showRecovery(message){reveal('Startup recovery ready');let panel=$('startupRecovery');if(!panel){panel=document.createElement('section');panel.id='startupRecovery';panel.className='panel auth-panel';document.querySelector('#app main')?.prepend(panel);}if(!panel)return;const safe=String(message||'The local startup files could not be loaded.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));panel.innerHTML=`<h2>Command Center startup needs repair</h2><p class="muted">${safe}</p><button id="retryStartupBtn" class="btn btn-primary">Repair and reload Command Center</button>`;$('retryStartupBtn')?.addEventListener('click',()=>{sessionStorage.removeItem(REPAIR_KEY);repairRuntime();},{once:true});}
-  function loadLocal(src,timeoutMs=6000){return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src=src;script.async=false;let settled=false;const finish=(ok,error)=>{if(settled)return;settled=true;clearTimeout(timer);script.onload=script.onerror=null;if(ok)resolve(script);else{script.remove();reject(error||new Error(`Failed to load ${src}`));}};const timer=setTimeout(()=>finish(false,new Error(`Timed out loading ${src}`)),timeoutMs);script.onload=()=>finish(true);script.onerror=()=>finish(false,new Error(`Failed to load ${src}`));document.body.appendChild(script);});}
-  async function repairRuntime(){if(repairing)return;repairing=true;reveal('Repairing local startup cache…');try{if('serviceWorker' in navigator){const regs=await navigator.serviceWorker.getRegistrations();await Promise.allSettled(regs.map(reg=>reg.unregister()));}if('caches' in window){const keys=await caches.keys();await Promise.allSettled(keys.filter(key=>key.startsWith('james-command-center-')).map(key=>caches.delete(key)));}}catch{}sessionStorage.setItem(REPAIR_KEY,'1');location.replace(`./?cc-repair=${Date.now()}`);}
-  function installTopEdgeRefreshGuard(){if(window.__COMMAND_CENTER_EARLY_PULL_GUARD)return;window.__COMMAND_CENTER_EARLY_PULL_GUARD=true;let startX=0,startY=0,armed=false;const atTop=()=>Math.max(0,Number(window.scrollY||document.scrollingElement?.scrollTop||0))<=0;document.addEventListener('touchstart',event=>{if(event.touches.length!==1){armed=false;return;}const t=event.touches[0];startX=t.clientX;startY=t.clientY;armed=atTop();},{passive:true,capture:true});document.addEventListener('touchmove',event=>{if(!armed||event.touches.length!==1)return;const t=event.touches[0],dx=t.clientX-startX,dy=t.clientY-startY;if(dy<-10){armed=false;return;}if(dy>10&&Math.abs(dy)>Math.abs(dx)*1.1)event.preventDefault();},{passive:false,capture:true});const reset=()=>{armed=false;};document.addEventListener('touchend',reset,{passive:true,capture:true});document.addEventListener('touchcancel',reset,{passive:true,capture:true});}
-  async function boot(){installTopEdgeRefreshGuard();try{await loadLocal('./app-config.js?v=30',6000);await loadLocal('./startup-loader.js?v=7',6000);sessionStorage.removeItem(REPAIR_KEY);}catch(error){if(sessionStorage.getItem(REPAIR_KEY)!=='1'){await repairRuntime();return;}showRecovery(error?.message||'Local startup controller unavailable after cache repair.');}}
-  boot();
-})();
-</script>
+  <div id="ccBoot" class="cc-boot" role="status" aria-live="polite">Starting Command Center…</div>
+  <main id="ccApp" class="cc-app" hidden></main>
+  <div id="ccToastHost" class="cc-toast-host" aria-live="polite" aria-atomic="true"></div>
+  <script type="module" src="./authoritative-v7/interaction-feedback.js?v=1"></script>
+  <script type="module" src="./authoritative-v7/app.js?v=4"></script>
+  <script type="module" src="./authoritative-v7/root-pwa.js?v=1"></script>
 </body>
 </html>

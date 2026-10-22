@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 180">
+<defs><radialGradient id="planet" cx="50%" cy="46%" r="58%"><stop stop-color="#163a58"/><stop offset=".5" stop-color="#07131e"/><stop offset=".86" stop-color="#020406"/><stop offset="1" stop-color="#000"/></radialGradient><linearGradient id="edge" x1="0" x2="1"><stop stop-color="#ff4300"/><stop offset=".55" stop-color="#ff8b15"/><stop offset="1" stop-color="#ffd276"/></linearGradient><filter id="g" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect width="460" height="180" fill="#020304"/>
+<circle cx="340" cy="105" r="82" fill="url(#planet)"/>
+<path d="M258 109a82 82 0 0 0 164 0" fill="none" stroke="#215270" stroke-width="1.2" opacity=".55"/>
+<path d="M260 109a82 82 0 0 0 162 0" fill="none" stroke="url(#edge)" stroke-width="2.5" filter="url(#g)"/>
+<g stroke="#ff6410" fill="none" opacity=".65"><path d="M284 126v-21M291 126V91M299 126v-31M307 126V74M316 126V99M324 126V83M334 126V66M343 126V98M352 126V79M361 126v-24M370 126V88M378 126v-14"/></g>
+<g fill="#ff921f" filter="url(#g)"><circle cx="307" cy="74" r="1.8"/><circle cx="334" cy="66" r="2"/><circle cx="352" cy="79" r="1.6"/><circle cx="378" cy="111" r="1.6"/></g>
+<path d="M92 168c70-17 129-6 184-24 45-15 86-12 168 4" fill="none" stroke="#ff5a00" stroke-width="2" filter="url(#g)"/>
+<g opacity=".18" stroke="#ff5a00" stroke-width=".6"><path d="M0 158h460M54 180l162-78M126 180l119-78M198 180l76-78M270 180l33-78M342 180l-10-78M414 180l-53-78"/></g>
+</svg>
