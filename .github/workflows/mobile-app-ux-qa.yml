@@ -60,6 +60,8 @@ jobs:
         run: node tests/normal-runtime-stability.test.mjs
       - name: Approved mobile UX QA
         run: node tests/mobile-app-ux.test.mjs
+      - name: Owner mobile feedback regression QA
+        run: node tests/owner-mobile-feedback.test.mjs
       - name: Protected mobile navigation QA
         run: node tests/mobile-navigation.test.mjs
       - name: Agent runtime QA
