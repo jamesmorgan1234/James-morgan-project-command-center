@@ -1,6 +1,6 @@
 (() => {
-  if (window.COMMAND_CENTER_PRECISE_PROGRESS) return;
-  window.COMMAND_CENTER_PRECISE_PROGRESS = { version: 1 };
+  if (window.COMMAND_CENTER_PRECISE_PROGRESS?.version >= 2) return;
+  const api = window.COMMAND_CENTER_PRECISE_PROGRESS = { version: 2 };
   let rows = new Map();
   let busy = false;
   let scheduled = null;
@@ -11,13 +11,14 @@
       const meta = JSON.parse(row.value_text || '{}');
       const done = Number(meta.completed_weight), total = Number(meta.total_weight);
       if (Number.isFinite(done) && Number.isFinite(total) && total > 0) {
-        const value = Math.max(0, Math.min(100, (done / total) * 100));
-        return Math.round(value * 10) / 10;
+        return Math.max(0, Math.min(100, (done / total) * 100));
       }
     } catch {}
     const n = Number(row.value_numeric);
-    return Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n * 10) / 10)) : null;
+    return Number.isFinite(n) ? Math.max(0, Math.min(100, n)) : null;
   }
+
+  const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value;};
 
   function apply() {
     const root = document.getElementById('ccApprovedApp');
@@ -28,27 +29,29 @@
       if (!ring) return;
       const value = precise(rows.get(id));
       const label = value === null ? 'N/A' : `${value.toFixed(1)}%`;
-      ring.style.setProperty('--cc-pct', `${value === null ? 0 : value * 3.6}deg`);
-      const text = ring.querySelector('b');
-      if (text) text.textContent = label;
-      ring.dataset.precise = value === null ? 'na' : String(value);
+      const angle = `${value === null ? 0 : value * 3.6}deg`;
+      if(ring.style.getPropertyValue('--cc-pct')!==angle)ring.style.setProperty('--cc-pct', angle);
+      setText(ring.querySelector('b'),label);
+      const preciseValue=value===null?'na':String(value);
+      if(ring.dataset.precise!==preciseValue)ring.dataset.precise=preciseValue;
     });
 
     const projectId = window.history.state?.projectId || null;
     const value = precise(rows.get(projectId));
     const hero = root.querySelector('.cc-approved-project-hero .cc-approved-ring');
-    if (hero && value !== null) {
-      hero.style.setProperty('--cc-pct', `${value * 3.6}deg`);
-      const text = hero.querySelector('b');
-      if (text) text.textContent = `${value.toFixed(1)}%`;
-      hero.dataset.precise = String(value);
+    if (hero) {
+      const label = value === null ? 'N/A' : `${value.toFixed(1)}%`;
+      const angle = `${value === null ? 0 : value * 3.6}deg`;
+      if(hero.style.getPropertyValue('--cc-pct')!==angle)hero.style.setProperty('--cc-pct',angle);
+      setText(hero.querySelector('b'),label);
+      const preciseValue=value===null?'na':String(value);
+      if(hero.dataset.precise!==preciseValue)hero.dataset.precise=preciseValue;
     }
     if (projectId) {
       root.querySelectorAll('.cc-approved-kpi-grid > div').forEach(cell => {
         const label = cell.querySelector('small')?.textContent?.trim().toLowerCase();
         if (label !== 'current scope' && label !== 'progress') return;
-        const out = cell.querySelector('strong');
-        if (out) out.textContent = value === null ? 'N/A' : `${value.toFixed(1)}%`;
+        setText(cell.querySelector('strong'),value === null ? 'N/A' : `${value.toFixed(1)}%`);
       });
     }
   }
@@ -73,23 +76,21 @@
     } finally { busy = false; }
   }
 
-  function schedule() {
+  function schedule(delay=100) {
     clearTimeout(scheduled);
-    scheduled = setTimeout(() => { if (rows.size) apply(); else refresh(); }, 40);
+    scheduled = setTimeout(() => { if (rows.size) apply(); else refresh(); }, delay);
   }
 
-  const rootObserver = new MutationObserver(schedule);
-  const attach = () => {
-    const root = document.getElementById('ccApprovedApp');
-    if (!root || root.dataset.preciseObserved === '1') return;
-    root.dataset.preciseObserved = '1';
-    rootObserver.observe(root,{childList:true,subtree:true});
-    schedule();
-  };
-  const bootObserver = new MutationObserver(attach);
-  bootObserver.observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('click',event=>{
+    if(event.target.closest?.('[data-cc-home],[data-cc-project],[data-cc-back],[data-cc-toggle]'))schedule(180);
+  },true);
+  window.addEventListener('load',()=>schedule(150),{once:true});
   window.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
-  window.addEventListener('popstate',schedule);
+  window.addEventListener('popstate',()=>schedule(100));
+  window.addEventListener('command-center:client-ready',()=>schedule(100));
   setInterval(()=>{if(!document.hidden)refresh();},60000);
-  attach();refresh();
+  setTimeout(()=>refresh(),500);
+
+  api.refresh=refresh;
+  api.apply=apply;
 })();

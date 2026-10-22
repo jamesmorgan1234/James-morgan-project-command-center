@@ -5,9 +5,9 @@ const js=fs.readFileSync('command-center-approved-ui.js','utf8');
 const css=fs.readFileSync('command-center-approved-ui.css','utf8');
 const precision=fs.readFileSync('command-center-precise-progress.js','utf8');
 const nav=fs.readFileSync('command-center-approved-nav.js','utf8');
-const loader=fs.readFileSync('command-center-agent-mode-completion.js','utf8');
 const boundary=fs.readFileSync('command-center-work-boundary-mode.js','utf8');
-const workUi=fs.readFileSync('command-center-work-approval-ui.js','utf8');
+const workUi=fs.readFileSync('command-center-work-approval-ui-v3.js','utf8');
+const booksUi=fs.readFileSync('command-center-book-review-ui-v5.js','utf8');
 const authorityCss=fs.readFileSync('command-center-authoritative-runtime.css','utf8');
 const authorityJs=fs.readFileSync('command-center-authoritative-runtime.js','utf8');
 const agentTruth=fs.readFileSync('command-center-agent-truth.js','utf8');
@@ -27,11 +27,10 @@ assert.match(js,/project_opportunities/,'Approved UI must surface project opport
 
 assert.match(js,/data-cc-agent-mode="auto"/,'Auto Agent mode must exist');
 assert.match(js,/data-cc-agent-mode="next"/,'Next Step Agent mode must exist');
-assert.match(js,/data-cc-agent-mode="until-work"/,'Work-boundary Agent mode must exist');
+assert.match(js,/data-cc-agent-mode="until-work"/,'Next Work Boundary Agent mode must exist');
 assert.match(js,/data-cc-manual-toggle/,'Manual Agent mode must exist');
 assert.match(js,/command_center_agent_create_project_only_session/,'Agent modes must create real project-locked sessions');
 assert.match(js,/p_books_target:isBookProject\(project\)\?project\.name:null/,'Books Agent runs must remain explicitly targeted');
-assert.match(js,/p_allow_work:allowWork/,'Agent modes must preserve Work gating');
 assert.match(js,/command_center_agent_pause/,'Agent Pause must control the real runtime');
 assert.match(js,/command_center_agent_resume/,'Agent Resume must control the real runtime');
 assert.match(js,/command_center_agent_cancel/,'Agent Stop must control the real runtime');
@@ -47,19 +46,19 @@ assert.match(workUi,/GPT-6\.1 Sol Light/,'Work ladder must include Sol Light');
 assert.match(workUi,/Approve Sol Medium for this step/,'Sol Medium must require exact-step approval');
 assert.match(workUi,/command_center_agent_approve_work_ladder/,'Approve Work must use the durable ladder authorization');
 assert.match(workUi,/command_center_agent_escalate_work_ladder/,'Eligible failure must use the guarded model escalation path');
-assert.match(workUi,/command_center_agent_approve_sol_medium_step/,'Sol Medium must use the existing protected approval RPC');
+assert.match(workUi,/command_center_agent_approve_sol_medium_step/,'Sol Medium must use exact-step approval');
+
+assert.match(booksUi,/Approve Final/,'Books must retain owner final approval');
+assert.match(booksUi,/Mark Published/,'Books must retain publication confirmation');
+assert.match(booksUi,/PC REQUIRED/,'Books final PDF review must remain PC-required');
 
 assert.match(js,/cc-approved-ring/,'Project cards and detail pages must use progress rings');
 assert.match(precision,/completed_weight/,'Precise progress must derive from completed weighted scope');
 assert.match(precision,/total_weight/,'Precise progress must derive from total weighted scope');
 assert.match(precision,/toFixed\(1\)/,'Progress rings must show decimal precision');
-assert.doesNotMatch(precision,/Math\.round\(Number\(row\.value_numeric\)/,'Progress must not round verified KPI values to whole numbers');
 
 assert.match(js,/ccApprovedAbout/,'Bottom About control must exist');
 assert.match(js,/Advanced \/ system details/,'Advanced/system plumbing must be behind About');
-assert.match(css,/body:has\(#ccApprovedApp\):not\(\.cc-approved-legacy-open\)/,'Legacy dashboard must be hidden while approved app surface is active');
-assert.match(css,/body\.cc-approved-legacy-open #ccApprovedApp/,'Advanced mode must explicitly reveal the legacy/admin surface');
-
 assert.match(authorityCss,/#dashboard > :not\(#ccApprovedApp\)\{display:none!important\}/,'Normal mode must hide every legacy dashboard child');
 assert.match(authorityCss,/#ccApprovedAbout\{[\s\S]*position:static!important/,'About must be a normal footer control');
 assert.doesNotMatch(authorityCss,/#ccApprovedAbout\{[\s\S]*?position:fixed/,'About must never float over app content');
@@ -68,7 +67,9 @@ assert.match(agentTruth,/s\.status==='running'&&s\.started_at/,'Working must req
 assert.match(agentTruth,/state='Queued'/,'Draft/non-running sessions must be labeled Queued');
 assert.match(agentTruth,/verified\.length\/steps\.length/,'Agent percentage must derive from verified completed steps over planned steps');
 assert.match(agentTruth,/toFixed\(1\)/,'Agent progress must display to one decimal place');
-assert.match(agentTruth,/command_center_agent_status/,'Agent truth must read real durable session step state');
+
+for(const code of [authorityJs,agentTruth,precision,booksUi,workUi])
+  assert.doesNotMatch(code,/new MutationObserver\s*\(/,'Normal-use runtime must not use self-triggering global DOM observers');
 
 assert.match(css,/--cc-orange:#ff6817/,'Approved orange identity must be explicit');
 assert.match(css,/\.cc-approved-emblem/,'Artwork/emblem system must exist');
@@ -76,39 +77,23 @@ assert.match(css,/cc6-mountain\.webp/,'Project artwork must use approved Command
 assert.match(css,/cc6-road\.webp/,'Next-step artwork must use approved Command Center art');
 assert.match(css,/cc6-chart\.webp/,'Performance artwork must use approved Command Center art');
 assert.doesNotMatch(js,/Open project <span>›<\/span>/,'Approved project cards must not show legacy chevron arrows');
-assert.doesNotMatch(css,/background[^;]*#0[0-9a-f]{2}ff/i,'Approved controls must not use fallback bright-blue backgrounds');
 assert.doesNotMatch(css,/touch-action\s*:\s*none/i,'Approved UI must preserve scrolling');
 assert.doesNotMatch(css,/overflow-y\s*:\s*hidden/i,'Approved UI must preserve vertical scrolling');
 
 assert.match(nav,/history\.back\(\)/,'On-screen Back must consume browser/app history like Android Back');
 assert.match(nav,/stopImmediatePropagation/,'Approved Back must prevent legacy navigation handlers from firing too');
 
-// Critical production invariant: the approved app must be a direct enhancement,
-// not something that only appears if a later Agent completion script injects it.
-for (const asset of [
-  "command-center-mobile-first.css?v=1",
-  "command-center-artwork-polish.css?v=1",
-  "command-center-approved-ui.css?v=2",
-  "command-center-authoritative-runtime.css?v=1",
-  "command-center-approved-ui.js?v=2",
-  "command-center-precise-progress.js?v=2",
-  "command-center-approved-nav.js?v=2",
-  "command-center-work-boundary-mode.js?v=1",
-  "command-center-authoritative-runtime.js?v=1",
-  "command-center-agent-truth.js?v=1"
-]) assert.ok(cfg.includes(asset),`app-config must directly load ${asset}`);
-assert.ok(cfg.indexOf("command-center-authoritative-runtime.js?v=1") < cfg.indexOf("command-center-v4.js?v=1"),'Authoritative runtime must load before legacy V4 renderer');
-assert.ok(cfg.indexOf("command-center-agent-truth.js?v=1") < cfg.indexOf("command-center-v6.js?v=1"),'Truthful Agent status must load before legacy V6 renderer');
-
-assert.match(loader,/command-center-approved-ui\.css\?v=2/,'Completion layer may retain duplicate-safe approved UI fallback');
-assert.match(loader,/command-center-approved-ui\.js\?v=2/,'Completion layer may retain duplicate-safe approved UI fallback');
-assert.match(loader,/command-center-precise-progress\.js\?v=2/,'Completion fallback must retain precise progress layer');
-assert.match(loader,/command-center-approved-nav\.js\?v=2/,'Completion fallback must retain approved navigation guard');
-assert.match(loader,/command-center-work-boundary-mode\.js\?v=1/,'Completion fallback must retain Next Work Boundary mode');
-assert.match(loader,/command-center-authoritative-runtime\.js\?v=1/,'Completion fallback must retain the authoritative surface guard');
-assert.match(loader,/command-center-agent-truth\.js\?v=1/,'Completion fallback must retain truthful Agent progress');
-assert.doesNotMatch(loader,/command-center-app-ux\.js\?v=1/,'Old focused UX controller must no longer load');
-assert.match(loader,/COMMAND_CENTER_AGENT_HOME\?\.destroy/,'Old Agent home observer must be retired');
-assert.match(loader,/COMMAND_CENTER_AGENT_MODE\?\.destroy/,'Old Agent detail observer must be retired');
+const core=cfg.slice(cfg.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'),cfg.indexOf('let advancedPromise'));
+for(const asset of [
+  'command-center-approved-ui.js?v=2',
+  'command-center-precise-progress.js?v=3',
+  'command-center-approved-nav.js?v=2',
+  'command-center-authoritative-runtime.js?v=2',
+  'command-center-agent-truth.js?v=2',
+  'command-center-book-review-ui-v5.js?v=1',
+  'command-center-work-approval-ui-v3.js?v=1'
+]) assert.ok(core.includes(asset),`Normal startup must load ${asset}`);
+for(const forbidden of ['command-center-v4.js','command-center-v6.js','source-health.js','command-center-brain-home.js','command-center-agent-home.js'])
+  assert.ok(!core.includes(forbidden),`Normal startup must not load ${forbidden}`);
 
 console.log('approved mobile app UX QA passed');

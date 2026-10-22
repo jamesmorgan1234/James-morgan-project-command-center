@@ -8,15 +8,13 @@
     'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
     'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
   ];
-  const CORE_SCRIPTS = [
-    './app.js?v=10',
-    './project-hub.js?v=3',
-    './mobile-accordion-polish.js?v=3'
-  ];
+  // app.js owns authentication/data bootstrap. Legacy project-hub and mobile
+  // accordion controllers are lazy-loaded only from About -> Advanced.
+  const CORE_SCRIPTS = ['./app.js?v=10'];
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
-  const SW_RELOAD_KEY='cc-sw-v71-reloaded';
+  const SW_RELOAD_KEY='cc-sw-v72-reloaded';
 
   const $ = id => document.getElementById(id);
 

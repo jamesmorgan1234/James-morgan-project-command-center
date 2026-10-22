@@ -3,15 +3,25 @@ name: Mobile app UX QA
 on:
   pull_request:
     paths:
+      - 'index.html'
+      - 'startup-loader.js'
+      - 'app-config.js'
+      - 'service-worker.js'
+      - 'deployment-release-manifest.json'
       - 'command-center-approved-ui.js'
       - 'command-center-approved-ui.css'
       - 'command-center-precise-progress.js'
       - 'command-center-approved-nav.js'
-      - 'command-center-agent-mode-completion.js'
+      - 'command-center-authoritative-runtime.js'
+      - 'command-center-authoritative-runtime.css'
+      - 'command-center-agent-truth.js'
+      - 'command-center-advanced-lazy-loader.js'
       - 'command-center-work-boundary-mode.js'
-      - 'command-center-work-approval-ui.js'
+      - 'command-center-work-approval-ui-v3.js'
       - 'command-center-work-approval-ui.css'
-      - 'tests/mobile-app-ux.test.mjs'
+      - 'command-center-book-review-ui-v5.js'
+      - 'command-center-book-review-ui.css'
+      - 'tests/**'
       - '.github/workflows/mobile-app-ux-qa.yml'
   workflow_dispatch:
 
@@ -26,14 +36,23 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Release identity consistency
+        run: node tests/00-release-identity-consistency.test.mjs
       - name: Syntax checks
         run: |
+          node --check startup-loader.js
+          node --check app-config.js
           node --check command-center-approved-ui.js
           node --check command-center-precise-progress.js
           node --check command-center-approved-nav.js
-          node --check command-center-agent-mode-completion.js
+          node --check command-center-authoritative-runtime.js
+          node --check command-center-agent-truth.js
+          node --check command-center-advanced-lazy-loader.js
           node --check command-center-work-boundary-mode.js
-          node --check command-center-work-approval-ui.js
+          node --check command-center-work-approval-ui-v3.js
+          node --check command-center-book-review-ui-v5.js
+      - name: Normal runtime stability QA
+        run: node tests/normal-runtime-stability.test.mjs
       - name: Approved mobile UX QA
         run: node tests/mobile-app-ux.test.mjs
       - name: Protected mobile navigation QA
