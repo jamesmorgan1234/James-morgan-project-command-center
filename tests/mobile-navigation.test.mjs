@@ -10,6 +10,7 @@ const v6Js=readFileSync('command-center-v6.js','utf8');
 const v6Css=readFileSync('command-center-v6.css','utf8');
 const exactCss=readFileSync('command-center-exact-menus.css','utf8');
 const cfg=readFileSync('app-config.js','utf8');
+const startup=readFileSync('startup-loader.js','utf8');
 const sw=readFileSync('service-worker.js','utf8');
 const html=readFileSync('index.html','utf8');
 const manifest=readFileSync('manifest.webmanifest','utf8');
@@ -35,9 +36,8 @@ assert.doesNotMatch(mobileCss,/overflow-y\s*:/i,'restored mobile CSS must not cr
 assert.doesNotMatch(mobileCss,/touch-action\s*:/i,'restored mobile CSS must not redefine root touch panning');
 assert.doesNotMatch(mobileCss,/overscroll-behavior-y\s*:/i,'restored mobile CSS must not change Android document overscroll behavior');
 
-// These assets live in the arrays before the enhancement function declaration, so validate the complete config source.
 assert.match(cfg,/mobile-accordion-polish\.css\?v=4/,'normal full interface must load restored mobile navigation CSS');
-assert.match(cfg,/mobile-accordion-polish\.js\?v=3/,'normal full interface must load restored mobile navigation controller');
+assert.match(startup,/\.\/mobile-accordion-polish\.js\?v=3/,'core startup must load restored mobile navigation controller');
 assert.match(cfg,/command-center-v6\.js\?v=1/,'V6 interface must remain in normal startup');
 assert.match(cfg,/command-center-exact-menus\.js\?v=1/,'exact approved menus must remain in normal startup');
 assert.doesNotMatch(cfg,/command-center-mobile-first\.css/,'conflicting generic mobile visual override must not be reintroduced');
