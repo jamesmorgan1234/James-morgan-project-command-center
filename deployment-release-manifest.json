@@ -5,7 +5,7 @@
   "hosting_provider": "github_pages",
   "release_identity": {
     "app_config_version": 28,
-    "pwa_cache_version": 71,
+    "pwa_cache_version": 72,
     "startup_repair_marker": "cc-startup-repair-attempted-v63"
   },
   "required_qa": [
