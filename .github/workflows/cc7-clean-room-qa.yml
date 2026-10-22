@@ -39,6 +39,7 @@ jobs:
           node --check authoritative-v7/pwa.js
           node --check authoritative-v7/service-worker.js
           node --check authoritative-v7/repository-audit.mjs
+          node --check authoritative-v7/visual-fixture.js
           node --check authoritative-v7/qa.test.mjs
 
       - name: Run clean-room tests
@@ -59,6 +60,49 @@ jobs:
 
       - name: Audit every repository file
         run: node authoritative-v7/repository-audit.mjs
+
+      - name: Render approved-screen visual fixtures
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 >/tmp/cc7-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 1
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "No headless Chrome/Chromium available on runner"
+            exit 1
+          fi
+          mkdir -p visual-output
+          for screen in projects active next detail; do
+            "$CHROME" \
+              --headless=new \
+              --no-sandbox \
+              --disable-gpu \
+              --hide-scrollbars \
+              --force-device-scale-factor=2 \
+              --window-size=432,768 \
+              --screenshot="visual-output/${screen}.png" \
+              "http://127.0.0.1:4173/authoritative-v7/visual-fixture.html?screen=${screen}"
+          done
+          python3 - <<'PY'
+          from PIL import Image
+          from pathlib import Path
+          for path in sorted(Path('visual-output').glob('*.png')):
+              size=Image.open(path).size
+              print(path.name,size)
+              if size != (864,1536):
+                  raise SystemExit(f'{path.name}: expected 864x1536, got {size}')
+          PY
+
+      - name: Upload visual QA screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: cc7-visual-qa
+          path: visual-output/
+          if-no-files-found: error
+          retention-days: 7
 
       - name: Upload exhaustive repository audit
         uses: actions/upload-artifact@v4
