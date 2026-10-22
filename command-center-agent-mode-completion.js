@@ -1,12 +1,17 @@
 (() => {
-  const mobileHref='./command-center-mobile-first.css?v=1';
-  if(!document.querySelector('link[data-command-center-mobile-first]')){
+  const styles=[
+    ['./command-center-mobile-first.css?v=1','commandCenterMobileFirst'],
+    ['./command-center-artwork-polish.css?v=1','commandCenterArtworkPolish']
+  ];
+  styles.forEach(([href,key])=>{
+    const selector=`link[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
+    if(document.querySelector(selector)) return;
     const link=document.createElement('link');
     link.rel='stylesheet';
-    link.href=mobileHref;
-    link.dataset.commandCenterMobileFirst='1';
+    link.href=href;
+    link.dataset[key]='1';
     document.head.appendChild(link);
-  }
+  });
   let scheduled=false;
   function patch(){
     scheduled=false;
