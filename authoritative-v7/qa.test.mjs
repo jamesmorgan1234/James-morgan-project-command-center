@@ -14,7 +14,8 @@ const files = {
   manifest: await readFile(new URL('./manifest.webmanifest', import.meta.url), 'utf8'),
   offline: await readFile(new URL('./offline.html', import.meta.url), 'utf8'),
   theme: await readFile(new URL('./theme.css', import.meta.url), 'utf8'),
-  layout: await readFile(new URL('./layout.css', import.meta.url), 'utf8')
+  layout: await readFile(new URL('./layout.css', import.meta.url), 'utf8'),
+  artwork: await readFile(new URL('./artwork.css', import.meta.url), 'utf8')
 };
 const approvedIcon512=await readFile(new URL('../command-center-approved-icon-512.png',import.meta.url));
 const allRuntime = Object.values(files).join('\n');
@@ -68,6 +69,13 @@ test('screenshot-first visual primitives are defined',()=>{
   for(const cls of ['cc-card','cc-icon-frame','cc-progress','cc-live-row','cc-next-row','cc-hero','cc-metrics','cc-covers','cc-pub-grid'])assert.ok(files.theme.includes(`.${cls}`)||files.layout.includes(`.${cls}`),`missing visual primitive: ${cls}`);
 });
 
+test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
+  assert.match(files.html,/\.\/artwork\.css\?v=1/);
+  for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg']){
+    assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
+  }
+});
+
 test('clean PWA is isolated and fail-safe offline',()=>{
   const manifest=JSON.parse(files.manifest);
   assert.equal(manifest.scope,'./');
@@ -77,7 +85,7 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.match(files.html,/\.\/manifest\.webmanifest\?v=1/);
   assert.match(files.html,/\.\/pwa\.js\?v=1/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-1/);
+  assert.match(files.sw,/command-center-v7-clean-2/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
 
