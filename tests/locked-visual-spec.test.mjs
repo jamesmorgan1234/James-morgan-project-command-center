@@ -5,10 +5,15 @@ const css = readFileSync(new URL('../command-center-locked-visual-spec.css', imp
 const runtime = readFileSync(new URL('../command-center-locked-visual-spec.js', import.meta.url), 'utf8');
 const loader = readFileSync(new URL('../command-center-locked-visual-spec-loader.js', import.meta.url), 'utf8');
 const startup = readFileSync(new URL('../startup-loader.js', import.meta.url), 'utf8');
+const nav = readFileSync(new URL('../command-center-approved-nav.js', import.meta.url), 'utf8');
+const finalCss = readFileSync(new URL('../command-center-locked-visual-final.css', import.meta.url), 'utf8');
 
 assert.match(startup, /command-center-locked-visual-spec-loader\.js\?v=1/, 'locked visual system must load during normal startup');
 assert.match(loader, /command-center-locked-visual-spec\.css\?v=1/, 'locked visual stylesheet must be loaded');
 assert.match(loader, /command-center-locked-visual-spec\.js\?v=1/, 'locked visual runtime must be loaded');
+assert.match(nav, /command-center-locked-visual-spec\.css\?v=2/, 'locked visual stylesheet must be re-appended after the normal enhancement CSS cascade');
+assert.match(nav, /command-center-locked-visual-final\.css\?v=1/, 'final owner-locked visual corrections must load after the base locked visual layer');
+assert.match(nav, /command-center:advanced-ready/, 'locked visual styles must be moved back to the end after Advanced UI styles load');
 
 assert.match(css, /clip-path:polygon\(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%\)/, 'approved clipped sci-fi card geometry must be retained');
 assert.match(css, /\.cc-approved-page-head[^{]*\{[\s\S]*?art-eclipse\.svg/, 'submenu header must use the approved eclipse header artwork');
@@ -33,6 +38,12 @@ assert.match(runtime, /tile\.querySelector\('\.cc-approved-cover>span'\)\?\.remo
 
 assert.match(css, /\.cc-approved-project-hero:before\{[\s\S]*?background-image:radial-gradient/, 'project hero must use a bounded glow instead of the giant eclipse disk');
 assert.doesNotMatch(css, /\.cc-approved-project-hero:before\{[^}]*cc6-eclipse\.webp/, 'giant eclipse disk must not return to project hero');
+assert.match(finalCss, /\.cc-approved-project-hero>\.cc-approved-ring\{[\s\S]*?position:absolute!important/, 'project hero progress ring must remain absolutely positioned');
+assert.match(finalCss, /inline-size:58px!important/, 'project hero progress ring must have a fixed circular inline size');
+assert.match(finalCss, /block-size:58px!important/, 'project hero progress ring must have a fixed circular block size');
+assert.match(finalCss, /aspect-ratio:1\/1!important/, 'project hero progress ring must never stretch into an oval');
+assert.match(finalCss, /max-width:58px!important/, 'project hero progress ring must be capped against inherited width rules');
+assert.match(finalCss, /max-height:58px!important/, 'project hero progress ring must be capped against inherited height rules');
 
 assert.match(runtime, /Project Checkpoint/i, 'locked visual runtime must preserve Project Checkpoint integration');
 assert.match(runtime, /data-cc-agent-stop/, 'locked visual runtime must preserve Stop Agent');
