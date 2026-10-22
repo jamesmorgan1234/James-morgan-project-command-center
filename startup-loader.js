@@ -14,7 +14,7 @@
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
-  const SW_RELOAD_KEY='cc-sw-v71-reloaded';
+  const SW_RELOAD_KEY='cc-sw-v72-reloaded';
 
   const $ = id => document.getElementById(id);
 
