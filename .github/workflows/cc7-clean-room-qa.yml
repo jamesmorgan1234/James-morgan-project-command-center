@@ -38,6 +38,7 @@ jobs:
           node --check authoritative-v7/data.js
           node --check authoritative-v7/config.js
           node --check authoritative-v7/control-modules.js
+          node --check authoritative-v7/overview-screens.js
           node --check authoritative-v7/pwa.js
           node --check authoritative-v7/service-worker.js
           node --check authoritative-v7/repository-audit.mjs
