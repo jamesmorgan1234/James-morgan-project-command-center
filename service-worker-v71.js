@@ -2,7 +2,7 @@ const CACHE='james-command-center-v71';
 const PRECACHE=[
   './','./index.html','./styles.css?v=7','./project-hub.css?v=2','./mobile-accordion-polish.css?v=4','./command-center-startup-shell.css?v=1',
   './app-config.js?v=27','./startup-loader-v4.js?v=1','./app.js?v=10','./project-hub.js?v=3','./mobile-accordion-polish.js?v=3',
-  './source-health.css?v=2','./source-health.js?v=4','./command-center-agent-mode-completion.js?v=2','./command-center-book-review-guard.js?v=1',
+  './source-health.css?v=2','./source-health.js?v=4','./command-center-agent-mode-completion.js?v=2','./command-center-book-review-guard.js?v=1','./command-center-book-review-ui.css?v=1','./command-center-book-review-ui.js?v=1',
   './command-center-approved-ui.css?v=2','./command-center-approved-ui.js?v=2','./command-center-precise-progress.js?v=2','./command-center-approved-nav.js?v=2',
   './command-center-mobile-first.css?v=1','./command-center-artwork-polish.css?v=1','./command-center-book-covers.css?v=2','./command-center-book-covers.js?v=2','./book-cover-atlas-v2.webp?v=2',
   './manifest.webmanifest?v=9','./command-center-approved-icon-192.png?icon=9-approved-any','./command-center-approved-icon-512.png?icon=9-approved-any','./command-center-approved-icon-512.png?icon=9-approved-maskable',
