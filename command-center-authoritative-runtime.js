@@ -1,9 +1,11 @@
 (() => {
-  if (window.COMMAND_CENTER_AUTHORITATIVE_RUNTIME?.version >= 3) return;
-  const api = window.COMMAND_CENTER_AUTHORITATIVE_RUNTIME = { version: 3 };
+  if (window.COMMAND_CENTER_AUTHORITATIVE_RUNTIME?.version >= 4) return;
+  const api = window.COMMAND_CENTER_AUTHORITATIVE_RUNTIME = { version: 4 };
   let timer = null;
 
   const CHECKPOINT_TOOLS = ['normal_chat','files','github','supabase','analytics'];
+  const OPEN_SESSION_STATES = new Set(['draft','active','paused','blocked','needs_user_action','partially_completed']);
+  const RUNNER_STALE_MS = 90 * 60 * 1000;
 
   function statusMessage(button){
     return button.closest('.cc-approved-agent-home')?.querySelector('#ccApprovedAgentHomeMsg')
@@ -24,6 +26,21 @@
     });
   }
 
+  function addStopControls(){
+    if (document.body.classList.contains('cc-approved-legacy-open')) return;
+    document.querySelectorAll('#ccApprovedApp .cc-approved-agent-home').forEach(host => {
+      if (host.querySelector('[data-cc-agent-stop]')) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'cc-approved-agent-stop';
+      button.dataset.ccAgentStop = '1';
+      button.innerHTML = '<strong>Stop Agent</strong><small>Cancel a waiting or working run</small>';
+      const message = host.querySelector('#ccApprovedAgentHomeMsg');
+      if (message) message.insertAdjacentElement('beforebegin', button);
+      else host.appendChild(button);
+    });
+  }
+
   function decorateRevenue(){
     document.querySelectorAll('#ccApprovedApp .cc-approved-revenue-list > button').forEach(button => {
       button.classList.add('cc-approved-revenue-item');
@@ -36,6 +53,10 @@
     });
   }
 
+  function markBookProject(root){
+    root.classList.toggle('cc-approved-book-project', !!root.querySelector('.cc-approved-project-hero.art-eclipse'));
+  }
+
   function enforce(){
     if (document.body.classList.contains('cc-approved-legacy-open')) return;
     const dashboard = document.getElementById('dashboard');
@@ -45,7 +66,9 @@
     root.hidden = false;
     const about = document.getElementById('ccApprovedAbout');
     if (about && about.parentElement !== root) root.appendChild(about);
+    markBookProject(root);
     addCheckpointButtons();
+    addStopControls();
     decorateRevenue();
   }
 
@@ -65,6 +88,30 @@
     if (sessionError || !session?.user) throw new Error('Authorized Command Center session required.');
     const gate = await client.rpc('is_command_center_authorized');
     if (gate.error || !gate.data) throw new Error('Authorized Command Center session required.');
+    return client;
+  }
+
+  async function runnerHealth(client){
+    const { data, error } = await client.rpc('command_center_agent_tool_health');
+    if (error) throw error;
+    const row = (data || []).find(item => item.capability_key === 'background_runner') || null;
+    const lastSuccess = row?.last_success_at ? Date.parse(row.last_success_at) : NaN;
+    const fresh = Number.isFinite(lastSuccess) && (Date.now() - lastSuccess) <= RUNNER_STALE_MS;
+    return {
+      ready: row?.availability === 'available' && fresh,
+      row,
+      fresh
+    };
+  }
+
+  async function requireLiveRunner(button){
+    const message = statusMessage(button);
+    const client = await authorizedClient();
+    const health = await runnerHealth(client);
+    if (!health.ready) {
+      if (message) message.textContent = 'Agent runner is not active right now. No run was created.';
+      throw new Error('Agent runner is not active right now. No run was created.');
+    }
     return client;
   }
 
@@ -89,8 +136,9 @@
     const message = statusMessage(button);
     try {
       button.disabled = true;
+      if (message) message.textContent = 'Checking Agent runner…';
+      const client = await requireLiveRunner(button);
       if (message) message.textContent = 'Reading the newest verified project checkpoint…';
-      const client = await authorizedClient();
       const projectId = await projectIdForCheckpoint(button, client);
       const { data:project, error:projectError } = await client.from('projects')
         .select('id,name,category,next_action,status,stage,verification,blocker,last_verified')
@@ -114,8 +162,46 @@
       };
       const { error } = await client.rpc('command_center_agent_create_project_only_session', args);
       if (error) throw error;
-      if (message) message.textContent = 'Checkpoint review queued. Agent will explain where the project stands without continuing the work.';
+      if (message) message.textContent = 'Checkpoint review requested. Agent is starting this project review.';
       setTimeout(() => window.COMMAND_CENTER_APPROVED_UI?.refresh?.(), 250);
+      setTimeout(() => window.COMMAND_CENTER_AGENT_TRUTH?.refresh?.(), 450);
+    } catch (error) {
+      if (message && !/runner is not active/i.test(message.textContent || '')) message.textContent = error?.message || String(error);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  async function stopAgent(button){
+    const message = statusMessage(button);
+    try {
+      button.disabled = true;
+      if (message) message.textContent = 'Checking current Agent work…';
+      const client = await authorizedClient();
+      const { data:rows, error } = await client.rpc('command_center_agent_list_sessions',{p_project_id:null});
+      if (error) throw error;
+      let live = (rows || []).filter(row => OPEN_SESSION_STATES.has(row.status));
+      const home = button.closest('.cc-approved-agent-home');
+      const selectedProject = home?.querySelector('#ccApprovedAgentProject')?.value || '';
+      if (selectedProject) live = live.filter(row => (row.current_project_id || row.primary_project_id) === selectedProject);
+      if (!live.length) {
+        if (message) message.textContent = selectedProject ? 'No waiting or working Agent run exists for that project.' : 'No waiting or working Agent run exists.';
+        return;
+      }
+      if (!selectedProject && live.length > 1) {
+        if (message) message.textContent = 'Choose the project you want to stop first.';
+        return;
+      }
+      const priority = { active:0, needs_user_action:1, blocked:2, partially_completed:3, paused:4, draft:5 };
+      live.sort((a,b) => (priority[a.status] ?? 99) - (priority[b.status] ?? 99) || new Date(b.updated_at || 0) - new Date(a.updated_at || 0));
+      const target = live[0];
+      const { data:result, error:cancelError } = await client.rpc('command_center_agent_cancel',{p_session_id:target.id});
+      if (cancelError) throw cancelError;
+      if (message) message.textContent = result?.waiting_for_atomic_action
+        ? 'Stop requested. Agent will stop after the current safe action.'
+        : 'Agent run canceled.';
+      setTimeout(() => window.COMMAND_CENTER_APPROVED_UI?.refresh?.(), 200);
+      setTimeout(() => window.COMMAND_CENTER_AGENT_TRUTH?.refresh?.(), 350);
     } catch (error) {
       if (message) message.textContent = error?.message || String(error);
     } finally {
@@ -123,19 +209,83 @@
     }
   }
 
+  async function gateAndReplay(button){
+    const message = statusMessage(button);
+    try {
+      button.disabled = true;
+      if (message) message.textContent = 'Checking Agent runner…';
+      await requireLiveRunner(button);
+      button.dataset.ccRunnerGatePass = '1';
+      button.disabled = false;
+      button.click();
+    } catch (error) {
+      if (message && !/runner is not active/i.test(message.textContent || '')) message.textContent = error?.message || String(error);
+    } finally {
+      delete button.dataset.ccRunnerGatePass;
+      button.disabled = false;
+    }
+  }
+
+  async function gateAndReplayForm(form){
+    const button = form.querySelector('button[type="submit"]') || form;
+    const message = statusMessage(button);
+    try {
+      if (button instanceof HTMLButtonElement) button.disabled = true;
+      if (message) message.textContent = 'Checking Agent runner…';
+      await requireLiveRunner(button);
+      form.dataset.ccRunnerGatePass = '1';
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+      form.requestSubmit();
+    } catch (error) {
+      if (message && !/runner is not active/i.test(message.textContent || '')) message.textContent = error?.message || String(error);
+    } finally {
+      delete form.dataset.ccRunnerGatePass;
+      if (button instanceof HTMLButtonElement) button.disabled = false;
+    }
+  }
+
   document.addEventListener('click', event => {
     const checkpoint = event.target.closest?.('[data-cc-agent-checkpoint]');
     if (checkpoint) {
       event.preventDefault();
-      event.stopPropagation();
+      event.stopImmediatePropagation();
       startCheckpoint(checkpoint);
       return;
     }
+
+    const stop = event.target.closest?.('[data-cc-agent-stop]');
+    if (stop) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      stopAgent(stop);
+      return;
+    }
+
+    const mode = event.target.closest?.('[data-cc-agent-mode],[data-cc-agent-home-mode]');
+    if (mode && !mode.dataset.ccRunnerGatePass) {
+      const requestedMode = mode.dataset.ccAgentHomeMode || mode.dataset.ccAgentMode || '';
+      if (requestedMode !== 'manual') {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        gateAndReplay(mode);
+        return;
+      }
+    }
+
     if (event.target.closest?.('[data-cc-home],[data-cc-project],[data-cc-back],[data-cc-about-close]')) {
       schedule(100);
       followRender();
     }
   }, true);
+
+  document.addEventListener('submit', event => {
+    const form = event.target.closest?.('.cc-approved-manual[data-cc-manual-form],#ccApprovedAgentHomeManual');
+    if (!form || form.dataset.ccRunnerGatePass) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    gateAndReplayForm(form);
+  }, true);
+
   window.addEventListener('load', () => { schedule(120); followRender(); }, { once: true });
   window.addEventListener('popstate', () => { schedule(80); followRender(); });
   window.addEventListener('visibilitychange', () => { if (!document.hidden) { schedule(60); followRender(); } });
@@ -146,4 +296,5 @@
   api.enforce = enforce;
   api.refresh = () => schedule(0);
   api.startCheckpoint = startCheckpoint;
+  api.stopAgent = stopAgent;
 })();
