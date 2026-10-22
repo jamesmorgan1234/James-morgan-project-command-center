@@ -14,7 +14,6 @@ const sw=readFileSync('service-worker.js','utf8');
 const html=readFileSync('index.html','utf8');
 const manifest=readFileSync('manifest.webmanifest','utf8');
 
-// Protected phone behavior belongs to the restored V6/project-hub navigation stack.
 assert.match(html,/viewport-fit=cover/,'PWA must opt in to edge-to-edge handling');
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no/,'viewport must remain locked against pinch zoom');
 assert.match(html,/installTopEdgeRefreshGuard/,'startup shell must protect the top edge before enhancements load');
@@ -36,26 +35,23 @@ assert.doesNotMatch(mobileCss,/overflow-y\s*:/i,'restored mobile CSS must not cr
 assert.doesNotMatch(mobileCss,/touch-action\s*:/i,'restored mobile CSS must not redefine root touch panning');
 assert.doesNotMatch(mobileCss,/overscroll-behavior-y\s*:/i,'restored mobile CSS must not change Android document overscroll behavior');
 
-// Normal startup must use the original project-hub/V6 navigation rather than the stripped renderer's mobile shim.
-const enhancements=cfg.slice(cfg.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'));
-assert.match(enhancements,/mobile-accordion-polish\.css\?v=4/,'normal full interface must load restored mobile navigation CSS');
-assert.match(enhancements,/mobile-accordion-polish\.js\?v=3/,'normal full interface must load restored mobile navigation controller');
-assert.match(enhancements,/command-center-v6\.js\?v=1/,'V6 interface must remain in normal startup');
-assert.match(enhancements,/command-center-exact-menus\.js\?v=1/,'exact approved menus must remain in normal startup');
-assert.doesNotMatch(enhancements,/command-center-mobile-first\.css/,'conflicting generic mobile visual override must not be reintroduced');
-assert.doesNotMatch(enhancements,/command-center-approved-nav\.js/,'stripped-renderer navigation shim must not replace restored navigation');
+// These assets live in the arrays before the enhancement function declaration, so validate the complete config source.
+assert.match(cfg,/mobile-accordion-polish\.css\?v=4/,'normal full interface must load restored mobile navigation CSS');
+assert.match(cfg,/mobile-accordion-polish\.js\?v=3/,'normal full interface must load restored mobile navigation controller');
+assert.match(cfg,/command-center-v6\.js\?v=1/,'V6 interface must remain in normal startup');
+assert.match(cfg,/command-center-exact-menus\.js\?v=1/,'exact approved menus must remain in normal startup');
+assert.doesNotMatch(cfg,/command-center-mobile-first\.css/,'conflicting generic mobile visual override must not be reintroduced');
+assert.doesNotMatch(cfg,/command-center-approved-nav\.js/,'stripped-renderer navigation shim must not replace restored navigation');
 assert.match(html,/project-hub\.css\?v=2/,'project-hub CSS must preload to avoid generic-shell flash');
 assert.match(html,/mobile-accordion-polish\.css\?v=4/,'mobile navigation CSS must preload');
 assert.match(projectHub,/data-open|project-card/,'project hub must retain interactive project targets');
 
-// Deep project/detail navigation still owns a distinct history level.
 assert.match(accordions,/ccProjectDetailAccordion/,'project detail sections must own a history level');
 assert.match(accordions,/history\.pushState/,'project detail opening must push history');
 assert.match(accordions,/history\.back\(\)/,'project detail close must use history');
 assert.match(accordions,/history\.replaceState/,'switching detail bubbles must not stack unnecessary history');
 assert.match(accordionCss,/#backHomeBtn,[\s\S]*\.cc-brain-back\{display:none!important\}/,'redundant visual Back arrows remain hidden where physical/browser Back owns navigation');
 
-// Visual CSS itself must not sabotage the native page-scrolling contract.
 assert.doesNotMatch(v6Css,/overflow-y\s*:\s*hidden/i,'V6 CSS must not disable vertical document scrolling');
 assert.doesNotMatch(exactCss,/overflow-y\s*:\s*hidden/i,'exact-menu CSS must not disable vertical document scrolling');
 assert.doesNotMatch(v6Css,/touch-action\s*:\s*none/i,'V6 CSS must not disable touch panning');
