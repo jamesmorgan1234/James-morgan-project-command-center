@@ -9,6 +9,8 @@ const deviceCss=fs.readFileSync('command-center-agent-device-guidance.css','utf8
 const runnerUi=fs.readFileSync('command-center-agent-runner-status.js','utf8');
 const homeUi=fs.readFileSync('command-center-agent-home.js','utf8');
 const homeCss=fs.readFileSync('command-center-agent-home.css','utf8');
+const sixUi=fs.readFileSync('command-center-agent-six-modes-v6.js','utf8');
+const sixCss=fs.readFileSync('command-center-agent-six-modes-v6.css','utf8');
 const cfg=fs.readFileSync('app-config.js','utf8');
 const html=fs.readFileSync('index.html','utf8');
 const sw=fs.readFileSync('service-worker.js','utf8');
@@ -31,8 +33,8 @@ const deviceReq=fs.readFileSync('supabase/migrations/20261021231000_agent_mode_d
 const toolHealth=fs.readFileSync('supabase/migrations/20261021231500_agent_mode_tool_health_gateway.sql','utf8');
 const serviceWork=fs.readFileSync('supabase/migrations/20261021232000_agent_mode_service_work_and_user_blockers.sql','utf8');
 
-for(const [name,src] of [['Agent Mode UI',ui],['Agent completion patch',completion],['Agent device guidance',deviceUi],['Agent runner status',runnerUi],['Agent home dashboard',homeUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
-for(const [name,src] of [['Agent Mode CSS',css],['Agent device CSS',deviceCss],['Agent home CSS',homeCss]])assert.equal((src.match(/\{/g)||[]).length,(src.match(/\}/g)||[]).length,`${name} braces must balance`);
+for(const [name,src] of [['Agent Mode UI',ui],['Agent completion patch',completion],['Agent device guidance',deviceUi],['Agent runner status',runnerUi],['Agent home dashboard',homeUi],['Agent six-mode launcher',sixUi]])assert.doesNotThrow(()=>new Function(src),`${name} must parse`);
+for(const [name,src] of [['Agent Mode CSS',css],['Agent device CSS',deviceCss],['Agent home CSS',homeCss],['Agent six-mode CSS',sixCss]])assert.equal((src.match(/\{/g)||[]).length,(src.match(/\}/g)||[]).length,`${name} braces must balance`);
 
 for(const table of ['agent_sessions','agent_session_projects','agent_steps','agent_step_evidence','agent_checkpoints','agent_step_attempts','agent_work_handoffs','agent_work_queue','agent_circuit_breakers','agent_tool_registry','agent_run_events']){
   assert.match(schema,new RegExp(`create table if not exists public\\.${table}`,'i'),`missing ${table}`);
@@ -101,41 +103,44 @@ assert.match(runnerUi,/Background runner active/);
 assert.match(runnerUi,/command_center_agent_tool_health/);
 assert.match(runnerUi,/awaiting first run/);
 
-assert.match(homeUi,/ccAgentHomeButton/,'advanced Agent home button must remain available');
-assert.match(homeUi,/Agent Control/,'advanced Agent control dashboard must remain available');
+assert.match(homeUi,/ccAgentHomeButton/,'Agent home button must remain available');
+assert.match(homeUi,/Agent Control/,'Agent control dashboard must remain available');
 assert.match(homeUi,/Currently working on/);
 assert.match(homeUi,/Next task/);
 assert.match(homeUi,/Needs You/);
 assert.match(homeUi,/Approve Sol Medium/);
+assert.match(homeUi,/function progressPercent\(st\)/,'Agent home must calculate verified-step progress');
+assert.match(homeUi,/verified_steps/);
+assert.match(homeUi,/total_steps/);
+assert.match(homeUi,/val\.textContent='Starting'/,'draft sessions without a plan must show Starting rather than fake progress');
+assert.match(homeUi,/Working • \$\{pct\.toFixed\(1\)\}%/,'running Agent progress must be visible on the home button');
 assert.match(homeUi,/PC REQUIRED/);
 assert.match(homeUi,/I completed this/);
 assert.match(homeUi,/command_center_agent_approve_sol_medium_step/);
 assert.match(homeUi,/command_center_agent_complete_user_action/);
-assert.match(homeUi,/history\.pushState/,'advanced Agent home dashboard must support physical/browser Back');
-assert.match(homeUi,/history\.back\(\)/,'advanced Agent home dashboard must close through history');
+assert.match(homeUi,/history\.pushState/,'Agent home dashboard must support physical/browser Back');
+assert.match(homeUi,/history\.back\(\)/,'Agent home dashboard must close through history');
 
 for(const label of ['Agent Session Model','Goal Intake','Step Executor','Tool Permission Gate','Verification Gate','Checkpoint & Resume','Failure Recovery','Cross-Project Agent Runs'])assert.ok(brain.includes(label),`Agent roadmap missing ${label}`);
 assert.match(ui,/This Project Only/);
 assert.match(ui,/Approve Sol Medium/);
-assert.match(ui,/Execution bridge: <strong>N\/A<\/strong>/,'base advanced UI must fail closed until verified runner health replaces N/A');
+assert.match(ui,/Execution bridge: <strong>N\/A<\/strong>/,'base Agent UI must fail closed until verified runner health replaces N/A');
 assert.match(ui,/Work allowance \$\{m\.work_allowance_remaining\?\?'N\/A'\}/,'unknown Work allowance must display N/A');
 assert.match(ui,/command_center_agent_create_project_only_session/);
 assert.match(ui,/command_center_agent_approve_sol_medium_step/);
 assert.doesNotMatch(ui,/GPT-6 Astra/,'Agent UI must not expose Astra runtime options');
 assert.match(completion,/8 of 8 phases complete/);
 assert.match(completion,/100% · Complete/);
+for(const label of ['Auto','Next Step','Until Work','Manual Task','Project Checkpoint','Stop Agent'])assert.ok(sixUi.includes(label),`six-mode Agent launcher missing ${label}`);
 
-const normal=cfg.slice(cfg.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'),cfg.indexOf('let advancedPromise'));
-const advanced=cfg.slice(cfg.indexOf('let advancedPromise'));
-for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=3'])assert.ok(advanced.includes(asset),`advanced app config missing ${asset}`);
-for(const asset of ['command-center-agent-mode.js','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(!normal.includes(asset),`legacy Agent asset must not execute in normal startup: ${asset}`);
-for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=3','./app-config.js?v=29'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
-for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-home.css','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
-assert.match(sw,/james-command-center-v73/);
+for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=3','command-center-agent-six-modes-v6.css?v=1','command-center-agent-six-modes-v6.js?v=1'])assert.ok(cfg.includes(asset),`full-interface app config missing ${asset}`);
+for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=3','./command-center-agent-six-modes-v6.css?v=1','./command-center-agent-six-modes-v6.js?v=1','./app-config.js?v=30'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-home.css','command-center-agent-home.js','command-center-agent-mode-completion.js','command-center-agent-six-modes-v6.css','command-center-agent-six-modes-v6.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
+assert.match(sw,/james-command-center-v74/);
 assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/,'fresh Agent/app assets must use network-first refresh');
-assert.match(html,/app-config\.js\?v=29/);
+assert.match(html,/app-config\.js\?v=30/);
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover/,'protected viewport must remain exact');
-assert.match(html,/cc-startup-repair-attempted-v64/,'startup repair marker must remain protected');
+assert.match(html,/cc-startup-repair-attempted-v65/,'startup repair marker must remain protected');
 
 for(const phrase of ['Sol Medium','Astra','normal chat','Books'])assert.ok(standard.toLowerCase().includes(phrase.toLowerCase()),`Agent standard missing ${phrase}`);
 assert.match(workStandard,/GPT-6\.1 Sol Medium/);
@@ -145,4 +150,4 @@ assert.match(runnerStandard,/hourly/i);
 assert.match(runnerStandard,/PC REQUIRED/);
 assert.match(runnerStandard,/TinyFish Agent\/Browser are metered/);
 
-console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, Advanced Agent controls, completion patch, and PWA v73 assets are present.');
+console.log('Agent Mode restored-interface QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, six owner controls, truthful home progress, and PWA v74 assets are present.');
