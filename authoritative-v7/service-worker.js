@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-clean-2';
+const CACHE='command-center-v7-clean-3';
 const CORE=[
   './index.html',
   './theme.css?v=1',
@@ -17,6 +17,10 @@ const CORE=[
   './assets/network-globe.svg',
   './assets/header-planet.svg',
   './assets/time-portal.svg',
+  './assets/server-racks.svg',
+  './assets/merch-cases.svg',
+  './assets/city-spires.svg',
+  './assets/mobile-horizon.svg',
   '../command-center-approved-icon-192.png',
   '../command-center-approved-icon-512.png'
 ];
