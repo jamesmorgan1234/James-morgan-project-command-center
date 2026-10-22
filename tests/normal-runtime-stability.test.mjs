@@ -4,78 +4,64 @@ import assert from 'node:assert/strict';
 const cfg=fs.readFileSync('app-config.js','utf8');
 const index=fs.readFileSync('index.html','utf8');
 const startup=fs.readFileSync('startup-loader.js','utf8');
-const authority=fs.readFileSync('command-center-authoritative-runtime.js','utf8');
-const authorityCss=fs.readFileSync('command-center-authoritative-runtime.css','utf8');
-const agent=fs.readFileSync('command-center-agent-truth.js','utf8');
-const precise=fs.readFileSync('command-center-precise-progress.js','utf8');
-const boundary=fs.readFileSync('command-center-work-boundary-mode.js','utf8');
+const mobile=fs.readFileSync('mobile-accordion-polish.js','utf8');
+const v6=fs.readFileSync('command-center-v6.js','utf8');
+const v62=fs.readFileSync('command-center-v6-2.js','utf8');
+const exact=fs.readFileSync('command-center-exact-menus.js','utf8');
+const agentMode=fs.readFileSync('command-center-agent-mode.js','utf8');
+const agentHome=fs.readFileSync('command-center-agent-home.js','utf8');
+const sixModes=fs.readFileSync('command-center-agent-six-modes-v6.js','utf8');
 const books=fs.readFileSync('command-center-book-review-ui-v5.js','utf8');
 const work=fs.readFileSync('command-center-work-approval-ui-v3.js','utf8');
-const lazy=fs.readFileSync('command-center-advanced-lazy-loader.js','utf8');
 
-const coreStart=cfg.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS');
-const advancedStart=cfg.indexOf('let advancedPromise');
-assert.ok(coreStart>=0&&advancedStart>coreStart,'Core and advanced loaders must be separate');
-const core=cfg.slice(coreStart,advancedStart);
-const advanced=cfg.slice(advancedStart);
+// The approved application is one full interface stack. Advanced is an alias, not a second hidden renderer.
+assert.match(cfg,/window\.COMMAND_CENTER_LOAD_ENHANCEMENTS\s*=\s*\(\)\s*=>/,'full interface enhancement loader must exist');
+assert.match(cfg,/window\.COMMAND_CENTER_LOAD_ADVANCED\s*=\s*\(\)\s*=>\s*window\.COMMAND_CENTER_LOAD_ENHANCEMENTS\(\)/,'Advanced must reuse the same full interface rather than switch renderers');
 
 for(const required of [
-  'command-center-approved-ui.js?v=3',
-  'command-center-precise-progress.js?v=3',
-  'command-center-approved-nav.js?v=2',
-  'command-center-work-boundary-mode.js?v=1',
-  'command-center-authoritative-runtime.js?v=2',
-  'command-center-agent-truth.js?v=2',
-  'command-center-book-review-ui-v5.js?v=1',
-  'command-center-work-approval-ui-v3.js?v=1',
-  'command-center-advanced-lazy-loader.js?v=1'
-]) assert.ok(core.includes(required),`Normal startup must include ${required}`);
+  'project-hub.css?v=2','mobile-accordion-polish.css?v=4','command-center-v6.css?v=1','command-center-v6-2.css?v=1',
+  'command-center-exact-menus.css?v=1','command-center-book-covers.css?v=2','command-center-brain-home.css?v=4',
+  'command-center-agent-mode.css?v=1','command-center-agent-home.css?v=1','command-center-agent-six-modes-v6.css?v=1',
+  'command-center-v6.js?v=1','command-center-v6-2.js?v=1','command-center-exact-menus.js?v=1',
+  'command-center-book-covers.js?v=2','command-center-brain-home.js?v=5','command-center-agent-mode.js?v=1',
+  'command-center-agent-home.js?v=1','command-center-agent-six-modes-v6.js?v=1',
+  'command-center-book-review-ui-v5.js?v=1','command-center-work-approval-ui-v3.js?v=1'
+]) assert.ok(cfg.includes(required),`Restored normal startup must include ${required}`);
 
-for(const forbidden of [
-  'project-hub.js','project-hub.css','mobile-accordion-polish.js','mobile-accordion-polish.css',
-  'books-hub.js','books-revenue.js','performance-hub.js','refresh-orchestrator.js','source-health.js',
-  'command-center-v4.js','command-center-v4.css','command-center-v6.js','command-center-v6.css','command-center-v6-2.js','command-center-v6-2.css',
-  'command-center-brain-home.js','command-center-brain-home.css','command-center-agent-home.js','command-center-agent-mode.js',
-  'command-center-analytics.js','command-center-security.js','command-center-deployment.js','command-center-exact-menus.js'
-]) assert.ok(!core.includes(forbidden),`Normal startup must not execute or style legacy/admin asset ${forbidden}`);
+// The stripped replacement renderer and its watchdog must not regain authority.
+for(const forbidden of ['command-center-approved-ui.js','command-center-approved-nav.js','command-center-approved-mount-guard.js','command-center-mobile-first.css'])
+  assert.ok(!cfg.includes(forbidden),`Restored normal startup must not load stripped/conflicting asset ${forbidden}`);
+assert.doesNotMatch(startup,/command-center-approved-mount-guard\.js/,'startup must not reintroduce the broken stripped-renderer watchdog');
 
-assert.doesNotMatch(index,/project-hub\.css|mobile-accordion-polish\.css/,'index.html must not preload legacy project/mobile styles');
 const coreScripts=startup.match(/const CORE_SCRIPTS = \[([^\]]*)\]/s)?.[1]||'';
-assert.match(coreScripts,/app\.js\?v=10/,'Base auth/data app must remain a startup dependency');
-assert.doesNotMatch(coreScripts,/project-hub|mobile-accordion/,'Startup loader must not execute legacy project/mobile controllers');
+assert.match(coreScripts,/app\.js\?v=10/,'base auth/data app must remain a startup dependency');
+assert.match(coreScripts,/project-hub\.js\?v=3/,'project hub must mount before the enhancement stack');
+assert.match(coreScripts,/mobile-accordion-polish\.js\?v=3/,'mobile Back/scroll controller must remain core startup behavior');
 
-for(const advancedAsset of ['project-hub.js','mobile-accordion-polish.js','command-center-v4.js','command-center-v6.js','source-health.js','command-center-brain-home.js'])
-  assert.ok(advanced.includes(advancedAsset),`Advanced loader must retain ${advancedAsset}`);
+assert.match(index,/project-hub\.css\?v=2/,'project-hub CSS must preload');
+assert.match(index,/mobile-accordion-polish\.css\?v=4/,'mobile navigation CSS must preload');
+assert.match(index,/minimum-scale=1,maximum-scale=1,user-scalable=no/,'locked viewport must remain intact');
 
-assert.match(lazy,/COMMAND_CENTER_LOAD_ADVANCED/,'About Brain/Advanced must lazy-load the advanced stack');
-assert.match(lazy,/data-cc-about-action=\"brain\"/,'Brain action must be intercepted before legacy load');
-assert.match(lazy,/data-cc-about-action=\"advanced\"/,'Advanced action must be intercepted before legacy load');
+for(const [name,code] of [['mobile navigation',mobile],['V6',v6],['V6.2',v62],['exact menus',exact],['Agent Mode',agentMode],['Agent home',agentHome],['six-mode controls',sixModes],['Books review',books],['Work approval',work]])
+  assert.doesNotThrow(()=>new Function(code),`${name} runtime must parse`);
 
-for(const [name,code] of [['authority',authority],['agent',agent],['precise',precise],['boundary',boundary],['books',books],['work',work]])
-  assert.doesNotMatch(code,/new MutationObserver\s*\(/,`${name} normal-use runtime must not use global DOM mutation observers`);
+assert.match(mobile,/history\.pushState/,'mobile navigation must create browser history entries');
+assert.match(mobile,/history\.back\(\)/,'physical/browser Back path must remain available');
+assert.match(mobile,/history\.scrollRestoration = 'manual'/,'scroll restoration must remain deterministic');
+assert.match(mobile,/window\.scrollTo\(/,'saved scroll position must be restored');
 
-assert.match(authorityCss,/#dashboard > :not\(#ccApprovedApp\)\{display:none!important\}/,'Only approved app may be visible in normal dashboard mode');
-assert.match(authorityCss,/#refreshStrip/,'Legacy refresh strip must be hidden in normal mode');
-assert.match(authorityCss,/#appFooter/,'Legacy sign-out footer must be hidden in normal mode');
-assert.match(authorityCss,/#syncText/,'Legacy sync plumbing must be hidden in normal mode');
-assert.match(authorityCss,/#ccApprovedAbout\{[\s\S]*position:static!important/,'About must remain in document flow at the bottom');
-assert.doesNotMatch(authorityCss,/#ccApprovedAbout\{[\s\S]*?position:fixed/,'About must never float');
-
-assert.match(agent,/s\.status==='running'&&s\.started_at/,'Working requires an actually started running step');
-assert.match(agent,/state='Queued'/,'Draft/non-running Agent state must be Queued');
-assert.match(agent,/verified\.length\/steps\.length/,'Agent progress must use verified steps over planned steps');
-assert.match(agent,/toFixed\(1\)/,'Agent progress must be decimal-precise');
-assert.match(precise,/completed_weight/,'Project progress must use completed weighted scope');
-assert.match(precise,/total_weight/,'Project progress must use total weighted scope');
-assert.match(precise,/toFixed\(1\)/,'Project progress must render one decimal place');
+assert.match(agentHome,/progressPercent\(/,'Agent home must compute run progress');
+assert.match(agentHome,/verified\/total/,'Agent home progress must use verified steps over total planned steps');
+assert.match(agentHome,/s\.status==='draft'\)\{val\.textContent='Starting'/,'draft/no-plan Agent state must display Starting rather than fake 0.0%');
+assert.match(agentHome,/`Working • \$\{pct\.toFixed\(1\)\}%`/,'running Agent home button must show one-decimal verified percentage');
+for(const label of ['Auto','Next Step','Until Work','Manual Task','Project Checkpoint','Stop Agent'])assert.ok(sixModes.includes(label),`Agent control missing ${label}`);
 
 assert.match(books,/Approve Final/,'Books owner approval remains available');
 assert.match(books,/Mark Published/,'Books publication confirmation remains available');
 assert.match(books,/PC REQUIRED/,'Books owner review remains a PC-required boundary');
-assert.doesNotMatch(books,/Agent is already working on this project/,'Queued/draft sessions must not be falsely called working');
 assert.match(work,/GPT-6 Luna High/,'Work ladder still starts with Luna High');
 assert.match(work,/GPT-6\.1 Sol Light/,'Work ladder still includes Sol Light');
 assert.match(work,/GPT-6\.1 Sol Medium/,'Work ladder still caps at Sol Medium');
 assert.match(work,/command_center_agent_approve_sol_medium_step/,'Sol Medium exact-step approval remains enforced');
 
-console.log('normal runtime stability QA passed');
+console.log('restored full-interface runtime stability QA passed');
