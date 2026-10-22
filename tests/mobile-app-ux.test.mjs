@@ -8,6 +8,7 @@ const nav=fs.readFileSync('command-center-approved-nav.js','utf8');
 const loader=fs.readFileSync('command-center-agent-mode-completion.js','utf8');
 const boundary=fs.readFileSync('command-center-work-boundary-mode.js','utf8');
 const workUi=fs.readFileSync('command-center-work-approval-ui.js','utf8');
+const cfg=fs.readFileSync('app-config.js','utf8');
 
 assert.match(js,/cc-approved-home-grid/,'Approved home surface must exist');
 assert.match(js,/PROJECTS/,'Projects hero control must exist');
@@ -69,11 +70,25 @@ assert.doesNotMatch(css,/overflow-y\s*:\s*hidden/i,'Approved UI must preserve ve
 assert.match(nav,/history\.back\(\)/,'On-screen Back must consume browser/app history like Android Back');
 assert.match(nav,/stopImmediatePropagation/,'Approved Back must prevent legacy navigation handlers from firing too');
 
-assert.match(loader,/command-center-approved-ui\.css\?v=2/,'Loader must load approved UI stylesheet');
-assert.match(loader,/command-center-approved-ui\.js\?v=2/,'Loader must load approved UI controller');
-assert.match(loader,/command-center-precise-progress\.js\?v=2/,'Loader must load precise progress layer');
-assert.match(loader,/command-center-approved-nav\.js\?v=2/,'Loader must load approved navigation guard');
-assert.match(loader,/command-center-work-boundary-mode\.js\?v=1/,'Loader must load Next Work Boundary mode');
+// Critical production invariant: the approved app must be a direct enhancement,
+// not something that only appears if a later Agent completion script injects it.
+for (const asset of [
+  "command-center-mobile-first.css?v=1",
+  "command-center-artwork-polish.css?v=1",
+  "command-center-approved-ui.css?v=2",
+  "command-center-approved-ui.js?v=2",
+  "command-center-precise-progress.js?v=2",
+  "command-center-approved-nav.js?v=2",
+  "command-center-work-boundary-mode.js?v=1"
+]) assert.ok(cfg.includes(asset),`app-config must directly load ${asset}`);
+assert.ok(cfg.indexOf("command-center-approved-ui.js?v=2") < cfg.indexOf("command-center-v4.js?v=1"),'Approved UI must load before legacy V4 renderer');
+assert.ok(cfg.indexOf("command-center-approved-ui.js?v=2") < cfg.indexOf("command-center-v6.js?v=1"),'Approved UI must load before legacy V6 renderer');
+
+assert.match(loader,/command-center-approved-ui\.css\?v=2/,'Completion layer may retain duplicate-safe approved UI fallback');
+assert.match(loader,/command-center-approved-ui\.js\?v=2/,'Completion layer may retain duplicate-safe approved UI fallback');
+assert.match(loader,/command-center-precise-progress\.js\?v=2/,'Completion fallback must retain precise progress layer');
+assert.match(loader,/command-center-approved-nav\.js\?v=2/,'Completion fallback must retain approved navigation guard');
+assert.match(loader,/command-center-work-boundary-mode\.js\?v=1/,'Completion fallback must retain Next Work Boundary mode');
 assert.doesNotMatch(loader,/command-center-app-ux\.js\?v=1/,'Old focused UX controller must no longer load');
 assert.match(loader,/COMMAND_CENTER_AGENT_HOME\?\.destroy/,'Old Agent home observer must be retired');
 assert.match(loader,/COMMAND_CENTER_AGENT_MODE\?\.destroy/,'Old Agent detail observer must be retired');
