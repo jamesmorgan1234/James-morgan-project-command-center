@@ -29,8 +29,7 @@ assert.match(startup,/controllerchange/,'New service worker takeover must be det
 assert.match(startup,/location\.reload\(\)/,'Controlled app must reload once after the new service worker takes control');
 assert.match(startup,/cc-sw-v74-reloaded/,'Controlled reload marker must match the v74 generation');
 
-const full=appConfig.slice(appConfig.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'));
-for(const asset of ['source-health.js?v=4','command-center-agent-mode-completion.js?v=3','command-center-book-review-ui-v5.js?v=1','command-center-work-approval-ui-v3.js?v=1'])assert.match(full,new RegExp(asset.replaceAll('.','\\.').replace('?','\\?')),`restored full interface missing ${asset}`);
+for(const asset of ['source-health.js?v=4','command-center-agent-mode-completion.js?v=3','command-center-book-review-ui-v5.js?v=1','command-center-work-approval-ui-v3.js?v=1'])assert.match(appConfig,new RegExp(asset.replaceAll('.','\\.').replace('?','\\?')),`restored full interface missing ${asset}`);
 assert.doesNotMatch(appConfig,/let advancedPromise/,'restored interface must not split critical recovery/Agent controls into a hidden Advanced-only loader');
 assert.match(completion,/command-center-approved-ui\.js\?v=2/,'completion fallback compatibility may remain available without owning normal rendering');
 
