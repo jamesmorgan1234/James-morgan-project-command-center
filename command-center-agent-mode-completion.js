@@ -2,7 +2,8 @@
   const styles=[
     ['./command-center-mobile-first.css?v=1','commandCenterMobileFirst'],
     ['./command-center-artwork-polish.css?v=1','commandCenterArtworkPolish'],
-    ['./command-center-approved-ui.css?v=2','commandCenterApprovedUi']
+    ['./command-center-approved-ui.css?v=2','commandCenterApprovedUi'],
+    ['./command-center-authoritative-runtime.css?v=1','commandCenterAuthoritativeRuntime']
   ];
   styles.forEach(([href,key])=>{
     const selector=`link[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
@@ -17,7 +18,9 @@
     ['./command-center-approved-ui.js?v=2','commandCenterApprovedUi'],
     ['./command-center-precise-progress.js?v=2','commandCenterPreciseProgress'],
     ['./command-center-approved-nav.js?v=2','commandCenterApprovedNav'],
-    ['./command-center-work-boundary-mode.js?v=1','commandCenterWorkBoundaryMode']
+    ['./command-center-work-boundary-mode.js?v=1','commandCenterWorkBoundaryMode'],
+    ['./command-center-authoritative-runtime.js?v=1','commandCenterAuthoritativeRuntime'],
+    ['./command-center-agent-truth.js?v=1','commandCenterAgentTruth']
   ];
   scripts.forEach(([src,key])=>{
     const selector=`script[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
