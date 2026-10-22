@@ -1,43 +1,47 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-const css = readFileSync(new URL('../command-center-authoritative-runtime.css', import.meta.url), 'utf8');
-const runtime = readFileSync(new URL('../command-center-authoritative-runtime.js', import.meta.url), 'utf8');
-const truth = readFileSync(new URL('../command-center-agent-truth.js', import.meta.url), 'utf8');
+const v6Css = readFileSync(new URL('../command-center-v6.css', import.meta.url), 'utf8');
+const v62Css = readFileSync(new URL('../command-center-v6-2.css', import.meta.url), 'utf8');
+const mobile = readFileSync(new URL('../mobile-accordion-polish.js', import.meta.url), 'utf8');
+const sixModes = readFileSync(new URL('../command-center-agent-six-modes-v6.js', import.meta.url), 'utf8');
+const agentHome = readFileSync(new URL('../command-center-agent-home.js', import.meta.url), 'utf8');
+const coversCss = readFileSync(new URL('../command-center-book-covers.css', import.meta.url), 'utf8');
 
-assert.match(css, /grid-template-areas:\s*"main main"\s*"status ring"/, 'mobile project hero must stack safely inside the phone viewport');
-assert.match(css, /\.cc-approved-project-hero>div\{[\s\S]*?max-width:none!important/, 'mobile project hero content must not keep the old 78% width constraint');
-assert.doesNotMatch(css, /overflow-x\s*:\s*hidden/i, 'overflow must be fixed structurally, not hidden globally');
-assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-page-head/, 'remaining mobile containment must be scoped to book project detail pages');
-assert.match(css, /contain:inline-size/, 'book detail panels must use structural inline-size containment');
-assert.match(runtime, /cc-approved-book-project/, 'runtime must mark only book project detail pages for the narrow overflow repair');
-assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero::before\{[\s\S]*?background-image:radial-gradient/, 'mobile book hero must replace the giant eclipse artwork with a bounded orange glow');
-assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero::before\{[\s\S]*?z-index:0!important/, 'book artwork must stay behind hero content');
-assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero>\*\{[\s\S]*?z-index:2/, 'book hero content must stay above decorative artwork');
+assert.match(v6Css,/\.hub-project-card\{[\s\S]*min-height:126px!important/,'project rows must remain compact on the phone');
+assert.doesNotMatch(v6Css,/overflow-y\s*:\s*hidden/i,'overflow must be fixed structurally, not by disabling vertical scrolling');
+assert.doesNotMatch(v6Css,/touch-action\s*:\s*none/i,'native touch panning must remain available');
+assert.match(v62Css,/#bookRevenuePanel \.book-revenue-primary\{[\s\S]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)!important/,'book KDP performance must remain three across');
+assert.match(v62Css,/\.cc62-books-strip\{[\s\S]*grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/,'all five series books must fit across');
+assert.match(v62Css,/\.cc62-publication-status \.ccv4-pub-formats\{[\s\S]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)!important/,'publication formats must remain four across');
+assert.match(coversCss,/\.cc7-approved-cover:before\{[\s\S]*display:none!important;[\s\S]*content:none!important/,'number badges must not cover approved cover art');
 
-assert.match(css, /\.cc-approved-revenue-item/, 'Revenue rows must use the finished Command Center card treatment');
-assert.match(runtime, /cc-approved-revenue-emblem/, 'Revenue rows must receive the matching visual emblem');
+assert.match(mobile,/history\.pushState/,'opening deeper app state must create history');
+assert.match(mobile,/history\.back\(\)/,'physical/browser Back must return deepest-first');
+assert.match(mobile,/history\.scrollRestoration = 'manual'/,'scroll restoration must remain deterministic');
+assert.match(mobile,/saveCurrentScroll/,'current scroll must be saved before deeper navigation');
+assert.match(mobile,/window\.scrollTo\(/,'saved scroll position must restore on return');
 
-assert.match(runtime, /data-cc-agent-checkpoint/, 'Project Checkpoint Agent control must exist');
-assert.match(runtime, /Project Checkpoint/, 'Project Checkpoint must have a clear visible label');
-assert.match(runtime, /Tell me where this project stands/, 'Project Checkpoint must explain its purpose in plain language');
-assert.match(runtime, /p_allow_work:\s*false/, 'Project Checkpoint must never authorize Work');
-assert.match(runtime, /p_books_target:\s*\/book\|kdp\|coloring\|workbook/i, 'Project Checkpoint must supply the required named target for book projects');
-assert.match(runtime, /STATUS REVIEW ONLY/, 'Project Checkpoint must be explicitly status-only');
-assert.match(runtime, /do not execute project work/i, 'Project Checkpoint must not continue project execution');
-assert.doesNotMatch(runtime, /CHECKPOINT_TOOLS\s*=\s*\[[^\]]*'work'/, 'Project Checkpoint tool set must exclude Work');
+assert.match(sixModes,/data-v6-agent-mode="checkpoint"/,'Project Checkpoint control must exist');
+assert.match(sixModes,/Project Checkpoint/,'Project Checkpoint must have a clear visible label');
+assert.match(sixModes,/Tell me where this project stands/,'Project Checkpoint must explain its purpose in plain language');
+assert.match(sixModes,/p_allow_work:!checkpoint&&mode!=='until-work'/,'Project Checkpoint and Until Work must not authorize Work execution');
+assert.match(sixModes,/p_books_target:\/book\|kdp\|coloring\|workbook/i,'book Agent requests must carry their explicit book target');
+assert.match(sixModes,/STATUS REVIEW ONLY/,'Project Checkpoint must be status-only');
+assert.match(sixModes,/Do not execute project work/i,'Project Checkpoint must not continue project execution');
+assert.doesNotMatch(sixModes,/CHECKPOINT_TOOLS=\[[^\]]*'work'/,'Project Checkpoint tool set must exclude Work');
 
-assert.match(runtime, /command_center_agent_tool_health/, 'Agent starts must verify the live runner before creating work');
-assert.match(runtime, /RUNNER_STALE_MS/, 'Agent runner health must expire instead of trusting a stale heartbeat forever');
-assert.match(runtime, /Agent runner is not active right now\. No run was created\./, 'runner-off state must fail closed without creating a dead queued run');
-assert.match(runtime, /data-cc-agent-stop/, 'Agent home must expose a manual Stop Agent control');
-assert.match(runtime, /command_center_agent_cancel/, 'Stop Agent must use the durable Agent cancellation RPC');
-assert.match(runtime, /Choose the project you want to stop first\./, 'Stop Agent must not guess when more than one live run exists');
+assert.match(sixModes,/command_center_agent_tool_health/,'Agent starts must verify the runner before creating work');
+assert.match(sixModes,/STALE=90\*60\*1000/,'runner health must expire rather than trusting a stale heartbeat');
+assert.match(sixModes,/Agent runner is not active right now\. No run was created\./,'runner-off state must fail closed');
+assert.match(sixModes,/data-v6-agent-stop/,'Agent controls must expose Stop Agent');
+assert.match(sixModes,/command_center_agent_cancel/,'Stop Agent must use durable cancellation');
 
-assert.match(truth, /let state='Starting'/, 'a lone not-yet-running Agent request must be Starting, not Queued');
-assert.match(truth, /const hasWorking=stats\.some\(s=>s\.state==='Working'\)/, 'queue classification must depend on a genuinely working run');
-assert.match(truth, /if\(hasWorking\)[\s\S]*?s\.state==='Starting'\)s\.state='Queued'/, 'Queued must only be assigned behind real active work');
-assert.match(truth, /s\.status==='running'&&s\.started_at/, 'Working must require a real running step with started_at');
-assert.match(truth, /safePct/, 'Agent card must show one-decimal verified progress while work is active');
+assert.match(agentHome,/s\.status==='draft'\)\{val\.textContent='Starting'/,'not-yet-planned Agent request must be Starting, not fake 0.0%');
+assert.match(agentHome,/pct===null\?'Working':`Working • \$\{pct\.toFixed\(1\)\}%`/,'working state must show verified percentage when a plan exists');
+assert.match(agentHome,/verified\/total/,'Agent percentage must derive from verified completed steps over total planned steps');
+assert.match(agentHome,/val\.textContent='Paused'/,'Paused must display truthfully');
+assert.match(agentHome,/val\.textContent='Blocked'/,'Blocked must display truthfully');
+assert.match(agentHome,/val\.textContent='Needs You'/,'Needs You must display truthfully');
 
-console.log('Owner mobile feedback regression QA passed.');
+console.log('Owner mobile feedback regression QA passed on restored V6 interface.');
