@@ -4,9 +4,9 @@
   "production_branch": "main",
   "hosting_provider": "github_pages",
   "release_identity": {
-    "app_config_version": 28,
-    "pwa_cache_version": 72,
-    "startup_repair_marker": "cc-startup-repair-attempted-v63"
+    "app_config_version": 29,
+    "pwa_cache_version": 73,
+    "startup_repair_marker": "cc-startup-repair-attempted-v64"
   },
   "required_qa": [
     "Approved Book Cover Library QA",
