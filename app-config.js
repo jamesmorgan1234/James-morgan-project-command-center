@@ -62,8 +62,8 @@ window.COMMAND_CENTER_CONFIG = {
     addJs('commandCenterAuthoritativeRuntime','./command-center-authoritative-runtime.js?v=2');
     addJs('commandCenterAgentTruth','./command-center-agent-truth.js?v=2');
     addJs('bookReviewGuard','./command-center-book-review-guard.js?v=1');
-    addJs('bookReviewUi','./command-center-book-review-ui.js?v=4');
-    addJs('workApprovalUi','./command-center-work-approval-ui.js?v=2');
+    addJs('bookReviewUiV5','./command-center-book-review-ui-v5.js?v=1');
+    addJs('workApprovalUiV3','./command-center-work-approval-ui-v3.js?v=1');
     addJs('commandCenterAdvancedLazyLoader','./command-center-advanced-lazy-loader.js?v=1');
   };
 
