@@ -32,6 +32,12 @@
   function userStep(st){const cur=currentStep(st);if(cur?.status==='needs_user_action')return cur;return (st?.steps||[]).find(x=>x.status==='needs_user_action')||null;}
   function nextStep(st){const cur=currentStep(st);return [...(st?.steps||[])].sort((a,b)=>(a.position??0)-(b.position??0)).find(x=>x.status==='pending'&&x.id!==cur?.id)||null;}
   function badge(v){return `<span class="cc-agent-badge">${esc(pretty(v))}</span>`;}
+  function progressPercent(st){
+    const total=Number(st?.metrics?.total_steps??(st?.steps||[]).length);
+    const verified=Number(st?.metrics?.verified_steps??(st?.steps||[]).filter(x=>x.status==='verified').length);
+    if(!Number.isFinite(total)||total<=0||!Number.isFinite(verified))return null;
+    return Math.max(0,Math.min(100,Math.floor((verified/total)*1000)/10));
+  }
   async function loadStates(limit=12){
     const ss=(await sessions()).slice(0,limit);const states=await Promise.all(ss.map(async s=>{try{return await status(s.id);}catch{return{session:s,steps:[],work_queue:[],circuit_breakers:[]};}}));
     states.sort((a,b)=>(PRIORITY[a?.session?.status]??99)-(PRIORITY[b?.session?.status]??99)||new Date(b?.session?.updated_at||b?.session?.started_at||0)-new Date(a?.session?.updated_at||a?.session?.started_at||0));
@@ -40,7 +46,16 @@
   async function refreshButton(){if(summaryBusy)return;summaryBusy=true;try{
     const b=ensureButton();if(!b)return;const states=await loadStates(8);const active=states.filter(x=>ACTIVE.has(x?.session?.status));const needs=states.filter(x=>userStep(x)||mediumPending(x));const val=b.querySelector('[data-agent-home-value]'),sub=b.querySelector('[data-agent-home-sub]');
     if(needs.length){val.textContent='Needs You';sub.textContent=`${needs.length} Agent run${needs.length===1?'':'s'} awaiting action`;b.classList.add('needs-you');}
-    else if(active.length){val.textContent='Working';const names=await projectNames(),s=active[0]?.session;sub.textContent=names[s?.current_project_id||s?.primary_project_id]||s?.current_project_id||'Agent run active';b.classList.remove('needs-you');}
+    else if(active.length){
+      const lead=active[0],s=lead?.session||{},names=await projectNames(),project=names[s.current_project_id||s.primary_project_id]||s.current_project_id||'Agent run';
+      const pct=progressPercent(lead);
+      if(s.status==='draft'){val.textContent='Starting';sub.textContent=`${project} · waiting for runner to build the verified plan`;}
+      else if(s.status==='paused'){val.textContent='Paused';sub.textContent=project;}
+      else if(s.status==='blocked'){val.textContent='Blocked';sub.textContent=project;}
+      else if(s.status==='needs_user_action'){val.textContent='Needs You';sub.textContent=project;}
+      else{val.textContent=pct===null?'Working':`Working • ${pct.toFixed(1)}%`;sub.textContent=project;}
+      b.classList.remove('needs-you');
+    }
     else{val.textContent='Idle';sub.textContent='No Agent run currently needs attention';b.classList.remove('needs-you');}
     b.hidden=!homeOverview();
   }catch{}finally{summaryBusy=false;}}

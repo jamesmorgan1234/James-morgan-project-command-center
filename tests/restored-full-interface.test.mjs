@@ -1,0 +1,33 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+
+const cfg=fs.readFileSync('app-config.js','utf8');
+const startup=fs.readFileSync('startup-loader.js','utf8');
+const v6=fs.readFileSync('command-center-v6.js','utf8');
+const exact=fs.readFileSync('command-center-exact-menus.js','utf8');
+const brain=fs.readFileSync('command-center-brain-home.js','utf8');
+const agentHome=fs.readFileSync('command-center-agent-home.js','utf8');
+const six=fs.readFileSync('command-center-agent-six-modes-v6.js','utf8');
+const v6css=fs.readFileSync('command-center-v6.css','utf8');
+const exactCss=fs.readFileSync('command-center-exact-menus.css','utf8');
+
+assert.doesNotThrow(()=>new Function(cfg));
+assert.doesNotThrow(()=>new Function(startup));
+assert.doesNotThrow(()=>new Function(six));
+assert.match(startup,/project-hub\.js\?v=3/,'normal startup must restore project hub');
+assert.match(startup,/mobile-accordion-polish\.js\?v=3/,'normal startup must retain mobile deep-menu behavior');
+assert.doesNotMatch(startup,/command-center-approved-mount-guard|command-center-locked-visual-spec-loader/,'stripped renderer watchdog/visual shim must not own normal startup');
+for(const asset of ['command-center-v6.js?v=1','command-center-v6-2.js?v=1','command-center-exact-menus.js?v=1','command-center-brain-home.js?v=5','command-center-agent-home.js?v=1','command-center-agent-mode.js?v=1','command-center-agent-six-modes-v6.js?v=1'])assert.ok(cfg.includes(asset),`normal full interface missing ${asset}`);
+assert.doesNotMatch(cfg,/command-center-approved-ui\.js|command-center-authoritative-runtime\.js|command-center-agent-truth\.js/,'generic approved renderer must not replace the V6 interface');
+for(const label of ['Projects','Active / Live','Next Up','Projects Earning'])assert.ok(v6.includes(label),`V6 home missing ${label}`);
+for(const capability of ['Project Brain','Automation','Integrations','Analytics','Security','Deployment','Agent Mode'])assert.ok(brain.includes(capability),`Brain interface missing ${capability}`);
+assert.match(agentHome,/Agent Control/);
+for(const label of ['Auto','Next Step','Until Work','Manual Task','Project Checkpoint','Stop Agent'])assert.ok(six.includes(label),`six-button Agent interface missing ${label}`);
+assert.match(exact,/Total Projects/);
+assert.match(exact,/Priority queue/);
+assert.match(exact,/decorateActiveCards\(\)/,'exact-menu layer must decorate Active / Live rows');
+assert.match(exact,/cc-exact-active-scope/,'Active / Live rows must retain their right-side scope column');
+assert.match(exact,/under\(\) !== 'active'/,'Active / Live decoration must remain scoped to the active view');
+assert.match(v6css,/min-height:128px/,'home cards must retain compact approved V6 geometry');
+assert.match(exactCss,/min-height:132px/,'project/active/next cards must retain compact exact-menu geometry');
+console.log('Restored full approved Command Center interface architecture QA passed.');
