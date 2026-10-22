@@ -112,6 +112,12 @@ Legacy files and documents are classified during the every-file audit as:
 
 No legacy file or legacy requirement may remain an active runtime or planning dependency by accident.
 
+### Legacy workflow quarantine
+
+Legacy V4/V5/V6 and module-specific GitHub Actions workflows are historical implementation machinery, not V7 QA authority. They must not remain executable from `.github/workflows/` after the V7 cutover because they test superseded runtime assumptions and can generate false failures against the clean rebuild.
+
+The historical workflow definitions remain recoverable through Git history and the protected fallback branch. The active `main` branch after V7 cutover should expose only the authoritative V7 QA workflow(s) needed for the clean architecture. A legacy workflow must never be reactivated unless James explicitly reopens that historical implementation path.
+
 ## Verification rule
 
 Every phase is verified before the next phase is treated as complete. Final acceptance requires:
