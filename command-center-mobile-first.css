@@ -1,0 +1,141 @@
+/* Command Center mobile-first polish. Final-loaded visual override only.
+   Preserve navigation/history/native scroll/PWA behavior. */
+:root{--cc-mobile-gutter:10px;--cc-touch:48px}
+
+@media(max-width:760px){
+  html[data-command-center-theme="v6"] #app{width:100%!important;max-width:100%!important;padding:0 var(--cc-mobile-gutter) calc(24px + env(safe-area-inset-bottom))!important}
+  html[data-command-center-theme="v6"] .topbar{min-height:118px!important;margin:0 calc(var(--cc-mobile-gutter) * -1) 8px!important;padding:calc(10px + env(safe-area-inset-top)) 8px 10px!important;background:linear-gradient(90deg,rgba(0,0,0,.98) 0 56%,rgba(0,0,0,.42) 76%,rgba(0,0,0,.08)),url('./art-eclipse.svg') right -54px center/285px auto no-repeat!important}
+  html[data-command-center-theme="v6"] .brand-lockup{grid-template-columns:72px minmax(0,1fr)!important;gap:12px!important}
+  html[data-command-center-theme="v6"] .brand-icon{width:72px!important;height:72px!important;border-radius:18px!important}
+  html[data-command-center-theme="v6"] .brand-copy h1{font-size:clamp(1.72rem,8.8vw,2.38rem)!important;line-height:1!important}
+  html[data-command-center-theme="v6"] .brand-tagline{margin-top:6px!important;font-size:.61rem!important;letter-spacing:.105em!important;line-height:1.25!important}
+  html[data-command-center-theme="v6"] .sync-line{margin-top:5px!important;font-size:.74rem!important;line-height:1.25!important}
+
+  html[data-command-center-theme="v6"] .refresh-strip{margin:10px 0 12px!important}
+  html[data-command-center-theme="v6"] .refresh-btn{min-height:64px!important;padding:10px 12px 10px 58px!important;font-size:1.08rem!important;border-width:2px!important}
+  html[data-command-center-theme="v6"] .refresh-btn:before{left:12px!important;width:36px!important;height:36px!important;border-width:2px!important;font-size:1.38rem!important}
+
+  html[data-command-center-theme="v6"] .canonical-audit,
+  html[data-command-center-theme="v6"] .source-health,
+  html[data-command-center-theme="v6"] .refresh-visual{min-height:0!important;margin:10px 0!important;padding:13px 13px 13px 66px!important}
+  html[data-command-center-theme="v6"] .cc62-notice-emblem{left:11px!important;top:14px!important;width:44px!important;height:44px!important}
+  html[data-command-center-theme="v6"] .cc62-notice-emblem>span{font-size:1.38rem!important}
+
+  /* Home controls: balanced frames and tighter mobile hierarchy. */
+  html[data-command-center-theme="v6"] .stat-button{width:100%!important;margin:6px 0!important;min-height:102px!important;grid-template-columns:54px 44px minmax(0,1fr) 18px!important;grid-template-rows:1fr 1fr!important;gap:0 8px!important;padding:9px 10px!important;border:2px solid #ff6507!important;border-left-width:2px!important;border-radius:7px!important;clip-path:polygon(2.4% 0,97.6% 0,100% 16%,100% 84%,97.6% 100%,2.4% 100%,0 84%,0 16%)!important;box-shadow:0 0 0 1px rgba(255,146,34,.28),0 0 13px rgba(255,83,0,.55),inset 0 0 20px rgba(255,84,0,.065)!important}
+  html[data-command-center-theme="v6"] .stat-button:before{inset:0 0 0 52%!important;opacity:.48!important;background-position:right center!important}
+  html[data-command-center-theme="v6"] .stat-button:after{font-size:2.18rem!important}
+  html[data-command-center-theme="v6"] .cc6-stat-icon{width:48px!important;height:48px!important;padding:3px!important;box-shadow:0 0 12px rgba(255,91,0,.72)!important}
+  html[data-command-center-theme="v6"] .cc6-stat-icon svg{width:29px!important;height:29px!important}
+  html[data-command-center-theme="v6"] .stat .value{font-size:clamp(1.55rem,7vw,2rem)!important;justify-self:center!important}
+  html[data-command-center-theme="v6"] .stat .label{font-size:clamp(.98rem,4.9vw,1.28rem)!important;line-height:1.02!important}
+  html[data-command-center-theme="v6"] .stat-sub{font-size:.75rem!important;line-height:1.25!important;margin-top:5px!important}
+
+  html[data-command-center-theme="v6"] #ccAgentHomeButton{grid-template-columns:54px minmax(0,1fr) 18px!important;grid-template-rows:auto auto auto!important;gap:2px 10px!important;min-height:104px!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton .cc-agent-home-icon{grid-column:1!important;grid-row:1/4!important;width:48px!important;height:48px!important;margin:0!important;font-size:25px!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton .label{grid-column:2!important;grid-row:1!important;align-self:end!important;font-size:.78rem!important;color:#ff9d42!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton .value{grid-column:2!important;grid-row:2!important;justify-self:start!important;align-self:center!important;font-size:1.38rem!important;line-height:1.05!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton .stat-sub{grid-column:2!important;grid-row:3!important;align-self:start!important;margin:0!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton:after{grid-column:3!important;grid-row:1/4!important}
+
+  html[data-command-center-theme="v6"] .view-head{grid-template-columns:1fr!important;gap:0!important;margin:3px 0 9px!important;padding:4px 2px 9px!important;background:linear-gradient(90deg,#030201 0 62%,rgba(255,69,0,.045)),url('./art-eclipse.svg') right -24px center/180px auto no-repeat!important}
+  html[data-command-center-theme="v6"] .view-head>div{grid-column:1!important}
+  html[data-command-center-theme="v6"] #viewTitle{font-size:clamp(1.5rem,7vw,2.05rem)!important;margin:0!important}
+
+  /* Project menu cards: remove heavy left rail, preserve art and ring without crowding text. */
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{min-height:108px!important;padding:12px 56px 12px 78px!important;border:2px solid #ff5c00!important;border-left-width:2px!important;border-radius:7px!important;clip-path:polygon(2.4% 0,97.6% 0,100% 14%,100% 86%,97.6% 100%,2.4% 100%,0 86%,0 14%)!important;box-shadow:0 0 0 1px rgba(255,146,34,.25),0 0 12px rgba(255,83,0,.55),inset 0 0 22px rgba(255,84,0,.055)!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card::before,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card::before,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card::before{inset:0 0 0 42%!important;opacity:.42!important;background-position:right center!important;-webkit-mask-image:linear-gradient(90deg,transparent,#000 34%)!important;mask-image:linear-gradient(90deg,transparent,#000 34%)!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-icon{left:11px!important;width:54px!important;height:54px!important;padding:3px!important;box-shadow:0 0 12px rgba(255,91,0,.72)!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-icon svg{width:31px!important;height:31px!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-name{font-size:clamp(.98rem,4.9vw,1.22rem)!important;line-height:1.08!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-copy{max-width:100%!important;margin-top:6px!important;font-size:.78rem!important;line-height:1.28!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card{padding-right:82px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .cc6-project-ring{right:27px!important;width:48px!important;height:48px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-stage{max-width:100%!important;padding-right:18px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{padding-right:84px!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card>.section-head,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card .project-next{max-width:100%!important;padding-right:6px!important}
+  html[data-command-center-theme="v6"] .cc-exact-active-scope{right:27px!important;width:50px!important;padding-left:8px!important}
+  html[data-command-center-theme="v6"] .cc-exact-active-scope strong{font-size:1rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-active-scope span{font-size:.56rem!important;line-height:1.1!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card{padding-right:48px!important}
+
+  html[data-command-center-theme="v6"] .cc-exact-project-summary{min-height:92px!important;padding:13px 12px 13px 78px!important;border:2px solid #ff5c00!important;border-left-width:2px!important;border-radius:7px!important}
+  html[data-command-center-theme="v6"] .cc-exact-project-summary .cc-exact-menu-icon{left:11px!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-number{font-size:1.9rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy{padding-left:11px!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy strong{font-size:.88rem!important}
+  html[data-command-center-theme="v6"] .cc-exact-summary-copy span{font-size:.7rem!important}
+
+  /* Project detail readability. */
+  html[data-command-center-theme="v6"] #homeView,
+  html[data-command-center-theme="v6"] #projectView,
+  html[data-command-center-theme="v6"] #revenueView{padding:10px 0 4px!important}
+  html[data-command-center-theme="v6"] #detailPanel{gap:8px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important}
+  html[data-command-center-theme="v6"] #detailPanel>.cc-project-detail-section{border-left-width:2px!important;border-radius:7px!important}
+  html[data-command-center-theme="v6"] .cc-project-detail-toggle{min-height:56px!important;padding:10px 11px!important}
+  html[data-command-center-theme="v6"] .cc-project-detail-toggle-copy strong{font-size:.93rem!important}
+  html[data-command-center-theme="v6"] .cc-project-detail-toggle-copy small{font-size:.69rem!important}
+  html[data-command-center-theme="v6"] .cc-project-detail-body{padding:9px!important}
+
+  /* Brain: single-column controls on narrow screens; keep approved visual language. */
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head{min-height:108px!important;padding:15px 14px 15px 78px!important;border-left-width:2px!important;background:linear-gradient(90deg,#090705 0 48%,rgba(5,3,2,.86)),url('./art-brain.svg') right center/48% auto no-repeat!important}
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head h3{font-size:1.16rem!important}
+  html[data-command-center-theme="v6"] .cc-brain-roadmap-head p{max-width:100%!important;font-size:.76rem!important}
+  html[data-command-center-theme="v6"] .cc-brain-capabilities{grid-template-columns:1fr!important;gap:8px!important}
+  html[data-command-center-theme="v6"] .cc-brain-capability{min-height:88px!important;padding:13px 12px 13px 66px!important}
+  html[data-command-center-theme="v6"] .cc-brain-capability .cc-cap-icon{left:11px!important;top:17px!important;width:42px!important;height:42px!important;font-size:1.2rem!important}
+
+  /* Agent Mode: thumb-friendly controls and one-column status. */
+  .cc-agent-project-panel,.cc-agent-workspace{padding:11px!important;border-radius:12px!important;margin-top:10px!important}
+  .cc-agent-main-grid,.cc-agent-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .cc-agent-stat{padding:10px!important;border-radius:10px!important}
+  .cc-agent-current{margin-top:9px!important;padding:10px!important;border-radius:0 9px 9px 0!important}
+  .cc-agent-actions{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}
+  .cc-agent-actions .btn,.cc-agent-home-alert .btn,.cc-agent-form .btn{width:100%!important;min-height:var(--cc-touch)!important}
+  .cc-agent-run{padding:10px!important}
+  .cc-agent-run-head{display:grid!important;gap:5px!important}
+  .cc-agent-home-head{align-items:center!important;margin:8px 0 12px!important}
+  .cc-agent-home-head p{font-size:.82rem!important}
+  .cc-agent-home-alert{padding:11px!important;border-radius:11px!important}
+
+  /* Books/performance tiles should reflow, not squeeze five columns onto a phone. */
+  html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary{grid-template-columns:1fr!important;gap:6px!important}
+  html[data-command-center-theme="v6"] #bookRevenuePanel .book-revenue-primary>span{min-height:58px!important;padding:8px 9px!important}
+  html[data-command-center-theme="v6"] .cc62-books-strip{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  html[data-command-center-theme="v6"] .cc62-book-tile .cc6-book-cover{max-width:138px!important}
+  html[data-command-center-theme="v6"] .cc62-publication-status .ccv4-pub-formats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px!important}
+
+  /* Global mobile interaction sizing. */
+  html[data-command-center-theme="v6"] .btn,
+  html[data-command-center-theme="v6"] button,
+  html[data-command-center-theme="v6"] input,
+  html[data-command-center-theme="v6"] select{min-height:var(--cc-touch)}
+  html[data-command-center-theme="v6"] textarea{font-size:16px!important}
+  html[data-command-center-theme="v6"] input,
+  html[data-command-center-theme="v6"] select,
+  html[data-command-center-theme="v6"] textarea{font-size:16px!important}
+  html[data-command-center-theme="v6"] .continuation-actions{grid-template-columns:1fr!important}
+  html[data-command-center-theme="v6"] .kpi-grid{grid-template-columns:1fr!important}
+  html[data-command-center-theme="v6"] .revenue-row{grid-template-columns:1fr!important;gap:5px!important}
+  html[data-command-center-theme="v6"] .revenue-value{text-align:left!important}
+}
+
+@media(max-width:390px){
+  html[data-command-center-theme="v6"] .topbar{background-position:right -86px center!important}
+  html[data-command-center-theme="v6"] .brand-lockup{grid-template-columns:62px minmax(0,1fr)!important;gap:9px!important}
+  html[data-command-center-theme="v6"] .brand-icon{width:62px!important;height:62px!important;border-radius:16px!important}
+  html[data-command-center-theme="v6"] .brand-copy h1{font-size:1.68rem!important}
+  html[data-command-center-theme="v6"] .stat-button{grid-template-columns:48px 40px minmax(0,1fr) 16px!important;gap:0 6px!important;padding:8px!important}
+  html[data-command-center-theme="v6"] .cc6-stat-icon{width:44px!important;height:44px!important}
+  html[data-command-center-theme="v6"] .stat .label{font-size:.95rem!important}
+  html[data-command-center-theme="v6"] .stat-sub{font-size:.7rem!important}
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="all"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="attention"] .hub-project-card,
+  html[data-command-center-theme="v6"] #dashboardViewShell[data-cc6-under="active"] .project-card{padding-left:70px!important}
+  html[data-command-center-theme="v6"] .cc-exact-menu-icon{left:9px!important;width:50px!important;height:50px!important}
+}
