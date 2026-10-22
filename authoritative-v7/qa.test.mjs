@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 
 const files = {
   html: await readFile(new URL('./index.html', import.meta.url), 'utf8'),
@@ -15,7 +16,7 @@ const files = {
   theme: await readFile(new URL('./theme.css', import.meta.url), 'utf8'),
   layout: await readFile(new URL('./layout.css', import.meta.url), 'utf8')
 };
-
+const approvedIcon512=await readFile(new URL('../command-center-approved-icon-512.png',import.meta.url));
 const allRuntime = Object.values(files).join('\n');
 const forbiddenLegacyRefs = [
   'command-center-v4','command-center-v5','command-center-v6',
@@ -78,4 +79,9 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
   assert.match(files.sw,/command-center-v7-clean-1/);
   assert.match(files.offline,/No cached screen is being presented as current/);
+});
+
+test('protected approved 512 launcher artwork is exact',()=>{
+  const hash=createHash('sha256').update(approvedIcon512).digest('hex');
+  assert.equal(hash,'fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa');
 });
