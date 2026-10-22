@@ -43,6 +43,7 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('agentHome','./command-center-agent-home.css?v=1'); addJs('agentHome','./command-center-agent-home.js?v=1');
     addJs('bookReviewGuard','./command-center-book-review-guard.js?v=1');
     addCss('bookReviewUi','./command-center-book-review-ui.css?v=2'); addJs('bookReviewUi','./command-center-book-review-ui.js?v=3');
+    addCss('workApprovalUi','./command-center-work-approval-ui.css?v=1'); addJs('workApprovalUi','./command-center-work-approval-ui.js?v=1');
     addJs('agentModeCompletion','./command-center-agent-mode-completion.js?v=2');
   };
 })();
