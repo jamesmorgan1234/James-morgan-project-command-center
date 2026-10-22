@@ -1,1 +1,0 @@
-This branch adds authoritative UI renderer coverage through tests/authoritative-ui-renderer.test.mjs and the existing Mobile app UX regression suite.
