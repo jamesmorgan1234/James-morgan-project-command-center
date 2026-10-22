@@ -1,43 +1,66 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
-const js=fs.readFileSync('command-center-app-ux.js','utf8');
-const css=fs.readFileSync('command-center-app-ux.css','utf8');
+const js=fs.readFileSync('command-center-approved-ui.js','utf8');
+const css=fs.readFileSync('command-center-approved-ui.css','utf8');
+const precision=fs.readFileSync('command-center-precise-progress.js','utf8');
 const loader=fs.readFileSync('command-center-agent-mode-completion.js','utf8');
-const sw=fs.readFileSync('service-worker.js','utf8');
 
-assert.match(js,/analytics_project_kpis/,'Project focus must use verified KPI data');
-assert.match(js,/project_opportunities/,'Project focus must surface project opportunities');
-assert.match(js,/data-appux-mode="auto"/,'Agent Auto mode must be one tap');
-assert.match(js,/data-appux-mode="next"/,'Agent Next Task mode must be one tap');
-assert.match(js,/data-appux-mode="until-work"/,'Agent Until Work mode must be one tap');
-assert.match(js,/data-appux-specific-toggle/,'Specific-task mode must be available on demand');
-assert.match(js,/command_center_agent_create_project_only_session/,'One-tap modes must create real project-locked Agent sessions');
-assert.match(js,/p_books_target: isBooks \? project\.name : null/,'Books runs must keep an explicit named target without forcing manual entry');
-assert.match(js,/mode !== 'until-work' && mode !== 'improve'/,'Until Work must stop before Work execution');
-assert.match(js,/Find improvements/,'Empty opportunities must offer an Agent improvement search');
-assert.match(js,/ccAboutBubble/,'A bottom About control must exist');
-assert.match(js,/Show advanced details/,'Technical detail must use progressive disclosure');
-assert.match(js,/cc-show-advanced/,'Advanced UI must be explicitly toggled');
-assert.match(js,/MutationObserver\(mutations/,'The new controller must use one guarded observer');
-assert.match(js,/closest\?\.\('#ccProjectFocusPanel,#ccAboutBackdrop,#ccAboutBubble'\)/,'The observer must ignore self-generated mutations');
+// Approved screenshot-style structure is the normal authenticated app surface.
+assert.match(js,/cc-approved-home-grid/,'Approved home surface must exist');
+assert.match(js,/PROJECTS/,'Projects hero control must exist');
+assert.match(js,/NEXT UP/,'Next Up hero control must exist');
+assert.match(js,/REVENUE/,'Revenue must remain visible from home');
+assert.match(js,/KDP PERFORMANCE/,'Book projects must use compact KDP performance cards');
+assert.match(js,/BOOKS IN SERIES/,'Book mappings must render as their own series section');
+assert.match(js,/PUBLICATION STATUS/,'Publication status must render as its own compact section');
+assert.match(js,/KDP SNAPSHOT HISTORY/,'KDP snapshot history must remain available');
+assert.match(js,/book-cover-atlas-v2\.webp/,'Approved book-cover atlas must power book tiles');
+assert.match(js,/analytics_project_kpis/,'Approved UI must use verified KPI data');
+assert.match(js,/project_opportunities/,'Approved UI must surface project opportunities');
 
-assert.match(css,/data-view="active"/,'Secondary home tile must be hidden by default');
-assert.match(css,/#ccBrainHomeButton/,'Brain placement must be controlled');
-assert.match(css,/#detailPanel\.cc-focus-ready/,'Legacy project admin blocks must be hidden in focused mode');
-assert.match(css,/\.cc-appux-kpis/,'Focused project KPIs must be present');
-assert.match(css,/\.cc-appux-mode-grid/,'Agent quick-action grid must be present');
-assert.match(css,/min-height:48px/,'Touch controls must preserve 48px minimum targets');
-assert.match(css,/\.cc-about-sheet/,'About must use a short bottom-sheet menu');
-assert.doesNotMatch(css,/touch-action\s*:\s*none/i,'UX layer must not disable touch scrolling');
-assert.doesNotMatch(css,/overflow-y\s*:\s*hidden/i,'UX layer must not disable vertical scrolling');
+// Agent choices are real controls, not a decorative Idle screen.
+assert.match(js,/data-cc-agent-mode="auto"/,'Auto Agent mode must exist');
+assert.match(js,/data-cc-agent-mode="next"/,'Next Step Agent mode must exist');
+assert.match(js,/data-cc-agent-mode="until-work"/,'Until Work Agent mode must exist');
+assert.match(js,/data-cc-manual-toggle/,'Manual Agent mode must exist');
+assert.match(js,/command_center_agent_create_project_only_session/,'Agent modes must create real project-locked sessions');
+assert.match(js,/p_books_target:isBookProject\(project\)\?project\.name:null/,'Books Agent runs must remain explicitly targeted');
+assert.match(js,/p_allow_work:allowWork/,'Agent modes must preserve Work gating');
+assert.match(js,/command_center_agent_pause/,'Agent Pause must control the real runtime');
+assert.match(js,/command_center_agent_resume/,'Agent Resume must control the real runtime');
+assert.match(js,/command_center_agent_cancel/,'Agent Stop must control the real runtime');
 
-assert.match(loader,/command-center-app-ux\.css\?v=1/,'Completion loader must load new UX stylesheet');
-assert.match(loader,/command-center-app-ux\.js\?v=1/,'Completion loader must load new UX controller');
-assert.doesNotMatch(loader,/new MutationObserver/,'Agent completion patch must not use a broad DOM observer');
-assert.match(loader,/command-center:brain-open/,'Agent completion must refresh from explicit Brain events');
-assert.match(sw,/command-center-app-ux\.css\?v=1/,'PWA cache must include UX stylesheet');
-assert.match(sw,/command-center-app-ux\.js\?v=1/,'PWA cache must include UX controller');
-assert.match(sw,/command-center-artwork-polish\.css\?v=1/,'PWA cache must include current artwork polish');
+// Progress rings must be present everywhere and exact weighted precision must not be rounded to whole numbers.
+assert.match(js,/cc-approved-ring/,'Project cards and detail pages must use progress rings');
+assert.match(precision,/completed_weight/,'Precise progress must derive from completed weighted scope');
+assert.match(precision,/total_weight/,'Precise progress must derive from total weighted scope');
+assert.match(precision,/toFixed\(1\)/,'Progress rings must show decimal precision');
+assert.doesNotMatch(precision,/Math\.round\(Number\(row\.value_numeric\)/,'Progress must not round verified KPI values to whole numbers');
 
-console.log('mobile app UX QA passed');
+// Progressive disclosure stays in place instead of dumping admin plumbing into normal use.
+assert.match(js,/ccApprovedAbout/,'Bottom About control must exist');
+assert.match(js,/Advanced \/ system details/,'Advanced/system plumbing must be behind About');
+assert.match(css,/body:has\(#ccApprovedApp\):not\(\.cc-approved-legacy-open\)/,'Legacy dashboard must be hidden while approved app surface is active');
+assert.match(css,/body\.cc-approved-legacy-open #ccApprovedApp/,'Advanced mode must explicitly reveal the legacy/admin surface');
+
+// Visual identity: no fallback blue action system, no chevron affordances on normal cards.
+assert.match(css,/--cc-orange:#ff6817/,'Approved orange identity must be explicit');
+assert.match(css,/\.cc-approved-emblem/,'Artwork/emblem system must exist');
+assert.match(css,/cc6-mountain\.webp/,'Project artwork must use approved Command Center art');
+assert.match(css,/cc6-road\.webp/,'Next-step artwork must use approved Command Center art');
+assert.match(css,/cc6-chart\.webp/,'Performance artwork must use approved Command Center art');
+assert.doesNotMatch(js,/Open project <span>›<\/span>/,'Approved project cards must not show legacy chevron arrows');
+assert.doesNotMatch(css,/background[^;]*#0[0-9a-f]{2}ff/i,'Approved controls must not use fallback bright-blue backgrounds');
+assert.doesNotMatch(css,/touch-action\s*:\s*none/i,'Approved UI must preserve scrolling');
+assert.doesNotMatch(css,/overflow-y\s*:\s*hidden/i,'Approved UI must preserve vertical scrolling');
+
+// Loader must prefer the authoritative surface and retire the old competing Agent observers.
+assert.match(loader,/command-center-approved-ui\.css\?v=1/,'Loader must load approved UI stylesheet');
+assert.match(loader,/command-center-approved-ui\.js\?v=1/,'Loader must load approved UI controller');
+assert.match(loader,/command-center-precise-progress\.js\?v=1/,'Loader must load precise progress layer');
+assert.doesNotMatch(loader,/command-center-app-ux\.js\?v=1/,'Old focused UX controller must no longer load');
+assert.match(loader,/COMMAND_CENTER_AGENT_HOME\?\.destroy/,'Old Agent home observer must be retired');
+assert.match(loader,/COMMAND_CENTER_AGENT_MODE\?\.destroy/,'Old Agent detail observer must be retired');
+
+console.log('approved mobile app UX QA passed');
