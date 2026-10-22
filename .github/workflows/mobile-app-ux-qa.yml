@@ -3,10 +3,10 @@ name: Mobile app UX QA
 on:
   pull_request:
     paths:
-      - 'command-center-app-ux.js'
-      - 'command-center-app-ux.css'
+      - 'command-center-approved-ui.js'
+      - 'command-center-approved-ui.css'
+      - 'command-center-precise-progress.js'
       - 'command-center-agent-mode-completion.js'
-      - 'service-worker.js'
       - 'tests/mobile-app-ux.test.mjs'
       - '.github/workflows/mobile-app-ux-qa.yml'
   workflow_dispatch:
@@ -24,10 +24,10 @@ jobs:
           node-version: '22'
       - name: Syntax checks
         run: |
-          node --check command-center-app-ux.js
+          node --check command-center-approved-ui.js
+          node --check command-center-precise-progress.js
           node --check command-center-agent-mode-completion.js
-          node --check service-worker.js
-      - name: Focused mobile UX QA
+      - name: Approved mobile UX QA
         run: node tests/mobile-app-ux.test.mjs
       - name: Protected mobile navigation QA
         run: node tests/mobile-navigation.test.mjs
