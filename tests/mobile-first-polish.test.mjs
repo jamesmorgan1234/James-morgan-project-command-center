@@ -16,11 +16,12 @@ assert.doesNotMatch(css,/overscroll-behavior-y\s*:/,'fallback polish must not ch
 assert.doesNotMatch(cfg,/command-center-mobile-first\.css/,'legacy generic mobile visual override must not load in restored normal interface');
 assert.match(cfg,/command-center-v6\.css\?v=1/,'approved V6 geometry must own normal interface');
 assert.match(cfg,/command-center-exact-menus\.css\?v=1/,'exact-menu geometry must own normal interface');
-assert.match(completion,/command-center-mobile-first\.css\?v=1/,'legacy completion fallback may retain compatibility asset reference');
+assert.doesNotMatch(completion,/command-center-mobile-first\.css/,'Agent completion must not reintroduce the legacy mobile visual override after V6 mounts');
+assert.doesNotMatch(completion,/command-center-approved-ui|command-center-authoritative-runtime/,'Agent completion must not bootstrap a second generic renderer');
 assert.match(sw,/james-command-center-v74/,'fallback asset remains packaged under current PWA generation');
 assert.ok(sw.includes("'./command-center-mobile-first.css?v=1'"),'fallback mobile asset remains available offline without becoming normal visual authority');
 assert.match(sw,/url\.pathname\.endsWith\('\/command-center-mobile-first\.css'\)/,'fallback mobile asset remains network-fresh if explicitly requested');
 assert.match(html,/user-scalable=no/,'approved locked viewport must remain unchanged');
 assert.match(html,/viewport-fit=cover/,'safe-area edge-to-edge handling must remain intact');
 
-console.log('Legacy mobile compatibility is quarantined; restored V6/exact-menu UI remains visual authority under PWA v74.');
+console.log('Legacy mobile compatibility is quarantined; Agent completion cannot re-enable it over the restored V6 interface.');
