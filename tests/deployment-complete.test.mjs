@@ -28,11 +28,11 @@ assert.match(migration,/known_good boolean not null default false/);
 
 assert.equal(manifest.production_branch,'main');
 assert.equal(manifest.hosting_provider,'github_pages');
-assert.equal(manifest.release_identity.app_config_version,26);
-assert.equal(manifest.release_identity.pwa_cache_version,70);
+assert.equal(manifest.release_identity.app_config_version,27);
+assert.equal(manifest.release_identity.pwa_cache_version,71);
 assert.equal(manifest.release_identity.startup_repair_marker,'cc-startup-repair-attempted-v63');
-assert.equal(manifest.required_qa.length,14,'Agent Mode release must require all inherited suites plus Agent Mode QA');
-for(const suite of ['Approved Book Cover Library QA','PWA icon update QA','Automation complete QA','Integrations complete QA','Analytics complete QA','Security complete QA','Deployment complete QA','Agent Mode QA'])assert.ok(manifest.required_qa.includes(suite),`manifest missing ${suite}`);
+assert.equal(manifest.required_qa.length,18,'Current release must require all inherited suites plus mobile/recovery UX gates');
+for(const suite of ['Approved Book Cover Library QA','PWA icon update QA','Automation complete QA','Integrations complete QA','Analytics complete QA','Security complete QA','Deployment complete QA','Agent Mode QA','Mobile-first polish QA','Source sync and artwork polish QA','Mobile app UX QA','Recovery Books PWA QA'])assert.ok(manifest.required_qa.includes(suite),`manifest missing ${suite}`);
 assert.equal(manifest.rollback.direct_main_push,false);
 assert.equal(manifest.rollback.automatic_merge,false);
 assert.equal(manifest.rollback.target_must_be_main_ancestor,true);
@@ -63,15 +63,15 @@ assert.match(completion,/7 of 7 phases complete/);
 assert.match(completion,/ccDeploymentMount/);
 
 for(const asset of ['command-center-deployment.css?v=1','command-center-deployment.js?v=1','command-center-deployment-completion.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
-assert.match(html,/app-config\.js\?v=26/);
+assert.match(html,/app-config\.js\?v=27/);
 assert.match(html,/minimum-scale=1,maximum-scale=1,user-scalable=no/);
 assert.match(html,/cc-startup-repair-attempted-v63/);
-assert.match(sw,/james-command-center-v70/);
-for(const asset of ['./command-center-deployment.css?v=1','./command-center-deployment.js?v=1','./command-center-deployment-completion.js?v=1','./deployment-release-manifest.json?v=1','./app-config.js?v=26'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+assert.match(sw,/james-command-center-v71/);
+for(const asset of ['./command-center-deployment.css?v=1','./command-center-deployment.js?v=1','./command-center-deployment-completion.js?v=1','./deployment-release-manifest.json?v=1','./app-config.js?v=27'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
 for(const path of ['command-center-deployment.css','command-center-deployment.js','command-center-deployment-completion.js','deployment-release-manifest.json'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh asset path missing ${path}`);
 
 assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approved-icon-256.png')).digest('hex'),manifest.protected_assets.approved_icon_256_sha256);
 assert.equal(createHash('sha256').update(fs.readFileSync('command-center-approved-icon-512.png')).digest('hex'),manifest.protected_assets.approved_icon_512_sha256);
 assert.equal(createHash('sha256').update(fs.readFileSync('book-cover-atlas-v2.webp')).digest('hex'),manifest.protected_assets.book_cover_atlas_sha256);
 
-console.log('Deployment complete QA passed, including book release gates, rollback safety, Agent release identity, and protected assets.');
+console.log('Deployment complete QA passed, including book release gates, rollback safety, v71 release identity, and protected assets.');
