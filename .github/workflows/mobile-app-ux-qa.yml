@@ -10,6 +10,7 @@ on:
       - 'deployment-release-manifest.json'
       - 'command-center-approved-ui.js'
       - 'command-center-approved-ui.css'
+      - 'command-center-approved-mount-guard.js'
       - 'command-center-precise-progress.js'
       - 'command-center-approved-nav.js'
       - 'command-center-authoritative-runtime.js'
@@ -21,6 +22,7 @@ on:
       - 'command-center-work-approval-ui.css'
       - 'command-center-book-review-ui-v5.js'
       - 'command-center-book-review-ui.css'
+      - 'supabase/migrations/20261022_project_opportunities_owner_read_grant.sql'
       - 'tests/**'
       - '.github/workflows/mobile-app-ux-qa.yml'
   workflow_dispatch:
@@ -43,6 +45,7 @@ jobs:
           node --check startup-loader.js
           node --check app-config.js
           node --check command-center-approved-ui.js
+          node --check command-center-approved-mount-guard.js
           node --check command-center-precise-progress.js
           node --check command-center-approved-nav.js
           node --check command-center-authoritative-runtime.js
@@ -51,6 +54,8 @@ jobs:
           node --check command-center-work-boundary-mode.js
           node --check command-center-work-approval-ui-v3.js
           node --check command-center-book-review-ui-v5.js
+      - name: Approved mount recovery QA
+        run: node tests/approved-mount-recovery.test.mjs
       - name: Normal runtime stability QA
         run: node tests/normal-runtime-stability.test.mjs
       - name: Approved mobile UX QA
