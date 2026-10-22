@@ -44,6 +44,28 @@ test('Agent owner controls and explicit project selector are present',()=>{
   for(const label of ['AUTO','Next Step','Until Work / Next Work Boundary','Manual Task','Project Checkpoint','Stop Agent','ccAgentProjectSelector'])assert.ok(files.app.includes(label),`missing Agent control: ${label}`);
 });
 
+test('Agent owner controls use only atomic V7 owner RPC actions',()=>{
+  for(const rpc of [
+    'cc7_agent_owner_set_auto',
+    'cc7_agent_owner_create_run',
+    'cc7_agent_owner_pause_run',
+    'cc7_agent_owner_resume_run',
+    'cc7_agent_owner_stop_run',
+    'cc7_agent_owner_resolve_approval'
+  ])assert.ok(files.data.includes(`client.rpc('${rpc}'`),`missing atomic V7 Agent RPC wiring: ${rpc}`);
+  assert.doesNotMatch(files.data,/client\.from\('cc7_agent_runs'\)\.insert/);
+  assert.doesNotMatch(files.data,/client\.from\('cc7_agent_runs'\)\.update/);
+  assert.doesNotMatch(files.data,/client\.from\('cc7_agent_controls'\)\.update/);
+  assert.doesNotMatch(files.data,/client\.from\('cc7_agent_approvals'\)\.update/);
+});
+
+test('Agent UI dispatches owner controls through the V7 data layer',()=>{
+  for(const fn of ['setAuto','createAgentRun','requestPause','requestResume','requestStop','resolveApproval'])assert.ok(files.app.includes(`${fn}(`),`Agent UI is not wired to ${fn}`);
+  for(const mode of ['next_step','until_work','manual_task','project_checkpoint'])assert.ok(files.app.includes(`'${mode}'`),`missing Agent control mode: ${mode}`);
+  assert.match(files.app,/data-action="toggle-auto"/);
+  assert.match(files.app,/data-agent-action="\$\{esc\(action\)\}"/);
+});
+
 test('clean client uses cc7 data, modules, checkpoints, and Agent tables',()=>{
   for(const table of [
     'cc7_owner_access','cc7_projects','cc7_metrics','cc7_activity','cc7_integrations',
@@ -71,7 +93,7 @@ test('screenshot-first visual primitives are defined',()=>{
 
 test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
   assert.match(files.html,/\.\/artwork\.css\?v=1/);
-  for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg']){
+  for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg','server-racks.svg']){
     assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
   }
 });
