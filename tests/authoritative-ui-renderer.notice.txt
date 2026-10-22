@@ -1,1 +1,0 @@
-The approved Command Center shell is loaded directly by app-config.js.
