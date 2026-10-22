@@ -19,7 +19,8 @@ assert.match(source,/Agent is already working on this project/,'Source recovery 
 assert.match(sourceCss,/min-height:48px/,'Source recovery must use phone-size touch targets');
 
 assert.match(sw,/james-command-center-v71/,'PWA cache generation must advance to v71');
-assert.match(sw,/networkFirst\(request\)/,'Navigation and code assets must prefer fresh network content');
+assert.match(sw,/fetchWithTimeout\(e\.request,3500\)/,'Navigation must prefer fresh network content');
+assert.match(sw,/if\(freshAsset\)\{[\s\S]*fetch\(e\.request,\{cache:'no-store'\}\)/,'Fresh app/code assets must prefer the network before cached fallback');
 assert.match(sw,/cache:'no-store'/,'Network-first fetches must bypass stale HTTP cache');
 assert.match(sw,/keys\.filter\(key=>key\.startsWith\('james-command-center-'\)&&key!==CACHE\)/,'Old Command Center caches must be purged on activation');
 assert.match(startup,/register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/,'Canonical service-worker path must bypass update cache');
