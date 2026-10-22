@@ -36,7 +36,8 @@
     window.COMMAND_CENTER_AGENT_DEVICE_GUIDANCE?.refresh?.();
   }
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(patch);}
+  window.addEventListener('command-center:brain-open',schedule);
   window.addEventListener('command-center:brain-capability-open',e=>{if(e.detail?.name==='Agent Mode')schedule();});
-  new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true});
-  window.addEventListener('load',schedule,{once:true});schedule();
+  window.addEventListener('load',schedule,{once:true});
+  schedule();
 })();
