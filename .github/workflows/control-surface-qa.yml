@@ -1,0 +1,39 @@
+name: Command Center control surface QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'command-center-control-surface.js'
+      - 'command-center-control-surface.css'
+      - 'command-center-approved-nav.js'
+      - 'COMMAND_CENTER_PRODUCT_ROADMAP.md'
+      - '.github/workflows/control-surface-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax
+        run: node --check command-center-control-surface.js && node --check command-center-approved-nav.js
+      - name: Verify approved layout preservation and controls
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "data-cc-control-auto" command-center-control-surface.js
+          grep -q "command_center_agent_service_get_auto" command-center-control-surface.js
+          grep -q "command_center_agent_service_set_auto" command-center-control-surface.js
+          grep -q "Brain" command-center-control-surface.js
+          grep -q "Automation" command-center-control-surface.js
+          grep -q "Integrations" command-center-control-surface.js
+          grep -q "Analytics" command-center-control-surface.js
+          grep -q "Security" command-center-control-surface.js
+          grep -q "Deployment" command-center-control-surface.js
+          grep -q "command-center-control-surface.js?v=1" command-center-approved-nav.js
+          grep -q "command-center-control-surface.css?v=1" command-center-approved-nav.js
+          grep -q "homeCard('projects'" command-center-approved-ui.js
+          grep -q "homeCard('next'" command-center-approved-ui.js
+          grep -q "homeCard('agent'" command-center-approved-ui.js
+          grep -q "homeCard('revenue'" command-center-approved-ui.js
