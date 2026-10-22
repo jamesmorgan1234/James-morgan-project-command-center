@@ -46,8 +46,6 @@ window.COMMAND_CENTER_CONFIG = {
     if (coreLoaded) return;
     coreLoaded = true;
 
-    // Normal-use Command Center: only the approved product surface and the
-    // features that directly belong on that surface load at startup.
     addCss('commandCenterMobileFirst','./command-center-mobile-first.css?v=1');
     addCss('commandCenterArtworkPolish','./command-center-artwork-polish.css?v=1');
     addCss('commandCenterApprovedUi','./command-center-approved-ui.css?v=2');
@@ -55,7 +53,7 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('bookReviewUi','./command-center-book-review-ui.css?v=2');
     addCss('workApprovalUi','./command-center-work-approval-ui.css?v=1');
 
-    addJs('commandCenterApprovedUi','./command-center-approved-ui.js?v=2');
+    addJs('commandCenterApprovedUi','./command-center-approved-ui.js?v=3');
     addJs('commandCenterPreciseProgress','./command-center-precise-progress.js?v=3');
     addJs('commandCenterApprovedNav','./command-center-approved-nav.js?v=2');
     addJs('commandCenterWorkBoundaryMode','./command-center-work-boundary-mode.js?v=1');
@@ -72,9 +70,6 @@ window.COMMAND_CENTER_CONFIG = {
     if (window.COMMAND_CENTER_ADVANCED_READY) return Promise.resolve(true);
     if (advancedPromise) return advancedPromise;
 
-    // Advanced/admin/Brain assets are intentionally not allowed to run during
-    // normal use. They load only after the user explicitly opens About ->
-    // Brain/Advanced.
     const css = [
       ['projectHub','./project-hub.css?v=2'],
       ['mobileAccordionPolish','./mobile-accordion-polish.css?v=4'],
