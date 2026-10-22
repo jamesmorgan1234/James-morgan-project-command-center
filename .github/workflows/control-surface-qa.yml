@@ -27,13 +27,14 @@ jobs:
           grep -q "data-cc-control-auto" command-center-control-surface.js
           grep -q "command_center_agent_service_get_auto" command-center-control-surface.js
           grep -q "command_center_agent_service_set_auto" command-center-control-surface.js
+          grep -q "data-cc-about-action" command-center-control-surface.js
           grep -q "Brain" command-center-control-surface.js
           grep -q "Automation" command-center-control-surface.js
           grep -q "Integrations" command-center-control-surface.js
           grep -q "Analytics" command-center-control-surface.js
           grep -q "Security" command-center-control-surface.js
           grep -q "Deployment" command-center-control-surface.js
-          grep -q "command-center-control-surface.js?v=1" command-center-approved-nav.js
+          grep -q "command-center-control-surface.js?v=2" command-center-approved-nav.js
           grep -q "command-center-control-surface.css?v=1" command-center-approved-nav.js
           grep -q "AUTO OFF" command-center-agent-runner-status.js
           grep -q "AUTO ON" command-center-agent-runner-status.js
