@@ -16,6 +16,7 @@
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
+  const SW_RELOAD_KEY='cc-sw-v71-reloaded';
 
   const $ = id => document.getElementById(id);
 
@@ -84,6 +85,7 @@
       if (primaryClientCreated) return client;
       primaryClientCreated = true;
       window.COMMAND_CENTER_SUPABASE = client;
+      window.dispatchEvent(new CustomEvent('command-center:client-ready'));
       const originalOnAuthStateChange = client.auth.onAuthStateChange.bind(client.auth);
       client.auth.onAuthStateChange = callback => {
         let baselineCaptured = false;
@@ -140,7 +142,25 @@
     finally { starting = false; }
   }
 
+  async function installCurrentServiceWorker(){
+    if(!('serviceWorker' in navigator)) return;
+    const hadController=Boolean(navigator.serviceWorker.controller);
+    let reloading=false;
+    const onChange=()=>{
+      if(!hadController || reloading || sessionStorage.getItem(SW_RELOAD_KEY)==='1') return;
+      reloading=true;
+      sessionStorage.setItem(SW_RELOAD_KEY,'1');
+      location.reload();
+    };
+    navigator.serviceWorker.addEventListener('controllerchange',onChange);
+    try{
+      const registration=await navigator.serviceWorker.register('./service-worker.js',{updateViaCache:'none'});
+      await registration.update().catch(()=>{});
+      if(navigator.serviceWorker.controller?.scriptURL?.endsWith('/service-worker.js')) sessionStorage.removeItem(SW_RELOAD_KEY);
+    }catch{}
+  }
+
   revealShell();
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+  installCurrentServiceWorker();
   start(false);
 })();

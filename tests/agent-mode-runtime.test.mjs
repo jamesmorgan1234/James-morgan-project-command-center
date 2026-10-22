@@ -125,11 +125,12 @@ assert.doesNotMatch(ui,/GPT-6 Astra/,'Agent UI must not expose Astra runtime opt
 assert.match(completion,/8 of 8 phases complete/);
 assert.match(completion,/100% · Complete/);
 
-for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=1'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
-for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=1','./app-config.js?v=26'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=2'])assert.ok(cfg.includes(asset),`app config missing ${asset}`);
+for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=2','./app-config.js?v=27'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
 for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-home.css','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
-assert.match(sw,/james-command-center-v70/);
-assert.match(html,/app-config\.js\?v=26/);
+assert.match(sw,/james-command-center-v71/);
+assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/,'fresh Agent/app assets must use network-first refresh');
+assert.match(html,/app-config\.js\?v=27/);
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover/,'protected viewport must remain exact');
 assert.match(html,/cc-startup-repair-attempted-v63/,'startup repair marker must remain protected');
 
@@ -141,4 +142,4 @@ assert.match(runnerStandard,/hourly/i);
 assert.match(runnerStandard,/PC REQUIRED/);
 assert.match(runnerStandard,/TinyFish Agent\/Browser are metered/);
 
-console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, home Agent controls, completion patch, and PWA release assets are present.');
+console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, home Agent controls, completion patch, and PWA v71 release assets are present.');

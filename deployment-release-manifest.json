@@ -4,8 +4,8 @@
   "production_branch": "main",
   "hosting_provider": "github_pages",
   "release_identity": {
-    "app_config_version": 26,
-    "pwa_cache_version": 70,
+    "app_config_version": 27,
+    "pwa_cache_version": 71,
     "startup_repair_marker": "cc-startup-repair-attempted-v63"
   },
   "required_qa": [
@@ -22,7 +22,11 @@
     "Analytics complete QA",
     "Security complete QA",
     "Deployment complete QA",
-    "Agent Mode QA"
+    "Agent Mode QA",
+    "Mobile-first polish QA",
+    "Source sync and artwork polish QA",
+    "Mobile app UX QA",
+    "Recovery Books PWA QA"
   ],
   "protected_contracts": {
     "viewport": "width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover",
