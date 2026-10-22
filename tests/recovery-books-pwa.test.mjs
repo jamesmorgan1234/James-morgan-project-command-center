@@ -6,6 +6,7 @@ const sourceCss=fs.readFileSync('source-health.css','utf8');
 const startup=fs.readFileSync('startup-loader.js','utf8');
 const sw=fs.readFileSync('service-worker.js','utf8');
 const appConfig=fs.readFileSync('app-config.js','utf8');
+const completion=fs.readFileSync('command-center-agent-mode-completion.js','utf8');
 const bookGuard=fs.readFileSync('command-center-book-review-guard.js','utf8');
 const bookUi=fs.readFileSync('command-center-book-review-ui.js','utf8');
 const bookCss=fs.readFileSync('command-center-book-review-ui.css','utf8');
@@ -27,7 +28,9 @@ assert.match(startup,/register\('\.\/service-worker\.js',\{updateViaCache:'none'
 assert.match(startup,/controllerchange/,'New service worker takeover must be detected');
 assert.match(startup,/location\.reload\(\)/,'Controlled app must reload once after the new service worker takes control');
 assert.match(appConfig,/source-health\.js\?v=4/,'Fresh source-health asset version must load');
-assert.match(appConfig,/command-center-approved-ui\.js\?v=2/,'Fresh approved UI asset version must load');
+assert.match(appConfig,/command-center-agent-mode-completion\.js\?v=2/,'Final Agent completion loader must remain attached');
+assert.match(completion,/command-center-approved-ui\.js\?v=2/,'Fresh approved UI asset version must load through the final completion layer');
+assert.match(completion,/command-center-approved-ui\.css\?v=2/,'Fresh approved UI stylesheet must load through the final completion layer');
 
 assert.match(bookGuard,/BOOKS OWNER REVIEW GATE/,'Books Agent sessions must carry the owner review gate');
 assert.match(bookUi,/PC REQUIRED/,'Books review card must clearly require PC review');
