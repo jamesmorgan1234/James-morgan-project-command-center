@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-root-1';
+const CACHE='command-center-v7-root-2';
 const CORE=[
   './',
   './index.html',
@@ -6,6 +6,7 @@ const CORE=[
   './authoritative-v7/theme.css?v=4',
   './authoritative-v7/layout.css?v=4',
   './authoritative-v7/artwork.css?v=4',
+  './authoritative-v7/interaction-feedback.js?v=1',
   './authoritative-v7/app.js?v=4',
   './authoritative-v7/data.js',
   './authoritative-v7/config.js',
@@ -25,7 +26,7 @@ const CORE=[
   './authoritative-v7/assets/city-spires.svg',
   './authoritative-v7/assets/mobile-horizon.svg',
   './command-center-approved-icon-192.png?cc7-root=1',
-  './command-center-approved-icon-512.png?cc7-root=1',
+  './command-center-approved-icon-512.png?cc7-root=2',
   './command-center-approved-icon-512.png?cc7-root=1-maskable'
 ];
 
