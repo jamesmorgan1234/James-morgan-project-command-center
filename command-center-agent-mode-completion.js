@@ -1,4 +1,12 @@
 (() => {
+  const mobileHref='./command-center-mobile-first.css?v=1';
+  if(!document.querySelector('link[data-command-center-mobile-first]')){
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.href=mobileHref;
+    link.dataset.commandCenterMobileFirst='1';
+    document.head.appendChild(link);
+  }
   let scheduled=false;
   function patch(){
     scheduled=false;
