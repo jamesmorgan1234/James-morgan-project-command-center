@@ -113,47 +113,47 @@ export async function loadAgentState(ownerId) {
 }
 
 export async function setAuto(ownerId, enabled) {
-  const result = await client.from('cc7_agent_controls').update({
-    auto_enabled: !!enabled,
-    updated_by: 'cc7_owner_ui',
-    updated_at: new Date().toISOString()
-  }).eq('owner_id', ownerId).select('*').single();
-  return throwIf(result);
+  if (!ownerId) throw new Error('Owner session is required.');
+  const { data, error } = await client.rpc('cc7_agent_owner_set_auto', { p_enabled: !!enabled });
+  if (error) throw error;
+  if (!data?.ok) throw new Error('V7 Agent AUTO update did not verify.');
+  return data;
 }
 
 export async function createAgentRun({ ownerId, projectId = null, objective, controlMode, booksTarget = null, allowWork = false }) {
+  if (!ownerId) throw new Error('Owner session is required.');
   const cleanObjective = String(objective || '').trim();
   if (!cleanObjective) throw new Error('A concrete Agent task is required.');
-  const result = await client.from('cc7_agent_runs').insert({
-    owner_id: ownerId,
-    project_id: projectId || null,
-    objective: cleanObjective,
-    control_mode: controlMode,
-    books_target: booksTarget || null,
-    allow_work: !!allowWork,
-    exact_next_action: 'Awaiting clean runner planning',
-    status: 'queued'
-  }).select('*').single();
-  const run = throwIf(result);
-  const controlResult = await client.from('cc7_agent_controls').update({
-    current_run_id: run.id,
-    runner_state: 'ready',
-    updated_by: 'cc7_owner_ui',
-    updated_at: new Date().toISOString()
-  }).eq('owner_id', ownerId).select('*').single();
-  throwIf(controlResult);
-  return run;
+  const { data, error } = await client.rpc('cc7_agent_owner_create_run', {
+    p_project_id: projectId || null,
+    p_objective: cleanObjective,
+    p_control_mode: controlMode,
+    p_books_target: booksTarget || null,
+    p_allow_work: !!allowWork
+  });
+  if (error) throw error;
+  if (!data?.ok || !data?.run) throw new Error('V7 Agent run creation did not verify.');
+  return data.run;
 }
 
 export async function requestPause(ownerId, runId) {
-  return throwIf(await client.from('cc7_agent_runs').update({ pause_requested: true, updated_at: new Date().toISOString() }).eq('id', runId).eq('owner_id', ownerId).select('*').single());
+  if (!ownerId || !runId) throw new Error('Owner session and run are required.');
+  const { data, error } = await client.rpc('cc7_agent_owner_pause_run', { p_run_id: runId });
+  if (error) throw error;
+  if (!data?.ok) throw new Error('V7 Agent pause did not verify.');
+  return data.run || data;
 }
 
 export async function requestResume(ownerId, runId) {
-  return throwIf(await client.from('cc7_agent_runs').update({ pause_requested: false, status: 'queued', updated_at: new Date().toISOString() }).eq('id', runId).eq('owner_id', ownerId).select('*').single());
+  if (!ownerId || !runId) throw new Error('Owner session and run are required.');
+  const { data, error } = await client.rpc('cc7_agent_owner_resume_run', { p_run_id: runId });
+  if (error) throw error;
+  if (!data?.ok) throw new Error('V7 Agent resume did not verify.');
+  return data.run || data;
 }
 
 export async function requestStop(ownerId, runId) {
+  if (!ownerId || !runId) throw new Error('Owner session and run are required.');
   const { data, error } = await client.rpc('cc7_agent_owner_stop_run', { p_run_id: runId });
   if (error) throw error;
   if (!data?.ok) throw new Error('V7 Agent stop did not verify.');
@@ -161,10 +161,14 @@ export async function requestStop(ownerId, runId) {
 }
 
 export async function resolveApproval(ownerId, approvalId, approved) {
-  return throwIf(await client.from('cc7_agent_approvals').update({
-    state: approved ? 'approved' : 'declined',
-    resolved_at: new Date().toISOString()
-  }).eq('id', approvalId).eq('owner_id', ownerId).select('*').single());
+  if (!ownerId || !approvalId) throw new Error('Owner session and approval are required.');
+  const { data, error } = await client.rpc('cc7_agent_owner_resolve_approval', {
+    p_approval_id: approvalId,
+    p_approved: !!approved
+  });
+  if (error) throw error;
+  if (!data?.ok) throw new Error('V7 Agent approval update did not verify.');
+  return data.approval || data;
 }
 
 export function subscribe(ownerId, onChange) {
