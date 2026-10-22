@@ -1,27 +1,65 @@
-# Command Center Product Roadmap
+# Command Center — Authoritative V7 Product Roadmap
 
-Status: authoritative implementation roadmap for the current Command Center application.
+Status: **AUTHORITATIVE CURRENT ROADMAP**
 
-## Product rule
-Command Center is the owner-controlled control plane for James Morgan's projects. Normal Chat is the default execution brain. Nothing autonomous runs unless the owner enables AUTO. No feature may spend money, publish, accept legal terms, cross protected security boundaries, or enter Work outside the existing authorization gates.
+This roadmap is the single product/behavior checklist for the clean-room Command Center V7 rebuild. It replaces older roadmap wording where conflicts exist. The approved screenshots recorded in `COMMAND_CENTER_APPROVED_VISUAL_SPEC.md` are literal visual specifications. This roadmap controls product behavior, owner controls, data truth, navigation, execution, and completion criteria.
 
-## 1. Primary mobile layout
+## 1. Product purpose
 
-### Global header
-- Command Center identity
-- private sync / last refresh state
-- AUTO OFF / AUTO ON owner control
-- background runner health
-- visible attention state when an Agent needs James
+Command Center is James Morgan's private owner-controlled control plane for projects, progress, priorities, verified performance, project memory, automation, integrations, analytics, security, deployment, and Agent execution.
 
-### Home
-Primary cards remain the approved four-card layout:
-1. Projects — complete tracked portfolio
-2. Next Up — current action queue
-3. Agent — owner-controlled Agent Mode
-4. Revenue — verified revenue only
+Core rules:
 
-Directly beneath the primary cards, expose the Command Center control modules without replacing the approved primary layout:
+- Clean-room V7 implementation only. Do not use V4/V5/V6/approved legacy UI or Agent implementation as runtime building material.
+- Normal Chat is the default execution brain.
+- AUTO defaults and fails closed to OFF.
+- AUTO OFF means **zero background Agent execution** and **zero Agent runner heartbeat writes**.
+- No purchases, subscriptions, trials, paid APIs, ads, credits, usage billing, or paid infrastructure without exact owner authorization.
+- No public publishing, deployment, merge, communication, legal acceptance, account-security change, or other protected side effect without the applicable authorization boundary.
+- No invented percentages, revenue, progress, publication status, integrations, permissions, or completion.
+- Verified zero is shown as zero. Missing or unverified data is shown as `N/A` or another truthful defined state.
+- Internal IDs, raw JSON, source plumbing, private checkpoint mechanics, and backend diagnostics remain out of the normal owner UI.
+
+## 2. Global mobile experience
+
+The approved screenshots define the visual system:
+
+- near-black sci-fi control-surface background;
+- orange/gold illuminated clipped geometry;
+- compact dense mobile spacing;
+- glowing octagonal/circular icon machinery;
+- integrated project artwork inside cards;
+- white glowing primary titles and blue-gray supporting text;
+- semantic status pills with luminous dots;
+- large orange/gold chevrons;
+- no generic admin-panel appearance;
+- no excessive rounded cards or dead space.
+
+Mobile behavior requirements:
+
+- portrait-first installed-PWA experience;
+- viewport locked against pinch zoom;
+- native vertical scrolling preserved;
+- no horizontal overflow;
+- Android/system surfaces remain black;
+- safe-area spacing preserved;
+- browser/physical Back traverses the app history deepest-first;
+- per-screen scroll position is restored exactly once by the V7 router;
+- service-worker updates must replace stale V7 caches cleanly;
+- offline mode must never present stale live data as current;
+- approved launcher artwork remains exact and protected.
+
+## 3. Home
+
+The primary Home layout contains four top-level cards:
+
+1. **Projects** — complete tracked portfolio.
+2. **Next Up** — current priority/action queue.
+3. **Agent** — owner-controlled Agent execution surface.
+4. **Revenue** — verified revenue only.
+
+Directly beneath those cards are the six control modules:
+
 - Brain
 - Automation
 - Integrations
@@ -29,147 +67,427 @@ Directly beneath the primary cards, expose the Command Center control modules wi
 - Security
 - Deployment
 
-### Projects
-- portfolio summary
-- search/filter where applicable
-- project cards with verified status and scope progress
-- project detail with performance, Books/publication data when relevant, current snapshot, Agent controls, opportunities, next step, blocker, and continuation state
+Additional owner-facing navigation may include:
 
-### Next Up
-- prioritized project action queue
-- Command Center Brain / capability roadmap entry
-- no invented priority or completion
+- Active / Live
+- About / Advanced
 
-### Agent
-Owner controls:
-- project selector
-- AUTO OFF / AUTO ON
-- This Project Only
-- Next Work Boundary
-- Manual Task
-- Project Checkpoint
-- Pause after safe action
+Home must surface truthful Agent state and AUTO state without implying work is running when it is merely queued.
+
+## 4. Projects screen
+
+Visual source: approved `Projects` screenshot.
+
+Required structure:
+
+- title `Projects`;
+- subtitle `Full portfolio of tracked projects`;
+- full-width portfolio summary card;
+- large project count;
+- truthful portfolio status breakdown;
+- integrated landscape artwork;
+- project rows with left machinery icon, project title, subtitle/stage, status pill, integrated artwork, compact circular verified-scope ring where data is verified, fraction/detail beneath, and outer chevron.
+
+Behavior:
+
+- tapping a project opens Project Details;
+- no progress ring may display a guessed or stale percentage;
+- unverified scope displays `N/A` / `Scope unavailable`;
+- project count and status mix come from current clean V7 data.
+
+## 5. Active / Live screen
+
+Visual source: approved `Active / Live` screenshot.
+
+This is a distinct screen, not merely the Projects screen with rows hidden.
+
+Each row requires:
+
+- left machinery icon;
+- title;
+- semantic status pill;
+- exact current next-action sentence;
+- vertical divider;
+- large scope value plus `Scope` label;
+- secondary verified live/sync information;
+- integrated artwork;
+- outer chevron.
+
+No circular progress ring is used on this screen.
+
+## 6. Next Up screen
+
+Visual source: approved `Next Up` screenshot.
+
+Required structure:
+
+- title `Next Up`;
+- subtitle `Priority queue`;
+- compact priority rows;
+- left machinery icon;
+- title;
+- semantic status pill;
+- exact next-action sentence;
+- integrated artwork;
+- outer chevron.
+
+No progress rings.
+
+Priority must derive from verified project state/attention rules. Do not fabricate ranking.
+
+## 7. Revenue screen
+
+Required behavior:
+
+- verified portfolio revenue total only;
+- project-by-project verified revenue;
+- verified zero displayed as `$0.00`;
+- unverified/missing revenue displayed as `N/A`;
+- test orders and test transactions never count as real revenue;
+- tapping a project opens its Project Details.
+
+## 8. Project Details
+
+All projects receive a clean V7 detail screen with truthful project-specific information.
+
+### 8.1 Generic Project Details
+
+Required sections where supported:
+
+- hero identity/status card;
+- verified current scope;
+- verified revenue;
+- integration count/state;
+- exact next action;
+- blocker/integrity state;
+- verification summary;
+- direct Agent Controls entry for that exact project.
+
+### 8.2 The Missing Hour Saga / Books detail
+
+Visual source: approved `The Missing Hour Saga — Project Details` screenshot.
+
+Required sections:
+
+- hero with project/cover artwork, category kicker, title, description/stage, metadata, status pill, integrated eclipse/landscape art, chevron;
+- `KDP PERFORMANCE` section with a phone 3×2 metric grid;
+- `BOOKS IN SERIES` section with five covers across one row in the approved reference and numbered corner badges;
+- `PUBLICATION STATUS` with Kindle eBook, KDP Select, Paperback, Hardcover across one row where viewport permits the approved reference geometry;
+- `KDP SNAPSHOT HISTORY` row;
+- `TRACKING INTEGRATIONS` row;
+- exact next action;
+- direct Agent Controls entry.
+
+Books/publication truth rules:
+
+- file existence is not approval;
+- approval is not publication;
+- publication must not be implied without verified evidence;
+- screenshot metrics are visual examples only and never production data authority.
+
+## 9. Agent — owner controls
+
+The clean V7 Agent surface must expose these owner controls:
+
+1. **AUTO**
+2. **Next Step**
+3. **Until Work / Next Work Boundary**
+4. **Manual Task**
+5. **Project Checkpoint**
+6. **Stop Agent**
+
+Context-dependent controls additionally include:
+
+- Pause
 - Resume
-- Stop Agent / cancel unstarted work
-- Refresh state
-- Approve Work for exact step
-- Approve Sol Medium for exact step only
+- Refresh
+- exact Work approval
+- exact Sol Medium approval where the Work ladder reaches that rung
+- decline approval
 
-Agent status must show:
-- current project
-- current task
-- next queued task
-- run status
-- verified steps
-- checkpoint time
-- user action / PC REQUIRED when applicable
-- runner health
-- Work rung and approval state
-- Work allowance N/A unless verified
+### 9.1 AUTO
 
-### Revenue
-- verified revenue total
-- project-by-project verified revenue
-- N/A where live revenue is not verified
-- test orders never count as revenue
+AUTO is a background-execution gate, separate from run existence.
 
-## 2. Control modules
+**AUTO OFF**:
 
-### Brain
-- durable project memory
-- context packets
-- brainstorm workspace
-- project plans
-- task queue / planner
-- handoff builder
-- project roadmaps
-- source truth / recovery context
+- background runner may wake on its scheduler only long enough to read the V7 control gate;
+- it must perform zero Agent execution;
+- it must create/claim/advance zero runs or tasks;
+- it must write no runner heartbeat;
+- it must issue no notification;
+- manual owner controls remain available.
 
-### Automation
-- schedules
-- condition watches
-- notifications
-- completion state
-- pause/disable controls
-- no autonomous spending
+**AUTO ON**:
 
-### Integrations
-- connected services
-- source status
-- email/data integrations
-- connection verification
-- missing-connection state
+- the scheduled runner may process eligible queued/working V7 runs;
+- one primary run at a time;
+- fresh control/run state must be re-read before each new task and immediately before each external side effect;
+- stopping, pausing, or turning AUTO OFF outranks stale runner state.
 
-### Analytics
-- verified KPIs
-- project performance
-- progress
-- revenue
-- source freshness
-- never fabricate missing metrics
+### 9.2 Next Step
 
-### Security
-- owner authorization
-- permission envelopes
-- protected-action gates
-- Work approvals
-- Sol Medium exact-step approval
-- security escalation boundaries
+- owner-triggered;
+- creates a bounded V7 run for exactly the next verified project action;
+- the run remains `queued` until the execution runner actually claims it;
+- UI must never display `Working` merely because the run exists.
 
-### Deployment
-- release state
-- hosting state
-- QA status
-- rollback/recovery controls
-- release manifest
+### 9.3 Until Work / Next Work Boundary
 
-## 3. AUTO contract
-AUTO is a separate owner switch from Agent session existence.
+- owner-triggered;
+- advances normal-chat-capable work within the selected project scope;
+- stops at the first genuine Work-only boundary;
+- creates an exact Work approval request at that boundary;
+- does not enter Work automatically.
 
-AUTO OFF:
-- scheduled runner may wake as infrastructure heartbeat, but must receive zero runnable Agent sessions
-- no Agent job execution
-- no job switching
-- manual owner actions remain available
+### 9.4 Manual Task
 
-AUTO ON:
-- background runner may process only eligible scoped sessions
-- one primary Agent session at a time
-- may move to another eligible queued session only after the current safe unit is complete or blocked
-- all project scope, Books target, spending, security, user-only, Work, and duplicate-side-effect gates remain enforced
+- owner provides one exact objective;
+- the run may do only that bounded objective;
+- Books/KDP execution requires an exact Books target.
 
-Default and missing state: OFF.
+### 9.5 Project Checkpoint
 
-## 4. Function truth rules
-- Current verified database state outranks stale history.
-- No invented revenue, metrics, permissions, account connections, completion, or external actions.
-- Every production side effect needs evidence before completion.
-- User-only actions must identify the required device and exact action.
-- Books are explicit-target-only.
-- Work is a capability boundary, not a convenience path.
-- Astra is prohibited in Agent Mode.
-- Sol Medium is the maximum Agent Work rung and requires exact-step owner approval.
-- No purchases, subscriptions, trials, credits, API billing, ads, or paid infrastructure without explicit authorization for that exact spend.
+Project Checkpoint is **not background execution**.
 
-## 5. Implementation order
-1. Owner AUTO gate in Supabase — implemented; defaults OFF.
-2. Surface AUTO control in the approved UI and Agent screen — implement and verify.
-3. Surface Brain/Automation/Integrations/Analytics/Security/Deployment from the approved home without replacing the locked primary cards.
-4. Unify runner health + AUTO state so “active” never means Agent execution is authorized when AUTO is OFF.
-5. Add UI regression QA for the control surface, AUTO fail-closed behavior, and approved four-card layout preservation.
-6. Verify GitHub Pages deployment and installed-PWA cache delivery.
-7. Audit every visible button against a real handler/RPC and remove or mark any dead control.
-8. Audit every module against its standard and database truth source.
-9. Final mobile QA: navigation, back behavior, touch targets, safe-area spacing, loading/error states, offline fallback, and stale-cache recovery.
+Required behavior:
 
-## 6. Definition of done
-Command Center is complete only when the owner can open the installed app and, without hidden developer steps:
-- see the approved home layout
-- reach every control module
-- turn AUTO on/off and see the true durable state
-- start, pause, resume, stop, and inspect Agent runs within scope
-- receive clear user-action and Work approval gates
-- inspect projects, next actions, verified revenue, Brain, Automation, Integrations, Analytics, Security, and Deployment
-- refresh and recover from stale PWA cache
-- use every visible button successfully or receive an accurate explicit unavailable/blocked state
-- observe no background Agent execution while AUTO is OFF
+- owner-triggered immediate action;
+- works with AUTO either OFF or ON;
+- does not wait for the hourly runner;
+- performs no project side effects;
+- does not require a Books target;
+- snapshots the selected project's current clean V7 state, verified metrics, integration state, and recent activity, or the whole portfolio when no project is selected;
+- writes a completed checkpoint audit record;
+- leaves any unrelated active run pointer/state unchanged;
+- returns the completed checkpoint to the UI immediately under normal database/network conditions.
+
+UI states should visibly communicate `Checking` / `Complete` rather than implying background work.
+
+### 9.6 Pause
+
+- stops before the next unstarted action/side effect;
+- preserves verified completed work;
+- does not rewind already verified work.
+
+### 9.7 Resume
+
+- resumes an eligible paused run;
+- terminal/stopped runs cannot be resumed.
+
+### 9.8 Stop Agent
+
+- immediate atomic V7 operation;
+- marks the run stopped;
+- stops all unstarted tasks;
+- preserves verified work;
+- writes stop evidence/checkpoint;
+- clears the active-run pointer when appropriate;
+- must not rely on the hourly runner eventually noticing a passive flag.
+
+### 9.9 Refresh
+
+- reloads clean current Agent state now;
+- does not create or execute work.
+
+### 9.10 Approvals / Work ladder
+
+- Work is capability-bound, not convenience-bound;
+- normal chat first;
+- GPT-6 Luna High → GPT-6.1 Sol Light → GPT-6.1 Sol Medium exact-step approval;
+- Astra prohibited;
+- Sol Medium is the ceiling;
+- approval applies only to the exact requested step;
+- approval does not authorize unrelated work or spending.
+
+## 10. Agent status truth
+
+Agent UI must distinguish these states clearly:
+
+- Idle
+- Queued
+- Working
+- Paused
+- Needs User
+- Work Boundary
+- Blocked
+- Completed
+- Stopped
+- Failed
+
+The interface must show, where available:
+
+- selected/current project;
+- objective;
+- current/next task;
+- verified step count;
+- latest checkpoint;
+- runner health;
+- AUTO state;
+- user-required action;
+- pending approval.
+
+A database control-row update alone cannot produce `Working`. Working requires real runner claim/execution state.
+
+## 11. Brain
+
+Required capability surface:
+
+- durable project context;
+- memories/context items;
+- brainstorm workspace;
+- project plans;
+- tasks/planner state;
+- handoff builder;
+- project roadmaps;
+- source truth / recovery context.
+
+Normal UI should surface useful owner decisions and summaries, not raw source plumbing.
+
+## 12. Automation
+
+Required capability surface:
+
+- schedules;
+- condition watches;
+- notifications;
+- active/paused/disabled state;
+- completion state;
+- truthful next scheduled behavior;
+- no autonomous spending.
+
+Agent AUTO is separate from general Automation schedules.
+
+## 13. Integrations
+
+Required capability surface:
+
+- connected service/provider state;
+- source health/freshness;
+- missing connection state;
+- owner authorization requirement where applicable;
+- no secrets or backend credentials in the UI.
+
+## 14. Analytics
+
+Required capability surface:
+
+- verified KPIs;
+- current scope progress;
+- verified revenue;
+- project/portfolio performance;
+- source freshness;
+- trends/time series where real data exists;
+- goals and anomaly state where supported.
+
+Never infer missing metrics from unrelated data.
+
+## 15. Security
+
+Required capability surface:
+
+- owner access state;
+- permission envelopes;
+- protected-action boundaries;
+- pending authorizations;
+- Work/Sol approval requirements;
+- security alerts;
+- fail-closed defaults.
+
+## 16. Deployment
+
+Required capability surface:
+
+- release state;
+- QA state;
+- hosting/deployment state;
+- current production SHA when verified;
+- rollback/recovery state;
+- release checks;
+- no claim of deployment without real provider evidence.
+
+## 17. Visible-control contract
+
+Every visible interactive control must satisfy all of the following:
+
+1. It has a real handler.
+2. The handler reaches the clean V7 data/action path only.
+3. The action has a defined success state.
+4. Errors are visible and truthful.
+5. Disabled/unavailable actions explain why.
+6. No button exists solely as visual decoration unless it is explicitly non-interactive.
+7. A control that performs no project execution (Refresh, Project Checkpoint, navigation) must not be routed through the background execution runner.
+
+## 18. Data truth / progress
+
+- `current_scope_progress_percent` is displayed only when its current V7 metric is verified.
+- No fallback to old historical percentages.
+- A new scope expansion may legitimately lower a percentage because the denominator changed.
+- Project state and scope percentage are separate concepts.
+- No hardcoded screenshot sample values may leak into production screens.
+
+## 19. Clean-room implementation boundary
+
+Allowed inputs:
+
+- approved screenshots;
+- approved launcher artwork;
+- current project/global rules;
+- verified project data;
+- verified requirements and factual historical evidence.
+
+Not allowed as V7 runtime building material:
+
+- old renderer code;
+- old app shell;
+- old CSS architecture;
+- old startup/bootstrap code;
+- old Agent implementation;
+- old runner RPCs/tables;
+- old competing service-worker/runtime stacks.
+
+## 20. QA and release sequence
+
+1. Clean-room architecture isolation.
+2. Home and global shell.
+3. Projects.
+4. Active / Live.
+5. Next Up.
+6. Revenue.
+7. Generic Project Details.
+8. Books / Missing Hour detail.
+9. Agent owner controls and atomic backend actions.
+10. Brain / Automation / Integrations / Analytics / Security / Deployment.
+11. Android/PWA navigation, Back, scroll restoration, safe areas, offline/update behavior.
+12. Visible-button audit.
+13. Data-truth audit.
+14. Screenshot-by-screenshot visual QA at approved 864×1536 reference geometry.
+15. First complete every-file repository audit.
+16. Fix all defects found.
+17. Second complete every-file repository audit.
+18. Pre-merge QA.
+19. Pull request / merge only after the authorized rebuild chain is satisfied.
+20. GitHub Pages deployment verification.
+21. Production SHA verification.
+22. Physical Android owner inspection.
+
+## 21. Definition of done
+
+Command Center V7 is not complete merely because automated tests are green.
+
+Completion requires:
+
+- the approved screens visually reproduce the approved design system closely enough to pass owner physical-phone inspection;
+- all intended screens/modules are reachable;
+- every visible button is real and correctly wired;
+- AUTO OFF produces no background Agent work;
+- Project Checkpoint completes immediately without waiting for the hourly runner;
+- Stop is immediate and atomic;
+- execution controls remain queued until actually claimed;
+- progress/revenue/publication/integration data remains truthful;
+- Android Back and scroll restoration behave correctly;
+- PWA identity/cache/offline behavior is correct;
+- approved launcher artwork is exact;
+- the final every-file audit reports no unknown/unclassified implementation file;
+- the deployed production SHA is verified;
+- James completes the final physical-phone visual acceptance.
