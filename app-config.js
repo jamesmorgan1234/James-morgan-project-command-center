@@ -19,6 +19,17 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('performanceHub','./performance-hub.css?v=2'); addJs('performanceHub','./performance-hub.js?v=5');
     addCss('refreshOrchestrator','./refresh-orchestrator.css?v=1'); addJs('refreshOrchestrator','./refresh-orchestrator.js?v=7');
     addCss('sourceHealth','./source-health.css?v=2'); addJs('sourceHealth','./source-health.js?v=4');
+
+    // The approved Command Center is the primary app surface. Load it directly
+    // instead of relying on the Agent completion layer to inject it later.
+    addCss('commandCenterMobileFirst','./command-center-mobile-first.css?v=1');
+    addCss('commandCenterArtworkPolish','./command-center-artwork-polish.css?v=1');
+    addCss('commandCenterApprovedUi','./command-center-approved-ui.css?v=2');
+    addJs('commandCenterApprovedUi','./command-center-approved-ui.js?v=2');
+    addJs('commandCenterPreciseProgress','./command-center-precise-progress.js?v=2');
+    addJs('commandCenterApprovedNav','./command-center-approved-nav.js?v=2');
+    addJs('commandCenterWorkBoundaryMode','./command-center-work-boundary-mode.js?v=1');
+
     addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
     addJs('appIntegrityRepair','./app-integrity-repair.js?v=2');
     addCss('commandCenterV6','./command-center-v6.css?v=1'); addJs('commandCenterV6','./command-center-v6.js?v=1');
