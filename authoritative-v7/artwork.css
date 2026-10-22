@@ -6,9 +6,11 @@
 /* Real project artwork map — data is preserved; presentation is V7-only. */
 [data-open-project="kdp-missing-hour"] .cc-art,[data-open-project^="kdp-"] .cc-art{background-image:url('./assets/landscape-eclipse.svg')}
 [data-open-project="velo-clip"] .cc-art,[data-open-project="command-center"] .cc-art{background-image:url('./assets/neural-globe.svg')}
-[data-open-project="morgancommerce"] .cc-art,[data-open-project="margincrafttools"] .cc-art,[data-open-project="morgans-garage-doors"] .cc-art{background-image:url('./assets/road-mountains.svg')}
+[data-open-project="morgancommerce"] .cc-art,[data-open-project="margincrafttools"] .cc-art{background-image:url('./assets/merch-cases.svg')}
+[data-open-project="morgans-garage-doors"] .cc-art{background-image:url('./assets/city-spires.svg')}
 [data-open-project="fanvue-veyla"] .cc-art,[data-open-project="coupon-autopilot"] .cc-art,[data-open-project="torevi"] .cc-art{background-image:url('./assets/network-globe.svg')}
 [data-open-project="edge-finder"] .cc-art,[data-open-project="mini-movies"] .cc-art{background-image:url('./assets/analytics-grid.svg')}
+[data-open-project="revocapture"] .cc-art{background-image:url('./assets/mobile-horizon.svg')}
 
 /* Literal fixture mapping for the approved four-screen visual QA. */
 .fixture-root .cc-stack>.cc-project-row:nth-child(2) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(1) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(1) .cc-art{background-image:url('./assets/landscape-eclipse.svg')}
@@ -16,11 +18,11 @@
 .fixture-root .cc-stack>.cc-project-row:nth-child(4) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(3) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(3) .cc-art{background-image:url('./assets/analytics-grid.svg')}
 .fixture-root .cc-stack>.cc-project-row:nth-child(5) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(4) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(4) .cc-art{background-image:url('./assets/road-mountains.svg')}
 .fixture-root .cc-stack>.cc-project-row:nth-child(6) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(5) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(5) .cc-art{background-image:url('./assets/network-globe.svg')}
-.fixture-root .cc-stack>.cc-project-row:nth-child(7) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(6) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(6) .cc-art{background-image:url('./assets/landscape-eclipse.svg')}
+.fixture-root .cc-stack>.cc-project-row:nth-child(7) .cc-art,.fixture-root .cc-stack>.cc-next-row:nth-child(6) .cc-art,.fixture-root .cc-stack>.cc-live-row:nth-child(6) .cc-art{background-image:url('./assets/city-spires.svg')}
 .fixture-root .cc-stack>.cc-project-row:nth-child(8) .cc-art{background-image:url('./assets/server-racks.svg')}
 .fixture-root .cc-stack>.cc-project-row:nth-child(9) .cc-art{background-image:url('./assets/analytics-grid.svg')}
-.fixture-root .cc-stack>.cc-next-row:nth-child(7) .cc-art{background-image:url('./assets/server-racks.svg')}
-.fixture-root .cc-stack>.cc-live-row:nth-child(7) .cc-art{background-image:url('./assets/road-mountains.svg')}
+.fixture-root .cc-stack>.cc-next-row:nth-child(7) .cc-art{background-image:url('./assets/merch-cases.svg')}
+.fixture-root .cc-stack>.cc-live-row:nth-child(7) .cc-art{background-image:url('./assets/mobile-horizon.svg')}
 
 /* The screenshot shows five visually distinct covers; V7 must not repeat one generic placeholder. */
 .cc-book:nth-child(1) .cc-cover{background:url('./assets/time-portal.svg') center/cover no-repeat}
