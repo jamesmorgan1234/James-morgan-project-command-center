@@ -129,13 +129,13 @@ const normal=cfg.slice(cfg.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'),cf
 const advanced=cfg.slice(cfg.indexOf('let advancedPromise'));
 for(const asset of ['command-center-agent-mode.css?v=1','command-center-agent-mode.js?v=1','command-center-agent-device-guidance.css?v=1','command-center-agent-device-guidance.js?v=1','command-center-agent-runner-status.js?v=1','command-center-agent-home.css?v=1','command-center-agent-home.js?v=1','command-center-agent-mode-completion.js?v=3'])assert.ok(advanced.includes(asset),`advanced app config missing ${asset}`);
 for(const asset of ['command-center-agent-mode.js','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(!normal.includes(asset),`legacy Agent asset must not execute in normal startup: ${asset}`);
-for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=3','./app-config.js?v=28'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
+for(const asset of ['./command-center-agent-mode.css?v=1','./command-center-agent-mode.js?v=1','./command-center-agent-device-guidance.css?v=1','./command-center-agent-device-guidance.js?v=1','./command-center-agent-runner-status.js?v=1','./command-center-agent-home.css?v=1','./command-center-agent-home.js?v=1','./command-center-agent-mode-completion.js?v=3','./app-config.js?v=29'])assert.ok(sw.includes(`'${asset}'`),`PWA cache missing ${asset}`);
 for(const path of ['command-center-agent-mode.css','command-center-agent-mode.js','command-center-agent-device-guidance.css','command-center-agent-device-guidance.js','command-center-agent-runner-status.js','command-center-agent-home.css','command-center-agent-home.js','command-center-agent-mode-completion.js'])assert.ok(sw.includes(`pathname.endsWith('/${path}')`),`fresh Agent asset path missing ${path}`);
-assert.match(sw,/james-command-center-v72/);
+assert.match(sw,/james-command-center-v73/);
 assert.match(sw,/fetch\(e\.request,\{cache:'no-store'\}\)/,'fresh Agent/app assets must use network-first refresh');
-assert.match(html,/app-config\.js\?v=28/);
+assert.match(html,/app-config\.js\?v=29/);
 assert.match(html,/width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover/,'protected viewport must remain exact');
-assert.match(html,/cc-startup-repair-attempted-v63/,'startup repair marker must remain protected');
+assert.match(html,/cc-startup-repair-attempted-v64/,'startup repair marker must remain protected');
 
 for(const phrase of ['Sol Medium','Astra','normal chat','Books'])assert.ok(standard.toLowerCase().includes(phrase.toLowerCase()),`Agent standard missing ${phrase}`);
 assert.match(workStandard,/GPT-6\.1 Sol Medium/);
@@ -145,4 +145,4 @@ assert.match(runnerStandard,/hourly/i);
 assert.match(runnerStandard,/PC REQUIRED/);
 assert.match(runnerStandard,/TinyFish Agent\/Browser are metered/);
 
-console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, Advanced Agent controls, completion patch, and PWA v72 assets are present.');
+console.log('Agent Mode release QA passed: all 8 phases, service runner, project locks, verification, Work ceiling, retry safety, device guidance, tool health, Advanced Agent controls, completion patch, and PWA v73 assets are present.');
