@@ -111,6 +111,7 @@ window.COMMAND_CENTER_CONFIG = {
     ['agentMode','./command-center-agent-mode.js?v=1'],
     ['agentDeviceGuidance','./command-center-agent-device-guidance.js?v=1'],
     ['agentRunnerStatus','./command-center-agent-runner-status.js?v=1'],
+    ['agentAutoControl','./command-center-agent-auto-control.js?v=1'],
     ['agentHome','./command-center-agent-home.js?v=1'],
     ['agentModeCompletion','./command-center-agent-mode-completion.js?v=3'],
     ['bookReviewGuard','./command-center-book-review-guard.js?v=1'],
