@@ -82,7 +82,7 @@
     if(sessionsRes.error) throw sessionsRes.error;
     const active=(sessionsRes.data||[]).find(s=>ACTIVE_STATES.has(String(s.status||'')));
     if(active){
-      button.textContent='Agent already running';
+      button.textContent='Agent is already working on this project';
       button.classList.remove('is-working');
       button.classList.add('is-active');
       return;
