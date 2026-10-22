@@ -48,6 +48,7 @@ test('Agent owner controls use only atomic V7 owner RPC actions',()=>{
   for(const rpc of [
     'cc7_agent_owner_set_auto',
     'cc7_agent_owner_create_run',
+    'cc7_agent_owner_project_checkpoint',
     'cc7_agent_owner_pause_run',
     'cc7_agent_owner_resume_run',
     'cc7_agent_owner_stop_run',
@@ -59,8 +60,16 @@ test('Agent owner controls use only atomic V7 owner RPC actions',()=>{
   assert.doesNotMatch(files.data,/client\.from\('cc7_agent_approvals'\)\.update/);
 });
 
+test('Project Checkpoint is immediate and does not queue worker execution',()=>{
+  assert.ok(files.data.includes('createProjectCheckpoint('));
+  assert.ok(files.app.includes('createProjectCheckpoint(state.ownerId,projectId)'));
+  assert.match(files.app,/if\(mode==='project_checkpoint'\)[\s\S]*?createProjectCheckpoint\(state\.ownerId,projectId\)[\s\S]*?checkpoint complete/);
+  assert.match(files.app,/Instant status review only\. No execution or side effects\./);
+  assert.ok(files.data.includes('latestCheckpoint'));
+});
+
 test('Agent UI dispatches owner controls through the V7 data layer',()=>{
-  for(const fn of ['setAuto','createAgentRun','requestPause','requestResume','requestStop','resolveApproval'])assert.ok(files.app.includes(`${fn}(`),`Agent UI is not wired to ${fn}`);
+  for(const fn of ['setAuto','createAgentRun','createProjectCheckpoint','requestPause','requestResume','requestStop','resolveApproval'])assert.ok(files.app.includes(`${fn}(`),`Agent UI is not wired to ${fn}`);
   for(const mode of ['next_step','until_work','manual_task','project_checkpoint'])assert.ok(files.app.includes(`'${mode}'`),`missing Agent control mode: ${mode}`);
   assert.match(files.app,/data-action="toggle-auto"/);
   assert.match(files.app,/data-agent-action="\$\{esc\(action\)\}"/);
@@ -107,7 +116,7 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.match(files.html,/\.\/manifest\.webmanifest\?v=1/);
   assert.match(files.html,/\.\/pwa\.js\?v=1/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-3/);
+  assert.match(files.sw,/command-center-v7-clean-4/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
 
