@@ -25,10 +25,13 @@ window.COMMAND_CENTER_CONFIG = {
     addCss('commandCenterMobileFirst','./command-center-mobile-first.css?v=1');
     addCss('commandCenterArtworkPolish','./command-center-artwork-polish.css?v=1');
     addCss('commandCenterApprovedUi','./command-center-approved-ui.css?v=2');
+    addCss('commandCenterAuthoritativeRuntime','./command-center-authoritative-runtime.css?v=1');
     addJs('commandCenterApprovedUi','./command-center-approved-ui.js?v=2');
     addJs('commandCenterPreciseProgress','./command-center-precise-progress.js?v=2');
     addJs('commandCenterApprovedNav','./command-center-approved-nav.js?v=2');
     addJs('commandCenterWorkBoundaryMode','./command-center-work-boundary-mode.js?v=1');
+    addJs('commandCenterAuthoritativeRuntime','./command-center-authoritative-runtime.js?v=1');
+    addJs('commandCenterAgentTruth','./command-center-agent-truth.js?v=1');
 
     addCss('commandCenterV4','./command-center-v4.css?v=1'); addJs('commandCenterV4','./command-center-v4.js?v=1');
     addJs('appIntegrityRepair','./app-integrity-repair.js?v=2');

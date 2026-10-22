@@ -1,0 +1,37 @@
+/* Final normal-use authority rules for the approved Command Center surface. */
+body:not(.cc-approved-legacy-open) #dashboard > :not(#ccApprovedApp){display:none!important}
+body:not(.cc-approved-legacy-open) #ccApprovedApp{display:block!important}
+
+#ccApprovedApp{padding-bottom:calc(24px + env(safe-area-inset-bottom))!important}
+#ccApprovedAbout{
+  position:static!important;
+  inset:auto!important;
+  z-index:auto!important;
+  width:100%!important;
+  min-height:58px!important;
+  margin:28px 0 0!important;
+  padding:0 18px!important;
+  border:2px solid var(--cc-orange)!important;
+  border-radius:14px!important;
+  background:linear-gradient(145deg,#160804,#080302)!important;
+  color:#fff!important;
+  font-weight:900!important;
+  font-size:17px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  box-shadow:0 0 18px rgba(255,81,0,.26)!important;
+}
+
+.cc-agent-truth-progress{margin:10px 0 2px;padding:11px 12px;border:1px solid rgba(255,112,27,.32);border-radius:12px;background:rgba(4,4,4,.72)}
+.cc-agent-truth-row{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cc-agent-truth-row strong{font-size:18px;color:#fff}
+.cc-agent-truth-row small{color:#b9c1d0}
+.cc-agent-truth-track{height:8px;margin-top:8px;border-radius:999px;background:rgba(120,135,160,.2);overflow:hidden}
+.cc-agent-truth-track>span{display:block;height:100%;width:var(--cc-agent-progress,0%);border-radius:inherit;background:linear-gradient(90deg,#ff6817,#ffb43e)}
+.cc-agent-truth-current{display:block;margin-top:8px;color:#c8ced8;font-size:13px;line-height:1.35}
+
+@media(max-width:520px){
+  #ccApprovedApp{padding-bottom:calc(18px + env(safe-area-inset-bottom))!important}
+  #ccApprovedAbout{margin-top:22px!important;min-height:56px!important}
+}
