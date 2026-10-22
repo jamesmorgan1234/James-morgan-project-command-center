@@ -1,1 +1,0 @@
-Phone PWA, phone website, and desktop website must all render the approved Command Center shell as the primary authenticated UI.
