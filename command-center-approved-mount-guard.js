@@ -5,6 +5,20 @@
   let timer = null;
   let attempts = 0;
 
+  const SCREEN_SELECTOR = [
+    '.cc-screen-home-grid',
+    '.cc-screen-project-list',
+    '.cc-screen-next-list',
+    '.cc-screen-active-list',
+    '.cc-screen-project-hero',
+    '.cc-approved-agent-home',
+    '.cc-screen-revenue-hero',
+    '.cc-approved-home-grid',
+    '.cc-approved-project-list',
+    '.cc-approved-project-hero',
+    '.cc-approved-revenue-hero'
+  ].join(',');
+
   const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
   }[c]));
@@ -22,6 +36,10 @@
     return root;
   }
 
+  function hasMountedScreen(root) {
+    return Boolean(root?.querySelector(SCREEN_SELECTOR));
+  }
+
   function showLoading(root) {
     if (!root || root.childElementCount) return;
     root.innerHTML = '<section class="cc-approved-section" data-cc-mount-state="loading"><div class="cc-approved-section-title"><strong>COMMAND CENTER</strong><span>Loading</span></div><div class="cc-approved-empty">Loading your verified projects…</div></section>';
@@ -37,8 +55,7 @@
   async function kick(force = false) {
     const root = ensureRoot();
     if (!root) return false;
-    const realContent = root.querySelector('.cc-approved-home-grid,.cc-approved-project-list,.cc-approved-project-hero,.cc-approved-agent-home,.cc-approved-revenue-hero');
-    if (realContent && !force) return true;
+    if (hasMountedScreen(root) && !force) return true;
 
     showLoading(root);
     const refresh = window.COMMAND_CENTER_APPROVED_UI?.refresh;
@@ -46,7 +63,7 @@
 
     try {
       await refresh();
-      const mounted = Boolean(root.querySelector('.cc-approved-home-grid,.cc-approved-project-list,.cc-approved-project-hero,.cc-approved-agent-home,.cc-approved-revenue-hero'));
+      const mounted = hasMountedScreen(root);
       if (!mounted && force) throw new Error('The approved Command Center renderer returned without mounting a screen.');
       return mounted;
     } catch (error) {
@@ -75,6 +92,13 @@
   }
 
   window.addEventListener('command-center:client-ready', startGuard);
+  window.addEventListener('command-center:approved-rendered', () => {
+    const root = document.getElementById('ccApprovedApp');
+    if (hasMountedScreen(root) && timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  });
   window.addEventListener('focus', () => kick(false));
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) kick(false);
