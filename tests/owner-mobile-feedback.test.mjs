@@ -11,6 +11,9 @@ assert.doesNotMatch(css, /overflow-x\s*:\s*hidden/i, 'overflow must be fixed str
 assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-page-head/, 'remaining mobile containment must be scoped to book project detail pages');
 assert.match(css, /contain:inline-size/, 'book detail panels must use structural inline-size containment');
 assert.match(runtime, /cc-approved-book-project/, 'runtime must mark only book project detail pages for the narrow overflow repair');
+assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero::before\{[\s\S]*?background-image:radial-gradient/, 'mobile book hero must replace the giant eclipse artwork with a bounded orange glow');
+assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero::before\{[\s\S]*?z-index:0!important/, 'book artwork must stay behind hero content');
+assert.match(css, /#ccApprovedApp\.cc-approved-book-project \.cc-approved-project-hero>\*\{[\s\S]*?z-index:2/, 'book hero content must stay above decorative artwork');
 
 assert.match(css, /\.cc-approved-revenue-item/, 'Revenue rows must use the finished Command Center card treatment');
 assert.match(runtime, /cc-approved-revenue-emblem/, 'Revenue rows must receive the matching visual emblem');
