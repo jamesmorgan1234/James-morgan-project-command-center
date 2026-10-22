@@ -22,5 +22,5 @@ for(const rpc of ['command_center_queue_report','command_center_queue_action','c
 assert.match(completion,/8 of 8 phases complete/);assert.match(completion,/ccAutomationAdvancedMount/);
 for(const asset of ['command-center-automation-advanced.css?v=1','command-center-automation-advanced.js?v=1','command-center-automation-completion.js?v=1']){assert.ok(cfg.includes(asset));assert.ok(sw.includes(`'./${asset}'`));assert.ok(sw.includes(`pathname.endsWith('/${asset.split('?')[0]}')`));}
 assert.match(cfg,/command-center-integrations\.js\?v=1/);assert.match(cfg,/command-center-analytics\.js\?v=1/);assert.match(cfg,/command-center-security\.js\?v=1/);assert.match(cfg,/command-center-deployment\.js\?v=1/,'Deployment release must preserve Automation while extending the app');
-assert.match(index,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(index,/cc-startup-repair-attempted-v63/);assert.match(sw,/james-command-center-v70/,'Automation must remain intact under the Agent Mode release cache');
-console.log('Automation Phases 4–8 completion QA preserved under Agent Mode release.');
+assert.match(index,/minimum-scale=1,maximum-scale=1,user-scalable=no/);assert.match(index,/cc-startup-repair-attempted-v63/);assert.match(sw,/james-command-center-v71/,'Automation must remain intact under the current Command Center release cache');
+console.log('Automation Phases 4–8 completion QA preserved under current Command Center release.');
