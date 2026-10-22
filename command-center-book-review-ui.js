@@ -1,6 +1,6 @@
 (() => {
   if (window.COMMAND_CENTER_BOOK_REVIEW_UI) return;
-  window.COMMAND_CENTER_BOOK_REVIEW_UI = { version: 2 };
+  window.COMMAND_CENTER_BOOK_REVIEW_UI = { version: 3 };
   const ACTIVE=new Set(['draft','active','paused','blocked','needs_user_action','partially_completed']);
   const TOOLS=['normal_chat','research','files','github','supabase','automation','integration','analytics','security','deployment','work'];
   const FORMATS=[['kindle','Kindle eBook'],['kdp_select','KDP Select'],['paperback','Paperback'],['hardcover','Hardcover']];
@@ -17,8 +17,9 @@
   function metaPublished(book){return String(book?.publication_state||'').toLowerCase()==='published'||['kindle','paperback','hardcover'].some(f=>String(book?.formats?.[f]||'').toLowerCase()==='live')||String(book?.kdp_select||'').toLowerCase()==='enrolled';}
   function effectivePublished(book,pubs){return metaPublished(book)||(pubs.get(book?.title)?.size||0)>0;}
   function publishedFormats(book,pubs){const set=new Set(pubs.get(book?.title)||[]);if(String(book?.formats?.kindle||'').toLowerCase()==='live')set.add('kindle');if(String(book?.kdp_select||'').toLowerCase()==='enrolled')set.add('kdp_select');if(String(book?.formats?.paperback||'').toLowerCase()==='live')set.add('paperback');if(String(book?.formats?.hardcover||'').toLowerCase()==='live')set.add('hardcover');return set;}
-  function statusLabel(review,book,pubs){if(review?.status==='needs_changes')return'Needs changes';if(review?.status==='pending_review')return'Awaiting your review';if(review?.status==='approved'&&effectivePublished(book,pubs))return'Published / locked';if(review?.status==='approved')return'Approved / ready to publish';if(effectivePublished(book,pubs))return'Published / locked';return'Not prepared';}
+  function statusLabel(review,book,pubs){if(review?.status==='needs_changes')return'Needs changes';if(review?.status==='pending_review')return'Awaiting your review';if(review?.status==='approved'&&effectivePublished(book,pubs))return'Published / locked';if(review?.status==='approved')return'Approved Final · Publish Queue';if(effectivePublished(book,pubs))return'Published / locked';return'Not prepared';}
   function formatSummary(book,pubs){const set=publishedFormats(book,pubs);return FORMATS.filter(([key])=>set.has(key)).map(([,label])=>label).join(' · ')||'Not marked published';}
+  function queueCount(books,reviews,pubs){return books.filter(b=>reviews.get(b.title)?.status==='approved'&&!effectivePublished(b,pubs)).length;}
   function publicationChecklist(project,books,reviews,selectedTitle){
     const approved=books.filter(b=>reviews.get(b.title)?.status==='approved');
     if(!approved.length)return'';
@@ -32,6 +33,7 @@
     const revision=review?.revision||1;
     const artifact=review?.artifact_label||review?.artifact_ref||(alreadyPublished?'Existing verified published record':'No final PDF reference recorded yet');
     const open=isOpenable(review?.artifact_ref);
+    const queued=queueCount(books,reviews,pubs);
     let actions='';
     if(!review&&alreadyPublished){
       actions='<button type="button" data-book-review-reopen-legacy>Reopen Book for Changes</button>';
@@ -46,12 +48,13 @@
     }else{
       actions='<button type="button" class="cc-book-review-primary" data-book-review-correct>Run Correction with Agent</button>';
     }
-    return `<section id="ccBookReviewGate" class="cc-approved-section cc-book-review-gate" data-project-id="${esc(project.id)}"><div class="cc-approved-section-title"><span class="cc-approved-emblem" aria-hidden="true">✓</span><strong>FINAL BOOK REVIEW</strong><span>${alreadyPublished?'PUBLISHED':'PC REQUIRED'}</span></div>
+    return `<section id="ccBookReviewGate" class="cc-approved-section cc-book-review-gate" data-project-id="${esc(project.id)}"><div class="cc-approved-section-title"><span class="cc-approved-emblem" aria-hidden="true">✓</span><strong>FINAL BOOK REVIEW</strong><span>${alreadyPublished?'PUBLISHED':review?.status==='approved'?'PUBLISH QUEUE':'PC REQUIRED'}</span></div>
+      ${queued?`<div class="cc-book-publish-queue"><strong>${queued}</strong><span>Approved final ${queued===1?'book':'books'} waiting for rollout</span><small>Finished and locked until your publication slot is available.</small></div>`:''}
       <label class="cc-book-review-select">Book<select data-book-review-select>${books.map(b=>`<option value="${esc(b.title)}"${b.title===book?.title?' selected':''}>${esc(b.title)}</option>`).join('')}</select></label>
       <div class="cc-book-review-status"><div><small>Status</small><strong>${esc(statusLabel(review,book,pubs))}</strong></div><div><small>Published formats</small><strong>${esc(formatSummary(book,pubs))}</strong></div></div>
       <div class="cc-book-review-artifact"><small>Exact reviewed artifact</small><strong>${esc(artifact)}</strong>${review?.artifact_hash?`<span>Hash ${esc(String(review.artifact_hash).slice(0,16))}…</span>`:''}${review?`<span>Revision ${revision}</span>`:''}</div>
       ${review?.feedback?`<div class="cc-book-review-feedback"><small>Your requested changes</small><p>${esc(review.feedback)}</p></div>`:''}
-      <p class="cc-book-review-note">Generating a PDF is not approval. Inspect the exact final PDF on your computer, then approve it here. Approval locks that exact revision in Brain. After you actually publish it, use Mark Published to record the formats that went live. Publishing itself stays separate.</p>
+      <p class="cc-book-review-note">Generating a PDF is not approval. Inspect the exact final PDF on your computer, then approve it here. <strong>Approved Final</strong> means the book is finished, locked, and waiting in your publication queue for the allowed rollout slot. After you actually publish it, use Mark Published to record the formats that went live. Publishing itself stays separate.</p>
       <div class="cc-book-review-actions">${actions}</div>
       ${publicationChecklist(project,books,reviews,book?.title)}
       <form data-book-review-changes-form hidden><textarea rows="3" placeholder="Tell Agent exactly what needs changed…"></textarea><button type="submit" class="cc-book-review-primary">Send Changes to Agent</button></form>
@@ -97,7 +100,7 @@
       gate.querySelector('[data-book-review-select]')?.addEventListener('change',e=>{sessionStorage.setItem(`cc-book-review:${projectId}`,e.target.value);schedule(0);});
       gate.querySelector('[data-book-review-open]')?.addEventListener('click',()=>{const {review}=selected();if(review?.artifact_ref&&isOpenable(review.artifact_ref))window.open(review.artifact_ref,'_blank','noopener');});
       gate.querySelector('[data-book-review-prepare]')?.addEventListener('click',async e=>{const msg=gate.querySelector('[data-book-review-message]'),{book,review}=selected();e.currentTarget.disabled=true;msg.textContent='Preparing Agent review run…';try{await startAgent(p.data,book,review,'prepare');msg.textContent='Agent queued. It will stop at PC REQUIRED when the exact final PDF is ready.';}catch(err){msg.textContent=err.message||String(err);e.currentTarget.disabled=false;}});
-      gate.querySelector('[data-book-review-approve]')?.addEventListener('click',async e=>{const msg=gate.querySelector('[data-book-review-message]'),{review}=selected();if(!review)return;e.currentTarget.disabled=true;msg.textContent='Locking approved final…';try{await rpc('command_center_book_review_approve',{p_review_id:review.id});msg.textContent='Approved and locked. Mark Published will appear next.';schedule(100);}catch(err){msg.textContent=err.message||String(err);e.currentTarget.disabled=false;}});
+      gate.querySelector('[data-book-review-approve]')?.addEventListener('click',async e=>{const msg=gate.querySelector('[data-book-review-message]'),{review}=selected();if(!review)return;e.currentTarget.disabled=true;msg.textContent='Locking approved final…';try{await rpc('command_center_book_review_approve',{p_review_id:review.id});msg.textContent='Approved Final. This book is locked and waiting in the publication queue.';schedule(100);}catch(err){msg.textContent=err.message||String(err);e.currentTarget.disabled=false;}});
       gate.querySelectorAll('[data-book-review-changes-toggle]').forEach(btn=>btn.addEventListener('click',()=>{const form=gate.querySelector('[data-book-review-changes-form]');form.hidden=!form.hidden;if(!form.hidden)form.querySelector('textarea')?.focus({preventScroll:true});}));
       gate.querySelector('[data-book-review-changes-form]')?.addEventListener('submit',async e=>{e.preventDefault();const msg=gate.querySelector('[data-book-review-message]'),feedback=e.currentTarget.querySelector('textarea')?.value.trim()||'',{book,review}=selected();if(!review||!feedback){msg.textContent='Describe exactly what needs changed first.';return;}const btn=e.currentTarget.querySelector('button');btn.disabled=true;msg.textContent='Saving your changes…';try{await rpc('command_center_book_review_needs_changes',{p_review_id:review.id,p_feedback:feedback});try{await startAgent(p.data,book,review,'correct',feedback);msg.textContent='Changes saved and correction run queued.';}catch(agentErr){msg.textContent=`Changes saved. ${agentErr.message||String(agentErr)}`;}schedule(150);}catch(err){msg.textContent=err.message||String(err);btn.disabled=false;}});
       gate.querySelector('[data-book-review-correct]')?.addEventListener('click',async e=>{const msg=gate.querySelector('[data-book-review-message]'),{book,review}=selected();e.currentTarget.disabled=true;msg.textContent='Starting correction run…';try{await startAgent(p.data,book,review,'correct',review?.feedback||'Apply the recorded owner review changes.');msg.textContent='Correction run queued.';}catch(err){msg.textContent=err.message||String(err);e.currentTarget.disabled=false;}});
