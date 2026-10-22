@@ -1,6 +1,9 @@
-/* Final normal-use authority rules for the approved Command Center surface. */
+/* Authoritative normal-use rules for the approved Command Center surface. */
 body:not(.cc-approved-legacy-open) #dashboard > :not(#ccApprovedApp){display:none!important}
 body:not(.cc-approved-legacy-open) #ccApprovedApp{display:block!important}
+body:not(.cc-approved-legacy-open) #refreshStrip,
+body:not(.cc-approved-legacy-open) #appFooter,
+body:not(.cc-approved-legacy-open) #syncText{display:none!important}
 
 #ccApprovedApp{padding-bottom:calc(24px + env(safe-area-inset-bottom))!important}
 #ccApprovedAbout{
