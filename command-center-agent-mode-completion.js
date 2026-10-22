@@ -16,7 +16,8 @@
   const scripts=[
     ['./command-center-approved-ui.js?v=2','commandCenterApprovedUi'],
     ['./command-center-precise-progress.js?v=2','commandCenterPreciseProgress'],
-    ['./command-center-approved-nav.js?v=2','commandCenterApprovedNav']
+    ['./command-center-approved-nav.js?v=2','commandCenterApprovedNav'],
+    ['./command-center-work-boundary-mode.js?v=1','commandCenterWorkBoundaryMode']
   ];
   scripts.forEach(([src,key])=>{
     const selector=`script[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
