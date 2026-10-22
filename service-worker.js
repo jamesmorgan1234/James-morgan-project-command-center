@@ -25,9 +25,9 @@ const CORE=[
   './authoritative-v7/assets/merch-cases.svg',
   './authoritative-v7/assets/city-spires.svg',
   './authoritative-v7/assets/mobile-horizon.svg',
-  './command-center-approved-icon-192.png?cc7-root=1',
+  './command-center-approved-icon-192.png?cc7-root=2',
   './command-center-approved-icon-512.png?cc7-root=2',
-  './command-center-approved-icon-512.png?cc7-root=1-maskable'
+  './command-center-approved-icon-512.png?cc7-root=2-maskable'
 ];
 
 function isOldCommandCenterCache(key){
