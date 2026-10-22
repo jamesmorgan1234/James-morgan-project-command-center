@@ -8,7 +8,7 @@
     'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
     'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
   ];
-  const CORE_SCRIPTS = ['./app.js?v=10','./command-center-approved-mount-guard.js?v=1','./command-center-locked-visual-spec-loader.js?v=2'];
+  const CORE_SCRIPTS = ['./app.js?v=10','./command-center-approved-mount-guard.js?v=2','./command-center-locked-visual-spec-loader.js?v=2'];
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
@@ -38,7 +38,7 @@
       main?.prepend(panel);
     }
     if (!panel) return;
-    const safe = String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+    const safe = String(message || 'The secure connection did not finish loading.').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
     const actionLabel = coreLoaded ? 'Reload Command Center' : 'Retry secure startup';
     panel.innerHTML = `<h2>Command Center could not finish starting</h2><p class="muted">${safe}</p><button id="retryStartupBtn" class="btn btn-primary">${actionLabel}</button>`;
     $('retryStartupBtn')?.addEventListener('click', () => { if (coreLoaded) location.reload(); else start(true); }, { once: true });
