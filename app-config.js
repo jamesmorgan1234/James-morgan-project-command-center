@@ -42,6 +42,7 @@ window.COMMAND_CENTER_CONFIG = {
     addJs('agentRunnerStatus','./command-center-agent-runner-status.js?v=1');
     addCss('agentHome','./command-center-agent-home.css?v=1'); addJs('agentHome','./command-center-agent-home.js?v=1');
     addJs('bookReviewGuard','./command-center-book-review-guard.js?v=1');
+    addCss('bookReviewUi','./command-center-book-review-ui.css?v=1'); addJs('bookReviewUi','./command-center-book-review-ui.js?v=1');
     addJs('agentModeCompletion','./command-center-agent-mode-completion.js?v=2');
   };
 })();
