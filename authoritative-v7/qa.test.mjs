@@ -40,6 +40,23 @@ test('approved screenshot screens exist as distinct renderers',()=>{
   for(const label of ['Projects','Active / Live','Next Up','Project Details','KDP PERFORMANCE','BOOKS IN SERIES','PUBLICATION STATUS'])assert.ok(files.app.includes(label),`missing approved screen label: ${label}`);
 });
 
+test('approved detail chevron rows navigate to real V7 sub-screens',()=>{
+  for(const route of ['kdp-history','tracking-integrations'])assert.ok(files.app.includes(`'${route}'`),`missing project detail route: ${route}`);
+  assert.ok(files.app.includes('function kdpHistoryScreen('));
+  assert.ok(files.app.includes('function trackingIntegrationsScreen('));
+  assert.match(files.app,/data-detail-view="\$\{esc\(view\)\}"/);
+  assert.match(files.app,/const detail=target\.closest\('\[data-detail-view\]'\)/);
+  assert.ok(files.app.includes("detailLink('KDP Snapshot History'"));
+  assert.ok(files.app.includes("detailLink('Tracking Integrations'"));
+});
+
+test('informational project rows are not fake buttons',()=>{
+  assert.match(files.app,/function infoRow\([\s\S]*?<div class="cc-card cc-row-link" role="group">/);
+  assert.ok(files.app.includes("infoRow('Next Action'"));
+  assert.ok(files.app.includes("infoRow('Blocker / Integrity'"));
+  assert.ok(files.app.includes("infoRow('Verification'"));
+});
+
 test('Agent owner controls and explicit project selector are present',()=>{
   for(const label of ['AUTO','Next Step','Until Work / Next Work Boundary','Manual Task','Project Checkpoint','Stop Agent','ccAgentProjectSelector'])assert.ok(files.app.includes(label),`missing Agent control: ${label}`);
 });
@@ -101,7 +118,7 @@ test('screenshot-first visual primitives are defined',()=>{
 });
 
 test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
-  assert.match(files.html,/\.\/artwork\.css\?v=2/);
+  assert.match(files.html,/\.\/artwork\.css\?v=3/);
   for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg','server-racks.svg','merch-cases.svg','city-spires.svg','mobile-horizon.svg']){
     assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
   }
@@ -119,10 +136,10 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.theme_color,'#000000');
   assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.src.includes('command-center-approved-icon-512.png')));
-  assert.match(files.html,/\.\/manifest\.webmanifest\?v=2/);
-  assert.match(files.html,/\.\/pwa\.js\?v=2/);
+  assert.match(files.html,/\.\/manifest\.webmanifest\?v=3/);
+  assert.match(files.html,/\.\/pwa\.js\?v=3/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-5/);
+  assert.match(files.sw,/command-center-v7-clean-6/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
 
