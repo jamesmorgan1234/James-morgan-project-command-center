@@ -10,7 +10,7 @@
   }
   if (!document.querySelector('script[data-command-center-locked-visual]')) {
     const script = document.createElement('script');
-    script.src = './command-center-locked-visual-spec.js?v=2';
+    script.src = './command-center-locked-visual-spec.js?v=3';
     script.async = false;
     script.dataset.commandCenterLockedVisual = '1';
     document.head.appendChild(script);
