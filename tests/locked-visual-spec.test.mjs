@@ -3,55 +3,51 @@ import { readFileSync } from 'node:fs';
 
 const css = readFileSync(new URL('../command-center-locked-visual-spec.css', import.meta.url), 'utf8');
 const runtime = readFileSync(new URL('../command-center-locked-visual-spec.js', import.meta.url), 'utf8');
+const ui = readFileSync(new URL('../command-center-approved-ui.js', import.meta.url), 'utf8');
 const loader = readFileSync(new URL('../command-center-locked-visual-spec-loader.js', import.meta.url), 'utf8');
 const startup = readFileSync(new URL('../startup-loader.js', import.meta.url), 'utf8');
 const nav = readFileSync(new URL('../command-center-approved-nav.js', import.meta.url), 'utf8');
-const finalCss = readFileSync(new URL('../command-center-locked-visual-final.css', import.meta.url), 'utf8');
 
-assert.match(startup, /command-center-locked-visual-spec-loader\.js\?v=1/, 'locked visual system must load during normal startup');
-assert.match(loader, /command-center-locked-visual-spec\.css\?v=1/, 'locked visual stylesheet must be loaded');
-assert.match(loader, /command-center-locked-visual-spec\.js\?v=1/, 'locked visual runtime must be loaded');
-assert.match(nav, /command-center-locked-visual-spec\.css\?v=2/, 'locked visual stylesheet must be re-appended after the normal enhancement CSS cascade');
-assert.match(nav, /command-center-locked-visual-final\.css\?v=1/, 'final owner-locked visual corrections must load after the base locked visual layer');
-assert.match(nav, /command-center:advanced-ready/, 'locked visual styles must be moved back to the end after Advanced UI styles load');
+assert.match(ui, /version:\s*2/, 'approved UI must use the rebuilt screen renderer');
+assert.match(ui, /function renderProjects\(/, 'Projects must have a dedicated renderer');
+assert.match(ui, /function renderNext\(/, 'Next Up must have a dedicated renderer');
+assert.match(ui, /function renderActive\(/, 'Active / Live must have a dedicated renderer');
+assert.match(ui, /function renderRevenue\(/, 'Revenue must have a dedicated renderer');
+assert.match(ui, /function renderProject\(/, 'Project detail must have a dedicated renderer');
+assert.match(ui, /function renderAgentHome\(/, 'Agent must have a dedicated renderer');
+assert.match(ui, /cc-screen-project-card/, 'Projects must render purpose-built project cards');
+assert.match(ui, /cc-screen-next-card/, 'Next Up must render purpose-built queue cards');
+assert.match(ui, /cc-screen-active-card/, 'Active / Live must render purpose-built active cards');
+assert.match(ui, /cc-screen-revenue-row/, 'Revenue must render purpose-built revenue rows');
+assert.match(ui, /Project Checkpoint/, 'six-button Agent set must preserve Project Checkpoint');
+assert.match(ui, /Stop Agent/, 'six-button Agent set must preserve Stop Agent');
+assert.match(ui, /Book \$\{index\+1\}/, 'Book 1, Book 2, etc. must be rendered above covers by the renderer itself');
+assert.doesNotMatch(ui, /cc-approved-cover[^`]*<span>\$\{index\+1\}/, 'number badges must not be rendered over book covers');
 
-assert.match(css, /clip-path:polygon\(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%\)/, 'approved clipped sci-fi card geometry must be retained');
-assert.match(css, /\.cc-approved-page-head[^{]*\{[\s\S]*?art-eclipse\.svg/, 'submenu header must use the approved eclipse header artwork');
-assert.match(css, /\.cc-approved-back[^{]*\{[\s\S]*?clip-path:polygon\(22% 0,78% 0/, 'back control must use the approved octagonal geometry');
-assert.match(css, /\.cc-approved-project-card[^{]*\{[\s\S]*?min-height:118px/, 'Projects cards must stay compact');
-assert.match(css, /data-cc-locked-view="next"[\s\S]*?\.cc-approved-ring\{display:none!important\}/, 'Next Up must not reuse the Projects progress-ring layout');
-assert.match(runtime, /renderNextQueue/, 'Next Up must render the real next-action queue');
-assert.match(runtime, /next_action/, 'Next Up must use recorded next actions');
+assert.match(css, /clip-path:polygon\(3% 0,97% 0,100% 16%,100% 84%,97% 100%,3% 100%,0 84%,0 16%\)/, 'approved clipped sci-fi frame geometry must remain');
+assert.match(css, /\.cc-screen-page-head[^{]*\{[\s\S]*?art-eclipse\.svg/, 'submenu header must use the approved eclipse artwork');
+assert.match(css, /\.cc-screen-back[^{]*\{[\s\S]*?clip-path:polygon\(22% 0,78% 0/, 'back control must keep the approved octagonal geometry');
+assert.match(css, /\.cc-screen-project-card\{[\s\S]*?min-height:120px/, 'Projects cards must remain compact');
+assert.match(css, /\.cc-screen-next-card\{[\s\S]*?min-height:126px/, 'Next Up must have its own compact layout');
+assert.match(css, /\.cc-screen-active-scope\{[\s\S]*?border-left:1px solid var\(--cc-orange\)/, 'Active / Live must retain a distinct right-side scope column');
+assert.match(css, /\.cc-screen-kpi-grid\{[\s\S]*?grid-template-columns:repeat\(3,minmax\(0,1fr\)\)/, 'book KDP performance must be 3 columns by 2 rows');
+assert.match(css, /\.cc-screen-books\{[\s\S]*?grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/, 'five series books must fit across the phone');
+assert.doesNotMatch(css, /\.cc-screen-books\{[^}]*overflow-x:auto/, 'Books in Series must not depend on horizontal scrolling');
+assert.match(css, /\.cc-screen-publication\{[\s\S]*?grid-template-columns:repeat\(4,minmax\(0,1fr\)\)/, 'publication formats must stay four across');
+assert.match(css, /\.cc-screen-ring\{[\s\S]*?aspect-ratio:1\/1/, 'progress ring must be structurally constrained to a circle');
+assert.match(css, /\.cc-screen-revenue-row\{[\s\S]*?grid-template-columns:minmax\(0,1fr\) auto/, 'Revenue rows must use a non-overlapping structural grid');
+assert.match(css, /\.cc-screen-agent-modes\{[\s\S]*?grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/, 'Agent controls must use the compact two-column design');
+assert.match(css, /body\.cc-approved-legacy-open \.panel/, 'deep/advanced screens must inherit the same material system');
+assert.doesNotMatch(css, /overflow-y\s*:\s*hidden/i, 'native Android vertical scrolling must remain enabled');
+assert.doesNotMatch(css, /touch-action\s*:\s*none/i, 'touch scrolling must not be disabled');
 
-assert.match(runtime, /openActive/, 'Active \/ Live must have its own dedicated screen');
-assert.match(runtime, /Live projects in progress/, 'Active \/ Live must preserve the approved screen purpose');
-assert.match(css, /\.cc-locked-active-scope/, 'Active \/ Live must use the distinct right-side scope column');
-assert.match(css, /border-left:1px solid #ff6500/, 'Active \/ Live scope column must retain its visual divider');
-
-assert.match(css, /\.cc-approved-kpi-grid\{[^}]*grid-template-columns:repeat\(3,minmax\(0,1fr\)\)!important/, 'book KDP performance must be 3 columns by 2 rows on phone');
-assert.match(css, /\.cc-approved-books\{[^}]*grid-template-columns:repeat\(5,minmax\(0,1fr\)\)!important/, 'five series books must fit across the phone');
-assert.doesNotMatch(css, /\.cc-approved-books\{[^}]*overflow-x:auto/, 'Books in Series must not rely on horizontal clipping/scrolling');
-assert.match(css, /\.cc-approved-publication\{[^}]*grid-template-columns:repeat\(4,minmax\(0,1fr\)\)!important/, 'publication formats must stay four across');
-assert.match(css, /\.cc-approved-cover>span\{display:none!important\}/, 'old numbered cover badges must not appear over artwork');
-assert.match(runtime, /Book \$\{index\+1\}/, 'Book 1, Book 2, etc. labels must be added above covers');
-assert.match(runtime, /tile\.querySelector\('\.cc-approved-cover>span'\)\?\.remove\(\)/, 'number badge node must be removed, not merely relied on cosmetically');
-
-assert.match(css, /\.cc-approved-project-hero:before\{[\s\S]*?background-image:radial-gradient/, 'project hero must use a bounded glow instead of the giant eclipse disk');
-assert.doesNotMatch(css, /\.cc-approved-project-hero:before\{[^}]*cc6-eclipse\.webp/, 'giant eclipse disk must not return to project hero');
-assert.match(finalCss, /\.cc-approved-project-hero>\.cc-approved-ring\{[\s\S]*?position:absolute!important/, 'project hero progress ring must remain absolutely positioned');
-assert.match(finalCss, /inline-size:58px!important/, 'project hero progress ring must have a fixed circular inline size');
-assert.match(finalCss, /block-size:58px!important/, 'project hero progress ring must have a fixed circular block size');
-assert.match(finalCss, /aspect-ratio:1\/1!important/, 'project hero progress ring must never stretch into an oval');
-assert.match(finalCss, /max-width:58px!important/, 'project hero progress ring must be capped against inherited width rules');
-assert.match(finalCss, /max-height:58px!important/, 'project hero progress ring must be capped against inherited height rules');
-
-assert.match(runtime, /Project Checkpoint/i, 'locked visual runtime must preserve Project Checkpoint integration');
-assert.match(runtime, /data-cc-agent-stop/, 'locked visual runtime must preserve Stop Agent');
-assert.match(runtime, /group\.appendChild\(stop\)/, 'Agent home must keep Stop Agent with the six-button control set');
-assert.match(css, /\.cc-approved-agent-modes\{[^}]*grid-template-columns:repeat\(2,minmax\(0,1fr\)\)!important/, 'Agent controls must use the approved compact two-column system');
-
-assert.doesNotMatch(css, /overflow-y\s*:\s*hidden/i, 'locked visual system must not break native Android vertical scrolling');
-assert.doesNotMatch(css, /touch-action\s*:\s*none/i, 'locked visual system must not disable touch scrolling');
-assert.match(css, /body\.cc-approved-legacy-open \.panel/, 'deep and advanced screens must inherit the same visual language');
+assert.match(runtime, /version:\s*3/, 'locked visual runtime must remain a lightweight compatibility bridge');
+assert.doesNotMatch(runtime, /MutationObserver/, 'visual runtime must not rewrite the DOM after render');
+assert.doesNotMatch(runtime, /renderNextQueue|decorateProjectCards|addBookLabels/, 'old mutation-based visual correction functions must be removed');
+assert.match(runtime, /cc-screen-project-hero/, 'compatibility bridge may normalize semantic hooks for existing Agent integrations');
+assert.match(startup, /command-center-locked-visual-spec-loader\.js\?v=2/, 'locked screen system must load during normal startup with a fresh version');
+assert.match(loader, /command-center-locked-visual-spec\.css\?v=3/, 'screen-system stylesheet must load with fresh identity');
+assert.match(loader, /command-center-locked-visual-spec\.js\?v=3/, 'compatibility runtime must load with fresh identity');
+assert.match(nav, /command-center-locked-visual-spec\.css\?v=3/, 'screen-system stylesheet must be re-appended after enhancement CSS');
 
 console.log('Locked visual specification QA passed.');

@@ -15,7 +15,7 @@ for(const asset of [
   'command-center-mobile-first.css?v=1',
   'command-center-artwork-polish.css?v=1',
   'command-center-approved-ui.css?v=2',
-  'command-center-approved-ui.js?v=2',
+  'command-center-approved-ui.js?v=3',
   'command-center-precise-progress.js?v=3',
   'command-center-approved-nav.js?v=2',
   'command-center-work-boundary-mode.js?v=1',

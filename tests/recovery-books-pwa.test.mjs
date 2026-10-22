@@ -19,7 +19,7 @@ assert.match(source,/command_center_agent_create_project_only_session/,'Source r
 assert.match(source,/Agent is already working on this project/,'Source recovery must not create competing project runs');
 assert.match(sourceCss,/min-height:48px/,'Source recovery must use phone-size touch targets');
 
-assert.match(sw,/james-command-center-v72/,'PWA cache generation must advance to v72');
+assert.match(sw,/james-command-center-v73/,'PWA cache generation must advance to v73');
 assert.match(sw,/fetchWithTimeout\(e\.request,3500\)/,'Navigation must prefer fresh network content');
 assert.match(sw,/if\(freshAsset\)\{[\s\S]*fetch\(e\.request,\{cache:'no-store'\}\)/,'Fresh app/code assets must prefer the network before cached fallback');
 assert.match(sw,/cache:'no-store'/,'Network-first fetches must bypass stale HTTP cache');
@@ -27,7 +27,7 @@ assert.match(sw,/keys\.filter\(key=>key\.startsWith\('james-command-center-'\)&&
 assert.match(startup,/register\('\.\/service-worker\.js',\{updateViaCache:'none'\}\)/,'Canonical service-worker path must bypass update cache');
 assert.match(startup,/controllerchange/,'New service worker takeover must be detected');
 assert.match(startup,/location\.reload\(\)/,'Controlled app must reload once after the new service worker takes control');
-assert.match(startup,/cc-sw-v72-reloaded/,'Controlled reload marker must match the v72 generation');
+assert.match(startup,/cc-sw-v73-reloaded/,'Controlled reload marker must match the v73 generation');
 
 const core=appConfig.slice(appConfig.indexOf('window.COMMAND_CENTER_LOAD_ENHANCEMENTS'),appConfig.indexOf('let advancedPromise'));
 const advanced=appConfig.slice(appConfig.indexOf('let advancedPromise'));
@@ -60,4 +60,4 @@ assert.match(workUi,/No purchase, credits, subscription, or paid upgrade is auth
 assert.match(workCss,/min-height:48px/,'Work approval control must use phone-size touch targets');
 assert.doesNotMatch(workUi,/new MutationObserver\s*\(/,'Work approval must not use a global mutation remount loop');
 
-console.log('source recovery + PWA v72 update + event-driven Books review + Work ladder QA passed');
+console.log('source recovery + PWA v73 update + event-driven Books review + Work ladder QA passed');

@@ -1,6 +1,6 @@
 (() => {
   if (window.COMMAND_CENTER_APPROVED_NAV) return;
-  window.COMMAND_CENTER_APPROVED_NAV = { version: 2 };
+  window.COMMAND_CENTER_APPROVED_NAV = { version: 3 };
 
   function ensureStyle(key, href) {
     let link = document.querySelector(`link[data-${key}]`);
@@ -8,16 +8,14 @@
       link = document.createElement('link');
       link.rel = 'stylesheet';
       link.dataset[key] = '1';
-      link.href = href;
-    } else if (!String(link.getAttribute('href') || '').includes(href.split('?')[0])) {
-      link.href = href;
     }
+    link.href = href;
     document.head.appendChild(link);
     return link;
   }
 
   function enforceLockedVisualTail() {
-    ensureStyle('commandCenterLockedVisualTail', './command-center-locked-visual-spec.css?v=2');
+    ensureStyle('commandCenterLockedVisualTail', './command-center-locked-visual-spec.css?v=3');
     ensureStyle('commandCenterLockedVisualFinalFix', './command-center-locked-visual-final.css?v=1');
   }
 
@@ -34,7 +32,7 @@
       history.back();
       return;
     }
-    const projects = document.querySelector('#ccApprovedApp [data-cc-home="projects"]');
-    if (projects) projects.click();
+    history.pushState({ccApproved:'home'},'',location.href);
+    window.dispatchEvent(new PopStateEvent('popstate',{state:{ccApproved:'home'}}));
   }, true);
 })();
