@@ -1,0 +1,1 @@
+app-config.js is the authoritative loader for the approved UI.
