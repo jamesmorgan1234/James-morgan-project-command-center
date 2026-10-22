@@ -1,6 +1,6 @@
 (() => {
   if (window.COMMAND_CENTER_CONTROL_SURFACE) return;
-  const api = window.COMMAND_CENTER_CONTROL_SURFACE = { version: 1 };
+  const api = window.COMMAND_CENTER_CONTROL_SURFACE = { version: 2 };
   const MODULES = [
     ['Brain','Durable memory, plans and handoffs'],
     ['Automation','Schedules, watches and notifications'],
@@ -10,8 +10,9 @@
     ['Deployment','Release, hosting and rollback']
   ];
   let busy = false;
-  const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+  const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
   const client = () => window.COMMAND_CENTER_SUPABASE || null;
+  const wait = ms => new Promise(resolve=>setTimeout(resolve,ms));
 
   async function owner() {
     const c = client(); if (!c) return null;
@@ -39,22 +40,29 @@
   }
   function modulesMarkup(){return `<section class="cc-control-modules" data-cc-control-modules><div class="cc-control-heading"><small>COMMAND CENTER</small><strong>Controls</strong></div><div class="cc-control-module-grid">${MODULES.map(([name,detail])=>`<button type="button" data-cc-module="${esc(name)}"><strong>${esc(name)}</strong><small>${esc(detail)}</small><span>›</span></button>`).join('')}</div></section>`;}
 
-  async function openModule(name) {
+  async function enterAdvanced(name) {
     await window.COMMAND_CENTER_LOAD_ADVANCED?.();
-    const approved=window.COMMAND_CENTER_APPROVED_UI;
-    document.body.classList.add('cc-approved-legacy-open');
-    const root=document.getElementById('ccApprovedApp'); if(root)root.hidden=true;
-    const candidates=[...document.querySelectorAll('button,[role="button"],a')];
-    const exact=candidates.find(el=>String(el.textContent||'').trim().toLowerCase()===name.toLowerCase());
-    const starts=candidates.find(el=>String(el.textContent||'').trim().toLowerCase().startsWith(name.toLowerCase()));
-    const target=exact||starts;
-    if(target){target.click();return;}
-    if(name==='Brain'){
-      document.getElementById('ccBrainHomeButton')?.click();
-      return;
-    }
-    document.getElementById('backHomeBtn')?.click();
-    throw new Error(`${name} control is loaded but its navigation button was not found.`);
+    const about=document.getElementById('ccApprovedAbout');
+    if(!about)throw new Error('About & More control is not available.');
+    about.click();
+    await wait(40);
+    const action=document.querySelector(`[data-cc-about-action="${name==='Brain'?'brain':'advanced'}"]`);
+    if(!action)throw new Error('Approved advanced navigation is not available.');
+    action.click();
+    await wait(100);
+  }
+  function moduleTarget(name){
+    const wanted=name.toLowerCase();
+    const candidates=[...document.querySelectorAll('button,[role="button"],a')].filter(el=>!el.closest('#ccApprovedAboutSheet'));
+    return candidates.find(el=>String(el.textContent||'').trim().toLowerCase()===wanted)
+      || candidates.find(el=>String(el.textContent||'').trim().toLowerCase().startsWith(wanted));
+  }
+  async function openModule(name) {
+    await enterAdvanced(name);
+    if(name==='Brain')return;
+    const target=moduleTarget(name);
+    if(!target)throw new Error(`${name} control is loaded but its navigation button was not found.`);
+    target.click();
   }
 
   async function render() {
@@ -86,14 +94,14 @@
       event.preventDefault();event.stopImmediatePropagation();
       if(toggle.disabled)return;
       const host=toggle.closest('[data-cc-control-auto]');
-      try{toggle.disabled=true;toggle.textContent='Updating…';const current=toggle.getAttribute('aria-pressed')==='true';await setAuto(!current);await render();window.COMMAND_CENTER_AGENT_TRUTH?.refresh?.();}
+      try{toggle.disabled=true;toggle.textContent='Updating…';const current=toggle.getAttribute('aria-pressed')==='true';await setAuto(!current);await render();window.COMMAND_CENTER_AGENT_TRUTH?.refresh?.();window.COMMAND_CENTER_AGENT_RUNNER_STATUS?.refresh?.();}
       catch(error){if(host){let msg=host.querySelector('.cc-control-error');if(!msg){msg=document.createElement('em');msg.className='cc-control-error';host.appendChild(msg);}msg.textContent=error.message||String(error);}toggle.disabled=false;}
       return;
     }
     const module=event.target.closest?.('[data-cc-module]');
     if(module){
       event.preventDefault();event.stopImmediatePropagation();
-      try{module.disabled=true;await openModule(module.dataset.ccModule);}catch(error){module.disabled=false;alert(error.message||String(error));}
+      try{module.disabled=true;await openModule(module.dataset.ccModule);}catch(error){module.disabled=false;const host=module.closest('[data-cc-control-modules]');let msg=host?.querySelector('.cc-control-error');if(host&&!msg){msg=document.createElement('em');msg.className='cc-control-error';host.appendChild(msg);}if(msg)msg.textContent=error.message||String(error);}
     }
   },true);
 
