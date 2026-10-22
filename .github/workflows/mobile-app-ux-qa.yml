@@ -6,6 +6,7 @@ on:
       - 'command-center-approved-ui.js'
       - 'command-center-approved-ui.css'
       - 'command-center-precise-progress.js'
+      - 'command-center-approved-nav.js'
       - 'command-center-agent-mode-completion.js'
       - 'tests/mobile-app-ux.test.mjs'
       - '.github/workflows/mobile-app-ux-qa.yml'
@@ -26,6 +27,7 @@ jobs:
         run: |
           node --check command-center-approved-ui.js
           node --check command-center-precise-progress.js
+          node --check command-center-approved-nav.js
           node --check command-center-agent-mode-completion.js
       - name: Approved mobile UX QA
         run: node tests/mobile-app-ux.test.mjs
