@@ -1,0 +1,39 @@
+name: Mobile app UX QA
+
+on:
+  pull_request:
+    paths:
+      - 'command-center-app-ux.js'
+      - 'command-center-app-ux.css'
+      - 'command-center-agent-mode-completion.js'
+      - 'service-worker.js'
+      - 'tests/mobile-app-ux.test.mjs'
+      - '.github/workflows/mobile-app-ux-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  mobile-app-ux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax checks
+        run: |
+          node --check command-center-app-ux.js
+          node --check command-center-agent-mode-completion.js
+          node --check service-worker.js
+      - name: Focused mobile UX QA
+        run: node tests/mobile-app-ux.test.mjs
+      - name: Protected mobile navigation QA
+        run: node tests/mobile-navigation.test.mjs
+      - name: Agent runtime QA
+        run: node tests/agent-mode-runtime.test.mjs
+      - name: Refresh stability QA
+        run: node tests/refresh-stability.test.mjs
+      - name: V6 exact-approved QA
+        run: node tests/v6-exact-approved.test.mjs
