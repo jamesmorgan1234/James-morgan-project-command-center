@@ -6,6 +6,8 @@ on:
       - 'index.html'
       - 'startup-loader.js'
       - 'app-config.js'
+      - 'service-worker.js'
+      - 'deployment-release-manifest.json'
       - 'command-center-approved-ui.js'
       - 'command-center-approved-ui.css'
       - 'command-center-precise-progress.js'
@@ -19,8 +21,7 @@ on:
       - 'command-center-work-approval-ui.css'
       - 'command-center-book-review-ui-v5.js'
       - 'command-center-book-review-ui.css'
-      - 'tests/mobile-app-ux.test.mjs'
-      - 'tests/normal-runtime-stability.test.mjs'
+      - 'tests/**'
       - '.github/workflows/mobile-app-ux-qa.yml'
   workflow_dispatch:
 
@@ -35,6 +36,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Release identity consistency
+        run: node tests/00-release-identity-consistency.test.mjs
       - name: Syntax checks
         run: |
           node --check startup-loader.js
