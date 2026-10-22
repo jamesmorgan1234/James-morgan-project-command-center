@@ -1,6 +1,6 @@
 (() => {
   if (window.COMMAND_CENTER_APPROVED_NAV) return;
-  window.COMMAND_CENTER_APPROVED_NAV = { version: 4 };
+  window.COMMAND_CENTER_APPROVED_NAV = { version: 5 };
 
   function ensureStyle(key, href) {
     let link = document.querySelector(`link[data-${key}]`);
@@ -32,7 +32,7 @@
 
   function ensureControlSurface() {
     ensureStyle('commandCenterControlSurface', './command-center-control-surface.css?v=1');
-    ensureScript('commandCenterControlSurface', './command-center-control-surface.js?v=1');
+    ensureScript('commandCenterControlSurface', './command-center-control-surface.js?v=2');
   }
 
   enforceLockedVisualTail();
