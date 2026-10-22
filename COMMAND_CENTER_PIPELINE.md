@@ -1,44 +1,66 @@
 # Command Center Capability Pipeline
 
-Command Center V4 exposes future capability lanes now so they can be selected and built one at a time later without redesigning the project control room.
+Status: **current capability map for the clean-room Command Center rebuild**
+
+This file no longer represents Project Brain, Automation, Integrations, Analytics, or Agent as hypothetical `0%` future lanes. Those capabilities already have real standards, data models, and/or verified implementation history. The authoritative V7 rebuild is reimplementing their user-facing and execution paths from scratch under `COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md` rather than treating them as future placeholders.
 
 ## Rules
 
-- A visible `0%` means the capability is intentionally planned but not started.
-- Pipeline percentages do **not** count toward a project's verified current-scope progress until that capability is formally activated and given a defensible completion definition.
-- Never invent a non-zero completion value.
-- Existing backend/private tracking may support a capability without being shown in the normal user interface.
-- Each capability button must retain a short plan describing what it is intended to become.
-- Capabilities are modular. Building one does not require building the rest.
+- Never display a capability percentage unless a current verified scope definition supports it.
+- Missing, stale, or unverified capability progress is `N/A`, not `0%` and not a recycled historical percentage.
+- Capability presence and capability completion are different facts.
+- Existing verified business/project data may be preserved, but legacy Command Center implementation code is not reused by the authoritative V7 runtime.
+- Every visible capability must have real current behavior, a truthful blocked/unavailable state, or remain hidden until implemented.
+- Internal checkpoint/source/reconciliation plumbing stays out of the normal owner interface unless James explicitly opens an Advanced/admin path.
 
-## Core lanes
+## Current core capabilities
 
-### Project Brain — 0%
-Planned project-specific intelligence layer for reusable context, goals, rules, decisions, notes, brainstorms, blockers, next actions, history, and prompt/context packaging. Later phases may connect model reasoning, but V4 does not add paid model/API usage or autonomous actions.
+### Project Brain
+Current capability domain: durable project context, memories, plans, brainstorms, task/planner state, source truth, recovery context, roadmaps, and handoff preparation.
 
-### Automation — 0%
-Planned orchestration layer for recurring checks, scheduled jobs, event/condition triggers, queues, retries, and verified handoffs between supported project systems.
+Authoritative V7 requirement: rebuild the Brain surface and its data/actions on the clean-room stack. Do not surface stale raw source metadata or internal checkpoint plumbing in normal screens.
 
-### Integrations — 0%
-Planned capability layer for connecting authorized project services and exposing only useful connection state to the user while keeping credentials, reconciliation mechanics, and source plumbing hidden.
+### Automation
+Current capability domain: scheduled work, condition watches, notifications, completion state, pause/disable controls, and owner-visible automation status.
 
-### Analytics — 0%
-Planned decision layer that turns verified project data into useful trends, alerts, comparisons, and recommended areas to inspect without duplicating raw metrics throughout the UI.
+Authoritative V7 requirement: expose only real automations and their true state. AUTO for Agent is a separate owner execution gate and must default/fail closed to OFF.
 
-### Agent Mode — 0%
-Long-term controlled execution layer. It will only be activated after the Project Brain, planning, permission, action, verification, and audit foundations exist. V4 does not claim autonomous-agent capability.
+### Integrations
+Current capability domain: verified connected-service state, provider/source health, missing-connection state, and authorized data paths.
 
-## Context-specific lanes
+Authoritative V7 requirement: show useful connection status without exposing secrets or backend plumbing. Missing/unverified integrations must stay truthful.
 
-### Publishing — 0% (book/KDP projects)
-Future workflow tooling for publication readiness, format state, KDP Select state, submission sequencing, and publication verification.
+### Analytics
+Current capability domain: verified KPIs, progress, revenue, source freshness, project/portfolio performance, time-series/trends where supported, goals, and anomaly detection.
 
-### Commerce Operations — 0% (store/commerce projects)
-Future workflow tooling for catalog, sourcing, order, pricing, margin, fulfillment, and merchandising actions.
+Authoritative V7 requirement: no invented values. Verified zero is shown as zero; unavailable or stale data is `N/A`.
 
-### Content Engine — 0% (media/content projects)
-Future workflow tooling for capture, generation/editing, publishing, scheduling, and performance feedback loops.
+### Agent
+Current capability domain: owner-controlled execution with AUTO, project scope, bounded runs/tasks, checkpoints, approvals, pause/resume/stop, Work boundaries, evidence, retry/circuit-breaker behavior, and runner truth.
+
+Authoritative V7 requirement: the Agent is being rebuilt end-to-end on the clean `cc7_` model. A control is not considered functional unless the full chain is verified: owner input → authenticated state change → runner claim → real execution → evidence → durable result → truthful UI reflection.
+
+Required owner controls include:
+1. Auto
+2. Next Step
+3. Until Work / Next Work Boundary
+4. Manual Task
+5. Project Checkpoint
+6. Stop Agent
+
+Pause/resume and exact-step approval behavior remains part of the current requirement set.
+
+## Context-specific capability domains
+
+### Publishing / Books / KDP
+Current capability domain includes project/book detail, series state, format/publication state, KDP Select state, review/approval workflow, rollout sequencing, performance snapshots, and tracking integrations where verified.
+
+### Commerce Operations
+Current capability domain includes catalog, sourcing, pricing, margin, inventory/order readiness, fulfillment, and related verified metrics/integrations where supported.
+
+### Content Engine
+Current capability domain includes media/content project status, capture/generation/editing/publishing workflow state, scheduling, and performance feedback where supported.
 
 ## User-facing principle
 
-Show decisions, status, money, progress, and actions. Keep internal checkpoint mechanics, reconciliation details, private KPIs, source metadata, and other backend plumbing available to the system but out of the normal interface unless the user explicitly needs it.
+Command Center should show decisions, status, money, progress, owner controls, next actions, blockers, and useful verified performance. It should not expose raw JSON, private checkpoint plumbing, source-recovery mechanics, internal IDs, or implementation diagnostics in the normal mobile interface.
