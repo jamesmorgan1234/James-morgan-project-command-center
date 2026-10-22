@@ -101,10 +101,16 @@ test('screenshot-first visual primitives are defined',()=>{
 });
 
 test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
-  assert.match(files.html,/\.\/artwork\.css\?v=1/);
+  assert.match(files.html,/\.\/artwork\.css\?v=2/);
   for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg','server-racks.svg','merch-cases.svg','city-spires.svg','mobile-horizon.svg']){
     assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
   }
+});
+
+test('Android navigation has one scroll-restoration owner',()=>{
+  assert.match(files.pwa,/history\.scrollRestoration='manual'/);
+  assert.match(files.app,/addEventListener\('popstate'/);
+  assert.match(files.app,/state\.scroll\.get\(routeUrl\(state\.route\)\)/);
 });
 
 test('clean PWA is isolated and fail-safe offline',()=>{
@@ -113,10 +119,10 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.theme_color,'#000000');
   assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.src.includes('command-center-approved-icon-512.png')));
-  assert.match(files.html,/\.\/manifest\.webmanifest\?v=1/);
-  assert.match(files.html,/\.\/pwa\.js\?v=1/);
+  assert.match(files.html,/\.\/manifest\.webmanifest\?v=2/);
+  assert.match(files.html,/\.\/pwa\.js\?v=2/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-4/);
+  assert.match(files.sw,/command-center-v7-clean-5/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
 
