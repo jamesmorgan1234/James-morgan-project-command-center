@@ -1,5 +1,5 @@
-const CACHE='james-command-center-v71';
-// Mobile-first Command Center polish release: preserve Agent Mode v26 behavior while refreshing visual assets.
+const CACHE='james-command-center-v70';
+// Mobile-first Command Center polish: preserve the established Agent Mode cache identity while refreshing visual assets.
 const SUPABASE_CDNS=[
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
   'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
