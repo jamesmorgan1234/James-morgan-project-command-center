@@ -76,6 +76,8 @@ window.COMMAND_CENTER_CONFIG = {
     // normal use. They load only after the user explicitly opens About ->
     // Brain/Advanced.
     const css = [
+      ['projectHub','./project-hub.css?v=2'],
+      ['mobileAccordionPolish','./mobile-accordion-polish.css?v=4'],
       ['booksHub','./books-hub.css?v=1'],
       ['booksRevenue','./books-revenue.css?v=4'],
       ['uxPolish','./ux-polish.css?v=1'],
@@ -110,6 +112,8 @@ window.COMMAND_CENTER_CONFIG = {
     css.forEach(([key,href]) => addCss(key,href));
 
     const js = [
+      ['projectHub','./project-hub.js?v=3'],
+      ['mobileAccordionPolish','./mobile-accordion-polish.js?v=3'],
       ['booksHub','./books-hub.js?v=1'],
       ['booksRevenue','./books-revenue.js?v=5'],
       ['booksPortfolioPolish','./books-portfolio-polish.js?v=1'],
