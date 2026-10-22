@@ -35,6 +35,9 @@ jobs:
           node --check authoritative-v7/app.js
           node --check authoritative-v7/data.js
           node --check authoritative-v7/config.js
+          node --check authoritative-v7/control-modules.js
+          node --check authoritative-v7/pwa.js
+          node --check authoritative-v7/service-worker.js
           node --check authoritative-v7/qa.test.mjs
 
       - name: Run clean-room tests
@@ -44,9 +47,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          grep -Fq './manifest.webmanifest?v=1' authoritative-v7/index.html
           grep -Fq './theme.css?v=1' authoritative-v7/index.html
           grep -Fq './layout.css?v=1' authoritative-v7/index.html
           grep -Fq './app.js?v=1' authoritative-v7/index.html
+          grep -Fq './pwa.js?v=1' authoritative-v7/index.html
           ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
