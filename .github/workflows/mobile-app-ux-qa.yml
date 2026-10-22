@@ -8,6 +8,9 @@ on:
       - 'command-center-precise-progress.js'
       - 'command-center-approved-nav.js'
       - 'command-center-agent-mode-completion.js'
+      - 'command-center-work-boundary-mode.js'
+      - 'command-center-work-approval-ui.js'
+      - 'command-center-work-approval-ui.css'
       - 'tests/mobile-app-ux.test.mjs'
       - '.github/workflows/mobile-app-ux-qa.yml'
   workflow_dispatch:
@@ -29,6 +32,8 @@ jobs:
           node --check command-center-precise-progress.js
           node --check command-center-approved-nav.js
           node --check command-center-agent-mode-completion.js
+          node --check command-center-work-boundary-mode.js
+          node --check command-center-work-approval-ui.js
       - name: Approved mobile UX QA
         run: node tests/mobile-app-ux.test.mjs
       - name: Protected mobile navigation QA
