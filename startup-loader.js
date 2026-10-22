@@ -8,11 +8,11 @@
     'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
     'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
   ];
-  const CORE_SCRIPTS = ['./app.js?v=10','./command-center-approved-mount-guard.js?v=2','./command-center-locked-visual-spec-loader.js?v=2'];
+  const CORE_SCRIPTS = ['./app.js?v=10','./project-hub.js?v=3','./mobile-accordion-polish.js?v=3'];
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
-  const SW_RELOAD_KEY='cc-sw-v73-reloaded';
+  const SW_RELOAD_KEY='cc-sw-v74-reloaded';
 
   const $ = id => document.getElementById(id);
 
@@ -132,7 +132,7 @@
       installPrimaryAuthGuard();
       for (const src of CORE_SCRIPTS) await loadScript(src, 7000);
       coreLoaded = true;
-      window.COMMAND_CENTER_LOAD_ENHANCEMENTS?.();
+      await window.COMMAND_CENTER_LOAD_ENHANCEMENTS?.();
       armStateWatchdog();
     } catch (error) { showRecovery(error?.message || 'Secure startup failed.'); }
     finally { starting = false; }
