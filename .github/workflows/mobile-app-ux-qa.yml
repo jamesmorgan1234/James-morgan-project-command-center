@@ -3,6 +3,8 @@ name: Mobile app UX QA
 on:
   pull_request:
     paths:
+      - 'index.html'
+      - 'startup-loader.js'
       - 'app-config.js'
       - 'command-center-approved-ui.js'
       - 'command-center-approved-ui.css'
@@ -35,6 +37,7 @@ jobs:
           node-version: '22'
       - name: Syntax checks
         run: |
+          node --check startup-loader.js
           node --check app-config.js
           node --check command-center-approved-ui.js
           node --check command-center-precise-progress.js
