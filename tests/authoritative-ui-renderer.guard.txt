@@ -1,0 +1,1 @@
+Do not regress the approved UI back to an indirectly injected enhancement over the legacy dashboard.
