@@ -1,0 +1,19 @@
+html[data-command-center-theme="v6"] .cc-v6-agent-six-wrap{margin:14px 0 16px;padding:14px;border:2px solid #ff5f00;border-radius:6px;clip-path:polygon(3% 0,97% 0,100% 10%,100% 90%,97% 100%,3% 100%,0 90%,0 10%);background:linear-gradient(135deg,#0c0704,#030202 70%,rgba(87,27,0,.22));box-shadow:0 0 0 1px rgba(255,149,36,.24),0 0 15px rgba(255,82,0,.42),inset 0 0 18px rgba(255,92,0,.06);color:#fff}
+html[data-command-center-theme="v6"] .cc-v6-agent-six-title{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin:0 2px 12px;padding-bottom:9px;border-bottom:1px solid rgba(255,101,7,.42)}
+html[data-command-center-theme="v6"] .cc-v6-agent-six-title strong{font-size:1.05rem;font-weight:950;text-transform:uppercase;color:#fff}
+html[data-command-center-theme="v6"] .cc-v6-agent-six-title span{font-size:.72rem;color:#aeb9c7}
+html[data-command-center-theme="v6"] .cc-v6-agent-six{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button{min-height:76px;padding:11px 12px;border:1px solid #ff6507;border-radius:5px;background:radial-gradient(circle at 85% 15%,rgba(255,115,20,.13),transparent 36%),linear-gradient(145deg,#140904,#050302);color:#fff;text-align:left;box-shadow:inset 0 0 14px rgba(255,93,0,.08),0 0 10px rgba(255,85,0,.13)}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button strong{display:block;color:#fff;font-size:.98rem;font-weight:950}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button small{display:block;margin-top:4px;color:#aeb9c7;font-size:.72rem;line-height:1.2}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button.checkpoint{grid-column:1/-1;border-color:#ff9d28;background:radial-gradient(circle at 88% 22%,rgba(255,152,43,.18),transparent 35%),linear-gradient(145deg,#221006,#070302)}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button.checkpoint strong{color:#ffd06d}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button.stop{grid-column:1/-1;border-color:#ff485d;background:linear-gradient(145deg,#22070a,#080203)}
+html[data-command-center-theme="v6"] .cc-v6-agent-six>button.stop strong{color:#ff7b88}
+html[data-command-center-theme="v6"] .cc-v6-agent-manual{margin-top:10px;display:grid;gap:8px}
+html[data-command-center-theme="v6"] .cc-v6-agent-manual[hidden]{display:none!important}
+html[data-command-center-theme="v6"] .cc-v6-agent-manual textarea,html[data-command-center-theme="v6"] .cc-v6-agent-project-select select{width:100%;border:1px solid #7d350d;border-radius:5px;background:#080504;color:#fff;padding:10px;outline:none}
+html[data-command-center-theme="v6"] .cc-v6-agent-project-select{display:grid;gap:6px;margin-bottom:10px;color:#ffb33b;font-size:.78rem;font-weight:850;text-transform:uppercase;letter-spacing:.04em}
+html[data-command-center-theme="v6"] .cc-v6-agent-message{min-height:18px;margin-top:9px;color:#9eeac8;font-size:.76rem;line-height:1.3}
+html[data-command-center-theme="v6"] .cc-v6-agent-message.error{color:#ff7786}
+@media(max-width:420px){html[data-command-center-theme="v6"] .cc-v6-agent-six{grid-template-columns:1fr 1fr}html[data-command-center-theme="v6"] .cc-v6-agent-six>button{min-height:72px;padding:10px}html[data-command-center-theme="v6"] .cc-v6-agent-six>button strong{font-size:.9rem}html[data-command-center-theme="v6"] .cc-v6-agent-six>button small{font-size:.68rem}}
