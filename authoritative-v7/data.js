@@ -108,8 +108,21 @@ export async function loadAgentState(ownerId) {
     approvals = throwIf(approvalsResult) || [];
     checkpoints = throwIf(checkpointsResult) || [];
   }
-  const heartbeatResult = await ownerFilter(client.from('cc7_agent_runner_heartbeat').select('*'), ownerId).maybeSingle();
-  return { controls, runs, activeRun, tasks, events, approvals, checkpoints, heartbeat: throwIf(heartbeatResult) || null };
+  const [heartbeatResult, latestCheckpointResult] = await Promise.all([
+    ownerFilter(client.from('cc7_agent_runner_heartbeat').select('*'), ownerId).maybeSingle(),
+    ownerFilter(client.from('cc7_agent_checkpoints').select('*'), ownerId).order('created_at', { ascending: false }).limit(1).maybeSingle()
+  ]);
+  return {
+    controls,
+    runs,
+    activeRun,
+    tasks,
+    events,
+    approvals,
+    checkpoints,
+    heartbeat: throwIf(heartbeatResult) || null,
+    latestCheckpoint: throwIf(latestCheckpointResult) || null
+  };
 }
 
 export async function setAuto(ownerId, enabled) {
@@ -134,6 +147,14 @@ export async function createAgentRun({ ownerId, projectId = null, objective, con
   if (error) throw error;
   if (!data?.ok || !data?.run) throw new Error('V7 Agent run creation did not verify.');
   return data.run;
+}
+
+export async function createProjectCheckpoint(ownerId, projectId = null) {
+  if (!ownerId) throw new Error('Owner session is required.');
+  const { data, error } = await client.rpc('cc7_agent_owner_project_checkpoint', { p_project_id: projectId || null });
+  if (error) throw error;
+  if (!data?.ok || !data?.checkpoint || data?.completed_immediately !== true) throw new Error('V7 Agent checkpoint did not verify.');
+  return data;
 }
 
 export async function requestPause(ownerId, runId) {
