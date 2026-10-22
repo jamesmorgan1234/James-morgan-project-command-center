@@ -93,7 +93,7 @@
       const client = await authorizedClient();
       const projectId = await projectIdForCheckpoint(button, client);
       const { data:project, error:projectError } = await client.from('projects')
-        .select('id,name,next_action,status,stage,verification,blocker,last_verified')
+        .select('id,name,category,next_action,status,stage,verification,blocker,last_verified')
         .eq('id',projectId).single();
       if (projectError) throw projectError;
       const objective = `STATUS REVIEW ONLY for ${project.name}. Read the newest verified Command Center project state and available checkpoints, reconcile where this project currently stands, and explain it in plain language for James. Summarize: (1) what is verified complete, (2) the current stage and trustworthy progress if available, (3) what remains open, (4) any real blocker or user action needed, and (5) the exact next step. Do not execute project work, do not change external systems or database records, do not deploy or publish, do not start Work, and do not treat this review as authorization for any side effect. Avoid raw JSON, internal checkpoint plumbing, IDs, or technical metadata unless it is necessary to explain a blocker.`;
@@ -109,7 +109,7 @@
         p_excluded_scope: ['project execution','external changes','database changes','deployment','publishing','Work execution'],
         p_allowed_tool_categories: CHECKPOINT_TOOLS,
         p_allow_work: false,
-        p_books_target: null,
+        p_books_target: /book|kdp|coloring|workbook/i.test(`${project.id} ${project.category || ''} ${project.name}`) ? project.name : null,
         p_dry_run: false
       };
       const { error } = await client.rpc('command_center_agent_create_project_only_session', args);
