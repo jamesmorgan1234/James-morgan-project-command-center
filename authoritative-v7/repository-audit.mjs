@@ -11,6 +11,11 @@ const authoritativeRequirementFiles=new Set([
   'COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md',
   'COMMAND_CENTER_PRODUCT_ROADMAP.md'
 ]);
+const activeRootCutoverFiles=new Set([
+  'index.html',
+  'manifest.webmanifest',
+  'service-worker.js'
+]);
 
 async function walk(dir){
   const entries=await readdir(dir,{withFileTypes:true});
@@ -32,6 +37,7 @@ function classify(path){
     if(['.js','.css','.html','.webmanifest'].includes(ext))return'ACTIVE_V7_RUNTIME';
     return'ACTIVE_V7_SUPPORT';
   }
+  if(activeRootCutoverFiles.has(path))return'ACTIVE_V7_CUTOVER';
   if(path==='.github/workflows/cc7-clean-room-qa.yml')return'ACTIVE_V7_QA_WORKFLOW';
   if(/^command-center-approved-icon-(192|256|512)\.png$/i.test(path))return'PROTECTED_APPROVED_ASSET';
   if(authoritativeRequirementFiles.has(path))return'AUTHORITATIVE_V7_REQUIREMENT';
@@ -73,6 +79,9 @@ for(const row of activeTextRows){
 const authoritativeRequirementPaths=rows.filter(r=>r.classification==='AUTHORITATIVE_V7_REQUIREMENT').map(r=>r.path).sort();
 const requiredAuthorities=[...authoritativeRequirementFiles].sort();
 const authorityMismatch=JSON.stringify(authoritativeRequirementPaths)!==JSON.stringify(requiredAuthorities);
+const activeCutoverPaths=rows.filter(r=>r.classification==='ACTIVE_V7_CUTOVER').map(r=>r.path).sort();
+const requiredCutover=[...activeRootCutoverFiles].sort();
+const cutoverMismatch=JSON.stringify(activeCutoverPaths)!==JSON.stringify(requiredCutover);
 
 const report={
   generated_at:new Date().toISOString(),
@@ -80,6 +89,8 @@ const report={
   classification_counts:counts,
   authoritative_v7_requirements:authoritativeRequirementPaths,
   authority_mismatch:authorityMismatch,
+  active_v7_root_cutover:activeCutoverPaths,
+  cutover_mismatch:cutoverMismatch,
   active_legacy_dependency_findings:activeLegacyDeps,
   files:rows
 };
@@ -94,6 +105,10 @@ const md=[
   ...authoritativeRequirementPaths.map(path=>`- ${path}`),
   '',
   `Authority-set mismatch: ${authorityMismatch?'YES':'NO'}`,'',
+  '## Active V7 root cutover files','',
+  ...activeCutoverPaths.map(path=>`- ${path}`),
+  '',
+  `Root-cutover mismatch: ${cutoverMismatch?'YES':'NO'}`,'',
   '## Classification totals','',
   ...Object.entries(counts).sort().map(([k,v])=>`- ${k}: ${v}`),'',
   `## Active V7 legacy dependency findings: ${activeLegacyDeps.length}`,'',
@@ -110,6 +125,8 @@ console.log(JSON.stringify({
   classification_counts:counts,
   authoritative_v7_requirements:authoritativeRequirementPaths,
   authority_mismatch:authorityMismatch,
+  active_v7_root_cutover:activeCutoverPaths,
+  cutover_mismatch:cutoverMismatch,
   active_legacy_dependency_findings:activeLegacyDeps
 },null,2));
-if(activeLegacyDeps.length||authorityMismatch)process.exitCode=2;
+if(activeLegacyDeps.length||authorityMismatch||cutoverMismatch)process.exitCode=2;
