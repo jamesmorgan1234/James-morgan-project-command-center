@@ -41,12 +41,13 @@ assert.match(css, /body\.cc-approved-legacy-open \.panel/, 'deep/advanced screen
 assert.doesNotMatch(css, /overflow-y\s*:\s*hidden/i, 'native Android vertical scrolling must remain enabled');
 assert.doesNotMatch(css, /touch-action\s*:\s*none/i, 'touch scrolling must not be disabled');
 
-assert.match(runtime, /version:\s*2/, 'locked visual runtime must be a lightweight compatibility bridge');
+assert.match(runtime, /version:\s*3/, 'locked visual runtime must remain a lightweight compatibility bridge');
 assert.doesNotMatch(runtime, /MutationObserver/, 'visual runtime must not rewrite the DOM after render');
 assert.doesNotMatch(runtime, /renderNextQueue|decorateProjectCards|addBookLabels/, 'old mutation-based visual correction functions must be removed');
-assert.match(startup, /command-center-locked-visual-spec-loader\.js/, 'locked screen system must load during normal startup');
-assert.match(loader, /command-center-locked-visual-spec\.css/, 'screen-system stylesheet must load');
-assert.match(loader, /command-center-locked-visual-spec\.js/, 'compatibility runtime must load');
-assert.match(nav, /command-center-locked-visual-spec\.css/, 'screen-system stylesheet must be re-appended after enhancement CSS');
+assert.match(runtime, /cc-screen-project-hero/, 'compatibility bridge may normalize semantic hooks for existing Agent integrations');
+assert.match(startup, /command-center-locked-visual-spec-loader\.js\?v=2/, 'locked screen system must load during normal startup with a fresh version');
+assert.match(loader, /command-center-locked-visual-spec\.css\?v=3/, 'screen-system stylesheet must load with fresh identity');
+assert.match(loader, /command-center-locked-visual-spec\.js\?v=3/, 'compatibility runtime must load with fresh identity');
+assert.match(nav, /command-center-locked-visual-spec\.css\?v=3/, 'screen-system stylesheet must be re-appended after enhancement CSS');
 
 console.log('Locked visual specification QA passed.');
