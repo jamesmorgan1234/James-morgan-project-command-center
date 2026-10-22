@@ -15,7 +15,7 @@ assert.match(js,/KDP PERFORMANCE/,'Book projects must use compact KDP performanc
 assert.match(js,/BOOKS IN SERIES/,'Book mappings must render as their own series section');
 assert.match(js,/PUBLICATION STATUS/,'Publication status must render as its own compact section');
 assert.match(js,/KDP SNAPSHOT HISTORY/,'KDP snapshot history must remain available');
-assert.match(js,/book-cover-atlas-v2\.webp/,'Approved book-cover atlas must power book tiles');
+assert.match(css,/book-cover-atlas-v2\.webp/,'Approved book-cover atlas must power book tiles');
 assert.match(js,/analytics_project_kpis/,'Approved UI must use verified KPI data');
 assert.match(js,/project_opportunities/,'Approved UI must surface project opportunities');
 
