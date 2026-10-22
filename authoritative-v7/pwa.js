@@ -1,5 +1,7 @@
 const RELOAD_KEY='cc7-sw-reloaded';
 
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+
 async function registerCleanServiceWorker(){
   if(!('serviceWorker' in navigator))return;
   const hadController=Boolean(navigator.serviceWorker.controller);
