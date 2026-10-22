@@ -41,6 +41,11 @@ test('approved screenshot screens exist as distinct renderers',()=>{
   for(const label of ['Projects','Active / Live','Next Up','Project Details','KDP PERFORMANCE','BOOKS IN SERIES','PUBLICATION STATUS'])assert.ok(files.app.includes(label),`missing approved screen label: ${label}`);
 });
 
+test('Home preserves the four primary cards and six V7 control modules',()=>{
+  for(const route of ['projects','next','agent','revenue'])assert.match(files.app,new RegExp(`data-nav="${route}"`),`missing Home primary route: ${route}`);
+  for(const route of ['brain','automation','integrations','analytics','security','deployment'])assert.ok(files.app.includes(`moduleButton('${route}'`),`missing Home control-module route: ${route}`);
+});
+
 test('approved screenshot chevrons have real V7 destinations',()=>{
   assert.match(files.app,/data-nav="portfolio-overview"/);
   assert.match(files.app,/data-nav="analytics"/);
@@ -51,6 +56,29 @@ test('approved screenshot chevrons have real V7 destinations',()=>{
   assert.ok(files.overview.includes('Project Snapshot'));
   assert.ok(files.overview.includes('data-open-project'));
   assert.ok(files.overview.includes('data-open-agent'));
+});
+
+test('every rendered V7 button has a recognized handler contract',()=>{
+  const rendered=[files.app,files.overview].join('\n');
+  const buttons=rendered.match(/<button\b[^>]*>/g)||[];
+  assert.ok(buttons.length>0,'no V7 buttons found');
+  const handlerMarkers=[
+    'data-action=',
+    'data-nav=',
+    'data-open-project=',
+    'data-detail-view=',
+    'data-open-agent=',
+    'data-agent-action=',
+    'data-agent-create=',
+    'data-approval='
+  ];
+  for(const tag of buttons){
+    const handled=tag.includes('type="submit"')||handlerMarkers.some(marker=>tag.includes(marker));
+    assert.equal(handled,true,`button lacks V7 handler contract: ${tag}`);
+  }
+  for(const selector of ['[data-nav]','[data-detail-view]','[data-open-project]','[data-open-agent]','[data-agent-create]','[data-agent-action]','[data-approval]'])assert.ok(files.app.includes(`closest('${selector}')`),`missing delegated V7 handler: ${selector}`);
+  assert.ok(files.app.includes('closest(\'[data-action="back"]\')'));
+  assert.ok(files.app.includes('closest(\'[data-action="toggle-auto"]\')'));
 });
 
 test('approved detail chevron rows navigate to real V7 sub-screens',()=>{
