@@ -20,7 +20,7 @@ const core=cfg.slice(coreStart,advancedStart);
 const advanced=cfg.slice(advancedStart);
 
 for(const required of [
-  'command-center-approved-ui.js?v=2',
+  'command-center-approved-ui.js?v=3',
   'command-center-precise-progress.js?v=3',
   'command-center-approved-nav.js?v=2',
   'command-center-work-boundary-mode.js?v=1',
