@@ -91,9 +91,28 @@ Required structure:
 Behavior:
 
 - tapping a project opens Project Details;
+- the portfolio-summary chevron is real and opens **Portfolio Overview**;
 - no progress ring may display a guessed or stale percentage;
 - unverified scope displays `N/A` / `Scope unavailable`;
 - project count and status mix come from current clean V7 data.
+
+### 4.1 Portfolio Overview
+
+Portfolio Overview is the real destination behind the Projects summary card shown with a chevron.
+
+It presents verified clean V7 portfolio state only, including where available:
+
+- tracked project count;
+- Active / Live count;
+- attention count;
+- verified scope-record coverage;
+- verified revenue total;
+- tracked integration count;
+- status mix;
+- projects needing attention, each linking to its Project Details;
+- recent verified activity.
+
+No portfolio value may be inferred from screenshot sample data or stale legacy baselines.
 
 ## 5. Active / Live screen
 
@@ -115,6 +134,8 @@ Each row requires:
 
 No circular progress ring is used on this screen.
 
+The outer chevron opens the selected Project Details.
+
 ## 6. Next Up screen
 
 Visual source: approved `Next Up` screenshot.
@@ -133,7 +154,7 @@ Required structure:
 
 No progress rings.
 
-Priority must derive from verified project state/attention rules. Do not fabricate ranking.
+Priority must derive from verified project state/attention rules. Do not fabricate ranking. The row chevron opens the selected Project Details.
 
 ## 7. Revenue screen
 
@@ -144,11 +165,14 @@ Required behavior:
 - verified zero displayed as `$0.00`;
 - unverified/missing revenue displayed as `N/A`;
 - test orders and test transactions never count as real revenue;
-- tapping a project opens its Project Details.
+- tapping a project opens its Project Details;
+- the summary-card chevron is real and opens the verified **Analytics** module for deeper portfolio performance.
 
 ## 8. Project Details
 
 All projects receive a clean V7 detail screen with truthful project-specific information.
+
+The project hero is interactive because the approved composition includes a navigation chevron. Tapping it opens **Project Snapshot** for that exact project.
 
 ### 8.1 Generic Project Details
 
@@ -161,9 +185,31 @@ Required sections where supported:
 - exact next action;
 - blocker/integrity state;
 - verification summary;
+- real Tracking Integrations entry;
 - direct Agent Controls entry for that exact project.
 
-### 8.2 The Missing Hour Saga / Books detail
+Rows that are only informational, such as Next Action, Blocker / Integrity, or Verification, must render as informational cards rather than fake buttons or decorative chevrons.
+
+### 8.2 Project Snapshot
+
+Project Snapshot is the real destination behind a project hero chevron.
+
+It presents the selected project's current verified clean V7 state, including where available:
+
+- status;
+- current verified scope;
+- verified revenue;
+- tracked integration count;
+- exact next action;
+- blocker/integrity state;
+- verification summary;
+- Tracking Integrations entry;
+- direct Agent Controls entry;
+- recent project activity.
+
+Project Snapshot must not expose raw IDs, raw JSON, internal checkpoint plumbing, or legacy data structures.
+
+### 8.3 The Missing Hour Saga / Books detail
 
 Visual source: approved `The Missing Hour Saga — Project Details` screenshot.
 
@@ -177,6 +223,12 @@ Required sections:
 - `TRACKING INTEGRATIONS` row;
 - exact next action;
 - direct Agent Controls entry.
+
+The approved chevron rows are functional:
+
+- **KDP Snapshot History** opens a real V7 snapshot-history screen showing verified snapshot periods and metrics only.
+- **Tracking Integrations** opens a real V7 project-integration screen showing current provider records, source mode, authorization requirement, check freshness, and next source action where recorded.
+- the hero chevron opens Project Snapshot.
 
 Books/publication truth rules:
 
@@ -366,6 +418,7 @@ Required capability surface:
 - source health/freshness;
 - missing connection state;
 - owner authorization requirement where applicable;
+- project-specific Tracking Integrations drill-down;
 - no secrets or backend credentials in the UI.
 
 ## 14. Analytics
@@ -378,7 +431,8 @@ Required capability surface:
 - project/portfolio performance;
 - source freshness;
 - trends/time series where real data exists;
-- goals and anomaly state where supported.
+- goals and anomaly state where supported;
+- Revenue summary drill-down.
 
 Never infer missing metrics from unrelated data.
 
@@ -417,6 +471,8 @@ Every visible interactive control must satisfy all of the following:
 5. Disabled/unavailable actions explain why.
 6. No button exists solely as visual decoration unless it is explicitly non-interactive.
 7. A control that performs no project execution (Refresh, Project Checkpoint, navigation) must not be routed through the background execution runner.
+8. A visible chevron means navigation. If no navigation exists, the chevron must be removed and the row rendered as informational-only.
+9. Approved screenshot chevrons are implemented as real navigation wherever the screenshot presents the element as an actionable row/card.
 
 ## 18. Data truth / progress
 
@@ -450,26 +506,27 @@ Not allowed as V7 runtime building material:
 
 1. Clean-room architecture isolation.
 2. Home and global shell.
-3. Projects.
+3. Projects and Portfolio Overview.
 4. Active / Live.
 5. Next Up.
-6. Revenue.
-7. Generic Project Details.
-8. Books / Missing Hour detail.
+6. Revenue and Analytics drill-down.
+7. Generic Project Details and Project Snapshot.
+8. Books / Missing Hour detail, KDP Snapshot History, and Tracking Integrations.
 9. Agent owner controls and atomic backend actions.
 10. Brain / Automation / Integrations / Analytics / Security / Deployment.
 11. Android/PWA navigation, Back, scroll restoration, safe areas, offline/update behavior.
-12. Visible-button audit.
+12. Visible-button and visible-chevron audit.
 13. Data-truth audit.
 14. Screenshot-by-screenshot visual QA at approved 864×1536 reference geometry.
 15. First complete every-file repository audit.
 16. Fix all defects found.
-17. Second complete every-file repository audit.
+17. Second complete every-file repository audit, including roadmap/spec authority classification.
 18. Pre-merge QA.
 19. Pull request / merge only after the authorized rebuild chain is satisfied.
 20. GitHub Pages deployment verification.
 21. Production SHA verification.
 22. Physical Android owner inspection.
+23. After production is verified, perform owner Android cache/site-data cleanup and uninstall/reinstall if needed so the fresh V7 PWA takes over without old installed-app state.
 
 ## 21. Definition of done
 
@@ -478,8 +535,8 @@ Command Center V7 is not complete merely because automated tests are green.
 Completion requires:
 
 - the approved screens visually reproduce the approved design system closely enough to pass owner physical-phone inspection;
-- all intended screens/modules are reachable;
-- every visible button is real and correctly wired;
+- all intended screens/modules and screenshot-driven drill-downs are reachable;
+- every visible button and navigation chevron is real and correctly wired;
 - AUTO OFF produces no background Agent work;
 - Project Checkpoint completes immediately without waiting for the hourly runner;
 - Stop is immediate and atomic;
@@ -488,6 +545,7 @@ Completion requires:
 - Android Back and scroll restoration behave correctly;
 - PWA identity/cache/offline behavior is correct;
 - approved launcher artwork is exact;
-- the final every-file audit reports no unknown/unclassified implementation file;
+- the final every-file audit reports no unknown/unclassified implementation file and exactly the approved V7 authority set;
 - the deployed production SHA is verified;
+- James performs the final clean Android install/cache reset sequence after production verification;
 - James completes the final physical-phone visual acceptance.
