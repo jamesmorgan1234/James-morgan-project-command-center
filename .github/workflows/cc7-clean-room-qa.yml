@@ -47,4 +47,6 @@ jobs:
           grep -Fq './theme.css?v=1' authoritative-v7/index.html
           grep -Fq './layout.css?v=1' authoritative-v7/index.html
           grep -Fq './app.js?v=1' authoritative-v7/index.html
-          ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav|../app.js|../styles.css' authoritative-v7/index.html
+          ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
+          ! grep -Fq '../app.js' authoritative-v7/index.html
+          ! grep -Fq '../styles.css' authoritative-v7/index.html
