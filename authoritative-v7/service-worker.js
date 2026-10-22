@@ -1,10 +1,10 @@
-const CACHE='command-center-v7-clean-4';
+const CACHE='command-center-v7-clean-5';
 const CORE=[
   './index.html',
-  './theme.css?v=1',
-  './layout.css?v=1',
-  './artwork.css?v=1',
-  './app.js?v=1',
+  './theme.css?v=2',
+  './layout.css?v=2',
+  './artwork.css?v=2',
+  './app.js?v=2',
   './data.js',
   './config.js',
   './control-modules.js',
