@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import assert from 'node:assert/strict';
 
 const cfg=fs.readFileSync('app-config.js','utf8');
+const index=fs.readFileSync('index.html','utf8');
+const startup=fs.readFileSync('startup-loader.js','utf8');
 const authority=fs.readFileSync('command-center-authoritative-runtime.js','utf8');
 const authorityCss=fs.readFileSync('command-center-authoritative-runtime.css','utf8');
 const agent=fs.readFileSync('command-center-agent-truth.js','utf8');
@@ -30,13 +32,19 @@ for(const required of [
 ]) assert.ok(core.includes(required),`Normal startup must include ${required}`);
 
 for(const forbidden of [
+  'project-hub.js','project-hub.css','mobile-accordion-polish.js','mobile-accordion-polish.css',
   'books-hub.js','books-revenue.js','performance-hub.js','refresh-orchestrator.js','source-health.js',
   'command-center-v4.js','command-center-v4.css','command-center-v6.js','command-center-v6.css','command-center-v6-2.js','command-center-v6-2.css',
   'command-center-brain-home.js','command-center-brain-home.css','command-center-agent-home.js','command-center-agent-mode.js',
   'command-center-analytics.js','command-center-security.js','command-center-deployment.js','command-center-exact-menus.js'
 ]) assert.ok(!core.includes(forbidden),`Normal startup must not execute or style legacy/admin asset ${forbidden}`);
 
-for(const advancedAsset of ['command-center-v4.js','command-center-v6.js','source-health.js','command-center-brain-home.js'])
+assert.doesNotMatch(index,/project-hub\.css|mobile-accordion-polish\.css/,'index.html must not preload legacy project/mobile styles');
+const coreScripts=startup.match(/const CORE_SCRIPTS = \[([^\]]*)\]/s)?.[1]||'';
+assert.match(coreScripts,/app\.js\?v=10/,'Base auth/data app must remain a startup dependency');
+assert.doesNotMatch(coreScripts,/project-hub|mobile-accordion/,'Startup loader must not execute legacy project/mobile controllers');
+
+for(const advancedAsset of ['project-hub.js','mobile-accordion-polish.js','command-center-v4.js','command-center-v6.js','source-health.js','command-center-brain-home.js'])
   assert.ok(advanced.includes(advancedAsset),`Advanced loader must retain ${advancedAsset}`);
 
 assert.match(lazy,/COMMAND_CENTER_LOAD_ADVANCED/,'About Brain/Advanced must lazy-load the advanced stack');
@@ -47,6 +55,9 @@ for(const [name,code] of [['authority',authority],['agent',agent],['precise',pre
   assert.doesNotMatch(code,/new MutationObserver\s*\(/,`${name} normal-use runtime must not use global DOM mutation observers`);
 
 assert.match(authorityCss,/#dashboard > :not\(#ccApprovedApp\)\{display:none!important\}/,'Only approved app may be visible in normal dashboard mode');
+assert.match(authorityCss,/#refreshStrip/,'Legacy refresh strip must be hidden in normal mode');
+assert.match(authorityCss,/#appFooter/,'Legacy sign-out footer must be hidden in normal mode');
+assert.match(authorityCss,/#syncText/,'Legacy sync plumbing must be hidden in normal mode');
 assert.match(authorityCss,/#ccApprovedAbout\{[\s\S]*position:static!important/,'About must remain in document flow at the bottom');
 assert.doesNotMatch(authorityCss,/#ccApprovedAbout\{[\s\S]*?position:fixed/,'About must never float');
 
