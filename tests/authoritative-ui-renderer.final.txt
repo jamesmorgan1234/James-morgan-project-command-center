@@ -1,1 +1,0 @@
-Primary renderer acceptance is enforced by app-config direct-load order plus Mobile App UX QA.
