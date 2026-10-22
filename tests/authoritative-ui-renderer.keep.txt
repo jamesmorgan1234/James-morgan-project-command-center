@@ -1,0 +1,1 @@
+Approved UI is the primary authenticated renderer.
