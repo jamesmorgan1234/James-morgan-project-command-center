@@ -9,6 +9,7 @@ const files = {
   data: await readFile(new URL('./data.js', import.meta.url), 'utf8'),
   config: await readFile(new URL('./config.js', import.meta.url), 'utf8'),
   modules: await readFile(new URL('./control-modules.js', import.meta.url), 'utf8'),
+  overview: await readFile(new URL('./overview-screens.js', import.meta.url), 'utf8'),
   pwa: await readFile(new URL('./pwa.js', import.meta.url), 'utf8'),
   sw: await readFile(new URL('./service-worker.js', import.meta.url), 'utf8'),
   manifest: await readFile(new URL('./manifest.webmanifest', import.meta.url), 'utf8'),
@@ -40,6 +41,18 @@ test('approved screenshot screens exist as distinct renderers',()=>{
   for(const label of ['Projects','Active / Live','Next Up','Project Details','KDP PERFORMANCE','BOOKS IN SERIES','PUBLICATION STATUS'])assert.ok(files.app.includes(label),`missing approved screen label: ${label}`);
 });
 
+test('approved screenshot chevrons have real V7 destinations',()=>{
+  assert.match(files.app,/data-nav="portfolio-overview"/);
+  assert.match(files.app,/data-nav="analytics"/);
+  assert.match(files.app,/data-detail-view="project-snapshot"/);
+  assert.ok(files.app.includes("r.view==='portfolio-overview'"));
+  assert.ok(files.app.includes("r.view==='project-snapshot'"));
+  assert.ok(files.overview.includes('Portfolio Overview'));
+  assert.ok(files.overview.includes('Project Snapshot'));
+  assert.ok(files.overview.includes('data-open-project'));
+  assert.ok(files.overview.includes('data-open-agent'));
+});
+
 test('approved detail chevron rows navigate to real V7 sub-screens',()=>{
   for(const route of ['kdp-history','tracking-integrations'])assert.ok(files.app.includes(`'${route}'`),`missing project detail route: ${route}`);
   assert.ok(files.app.includes('function kdpHistoryScreen('));
@@ -55,6 +68,11 @@ test('informational project rows are not fake buttons',()=>{
   assert.ok(files.app.includes("infoRow('Next Action'"));
   assert.ok(files.app.includes("infoRow('Blocker / Integrity'"));
   assert.ok(files.app.includes("infoRow('Verification'"));
+});
+
+test('detail navigation text stays above card artwork',()=>{
+  assert.match(files.layout,/\.cc-row-link>div\{position:relative;z-index:2\}/);
+  assert.match(files.layout,/button\.cc-row-link\{appearance:none;width:100%;color:#fff;text-align:left;cursor:pointer\}/);
 });
 
 test('Agent owner controls and explicit project selector are present',()=>{
@@ -111,6 +129,7 @@ test('scope progress is fail-closed when unverified',()=>{
   assert.match(files.app,/m\.verified!==true/);
   assert.match(files.app,/Scope unavailable/);
   assert.match(files.app,/N\/A/);
+  assert.match(files.overview,/m\?\.verified===true/);
 });
 
 test('screenshot-first visual primitives are defined',()=>{
@@ -118,7 +137,7 @@ test('screenshot-first visual primitives are defined',()=>{
 });
 
 test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
-  assert.match(files.html,/\.\/artwork\.css\?v=3/);
+  assert.match(files.html,/\.\/artwork\.css\?v=4/);
   for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg','server-racks.svg','merch-cases.svg','city-spires.svg','mobile-horizon.svg']){
     assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
   }
@@ -136,10 +155,11 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.theme_color,'#000000');
   assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.src.includes('command-center-approved-icon-512.png')));
-  assert.match(files.html,/\.\/manifest\.webmanifest\?v=3/);
-  assert.match(files.html,/\.\/pwa\.js\?v=3/);
+  assert.match(files.html,/\.\/manifest\.webmanifest\?v=4/);
+  assert.match(files.html,/\.\/pwa\.js\?v=4/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-6/);
+  assert.match(files.sw,/command-center-v7-clean-7/);
+  assert.match(files.sw,/\.\/overview-screens\.js/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
 
