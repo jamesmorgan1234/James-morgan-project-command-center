@@ -9,6 +9,25 @@ const PRECACHE=[
   './cc6-eclipse.webp','./cc6-mountain.webp','./cc6-chart.webp','./cc6-road.webp','./art-brain.svg','./art-castle.svg','./art-chart.svg','./art-eclipse.svg','./art-mountain-red.svg','./art-mountain.svg','./art-network.svg','./art-road.svg'
 ];
 
+function isFreshAsset(url){
+  return url.pathname.endsWith('/mobile-accordion-polish.js') ||
+    url.pathname.endsWith('/mobile-accordion-polish.css') ||
+    url.pathname.endsWith('/command-center-project-detail-accordions.js') ||
+    url.pathname.endsWith('/command-center-approved-ui.js') ||
+    url.pathname.endsWith('/command-center-approved-ui.css') ||
+    url.pathname.endsWith('/command-center-precise-progress.js') ||
+    url.pathname.endsWith('/command-center-approved-nav.js') ||
+    url.pathname.endsWith('/source-health.js') ||
+    url.pathname.endsWith('/source-health.css') ||
+    url.pathname.endsWith('/command-center-book-review-ui.js') ||
+    url.pathname.endsWith('/command-center-book-review-ui.css') ||
+    url.pathname.endsWith('/command-center-work-boundary-mode.js') ||
+    url.pathname.endsWith('/command-center-work-approval-ui.js') ||
+    url.pathname.endsWith('/command-center-work-approval-ui.css') ||
+    url.pathname.endsWith('/app-config.js') ||
+    url.pathname.endsWith('/startup-loader.js');
+}
+
 async function networkFirst(request){
   const cache=await caches.open(CACHE);
   try{
@@ -58,6 +77,7 @@ self.addEventListener('fetch',event=>{
   const url=new URL(request.url);
   if(url.origin!==self.location.origin)return;
   if(request.mode==='navigate'){event.respondWith(networkFirst(request));return;}
+  if(isFreshAsset(url)){event.respondWith(networkFirst(request));return;}
   if(/\.(?:js|css|json|webmanifest)$/i.test(url.pathname)){event.respondWith(networkFirst(request));return;}
   if(/\.(?:png|webp|svg|jpg|jpeg)$/i.test(url.pathname)){event.respondWith(cacheFirst(request));return;}
   event.respondWith(networkFirst(request));
