@@ -1,6 +1,6 @@
 (() => {
   if (window.COMMAND_CENTER_APPROVED_NAV) return;
-  window.COMMAND_CENTER_APPROVED_NAV = { version: 3 };
+  window.COMMAND_CENTER_APPROVED_NAV = { version: 4 };
 
   function ensureStyle(key, href) {
     let link = document.querySelector(`link[data-${key}]`);
@@ -14,13 +14,30 @@
     return link;
   }
 
+  function ensureScript(key, src) {
+    let script = document.querySelector(`script[data-${key}]`);
+    if (script) return script;
+    script = document.createElement('script');
+    script.src = src;
+    script.async = false;
+    script.dataset[key] = '1';
+    document.body.appendChild(script);
+    return script;
+  }
+
   function enforceLockedVisualTail() {
     ensureStyle('commandCenterLockedVisualTail', './command-center-locked-visual-spec.css?v=3');
     ensureStyle('commandCenterLockedVisualFinalFix', './command-center-locked-visual-final.css?v=1');
   }
 
+  function ensureControlSurface() {
+    ensureStyle('commandCenterControlSurface', './command-center-control-surface.css?v=1');
+    ensureScript('commandCenterControlSurface', './command-center-control-surface.js?v=1');
+  }
+
   enforceLockedVisualTail();
-  window.addEventListener('load', () => setTimeout(enforceLockedVisualTail, 0), { once: true });
+  ensureControlSurface();
+  window.addEventListener('load', () => { setTimeout(enforceLockedVisualTail, 0); setTimeout(ensureControlSurface, 0); }, { once: true });
   window.addEventListener('command-center:advanced-ready', () => setTimeout(enforceLockedVisualTail, 0));
 
   document.addEventListener('click', event => {
