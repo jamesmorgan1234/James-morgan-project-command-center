@@ -15,6 +15,7 @@ assert.match(runtime, /data-cc-agent-checkpoint/, 'Project Checkpoint Agent cont
 assert.match(runtime, /Project Checkpoint/, 'Project Checkpoint must have a clear visible label');
 assert.match(runtime, /Tell me where this project stands/, 'Project Checkpoint must explain its purpose in plain language');
 assert.match(runtime, /p_allow_work:\s*false/, 'Project Checkpoint must never authorize Work');
+assert.match(runtime, /p_books_target:\s*\/book\|kdp\|coloring\|workbook/i, 'Project Checkpoint must supply the required named target for book projects');
 assert.match(runtime, /STATUS REVIEW ONLY/, 'Project Checkpoint must be explicitly status-only');
 assert.match(runtime, /do not execute project work/i, 'Project Checkpoint must not continue project execution');
 assert.doesNotMatch(runtime, /CHECKPOINT_TOOLS\s*=\s*\[[^\]]*'work'/, 'Project Checkpoint tool set must exclude Work');
