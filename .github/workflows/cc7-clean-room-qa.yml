@@ -9,12 +9,14 @@ on:
       - '.github/workflows/cc7-clean-room-qa.yml'
       - 'COMMAND_CENTER_APPROVED_VISUAL_SPEC.md'
       - 'COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md'
+      - 'COMMAND_CENTER_PRODUCT_ROADMAP.md'
   pull_request:
     paths:
       - 'authoritative-v7/**'
       - '.github/workflows/cc7-clean-room-qa.yml'
       - 'COMMAND_CENTER_APPROVED_VISUAL_SPEC.md'
       - 'COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md'
+      - 'COMMAND_CENTER_PRODUCT_ROADMAP.md'
 
 permissions:
   contents: read
@@ -49,11 +51,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          grep -Fq './manifest.webmanifest?v=1' authoritative-v7/index.html
-          grep -Fq './theme.css?v=1' authoritative-v7/index.html
-          grep -Fq './layout.css?v=1' authoritative-v7/index.html
-          grep -Fq './app.js?v=1' authoritative-v7/index.html
-          grep -Fq './pwa.js?v=1' authoritative-v7/index.html
+          GEN="$(sed -nE 's|.*\./app\.js\?v=([0-9]+).*|\1|p' authoritative-v7/index.html | head -n1)"
+          test -n "$GEN"
+          for asset in manifest.webmanifest theme.css layout.css artwork.css app.js pwa.js; do
+            grep -Fq "./${asset}?v=${GEN}" authoritative-v7/index.html
+          done
           ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
