@@ -161,6 +161,23 @@ body:not(.cc-approved-legacy-open) #syncText{display:none!important}
     min-inline-size:0;
     contain:inline-size;
   }
+  #ccApprovedApp.cc-approved-book-project .cc-approved-project-hero{
+    isolation:isolate;
+  }
+  #ccApprovedApp.cc-approved-book-project .cc-approved-project-hero::before{
+    z-index:0!important;
+    background-image:radial-gradient(circle at 84% 42%,rgba(255,104,23,.22),rgba(255,104,23,.08) 25%,transparent 54%)!important;
+    background-size:100% 100%!important;
+    background-position:center!important;
+    opacity:1!important;
+  }
+  #ccApprovedApp.cc-approved-book-project .cc-approved-project-hero::after{
+    z-index:1!important;
+  }
+  #ccApprovedApp.cc-approved-book-project .cc-approved-project-hero>*{
+    position:relative;
+    z-index:2;
+  }
   #ccApprovedApp.cc-approved-book-project .cc-approved-project-hero>div>span{
     flex:1 1 auto;
     min-width:0;
