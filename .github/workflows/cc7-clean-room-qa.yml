@@ -1,0 +1,50 @@
+name: Command Center V7 Clean Room QA
+
+on:
+  push:
+    branches:
+      - rebuild/command-center-authoritative-v7
+    paths:
+      - 'authoritative-v7/**'
+      - '.github/workflows/cc7-clean-room-qa.yml'
+      - 'COMMAND_CENTER_APPROVED_VISUAL_SPEC.md'
+      - 'COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md'
+  pull_request:
+    paths:
+      - 'authoritative-v7/**'
+      - '.github/workflows/cc7-clean-room-qa.yml'
+      - 'COMMAND_CENTER_APPROVED_VISUAL_SPEC.md'
+      - 'COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md'
+
+permissions:
+  contents: read
+
+jobs:
+  clean-room-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify Node
+        run: node --version
+
+      - name: Syntax check clean modules
+        run: |
+          node --check authoritative-v7/app.js
+          node --check authoritative-v7/data.js
+          node --check authoritative-v7/config.js
+          node --check authoritative-v7/qa.test.mjs
+
+      - name: Run clean-room tests
+        run: node --test authoritative-v7/qa.test.mjs
+
+      - name: Verify isolated runtime entrypoint
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq './theme.css?v=1' authoritative-v7/index.html
+          grep -Fq './layout.css?v=1' authoritative-v7/index.html
+          grep -Fq './app.js?v=1' authoritative-v7/index.html
+          ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav|../app.js|../styles.css' authoritative-v7/index.html
