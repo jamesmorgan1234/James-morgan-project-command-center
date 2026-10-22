@@ -34,16 +34,22 @@
       ring.dataset.precise = value === null ? 'na' : String(value);
     });
 
+    const projectId = window.history.state?.projectId || null;
+    const value = precise(rows.get(projectId));
     const hero = root.querySelector('.cc-approved-project-hero .cc-approved-ring');
-    if (hero) {
-      const projectId = window.history.state?.projectId || null;
-      const value = precise(rows.get(projectId));
-      if (value !== null) {
-        hero.style.setProperty('--cc-pct', `${value * 3.6}deg`);
-        const text = hero.querySelector('b');
-        if (text) text.textContent = `${value.toFixed(1)}%`;
-        hero.dataset.precise = String(value);
-      }
+    if (hero && value !== null) {
+      hero.style.setProperty('--cc-pct', `${value * 3.6}deg`);
+      const text = hero.querySelector('b');
+      if (text) text.textContent = `${value.toFixed(1)}%`;
+      hero.dataset.precise = String(value);
+    }
+    if (projectId) {
+      root.querySelectorAll('.cc-approved-kpi-grid > div').forEach(cell => {
+        const label = cell.querySelector('small')?.textContent?.trim().toLowerCase();
+        if (label !== 'current scope' && label !== 'progress') return;
+        const out = cell.querySelector('strong');
+        if (out) out.textContent = value === null ? 'N/A' : `${value.toFixed(1)}%`;
+      });
     }
   }
 
