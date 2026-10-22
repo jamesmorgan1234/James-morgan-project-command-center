@@ -1,7 +1,8 @@
 (() => {
   const styles=[
     ['./command-center-mobile-first.css?v=1','commandCenterMobileFirst'],
-    ['./command-center-artwork-polish.css?v=1','commandCenterArtworkPolish']
+    ['./command-center-artwork-polish.css?v=1','commandCenterArtworkPolish'],
+    ['./command-center-app-ux.css?v=1','commandCenterAppUx']
   ];
   styles.forEach(([href,key])=>{
     const selector=`link[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
@@ -12,6 +13,13 @@
     link.dataset[key]='1';
     document.head.appendChild(link);
   });
+  if(!document.querySelector('script[data-command-center-app-ux]')){
+    const script=document.createElement('script');
+    script.src='./command-center-app-ux.js?v=1';
+    script.async=false;
+    script.dataset.commandCenterAppUx='1';
+    document.body.appendChild(script);
+  }
   let scheduled=false;
   function patch(){
     scheduled=false;
