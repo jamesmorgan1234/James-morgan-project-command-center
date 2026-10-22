@@ -15,7 +15,8 @@
   });
   const scripts=[
     ['./command-center-approved-ui.js?v=1','commandCenterApprovedUi'],
-    ['./command-center-precise-progress.js?v=1','commandCenterPreciseProgress']
+    ['./command-center-precise-progress.js?v=1','commandCenterPreciseProgress'],
+    ['./command-center-approved-nav.js?v=1','commandCenterApprovedNav']
   ];
   scripts.forEach(([src,key])=>{
     const selector=`script[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
@@ -48,9 +49,6 @@
   window.addEventListener('command-center:brain-capability-open',e=>{if(e.detail?.name==='Agent Mode')schedule();});
   window.addEventListener('load',schedule,{once:true});
 
-  // The approved mobile UI replaces the legacy Agent home/detail controllers in normal use.
-  // Stop their broad DOM observers after the authoritative shell is present so refreshes do
-  // not repaint old panels over the approved interface. Backend Agent RPCs remain unchanged.
   const retireLegacyControllers=()=>{
     if(!window.COMMAND_CENTER_APPROVED_UI)return setTimeout(retireLegacyControllers,80);
     window.COMMAND_CENTER_AGENT_HOME?.destroy?.();
