@@ -1,13 +1,14 @@
-const CACHE='command-center-v7-clean-6';
+const CACHE='command-center-v7-clean-7';
 const CORE=[
   './index.html',
-  './theme.css?v=3',
-  './layout.css?v=3',
-  './artwork.css?v=3',
-  './app.js?v=3',
+  './theme.css?v=4',
+  './layout.css?v=4',
+  './artwork.css?v=4',
+  './app.js?v=4',
   './data.js',
   './config.js',
   './control-modules.js',
+  './overview-screens.js',
   './manifest.webmanifest',
   './offline.html',
   './assets/landscape-eclipse.svg',
