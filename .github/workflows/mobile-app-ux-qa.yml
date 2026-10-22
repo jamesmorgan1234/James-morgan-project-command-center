@@ -17,6 +17,9 @@ on:
       - 'command-center-authoritative-runtime.css'
       - 'command-center-agent-truth.js'
       - 'command-center-advanced-lazy-loader.js'
+      - 'command-center-locked-visual-spec.js'
+      - 'command-center-locked-visual-spec.css'
+      - 'command-center-locked-visual-spec-loader.js'
       - 'command-center-work-boundary-mode.js'
       - 'command-center-work-approval-ui-v3.js'
       - 'command-center-work-approval-ui.css'
@@ -51,6 +54,8 @@ jobs:
           node --check command-center-authoritative-runtime.js
           node --check command-center-agent-truth.js
           node --check command-center-advanced-lazy-loader.js
+          node --check command-center-locked-visual-spec-loader.js
+          node --check command-center-locked-visual-spec.js
           node --check command-center-work-boundary-mode.js
           node --check command-center-work-approval-ui-v3.js
           node --check command-center-book-review-ui-v5.js
@@ -62,6 +67,8 @@ jobs:
         run: node tests/mobile-app-ux.test.mjs
       - name: Owner mobile feedback regression QA
         run: node tests/owner-mobile-feedback.test.mjs
+      - name: Locked visual specification QA
+        run: node tests/locked-visual-spec.test.mjs
       - name: Protected mobile navigation QA
         run: node tests/mobile-navigation.test.mjs
       - name: Agent runtime QA
