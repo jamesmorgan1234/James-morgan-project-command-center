@@ -1,0 +1,113 @@
+/* Command Center artwork/depth polish. Visual-only final override.
+   Keeps the approved black/orange identity while preventing plain generic controls. */
+
+html[data-command-center-theme="v6"] .stat-button{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  background-color:#050302!important;
+  background-repeat:no-repeat!important;
+  background-position:right center!important;
+  background-size:auto 115%!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="all"]{
+  background-image:linear-gradient(90deg,rgba(6,3,2,.99) 0 44%,rgba(9,4,1,.92) 62%,rgba(0,0,0,.28) 100%),url('./cc6-mountain.webp')!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="active"]{
+  background-image:linear-gradient(90deg,rgba(6,3,2,.99) 0 44%,rgba(7,4,2,.91) 62%,rgba(0,0,0,.24) 100%),url('./art-network.svg')!important;
+}
+html[data-command-center-theme="v6"] .stat-button[data-view="attention"]{
+  background-image:linear-gradient(90deg,rgba(6,3,2,.99) 0 42%,rgba(8,4,1,.88) 60%,rgba(0,0,0,.18) 100%),url('./cc6-road.webp')!important;
+}
+html[data-command-center-theme="v6"] #ccAgentHomeButton{
+  background-image:linear-gradient(90deg,rgba(6,3,2,.99) 0 40%,rgba(9,4,1,.86) 58%,rgba(0,0,0,.16) 100%),url('./art-brain.svg')!important;
+  background-size:auto 128%!important;
+  box-shadow:0 0 0 1px rgba(255,154,42,.30),0 0 18px rgba(255,83,0,.68),inset 0 0 28px rgba(255,103,0,.11)!important;
+}
+html[data-command-center-theme="v6"] .stat-button::before{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:-1!important;
+  pointer-events:none!important;
+  background:linear-gradient(115deg,rgba(255,142,30,.10),transparent 27%,transparent 70%,rgba(255,91,0,.12))!important;
+}
+html[data-command-center-theme="v6"] .stat-button:active{transform:translateY(1px) scale(.995)!important;filter:brightness(1.08)!important}
+
+/* Standard actions keep artwork and depth instead of dropping into generic rectangles. */
+html[data-command-center-theme="v6"] .btn{
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid #c84a08!important;
+  background-image:linear-gradient(90deg,rgba(18,7,2,.98),rgba(8,4,2,.94) 64%,rgba(40,12,2,.80)),url('./art-eclipse.svg')!important;
+  background-position:right center!important;
+  background-size:auto 180%!important;
+  color:#ffd39f!important;
+  box-shadow:0 0 0 1px rgba(255,112,21,.10),0 0 9px rgba(255,78,0,.25),inset 0 1px 0 rgba(255,178,78,.10)!important;
+  text-shadow:0 0 7px rgba(255,95,0,.32)!important;
+}
+html[data-command-center-theme="v6"] .btn-primary{
+  border-color:#ff6507!important;
+  background-image:linear-gradient(90deg,rgba(49,14,2,.98),rgba(18,6,2,.92) 62%,rgba(35,11,2,.72)),url('./art-road.svg')!important;
+  color:#fff!important;
+  box-shadow:0 0 0 1px rgba(255,154,42,.22),0 0 13px rgba(255,83,0,.48),inset 0 1px 0 rgba(255,185,90,.18)!important;
+}
+html[data-command-center-theme="v6"] .btn-ghost{
+  background-image:linear-gradient(90deg,rgba(13,7,3,.96),rgba(4,4,4,.90) 62%,rgba(22,8,2,.62)),url('./art-network.svg')!important;
+}
+html[data-command-center-theme="v6"] .btn:active{transform:translateY(1px)!important;filter:brightness(1.1)!important}
+
+/* Deeper navigation/action surfaces keep Command Center artwork too. */
+html[data-command-center-theme="v6"] .cc-project-detail-toggle{
+  position:relative!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,101,7,.78)!important;
+  background-image:linear-gradient(90deg,rgba(11,6,3,.98) 0 68%,rgba(21,8,2,.70)),url('./art-eclipse.svg')!important;
+  background-position:right center!important;
+  background-size:auto 160%!important;
+  box-shadow:0 0 10px rgba(255,78,0,.18),inset 0 0 18px rgba(255,91,0,.035)!important;
+}
+html[data-command-center-theme="v6"] .cc-brain-capability{
+  background-image:linear-gradient(100deg,rgba(8,5,3,.98) 0 60%,rgba(11,5,2,.72)),url('./art-brain.svg')!important;
+  background-position:right center!important;
+  background-size:auto 138%!important;
+}
+html[data-command-center-theme="v6"] .cc-agent-project-panel,
+html[data-command-center-theme="v6"] .cc-agent-workspace{
+  background-image:linear-gradient(110deg,rgba(7,5,4,.98) 0 70%,rgba(24,8,2,.63)),url('./art-brain.svg')!important;
+  background-position:right top!important;
+  background-size:180px auto!important;
+  background-repeat:no-repeat!important;
+}
+html[data-command-center-theme="v6"] .cc-agent-home-alert,
+html[data-command-center-theme="v6"] .cc-agent-current,
+html[data-command-center-theme="v6"] .cc-agent-run{
+  background-image:linear-gradient(100deg,rgba(10,6,3,.98) 0 72%,rgba(25,8,2,.62)),url('./art-network.svg')!important;
+  background-position:right center!important;
+  background-size:auto 150%!important;
+  background-repeat:no-repeat!important;
+}
+html[data-command-center-theme="v6"] .cc-agent-actions .btn,
+html[data-command-center-theme="v6"] .cc-agent-home-alert .btn{
+  background-image:linear-gradient(90deg,rgba(44,13,2,.97),rgba(10,5,2,.90) 66%,rgba(26,8,2,.60)),url('./art-brain.svg')!important;
+}
+
+/* Forms stay readable; action rows get the visual treatment, inputs remain quiet. */
+html[data-command-center-theme="v6"] .toolbar,
+html[data-command-center-theme="v6"] .form-grid{
+  border-radius:9px!important;
+  background:linear-gradient(100deg,rgba(7,5,4,.72),rgba(0,0,0,.12)),url('./art-eclipse.svg') right center/160px auto no-repeat!important;
+}
+
+@media(max-width:760px){
+  html[data-command-center-theme="v6"] .stat-button{background-size:auto 104%!important}
+  html[data-command-center-theme="v6"] #ccAgentHomeButton{background-size:auto 118%!important}
+  html[data-command-center-theme="v6"] .btn{background-size:auto 145%!important}
+  html[data-command-center-theme="v6"] .cc-agent-project-panel,
+  html[data-command-center-theme="v6"] .cc-agent-workspace{background-size:142px auto!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html[data-command-center-theme="v6"] .stat-button:active,
+  html[data-command-center-theme="v6"] .btn:active{transform:none!important}
+}
