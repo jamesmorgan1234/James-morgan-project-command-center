@@ -1,0 +1,48 @@
+name: Recovery Books PWA QA
+
+on:
+  pull_request:
+    paths:
+      - 'source-health.js'
+      - 'source-health.css'
+      - 'startup-loader.js'
+      - 'service-worker.js'
+      - 'app-config.js'
+      - 'command-center-book-review-guard.js'
+      - 'command-center-book-review-ui.js'
+      - 'command-center-book-review-ui.css'
+      - 'command-center-work-boundary-mode.js'
+      - 'command-center-work-approval-ui.js'
+      - 'command-center-work-approval-ui.css'
+      - 'tests/recovery-books-pwa.test.mjs'
+      - '.github/workflows/recovery-books-pwa-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  recovery-books-pwa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax checks
+        run: |
+          node --check source-health.js
+          node --check startup-loader.js
+          node --check service-worker.js
+          node --check command-center-book-review-guard.js
+          node --check command-center-book-review-ui.js
+          node --check command-center-work-boundary-mode.js
+          node --check command-center-work-approval-ui.js
+      - name: Recovery Books PWA release checks
+        run: node tests/recovery-books-pwa.test.mjs
+      - name: Source recovery/artwork regression
+        run: node tests/source-sync-home-polish.test.mjs
+      - name: Mobile navigation regression
+        run: node tests/mobile-navigation.test.mjs
+      - name: Agent runtime regression
+        run: node tests/agent-mode-runtime.test.mjs
