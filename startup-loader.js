@@ -8,9 +8,10 @@
     'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0',
     'https://unpkg.com/@supabase/supabase-js@2.118.0/dist/umd/supabase.js'
   ];
-  // app.js owns authentication/data bootstrap. Legacy project-hub and mobile
-  // accordion controllers are lazy-loaded only from About -> Advanced.
-  const CORE_SCRIPTS = ['./app.js?v=10'];
+  // app.js owns authentication/data bootstrap. The mount guard ensures the
+  // approved app surface can never fail as a silent blank screen. Legacy
+  // project-hub/mobile accordion controllers remain Advanced-only.
+  const CORE_SCRIPTS = ['./app.js?v=10','./command-center-approved-mount-guard.js?v=1'];
   let starting = false;
   let coreLoaded = false;
   let stateWatchdog = null;
