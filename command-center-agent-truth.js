@@ -55,7 +55,6 @@
     return classified().find(s=>s.run?.session?.id===run?.session?.id)||baseSummary(run);
   }
 
-  const pct=v=>`${Math.floor(Number(v||0)*10)/10 .toFixed?.(1) || Number(v||0).toFixed(1)}%`;
   const safePct=v=>`${(Math.floor(Number(v||0)*10)/10).toFixed(1)}%`;
   const setText=(node,value)=>{if(node&&node.textContent!==value)node.textContent=value;};
 
