@@ -1,0 +1,440 @@
+/* Command Center simplified mobile app UX.
+   Primary view = status, next step, meaningful KPIs, Agent actions, opportunities.
+   Advanced/technical UI stays available behind About. */
+
+html[data-command-center-theme="v6"] body{
+  padding-bottom:max(84px,calc(env(safe-area-inset-bottom,0px) + 74px))!important;
+}
+
+/* Default home = the three controls that matter. */
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #stats .stat-button[data-view="active"],
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #stats .stat-button[data-view="earning"],
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #stats .stat-button[data-view="revenue"],
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #ccBrainHomeButton,
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #refreshStrip,
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #sourceHealthPanel,
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #appFooter{
+  display:none!important;
+}
+
+html[data-command-center-theme="v6"] #stats{
+  gap:10px!important;
+}
+html[data-command-center-theme="v6"] #stats .stat-button[data-view="all"],
+html[data-command-center-theme="v6"] #stats .stat-button[data-view="attention"],
+html[data-command-center-theme="v6"] #ccAgentHomeButton{
+  min-height:108px!important;
+  border:2px solid #ff6507!important;
+  border-radius:10px!important;
+  padding:13px 14px!important;
+  box-shadow:0 0 0 1px rgba(255,150,38,.12),0 0 18px rgba(255,79,0,.28),inset 0 1px 0 rgba(255,183,88,.08)!important;
+}
+html[data-command-center-theme="v6"] #stats .stat-button[data-view="all"]:active,
+html[data-command-center-theme="v6"] #stats .stat-button[data-view="attention"]:active,
+html[data-command-center-theme="v6"] #ccAgentHomeButton:active{
+  transform:translateY(1px) scale(.995)!important;
+  filter:brightness(1.08)!important;
+}
+
+/* Brain button remains correct when advanced mode is intentionally shown. */
+html[data-command-center-theme="v6"] #ccBrainHomeButton{
+  grid-template-columns:64px minmax(0,1fr) 24px!important;
+  gap:12px!important;
+  padding:14px!important;
+  min-height:104px!important;
+}
+html[data-command-center-theme="v6"] #ccBrainHomeButton .cc-brain-home-icon{
+  position:relative!important;
+  inset:auto!important;
+  width:58px!important;
+  height:58px!important;
+  grid-column:1!important;
+  justify-self:center!important;
+}
+html[data-command-center-theme="v6"] #ccBrainHomeButton .value{
+  position:static!important;
+  grid-column:2!important;
+  min-width:0!important;
+  margin:0!important;
+  text-align:left!important;
+  font-size:clamp(1.15rem,5vw,1.55rem)!important;
+  line-height:1.08!important;
+  overflow-wrap:anywhere!important;
+}
+
+/* The normal project screen hides legacy admin blocks. */
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #detailPanel.cc-focus-ready > *:not(.section-head):not(.hub-detail-toolbar):not(#ccProjectFocusPanel){
+  display:none!important;
+}
+html[data-command-center-theme="v6"] body:not(.cc-show-advanced) #detailPanel.cc-focus-ready > .hub-detail-toolbar .hub-detail-progress{
+  display:none!important;
+}
+html[data-command-center-theme="v6"] #detailPanel.cc-focus-ready{
+  display:block!important;
+  min-width:0!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-project-focus{
+  display:grid!important;
+  gap:12px!important;
+  margin-top:8px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-status-row{
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  min-width:0!important;
+  color:#b58d72!important;
+  font-size:.76rem!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-status{
+  flex:0 0 auto!important;
+  padding:5px 9px!important;
+  border:1px solid #ff6507!important;
+  border-radius:999px!important;
+  color:#ffb15b!important;
+  background:rgba(53,16,2,.72)!important;
+  font-weight:900!important;
+  letter-spacing:.02em!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-next{
+  position:relative!important;
+  overflow:hidden!important;
+  display:grid!important;
+  gap:5px!important;
+  padding:15px!important;
+  border:2px solid #ff6507!important;
+  border-radius:12px!important;
+  background:linear-gradient(104deg,rgba(19,7,2,.98) 0 60%,rgba(24,7,1,.74)),url('./cc6-road.webp') right center/auto 125% no-repeat!important;
+  box-shadow:0 0 18px rgba(255,78,0,.25),inset 0 0 30px rgba(255,95,0,.035)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-next small,
+html[data-command-center-theme="v6"] .cc-appux-card-head small{
+  color:#ff9b3d!important;
+  font-size:.66rem!important;
+  font-weight:950!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-next strong{
+  max-width:88%!important;
+  color:#fff!important;
+  font-size:1rem!important;
+  line-height:1.32!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-next em{
+  max-width:88%!important;
+  color:#e6b38f!important;
+  font-size:.72rem!important;
+  line-height:1.35!important;
+  font-style:normal!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-kpis{
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-kpis>div{
+  min-width:0!important;
+  min-height:72px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  gap:4px!important;
+  padding:9px 8px!important;
+  border:1px solid rgba(255,101,7,.62)!important;
+  border-radius:9px!important;
+  background:linear-gradient(145deg,rgba(14,7,3,.97),rgba(3,3,3,.94))!important;
+  box-shadow:inset 0 1px 0 rgba(255,174,69,.07),0 0 10px rgba(255,79,0,.12)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-kpis small{
+  color:#a57c61!important;
+  font-size:.61rem!important;
+  line-height:1.1!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-kpis strong{
+  color:#fff!important;
+  font-size:.98rem!important;
+  line-height:1.1!important;
+  overflow-wrap:anywhere!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-card{
+  border:1px solid rgba(255,101,7,.72)!important;
+  border-radius:12px!important;
+  padding:13px!important;
+  background:linear-gradient(112deg,rgba(8,5,3,.98) 0 70%,rgba(26,8,2,.68)),url('./art-brain.svg') right top/145px auto no-repeat!important;
+  box-shadow:0 0 13px rgba(255,78,0,.17),inset 0 0 24px rgba(255,91,0,.025)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-card-head{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  margin-bottom:10px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-card-head h3{
+  margin:2px 0 0!important;
+  color:#fff!important;
+  font-size:1rem!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-agent-mark{
+  font-size:1.4rem!important;
+  color:#ff8a19!important;
+  text-shadow:0 0 12px #ff5c00!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-mode-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button{
+  min-height:82px!important;
+  min-width:0!important;
+  display:grid!important;
+  grid-template-columns:28px minmax(0,1fr)!important;
+  grid-template-rows:auto auto!important;
+  align-items:center!important;
+  column-gap:8px!important;
+  row-gap:2px!important;
+  text-align:left!important;
+  padding:10px!important;
+  border:1px solid #e45708!important;
+  border-radius:9px!important;
+  background:linear-gradient(120deg,rgba(33,10,2,.96),rgba(7,4,2,.96) 68%,rgba(45,13,2,.72)),url('./art-network.svg') right center/auto 140% no-repeat!important;
+  color:#fff!important;
+  box-shadow:0 0 10px rgba(255,78,0,.18),inset 0 1px 0 rgba(255,178,72,.08)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button span{
+  grid-row:1/3!important;
+  font-size:1.3rem!important;
+  color:#ff8c1f!important;
+  text-shadow:0 0 9px rgba(255,83,0,.74)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button strong{
+  font-size:.86rem!important;
+  line-height:1.05!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button small{
+  color:#b58c70!important;
+  font-size:.62rem!important;
+  line-height:1.14!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button:active,
+html[data-command-center-theme="v6"] .cc-appux-agent-live-actions button:active,
+html[data-command-center-theme="v6"] .cc-appux-small-action:active,
+html[data-command-center-theme="v6"] .cc-appux-opportunity button:active{
+  transform:translateY(1px)!important;
+  filter:brightness(1.12)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-mode-grid>button:disabled,
+html[data-command-center-theme="v6"] .cc-appux-agent-live-actions button:disabled,
+html[data-command-center-theme="v6"] .cc-appux-small-action:disabled,
+html[data-command-center-theme="v6"] .cc-appux-opportunity button:disabled{
+  opacity:.55!important;
+  filter:saturate(.65)!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-specific{
+  display:grid!important;
+  grid-template-columns:1fr auto!important;
+  gap:8px!important;
+  margin-top:9px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-specific[hidden]{display:none!important}
+html[data-command-center-theme="v6"] .cc-appux-specific textarea{
+  min-height:54px!important;
+  resize:vertical!important;
+  border:1px solid #8e3609!important;
+  border-radius:8px!important;
+  background:#050403!important;
+  color:#fff!important;
+  padding:9px!important;
+  font-size:16px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-specific button,
+html[data-command-center-theme="v6"] .cc-appux-agent-live-actions button,
+html[data-command-center-theme="v6"] .cc-appux-small-action,
+html[data-command-center-theme="v6"] .cc-appux-opportunity button{
+  min-height:48px!important;
+  border:1px solid #ff6507!important;
+  border-radius:8px!important;
+  background:linear-gradient(180deg,#3d1203,#160702)!important;
+  color:#ffbd75!important;
+  font-weight:900!important;
+  padding:9px 12px!important;
+}
+
+html[data-command-center-theme="v6"] .cc-appux-message{
+  min-height:0!important;
+  margin-top:7px!important;
+  color:#d8a781!important;
+  font-size:.68rem!important;
+  line-height:1.3!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-message:empty{display:none!important}
+html[data-command-center-theme="v6"] .cc-appux-message.error{color:#ff826f!important}
+
+html[data-command-center-theme="v6"] .cc-appux-agent-live{
+  display:flex!important;
+  align-items:flex-start!important;
+  gap:9px!important;
+  padding:10px!important;
+  border:1px solid rgba(255,101,7,.42)!important;
+  border-radius:9px!important;
+  background:rgba(8,4,2,.82)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-agent-dot{
+  width:10px!important;
+  height:10px!important;
+  margin-top:4px!important;
+  border-radius:50%!important;
+  background:#ff7a10!important;
+  box-shadow:0 0 10px #ff5c00!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-agent-live div{min-width:0!important}
+html[data-command-center-theme="v6"] .cc-appux-agent-live small{display:block!important;color:#ff9b3d!important;text-transform:uppercase!important;font-size:.61rem!important;font-weight:900!important}
+html[data-command-center-theme="v6"] .cc-appux-agent-live strong{display:block!important;color:#fff!important;margin-top:3px!important;font-size:.82rem!important;line-height:1.3!important;overflow-wrap:anywhere!important}
+html[data-command-center-theme="v6"] .cc-appux-agent-live-actions{display:flex!important;gap:7px!important;flex-wrap:wrap!important;margin-top:8px!important}
+
+html[data-command-center-theme="v6"] .cc-appux-empty{
+  color:#a67d63!important;
+  font-size:.72rem!important;
+  line-height:1.35!important;
+  margin-bottom:8px!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-opportunity{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:10px!important;
+  padding:9px 0!important;
+  border-top:1px solid rgba(255,101,7,.2)!important;
+}
+html[data-command-center-theme="v6"] .cc-appux-opportunity:first-of-type{border-top:0!important}
+html[data-command-center-theme="v6"] .cc-appux-opportunity div{min-width:0!important}
+html[data-command-center-theme="v6"] .cc-appux-opportunity strong{display:block!important;color:#fff!important;font-size:.78rem!important;line-height:1.25!important}
+html[data-command-center-theme="v6"] .cc-appux-opportunity small{display:block!important;margin-top:3px!important;color:#a97d61!important;font-size:.64rem!important;line-height:1.25!important}
+
+/* Fixed About bubble and short bottom-sheet menu. */
+html[data-command-center-theme="v6"] .cc-about-bubble{
+  position:fixed!important;
+  right:14px!important;
+  bottom:max(14px,calc(env(safe-area-inset-bottom,0px) + 10px))!important;
+  z-index:9000!important;
+  min-height:48px!important;
+  min-width:92px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  padding:9px 13px!important;
+  border:2px solid #ff6507!important;
+  border-radius:999px!important;
+  background:linear-gradient(120deg,#321003,#070403)!important;
+  color:#fff!important;
+  box-shadow:0 0 18px rgba(255,78,0,.48),inset 0 1px 0 rgba(255,186,90,.15)!important;
+}
+html[data-command-center-theme="v6"] .cc-about-bubble span{color:#ff9d3f!important}
+html[data-command-center-theme="v6"] .cc-about-bubble:active{transform:translateY(1px)!important;filter:brightness(1.1)!important}
+
+html[data-command-center-theme="v6"] .cc-about-backdrop{
+  position:fixed!important;
+  inset:0!important;
+  z-index:10000!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  background:rgba(0,0,0,.68)!important;
+  opacity:0!important;
+  transition:opacity .16s ease!important;
+}
+html[data-command-center-theme="v6"] .cc-about-backdrop[hidden]{display:none!important}
+html[data-command-center-theme="v6"] .cc-about-backdrop.open{opacity:1!important}
+html[data-command-center-theme="v6"] .cc-about-sheet{
+  width:100%!important;
+  max-height:min(70vh,620px)!important;
+  overflow:auto!important;
+  padding:8px 14px max(18px,calc(env(safe-area-inset-bottom,0px) + 12px))!important;
+  border:1px solid #ff6507!important;
+  border-bottom:0!important;
+  border-radius:18px 18px 0 0!important;
+  background:linear-gradient(180deg,#0e0703,#030303 72%)!important;
+  box-shadow:0 -14px 38px rgba(0,0,0,.72),0 0 28px rgba(255,75,0,.18)!important;
+  transform:translateY(18px)!important;
+  transition:transform .16s ease!important;
+}
+html[data-command-center-theme="v6"] .cc-about-backdrop.open .cc-about-sheet{transform:translateY(0)!important}
+html[data-command-center-theme="v6"] .cc-about-handle{
+  width:42px!important;
+  height:4px!important;
+  margin:1px auto 10px!important;
+  border-radius:999px!important;
+  background:#6a3216!important;
+}
+html[data-command-center-theme="v6"] .cc-about-head{
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin-bottom:10px!important;
+}
+html[data-command-center-theme="v6"] .cc-about-head small{color:#ff8f27!important;font-size:.62rem!important;font-weight:950!important;letter-spacing:.12em!important}
+html[data-command-center-theme="v6"] .cc-about-head h2{margin:2px 0 0!important;color:#fff!important;font-size:1.18rem!important}
+html[data-command-center-theme="v6"] .cc-about-head>button{
+  min-width:48px!important;
+  min-height:48px!important;
+  border:1px solid #7b310d!important;
+  border-radius:50%!important;
+  background:#120703!important;
+  color:#ffb266!important;
+  font-size:1.55rem!important;
+}
+html[data-command-center-theme="v6"] .cc-about-actions{display:grid!important;gap:7px!important}
+html[data-command-center-theme="v6"] .cc-about-actions>button{
+  min-height:62px!important;
+  display:grid!important;
+  grid-template-columns:34px minmax(0,1fr)!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:9px 11px!important;
+  border:1px solid rgba(255,101,7,.42)!important;
+  border-radius:10px!important;
+  background:linear-gradient(100deg,#100703,#050403)!important;
+  color:#fff!important;
+  text-align:left!important;
+}
+html[data-command-center-theme="v6"] .cc-about-actions>button>span{font-size:1.22rem!important;color:#ff8c1f!important;text-align:center!important}
+html[data-command-center-theme="v6"] .cc-about-actions strong{display:block!important;font-size:.8rem!important}
+html[data-command-center-theme="v6"] .cc-about-actions small{display:block!important;margin-top:2px!important;color:#9f7860!important;font-size:.64rem!important;line-height:1.25!important}
+html[data-command-center-theme="v6"] .cc-about-actions>button:active{transform:translateY(1px)!important;filter:brightness(1.1)!important}
+
+/* Compact the surrounding shell on phones. */
+@media(max-width:760px){
+  html[data-command-center-theme="v6"] .topbar{padding-bottom:5px!important}
+  html[data-command-center-theme="v6"] .view-head{padding:8px 0!important;gap:8px!important}
+  html[data-command-center-theme="v6"] .view-head #viewDescription{display:none!important}
+  html[data-command-center-theme="v6"] .cc-appux-kpis{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  html[data-command-center-theme="v6"] .cc-appux-specific{grid-template-columns:1fr!important}
+  html[data-command-center-theme="v6"] .cc-appux-specific button{width:100%!important}
+}
+
+@media(max-width:390px){
+  html[data-command-center-theme="v6"] .cc-appux-mode-grid{grid-template-columns:1fr!important}
+  html[data-command-center-theme="v6"] .cc-appux-mode-grid>button{min-height:64px!important}
+  html[data-command-center-theme="v6"] .cc-appux-kpis>div{padding:8px 6px!important}
+  html[data-command-center-theme="v6"] .cc-appux-kpis strong{font-size:.88rem!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html[data-command-center-theme="v6"] .cc-about-backdrop,
+  html[data-command-center-theme="v6"] .cc-about-sheet{transition:none!important}
+  html[data-command-center-theme="v6"] .cc-appux-mode-grid>button:active,
+  html[data-command-center-theme="v6"] .cc-about-bubble:active,
+  html[data-command-center-theme="v6"] .cc-about-actions>button:active{transform:none!important}
+}
