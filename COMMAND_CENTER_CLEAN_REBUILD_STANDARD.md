@@ -2,15 +2,17 @@
 
 Status: **LOCKED / CONTROLLING**
 
-James Morgan has explicitly required Command Center to be rebuilt from the beginning all the way through. This is a clean-room rebuild, not a repair, patch, refactor, migration of old UI layers, or reuse of prior implementation code.
+James Morgan has explicitly required Command Center to be rebuilt from the beginning all the way through. This is a clean-room rebuild, not a repair, patch, refactor, migration of old UI layers, or reuse of prior implementation code or stale requirement documents.
 
 ## Controlling rule
 
-**No existing Command Center implementation code is trusted as a build dependency.**
+**No existing Command Center implementation code, historical roadmap, historical specification, or legacy behavior description is trusted as a build dependency or authority by default.**
 
 The new Command Center must not copy, import, wrap, extend, inherit, or depend on the existing V4/V5/V6 UI layers, approved-ui layers, runtime patches, bootstrap repair code, legacy navigation, legacy CSS, legacy component markup, legacy Agent front-end, legacy Agent runner implementation, or other historical implementation modules.
 
-Existing repository code may be inspected only to recover factual requirements, identify data sources, locate verified historical behavior, and ensure the rebuild does not forget a legitimate capability. A requirement discovered in legacy code must be reimplemented independently from the authoritative specifications.
+Historical roadmaps, standards, continuation prompts, screenshots, notes, and requirement documents may contain stale or contradictory behavior. They may be inspected only as evidence of ideas/capabilities that might still matter. They do not control V7 unless the requirement is re-derived and reconciled against James's newest explicit instructions, the approved screenshot specification, and verified current state.
+
+Existing repository code and documents may be inspected only to recover factual requirements, identify data sources, locate verified historical behavior, and ensure the rebuild does not forget a legitimate capability. Anything recovered from legacy material must be revalidated before inclusion and then reimplemented independently in the authoritative V7 roadmap/runtime.
 
 ## What may be preserved
 
@@ -18,12 +20,28 @@ Only the following may carry forward as source truth:
 
 1. James Morgan's newest explicit requirements and operating rules.
 2. The approved screenshots recorded in `COMMAND_CENTER_APPROVED_VISUAL_SPEC.md`.
-3. Explicitly approved/locked artwork, including the approved launcher artwork.
-4. Verified live project/business data that belongs to James and is still current.
-5. Verified external/account state where preserving that state is required and safe.
-6. Published standards and roadmap requirements, after contradictions are resolved against James's newest instructions.
+3. The current authoritative V7 product roadmap after reconciliation with items 1–2.
+4. Explicitly approved/locked artwork, including the approved launcher artwork.
+5. Verified live project/business data that belongs to James and is still current.
+6. Verified external/account state where preserving that state is required and safe.
 
-Preserving data does **not** authorize reusing the code that previously displayed, manipulated, or executed against that data.
+Everything else is reference-only until revalidated.
+
+Preserving data does **not** authorize reusing the code, roadmap logic, assumptions, percentages, behaviors, or UI architecture that previously displayed, manipulated, or executed against that data.
+
+## Re-derivation rule
+
+For every V7 feature/control/screen:
+
+1. Start from James's newest explicit instruction.
+2. Apply the approved screenshot when that screen/visual exists.
+3. Apply current global/project safety and authorization rules.
+4. Verify current live data/external state where the feature depends on it.
+5. Independently define the V7 behavior in `COMMAND_CENTER_PRODUCT_ROADMAP.md`.
+6. Implement the behavior from scratch in the V7 runtime/backend.
+7. Verify the result end-to-end.
+
+If an old document conflicts at any step, the old document loses and must be corrected or classified obsolete so it cannot silently steer later work.
 
 ## New implementation boundary
 
@@ -61,13 +79,13 @@ The authoritative rebuild must be newly written and must own, from scratch:
 
 ## Agent-specific clean-room rule
 
-The old Agent UI and old Agent runner behavior are not accepted as working implementation merely because tables, RPCs, controls, or status records exist.
+The old Agent UI and old Agent runner behavior are not accepted as working implementation merely because tables, RPCs, controls, roadmap wording, or status records exist.
 
-The rebuilt Agent must be proven end-to-end for every visible control:
+The rebuilt Agent must be proven end-to-end for every visible execution control:
 
-**owner control → front-end handler → authenticated backend command → durable state transition → eligible runner/executor receives state → allowed work actually executes → evidence is recorded → UI reflects the verified result**
+**owner control → front-end handler → authenticated backend command → durable state transition → eligible runner/executor receives fresh state → allowed work actually executes → evidence is recorded → UI reflects the verified result**
 
-A control is not considered functional unless this entire chain is verified.
+Controls that are intentionally non-executing (for example Project Checkpoint and Refresh) must have their own direct V7 owner path and must not be routed through the background runner merely because an older roadmap did so.
 
 Required owner controls include at minimum:
 
@@ -78,26 +96,27 @@ Required owner controls include at minimum:
 5. Project Checkpoint
 6. Stop Agent
 
-Existing pause/resume, Work approval, exact-step Sol Medium approval, project scoping, Books target protection, duplicate-side-effect protection, retry/circuit-breaker rules, security gates, and $0/free-first restrictions remain functional requirements but must be newly implemented.
+Existing pause/resume, Work approval, exact-step Sol Medium approval, project scoping, Books target protection, duplicate-side-effect protection, retry/circuit-breaker rules, security gates, and $0/free-first restrictions remain product requirements only where they have been reconciled into the current V7 roadmap; their legacy implementations are not reusable.
 
 ## Legacy isolation
 
 During construction, the new implementation must live in a clearly isolated authoritative rebuild area and must not load legacy implementation files. When the new implementation reaches the cutover boundary, root startup/deployment files must be replaced so production loads only the new authoritative stack.
 
-Legacy files are then classified during the every-file audit as:
+Legacy files and documents are classified during the every-file audit as:
 
+- current authoritative V7
+- verified data/protected asset
 - reference only
 - obsolete/conflicting
-- protected asset/data
 - removable after verified cutover
 
-No legacy file may remain an active runtime dependency by accident.
+No legacy file or legacy requirement may remain an active runtime or planning dependency by accident.
 
 ## Verification rule
 
 Every phase is verified before the next phase is treated as complete. Final acceptance requires:
 
-- complete every-file audit
+- complete every-file audit, including roadmap/spec classification
 - complete visible-control audit
 - complete data-truth audit
 - complete Agent end-to-end control verification
