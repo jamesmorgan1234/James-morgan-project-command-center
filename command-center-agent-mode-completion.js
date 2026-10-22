@@ -20,7 +20,8 @@
     ['./command-center-approved-nav.js?v=2','commandCenterApprovedNav'],
     ['./command-center-work-boundary-mode.js?v=1','commandCenterWorkBoundaryMode'],
     ['./command-center-authoritative-runtime.js?v=1','commandCenterAuthoritativeRuntime'],
-    ['./command-center-agent-truth.js?v=1','commandCenterAgentTruth']
+    ['./command-center-agent-truth.js?v=1','commandCenterAgentTruth'],
+    ['./command-center-agent-auto-control.js?v=1','commandCenterAgentAutoControl']
   ];
   scripts.forEach(([src,key])=>{
     const selector=`script[data-${key.replace(/[A-Z]/g,m=>`-${m.toLowerCase()}`)}]`;
@@ -47,6 +48,7 @@
     window.COMMAND_CENTER_AGENT_MODE?.refreshBrain?.();
     window.COMMAND_CENTER_AGENT_RUNNER_STATUS?.refresh?.();
     window.COMMAND_CENTER_AGENT_DEVICE_GUIDANCE?.refresh?.();
+    window.COMMAND_CENTER_AGENT_AUTO_CONTROL?.refresh?.();
   }
   function schedule(){if(scheduled)return;scheduled=true;requestAnimationFrame(patch);}
   window.addEventListener('command-center:brain-open',schedule);
