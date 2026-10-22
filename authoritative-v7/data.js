@@ -154,7 +154,10 @@ export async function requestResume(ownerId, runId) {
 }
 
 export async function requestStop(ownerId, runId) {
-  return throwIf(await client.from('cc7_agent_runs').update({ stop_requested: true, updated_at: new Date().toISOString() }).eq('id', runId).eq('owner_id', ownerId).select('*').single());
+  const { data, error } = await client.rpc('cc7_agent_owner_stop_run', { p_run_id: runId });
+  if (error) throw error;
+  if (!data?.ok) throw new Error('V7 Agent stop did not verify.');
+  return data;
 }
 
 export async function resolveApproval(ownerId, approvalId, approved) {
