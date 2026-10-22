@@ -10,9 +10,12 @@ assert.match(source,/from\('project_sources'\)/,'Source Health must read exact p
 assert.match(source,/chat_title,required,direct_required,handoff_fallback_allowed,content_fallback_allowed/,'Source Health must load fallback metadata');
 assert.match(source,/Agent can recover/,'Source Health must identify Agent-recoverable checkpoints');
 assert.match(source,/Needs You/,'Source Health must identify genuine user-only gaps');
-assert.match(source,/Start Agent Mode on the affected project/,'Source Health must tell the user how to reconcile recoverable sources');
+assert.match(source,/Recover with Agent/,'Source Health must offer direct one-tap Agent recovery');
+assert.match(source,/command_center_agent_create_project_only_session/,'Source Health recovery must create a real project-locked Agent session');
+assert.match(source,/Agent is already working on this project/,'Source Health must avoid competing Agent runs on the same project');
 assert.match(sourceCss,/source-health-row\.can-recover/,'Recoverable sources need a distinct visual state');
 assert.match(sourceCss,/source-health-row\.needs-you/,'Needs-You sources need a distinct visual state');
+assert.match(sourceCss,/source-health-recover-btn\{[^}]*min-height:48px/s,'Recover control must use a phone-size touch target');
 
 assert.match(completion,/command-center-artwork-polish\.css\?v=1/,'Final completion layer must load artwork polish');
 assert.match(artCss,/\.stat-button\[data-view="all"\]/,'Projects home control needs dedicated artwork');
