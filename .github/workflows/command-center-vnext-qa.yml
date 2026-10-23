@@ -33,9 +33,27 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -R -E "\.\./(app|app-config|startup-loader|agent-repair|project-auto)\.js|authoritative-v7" src tests architecture
+          ! grep -R -E "\.\./(app|app-config|startup-loader|agent-repair|project-auto)\.js|authoritative-v7" src tests architecture web
       - name: Assert production root is not a VNext dependency
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -R -E "from ['\"]\.\./\.\./(app|app-config)\.js|from ['\"]\.\./\.\./authoritative-v7" src tests
+          ! grep -R -E "from ['\"]\.\./\.\./(app|app-config)\.js|from ['\"]\.\./\.\./authoritative-v7" src tests web
+      - name: Verify isolated private shell in headless Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd ..
+          python3 -m http.server 4175 >/tmp/cc-vnext-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 1
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "No headless Chrome/Chromium available on runner"
+            exit 1
+          fi
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --virtual-time-budget=5000 --dump-dom "http://127.0.0.1:4175/rebuild-vnext/web/" >/tmp/cc-vnext-dom.html 2>/tmp/cc-vnext-chrome.log
+          grep -Fq 'Secure owner sign in' /tmp/cc-vnext-dom.html
+          grep -Fq 'data-runtime="vnext-cleanroom"' /tmp/cc-vnext-dom.html
+          ! grep -Eiq 'Missing Hour|Morgancommerce|VeloClip|credit score|verified revenue' /tmp/cc-vnext-dom.html

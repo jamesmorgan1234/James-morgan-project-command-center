@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050505">
+  <meta name="color-scheme" content="dark">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Command Center VNext</title>
+</head>
+<body>
+  <main id="cc-shell" class="cc-shell" data-runtime="vnext-cleanroom">
+    <section class="cc-auth" aria-labelledby="cc-title">
+      <div class="cc-planet" aria-hidden="true"></div>
+      <div class="cc-brand-mark" aria-hidden="true"><span></span></div>
+      <p class="cc-kicker">PRIVATE OWNER SYSTEM</p>
+      <h1 id="cc-title">COMMAND CENTER</h1>
+      <p class="cc-subtitle">Secure owner sign in</p>
+      <div class="cc-rule" aria-hidden="true"></div>
+      <div class="cc-status" role="status" aria-live="polite">
+        <span class="cc-status-dot"></span>
+        <span id="cc-status-text">Private shell ready</span>
+      </div>
+      <button id="cc-sign-in" class="cc-primary" type="button" disabled aria-disabled="true">
+        IDENTITY PROVIDER NOT CONNECTED
+      </button>
+      <p class="cc-safe-note">No project, book, financial, Agent, Brain, or provider data is exposed while signed out.</p>
+    </section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

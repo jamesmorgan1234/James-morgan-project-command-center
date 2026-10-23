@@ -16,6 +16,7 @@ import { RecordStore } from './data/record-store.js';
 import { AssetRegistry } from './data/assets.js';
 import { CommandGraph } from './graph/command-graph.js';
 import { ProviderRegistry } from './providers/provider-registry.js';
+import { ClientShellState } from './client/shell.js';
 
 let runtimeSingleton = null;
 
@@ -37,6 +38,7 @@ export function createKernelRuntime() {
   const assets = new AssetRegistry();
   const graph = new CommandGraph();
   const providers = new ProviderRegistry();
+  const clientShell = new ClientShellState();
 
   events.define('command.verified', event => {
     if (!event.requestId || !event.commandType) throw new TypeError('verified command event requires requestId and commandType');
@@ -47,7 +49,7 @@ export function createKernelRuntime() {
   const bootstrap = new ApplicationBootstrap(modules);
   const security = new SecurityGate({ sessions, authorizations, protectedActions, audit: securityAudit });
 
-  return Object.freeze({ authority, invariants, requirements, modules, capabilities, routes, events, commands, router, bootstrap, sessions, permissions, authorizations, protectedActions, secrets, securityAudit, security, records, assets, graph, providers });
+  return Object.freeze({ authority, invariants, requirements, modules, capabilities, routes, events, commands, router, bootstrap, sessions, permissions, authorizations, protectedActions, secrets, securityAudit, security, records, assets, graph, providers, clientShell });
 }
 
 export function getApplicationRuntime() {

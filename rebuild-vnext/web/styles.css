@@ -1,0 +1,97 @@
+:root {
+  color-scheme: dark;
+  --cc-bg: #050505;
+  --cc-panel: rgba(9, 10, 12, 0.94);
+  --cc-panel-2: rgba(15, 16, 18, 0.82);
+  --cc-gold: #ff9f1a;
+  --cc-gold-hot: #ffc255;
+  --cc-gold-dim: #7f4713;
+  --cc-text: #f7f5ef;
+  --cc-muted: #91a0b3;
+  --cc-green: #61d88a;
+  --cc-cyan: #5bc7e7;
+  --cc-red: #ff5d64;
+  --cc-radius-clip: 14px;
+  --cc-gutter: 14px;
+  --cc-glow: 0 0 8px rgba(255,159,26,.72), 0 0 22px rgba(255,132,0,.22);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--cc-bg); color: var(--cc-text); }
+body { min-width: 0; overflow-x: hidden; overflow-y: auto; }
+button, input, select, textarea { font: inherit; }
+.cc-shell {
+  position: relative;
+  min-height: 100dvh;
+  width: min(100%, 520px);
+  margin: 0 auto;
+  padding: max(18px, env(safe-area-inset-top)) var(--cc-gutter) max(22px, env(safe-area-inset-bottom));
+  overflow: clip visible;
+  background:
+    radial-gradient(circle at 88% 10%, rgba(255,132,0,.12), transparent 24%),
+    linear-gradient(180deg, #050505 0%, #08090b 52%, #050505 100%);
+}
+.cc-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image:
+    linear-gradient(rgba(255,159,26,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,159,26,.055) 1px, transparent 1px);
+  background-size: 36px 36px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,.7), transparent 72%);
+}
+.cc-auth {
+  position: relative;
+  margin-top: clamp(88px, 21dvh, 180px);
+  padding: 28px 20px 22px;
+  clip-path: polygon(14px 0, calc(100% - 32px) 0, 100% 28px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 28px 100%, 0 calc(100% - 28px), 0 14px);
+  border: 1px solid rgba(255,159,26,.82);
+  background: linear-gradient(135deg, rgba(15,16,18,.96), rgba(4,5,6,.9));
+  box-shadow: var(--cc-glow), inset 0 0 28px rgba(255,132,0,.06);
+}
+.cc-auth::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  pointer-events: none;
+  clip-path: inherit;
+  border: 1px solid rgba(255,194,85,.2);
+}
+.cc-planet {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -38px;
+  top: -76px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,159,26,.7);
+  background: radial-gradient(circle at 34% 30%, rgba(255,214,135,.92), rgba(255,130,0,.48) 22%, rgba(45,18,2,.5) 55%, rgba(0,0,0,0) 68%);
+  box-shadow: 0 0 34px rgba(255,132,0,.34);
+  opacity: .88;
+}
+.cc-brand-mark {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  clip-path: polygon(28% 0,72% 0,100% 28%,100% 72%,72% 100%,28% 100%,0 72%,0 28%);
+  border: 1px solid var(--cc-gold-hot);
+  background: radial-gradient(circle, rgba(255,184,65,.22), rgba(0,0,0,.9) 62%);
+  box-shadow: var(--cc-glow);
+}
+.cc-brand-mark span { width: 18px; height: 18px; border: 2px solid var(--cc-gold); transform: rotate(45deg); box-shadow: var(--cc-glow); }
+.cc-kicker { margin: 0 0 5px; color: var(--cc-gold); font-size: .72rem; font-weight: 800; letter-spacing: .18em; }
+h1 { margin: 0; font-size: clamp(2rem, 10vw, 3rem); line-height: .95; letter-spacing: .035em; text-shadow: 0 0 14px rgba(255,159,26,.23); }
+.cc-subtitle { margin: 8px 0 0; color: var(--cc-muted); font-size: .94rem; }
+.cc-rule { height: 1px; margin: 20px 0; background: linear-gradient(90deg, var(--cc-gold-hot), rgba(255,159,26,.1), transparent); box-shadow: var(--cc-glow); }
+.cc-status { display: flex; align-items: center; gap: 9px; color: var(--cc-muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+.cc-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--cc-green); box-shadow: 0 0 10px rgba(97,216,138,.7); }
+.cc-primary { width: 100%; min-height: 48px; margin-top: 18px; border: 1px solid var(--cc-gold-dim); color: #8e7a60; background: rgba(255,159,26,.035); clip-path: polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px); letter-spacing: .08em; font-size: .72rem; font-weight: 800; }
+.cc-primary:disabled { cursor: not-allowed; opacity: .82; }
+.cc-safe-note { margin: 14px 0 0; color: #6f7b89; font-size: .72rem; line-height: 1.5; }
+@media (min-width: 720px) { .cc-shell { width: min(100%, 640px); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
