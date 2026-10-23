@@ -8,6 +8,7 @@ const css=await readFile(new URL('./refinement.css',import.meta.url),'utf8');
 const rootHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
 const isolatedHtml=await readFile(new URL('./index.html',import.meta.url),'utf8');
 const visualFixture=await readFile(new URL('./visual-fixture.html',import.meta.url),'utf8');
+const visualFixtureJs=await readFile(new URL('./visual-fixture.js',import.meta.url),'utf8');
 const rootSw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
 const isolatedSw=await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
 const roadmap=await readFile(new URL('../COMMAND_CENTER_PRODUCT_ROADMAP.md',import.meta.url),'utf8');
@@ -59,15 +60,22 @@ test('manual Work retry is bounded to approved Luna High and Sol Light rungs',()
   assert.match(js,/reconcile downstream state/);
 });
 
-test('approved Missing Hour atlas is unobstructed and uses locked slots 23 through 27',()=>{
+test('approved Missing Hour atlas is truly unobstructed and uses locked slots 23 through 27',()=>{
   assert.match(css,/book-cover-atlas-v2\.webp/);
   for(const position of ['57.5%','60%','62.5%','65%','67.5%'])assert.ok(css.includes(position),`missing atlas position ${position}`);
+  assert.match(css,/\.cc-covers \.cc-book \.cc-cover:before,\.cc-covers \.cc-book \.cc-cover:after\{display:none!important;content:none!important\}/);
   assert.match(css,/\.cc-book-num\{display:none!important\}/);
   for(let i=1;i<=5;i++)assert.ok(css.includes(`content:'BOOK ${i}'`),`missing external BOOK ${i} label`);
 });
 
-test('visual QA fixture loads the same refinement styling used by the app',()=>{
+test('visual QA fixture uses exact Missing Hour titles and the same refinement styling',()=>{
   assert.match(visualFixture,/refinement\.css\?v=1/);
+  for(const title of ['The Unlived Hour','The Dead Between Minutes','The House Outside Time','What the Town Forgot','The Hour That Remains']){
+    assert.ok(visualFixtureJs.includes(title),`visual fixture missing exact approved title: ${title}`);
+  }
+  for(const stale of ['The Echo Reckoning','The Fractured Tomorrow','The Last Convergence','The Infinite Return']){
+    assert.equal(visualFixtureJs.includes(stale),false,`stale sample title remains: ${stale}`);
+  }
 });
 
 test('authoritative roadmap matches the locked two-mode and Work-ladder contract',()=>{
