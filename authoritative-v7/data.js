@@ -1,4 +1,4 @@
-import { createClient } from './supabase-loader.js?v=1';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm';
 import { CONFIG } from './config.js';
 
 export const client = createClient(CONFIG.supabaseUrl, CONFIG.supabasePublishableKey, {

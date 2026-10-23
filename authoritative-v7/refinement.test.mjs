@@ -104,12 +104,16 @@ test('new owner RPCs are not granted to anonymous callers',()=>{
   }
 });
 
-test('service workers cache refinement, startup recovery, final phone repair, and approved atlas with new generations',()=>{
-  assert.match(rootSw,/command-center-v7-root-9/);
-  assert.match(isolatedSw,/command-center-v7-clean-13/);
-  for(const asset of ['refinement.css?v=1','refinement.js?v=1','home-books-refinement.css?v=1','home-books-refinement.js?v=2','phone-layout-cover-fix.js?v=1','startup-recovery.js?v=1','supabase-loader.js?v=1','book-cover-atlas-v2.webp']){
+test('service workers cache refinement, final phone repair, and approved atlas with restored startup generations',()=>{
+  assert.match(rootSw,/command-center-v7-root-10/);
+  assert.match(isolatedSw,/command-center-v7-clean-14/);
+  for(const asset of ['refinement.css?v=1','refinement.js?v=1','home-books-refinement.css?v=1','home-books-refinement.js?v=2','phone-layout-cover-fix.js?v=1','book-cover-atlas-v2.webp']){
     assert.ok(rootSw.includes(asset),`root service worker missing ${asset}`);
     assert.ok(isolatedSw.includes(asset),`isolated service worker missing ${asset}`);
+  }
+  for(const removed of ['startup-recovery.js?v=1','supabase-loader.js?v=1']){
+    assert.equal(rootSw.includes(removed),false,`root service worker still caches ${removed}`);
+    assert.equal(isolatedSw.includes(removed),false,`isolated service worker still caches ${removed}`);
   }
   for(const asset of ['book-ui-fixes.css?v=1','book-ui-fixes.js?v=1','publication-truth.js','agent-execution.js']){
     assert.ok(rootSw.includes(asset),`root service worker missing ${asset}`);
