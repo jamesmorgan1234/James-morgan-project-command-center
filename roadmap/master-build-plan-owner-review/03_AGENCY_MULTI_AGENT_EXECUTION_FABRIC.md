@@ -4,23 +4,26 @@ Status: **OWNER-DIRECTED ROADMAP ADDITION — RECONCILIATION REQUIRED BEFORE SPE
 
 Owner naming: **The Agency**
 
-## Critical clean-room rule
+## Absolute clean-room implementation rule
 
-Recovered Agent requirements, historical files, old runner code, queue code, scheduler code, database tables, claims, leases, heartbeats, retries, circuit breakers, dead-letter handling, checkpoints, or other legacy implementation artifacts are **not trusted implementation**.
+Recovered Agent requirements, historical files, old runner code, queue code, scheduler code, database tables, claims, leases, heartbeats, retries, circuit breakers, dead-letter handling, checkpoints, or other legacy implementation artifacts are **not trusted implementation and are not reusable implementation**.
 
-They may prove that an idea, control, requirement, failure mode, or owner expectation existed. They do **not** prove the old implementation worked correctly.
+They may prove that an idea, control, requirement, failure mode, or owner expectation existed. They do **not** prove the old implementation worked correctly, and they do not authorize carrying its implementation forward.
 
-The prior Command Center build repeatedly failed and its Agent architecture was not sufficiently proven. Therefore:
+The prior Command Center build repeatedly failed and became increasingly fragile as new capabilities were layered onto architecture that was not designed for them. Therefore:
 
 - recovered requirements may be reconciled into the new specification;
-- recovered code may be inspected only as evidence/reference;
-- no legacy Agent implementation becomes the Agency foundation by default;
+- recovered code may be inspected only as historical/reference evidence of behavior, failures, or missing requirements;
+- **no legacy Command Center Agent/Agency implementation code is reused in the authoritative rebuild**;
 - every Agency behavior is independently re-derived from the current roadmap and owner rules;
-- every Agency subsystem is newly implemented inside the authoritative rebuild architecture unless a specific component is separately proven, accepted, and safe to reuse;
+- every Agency subsystem is newly designed and newly implemented inside the authoritative rebuild architecture;
+- old Agent runtime/database state is not imported as proof of execution or completion;
+- verified owner/project/business/book data and approved/protected assets may be preserved from their authoritative sources, but the old software mechanisms that stored, displayed, scheduled, or acted on them are not reused;
 - no old database table, RPC, workflow, runner, queue, scheduler, lease, heartbeat, lock, retry loop, or status field is accepted as correct merely because it exists;
-- Category 15 must prove the final Agency end-to-end under concurrency, crash, stale-worker, resource-collision, provider-failure, authorization, and recovery tests.
+- extensibility is a correctness requirement: adding/removing a project type, worker type, provider, model, device, business, specialist department, or future capability must not require unrelated core-system surgery;
+- Category 15 must prove the final Agency end-to-end under concurrency, crash, stale-worker, resource-collision, provider-failure, authorization, scale, extensibility, replacement, and recovery tests.
 
-**Recovered scope is evidence. New implementation requires proof.**
+**Recovered scope is evidence. Protected/verified data may be preserved. Legacy implementation is not recycled. New implementation requires proof.**
 
 ## Owner directive
 
@@ -32,7 +35,7 @@ The number of workers is **not a product constant**. Logical Agency capacity mus
 
 Historical requirements already anticipated cooperating agents, planner/executor/reviewer/security/finance/books/commerce/social/personal/deployment/research/QA agents, hierarchy, delegation, peer review, disagreement resolution, sandboxes, resource/time/financial budgets, provider quotas, workload scheduling, performance scoring, and capability evolution.
 
-Those concepts are now promoted into the Agency architecture where technically buildable. Existing recovered reliability concepts such as durable jobs, claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, crash recovery, evidence, checkpoints, project locks, and protected-action gates are treated as **requirements to rebuild and prove**, not legacy machinery to trust.
+Those concepts are now promoted into the Agency architecture where technically buildable. Existing recovered reliability concepts such as durable jobs, claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, crash recovery, evidence, checkpoints, project locks, and protected-action gates are treated as **requirements to redesign, rebuild, and prove from scratch**, not legacy machinery to trust or reuse.
 
 ## Agency operating model
 
@@ -48,12 +51,12 @@ These are the Agency controls that must be explicit in the build. Some promote o
 
 ### A. Clean-room reconstruction and proof — 6
 
-1. **No legacy Agent implementation authority.** Historical Agent code, runners, queues, workflows, tables, RPCs, UI controls, schedulers, and state machines are reference-only unless independently revalidated.
-2. **Behavior-first re-derivation.** Every Agency feature starts from owner rules, current roadmap, security policy, project boundaries, and required observable behavior before implementation details are chosen.
-3. **Fresh implementation contracts.** Scheduler, worker, job, claim, lease, heartbeat, lock, context, evidence, verifier, and integration contracts are specified independently of legacy schemas.
-4. **Fault-injection proof requirement.** Agency completion requires controlled crashes, stale workers, duplicate delivery, conflicting writes, lost heartbeats, retries, provider failures, partial handoffs, and recovery tests—not happy-path demos.
-5. **Legacy-schema migration quarantine.** Old Agent data may be imported only through explicit migration/reconciliation logic that validates meaning and never assumes old status rows are truthful execution evidence.
-6. **No feature accepted because a table/control exists.** A visible button, database row, scheduled workflow, heartbeat row, or queue item never proves an execution path works end-to-end.
+1. **Zero legacy implementation reuse.** Historical Agent code, runners, queues, workflows, tables, RPCs, UI controls, schedulers, state machines, schemas, and runtime patterns are reference-only evidence and are not reused as Agency implementation.
+2. **Behavior-first re-derivation.** Every Agency feature starts from owner rules, current roadmap, security policy, project boundaries, required observable behavior, failure modes, and future extensibility before implementation details are chosen.
+3. **Fresh implementation contracts.** Scheduler, worker, job, claim, lease, heartbeat, lock, context, evidence, verifier, integration, recovery, and extension contracts are specified independently of legacy schemas and code.
+4. **Fault-injection proof requirement.** Agency completion requires controlled crashes, stale workers, duplicate delivery, conflicting writes, lost heartbeats, retries, provider failures, partial handoffs, scale, replacement, and recovery tests—not happy-path demos.
+5. **Legacy runtime-state quarantine.** Old Agent runtime state may be inspected for historical evidence only; it is not migrated as trusted execution/completion state. Current project/business/book truth must come from independently verified authoritative sources.
+6. **No feature accepted because a table/control exists.** A visible button, database row, scheduled workflow, heartbeat row, queue item, passing unit test, or old deployment never proves an execution path works end-to-end.
 
 ### B. Identity, roles, and control plane — 6
 
@@ -102,7 +105,7 @@ These are the Agency controls that must be explicit in the build. Some promote o
 
 ### G. Reliability, messaging, and recovery — 6
 
-37. **Heartbeat and stale-worker reclaim.** Newly implemented lease/heartbeat behavior applies across all Agency worker types and pools and is independently tested.
+37. **Heartbeat and stale-worker reclaim.** Newly designed and newly implemented lease/heartbeat behavior applies across all Agency worker types and pools and is independently fault-tested.
 38. **Bounded retry and multi-level circuit breaking.** Retry policy can operate by task, capability, provider, project, department, and Agency-wide failure domains.
 39. **Dead-letter and poison-job quarantine.** Repeatedly failing/corrupt/malicious jobs are isolated so they cannot consume the whole Agency or create infinite retry loops.
 40. **Transactional outbox/inbox for durable cross-worker events.** Important messages and state transitions survive crashes without duplicated or lost delivery.
@@ -217,12 +220,14 @@ The Agency is not production-complete merely because multiple workers can run. C
 - canary/shadow Agency upgrade rollback works;
 - exact worker/context/artifact/evidence lineage is reconstructable;
 - recovery from interruption resumes earliest unfinished/unverified work;
+- adding a new project type, worker class, provider, model, or specialist capability through its registry/adapter contract does not require unrelated core rewrites;
+- removal/replacement of one registered worker/provider/capability does not break unrelated Agency functions;
 - owner sees truthful Agency state throughout.
 
 ## Roadmap reconciliation consequence
 
-The previous **147-phase** roadmap is now superseded as a final phase-count target. Do not preserve 147 merely for convenience. Category 7 and cross-cutting Categories 1, 2, 3, 5, 6, 8, 13, 14, and 15 must be expanded/reconciled as needed to give the Agency proper implementation and test phases.
+The previous **147-phase** roadmap is now superseded as a final phase-count target. Do not preserve 147 merely for convenience. Category 7 and cross-cutting Categories 1, 2, 3, 5, 6, 8, 13, 14, and 15 must be expanded/reconciled as needed to give the Agency proper clean-room implementation, extensibility, and test phases.
 
 The corrected 5,825 canonical baseline also remains subject to owner-review reconciliation: existing requirements should be reclassified/promoted where they already cover Agency capability; genuinely new owner requirements receive new canonical IDs only after duplicate/lineage analysis.
 
-**Quality and architectural completeness control the final counts—not a historical number.**
+**Quality, clean-room construction, extensibility, and architectural completeness control the final counts—not a historical number.**
