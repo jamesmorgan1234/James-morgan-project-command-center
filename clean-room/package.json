@@ -10,7 +10,9 @@
     "build:browser": "node scripts/build-browser.mjs",
     "build": "npm run build:modules && npm run build:browser",
     "check:legacy": "node scripts/check-no-legacy-imports.mjs",
-    "test": "npm run check:legacy && npm run build && node --test tests/*.test.mjs"
+    "audit:repository": "node scripts/category15-repository-audit.mjs",
+    "audit:repository:write": "node scripts/category15-repository-audit.mjs --write",
+    "test": "npm run check:legacy && npm run audit:repository && npm run build && node --test tests/*.test.mjs"
   },
   "devDependencies": {"typescript": "^5.8.3"}
 }
