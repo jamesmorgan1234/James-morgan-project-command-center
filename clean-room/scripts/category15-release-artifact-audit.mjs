@@ -8,7 +8,7 @@ const ROOT = resolve(HERE, "..");
 const OUT = join(ROOT, "dist-web");
 const REQUIRE_PROTECTED_ASSETS = process.argv.includes("--require-protected-assets");
 const APPROVED_ICON_PATH = "/assets/command-center-approved-icon-512.png";
-const APPROVED_ICON_SHA256 = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157";
+const APPROVED_ICON_SHA256 = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa";
 const secretPattern = /(sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|xoxb-[A-Za-z0-9-]{12,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)/g;
 const textExts = new Set([".js", ".mjs", ".cjs", ".json", ".html", ".css", ".webmanifest", ".txt"]);
 

@@ -39,7 +39,8 @@ The protected Command Center 512px icon is reused byte-for-byte from the verifie
 
 - recovery commit: `eeb71f514533658e058b0c62425d8f4e6ce9c62b`
 - Git blob: `ce968095916d5eb8dde0693ddc8f7e8e4eb7c44f`
-- required SHA-256: `fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157`
+- verified SHA-256 of those exact bytes: `fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa`
+- historical metadata had stored only the first 60 hex characters (`…3157`); the protected bytes themselves were not changed.
 
 No redraw, regeneration, recoloring, substitution or "improvement" is permitted.
 
