@@ -1,0 +1,29 @@
+/* Owner refinements: fill mobile Home screen and make book publication gates visually distinct. */
+.cc-status.agent-review{color:#ffb21b}
+.cc-status.owner-review{color:#15aefb}
+.cc-status.publishing{color:#ffd11a}
+.cc-status.needs-publishing{color:#ffb21b}
+
+@media(max-width:520px){
+  .cc-agent-mode-card,.cc-home-card,.cc-module{
+    height:86px!important;
+    min-height:86px!important;
+    max-height:86px!important;
+  }
+  .cc-module{
+    padding:9px!important;
+    grid-template-columns:32px minmax(0,1fr) 17px!important;
+    gap:6px!important;
+  }
+  .cc-module .cc-mini-icon{width:31px!important;height:31px!important}
+  .cc-module strong{font-size:.76rem!important;line-height:1.04!important}
+  .cc-module .cc-desc{font-size:.55rem!important;line-height:1.1!important;margin-top:3px!important}
+  .cc-module .cc-chevron{font-size:24px!important}
+  .cc-agent-mode-card{padding:9px!important}
+  .cc-agent-mode-card h2{font-size:.9rem!important}
+  .cc-agent-mode-card .cc-mode-state{font-size:.58rem!important;margin-top:3px!important}
+  .cc-agent-mode-card small{font-size:.5rem!important;margin-top:3px!important;line-height:1.14!important}
+  .cc-home-card{padding:10px!important}
+  .cc-home-card h2{font-size:.98rem!important}
+  .cc-home-card p{font-size:.62rem!important;margin-top:4px!important}
+}
