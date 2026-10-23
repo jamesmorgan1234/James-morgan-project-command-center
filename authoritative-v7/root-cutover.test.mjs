@@ -18,20 +18,13 @@ const forbiddenRootRuntime=[
 
 test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/data-command-center-runtime="v7-clean"/);
-  assert.match(rootHtml,/\.\/manifest\.webmanifest\?v=12/);
   assert.match(rootHtml,/\.\/authoritative-v7\/interaction-feedback\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/app\.js\?v=4/);
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.css\?v=1/);
-  assert.match(rootHtml,/\.\/authoritative-v7\/book-ui-fixes\.js\?v=1/);
-  assert.match(rootHtml,/\.\/authoritative-v7\/book-ui-fixes\.css\?v=1/);
-  assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.js\?v=2/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.css\?v=1/);
-  assert.match(rootHtml,/\.\/authoritative-v7\/phone-layout-cover-fix\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/root-pwa\.js\?v=1/);
-  assert.doesNotMatch(rootHtml,/type="importmap"/);
-  assert.doesNotMatch(rootHtml,/cc7-startup-inline-recovery-v2/);
-  assert.ok(rootHtml.indexOf('home-books-refinement.js?v=2')<rootHtml.indexOf('phone-layout-cover-fix.js?v=1'));
   for(const ref of forbiddenRootRuntime)assert.equal(rootHtml.includes(ref),false,`legacy root runtime reference found: ${ref}`);
 });
 
@@ -40,9 +33,6 @@ test('V7 shells honor the HTML hidden state over component display rules',()=>{
     assert.match(html,/\[hidden\]\{display:none!important\}/);
     assert.match(html,/id="ccBoot" class="cc-boot"/);
     assert.match(html,/id="ccApp" class="cc-app" hidden/);
-    assert.doesNotMatch(html,/cc7-startup-inline-recovery-v2/);
-    assert.doesNotMatch(html,/Recovering Command Center…/);
-    assert.doesNotMatch(html,/type="importmap"/);
   }
 });
 
@@ -59,8 +49,7 @@ test('root manifest is clean standalone V7 identity',()=>{
 });
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
-  assert.match(rootSw,/command-center-v7-root-10/);
-  assert.match(rootSw,/\.\/manifest\.webmanifest\?v=12/);
+  assert.match(rootSw,/command-center-v7-root-4/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);
@@ -69,13 +58,8 @@ test('root service worker takes over old caches and caches only V7 runtime',()=>
     './authoritative-v7/app.js?v=4',
     './authoritative-v7/refinement.js?v=1',
     './authoritative-v7/refinement.css?v=1',
-    './authoritative-v7/book-ui-fixes.js?v=1',
-    './authoritative-v7/book-ui-fixes.css?v=1',
-    './authoritative-v7/publication-truth.js',
-    './authoritative-v7/agent-execution.js',
-    './authoritative-v7/home-books-refinement.js?v=2',
+    './authoritative-v7/home-books-refinement.js?v=1',
     './authoritative-v7/home-books-refinement.css?v=1',
-    './authoritative-v7/phone-layout-cover-fix.js?v=1',
     './authoritative-v7/data.js',
     './authoritative-v7/control-modules.js',
     './authoritative-v7/overview-screens.js',
@@ -83,7 +67,7 @@ test('root service worker takes over old caches and caches only V7 runtime',()=>
     './authoritative-v7/offline.html',
     './authoritative-v7/assets/book-cover-atlas-v2.webp'
   ])assert.ok(rootSw.includes(asset),`missing root V7 cache asset: ${asset}`);
-  for(const ref of ['app-config.js','startup-loader.js','command-center-v4.js','command-center-v6.js','command-center-agent-mode.js','startup-recovery.js','supabase-loader.js'])assert.equal(rootSw.includes(ref),false,`unexpected asset cached by root V7 service worker: ${ref}`);
+  for(const ref of ['app-config.js','startup-loader.js','command-center-v4.js','command-center-v6.js','command-center-agent-mode.js'])assert.equal(rootSw.includes(ref),false,`legacy asset cached by root V7 service worker: ${ref}`);
 });
 
 test('root PWA owns root-scoped worker and manual scroll restoration',()=>{

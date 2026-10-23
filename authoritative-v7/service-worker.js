@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-clean-14';
+const CACHE='command-center-v7-clean-9';
 const CORE=[
   './index.html',
   './theme.css?v=4',
@@ -8,8 +8,7 @@ const CORE=[
   './home-books-refinement.css?v=1',
   './app.js?v=4',
   './refinement.js?v=1',
-  './home-books-refinement.js?v=2',
-  './phone-layout-cover-fix.js?v=1',
+  './home-books-refinement.js?v=1',
   './data.js',
   './config.js',
   './control-modules.js',

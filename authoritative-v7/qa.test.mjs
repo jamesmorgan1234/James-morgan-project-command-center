@@ -146,7 +146,6 @@ test('clean client uses cc7 data, modules, checkpoints, and Agent tables',()=>{
     'cc7_deployment_releases','cc7_deployment_checks','cc7_deployment_rollbacks',
     'cc7_agent_controls','cc7_agent_runs','cc7_agent_tasks','cc7_agent_events','cc7_agent_approvals','cc7_agent_checkpoints','cc7_agent_runner_heartbeat'
   ])assert.ok(files.data.includes(table),`missing clean data dependency: ${table}`);
-  assert.match(files.data,/https:\/\/cdn\.jsdelivr\.net\/npm\/@supabase\/supabase-js@2\.118\.0\/\+esm/);
 });
 
 test('all six control modules have real clean renderers',()=>{
@@ -183,14 +182,11 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.equal(manifest.scope,'./');
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.theme_color,'#000000');
-  assert.equal(manifest.start_url,'./index.html');
   assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.src.includes('command-center-approved-icon-512.png')));
-  assert.match(files.html,/\.\/manifest\.webmanifest\?v=5/);
+  assert.match(files.html,/\.\/manifest\.webmanifest\?v=4/);
   assert.match(files.html,/\.\/pwa\.js\?v=4/);
-  assert.doesNotMatch(files.html,/type="importmap"/);
-  assert.doesNotMatch(files.html,/cc7-startup-inline-recovery-v2/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-14/);
+  assert.match(files.sw,/command-center-v7-clean-9/);
   assert.match(files.sw,/\.\/overview-screens\.js/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });

@@ -3,11 +3,9 @@ name: Command Center V7 Clean Room QA
 on:
   push:
     branches:
-      - main
       - rebuild/command-center-authoritative-v7
       - refine/global-refresh-and-approved-covers
       - refine/all-books-and-home-card-uniformity
-      - fix/v7-phone-home-and-book-covers-final
     paths:
       - 'index.html'
       - 'manifest.webmanifest'
@@ -53,10 +51,6 @@ jobs:
           node --check authoritative-v7/app.js
           node --check authoritative-v7/refinement.js
           node --check authoritative-v7/home-books-refinement.js
-          node --check authoritative-v7/phone-layout-cover-fix.js
-          node --check authoritative-v7/book-ui-fixes.js
-          node --check authoritative-v7/publication-truth.js
-          node --check authoritative-v7/agent-execution.js
           node --check authoritative-v7/data.js
           node --check authoritative-v7/config.js
           node --check authoritative-v7/control-modules.js
@@ -72,7 +66,6 @@ jobs:
           node --check authoritative-v7/root-cutover.test.mjs
           node --check authoritative-v7/refinement.test.mjs
           node --check authoritative-v7/home-books-refinement.test.mjs
-          node --check authoritative-v7/book-ui-fixes.test.mjs
 
       - name: Run clean-room tests
         run: |
@@ -80,28 +73,21 @@ jobs:
           node --test authoritative-v7/root-cutover.test.mjs
           node --test authoritative-v7/refinement.test.mjs
           node --test authoritative-v7/home-books-refinement.test.mjs
-          node --test authoritative-v7/book-ui-fixes.test.mjs
 
       - name: Verify isolated construction entrypoint
         shell: bash
         run: |
           set -euo pipefail
-          for asset in theme.css layout.css artwork.css app.js pwa.js; do
-            grep -Fq "./${asset}?v=4" authoritative-v7/index.html
+          GEN="$(sed -nE 's|.*\./app\.js\?v=([0-9]+).*|\1|p' authoritative-v7/index.html | head -n1)"
+          test -n "$GEN"
+          for asset in manifest.webmanifest theme.css layout.css artwork.css app.js pwa.js; do
+            grep -Fq "./${asset}?v=${GEN}" authoritative-v7/index.html
           done
-          grep -Fq './manifest.webmanifest?v=5' authoritative-v7/index.html
           grep -Fq './refinement.css?v=1' authoritative-v7/index.html
           grep -Fq './refinement.js?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.css?v=1' authoritative-v7/index.html
-          grep -Fq './home-books-refinement.js?v=2' authoritative-v7/index.html
-          grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/index.html
-          ! grep -Fq 'cc7-startup-inline-recovery-v2' authoritative-v7/index.html
-          ! grep -Fq 'type="importmap"' authoritative-v7/index.html
-          grep -Fq "import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm';" authoritative-v7/data.js
-          grep -Fq "const CACHE='command-center-v7-clean-14'" authoritative-v7/service-worker.js
-          grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/service-worker.js
-          ! grep -Fq './startup-recovery.js?v=1' authoritative-v7/service-worker.js
-          ! grep -Fq './supabase-loader.js?v=1' authoritative-v7/service-worker.js
+          grep -Fq './home-books-refinement.js?v=1' authoritative-v7/index.html
+          grep -Fq "const CACHE='command-center-v7-clean-9'" authoritative-v7/service-worker.js
           ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
@@ -111,34 +97,21 @@ jobs:
         run: |
           set -euo pipefail
           grep -Fq 'data-command-center-runtime="v7-clean"' index.html
-          grep -Fq './manifest.webmanifest?v=12' index.html
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' index.html
           grep -Fq './authoritative-v7/app.js?v=4' index.html
           grep -Fq './authoritative-v7/refinement.js?v=1' index.html
           grep -Fq './authoritative-v7/refinement.css?v=1' index.html
-          grep -Fq './authoritative-v7/book-ui-fixes.js?v=1' index.html
-          grep -Fq './authoritative-v7/book-ui-fixes.css?v=1' index.html
-          grep -Fq './authoritative-v7/home-books-refinement.js?v=2' index.html
+          grep -Fq './authoritative-v7/home-books-refinement.js?v=1' index.html
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' index.html
-          grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' index.html
           grep -Fq './authoritative-v7/root-pwa.js?v=1' index.html
-          ! grep -Fq 'cc7-startup-inline-recovery-v2' index.html
-          ! grep -Fq 'type="importmap"' index.html
           ! grep -Eiq 'app-config\.js|startup-loader\.js|command-center-v[456]|command-center-approved-ui|command-center-approved-nav|command-center-authoritative-runtime' index.html
-          grep -Fq "const CACHE='command-center-v7-root-10'" service-worker.js
+          grep -Fq "const CACHE='command-center-v7-root-4'" service-worker.js
           grep -Fq "key.startsWith('james-command-center-')" service-worker.js
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/refinement.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/refinement.css?v=1' service-worker.js
-          grep -Fq './authoritative-v7/book-ui-fixes.js?v=1' service-worker.js
-          grep -Fq './authoritative-v7/book-ui-fixes.css?v=1' service-worker.js
-          grep -Fq './authoritative-v7/publication-truth.js' service-worker.js
-          grep -Fq './authoritative-v7/agent-execution.js' service-worker.js
-          grep -Fq './authoritative-v7/home-books-refinement.js?v=2' service-worker.js
+          grep -Fq './authoritative-v7/home-books-refinement.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' service-worker.js
-          grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' service-worker.js
-          ! grep -Fq './authoritative-v7/startup-recovery.js?v=1' service-worker.js
-          ! grep -Fq './authoritative-v7/supabase-loader.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/assets/book-cover-atlas-v2.webp' service-worker.js
 
       - name: Audit every repository file
@@ -175,34 +148,20 @@ jobs:
             --disable-gpu \
             --hide-scrollbars \
             --force-device-scale-factor=2 \
-            --window-size=360,768 \
+            --window-size=432,768 \
             --screenshot="visual-output/home.png" \
             "http://127.0.0.1:4173/authoritative-v7/home-visual-fixture.html"
           python3 - <<'PY'
           import struct
           from pathlib import Path
-          expected={
-              'home.png':(720,1536),
-              'projects.png':(864,1536),
-              'active.png':(864,1536),
-              'next.png':(864,1536),
-              'detail.png':(864,1536),
-          }
-          found=set()
           for path in sorted(Path('visual-output').glob('*.png')):
               data=path.read_bytes()
               if data[:8] != b'\x89PNG\r\n\x1a\n':
                   raise SystemExit(f'{path.name}: not a PNG')
               width,height=struct.unpack('>II',data[16:24])
               print(path.name,(width,height))
-              wanted=expected.get(path.name)
-              if wanted is None:
-                  raise SystemExit(f'{path.name}: unexpected screenshot')
-              if (width,height)!=wanted:
-                  raise SystemExit(f'{path.name}: expected {wanted}, got {(width,height)}')
-              found.add(path.name)
-          if found != set(expected):
-              raise SystemExit('visual screenshot set mismatch')
+              if (width,height)!=(864,1536):
+                  raise SystemExit(f'{path.name}: expected 864x1536, got {(width,height)}')
           PY
 
       - name: Upload visual QA screenshots
