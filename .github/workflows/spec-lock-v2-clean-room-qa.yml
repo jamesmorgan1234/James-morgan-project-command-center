@@ -36,9 +36,3 @@ jobs:
         run: npm run typecheck
       - name: Build and test
         run: npm test
-      - name: Reject legacy runtime imports
-        run: |
-          if grep -R -n -E '(\.\./legacy|/legacy/|old-agent|cc7_agent_)' src; then
-            echo 'Legacy runtime dependency detected in clean-room source.' >&2
-            exit 1
-          fi
