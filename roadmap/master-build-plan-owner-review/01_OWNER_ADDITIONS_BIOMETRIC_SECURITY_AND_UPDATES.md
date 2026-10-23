@@ -1,11 +1,20 @@
-# COMMAND CENTER — OWNER ADDITIONS — BIOMETRIC SECURITY + RELIABLE APP UPDATES
+# COMMAND CENTER — HISTORICAL RECOVERY CORRECTION + OWNER ADDITION
 
 Date: 2026-10-23
-Status: **OWNER-DIRECTED — MUST BE INCORPORATED BEFORE SPECIFICATION LOCK v2**
+Status: **MUST BE INCORPORATED BEFORE SPECIFICATION LOCK v2**
 
-These additions come from James Morgan after review of the current roadmap direction. They are not optional polish. They must be reconciled into the canonical requirement register and final Master Build Plan before Specification Lock v2.
+This file contains two different provenance cases and they must not be conflated:
 
-## OWNER-ADD-20261023-01 — BIOMETRIC / FINGERPRINT SECURITY
+1. **CCR-05826 — Biometric / fingerprint security** is a **recovered historical Command Center requirement that was missed during reconciliation**. Command Center history from 2026-10-19 shows James wanted phone-security integration so Command Center could use fingerprint instead of relying on password-only access, and security was prioritized over a simple keep-signed-in experience. It was discussed as a separate future feature rather than implemented in that specific build. James reconfirmed on 2026-10-23 that fingerprint was already part of the Command Center idea and must be in the roadmap.
+2. **CCR-05827 — Reliable PWA / application updates** is an owner-directed requirement added/reconfirmed during the 2026-10-23 roadmap review after stale-update behavior exposed that the update lifecycle must be designed as a first-class system.
+
+Neither is optional polish. Both are part of the owner-review canonical set before Specification Lock v2.
+
+## CCR-05826 — RECOVERED HISTORICAL REQUIREMENT — BIOMETRIC / FINGERPRINT SECURITY
+
+### Historical provenance correction
+
+This requirement must not be labeled as newly invented on 2026-10-23. It is restored historical scope from the 2026-10-19 Command Center discussions. The prior recovery/reconciliation process failed to carry that feature forward explicitly.
 
 ### Owner intent
 
@@ -21,7 +30,7 @@ Use **WebAuthn / passkeys with the platform authenticator and user verification 
    - Owner can enroll one or more WebAuthn/passkey credentials after a fully authenticated owner session.
    - Default preference is the local platform authenticator.
    - Registration requires user verification.
-   - Credential metadata stores only the public-key credential material and safe authenticator metadata required for verification; no biometric template ever enters Command Center.
+   - Credential metadata stores only public-key credential material and safe authenticator metadata required for verification; no biometric template ever enters Command Center.
 
 2. **App unlock**
    - A valid server/auth session is necessary but not sufficient to expose private Command Center content after the local lock policy triggers.
@@ -32,7 +41,7 @@ Use **WebAuthn / passkeys with the platform authenticator and user verification 
    - Relock when the app has been backgrounded beyond the configured secure interval.
    - Relock after browser/PWA restart when the local unlock lease is no longer valid.
    - Relock after session-risk signals, explicit lock, sign-out, security-event containment, credential revocation, or device-trust changes.
-   - Never render sensitive content behind an unlocked DOM while the visual lock screen is merely overlaid.
+   - Never render sensitive content behind an unlocked DOM while a visual lock screen is merely overlaid.
 
 4. **Fresh verification for protected actions**
    - High-risk actions require fresh user verification even if the app is otherwise unlocked when the authorization freshness window has expired.
@@ -83,7 +92,7 @@ Primary phases to revise:
 
 ---
 
-## OWNER-ADD-20261023-02 — RELIABLE PWA / APP UPDATE SYSTEM
+## CCR-05827 — RELIABLE PWA / APP UPDATE SYSTEM
 
 ### Owner intent
 
@@ -173,4 +182,4 @@ Primary phases to revise:
 - W3C Web Authentication Level 3 is the current Recommendation and provides public-key credentials backed by authenticators with user consent/user verification.
 - PWA service-worker update handling must follow the service-worker lifecycle: new worker discovery/install, waiting/activation behavior, controlled `skipWaiting()`/`clients.claim()` where safe, explicit registration update checks, and release-versioned cache management.
 
-These additions must be reconciled into the canonical requirement register before Specification Lock v2; they are not merely implementation notes.
+Both requirements are part of the owner-review canonical set before Specification Lock v2. CCR-05826 is a restored historical requirement; CCR-05827 is the reliable-update requirement captured during the current roadmap review.
