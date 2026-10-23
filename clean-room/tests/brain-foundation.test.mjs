@@ -100,7 +100,7 @@ test("live steering preserves verified unaffected output and invalidates downstr
     { id: "c", dependencyIds: ["b"], verified: false, authorizationScope: ["project"] }
   ]);
   assert.deepEqual(result.preservedVerifiedIds, ["a"]);
-  assert.deepEqual(result.invalidatedIds.sort(), ["b", "c"]);
+  assert.deepEqual([...result.invalidatedIds].sort(), ["b", "c"]);
   assert.equal(result.requiresAuthorizationRecheck, true);
 });
 
