@@ -1,7 +1,14 @@
 {
-  "canonical_requirements": 5825,
-  "mapped_requirements": 5825,
+  "canonical_requirements": 5852,
+  "mapped_requirements": 5852,
   "unmapped_requirements": 0,
-  "category_counts": {"1":702,"2":478,"3":629,"4":336,"5":462,"6":519,"7":406,"8":375,"9":374,"10":106,"11":331,"12":71,"13":409,"14":505,"15":122},
+  "baseline_requirements": 5825,
+  "new_reconciled_requirements": 27,
+  "new_canonical_range": "CCR-05826–CCR-05852",
+  "category_counts": {"1":702,"2":478,"3":633,"4":336,"5":465,"6":523,"7":420,"8":376,"9":374,"10":106,"11":331,"12":71,"13":409,"14":506,"15":122},
+  "phase_count": 188,
+  "phase_counts": {"0":10,"1":10,"2":9,"3":12,"4":8,"5":14,"6":15,"7":24,"8":11,"9":9,"10":8,"11":10,"12":8,"13":10,"14":12,"15":18},
+  "mapping_level": "OWNER-REVIEW CATEGORY / PHASE-CANDIDATE MAPPING",
+  "final_implementation_evidence_mapping": "P15.1",
   "status": "PASS"
 }
