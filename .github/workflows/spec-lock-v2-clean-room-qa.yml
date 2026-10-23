@@ -17,9 +17,9 @@ permissions:
   contents: read
 
 jobs:
-  kernel:
+  category-15:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: clean-room
@@ -34,5 +34,10 @@ jobs:
         run: npm install --no-audit --no-fund --ignore-scripts
       - name: Typecheck
         run: npm run typecheck
-      - name: Build and test
+      - name: Category 15 exact-head QA and release gates
         run: npm test
+      - name: Publish Category 15 audit summaries
+        if: always()
+        run: |
+          test -f category15-repository-audit.json && cat category15-repository-audit.json | jq '{trackedFileCount,reviewedFileCount,semanticEveryFileReviewComplete,secretFindingCount:(.secretFindings|length),violationCount:(.violations|length)}' || true
+          test -f category15-phase-status.json && cat category15-phase-status.json | jq '{canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,phases}' || true

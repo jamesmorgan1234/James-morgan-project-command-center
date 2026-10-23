@@ -10,11 +10,12 @@
     "build:browser": "node scripts/build-browser.mjs",
     "build": "npm run build:modules && npm run build:browser",
     "check:legacy": "node scripts/check-no-legacy-imports.mjs",
-    "audit:repository": "node scripts/category15-repository-audit.mjs",
-    "audit:repository:write": "node scripts/category15-repository-audit.mjs --write",
+    "audit:repository": "node scripts/category15-repository-audit.mjs --write",
     "audit:artifact": "node scripts/category15-release-artifact-audit.mjs",
-    "audit:release-candidate": "npm run build && node scripts/category15-release-artifact-audit.mjs --require-protected-assets",
-    "test": "npm run check:legacy && npm run audit:repository && npm run build && npm run audit:artifact && node --test tests/*.test.mjs"
+    "audit:release-candidate": "node scripts/category15-release-artifact-audit.mjs --require-protected-assets",
+    "audit:category15": "node scripts/category15-phase-gate-audit.mjs --write --require-nonproduction",
+    "test:modules": "node --test tests/*.test.mjs",
+    "test": "npm run check:legacy && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15"
   },
   "devDependencies": {"typescript": "^5.8.3"}
 }

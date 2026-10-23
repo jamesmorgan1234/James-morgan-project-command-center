@@ -1,0 +1,31 @@
+import { readFileSync, writeFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { resolve } from "node:path";
+const cleanRoom=process.cwd(); const repoRoot=resolve(cleanRoom,"..");
+const writeReport=process.argv.includes("--write"); const requireNonproduction=process.argv.includes("--require-nonproduction");
+const roadmap=readFileSync(resolve(repoRoot,"roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md"),"utf8");
+const spec=readFileSync(resolve(repoRoot,"roadmap/master-build-plan-owner-review/15_SPECIFICATION_LOCK_V2.md"),"utf8");
+const rev3=JSON.parse(readFileSync(resolve(repoRoot,"roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json"),"utf8"));
+function tracked(path){try{execFileSync("git",["ls-files","--error-unmatch",path],{cwd:repoRoot,stdio:"ignore"});return true;}catch{return false;}}
+function phaseDefined(id){return roadmap.includes(`### ${id} `)||roadmap.includes(`### ${id} —`);} function allTracked(paths){return paths.every(tracked);}
+const expectedNew=Array.from({length:27},(_,i)=>`CCR-${String(5826+i).padStart(5,"0")}`);
+const observedNew=Array.isArray(rev3.requirements)?rev3.requirements.map((item)=>item.id):[];
+const canonicalTotalsValid=/5,852/.test(spec)&&/5,825/.test(spec)&&rev3.baseline_canonical_requirement_total===5825&&rev3.new_canonical_requirement_count===27&&rev3.owner_review_canonical_requirement_total===5852&&expectedNew.every((id,index)=>observedNew[index]===id);
+const canonicalLedgerCandidates=["roadmap/master-build-plan-owner-review/02_MASTER_BUILD_PLAN_REQUIREMENT_LEDGER.md","roadmap/master-build-plan-owner-review/Command_Center_Canonical_Requirement_Registry.json","clean-room/evidence/category15-requirement-traceability.json"];
+const canonicalLedgerPresent=canonicalLedgerCandidates.some(tracked);
+const phases={"P15.1":canonicalLedgerPresent?{status:"IMPLEMENTED_BUT_UNVERIFIED",reason:"canonical individual traceability artifact present; exact-head verification still required"}:{status:"BLOCKED_SOURCE_ARTIFACT",reason:"final reconciled CCR-00001–CCR-05825 individual canonical ledger/traceability matrix is not present; recovered raw registers cannot substitute for the final reconciled ledger"},"P15.2":{status:"IMPLEMENTED_BUT_UNVERIFIED",reason:"semantic every-file audit is enforced; exact-head CI must pass"}};
+const requiredTests={"P15.3":["clean-room/tests/kernel-foundation.test.mjs","clean-room/tests/runtime-integration.test.mjs"],"P15.4":["clean-room/tests/security-foundation.test.mjs","clean-room/tests/finance-platform-foundation.test.mjs"],"P15.5":["clean-room/tests/ui-shell-foundation.test.mjs","clean-room/tests/runtime-visual-structure.test.mjs","clean-room/tests/route-state-closure.test.mjs"],"P15.6":["clean-room/tests/data-platform-recovery.test.mjs","clean-room/tests/recovery-scale-foundation.test.mjs"],"P15.7":["clean-room/tests/agency-foundation.test.mjs"],"P15.8":["clean-room/tests/agency-foundation.test.mjs"],"P15.9":["clean-room/tests/projects-foundation.test.mjs","clean-room/tests/agency-foundation.test.mjs"],"P15.10":["clean-room/tests/personal-ops-foundation.test.mjs","clean-room/tests/agency-foundation.test.mjs"],"P15.11":["clean-room/tests/recovery-scale-foundation.test.mjs","clean-room/tests/category15-release-artifact-audit.test.mjs"],"P15.12":["clean-room/tests/category15-performance-load-soak.test.mjs"]};
+for(const [id,paths] of Object.entries(requiredTests)) phases[id]={status:allTracked(paths)&&phaseDefined(id)?"IMPLEMENTED_BUT_UNVERIFIED":"BLOCKED_IMPLEMENTATION",evidence:paths};
+const exactIcon="clean-room/public/assets/command-center-approved-icon-512.png";
+phases["P15.13"]={status:tracked(exactIcon)&&phaseDefined("P15.13")?"IMPLEMENTED_BUT_UNVERIFIED":"BLOCKED_PROTECTED_ASSET",evidence:[exactIcon,"clean-room/scripts/category15-release-artifact-audit.mjs","clean-room/scripts/build-browser.mjs"]};
+phases["P15.14"]={status:"BLOCKED_AUTHORIZATION",reason:"preview/staging exact-candidate verification requires external candidate environment/authorization"};
+phases["P15.15"]={status:"BLOCKED_AUTHORIZATION",reason:"production authorization is an explicit owner gate"};
+phases["P15.16"]={status:"BLOCKED_AUTHORIZATION",reason:"production deployment/live verification is protected"};
+phases["P15.17"]={status:"BLOCKED_OWNER_ACCEPTANCE",reason:"owner acceptance cannot be self-certified"};
+phases["P15.18"]={status:"BLOCKED_PHYSICAL_DEVICE",reason:"physical Samsung acceptance requires the real device"};
+const allCategory15DefinitionsPresent=Array.from({length:18},(_,i)=>`P15.${i+1}`).every(phaseDefined);
+const nonproductionFailures=Object.entries(phases).filter(([id])=>{const n=Number(id.split(".")[1]);return n>=2&&n<=13;}).filter(([,v])=>!["IMPLEMENTED_BUT_UNVERIFIED","VERIFIED_COMPLETE"].includes(v.status));
+const report={schemaVersion:1,lockedCanonicalRequirementCount:5852,lockedBaselineRequirementCount:5825,lockedRev3RequirementCount:27,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,canonicalLedgerCandidates,phases};
+if(writeReport) writeFileSync(resolve(cleanRoom,"category15-phase-status.json"),JSON.stringify(report,null,2)+"\n");
+console.log(JSON.stringify({canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,p15_1:phases["P15.1"].status,nonproductionFailureCount:nonproductionFailures.length}));
+if(!canonicalTotalsValid||!allCategory15DefinitionsPresent||(requireNonproduction&&nonproductionFailures.length)) process.exit(1);
