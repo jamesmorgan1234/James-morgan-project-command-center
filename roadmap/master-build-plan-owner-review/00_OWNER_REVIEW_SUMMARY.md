@@ -1,30 +1,40 @@
 # COMMAND CENTER — MASTER BUILD PLAN — OWNER REVIEW SUMMARY
 
-**Status:** OWNER-REVIEW DRAFT — AGENCY RECONCILIATION IN PROGRESS
-**Specification Lock v2:** NOT YET LOCKED
+**Status:** OWNER-REVIEW DRAFT — AGENCY RECONCILIATION IN PROGRESS  
+**Specification Lock v2:** NOT YET LOCKED  
 **Owner/Samsung acceptance:** NOT APPLICABLE UNTIL CATEGORY 15
 
-## Why this review exists
+## Controlling clean-room rule
 
-The prior provisional VNext deployment is not the controlling build plan. This package is the owner-review draft that must be approved/corrected before Specification Lock v2 and before full implementation is authorized.
+The authoritative rebuild is built from the beginning. Historical Command Center implementation code is not recycled into the new build.
 
-The rebuild is clean-room. Historical Command Center code, Agent runners, queues, schedulers, tables, RPCs, leases, heartbeats, retries, workflows, and other implementation artifacts may be inspected as evidence of past ideas or requirements, but they do not prove the old implementation worked and they are not trusted as the new build foundation.
+Old code, Agent runners, queues, schedulers, database tables, RPCs, UI layers, workflows, leases, heartbeats, retries, patches, and other runtime machinery may be inspected only as evidence of old ideas, failures, behavior, or requirements. They are not implementation authority and are not reused as the rebuild foundation.
+
+Verified owner/project/business/book data and approved/protected assets may be preserved from their authoritative sources. The old software mechanisms that stored, displayed, scheduled, or acted on them are not preserved as implementation.
+
+**Recovered requirements may inform the specification. Legacy implementation does not survive the clean rebuild.**
+
+## Why the architecture changes now
+
+The previous build became fragile because capabilities were added and changed on architecture that was not designed to expand cleanly. The rebuild therefore treats extensibility as a correctness requirement.
+
+Adding or removing a project type, Agency worker class, specialist department, provider, model, device, business, integration, book type, or future capability must occur through registries/adapters/contracts and must not require unrelated core-system surgery.
 
 ## Current corrected scope state
 
 - Reconciled canonical requirement baseline before current Agency owner additions: **5,825**.
-- Biometric/fingerprint-backed WebAuthn security and reliable application updates are clarified/recovered existing scope and do **not** inflate the canonical baseline by themselves.
+- Biometric/fingerprint-backed WebAuthn security and reliable application updates are clarified/recovered existing scope and do not inflate that baseline by themselves.
 - Previous detailed roadmap baseline: **147 phases/work packages**.
-- The owner has now directed a first-class scalable multi-agent system named **The Agency**.
+- James has now directed a first-class scalable multi-agent system named **The Agency**.
 - Agency architecture specification: `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md`.
-- Agency specification currently contains **66 explicit architecture controls**.
-- The prior **147-phase** count is therefore a **pre-Agency baseline, not a final target**.
-- Final phase count and any genuinely new canonical requirement IDs are **pending Agency duplicate/lineage reconciliation**.
-- Do not preserve 147 or 5,825 merely for numerical convenience; preserve them only where reconciliation proves they remain correct.
+- Current Agency specification contains **66 explicit architecture controls**.
+- The old **147-phase** count is now a pre-Agency baseline, not a final target.
+- Final phase count and any genuinely new canonical requirement IDs remain pending Agency duplicate/lineage reconciliation.
+- Quality and completeness, not preservation of old numbers, determine the final roadmap.
 
 ## Category sequence
 
-The Category 0–15 owner-facing sequence remains the current organizing framework, but Category 7 and cross-cutting Agency dependencies must be expanded before Spec Lock v2:
+The Category 0–15 owner-facing sequence remains the organizing framework, but Category 7 and cross-cutting Agency dependencies must be expanded before Specification Lock v2:
 
 - **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE**
 - **Category 1 — CORE KERNEL + GOVERNANCE**
@@ -43,11 +53,11 @@ The Category 0–15 owner-facing sequence remains the current organizing framewo
 - **Category 14 — RECOVERY / MIGRATION / SCALE / DORMANT FUTURE**
 - **Category 15 — FINAL INTEGRATION / EVERY-FILE AUDIT / RELEASE / PRODUCTION / SAMSUNG ACCEPTANCE**
 
-## Agency clean-room correction
+## Agency clean-room requirement
 
-Recovered requirements such as claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, checkpoints, and project locks remain useful **requirement evidence**. They are not accepted as working implementation merely because old files or database objects existed.
+Recovered concepts such as claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, checkpoints, and project locks remain useful requirement evidence. Their old implementation is not trusted or reused.
 
-The Agency must re-derive and newly prove:
+The Agency must newly design, implement, and prove:
 
 - scheduler/control plane;
 - project-agent identities;
@@ -57,12 +67,12 @@ The Agency must re-derive and newly prove:
 - isolated workspaces;
 - declared read/write sets;
 - resource claims/locks;
-- lease + fencing-token correctness;
+- lease plus fencing-token correctness;
 - optimistic concurrency;
 - dependency-DAG scheduling;
 - fan-out/fan-in;
 - work stealing;
-- verifier and integration workers;
+- verifier/integration workers;
 - artifact-first handoffs;
 - context snapshots/compaction;
 - durable messaging;
@@ -77,11 +87,9 @@ The Agency must re-derive and newly prove:
 - owner-visible Agency topology and tracing;
 - future local/remote/federated worker seams.
 
-See `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` for the complete 66-control specification.
-
 ## Specialist architecture resolution
 
-MarginCraftTools, Morgan's Garage Doors, and Torevi should not force one-off hard-coded Agent branches. They remain first known instances of reusable specialist archetypes:
+MarginCraftTools, Morgan's Garage Doors, and Torevi do not force one-off hard-coded Agent branches. They remain first known instances of reusable specialist archetypes:
 
 - digital-products specialist;
 - service-business specialist;
@@ -91,19 +99,19 @@ Agency departments/workers may serve those project types through registered capa
 
 ## Non-negotiable execution sequence
 
-1. Complete Agency requirement/lineage reconciliation against the 5,825 baseline and recovered Future/Optional Agent requirements.
-2. Expand the phased Master Build Plan wherever Agency architecture requires additional explicit build/test phases.
-3. Run final roadmap completeness/dependency/security/dormant-capability audit.
+1. Complete Agency requirement/lineage reconciliation against the canonical baseline and recovered Future/Optional Agent requirements.
+2. Expand the phased Master Build Plan wherever Agency architecture requires explicit build/test phases.
+3. Run final roadmap completeness/dependency/security/dormant-capability/extensibility audit.
 4. Present the complete reconciled owner-facing roadmap to James.
-5. Specification Lock v2 is created only after owner review/approval.
-6. Build Categories 1–14 under the locked specification.
-7. No premature Samsung/owner acceptance.
-8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency audits, exact release candidate, production deployment, then owner/Samsung acceptance.
+5. Create Specification Lock v2 only after owner review/approval.
+6. Build Categories 1–14 cleanly from scratch under the locked specification.
+7. Do not perform premature Samsung/owner acceptance.
+8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency/extensibility audits, exact release candidate, production deployment, then owner/Samsung acceptance.
 
 ## Current provisional implementation
 
-The currently deployed VNext scaffold and all historical Agent machinery remain **NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY**. Existing pieces may be reused only if a later clean-room implementation decision explicitly validates that exact component against the new specification and proves it independently. Existence is not proof.
+The deployed VNext scaffold and all historical Command Center Agent/runtime machinery are **NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY** and are not recycled into the clean rebuild.
 
 ## Review principle
 
-Owner review is about defining the complete system correctly before implementation. Quality, completeness, and future-safe architecture control the final requirement/phase counts—not historical numbers.
+Owner review is about defining the complete system correctly before implementation. Quality, clean-room construction, modularity, expandability, and future-safe architecture control the final requirement and phase counts—not historical numbers.
