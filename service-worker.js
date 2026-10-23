@@ -1,8 +1,8 @@
-const CACHE='command-center-v7-root-9';
+const CACHE='command-center-v7-root-10';
 const CORE=[
   './',
   './index.html',
-  './manifest.webmanifest?v=11',
+  './manifest.webmanifest?v=12',
   './authoritative-v7/theme.css?v=4',
   './authoritative-v7/layout.css?v=4',
   './authoritative-v7/artwork.css?v=4',
@@ -17,8 +17,6 @@ const CORE=[
   './authoritative-v7/book-ui-fixes.js?v=1',
   './authoritative-v7/home-books-refinement.js?v=2',
   './authoritative-v7/phone-layout-cover-fix.js?v=1',
-  './authoritative-v7/startup-recovery.js?v=1',
-  './authoritative-v7/supabase-loader.js?v=1',
   './authoritative-v7/data.js',
   './authoritative-v7/config.js',
   './authoritative-v7/control-modules.js',
