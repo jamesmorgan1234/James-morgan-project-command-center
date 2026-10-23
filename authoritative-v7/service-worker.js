@@ -10,6 +10,8 @@ const CORE=[
   './refinement.js?v=1',
   './home-books-refinement.js?v=2',
   './phone-layout-cover-fix.js?v=1',
+  './startup-recovery.js?v=1',
+  './supabase-loader.js?v=1',
   './data.js',
   './config.js',
   './control-modules.js',
