@@ -38,13 +38,13 @@ export class SecurityEventLedger {
   list(ownerId: string): readonly SecurityEvent[] { return Object.freeze(this.#events.filter((event) => event.ownerId === ownerId)); }
 }
 
-const NEXT: Readonly<Record<IncidentState, readonly IncidentState[]>> = Object.freeze({
-  open: Object.freeze(["acknowledged", "contained"]),
-  acknowledged: Object.freeze(["contained"]),
-  contained: Object.freeze(["recovering", "resolved"]),
-  recovering: Object.freeze(["contained", "resolved"]),
-  resolved: Object.freeze([])
-});
+const NEXT = {
+  open: ["acknowledged", "contained"],
+  acknowledged: ["contained"],
+  contained: ["recovering", "resolved"],
+  recovering: ["contained", "resolved"],
+  resolved: []
+} as const satisfies Readonly<Record<IncidentState, readonly IncidentState[]>>;
 
 export class IncidentRegistry {
   readonly #incidents = new Map<string, SecurityIncident>();
@@ -61,7 +61,7 @@ export class IncidentRegistry {
   transition(id: string, to: IncidentState, at: string, eventId: string, sourceRef: string): SecurityIncident {
     const current = this.#incidents.get(id);
     if (!current) throw new Error(`Unknown incident: ${id}`);
-    if (!NEXT[current.state].includes(to)) throw new Error(`Invalid incident transition: ${current.state} -> ${to}`);
+    if (!(NEXT[current.state] as readonly IncidentState[]).includes(to)) throw new Error(`Invalid incident transition: ${current.state} -> ${to}`);
     parseTimestamp(at, "at");
     const updated = Object.freeze({ ...current, state: to, updatedAt: at });
     this.#incidents.set(id, updated);
