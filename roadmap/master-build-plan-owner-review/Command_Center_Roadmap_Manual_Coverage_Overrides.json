@@ -1,0 +1,42 @@
+{
+  "purpose":"Manual source-backed coverage links for roadmap phases that the first deterministic text matcher undercounted. These links do not rewrite canonical requirement text.",
+  "date":"2026-10-23",
+  "overrides":{
+    "P3.8":{
+      "phase":"Protocol interoperability seams",
+      "canonical_requirement_ids":["CCR-05123","CCR-05163","CCR-05164","CCR-05184","CCR-05479","CCR-05480","CCR-05481","CCR-05728","CCR-05821","CCR-05822"],
+      "basis":"Explicit protocol-version negotiation, agent-to-agent/tool interoperability, protocol adapters, MCP seam, A2A seam, generic future protocol seam, malicious protocol/tool-server testing, and standards controls."
+    },
+    "P8.10":{
+      "phase":"Personal-ops privacy/recovery tests",
+      "canonical_requirement_ids":["CCR-02676","CCR-05442","CCR-00585","CCR-00602","CCR-00607","CCR-00620"],
+      "basis":"Personal Operations privacy classes, privacy-preserving notifications, owner lockout recovery, personal-data log minimization, Recovery Mode, and interrupted-sync recovery."
+    },
+    "P11.7":{
+      "phase":"KDP / publishing provider adapters",
+      "canonical_requirement_ids":["CCR-00507","CCR-02887","CCR-03827","CCR-05173","CCR-05592"],
+      "basis":"KDP state model, KDP integration freshness, non-KDP distribution, additional publishing providers, and provider-evidence requirement for publication claims."
+    },
+    "P12.4":{
+      "phase":"Morgancommerce",
+      "canonical_requirement_ids":["CCR-04562","CCR-04563","CCR-04564","CCR-04565","CCR-04566","CCR-04864","CCR-04865","CCR-04866","CCR-05520"],
+      "basis":"Explicit Morgancommerce capability registration, product-candidate handoff, store/product/supplier state, and real-world jobs-to-be-done."
+    },
+    "P14.4":{
+      "phase":"Provider replacement drills",
+      "canonical_requirement_ids":["CCR-00721","CCR-02174","CCR-02175","CCR-04802","CCR-05298","CCR-05708","CCR-05709"],
+      "basis":"AI provider replacement/migration testing, financial provider replacement, generic provider replacement path, provider disappearance, and provider becoming paid."
+    },
+    "P15.6":{
+      "phase":"Full recovery/migration exercise",
+      "canonical_requirement_ids":["CCR-00195","CCR-00196","CCR-00205","CCR-00851","CCR-01453","CCR-01653","CCR-01840","CCR-01983","CCR-05210"],
+      "basis":"Rollback/recovery strategy, partial-migration recovery, restore drills, cutover rollback rehearsal, migration strategy, recovery runbooks, release gating on recovery, known-good rollback, and disaster restore testing."
+    },
+    "P15.11":{
+      "phase":"Final completion lock",
+      "canonical_requirement_ids":["CCR-00484","CCR-00847","CCR-05363"],
+      "basis":"Acceptance gates, isolated replacement until final acceptance, and physical Samsung acceptance gate."
+    }
+  },
+  "remaining_unresolved_named_specialist_phases":["P12.5","P12.6","P12.7"]
+}
