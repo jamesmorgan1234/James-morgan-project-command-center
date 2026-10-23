@@ -22,6 +22,8 @@ test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/\.\/authoritative-v7\/app\.js\?v=4/);
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.css\?v=1/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/book-ui-fixes\.js\?v=1/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/book-ui-fixes\.css\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.css\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/root-pwa\.js\?v=1/);
@@ -49,7 +51,7 @@ test('root manifest is clean standalone V7 identity',()=>{
 });
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
-  assert.match(rootSw,/command-center-v7-root-4/);
+  assert.match(rootSw,/command-center-v7-root-5/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);
@@ -58,6 +60,9 @@ test('root service worker takes over old caches and caches only V7 runtime',()=>
     './authoritative-v7/app.js?v=4',
     './authoritative-v7/refinement.js?v=1',
     './authoritative-v7/refinement.css?v=1',
+    './authoritative-v7/book-ui-fixes.js?v=1',
+    './authoritative-v7/book-ui-fixes.css?v=1',
+    './authoritative-v7/publication-truth.js',
     './authoritative-v7/home-books-refinement.js?v=1',
     './authoritative-v7/home-books-refinement.css?v=1',
     './authoritative-v7/data.js',
