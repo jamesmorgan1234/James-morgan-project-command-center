@@ -1,6 +1,6 @@
 # COMMAND CENTER — MASTER BUILD PLAN — OWNER REVIEW SUMMARY
 
-**Status:** OWNER-REVIEW DRAFT — AGENCY + PROJECT FOUNDRY + CONVERSATIONAL CONTROL RECONCILIATION IN PROGRESS  
+**Status:** OWNER-REVIEW DRAFT — AGENCY / PROJECT FOUNDRY RECONCILIATION IN PROGRESS  
 **Specification Lock v2:** NOT YET LOCKED  
 **Owner/Samsung acceptance:** NOT APPLICABLE UNTIL CATEGORY 15
 
@@ -22,51 +22,174 @@ Adding or removing a project type, Agency worker class, specialist department, p
 
 ## Current corrected scope state
 
-- Reconciled canonical requirement baseline before current Agency/Foundry owner additions: **5,825**.
-- Biometric/fingerprint-backed WebAuthn security and reliable application updates are clarified/recovered existing scope and do not inflate that baseline by themselves.
+- Last reconciled canonical requirement baseline before current Agency/Foundry additions: **5,825**.
+- Biometric/fingerprint-backed WebAuthn security and reliable application updates are explicit clarifications of existing canonical scope and do not create new count-bearing IDs by themselves.
 - Previous detailed roadmap baseline: **147 phases/work packages**.
-- The 147-phase plan is now a **pre-Agency/Foundry baseline**, not the final roadmap.
-- Final canonical requirement count and final phase count are **pending duplicate/lineage reconciliation**.
+- The 147-phase plan is now a **pre-Agency / pre-Foundry baseline**, not the final roadmap.
+- Final canonical requirement count: **PENDING duplicate/lineage reconciliation**.
+- Final phase count: **PENDING expanded roadmap decomposition**.
 
-### New owner-directed architecture packages
+## New owner-directed architecture packages
 
-- `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` — **66 controls**.
-- `04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md` — **54 controls**.
-- `05_PROJECT_FOUNDRY_IDEA_TO_ULTIMATE_SPEC.md` — **48 controls**.
-- `06_CONVERSATIONAL_PROJECT_STUDIO_AND_EXECUTION_CONTROL.md` — **48 controls**.
-- `07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md` — **36 controls**.
+1. `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` — **66 controls**
+   - elastic worker pools;
+   - project-agent identities;
+   - specialist departments;
+   - scheduler/control plane;
+   - isolated workspaces;
+   - locks/fencing/concurrency;
+   - verification/integration;
+   - recovery/backpressure;
+   - Boundary Office;
+   - future worker portability.
 
-**Current architecture-review inventory: 252 explicit controls.**
+2. `04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md` — **54 controls**
+   - delegation limits;
+   - deadlock/livelock prevention;
+   - typed contracts/version negotiation;
+   - deterministic replay;
+   - chaos/load testing;
+   - artifact lifecycle;
+   - policy/configuration versioning;
+   - cross-project dependency safety;
+   - organizational learning;
+   - extensibility acceptance.
 
-This 252-control inventory is not the final canonical-requirement count. Some items promote/refine already recovered requirements; genuinely new scope will receive new canonical IDs only after reconciliation.
+3. `05_PROJECT_FOUNDRY_IDEA_TO_ULTIMATE_SPEC.md` — **48 controls**
+   - idea intake;
+   - exhaustive Ultimate Spec;
+   - research/evidence;
+   - future-proof architecture;
+   - roadmap/DAG compilation;
+   - Agency decomposition;
+   - owner-boundary handling;
+   - requirement-to-evidence completion.
 
-## Project Foundry / conversational owner experience
+4. `06_CONVERSATIONAL_PROJECT_STUDIO_AND_EXECUTION_CONTROL.md` — **48 controls**
+   - natural project conversation;
+   - brainstorm versus canonical scope;
+   - owner decision/rule capture;
+   - conversation → project;
+   - conversation → “go ahead and execute that”;
+   - exact execution snapshots;
+   - live conversational steering;
+   - pause/resume/stop/change/reprioritize;
+   - project rooms and portfolio control;
+   - conversational completion/maintenance.
 
-Command Center must support the following owner experience as a first-class product capability:
+5. `07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md` — **36 controls**
+   - greenfield;
+   - clean rebuild;
+   - rescue/recovery;
+   - migration/port;
+   - modernization;
+   - reality reconstruction;
+   - product/UX/prototype lane;
+   - environments/releases;
+   - connection/account onboarding;
+   - reusable blueprints;
+   - operations/maintenance/sunset.
 
-**James talks naturally with Command Center → Brain/Foundry develops the idea interactively → decisions/rules/specification are maintained behind the conversation → James says ordinary language such as “okay, go ahead and execute that” → the exact agreed version is snapshotted → The Agency dispatches eligible work in parallel → James can keep talking to ask, steer, change, pause, resume, or reprioritize → genuine owner boundaries surface through Needs Me / Boundary Office → verified completion returns to the same conversational workspace.**
+6. `08_AGENCY_LEADERSHIP_AND_AUTONOMOUS_OPERATIONS.md` — **48 controls**
+   - autonomous mission contracts;
+   - Portfolio Leads;
+   - Project Leads;
+   - Department Leads;
+   - Research Lead + research swarms;
+   - Architecture/Planning/Build Leads;
+   - QA/Security/Integration/Release Leads;
+   - shift management;
+   - incidents;
+   - scouts;
+   - organizational learning.
 
-This is not optional UI polish and must not be reduced to a chat box disconnected from Projects or The Agency.
+7. `09_AGENCY_DECISION_RIGHTS_AND_AUTONOMY_GOVERNANCE.md` — **42 controls**
+   - autonomy levels;
+   - decision-rights matrix;
+   - owner preferences/precedent;
+   - escalation thresholds;
+   - anti-drift/anti-goal-hacking;
+   - portfolio resource governance;
+   - temporary authority;
+   - emergency containment;
+   - decision audit.
 
-The Foundry must also support:
+8. `10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md` — **48 controls**
+   - high-volume idea inbox/incubation;
+   - portfolio scoring/triage;
+   - capacity-aware activation;
+   - domain-specific Ultimate-Spec playbooks;
+   - software, AI, commerce, service-business, books/media, personal/internal-tool playbooks;
+   - validation/stage gates;
+   - outcome/feedback/experimentation loops;
+   - executive portfolio brief;
+   - portfolio lifecycle/strategic reuse.
 
-- greenfield new builds;
-- clean rebuilds;
-- rescue/recovery;
-- migrations/ports;
-- upgrades/modernization;
-- reality reconstruction of messy existing projects;
-- product/UX journey design;
-- mockups/prototypes where useful;
-- environment/release setup;
-- provider/account onboarding;
-- reusable blueprints without private-state leakage;
-- launch/operations/maintenance;
-- archive/sunset/replacement.
+**Current architecture-review inventory: 390 explicit controls.**
+
+This **390 is not the canonical requirement count**. Many controls refine, strengthen, or promote already recovered requirements. Genuinely new owner requirements will receive new canonical IDs only after duplicate/lineage reconciliation.
+
+## Intended owner experience
+
+Command Center should become the place where James can naturally say, for example:
+
+**“I have this idea…”**
+
+and discuss it interactively with Brain/Foundry until it is right.
+
+Then:
+
+**“Okay, go ahead and execute that.”**
+
+Command Center should:
+
+1. freeze the exact agreed specification/decision version;
+2. create or update the project/roadmap as authorized;
+3. create the logical Project Agent;
+4. let Agency leadership form the appropriate temporary organization;
+5. dispatch researchers/specialists/builders/verifiers/integrators safely in parallel;
+6. keep eligible work moving autonomously;
+7. allow James to keep talking naturally to steer, ask, change, pause, resume, or reprioritize;
+8. consolidate genuine owner boundaries through Needs Me / Boundary Office;
+9. verify/integrate continuously;
+10. return truthful completion and evidence to the same conversational workspace.
+
+This conversational control flow is a major product requirement, not a decorative chat box.
+
+## The Agency as an autonomous organization
+
+The Agency is not one Agent and not merely a worker pool.
+
+It may dynamically form an organization appropriate to the mission, for example:
+
+- Portfolio Lead;
+- Project Lead;
+- Research Lead + researchers;
+- Architecture Lead;
+- Planning Lead;
+- Build Lead + specialist implementation workers;
+- UI/UX specialists;
+- Database/data specialists;
+- Security Lead;
+- QA Lead + verifier workers;
+- Integration Lead;
+- Release Lead;
+- Boundary Office liaison;
+- maintenance/opportunity scouts.
+
+A book, commerce store, service business, AI product, media system, or personal tool can form a different team from the same registered Agency capabilities.
+
+James remains the final owner/authority. Autonomous leads may make thousands of routine reversible choices inside their mission and decision envelope, but they cannot self-authorize protected actions or broaden their own authority.
+
+## High-volume project creation
+
+Foundry must support James bringing many ideas in one day without forcing all of them to execute simultaneously.
+
+Logical projects/Project Agents can scale independently of actual worker concurrency. The portfolio/incubation system captures, researches, scores, parks, prioritizes, or activates ideas while the Agency scheduler uses only the safe/available worker capacity.
 
 ## Category sequence
 
-Category 0–15 remains the owner-facing organizing framework, but several categories must be re-expanded before Spec Lock v2:
+The Category 0–15 framework remains the current owner-facing organization, but the phase contents must be re-expanded before Spec Lock v2:
 
 - **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE**
 - **Category 1 — CORE KERNEL + GOVERNANCE**
@@ -85,22 +208,18 @@ Category 0–15 remains the owner-facing organizing framework, but several categ
 - **Category 14 — RECOVERY / MIGRATION / SCALE / DORMANT FUTURE**
 - **Category 15 — FINAL INTEGRATION / EVERY-FILE AUDIT / RELEASE / PRODUCTION / SAMSUNG ACCEPTANCE**
 
-## Agency clean-room requirement
+## Non-negotiable next sequence
 
-Recovered concepts such as claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, checkpoints, and project locks remain useful requirement evidence. Their old implementation is not trusted or reused.
-
-The Agency must newly design, implement, and prove its scheduler/control plane, project-agent identities, elastic pools, specialist departments, isolated workspaces, resource claims/fencing, optimistic concurrency, dependency scheduling, fan-out/fan-in, verifiers, integrators, artifact handoffs, durable messaging, recovery, backpressure, $0/free-first governance, evaluations, Boundary Office, owner-visible topology, and future runtime portability.
-
-## Non-negotiable execution sequence
-
-1. Reconcile the 252-control Agency/Foundry/Conversational inventory against the 5,825 canonical baseline and recovered Future/Optional scope.
-2. Assign new canonical IDs only for genuinely new owner requirements.
-3. Expand the Master Build Plan wherever independent implementation/test phases are required.
-4. Run completeness/dependency/security/dormant-capability/extensibility/conversational-workflow audit again.
-5. Present the complete reconciled roadmap to James for owner review.
-6. Create Specification Lock v2 only after James approves/corrects that roadmap.
-7. Build Categories 1–14 cleanly from scratch.
-8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency/extensibility/conversational E2E audits, exact release candidate, production deployment, then owner/Samsung acceptance.
+1. Reconcile the **390-control** Agency/Foundry inventory against the **5,825** last-reconciled canonical baseline and recovered Future/Optional scope.
+2. Merge true duplicates/clarifications and preserve lineage.
+3. Assign new canonical IDs only to genuinely new owner requirements.
+4. Rebuild the phase decomposition across Category 0–15; do not preserve 147 for convenience.
+5. Revalidate the category/phase dependency DAG, concurrency/resource constraints, security, decision rights, conversational flows, high-volume portfolio behavior, dormant capabilities, and extensibility.
+6. Rerun complete roadmap QC.
+7. Present the final reconciled Master Build Plan to James for owner review.
+8. Create Specification Lock v2 only after James approves/corrects that plan.
+9. Build cleanly from scratch under the locked specification.
+10. Category 15 performs final requirement-to-evidence, every-file, architecture, security, visual, recovery, Agency concurrency/autonomy, Foundry/conversation, extensibility, release, production, owner, and Samsung acceptance.
 
 ## Current provisional implementation
 
@@ -108,4 +227,6 @@ The deployed VNext scaffold and all historical Command Center Agent/runtime mach
 
 ## Review principle
 
-Owner review is about defining the complete system correctly before implementation. Quality, clean-room construction, modularity, expandability, natural owner workflow, and future-safe architecture control the final requirement and phase counts—not historical numbers.
+The goal is not to accumulate the largest checklist. The goal is to find major missing seams **before** Specification Lock v2, then reconcile them into one coherent architecture with one owner, one contract, one source of truth, one extension path, and one verification path for each responsibility.
+
+Quality, clean-room construction, natural owner workflow, autonomy with bounded authority, expandability, and future-safe architecture control the final requirement and phase counts—not historical numbers.
