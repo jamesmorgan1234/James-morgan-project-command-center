@@ -1,6 +1,6 @@
 # Category 4 — Application Shell / Visual / PWA / Device
 
-Status: P4.1–P4.8 CLEAN-ROOM FOUNDATION IMPLEMENTED / CI VERIFICATION PENDING / RENDERED DEVICE ACCEPTANCE NOT YET CLAIMED
+Status: P4.1–P4.8 CLEAN-ROOM FOUNDATION IMPLEMENTED / UNIT-VERIFIED / RENDERED DEVICE ACCEPTANCE NOT YET CLAIMED
 
 Authority:
 
@@ -10,7 +10,7 @@ Authority:
 
 Current Library renders are recorded only as `structural_match_filename_unmapped`; they are not falsely claimed to prove the old filenames' byte identity.
 
-Implemented:
+Implemented and unit-verified:
 
 - P4.1 measurable phone-first design tokens and explicit approved/rejected visual authority manifest
 - P4.2 deterministic application-shell startup/hydration/ready/offline/degraded state machine with one owner per shell slot
@@ -20,6 +20,14 @@ Implemented:
 - P4.6 immutable PWA release identity, two-phase update lifecycle, known-good rollback, and offline policy that never authorizes protected offline writes/actions
 - P4.7 phone/tablet/desktop classification, minimum accessible target checks, accessible-label requirement, and reduced-motion behavior
 - P4.8 structural visual-regression fixtures for the four approved screens, ready for rendered screenshot comparison once a renderer exists
+
+Automated evidence:
+
+- GitHub Actions workflow: `.github/workflows/spec-lock-v2-clean-room-qa.yml`
+- Run: `40005363845`
+- Head: `ce73b34058b431315f5c9d46c1e1b0a3443cc9be`
+- Typecheck: PASS
+- Build and tests: PASS
 
 Still mandatory before final acceptance:
 
