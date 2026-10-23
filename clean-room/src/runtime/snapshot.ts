@@ -12,6 +12,10 @@ export interface RuntimeEvidenceRef {
 export interface RuntimeProjectSnapshot {
   readonly id: string;
   readonly name: string;
+  readonly mission: TruthValue<string>;
+  readonly lifecycle: TruthValue<string>;
+  readonly verification: TruthValue<string>;
+  readonly priority: TruthValue<string>;
   readonly stage: TruthValue<string>;
   readonly status: TruthValue<string>;
   readonly progressPercent: TruthValue<number>;

@@ -58,6 +58,10 @@ function projectSnapshot(options: CanonicalRuntimeAssemblyOptions, project: Retu
   return Object.freeze({
     id: project.id,
     name: project.name,
+    mission: known(project.mission),
+    lifecycle: known(project.lifecycle),
+    verification: known(project.verification),
+    priority: known(project.priority),
     stage: unknown<string>(),
     status: known(`${project.lifecycle} · ${project.verification}`),
     progressPercent: projectProgress(project.id, options.roadmaps),
