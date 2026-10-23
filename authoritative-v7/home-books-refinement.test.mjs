@@ -12,14 +12,16 @@ const rootSw=await readFile(new URL('../service-worker.js',import.meta.url),'utf
 const isolatedSw=await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
 const migration=await readFile(new URL('../supabase/migrations/20261023_individual_books_verified_scope_and_wording.sql',import.meta.url),'utf8');
 
-test('Home tiles have an equal fallback footprint and a viewport fitter',()=>{
+test('Home tiles have an equal fallback footprint and an adaptive viewport fitter',()=>{
   assert.match(css,/\.cc-agent-mode-card,\.cc-home-card,\.cc-module\{height:74px!important;min-height:74px!important;max-height:74px!important\}/);
   assert.match(css,/\.cc-agent-mode-grid,\.cc-home-grid,\.cc-module-grid\{gap:6px!important/);
   assert.match(fix,/window\.visualViewport/);
-  assert.match(fix,/targetBottom/);
+  assert.match(fix,/targetHomeBottom/);
+  assert.match(fix,/screen\.closest\('\.fixture-root'\)/);
+  assert.match(fix,/Math\.min\(viewportBottom,containerBottom\)/);
   assert.match(fix,/delta\/rows/);
   assert.match(fix,/applyTileHeight/);
-  assert.match(fix,/Math\.max\(74,Math\.min\(108/);
+  assert.match(fix,/Math\.max\(56,Math\.min\(108/);
 });
 
 test('approved cover URL is derived from the module location',()=>{
