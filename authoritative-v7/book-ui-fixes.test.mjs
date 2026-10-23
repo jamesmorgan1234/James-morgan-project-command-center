@@ -70,7 +70,8 @@ test('root UI uses approved atlas path, larger mobile cards, synchronous no-Work
   ]);
   assert.match(index,/book-ui-fixes\.js\?v=1/);
   assert.match(index,/book-ui-fixes\.css\?v=1/);
-  assert.ok(index.indexOf('book-ui-fixes.js?v=1')<index.indexOf('home-books-refinement.js?v=1'));
+  assert.match(index,/home-books-refinement\.js\?v=2/);
+  assert.ok(index.indexOf('book-ui-fixes.js?v=1')<index.indexOf('home-books-refinement.js?v=2'));
   assert.match(ui,/authoritative-v7\/assets\/book-cover-atlas-v2\.webp/);
   assert.match(ui,/\[PRE-PUBLISH BOOK REVIEW\]/);
   assert.match(ui,/allowWork:false/);
@@ -79,8 +80,9 @@ test('root UI uses approved atlas path, larger mobile cards, synchronous no-Work
   assert.match(agentExecution,/p_run_id:runId/);
   assert.match(css,/height:86px!important/);
   assert.match(css,/\.cc-status\.needs-changes/);
-  assert.match(sw,/command-center-v7-root-5/);
+  assert.match(sw,/command-center-v7-root-6/);
   assert.match(sw,/book-ui-fixes\.js\?v=1/);
   assert.match(sw,/publication-truth\.js/);
   assert.match(sw,/agent-execution\.js/);
+  assert.match(sw,/home-books-refinement\.js\?v=2/);
 });
