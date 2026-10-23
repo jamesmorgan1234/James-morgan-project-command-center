@@ -1,6 +1,6 @@
 # COMMAND CENTER — MASTER BUILD PLAN — OWNER REVIEW SUMMARY
 
-**Status:** OWNER-REVIEW DRAFT — AGENCY RECONCILIATION IN PROGRESS  
+**Status:** OWNER-REVIEW DRAFT — AGENCY + PROJECT FOUNDRY + CONVERSATIONAL CONTROL RECONCILIATION IN PROGRESS  
 **Specification Lock v2:** NOT YET LOCKED  
 **Owner/Samsung acceptance:** NOT APPLICABLE UNTIL CATEGORY 15
 
@@ -22,19 +22,51 @@ Adding or removing a project type, Agency worker class, specialist department, p
 
 ## Current corrected scope state
 
-- Reconciled canonical requirement baseline before current Agency owner additions: **5,825**.
+- Reconciled canonical requirement baseline before current Agency/Foundry owner additions: **5,825**.
 - Biometric/fingerprint-backed WebAuthn security and reliable application updates are clarified/recovered existing scope and do not inflate that baseline by themselves.
 - Previous detailed roadmap baseline: **147 phases/work packages**.
-- James has now directed a first-class scalable multi-agent system named **The Agency**.
-- Agency architecture specification: `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md`.
-- Current Agency specification contains **66 explicit architecture controls**.
-- The old **147-phase** count is now a pre-Agency baseline, not a final target.
-- Final phase count and any genuinely new canonical requirement IDs remain pending Agency duplicate/lineage reconciliation.
-- Quality and completeness, not preservation of old numbers, determine the final roadmap.
+- The 147-phase plan is now a **pre-Agency/Foundry baseline**, not the final roadmap.
+- Final canonical requirement count and final phase count are **pending duplicate/lineage reconciliation**.
+
+### New owner-directed architecture packages
+
+- `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` — **66 controls**.
+- `04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md` — **54 controls**.
+- `05_PROJECT_FOUNDRY_IDEA_TO_ULTIMATE_SPEC.md` — **48 controls**.
+- `06_CONVERSATIONAL_PROJECT_STUDIO_AND_EXECUTION_CONTROL.md` — **48 controls**.
+- `07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md` — **36 controls**.
+
+**Current architecture-review inventory: 252 explicit controls.**
+
+This 252-control inventory is not the final canonical-requirement count. Some items promote/refine already recovered requirements; genuinely new scope will receive new canonical IDs only after reconciliation.
+
+## Project Foundry / conversational owner experience
+
+Command Center must support the following owner experience as a first-class product capability:
+
+**James talks naturally with Command Center → Brain/Foundry develops the idea interactively → decisions/rules/specification are maintained behind the conversation → James says ordinary language such as “okay, go ahead and execute that” → the exact agreed version is snapshotted → The Agency dispatches eligible work in parallel → James can keep talking to ask, steer, change, pause, resume, or reprioritize → genuine owner boundaries surface through Needs Me / Boundary Office → verified completion returns to the same conversational workspace.**
+
+This is not optional UI polish and must not be reduced to a chat box disconnected from Projects or The Agency.
+
+The Foundry must also support:
+
+- greenfield new builds;
+- clean rebuilds;
+- rescue/recovery;
+- migrations/ports;
+- upgrades/modernization;
+- reality reconstruction of messy existing projects;
+- product/UX journey design;
+- mockups/prototypes where useful;
+- environment/release setup;
+- provider/account onboarding;
+- reusable blueprints without private-state leakage;
+- launch/operations/maintenance;
+- archive/sunset/replacement.
 
 ## Category sequence
 
-The Category 0–15 owner-facing sequence remains the organizing framework, but Category 7 and cross-cutting Agency dependencies must be expanded before Specification Lock v2:
+Category 0–15 remains the owner-facing organizing framework, but several categories must be re-expanded before Spec Lock v2:
 
 - **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE**
 - **Category 1 — CORE KERNEL + GOVERNANCE**
@@ -57,56 +89,18 @@ The Category 0–15 owner-facing sequence remains the organizing framework, but 
 
 Recovered concepts such as claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, checkpoints, and project locks remain useful requirement evidence. Their old implementation is not trusted or reused.
 
-The Agency must newly design, implement, and prove:
-
-- scheduler/control plane;
-- project-agent identities;
-- elastic worker pools;
-- specialist departments;
-- immutable job manifests;
-- isolated workspaces;
-- declared read/write sets;
-- resource claims/locks;
-- lease plus fencing-token correctness;
-- optimistic concurrency;
-- dependency-DAG scheduling;
-- fan-out/fan-in;
-- work stealing;
-- verifier/integration workers;
-- artifact-first handoffs;
-- context snapshots/compaction;
-- durable messaging;
-- dead-letter/poison-job containment;
-- compensation/uncertain-outcome reconciliation;
-- hierarchical stop/pause;
-- resource/backpressure governance;
-- $0/free-first routing;
-- worker performance/evaluation;
-- canary/shadow Agency upgrades;
-- Boundary Office / Needs Me routing;
-- owner-visible Agency topology and tracing;
-- future local/remote/federated worker seams.
-
-## Specialist architecture resolution
-
-MarginCraftTools, Morgan's Garage Doors, and Torevi do not force one-off hard-coded Agent branches. They remain first known instances of reusable specialist archetypes:
-
-- digital-products specialist;
-- service-business specialist;
-- software-platform specialist.
-
-Agency departments/workers may serve those project types through registered capabilities while project state, credentials, accounts, assets, and mutable work remain isolated.
+The Agency must newly design, implement, and prove its scheduler/control plane, project-agent identities, elastic pools, specialist departments, isolated workspaces, resource claims/fencing, optimistic concurrency, dependency scheduling, fan-out/fan-in, verifiers, integrators, artifact handoffs, durable messaging, recovery, backpressure, $0/free-first governance, evaluations, Boundary Office, owner-visible topology, and future runtime portability.
 
 ## Non-negotiable execution sequence
 
-1. Complete Agency requirement/lineage reconciliation against the canonical baseline and recovered Future/Optional Agent requirements.
-2. Expand the phased Master Build Plan wherever Agency architecture requires explicit build/test phases.
-3. Run final roadmap completeness/dependency/security/dormant-capability/extensibility audit.
-4. Present the complete reconciled owner-facing roadmap to James.
-5. Create Specification Lock v2 only after owner review/approval.
-6. Build Categories 1–14 cleanly from scratch under the locked specification.
-7. Do not perform premature Samsung/owner acceptance.
-8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency/extensibility audits, exact release candidate, production deployment, then owner/Samsung acceptance.
+1. Reconcile the 252-control Agency/Foundry/Conversational inventory against the 5,825 canonical baseline and recovered Future/Optional scope.
+2. Assign new canonical IDs only for genuinely new owner requirements.
+3. Expand the Master Build Plan wherever independent implementation/test phases are required.
+4. Run completeness/dependency/security/dormant-capability/extensibility/conversational-workflow audit again.
+5. Present the complete reconciled roadmap to James for owner review.
+6. Create Specification Lock v2 only after James approves/corrects that roadmap.
+7. Build Categories 1–14 cleanly from scratch.
+8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency/extensibility/conversational E2E audits, exact release candidate, production deployment, then owner/Samsung acceptance.
 
 ## Current provisional implementation
 
@@ -114,4 +108,4 @@ The deployed VNext scaffold and all historical Command Center Agent/runtime mach
 
 ## Review principle
 
-Owner review is about defining the complete system correctly before implementation. Quality, clean-room construction, modularity, expandability, and future-safe architecture control the final requirement and phase counts—not historical numbers.
+Owner review is about defining the complete system correctly before implementation. Quality, clean-room construction, modularity, expandability, natural owner workflow, and future-safe architecture control the final requirement and phase counts—not historical numbers.
