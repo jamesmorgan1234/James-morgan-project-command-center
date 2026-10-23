@@ -1,10 +1,12 @@
-const CACHE='command-center-v7-clean-7';
+const CACHE='command-center-v7-clean-8';
 const CORE=[
   './index.html',
   './theme.css?v=4',
   './layout.css?v=4',
   './artwork.css?v=4',
+  './refinement.css?v=1',
   './app.js?v=4',
+  './refinement.js?v=1',
   './data.js',
   './config.js',
   './control-modules.js',
@@ -22,6 +24,7 @@ const CORE=[
   './assets/merch-cases.svg',
   './assets/city-spires.svg',
   './assets/mobile-horizon.svg',
+  './assets/book-cover-atlas-v2.webp',
   '../command-center-approved-icon-192.png',
   '../command-center-approved-icon-512.png'
 ];

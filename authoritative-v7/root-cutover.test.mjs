@@ -20,6 +20,8 @@ test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/data-command-center-runtime="v7-clean"/);
   assert.match(rootHtml,/\.\/authoritative-v7\/interaction-feedback\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/app\.js\?v=4/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.js\?v=1/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.css\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/root-pwa\.js\?v=1/);
   for(const ref of forbiddenRootRuntime)assert.equal(rootHtml.includes(ref),false,`legacy root runtime reference found: ${ref}`);
 });
@@ -45,18 +47,21 @@ test('root manifest is clean standalone V7 identity',()=>{
 });
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
-  assert.match(rootSw,/command-center-v7-root-2/);
+  assert.match(rootSw,/command-center-v7-root-3/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);
   for(const asset of [
     './authoritative-v7/interaction-feedback.js?v=1',
     './authoritative-v7/app.js?v=4',
+    './authoritative-v7/refinement.js?v=1',
+    './authoritative-v7/refinement.css?v=1',
     './authoritative-v7/data.js',
     './authoritative-v7/control-modules.js',
     './authoritative-v7/overview-screens.js',
     './authoritative-v7/root-pwa.js?v=1',
-    './authoritative-v7/offline.html'
+    './authoritative-v7/offline.html',
+    './authoritative-v7/assets/book-cover-atlas-v2.webp'
   ])assert.ok(rootSw.includes(asset),`missing root V7 cache asset: ${asset}`);
   for(const ref of ['app-config.js','startup-loader.js','command-center-v4.js','command-center-v6.js','command-center-agent-mode.js'])assert.equal(rootSw.includes(ref),false,`legacy asset cached by root V7 service worker: ${ref}`);
 });
