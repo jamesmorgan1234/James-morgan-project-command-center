@@ -1,8 +1,9 @@
 import {client,loadSnapshot,createAgentRun} from './data.js';
+import {executeAgentRun} from './agent-execution.js';
 import {projectPublicationDisplay} from './publication-truth.js';
 
 const BOOK_ATLAS_URL="./authoritative-v7/assets/book-cover-atlas-v2.webp";
-const STATUS_CLASSES=['live','ready','planning','queued','blocked','active-rebuild','publishing','agent-review','owner-review','needs-publishing'];
+const STATUS_CLASSES=['live','ready','planning','queued','blocked','active-rebuild','publishing','agent-review','owner-review','needs-publishing','needs-changes'];
 let ownerId=null;
 let snapshot=null;
 let queued=false;
@@ -81,15 +82,18 @@ function needsPrePublishReview(project){
   return projectPublicationDisplay(project,snapshot?.metrics||[])?.label==='Agent Review Needed';
 }
 
-async function queuePrePublishReview(button,project,mode){
+async function runPrePublishReview(button,project,mode){
   if(runBusy)return;
   runBusy=true;
   button.disabled=true;
   try{
-    const objective=`[PRE-PUBLISH BOOK REVIEW] Review and verify ${project.name} from its newest verified state. Inspect the exact approved/locked production package and all available canonical book records for cover correctness, interior/final-file integrity, formatting, metadata, publication mapping, and required book QA. Complete every correction that normal ChatGPT/Agent can perform without Work. Do not publish, upload to KDP, submit anything, spend money, open Work, or bypass James Morgan's owner PC review gate. Project Checkpoint alone does not satisfy this review. If every normal-chat requirement is verified, finish at the owner PC review boundary and record the project as Agent verified. If a real blocker remains, preserve verified work and report the exact blocker and next action.`;
-    await createAgentRun({ownerId,projectId:project.id,objective,controlMode:mode,booksTarget:project.name,allowWork:false});
+    const objective=`[PRE-PUBLISH BOOK REVIEW] Verify ${project.name} from its newest verified Command Center state before publishing. Check the canonical production-complete record, verified book mapping, publication truth, approved-cover/final-package verification records, series counts where applicable, and all recorded pre-publish gates. Use any accessible verified evidence, but do not claim visual inspection of a PDF/package that this runner cannot access. Visual inspection of the exact final package is reserved for James Morgan on his computer. Project Checkpoint alone does not satisfy this review. Do not publish, upload to KDP, submit anything, spend money, open Work, or bypass the owner PC review gate. If canonical verification passes, stop at the protected owner PC review boundary. If evidence is missing or conflicting, fail closed and report the exact blocker.`;
+    const run=await createAgentRun({ownerId,projectId:project.id,objective,controlMode:mode,booksTarget:project.name,allowWork:false});
+    const result=await executeAgentRun(run.id);
     window.dispatchEvent(new CustomEvent('cc7:global-refresh'));
-    toast(`${project.name} pre-publish Agent review queued. Work and publishing remain locked.`);
+    if(result?.outcome==='needs_owner_pc_review')toast(`${project.name} Agent verification passed. PC review is now required before publishing.`);
+    else if(result?.outcome==='blocked')toast(`${project.name} Agent review stopped on a verification gap. Open Agent for the exact blocker.`,true);
+    else toast(`${project.name} Agent review updated.`);
   }catch(error){
     toast(error?.message||String(error),true);
   }finally{
@@ -107,7 +111,7 @@ document.addEventListener('click',event=>{
   if(!needsPrePublishReview(project))return;
   event.preventDefault();
   event.stopImmediatePropagation();
-  queuePrePublishReview(button,project,mode);
+  runPrePublishReview(button,project,mode);
 },true);
 
 new MutationObserver(schedule).observe(document.documentElement,{subtree:true,childList:true});
