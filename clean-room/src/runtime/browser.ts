@@ -258,8 +258,11 @@ function renderUnknownRoute(resolution: Exclude<BrowserRouteResolution, { state:
 function navigation(): HTMLElement {
   const nav = el("nav", "primary-nav");
   nav.setAttribute("aria-label", "Command Center");
-  const items: readonly [string, string][] = [["Home", "/"], ["Projects", "/projects"], ["Active", "/active"], ["Next Up", "/next-up"], ["Brain", "/brain"], ["Agency", "/agency"], ["Needs Me", "/needs-me"], ["Finance", "/finance"], ["Books", "/books"], ["Analytics", "/analytics"], ["Settings", "/settings"]];
-  for (const [label, path] of items) nav.append(routeLink(label, path));
+  for (const route of ROUTES.list()) {
+    if (route.path.includes(":")) continue;
+    const label = route.key === "route:home" ? "Home" : route.key === "route:active-live" ? "Active" : route.title;
+    nav.append(routeLink(label, route.path));
+  }
   return nav;
 }
 function renderHeader(resolved: ResolvedRoute): HTMLElement {
