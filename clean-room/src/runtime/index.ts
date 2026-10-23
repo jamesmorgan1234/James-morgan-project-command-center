@@ -3,3 +3,4 @@ export * from "./provider.js";
 export * from "./pwa-client.js";
 export * from "./assembly.js";
 export * from "./surface-readers.js";
+export * from "./route-state.js";

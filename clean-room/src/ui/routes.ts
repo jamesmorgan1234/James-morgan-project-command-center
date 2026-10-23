@@ -31,7 +31,11 @@ function matchRoute(pattern: string, input: string): Readonly<Record<string, str
     if (expected.startsWith(":")) {
       const key = expected.slice(1);
       if (!key || !actual) return undefined;
-      params[key] = decodeURIComponent(actual);
+      try {
+        params[key] = decodeURIComponent(actual);
+      } catch {
+        return undefined;
+      }
       continue;
     }
     if (expected !== actual) return undefined;
