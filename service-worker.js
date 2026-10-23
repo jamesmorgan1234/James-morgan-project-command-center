@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-root-3';
+const CACHE='command-center-v7-root-4';
 const CORE=[
   './',
   './index.html',
@@ -7,9 +7,11 @@ const CORE=[
   './authoritative-v7/layout.css?v=4',
   './authoritative-v7/artwork.css?v=4',
   './authoritative-v7/refinement.css?v=1',
+  './authoritative-v7/home-books-refinement.css?v=1',
   './authoritative-v7/interaction-feedback.js?v=1',
   './authoritative-v7/app.js?v=4',
   './authoritative-v7/refinement.js?v=1',
+  './authoritative-v7/home-books-refinement.js?v=1',
   './authoritative-v7/data.js',
   './authoritative-v7/config.js',
   './authoritative-v7/control-modules.js',

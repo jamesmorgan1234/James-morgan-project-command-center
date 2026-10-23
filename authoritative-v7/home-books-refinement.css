@@ -1,0 +1,67 @@
+/* Owner refinement: one uniform Home grid + protected approved book shelves. */
+
+/* The Home screen is one visual system: seven two-card rows, equal footprint and rhythm. */
+.cc-agent-mode-grid,.cc-home-grid,.cc-module-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:8px!important;margin-bottom:0!important}
+.cc-agent-mode-grid{margin-top:0!important;margin-bottom:8px!important}
+.cc-home-grid{margin-top:0!important}
+.cc-agent-mode-card,.cc-home-card,.cc-module{min-height:108px!important;height:108px!important;max-height:108px!important}
+.cc-module{padding:11px!important;grid-template-columns:42px minmax(0,1fr) 22px!important;gap:8px!important}
+.cc-module .cc-mini-icon{width:40px!important;height:40px!important}
+.cc-module strong{font-size:.92rem!important;line-height:1.05}
+.cc-module .cc-desc{font-size:.72rem!important;line-height:1.12;margin-top:3px}
+
+/* Every Home tile carries the same atmospheric V7 visual language. */
+.cc-agent-mode-card:after,.cc-module:after{content:"";position:absolute;z-index:0;pointer-events:none;background-repeat:no-repeat;background-position:right center;background-size:contain;filter:drop-shadow(0 0 10px rgba(255,83,0,.72))}
+.cc-agent-mode-card:after{inset:0 0 0 32%;opacity:.52}
+.cc-agent-mode-card[data-cc7-mode="auto"]:after{background-image:url('./assets/neural-globe.svg')}
+.cc-agent-mode-card[data-cc7-mode="barriers"]:after{background-image:url('./assets/road-mountains.svg');opacity:.62}
+.cc-agent-mode-card h2,.cc-agent-mode-card p,.cc-agent-mode-card small,.cc-agent-mode-card .cc-mode-led{position:relative;z-index:3}
+.cc-module:after{inset:4px 5px 4px 38%;opacity:.25;background-size:cover}
+.cc-module[data-nav="brain"]:after{background-image:url('./assets/neural-globe.svg')}
+.cc-module[data-nav="automation"]:after{background-image:url('./assets/server-racks.svg')}
+.cc-module[data-nav="integrations"]:after{background-image:url('./assets/network-globe.svg')}
+.cc-module[data-nav="analytics"]:after{background-image:url('./assets/analytics-grid.svg')}
+.cc-module[data-nav="security"]:after{background-image:url('./assets/server-racks.svg')}
+.cc-module[data-nav="deployment"]:after{background-image:url('./assets/city-spires.svg')}
+.cc-module[data-nav="active"]:after{background-image:url('./assets/landscape-eclipse.svg')}
+.cc-module[data-nav="about"]:after{background-image:url('./assets/mobile-horizon.svg')}
+.cc-module>div{position:relative;z-index:2}
+
+/* Generic protected book shelf used by every KDP project with verified/owner-locked title identity. */
+.cc-v7-books-section{overflow:visible}
+.cc-v7-book-grid{position:relative;z-index:2;display:grid;gap:7px;align-items:start}
+.cc-v7-book-grid.cols-1{grid-template-columns:minmax(0,150px)}
+.cc-v7-book-grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.cc-v7-book-grid.cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.cc-v7-book-tile{min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.cc-v7-approved-cover{position:relative;aspect-ratio:2/3;border:1px solid #ff6200;border-radius:4px;background-color:#050505;background-repeat:no-repeat;background-size:4100% 100%;background-position-y:center;box-shadow:0 0 9px rgba(255,77,0,.38);overflow:hidden}
+.cc-v7-approved-cover.is-custom{background-size:cover;background-position:center}
+.cc-v7-approved-cover.is-missing{display:grid;place-items:center;background-image:none!important;color:#91a6bb;font-size:.58rem;text-align:center;padding:6px}
+.cc-v7-approved-cover:before,.cc-v7-approved-cover:after{display:none!important;content:none!important}
+.cc-v7-book-sequence{margin-top:3px;color:#ffaf32;text-align:center;font-size:.56rem;font-weight:800;letter-spacing:.08em;line-height:1.05}
+.cc-v7-book-title{margin-top:3px;text-align:center;color:#c4ced8;font-size:.68rem;line-height:1.08;overflow-wrap:anywhere}
+.cc-v7-book-status{margin-top:3px;text-align:center;color:#8197ab;font-size:.53rem;line-height:1.12}
+.cc-v7-book-grid.cols-1 .cc-v7-book-title,.cc-v7-book-grid.cols-1 .cc-v7-book-status{text-align:left}
+
+@media(max-width:520px){
+  .cc-agent-mode-grid,.cc-home-grid,.cc-module-grid{gap:6px!important;margin-top:6px!important}
+  .cc-agent-mode-grid{margin-top:0!important;margin-bottom:6px!important}
+  .cc-home-grid{margin-top:0!important}
+  .cc-agent-mode-card,.cc-home-card,.cc-module{height:74px!important;min-height:74px!important;max-height:74px!important}
+  .cc-module{padding:7px!important;grid-template-columns:28px minmax(0,1fr) 15px!important;gap:5px!important}
+  .cc-module .cc-mini-icon{width:27px!important;height:27px!important}
+  .cc-module strong{font-size:.69rem!important;line-height:1.02}
+  .cc-module .cc-desc{font-size:.51rem!important;line-height:1.07;margin-top:2px}
+  .cc-module .cc-chevron{font-size:22px!important}
+  .cc-agent-mode-card{padding:7px!important}
+  .cc-agent-mode-card h2{font-size:.82rem!important}
+  .cc-agent-mode-card .cc-mode-state{font-size:.54rem!important;margin-top:2px!important}
+  .cc-agent-mode-card small{font-size:.47rem!important;margin-top:2px!important;line-height:1.12!important}
+  .cc-agent-mode-card:after{inset:0 0 0 36%;opacity:.48;background-size:cover}
+  .cc-agent-mode-card[data-cc7-mode="barriers"]:after{opacity:.58}
+  .cc-module:after{inset:3px 4px 3px 42%;opacity:.22}
+  .cc-v7-book-grid{gap:5px}
+  .cc-v7-book-sequence{font-size:.42rem;margin-top:2px}
+  .cc-v7-book-title{font-size:.55rem;margin-top:2px}
+  .cc-v7-book-status{font-size:.43rem;margin-top:2px}
+}
