@@ -1,286 +1,171 @@
 # COMMAND CENTER — MASTER BUILD PLAN — OWNER REVIEW SUMMARY
 
-**Status:** OWNER-REVIEW DRAFT — AGENCY / PROJECT FOUNDRY / HISTORICAL-RECOVERY RECONCILIATION IN PROGRESS  
-**Specification Lock v2:** NOT YET LOCKED  
-**Owner/Samsung acceptance:** NOT APPLICABLE UNTIL CATEGORY 15
+**Status:** COMPLETE OWNER-REVIEW ROADMAP PACKAGE — NOT SPECIFICATION LOCKED  
+**Canonical owner-review requirements:** **5,852**  
+**Complete phases/work packages:** **188**  
+**Specification Lock v2:** **NOT YET LOCKED — OWNER REVIEW REQUIRED**  
+**Implementation authorized:** **NO**  
+**Owner/Samsung acceptance:** CATEGORY 15 ONLY
 
 ## Controlling clean-room rule
 
-The authoritative rebuild is built from the beginning. Historical Command Center implementation code is not recycled into the new build.
+Command Center is rebuilt correctly from the beginning. Historical Command Center code/runtime is not recycled into the new implementation.
 
-Old code, Agent runners, queues, schedulers, database tables, RPCs, UI layers, workflows, leases, heartbeats, retries, patches, and other runtime machinery may be inspected only as evidence of old ideas, failures, behavior, or requirements. They are not implementation authority and are not reused as the rebuild foundation.
+Old UI layers, Agent runners, queues, schedulers, DB tables, RPCs, leases, heartbeats, retries, workflows, patches, and other machinery may be inspected only as evidence of prior requirements, data shape, behavior, failures, or migration needs. Verified data and approved/protected assets may be preserved through newly built mechanisms.
 
-Verified owner/project/business/book data and approved/protected assets may be preserved from their authoritative sources. The old software mechanisms that stored, displayed, scheduled, or acted on them are not preserved as implementation.
+Extensibility is a correctness requirement. Adding/removing a project type, Agency worker, provider, model, device, specialist, business, book type, integration, metric, automation, or future capability must use contracts/registries/adapters and must not require unrelated core surgery.
 
-**Recovered requirements and history may inform the specification. Legacy implementation does not survive the clean rebuild.**
+## Reconciliation result
 
-## Why the architecture changes now
+The prior reconciled baseline was **5,825** canonical requirements.
 
-The previous build became fragile because capabilities were added and changed on architecture that was not designed to expand cleanly. The rebuild therefore treats extensibility as a correctness requirement.
+The 444-control Agency / Project Foundry / Historical-Recovery review inventory was reconciled against recovered Foundation/Core/PE/FO/inventory scope rather than counted blindly.
 
-Adding or removing a project type, Agency worker class, specialist department, provider, model, device, business, integration, book type, or future capability must occur through registries/adapters/contracts and must not require unrelated core-system surgery.
+Result:
 
-The full historical ChatGPT export recovery exposed a second structural failure: project state, rules, decisions, artifacts, lineage, and unfinished work could exist only inside old conversations. The rebuilt Brain/Foundry must make that impossible by maintaining durable canonical project memory with provenance, supersession, privacy classification, and recovery tooling.
+- **24** of the 45 Agency/Foundry Class-C candidates were reclassified as existing/strengthened scope;
+- **21** Agency/Foundry requirements were genuinely distinct;
+- **48** of the 54 historical-recovery controls map to existing/strengthened scope;
+- **6** historical-recovery requirements were genuinely distinct;
+- biometric/fingerprint and reliable PWA update work remain explicit clarifications of existing canonical scope and create **0** new IDs;
+- genuinely new requirements: **27**;
+- new canonical range: **CCR-05826–CCR-05852**;
+- current owner-review canonical total: **5,852**.
 
-## Current corrected scope state
+The controlling reconciliation artifacts are:
 
-- Last reconciled canonical requirement baseline before current Agency/Foundry/Historical-Recovery additions: **5,825**.
-- Biometric/fingerprint-backed WebAuthn security and reliable application updates are explicit clarifications of existing canonical scope and do not create new count-bearing IDs by themselves.
-- Previous detailed roadmap baseline: **147 phases/work packages**.
-- The 147-phase plan is now a **pre-Agency / pre-Foundry / pre-Historical-Recovery baseline**, not the final roadmap.
-- Final canonical requirement count: **PENDING duplicate/lineage reconciliation**.
-- Final phase count: **PENDING expanded roadmap decomposition**.
+- `13_AGENCY_FOUNDRY_HISTORICAL_RECONCILIATION_PASS2.md`
+- `Command_Center_Canonical_Owner_Additions_REV3.json`
 
-## Historical export recovery incorporated into the rebuild
+## Complete phase plan
 
-Two exported conversation JSON parts were inventoried with **132 top-level conversations**. Their value is not limited to finding forgotten projects; they are historical system evidence for project lineage, owner decisions, rules, checkpoints, artifacts, automations, failures, scope drift, supersession, and build lessons.
+The old `02_COMPLETE_147_PHASE_MASTER_BUILD_PLAN.md` is retained only as a pre-Agency/pre-Foundry/pre-historical-recovery baseline.
 
-Historical conversation is **evidence, not automatic current truth**. Newer explicit owner decisions and verified current live state outrank stale conversation claims.
+The current complete owner-review plan is:
 
-The new roadmap package `12_HISTORICAL_EXPORT_MEMORY_MIGRATION_AND_PROJECT_RECOVERY.md` adds **54 explicit review controls** covering:
+**`14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`**
 
-- complete export/history ingestion;
-- full conversation/message-graph inventory;
-- Project-folder and standalone-project discovery;
-- forgotten-project detection;
-- rename/merge/supersession lineage;
-- evidence/provenance/confidence;
-- canonical decision/rule/artifact/checkpoint ledgers;
-- privacy classification and cross-project isolation;
-- lost-artifact recovery without fabrication;
-- post-operational lesson/improvement infrastructure;
-- scope-drift and duplicate-project prevention;
-- boundary/checkpoint continuity independent of chat sessions.
+Category phase counts:
 
-A substantive historical project candidate, **Morgan Shield / Morgan Privacy Vault**, was recovered from export evidence and remains a **RECOVERED PROJECT CANDIDATE**, not an auto-activated project. This is exactly the class of lost-in-chat work Command Center must detect in the future.
+| Category | Canonical requirements | Phases |
+|---|---:|---:|
+| C0 Authority / Recovery / Roadmap / Spec | planning authority | 10 |
+| C1 Core Kernel + Governance | 702 | 10 |
+| C2 Identity + Security | 478 | 9 |
+| C3 Canonical Data / Knowledge / Command Graph / Providers | 633 | 12 |
+| C4 App Shell / Visual / PWA / Device | 336 | 8 |
+| C5 Projects / Portfolio / Roadmap / Checkpoints / Foundry | 465 | 14 |
+| C6 Brain / AI | 523 | 15 |
+| C7 The Agency / Multi-Agent Execution | 420 | 24 |
+| C8 Personal Ops / Search / Needs Me / Automation | 376 | 11 |
+| C9 Finance / Banking / Credit | 374 | 9 |
+| C10 Social / Communications / Brand Accounts | 106 | 8 |
+| C11 Books / Publishing | 331 | 10 |
+| C12 Specialist Projects / Interoperability | 71 | 8 |
+| C13 Analytics / Observability / Recommendations / Self-Audit | 409 | 10 |
+| C14 Recovery / Migration / Scale / Dormant Future | 506 | 12 |
+| C15 Final Integration / Audit / Release / Production / Acceptance | 122 | 18 |
 
-## New owner-directed architecture packages
+**Total canonical requirements: 5,852. Total phases: 188.**
 
-1. `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` — **66 controls**
-   - elastic worker pools;
-   - project-agent identities;
-   - specialist departments;
-   - scheduler/control plane;
-   - isolated workspaces;
-   - locks/fencing/concurrency;
-   - verification/integration;
-   - recovery/backpressure;
-   - Boundary Office;
-   - future worker portability.
+## Major new canonical requirements
 
-2. `04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md` — **54 controls**
-   - delegation limits;
-   - deadlock/livelock prevention;
-   - typed contracts/version negotiation;
-   - deterministic replay;
-   - chaos/load testing;
-   - artifact lifecycle;
-   - policy/configuration versioning;
-   - cross-project dependency safety;
-   - organizational learning;
-   - extensibility acceptance.
+The genuinely new owner-directed scope now explicitly includes:
 
-3. `05_PROJECT_FOUNDRY_IDEA_TO_ULTIMATE_SPEC.md` — **48 controls**
-   - idea intake;
-   - exhaustive Ultimate Spec;
-   - research/evidence;
-   - future-proof architecture;
-   - roadmap/DAG compilation;
-   - Agency decomposition;
-   - owner-boundary handling;
-   - requirement-to-evidence completion.
+- persistent logical Project Agent identity separate from disposable workers;
+- highly available Agency control plane and scheduler leadership/failover;
+- fencing tokens preventing stale-worker commits;
+- controlled integration/merge arbitration;
+- immutable scoped task-context packets with freshness/resume-diff;
+- deadlock/livelock/priority inversion/orphan/stuck-work detection;
+- deterministic orchestration replay and workload record/replay harness;
+- canary/shadow worker/executor/routing-policy rollout;
+- dynamic lead registry;
+- Agency Shift Manager / incident-command function;
+- explicit autonomy levels;
+- formal decision-rights registry;
+- bounded owner-precedent reuse;
+- exact “go ahead with that” conversational execution snapshot;
+- live conversational steering/replanning of active Agency work;
+- durable project-specific conversation workspace;
+- Project Foundry as one governed idea→Ultimate Spec→Agency→acceptance lifecycle;
+- prototype/wireframe/usability validation lane;
+- Foundry onboarding manifest and Needs Me unlock grouping;
+- logical lead failover;
+- native historical ChatGPT-export ingestion;
+- complete historical message-graph processing;
+- branch-aware conversation lineage;
+- historical Project/container identity lineage;
+- original-first lost-artifact recovery;
+- machine-readable historical-recovery completeness report.
 
-4. `06_CONVERSATIONAL_PROJECT_STUDIO_AND_EXECUTION_CONTROL.md` — **48 controls**
-   - natural project conversation;
-   - brainstorm versus canonical scope;
-   - owner decision/rule capture;
-   - conversation → project;
-   - conversation → “go ahead and execute that”;
-   - exact execution snapshots;
-   - live conversational steering;
-   - pause/resume/stop/change/reprioritize;
-   - project rooms and portfolio control;
-   - conversational completion/maintenance.
+## Historical export / Brain migration
 
-5. `07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md` — **36 controls**
-   - greenfield;
-   - clean rebuild;
-   - rescue/recovery;
-   - migration/port;
-   - modernization;
-   - reality reconstruction;
-   - product/UX/prototype lane;
-   - environments/releases;
-   - connection/account onboarding;
-   - reusable blueprints;
-   - operations/maintenance/sunset.
+The two historical conversation-export JSON parts contain **132 top-level conversations** and are treated as system-history evidence, not merely as a forgotten-project list.
 
-6. `08_AGENCY_LEADERSHIP_AND_AUTONOMOUS_OPERATIONS.md` — **48 controls**
-   - autonomous mission contracts;
-   - Portfolio Leads;
-   - Project Leads;
-   - Department Leads;
-   - Research Lead + research swarms;
-   - Architecture/Planning/Build Leads;
-   - QA/Security/Integration/Release Leads;
-   - shift management;
-   - incidents;
-   - scouts;
-   - organizational learning.
+The rebuilt system must absorb the lessons needed to prevent project knowledge from disappearing into chat history again:
 
-7. `09_AGENCY_DECISION_RIGHTS_AND_AUTONOMY_GOVERNANCE.md` — **42 controls**
-   - autonomy levels;
-   - decision-rights matrix;
-   - owner preferences/precedent;
-   - escalation thresholds;
-   - anti-drift/anti-goal-hacking;
-   - portfolio resource governance;
-   - temporary authority;
-   - emergency containment;
-   - decision audit.
+- owner decisions/rules become durable versioned canonical records;
+- project identity survives rename/merge/rebuild;
+- duplicate-project detection compares mission lineage before creating another project;
+- historical conversation can discover candidate projects but cannot silently activate them;
+- current verified live state outranks stale chat claims;
+- private/sensitive/secret material is classified and isolated rather than copied into repos or unrelated contexts;
+- missing historical artifacts remain explicitly missing and are recovered original-first before reconstruction;
+- build failures/success patterns feed a future evidence-backed Improvements system;
+- exhaustive historical retrospective is intentionally deferred until Command Center itself is operational, per James’s instruction.
 
-8. `10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md` — **48 controls**
-   - high-volume idea inbox/incubation;
-   - portfolio scoring/triage;
-   - capacity-aware activation;
-   - domain-specific Ultimate-Spec playbooks;
-   - software, AI, commerce, service-business, books/media, personal/internal-tool playbooks;
-   - validation/stage gates;
-   - outcome/feedback/experimentation loops;
-   - executive portfolio brief;
-   - portfolio lifecycle/strategic reuse.
+A recovered substantive candidate, **Morgan Shield / Morgan Privacy Vault**, remains a **RECOVERED PROJECT CANDIDATE** only; it is not automatically added/activated.
 
-9. `12_HISTORICAL_EXPORT_MEMORY_MIGRATION_AND_PROJECT_RECOVERY.md` — **54 controls**
-   - native historical export ingestion;
-   - forgotten-project and standalone-project discovery;
-   - project lineage/rename/merge/supersession;
-   - canonical rule/decision/artifact/checkpoint recovery;
-   - privacy-safe memory migration;
-   - lost-artifact recovery;
-   - build-history lesson registry;
-   - scope-drift/duplicate-project prevention;
-   - durable continuation independent of one chat session.
+## Intended Command Center experience
 
-**Current architecture-review inventory: 444 explicit controls.**
-
-This **444 is not the canonical requirement count**. Many controls refine, strengthen, operationalize, or promote already recovered requirements. Genuinely new owner requirements will receive new canonical IDs only after exact duplicate/lineage reconciliation against the 5,825 baseline.
-
-## Intended owner experience
-
-Command Center should become the place where James can naturally say, for example:
+James should be able to talk naturally to Command Center:
 
 **“I have this idea…”**
 
-and discuss it interactively with Brain/Foundry until it is right.
+Brain/Foundry researches and develops it into the exhaustive Ultimate Spec, architecture, roadmap, dependencies, validation/prototype path, setup manifest, risks, future/dormant capabilities, and Agency execution plan.
 
-Then:
+Then James can say:
 
 **“Okay, go ahead and execute that.”**
 
-Command Center should:
+Command Center freezes the exact agreed execution snapshot, creates/updates the owner-governed project, forms the appropriate Agency organization, dispatches safe parallel specialist work, independently verifies/integrates it, consolidates genuine owner boundaries, and returns verified results to the same durable project conversation.
 
-1. freeze the exact agreed specification/decision version;
-2. create or update the project/roadmap as authorized;
-3. create the logical Project Agent;
-4. let Agency leadership form the appropriate temporary organization;
-5. dispatch researchers/specialists/builders/verifiers/integrators safely in parallel;
-6. keep eligible work moving autonomously;
-7. allow James to keep talking naturally to steer, ask, change, pause, resume, or reprioritize;
-8. consolidate genuine owner boundaries through Needs Me / Boundary Office;
-9. verify/integrate continuously;
-10. return truthful completion and evidence to the same conversational workspace.
+James can continue steering it conversationally while it works. Material changes trigger impact analysis/replanning without throwing away verified unaffected work or broadening authorization.
 
-This conversational control flow is a major product requirement, not a decorative chat box.
+## The Agency
 
-## The Agency as an autonomous organization
+The Agency is not one Agent or one fixed-size worker pool. It is a dynamic governed organization.
 
-The Agency is not one Agent and not merely a worker pool.
+It can form mission-specific combinations of Portfolio/Project/Research/Architecture/Planning/Build/Security/QA/Integration/Release leads, specialist builders, verifiers, scouts, Boundary Office, Shift Manager, and temporary workers.
 
-It may dynamically form an organization appropriate to the mission, for example:
+Logical Project Agents persist while execution workers are replaceable. Active concurrency is bounded by safe DAG work, capabilities, shared-resource claims, quotas/free-tier constraints, owner authority, security, and backpressure—not by a fixed worker number.
 
-- Portfolio Lead;
-- Project Lead;
-- Research Lead + researchers;
-- Architecture Lead;
-- Planning Lead;
-- Build Lead + specialist implementation workers;
-- UI/UX specialists;
-- Database/data specialists;
-- Security Lead;
-- QA Lead + verifier workers;
-- Integration Lead;
-- Release Lead;
-- Boundary Office liaison;
-- maintenance/opportunity scouts.
+Workers share canonical knowledge through scoped context/artifact contracts, not uncontrolled mutable chat history.
 
-A book, commerce store, service business, AI product, media system, or personal tool can form a different team from the same registered Agency capabilities.
+## Roadmap package consistency
 
-James remains the final owner/authority. Autonomous leads may make thousands of routine reversible choices inside their mission and decision envelope, but they cannot self-authorize protected actions or broaden their own authority.
+The following are now aligned to the 5,852 / 188 owner-review plan:
 
-## High-volume project creation
+- complete phase plan;
+- canonical owner additions REV3;
+- Agency/Foundry/Historical reconciliation Pass 2;
+- category dependency graph;
+- manifest;
+- QC;
+- coverage verification;
+- open-issues register;
+- 147-phase supersession notice;
+- roadmap/spec-lock supersession record.
 
-Foundry must support James bringing many ideas in one day without forcing all of them to execute simultaneously.
+Roadmap QC status: **PASS FOR OWNER REVIEW**.
 
-Logical projects/Project Agents can scale independently of actual worker concurrency. The portfolio/incubation system captures, researches, scores, parks, prioritizes, or activates ideas while the Agency scheduler uses only the safe/available worker capacity.
+This is **not** the same as production acceptance and does **not** mean implementation exists.
 
-## Historical project continuity
+## Only remaining roadmap gate
 
-Command Center must also support the opposite direction: taking a large historical body of work and recovering it into the canonical system without losing context or creating duplicates.
+The only current roadmap blocker is:
 
-A future export import must be able to answer:
+**P0.9 — James owner review / correction / approval of the complete 5,852-requirement, 188-phase Master Build Plan.**
 
-- What projects existed?
-- What did each project originally mean?
-- What was renamed, merged, superseded, or abandoned?
-- What is still active?
-- Which owner decisions are current?
-- Which artifacts were approved/protected?
-- What work was verified versus merely claimed?
-- What is blocked and what is the exact next action?
-- What failed before and what infrastructure lesson should prevent recurrence?
-
-That recovery behavior is part of Brain/Foundry/Projects, not a one-off cleanup script.
-
-## Category sequence
-
-The Category 0–15 framework remains the current owner-facing organization, but the phase contents must be re-expanded before Spec Lock v2:
-
-- **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE**
-- **Category 1 — CORE KERNEL + GOVERNANCE**
-- **Category 2 — IDENTITY + SECURITY FOUNDATION**
-- **Category 3 — CANONICAL DATA / KNOWLEDGE / COMMAND GRAPH / PROVIDER PLATFORM**
-- **Category 4 — APPLICATION SHELL / VISUAL SYSTEM / PWA / DEVICE**
-- **Category 5 — PROJECTS / PORTFOLIO / ROADMAP / CHECKPOINTS / PROGRESS**
-- **Category 6 — BRAIN / AI INTELLIGENCE ECOSYSTEM**
-- **Category 7 — THE AGENCY / MULTI-AGENT EXECUTION PLATFORM**
-- **Category 8 — PERSONAL OPERATIONS / SEARCH / NEEDS ME / NOTIFICATIONS / AUTOMATION**
-- **Category 9 — FINANCE / BANKING / CREDIT / OBLIGATIONS**
-- **Category 10 — SOCIAL / COMMUNICATIONS / BRAND ACCOUNT IDENTITY**
-- **Category 11 — BOOKS / PUBLISHING PLATFORM**
-- **Category 12 — SPECIALIST PROJECT ORCHESTRATION + INTEROPERABILITY**
-- **Category 13 — ANALYTICS / OBSERVABILITY / RECOMMENDATIONS / SELF-AUDIT**
-- **Category 14 — RECOVERY / MIGRATION / SCALE / DORMANT FUTURE**
-- **Category 15 — FINAL INTEGRATION / EVERY-FILE AUDIT / RELEASE / PRODUCTION / SAMSUNG ACCEPTANCE**
-
-## Non-negotiable next sequence
-
-1. Reconcile the **444-control** Agency/Foundry/Historical-Recovery inventory against the **5,825** last-reconciled canonical baseline and recovered Future/Optional scope.
-2. Merge true duplicates/clarifications and preserve lineage.
-3. Assign new canonical IDs only to genuinely new owner requirements.
-4. Rebuild the phase decomposition across Category 0–15; do not preserve 147 for convenience.
-5. Revalidate the category/phase dependency DAG, concurrency/resource constraints, security, privacy, decision rights, conversational flows, historical-memory recovery, high-volume portfolio behavior, dormant capabilities, and extensibility.
-6. Rerun complete roadmap QC.
-7. Present the final reconciled Master Build Plan to James for owner review.
-8. Create Specification Lock v2 only after James approves/corrects that plan.
-9. Build cleanly from scratch under the locked specification.
-10. Category 15 performs final requirement-to-evidence, every-file, architecture, security, privacy, visual, recovery, Agency concurrency/autonomy, Foundry/conversation, historical-import/project-lineage, extensibility, release, production, owner, and Samsung acceptance.
-
-## Current provisional implementation
-
-The deployed VNext scaffold and all historical Command Center Agent/runtime machinery are **NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY** and are not recycled into the clean rebuild.
-
-## Review principle
-
-The goal is not to accumulate the largest checklist. The goal is to find major missing seams **before** Specification Lock v2, then reconcile them into one coherent architecture with one owner, one contract, one source of truth, one extension path, and one verification path for each responsibility.
-
-Quality, clean-room construction, natural owner workflow, autonomy with bounded authority, durable historical memory, expandability, and future-safe architecture control the final requirement and phase counts—not historical numbers.
+If James corrects anything, update the package and rerun affected QC. If James explicitly approves the complete plan, the next step is P0.10: create **Specification Lock v2**, establish the clean implementation baseline, and begin the Category 1→14 build. Category 15 remains the full every-file/security/privacy/visual/recovery/Agency/Foundry/release/production/owner/Samsung acceptance chain.
