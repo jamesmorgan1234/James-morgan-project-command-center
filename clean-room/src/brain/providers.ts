@@ -48,4 +48,6 @@ export class AiRouteRegistry {
     eligible.sort((a, b) => request.preferQuality ? b.qualityRank - a.qualityRank || a.latencyRank - b.latencyRank : a.latencyRank - b.latencyRank || b.qualityRank - a.qualityRank);
     return eligible[0];
   }
+
+  list(): readonly AiModelRoute[] { return Object.freeze([...this.#routes.values()]); }
 }

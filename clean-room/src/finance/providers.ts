@@ -32,4 +32,5 @@ export class FinancialProviderRegistry {
   }
 
   get(key: string): FinancialProviderAdapter | undefined { return this.#providers.get(key); }
+  list(): readonly FinancialProviderAdapter[] { return Object.freeze([...this.#providers.values()]); }
 }

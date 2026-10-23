@@ -26,6 +26,8 @@ export class PlatformProfileRegistry {
     if (!profile) throw new Error(`unknown platform profile: ${key}`);
     return profile;
   }
+
+  list(): readonly PlatformComplianceProfile[] { return Object.freeze([...this.#profiles.values()]); }
 }
 
 export function transformForProfile(input: { caption: string; mediaKind: string; disclosures: readonly string[] }, profile: PlatformComplianceProfile): Readonly<{ caption: string; mediaKind: string; disclosures: readonly string[] }> {

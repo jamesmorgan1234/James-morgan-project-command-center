@@ -36,6 +36,7 @@ export class MetricRegistry {
     if (!definition) throw new Error(`unknown metric: ${key}`);
     return definition;
   }
+  list(): readonly MetricDefinition[] { return Object.freeze([...this.#definitions.values()]); }
 }
 
 export function validateMetricValue(registry: MetricRegistry, value: MetricValue, nowMs: number): MetricValue {

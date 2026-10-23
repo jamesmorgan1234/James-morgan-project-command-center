@@ -35,4 +35,6 @@ export class AgencyExecutorRegistry {
   eligible(input: { capability: string; projectTypeKey: string; environment: "normal_chat" | "work" | "deterministic"; risk: "low" | "medium" | "high" | "critical"; allowPaid: boolean }): readonly AgencyExecutor[] {
     return Object.freeze([...this.#executors.values()].filter((executor) => executor.enabled && executor.health !== "unavailable" && executor.capabilities.includes(input.capability) && executor.environments.includes(input.environment) && (executor.projectTypeKeys.length === 0 || executor.projectTypeKeys.includes(input.projectTypeKey)) && (input.allowPaid || executor.costClass !== "paid") && RISK_RANK[input.risk] <= RISK_RANK[executor.maxRisk]));
   }
+
+  list(): readonly AgencyExecutor[] { return Object.freeze([...this.#executors.values()]); }
 }
