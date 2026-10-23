@@ -6,8 +6,11 @@ const js=await readFile(new URL('./refinement.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./refinement.css',import.meta.url),'utf8');
 const rootHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
 const isolatedHtml=await readFile(new URL('./index.html',import.meta.url),'utf8');
+const visualFixture=await readFile(new URL('./visual-fixture.html',import.meta.url),'utf8');
 const rootSw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
 const isolatedSw=await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
+const roadmap=await readFile(new URL('../COMMAND_CENTER_PRODUCT_ROADMAP.md',import.meta.url),'utf8');
+const rpcGrantMigration=await readFile(new URL('../supabase/migrations/20261023012400_cc7_agent_restrict_new_owner_rpcs.sql',import.meta.url),'utf8');
 
 for(const [name,html] of [['root',rootHtml],['isolated',isolatedHtml]]){
   test(`${name} shell loads V7 refinement layer`,()=>{
@@ -51,6 +54,36 @@ test('approved Missing Hour atlas is unobstructed and uses locked slots 23 throu
   for(const position of ['57.5%','60%','62.5%','65%','67.5%'])assert.ok(css.includes(position),`missing atlas position ${position}`);
   assert.match(css,/\.cc-book-num\{display:none!important\}/);
   for(let i=1;i<=5;i++)assert.ok(css.includes(`content:'BOOK ${i}'`),`missing external BOOK ${i} label`);
+});
+
+test('visual QA fixture loads the same refinement styling used by the app',()=>{
+  assert.match(visualFixture,/refinement\.css\?v=1/);
+});
+
+test('authoritative roadmap matches the locked two-mode and Work-ladder contract',()=>{
+  for(const text of [
+    'Agent Auto',
+    'To Work Barriers',
+    'mutually exclusive',
+    'strictly one project at a time',
+    'Retry Luna High',
+    'Retry Sol Light',
+    'Sol Medium never auto-starts',
+    'If the denominator is not trustworthy',
+    'completely unobstructed',
+    'medium difficulty',
+    'first approved cookbook remains the layout benchmark'
+  ])assert.ok(roadmap.includes(text),`roadmap missing locked requirement: ${text}`);
+  assert.equal(roadmap.includes('numbered corner badges'),false,'stale cover-overlay rule remains in roadmap');
+});
+
+test('new owner RPCs are not granted to anonymous callers',()=>{
+  for(const fn of ['cc7_agent_owner_set_boundary_sweep(boolean)','cc7_agent_owner_retry_work_rung(uuid,text)']){
+    assert.ok(rpcGrantMigration.includes(`from public`));
+    assert.ok(rpcGrantMigration.includes(`from anon`));
+    assert.ok(rpcGrantMigration.includes(`to authenticated`));
+    assert.ok(rpcGrantMigration.includes(fn),`missing grant restriction for ${fn}`);
+  }
 });
 
 test('service workers cache refinement and approved atlas with new generations',()=>{
