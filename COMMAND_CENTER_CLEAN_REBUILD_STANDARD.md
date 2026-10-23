@@ -98,6 +98,39 @@ Required owner controls include at minimum:
 
 Existing pause/resume, Work approval, exact-step Sol Medium approval, project scoping, Books target protection, duplicate-side-effect protection, retry/circuit-breaker rules, security gates, and $0/free-first restrictions remain product requirements only where they have been reconciled into the current V7 roadmap; their legacy implementations are not reusable.
 
+## Locked coloring-book Agent standard
+
+For every coloring-book project, Command Center must treat the approved title and approved cover as a hard thematic contract for the interior. A coloring book may not receive a durable `PUBLISH READY` state merely because files exist or a previous generation pass completed.
+
+The Agent must recover the current authoritative title, approved cover, interior/page set, page-count requirement, current checkpoint, and any locked project-specific rules before evaluating or changing the book. Approved cover art is protected and must not be regenerated, redrawn, substituted, or modified unless James explicitly reopens that exact asset.
+
+Every final coloring page must be individually evaluated against all of these hard requirements:
+
+1. **Theme match** — the page must clearly belong to the concept promised by the approved title and cover. Generic filler, unrelated imagery, or random abstract doodles are a failure even if the page is technically printable.
+2. **Medium difficulty** — the page must be neither childishly simple nor excessively dense/overwhelming. Difficulty must be judged page by page, not inferred from the book as a whole.
+3. **Human colorability** — a human must be able to realistically and enjoyably color the page. The image must contain understandable forms, usable open regions, clean enough line structure, and practical detail density. Visual complexity alone does not count as colorability.
+4. **Print suitability** — the page must be structurally usable as a coloring-book page at the intended trim/layout, with no unusable muddy areas, broken/unclear line structure, accidental heavy black fill, or other defects that make normal coloring impractical.
+5. **Book consistency** — the page must fit the book's overall difficulty, visual language, and subject matter closely enough that the interior feels intentionally curated rather than like unrelated generated images.
+
+Each page must end in a durable QC classification such as `PASS — MEDIUM`, `TOO EASY`, `TOO COMPLEX`, `NOT HUMAN-COLORABLE`, `OFF THEME`, or another equally explicit failure state. Failed pages must be corrected or replaced and then re-audited. The Agent may not mark the book ready while any required final page remains failed, missing, duplicated where uniqueness is required, or unverified.
+
+A final coloring-book verification pass must confirm at minimum:
+
+- every required final coloring page is present;
+- every required final coloring page passed medium-difficulty QC;
+- every required final coloring page passed human-colorability QC;
+- every required final coloring page matches the approved title/cover theme;
+- the set is coherent and free of obvious filler/off-theme pages;
+- the approved cover remains exact and protected;
+- interior/title/cover alignment is verified;
+- page order/count, front/back matter, sample/test-page requirements, trim/layout, and final KDP package are verified where applicable.
+
+Only after those checks have verified evidence may the durable book state advance through readiness labels such as `THEME VERIFIED`, `MEDIUM DIFFICULTY VERIFIED`, `PAGE SET VERIFIED`, `INTERIOR READY`, and finally `PUBLISH READY`.
+
+`PUBLISH READY` is a durable verification state. The Agent must record the authoritative files/assets or stable identifiers available to it, the completed QC checkpoint, and the verification time. On a later run it must first determine whether anything material changed. If nothing changed, it preserves the locked package and reports that no rework is required. If the manuscript/interior, page set, approved asset reference, metadata, or other readiness-critical input changed, the book must move to a truthful `RECHECK REQUIRED`-type state until the affected QC is rerun.
+
+This standard applies whether James starts the Agent on one coloring-book project manually or the project is reached through a portfolio Agent mode. Project scope remains locked: the Agent may not mix pages, covers, rules, or approval state between coloring-book titles.
+
 ## Legacy isolation
 
 During construction, the new implementation must live in a clearly isolated authoritative rebuild area and must not load legacy implementation files. When the new implementation reaches the cutover boundary, root startup/deployment files must be replaced so production loads only the new authoritative stack.
