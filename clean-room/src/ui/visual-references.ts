@@ -57,10 +57,28 @@ export const APPROVED_SHARED_VISUAL_LANGUAGE = Object.freeze([
   "machinery/icon language"
 ] as const);
 
+export const UNSEEN_SCREEN_DERIVATION_RULE = Object.freeze({
+  authority: "owner_approved" as const,
+  rule: "derive_not_redesign" as const,
+  sourceScreens: Object.freeze(["projects", "active_live", "next_up", "project_detail_missing_hour"] as const),
+  requiredContinuity: Object.freeze([
+    "same near-black canvas and orange/gold illuminated machinery system",
+    "same beveled/clipped geometry and dimensional card construction",
+    "same typography hierarchy, density, spacing rhythm, and semantic status treatment",
+    "same phone-first interaction scale and compact control language",
+    "new controls must look native to the approved screens rather than generic web UI",
+    "expanded capability may change information architecture but not the governing visual identity"
+  ]),
+  discoveryPolicy: "additional historically approved screenshots may strengthen exact screen authority when verified, but absence of another screenshot does not block deriving necessary screens from the locked visual system" as const,
+  truthPolicy: "derived screens are labeled derived from approved visual language and are never falsely represented as pixel-identical historical screenshots" as const
+});
+
 export const REJECTED_VISUAL_PATTERNS = Object.freeze([
   "generic SaaS dashboard",
   "flat admin table as primary navigation",
   "static hand-entered progress percentage",
   "unverified revenue or performance figures",
-  "visual structure invented as exact authority for an unseen screen"
+  "visual structure invented as exact authority for an unseen screen",
+  "new modules switching to a different design system",
+  "generic browser-default buttons that ignore the approved machinery language"
 ] as const);
