@@ -24,7 +24,55 @@
   <div id="ccBoot" class="cc-boot" role="status" aria-live="polite">Starting Command Center…</div>
   <main id="ccApp" class="cc-app" hidden></main>
   <div id="ccToastHost" class="cc-toast-host" aria-live="polite" aria-atomic="true"></div>
-  <script src="./startup-recovery.js?v=1"></script>
+  <script>
+  (()=>{
+    const boot=document.getElementById('ccBoot');
+    const app=document.getElementById('ccApp');
+    if(!boot||!app)return;
+    const key='cc7-startup-inline-recovery-v2';
+    let settled=false;
+    const done=()=>{
+      if(settled)return;
+      if(boot.hidden||!app.hidden){
+        settled=true;
+        try{sessionStorage.removeItem(key);}catch{}
+        observer.disconnect();
+      }
+    };
+    const observer=new MutationObserver(done);
+    observer.observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['hidden']});
+    done();
+    setTimeout(async()=>{
+      if(settled||boot.hidden||!app.hidden)return;
+      let tried=false;
+      try{tried=sessionStorage.getItem(key)==='1';}catch{}
+      if(tried){
+        boot.textContent='Command Center startup failed. Tap to retry.';
+        boot.setAttribute('role','button');
+        boot.tabIndex=0;
+        const retry=()=>{try{sessionStorage.removeItem(key);}catch{} location.reload();};
+        boot.addEventListener('click',retry,{once:true});
+        boot.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();retry();}},{once:true});
+        return;
+      }
+      try{sessionStorage.setItem(key,'1');}catch{}
+      boot.textContent='Recovering Command Center…';
+      try{
+        if('serviceWorker' in navigator){
+          const registrations=await navigator.serviceWorker.getRegistrations();
+          await Promise.all(registrations.filter(reg=>reg.scope.startsWith(location.origin)).map(reg=>reg.unregister()));
+        }
+        if('caches' in window){
+          const keys=await caches.keys();
+          await Promise.all(keys.filter(name=>name.startsWith('command-center-v7-')||name.startsWith('james-command-center-')).map(name=>caches.delete(name)));
+        }
+      }catch{}
+      const url=new URL(location.href);
+      url.searchParams.set('cc7-inline-recover',Date.now().toString());
+      location.replace(url.toString());
+    },9000);
+  })();
+  </script>
   <script type="module" src="./app.js?v=4"></script>
   <script type="module" src="./refinement.js?v=1"></script>
   <script type="module" src="./home-books-refinement.js?v=2"></script>

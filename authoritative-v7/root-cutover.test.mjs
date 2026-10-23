@@ -37,6 +37,8 @@ test('V7 shells honor the HTML hidden state over component display rules',()=>{
     assert.match(html,/\[hidden\]\{display:none!important\}/);
     assert.match(html,/id="ccBoot" class="cc-boot"/);
     assert.match(html,/id="ccApp" class="cc-app" hidden/);
+    assert.match(html,/cc7-startup-inline-recovery-v2/);
+    assert.match(html,/Recovering Command Center…/);
   }
 });
 
@@ -53,7 +55,7 @@ test('root manifest is clean standalone V7 identity',()=>{
 });
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
-  assert.match(rootSw,/command-center-v7-root-7/);
+  assert.match(rootSw,/command-center-v7-root-8/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);
@@ -69,6 +71,8 @@ test('root service worker takes over old caches and caches only V7 runtime',()=>
     './authoritative-v7/home-books-refinement.js?v=2',
     './authoritative-v7/home-books-refinement.css?v=1',
     './authoritative-v7/phone-layout-cover-fix.js?v=1',
+    './authoritative-v7/startup-recovery.js?v=1',
+    './authoritative-v7/supabase-loader.js?v=1',
     './authoritative-v7/data.js',
     './authoritative-v7/control-modules.js',
     './authoritative-v7/overview-screens.js',
