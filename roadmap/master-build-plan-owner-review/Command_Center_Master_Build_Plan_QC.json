@@ -1,38 +1,30 @@
 {
   "date": "2026-10-23",
-  "canonical_requirements": 5825,
+  "canonical_requirements": 5827,
+  "historical_canonical_requirements": 5825,
+  "owner_additions_reconciled": ["CCR-05826","CCR-05827"],
   "category_mapping": {
-    "mapped": 5825,
+    "mapped": 5827,
     "unmapped": 0,
     "status": "PASS"
   },
   "phase_candidate_mapping": {
-    "mapped": 5825,
+    "mapped": 5827,
     "unmapped": 0,
-    "method": "deterministic category-constrained semantic/rule candidate mapping for roadmap QA; not Spec Lock authority until owner review",
-    "phases_with_direct_or_candidate_requirement_coverage": 129,
-    "implementation_phases_total": 139,
-    "roadmap_derived_phases_without_direct_canonical_requirement": [
-      "P3.8",
-      "P8.10",
-      "P11.7",
-      "P12.4",
-      "P12.5",
-      "P12.6",
-      "P12.7",
-      "P14.4",
-      "P15.6",
-      "P15.11"
-    ]
+    "method": "deterministic category-constrained semantic/rule candidate mapping plus manual source-backed coverage overrides; not Spec Lock authority until owner review",
+    "manual_coverage_overrides": ["P3.8","P8.10","P11.7","P12.4","P14.4","P15.6","P15.11"],
+    "remaining_named_specialist_phases_without_direct_named_canonical_requirement": ["P12.5","P12.6","P12.7"]
   },
   "category_dependency_dag": {
     "acyclic": true,
     "topological_order": [0,1,2,3,4,5,6,7,8,10,11,13,9,12,14,15]
   },
   "release_gates": {"count":15,"ids":["G0","G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12","G13","G14"]},
+  "biometric_security_requirement": "CCR-05826",
+  "reliable_update_requirement": "CCR-05827",
   "owner_acceptance_before_category_15": false,
   "samsung_acceptance_before_category_15": false,
   "current_vnext_scaffold_authority": "NON-AUTHORITATIVE / PROVISIONAL",
   "spec_lock_v2": "PENDING OWNER REVIEW",
-  "status": "PASS WITH OWNER-REVIEW ITEMS"
+  "status": "PASS WITH 3 NAMED-SPECIALIST OWNER-REVIEW ITEMS"
 }
