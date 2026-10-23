@@ -1,30 +1,70 @@
 {
   "date": "2026-10-23",
-  "canonical_requirements": 5827,
-  "historical_canonical_requirements": 5825,
-  "owner_additions_reconciled": ["CCR-05826","CCR-05827"],
+  "last_reconciled_canonical_requirement_baseline": 5825,
+  "canonical_requirement_total": null,
+  "canonical_requirement_total_status": "PENDING AGENCY/FOUNDRY DUPLICATE-LINEAGE RECONCILIATION",
+  "biometric_security_status": {
+    "type": "EXISTING_CANONICAL_SCOPE_CLARIFICATION",
+    "clarification_id": "OWNER-CLARIFY-20261023-BIOMETRIC",
+    "creates_new_canonical_id": false
+  },
+  "reliable_update_status": {
+    "type": "EXISTING_CANONICAL_SCOPE_CLARIFICATION",
+    "clarification_id": "OWNER-CLARIFY-20261023-UPDATES",
+    "creates_new_canonical_id": false
+  },
+  "previous_phase_baseline": 147,
+  "phase_count": null,
+  "phase_count_status": "PENDING EXPANDED ROADMAP DECOMPOSITION",
+  "architecture_review_control_total": 390,
+  "architecture_review_files": [
+    "03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md",
+    "04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md",
+    "05_PROJECT_FOUNDRY_IDEA_TO_ULTIMATE_SPEC.md",
+    "06_CONVERSATIONAL_PROJECT_STUDIO_AND_EXECUTION_CONTROL.md",
+    "07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md",
+    "08_AGENCY_LEADERSHIP_AND_AUTONOMOUS_OPERATIONS.md",
+    "09_AGENCY_DECISION_RIGHTS_AND_AUTONOMY_GOVERNANCE.md",
+    "10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md"
+  ],
+  "clean_room_rebuild": {
+    "legacy_implementation_reuse": false,
+    "historical_code_authority": "REFERENCE/EVIDENCE ONLY",
+    "verified_data_and_protected_assets_may_be_preserved": true
+  },
   "category_mapping": {
-    "mapped": 5827,
-    "unmapped": 0,
-    "status": "PASS"
+    "status": "STALE PRE-AGENCY BASELINE — MUST BE RERUN",
+    "mapped": null,
+    "unmapped": null
   },
   "phase_candidate_mapping": {
-    "mapped": 5827,
-    "unmapped": 0,
-    "method": "deterministic category-constrained semantic/rule candidate mapping plus manual source-backed coverage overrides; not Spec Lock authority until owner review",
-    "manual_coverage_overrides": ["P3.8","P8.10","P11.7","P12.4","P14.4","P15.6","P15.11"],
-    "remaining_named_specialist_phases_without_direct_named_canonical_requirement": ["P12.5","P12.6","P12.7"]
+    "status": "STALE PRE-AGENCY BASELINE — MUST BE RERUN",
+    "mapped": null,
+    "unmapped": null
   },
   "category_dependency_dag": {
-    "acyclic": true,
-    "topological_order": [0,1,2,3,4,5,6,7,8,10,11,13,9,12,14,15]
+    "status": "MUST BE REVALIDATED AFTER AGENCY/FOUNDRY PHASE EXPANSION"
   },
-  "release_gates": {"count":15,"ids":["G0","G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12","G13","G14"]},
-  "biometric_security_requirement": "CCR-05826",
-  "reliable_update_requirement": "CCR-05827",
+  "release_gates": {
+    "existing_gate_baseline": ["G0","G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12","G13","G14"],
+    "status": "RETAIN AS BASELINE; VERIFY SUFFICIENCY AGAINST AGENCY/FOUNDRY"
+  },
   "owner_acceptance_before_category_15": false,
   "samsung_acceptance_before_category_15": false,
-  "current_vnext_scaffold_authority": "NON-AUTHORITATIVE / PROVISIONAL",
-  "spec_lock_v2": "PENDING OWNER REVIEW",
-  "status": "PASS WITH 3 NAMED-SPECIALIST OWNER-REVIEW ITEMS"
+  "current_vnext_scaffold_authority": "NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY",
+  "spec_lock_v2": "BLOCKED UNTIL EXPANDED RECONCILIATION + OWNER REVIEW",
+  "status": "PENDING — PREVIOUS PASS SUPERSEDED BY OWNER-DIRECTED AGENCY/FOUNDRY EXPANSION",
+  "required_next_qc": [
+    "deduplicate/reconcile 390 controls against 5825 baseline",
+    "assign genuinely new canonical requirement IDs only where needed",
+    "map all canonical requirements to categories and phases",
+    "expand Category 7 and cross-cutting categories",
+    "validate dependency DAG and resource/shared-state concurrency constraints",
+    "validate autonomy decision rights and protected-action boundaries",
+    "validate conversational idea-to-execution E2E",
+    "validate high-volume portfolio/domain playbooks",
+    "validate extensibility/add-remove capability tests",
+    "validate clean-room no-legacy-runtime dependency",
+    "rerun full roadmap QC before owner review"
+  ]
 }
