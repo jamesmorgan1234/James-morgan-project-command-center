@@ -164,20 +164,32 @@ jobs:
             --disable-gpu \
             --hide-scrollbars \
             --force-device-scale-factor=2 \
-            --window-size=432,768 \
+            --window-size=360,768 \
             --screenshot="visual-output/home.png" \
             "http://127.0.0.1:4173/authoritative-v7/home-visual-fixture.html"
           python3 - <<'PY'
           import struct
           from pathlib import Path
+          expected={
+              'home.png':(720,1536),
+              'projects.png':(864,1536),
+              'active.png':(864,1536),
+              'next.png':(864,1536),
+              'detail.png':(864,1536),
+          }
           for path in sorted(Path('visual-output').glob('*.png')):
               data=path.read_bytes()
               if data[:8] != b'\x89PNG\r\n\x1a\n':
                   raise SystemExit(f'{path.name}: not a PNG')
               width,height=struct.unpack('>II',data[16:24])
               print(path.name,(width,height))
-              if (width,height)!=(864,1536):
-                  raise SystemExit(f'{path.name}: expected 864x1536, got {(width,height)}')
+              wanted=expected.get(path.name)
+              if wanted is None:
+                  raise SystemExit(f'{path.name}: unexpected screenshot')
+              if (width,height)!=wanted:
+                  raise SystemExit(f'{path.name}: expected {wanted}, got {(width,height)}')
+          if set(expected) != {p.name for p in Path('visual-output').glob('*.png')}:
+              raise SystemExit('visual screenshot set mismatch')
           PY
 
       - name: Upload visual QA screenshots
