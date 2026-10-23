@@ -47,16 +47,19 @@
   .cc-agent-mode-grid,.cc-home-grid,.cc-module-grid{gap:6px!important;margin-top:6px!important}
   .cc-agent-mode-grid{margin-top:0!important;margin-bottom:6px!important}
   .cc-home-grid{margin-top:0!important}
-  .cc-agent-mode-card,.cc-home-card,.cc-module{height:74px!important;min-height:74px!important;max-height:74px!important}
-  .cc-module{padding:7px!important;grid-template-columns:28px minmax(0,1fr) 15px!important;gap:5px!important}
-  .cc-module .cc-mini-icon{width:27px!important;height:27px!important}
-  .cc-module strong{font-size:.69rem!important;line-height:1.02}
-  .cc-module .cc-desc{font-size:.51rem!important;line-height:1.07;margin-top:2px}
-  .cc-module .cc-chevron{font-size:22px!important}
-  .cc-agent-mode-card{padding:7px!important}
-  .cc-agent-mode-card h2{font-size:.82rem!important}
-  .cc-agent-mode-card .cc-mode-state{font-size:.54rem!important;margin-top:2px!important}
-  .cc-agent-mode-card small{font-size:.47rem!important;margin-top:2px!important;line-height:1.12!important}
+  .cc-agent-mode-card,.cc-home-card,.cc-module{height:86px!important;min-height:86px!important;max-height:86px!important}
+  .cc-module{padding:9px!important;grid-template-columns:32px minmax(0,1fr) 17px!important;gap:6px!important}
+  .cc-module .cc-mini-icon{width:31px!important;height:31px!important}
+  .cc-module strong{font-size:.76rem!important;line-height:1.04!important}
+  .cc-module .cc-desc{font-size:.55rem!important;line-height:1.1!important;margin-top:3px!important}
+  .cc-module .cc-chevron{font-size:24px!important}
+  .cc-agent-mode-card{padding:9px!important}
+  .cc-agent-mode-card h2{font-size:.9rem!important}
+  .cc-agent-mode-card .cc-mode-state{font-size:.58rem!important;margin-top:3px!important}
+  .cc-agent-mode-card small{font-size:.5rem!important;margin-top:3px!important;line-height:1.14!important}
+  .cc-home-card{padding:10px!important}
+  .cc-home-card h2{font-size:.98rem!important}
+  .cc-home-card p{font-size:.62rem!important;margin-top:4px!important}
   .cc-agent-mode-card:after{inset:0 0 0 36%;opacity:.48;background-size:cover}
   .cc-agent-mode-card[data-cc7-mode="barriers"]:after{opacity:.58}
   .cc-module:after{inset:3px 4px 3px 42%;opacity:.22}
