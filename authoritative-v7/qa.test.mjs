@@ -166,7 +166,7 @@ test('screenshot-first visual primitives are defined',()=>{
 });
 
 test('fresh V7 atmospheric artwork is loaded and isolated',()=>{
-  assert.match(files.html,/\.\/artwork\.css\?v=4/);
+  assert.match(files.html,/\.\/artwork\.css\?v=5/);
   for(const asset of ['header-planet.svg','landscape-eclipse.svg','neural-globe.svg','analytics-grid.svg','road-mountains.svg','network-globe.svg','time-portal.svg','server-racks.svg','merch-cases.svg','city-spires.svg','mobile-horizon.svg']){
     assert.ok(files.artwork.includes(asset)||files.sw.includes(asset),`missing clean artwork asset: ${asset}`);
   }
@@ -184,8 +184,8 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.equal(manifest.display,'standalone');
   assert.equal(manifest.theme_color,'#000000');
   assert.ok(manifest.icons.some(i=>i.sizes==='512x512'&&i.src.includes('command-center-approved-icon-512.png')));
-  assert.match(files.html,/\.\/manifest\.webmanifest\?v=4/);
-  assert.match(files.html,/\.\/pwa\.js\?v=4/);
+  assert.match(files.html,/\.\/manifest\.webmanifest\?v=5/);
+  assert.match(files.html,/\.\/pwa\.js\?v=5/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
   assert.match(files.sw,/command-center-v7-clean-9/);
   assert.match(files.sw,/\.\/overview-screens\.js/);
