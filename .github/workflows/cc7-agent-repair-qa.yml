@@ -1,0 +1,43 @@
+name: Command Center V7 Agent Repair QA
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'authoritative-v7/agent-repair.js'
+      - 'authoritative-v7/agent-repair.css'
+      - 'authoritative-v7/agent-repair.test.mjs'
+      - 'authoritative-v7/project-auto.js'
+      - 'authoritative-v7/data.js'
+      - 'authoritative-v7/index.html'
+      - 'supabase/migrations/20261023_cc7_agent_project_auto_recheck.sql'
+      - '.github/workflows/cc7-agent-repair-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  agent-repair-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check Agent repair
+        run: |
+          node --check authoritative-v7/agent-repair.js
+          node --check authoritative-v7/project-auto.js
+          node --check authoritative-v7/data.js
+          node --check authoritative-v7/agent-repair.test.mjs
+      - name: Run Agent repair acceptance tests
+        run: node --test authoritative-v7/agent-repair.test.mjs
+      - name: Verify no startup or service-worker files changed in this repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          changed="$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -Eq '^(service-worker\.js|authoritative-v7/service-worker\.js|authoritative-v7/root-pwa\.js|authoritative-v7/pwa\.js)$'; then
+            echo 'Agent repair must not change startup/PWA service-worker files.'
+            exit 1
+          fi
