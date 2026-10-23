@@ -8,6 +8,7 @@ let independentRunBusy=false;
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const normalize=value=>String(value||'').normalize('NFKD').toLowerCase().replace(/[’‘]/g,"'").replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();
 const safeJson=value=>{try{return typeof value==='string'?JSON.parse(value):(value||null);}catch{return null;}};
+const approvedAtlasUrl=new URL('./assets/book-cover-atlas-v2.webp',import.meta.url).href;
 
 const atlasTitles=[
   'Strange Worlds','Dreambeast Atlas','Rooms Beyond Geometry','Fungal Realms','Neon Dreadscapes','Electric Eden','Cities That Dream','Cathedral of Impossible Things','Celestial Oddities','Mechanical Dreams',
@@ -92,7 +93,7 @@ function coverMarkup(book){
   const index=atlasIndex(book.title);
   if(index===null)return `<div class="cc-v7-approved-cover is-missing" role="img" aria-label="Approved cover asset unavailable">Approved cover<br>asset unavailable</div>`;
   const x=(index/40)*100;
-  return `<div class="cc-v7-approved-cover" role="img" aria-label="${esc(book.title)} approved cover" style="background-image:url('./assets/book-cover-atlas-v2.webp');background-position-x:${x}%"></div>`;
+  return `<div class="cc-v7-approved-cover" role="img" aria-label="${esc(book.title)} approved cover" style="background-image:url('${esc(approvedAtlasUrl)}');background-position-x:${x}%"></div>`;
 }
 
 function gridClass(count){if(count===1)return'cols-1';if(count===3||count===6)return'cols-3';return'cols-5';}
