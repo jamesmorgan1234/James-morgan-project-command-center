@@ -1,0 +1,22 @@
+[
+  {
+    "canonical_id": "CCR-05826",
+    "canonical_text": "Command Center must use WebAuthn/passkeys with a platform authenticator and required user verification for biometric/fingerprint-backed owner unlock on compatible Samsung/Android devices, with automatic relock, fresh verification for protected actions, secure recovery/revocation, and no biometric template storage.",
+    "source_ids": ["OWNER-ADD-20261023-01"],
+    "source_kinds": ["owner_addition"],
+    "architecture_branch": "A03",
+    "architecture_owner": "Identity / Authentication / Sessions / Devices",
+    "classification": "SECURITY / RECOVERY",
+    "primary_category": 2
+  },
+  {
+    "canonical_id": "CCR-05827",
+    "canonical_text": "Command Center must implement reliable versioned PWA/application updates with immutable release identity, active update discovery, complete install before activation, mixed-version prevention, controlled activation/reload, cache coherence, update observability, known-good offline preservation, rollback, and physical Samsung update acceptance.",
+    "source_ids": ["OWNER-ADD-20261023-02"],
+    "source_kinds": ["owner_addition"],
+    "architecture_branch": "A24",
+    "architecture_owner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "primary_category": 4
+  }
+]
