@@ -227,10 +227,14 @@ function renderLogin(message=''){bootEl.hidden=true;appEl.hidden=false;appEl.inn
 
 async function refreshAll(silent=false){
   if(!state.ownerId||state.busy)return;
+  const refreshRoute=routeUrl(state.route);
+  const refreshScrollY=window.scrollY;
   state.busy=true;
   try{
     const [snapshot,modules,agent]=await Promise.all([loadSnapshot(state.ownerId),loadControlModules(state.ownerId),loadAgentState(state.ownerId)]);
-    state.snapshot=snapshot;state.modules=modules;state.agent=agent;render();if(!silent)toast('Command Center refreshed.');
+    state.snapshot=snapshot;state.modules=modules;state.agent=agent;render();
+    if(routeUrl(state.route)===refreshRoute)requestAnimationFrame(()=>window.scrollTo({top:refreshScrollY,behavior:'instant'}));
+    if(!silent)toast('Command Center refreshed.');
   }catch(error){toast(error?.message||'Refresh failed.',true);}finally{state.busy=false;}
 }
 
@@ -271,6 +275,7 @@ async function handleAction(target){
 appEl.addEventListener('click',event=>handleAction(event.target).catch(error=>toast(error?.message||String(error),true)));
 appEl.addEventListener('submit',event=>{if(event.target.id!=='ccLogin')return;event.preventDefault();const form=new FormData(event.target);signIn(form.get('email'),form.get('password')).then(async session=>{if(!session)throw new Error('Sign in did not return a session.');await enterSession(session);}).catch(error=>renderLogin(error?.message||'Sign in failed.'));});
 window.addEventListener('popstate',()=>{state.route=parseRoute();render();requestAnimationFrame(()=>window.scrollTo({top:state.scroll.get(routeUrl(state.route))||0,behavior:'instant'}));});
+window.addEventListener('cc7:global-refresh',()=>{refreshAll(false);});
 
 async function enterSession(session){
   state.session=session;state.ownerId=session.user.id;
