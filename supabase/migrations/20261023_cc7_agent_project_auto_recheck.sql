@@ -8,6 +8,7 @@ declare
   v_owner uuid := auth.uid();
   v_controls public.cc7_agent_controls%rowtype;
   v_run public.cc7_agent_runs%rowtype;
+  v_project public.cc7_projects%rowtype;
   v_task_id uuid;
 begin
   if v_owner is null then raise exception 'authenticated owner required'; end if;
@@ -19,30 +20,56 @@ begin
     return jsonb_build_object('ok',true,'recheck_requested',false,'reason','project_required');
   end if;
 
+  select * into v_project
+  from public.cc7_projects
+  where id=p_project_id and owner_id=v_owner;
+  if not found then raise exception 'Selected V7 project was not found for this owner'; end if;
+  if not coalesce(v_project.agent_access_enabled,true) then
+    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','agent_access_disabled');
+  end if;
+
   select * into v_controls
   from public.cc7_agent_controls
   where owner_id=v_owner
   for update;
 
-  if not found
-     or coalesce(v_controls.project_auto_enabled,false) is not true
-     or v_controls.project_auto_project_id is distinct from p_project_id
-     or v_controls.current_run_id is null then
-    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','no_matching_project_auto');
+  if not found then
+    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','controls_missing');
   end if;
 
-  select * into v_run
-  from public.cc7_agent_runs
-  where id=v_controls.current_run_id and owner_id=v_owner
-  for update;
+  if coalesce(v_controls.auto_enabled,false) or coalesce(v_controls.boundary_sweep_enabled,false) then
+    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','conflicting_auto_mode');
+  end if;
 
-  if not found
-     or v_run.control_mode <> 'project_auto'
-     or v_run.project_id is distinct from p_project_id
-     or coalesce(v_run.stop_requested,false)
-     or coalesce(v_run.pause_requested,false)
-     or v_run.status not in ('needs_user','blocked') then
-    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','run_not_recheckable');
+  if v_controls.current_run_id is not null then
+    select * into v_run
+    from public.cc7_agent_runs
+    where id=v_controls.current_run_id
+      and owner_id=v_owner
+      and project_id=p_project_id
+      and control_mode='project_auto'
+      and status in ('needs_user','blocked')
+      and coalesce(stop_requested,false)=false
+      and coalesce(pause_requested,false)=false
+    for update;
+  end if;
+
+  if not found then
+    select * into v_run
+    from public.cc7_agent_runs
+    where owner_id=v_owner
+      and project_id=p_project_id
+      and control_mode='project_auto'
+      and status in ('needs_user','blocked')
+      and coalesce(stop_requested,false)=false
+      and coalesce(pause_requested,false)=false
+    order by created_at desc
+    limit 1
+    for update;
+  end if;
+
+  if not found then
+    return jsonb_build_object('ok',true,'recheck_requested',false,'reason','no_recheckable_project_auto_run');
   end if;
 
   select t.id into v_task_id
@@ -68,14 +95,22 @@ begin
   where id=v_run.id and owner_id=v_owner;
 
   update public.cc7_agent_controls
-  set runner_state='ready', updated_by='owner_checkpoint_recheck', updated_at=now()
+  set auto_enabled=false,
+      boundary_sweep_enabled=false,
+      boundary_sweep_current_project_id=null,
+      project_auto_enabled=true,
+      project_auto_project_id=p_project_id,
+      current_run_id=v_run.id,
+      runner_state='ready',
+      updated_by='owner_checkpoint_recheck',
+      updated_at=now()
   where owner_id=v_owner;
 
   insert into public.cc7_agent_events(owner_id,run_id,task_id,kind,message,payload)
   values(
     v_owner,v_run.id,v_task_id,'owner_recheck_requested',
     'Owner requested re-verification of the exact Project Auto blocker after a Project Checkpoint.',
-    jsonb_build_object('project_id',p_project_id,'recheck_requested_at',now())
+    jsonb_build_object('project_id',p_project_id,'recheck_requested_at',now(),'same_run_resume',true)
   );
 
   return jsonb_build_object(
