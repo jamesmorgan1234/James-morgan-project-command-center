@@ -89,7 +89,7 @@ function atlasIndex(title){
 
 function coverMarkup(book){
   if(normalize(book.title)===normalize('The Last Hour I Trusted You')){
-    return `<div class="cc-v7-approved-cover is-custom" role="img" aria-label="${esc(book.title)} approved cover" style="background-image:url('./assets/the-last-hour-i-trusted-you-approved-cover.jpg')"></div>`;
+    return `<div class="cc-v7-approved-cover is-missing" role="img" aria-label="${esc(book.title)} approved cover protected; display mirror pending">Approved cover protected<br>display mirror pending</div>`;
   }
   const index=atlasIndex(book.title);
   if(index===null)return `<div class="cc-v7-approved-cover is-missing" role="img" aria-label="Approved cover asset unavailable">Approved cover<br>asset unavailable</div>`;
@@ -122,7 +122,7 @@ function enhanceBookProject(){
   if(!current)return;
   const {screen,project}=current;
   if(!String(project.category||'').toLowerCase().includes('kdp')&&!String(project.id||'').startsWith('kdp-'))return;
-  if(project.id==='kdp-missing-hour')return; // Current owner-approved benchmark remains untouched.
+  if(project.id==='kdp-missing-hour')return;
   if(screen.querySelector(`[data-cc7-book-project="${CSS.escape(project.id)}"]`))return;
   const books=booksForProject(project.id);
   if(!books.length)return;
