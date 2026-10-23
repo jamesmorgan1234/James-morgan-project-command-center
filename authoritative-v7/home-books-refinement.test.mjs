@@ -76,13 +76,16 @@ test('both V7 entrypoints load v2 book renderer first and final repair afterward
     assert.match(text,/home-books-refinement\.css\?v=1/);
     assert.match(text,/home-books-refinement\.js\?v=2/);
     assert.match(text,/phone-layout-cover-fix\.js\?v=1/);
+    assert.match(text,/cc7-startup-inline-recovery-v2/);
     assert.ok(text.indexOf('home-books-refinement.js?v=2')<text.indexOf('phone-layout-cover-fix.js?v=1'));
   }
-  assert.match(rootSw,/command-center-v7-root-7/);
-  assert.match(isolatedSw,/command-center-v7-clean-11/);
+  assert.match(rootSw,/command-center-v7-root-8/);
+  assert.match(isolatedSw,/command-center-v7-clean-12/);
   for(const text of [rootSw,isolatedSw]){
     assert.match(text,/home-books-refinement\.js\?v=2/);
     assert.match(text,/phone-layout-cover-fix\.js\?v=1/);
+    assert.match(text,/startup-recovery\.js\?v=1/);
+    assert.match(text,/supabase-loader\.js\?v=1/);
     assert.match(text,/book-cover-atlas-v2\.webp/);
   }
 });
