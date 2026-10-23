@@ -1,10 +1,10 @@
 {
   "project": "Command Center",
   "date": "2026-10-23",
-  "status": "OWNER REVIEW DRAFT — AGENCY/FOUNDRY RECONCILIATION IN PROGRESS",
+  "status": "OWNER REVIEW DRAFT — AGENCY/FOUNDRY/HISTORICAL-RECOVERY RECONCILIATION IN PROGRESS",
   "last_reconciled_canonical_requirement_baseline": 5825,
   "canonical_requirement_total": null,
-  "canonical_requirement_total_status": "PENDING AGENCY/FOUNDRY DUPLICATE-LINEAGE RECONCILIATION",
+  "canonical_requirement_total_status": "PENDING AGENCY/FOUNDRY/HISTORICAL-RECOVERY DUPLICATE-LINEAGE RECONCILIATION",
   "biometric_and_update_status": "EXISTING CANONICAL SCOPE CLARIFICATIONS — NO COUNT INFLATION BY THEMSELVES",
   "categories": 16,
   "implementation_categories": 15,
@@ -16,6 +16,13 @@
   "clean_room_rebuild": true,
   "legacy_implementation_reuse": false,
   "current_vnext_scaffold": "NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY",
+  "historical_export_recovery": {
+    "conversation_export_parts": 2,
+    "top_level_conversations_inventoried": 132,
+    "historical_conversation_authority": "EVIDENCE ONLY — RECONCILE AGAINST NEWEST OWNER DECISIONS AND VERIFIED LIVE STATE",
+    "private_data_repo_copying": false,
+    "recovered_project_candidates_require_owner_governance": true
+  },
   "architecture_review_packages": [
     {"file":"03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md","controls":66},
     {"file":"04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md","controls":54},
@@ -24,10 +31,15 @@
     {"file":"07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md","controls":36},
     {"file":"08_AGENCY_LEADERSHIP_AND_AUTONOMOUS_OPERATIONS.md","controls":48},
     {"file":"09_AGENCY_DECISION_RIGHTS_AND_AUTONOMY_GOVERNANCE.md","controls":42},
-    {"file":"10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md","controls":48}
+    {"file":"10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md","controls":48},
+    {"file":"12_HISTORICAL_EXPORT_MEMORY_MIGRATION_AND_PROJECT_RECOVERY.md","controls":54}
   ],
-  "architecture_review_control_total": 390,
-  "requirement_mapping_status": "PRE-AGENCY BASELINE SUPERSEDED FOR FINAL REVIEW; RECONCILIATION REQUIRED",
+  "architecture_review_control_total": 444,
+  "reconciliation_files": [
+    "11_AGENCY_FOUNDRY_RECONCILIATION_PASS1.md",
+    "12_HISTORICAL_EXPORT_MEMORY_MIGRATION_AND_PROJECT_RECOVERY.md"
+  ],
+  "requirement_mapping_status": "PRE-AGENCY BASELINE SUPERSEDED FOR FINAL REVIEW; FULL RECONCILIATION REQUIRED",
   "roadmap_qc_status": "PENDING EXPANDED RECONCILIATION",
-  "next_required_step": "Reconcile 390-control Agency/Foundry inventory against the 5825 baseline, assign only genuinely new canonical IDs, expand phases, rerun dependency/security/extensibility/conversational QC, then present owner-review roadmap before Spec Lock v2"
+  "next_required_step": "Reconcile 444-control architecture-review inventory against the 5825 baseline, preserve historical project/rule/artifact lineage, assign only genuinely new canonical IDs, expand phases, rerun dependency/security/privacy/extensibility/conversational/recovery QC, then present owner-review roadmap before Spec Lock v2"
 }
