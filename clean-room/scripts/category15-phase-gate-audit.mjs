@@ -21,7 +21,15 @@ const requiredTests={"P15.3":["clean-room/tests/kernel-foundation.test.mjs","cle
 for(const [id,paths] of Object.entries(requiredTests)) phases[id]={status:allTracked(paths)&&phaseDefined(id)?presentStatus:"BLOCKED_IMPLEMENTATION",evidence:paths};
 const exactIcon="clean-room/public/assets/command-center-approved-icon-512.png";
 phases["P15.13"]={status:tracked(exactIcon)&&phaseDefined("P15.13")?presentStatus:"BLOCKED_PROTECTED_ASSET",evidence:[exactIcon,"clean-room/scripts/category15-release-artifact-audit.mjs","clean-room/scripts/build-browser.mjs"]};
-phases["P15.14"]={status:"BLOCKED_AUTHORIZATION",reason:"preview/staging exact-candidate verification requires external candidate environment/authorization"};
+phases["P15.14"]={
+  status:"PARTIAL",
+  reason:"Owner-authorized isolated Preview is deployed and exercised. Authorization is not the remaining blocker. Synthetic project rendering and safe failure states passed; backend-dependent acceptance remains incomplete.",
+  verification:{testedGitSha:"3d0378b53651be3b285bfe9c8841923cd9be812c",deploymentId:"dpl_DK6gQv6wci5jvvqxGHfYHRn1pieM",environment:"preview",dataMode:"explicit synthetic acceptance fixture; no production data",routeCount:19},
+  evidence:["https://command-center-preview-65otkxzuq-crestven-holdings.vercel.app","https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40040773353","clean-room/tests/runtime-fetch-receiver.test.mjs"],
+  verifiedRepairs:["SPA deep-link reload","all static routes reachable in navigation","browser fetch receiver","canonical normal-before-low priority ordering","Home card links","approved-artwork visual continuity and 390px layout"],
+  remainingBlockers:["No safe nonproduction canonical reader/execution connection for Brain, Agency/Foundry, Search, Automations, Finance, Social, Books, Specialists, Analytics or dedicated security/device state","Book/series-specific detailed visual acceptance requires a canonical nonproduction book-data contract; generic project fixtures are not proof","Actual offline-cache replay and waiting-worker update activation remain unobserved"],
+  productionReady:false
+};
 phases["P15.15"]={status:"BLOCKED_AUTHORIZATION",reason:"production authorization is an explicit owner gate"};
 phases["P15.16"]={status:"BLOCKED_AUTHORIZATION",reason:"production deployment/live verification is protected"};
 phases["P15.17"]={status:"BLOCKED_OWNER_ACCEPTANCE",reason:"owner acceptance cannot be self-certified"};
