@@ -1,10 +1,10 @@
 # Category 1 — Kernel + Governance Acceptance Record
 
-Status: IMPLEMENTED / AUTOMATED VERIFICATION PENDING
+Status: VERIFIED COMPLETE FOR CATEGORY-1 CLEAN-ROOM SCOPE
 
 Authority: Specification Lock v2 and `14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`.
 
-Implemented clean-room foundations:
+Verified clean-room foundations:
 
 - P1.1 stable identifiers and lifecycle vocabulary
 - P1.2 generic registry fabric
@@ -17,13 +17,14 @@ Implemented clean-room foundations:
 - P1.9 fail-closed recovery shell primitives
 - P1.10 kernel invariants and clean-room/extension checks
 
-Mandatory acceptance conditions before Category 1 is called verified complete:
+Automated acceptance evidence:
 
-1. TypeScript typecheck passes.
-2. Clean-room build passes.
-3. Legacy import scanner passes.
-4. Kernel foundation tests pass.
-5. Extension add/remove acceptance test passes.
-6. No production deployment, merge, provider mutation, or historical-runtime import occurs.
+- GitHub Actions workflow: `.github/workflows/spec-lock-v2-clean-room-qa.yml`
+- Run: `40003893311`
+- Head: `4e66d5ef96cdc92da1cf3023f9c876b2e9e0c33b`
+- Typecheck: PASS
+- Build and tests: PASS
+- Legacy import scanner: PASS as part of `npm test`
+- No production deployment, merge, provider mutation, paid action, or historical-runtime import was performed.
 
-The CI workflow `.github/workflows/clean-room-ci.yml` is the automated verification gate for these conditions. Until a successful run is observed, Category 1 remains implemented but unverified.
+This acceptance applies only to Category 1 clean-room kernel/governance scope. Later-category integration and final Category 15 audit remain mandatory.

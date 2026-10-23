@@ -1,10 +1,10 @@
 # Category 2 — Identity + Security Foundation
 
-Status: FOUNDATION IMPLEMENTED / ACCEPTANCE NOT YET CLAIMED
+Status: FOUNDATION IMPLEMENTED / UNIT-VERIFIED / FULL CATEGORY ACCEPTANCE NOT YET CLAIMED
 
 This clean-room batch establishes provider-neutral security primitives for P2.1–P2.8 and an adversarial unit-test base for P2.9.
 
-Implemented:
+Implemented and unit-verified:
 
 - fail-closed owner session lifecycle with lock/expiry/revocation
 - platform-passkey metadata contracts with user verification required
@@ -17,6 +17,14 @@ Implemented:
 - append-only security-event evidence and constrained incident lifecycle
 - adversarial tests for cross-owner/project access, stale verification, revoked sessions/passkeys/devices, raw-secret insertion, and invalid incident transitions
 
+Automated evidence:
+
+- GitHub Actions workflow: `.github/workflows/spec-lock-v2-clean-room-qa.yml`
+- Run: `40003893311`
+- Head: `4e66d5ef96cdc92da1cf3023f9c876b2e9e0c33b`
+- Typecheck: PASS
+- Build and tests: PASS
+
 Not yet claimed complete:
 
 - provider-specific WebAuthn registration/assertion ceremonies
@@ -25,4 +33,4 @@ Not yet claimed complete:
 - server-side credential vault/provider adapters
 - full prompt-injection/supply-chain/offline recovery drills
 
-Those acceptance items remain mandatory; this file must not be interpreted as Category 2 completion evidence until the relevant live/provider/database gates pass.
+Those acceptance items remain mandatory; this file must not be interpreted as full Category 2 completion evidence until the relevant live/provider/database gates pass.
