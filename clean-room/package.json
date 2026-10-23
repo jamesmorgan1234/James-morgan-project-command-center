@@ -7,7 +7,8 @@
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build": "tsc -p tsconfig.build.json",
-    "test": "npm run build && node --test tests/*.test.mjs"
+    "check:legacy": "node scripts/check-no-legacy-imports.mjs",
+    "test": "npm run check:legacy && npm run build && node --test tests/*.test.mjs"
   },
   "devDependencies": {"typescript": "^5.8.3"}
 }
