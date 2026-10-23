@@ -1,20 +1,20 @@
 # COMMAND CENTER — BIOMETRIC SECURITY + RELIABLE UPDATE CLARIFICATIONS
 
-Date: 2026-10-23
-Status: **BINDING OWNER CLARIFICATIONS — INCORPORATE BEFORE SPECIFICATION LOCK v2**
+Date: 2026-10-23  
+Status: **BINDING OWNER CLARIFICATIONS — INCORPORATED INTO THE 5,852 / 188 OWNER-REVIEW ROADMAP**
 
 ## Canonical-count correction
 
 These are **not new count-bearing canonical requirements**.
 
-The reconciled baseline remains **5,825** until the current Agency/Foundry owner additions are fully deduplicated and reconciled.
+The pre-Agency reconciled baseline was **5,825**. The later Agency/Foundry/Historical-Recovery reconciliation added 27 genuinely distinct requirements, producing the current owner-review total of **5,852**. Neither biometric/fingerprint security nor reliable updates contributed a new ID to those 27.
 
 - Biometric/fingerprint-backed security is explicit surfacing/clarification of existing identity/passkey/WebAuthn/device/security requirements.
 - Reliable installed-PWA/application updates are explicit surfacing/clarification of existing update/version/cache/release/recovery requirements.
 
-Controlling clarification metadata is also recorded in `Command_Center_Canonical_Owner_Additions_REV2.json`.
+Controlling clarification metadata remains recorded in `Command_Center_Canonical_Owner_Additions_REV2.json`, and the 27 genuinely new requirements are recorded separately in `Command_Center_Canonical_Owner_Additions_REV3.json`.
 
-Do **not** create or use `CCR-05826` or `CCR-05827` as new canonical IDs merely for these two clarifications.
+Do **not** interpret current `CCR-05826` or `CCR-05827` as biometric/update IDs. After reconciliation those IDs are legitimately assigned to other new requirements: persistent logical Project Agent identity and the highly available Agency control plane. Biometrics and updates retain their existing canonical lineage listed below.
 
 ---
 
@@ -92,9 +92,9 @@ Command Center must never read, store, transmit, or compare raw fingerprint imag
 - Verify no biometric data is stored.
 - Verify final Samsung acceptance only in Category 15.
 
-## Roadmap placement baseline
+## Current roadmap placement
 
-Primary impacted areas include identity/authentication, device/session inventory, policy/risk, protected-action gates, security events/incidents, security adversarial testing, app shell/startup, PWA/device behavior, Category 15 security audit, and Samsung physical acceptance.
+Primary placement in the 188-phase plan includes P2.1–P2.9, P4.2/P4.6, P15.4, and P15.18, with cross-cutting policy/recovery evidence where applicable.
 
 ---
 
@@ -197,14 +197,12 @@ Installed Command Center updates must actually work. A Samsung/PWA user must not
     - Verify Back, scroll, session lock, and protected state survive the update.
     - Verify no stale visual screen remains after controlled activation.
 
-## Roadmap placement baseline
+## Current roadmap placement
 
-Primary impacted areas include kernel recovery, realtime/reconciliation, app shell/startup, PWA/install/update, regression testing, backup/restore, schema migration/rollback, chaos/recovery, exact release candidate, production deployment, Samsung acceptance, and final completion lock.
+Primary placement in the 188-phase plan includes P1.8/P1.9, P3.6/P3.12, P4.2/P4.6/P4.8, P14.1–P14.4/P14.11, and P15.11/P15.13–P15.18 as applicable.
 
 ---
 
 ## Current roadmap status
 
-These two clarifications remain binding during the current owner review, but the roadmap has since expanded substantially through The Agency, Project Foundry, Conversational Project Studio, autonomy governance, and portfolio/domain playbooks.
-
-Therefore all phase references above are **placement baselines only** until the expanded Master Build Plan is reconciled. The final phase count is not yet locked.
+These clarifications are fully incorporated into `14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`. The owner-review roadmap now contains **5,852 canonical requirements across 188 phases** and remains **NOT SPECIFICATION LOCKED** until James owner review/approval.
