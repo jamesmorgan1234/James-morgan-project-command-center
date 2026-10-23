@@ -1,0 +1,3 @@
+export function projectPortfolioView(projects,roadmaps){return Object.freeze(projects.list().map(project=>({...project,progress:roadmaps.progress(project.id)})));}
+export function activeLiveView(projects,roadmaps){return Object.freeze(projects.list().filter(p=>['in_progress','implemented','qa_pending','verified','locked','blocked'].includes(p.state)).map(project=>({id:project.id,name:project.name,state:project.state,scope:roadmaps.progress(project.id),next:roadmaps.firstIncomplete(project.id)})));}
+export function nextUpView(projects,roadmaps){return Object.freeze(projects.list().map(project=>({projectId:project.id,projectName:project.name,next:roadmaps.firstIncomplete(project.id)})).filter(item=>item.next).sort((a,b)=>a.next.sequence-b.next.sequence));}
