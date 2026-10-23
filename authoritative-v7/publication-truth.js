@@ -30,6 +30,13 @@ export function bookHasAnyLiveFormat(book){
   return Object.values(book.formats||{}).map(normalizeState).some(state=>liveFormatStates.has(state));
 }
 
+function prePublishState(lowered){
+  if(/owner review required|agent verified/.test(lowered))return{label:'Owner Review Needed',cls:'owner-review'};
+  if(/ready to publish/.test(lowered))return{label:'Ready to Publish',cls:'ready'};
+  if(/agent review required|production complete|ready for kdp|unpublished|not published/.test(lowered))return{label:'Agent Review Needed',cls:'agent-review'};
+  return null;
+}
+
 export function projectPublicationDisplay(project,metrics=[]){
   const category=String(project?.category||'').toLowerCase();
   const isKdp=category.includes('kdp')||String(project?.id||'').startsWith('kdp-');
@@ -40,20 +47,23 @@ export function projectPublicationDisplay(project,metrics=[]){
   const books=verifiedBooksForProject(project.id,metrics);
 
   if(books.length){
-    const allLive=books.every(bookIsFullyLive);
-    if(allLive)return{label:'Live',cls:'live'};
+    if(books.every(bookIsFullyLive))return{label:'Live',cls:'live'};
 
     const anyLive=books.some(bookHasAnyLiveFormat);
-    if(/writing|rebuild|revision|qc|interior incomplete|in progress/.test(lowered)&&!lowered.includes('publishing in progress'))return{label:'In Progress',cls:'active-rebuild'};
+    if(/writing|rebuild|revision|qc|interior incomplete/.test(lowered)&&!lowered.includes('publishing in progress'))return{label:'In Progress',cls:'active-rebuild'};
     if(anyLive||lowered.includes('publishing in progress'))return{label:'Publishing',cls:'publishing'};
-    if(/production complete|ready|unpublished|not published/.test(lowered))return{label:'Needs Publishing',cls:'needs-publishing'};
+
+    const prePublish=prePublishState(lowered);
+    if(prePublish)return prePublish;
     if(/planning|planned/.test(lowered))return{label:'Planning',cls:'planning'};
+    if(/in progress/.test(lowered))return{label:'In Progress',cls:'active-rebuild'};
     return{label:rawStatus||'Tracked',cls:'queued'};
   }
 
-  if(negativePublication.test(rawStatus)||/production complete|ready.*kdp|unpublished/.test(lowered))return{label:'Needs Publishing',cls:'needs-publishing'};
   if(!negativePublication.test(rawStatus)&&positivePublication.test(rawStatus))return{label:'Live',cls:'live'};
   if(/publishing/.test(lowered))return{label:'Publishing',cls:'publishing'};
+  const prePublish=prePublishState(lowered);
+  if(prePublish)return prePublish;
   if(/writing|rebuild|revision|qc|in progress/.test(lowered))return{label:'In Progress',cls:'active-rebuild'};
   if(/planning|planned/.test(lowered))return{label:'Planning',cls:'planning'};
   return{label:rawStatus||'Tracked',cls:'queued'};
