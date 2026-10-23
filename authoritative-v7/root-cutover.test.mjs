@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const rootHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
+const isolatedHtml=await readFile(new URL('./index.html',import.meta.url),'utf8');
 const rootManifest=JSON.parse(await readFile(new URL('../manifest.webmanifest',import.meta.url),'utf8'));
 const rootSw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
 const rootPwa=await readFile(new URL('./root-pwa.js',import.meta.url),'utf8');
@@ -21,6 +22,14 @@ test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/\.\/authoritative-v7\/app\.js\?v=4/);
   assert.match(rootHtml,/\.\/authoritative-v7\/root-pwa\.js\?v=1/);
   for(const ref of forbiddenRootRuntime)assert.equal(rootHtml.includes(ref),false,`legacy root runtime reference found: ${ref}`);
+});
+
+test('V7 shells honor the HTML hidden state over component display rules',()=>{
+  for(const html of [rootHtml,isolatedHtml]){
+    assert.match(html,/\[hidden\]\{display:none!important\}/);
+    assert.match(html,/id="ccBoot" class="cc-boot"/);
+    assert.match(html,/id="ccApp" class="cc-app" hidden/);
+  }
 });
 
 test('root manifest is clean standalone V7 identity',()=>{
