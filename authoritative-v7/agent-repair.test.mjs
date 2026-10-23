@@ -37,11 +37,12 @@ test('Project Auto verifies access and stays project-scoped',()=>{
 
 test('Project Checkpoint requests same-run re-verification',()=>{
   assert.match(data,/cc7_agent_owner_request_project_auto_recheck/);
-  assert.match(migration,/control_mode <> 'project_auto'/);
-  assert.match(migration,/status not in \('needs_user','blocked'\)/);
+  assert.match(migration,/control_mode='project_auto'/);
+  assert.match(migration,/status in \('needs_user','blocked'\)/);
   assert.match(migration,/status='queued'/);
   assert.match(migration,/owner_recheck_requested/);
-  assert.match(migration,/project_auto_project_id is distinct from p_project_id/);
+  assert.match(migration,/project_auto_enabled=true/);
+  assert.match(migration,/current_run_id=v_run\.id/);
 });
 
 test('Agent UI filters revoked access and explains blocker recovery',()=>{
