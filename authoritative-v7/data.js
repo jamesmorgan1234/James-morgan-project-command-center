@@ -154,6 +154,11 @@ export async function createProjectCheckpoint(ownerId, projectId = null) {
   const { data, error } = await client.rpc('cc7_agent_owner_project_checkpoint', { p_project_id: projectId || null });
   if (error) throw error;
   if (!data?.ok || !data?.checkpoint || data?.completed_immediately !== true) throw new Error('V7 Agent checkpoint did not verify.');
+  if (projectId) {
+    const { data: recheck, error: recheckError } = await client.rpc('cc7_agent_owner_request_project_auto_recheck', { p_project_id: projectId });
+    if (recheckError) throw recheckError;
+    return { ...data, project_auto_recheck: recheck || null };
+  }
   return data;
 }
 
