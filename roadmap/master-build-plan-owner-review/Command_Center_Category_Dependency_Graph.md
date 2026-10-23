@@ -1,5 +1,7 @@
 # COMMAND CENTER — CATEGORY DEPENDENCY GRAPH
 
+Status: **OWNER-REVIEW DAG FOR 188-PHASE / 5,852-REQUIREMENT PLAN**
+
 ```mermaid
 flowchart TD
   C0["C0: AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE"]
@@ -7,9 +9,9 @@ flowchart TD
   C2["C2: IDENTITY + SECURITY FOUNDATION"]
   C3["C3: CANONICAL DATA / KNOWLEDGE / COMMAND GRAPH / PROVIDER PLATFORM"]
   C4["C4: APPLICATION SHELL / VISUAL SYSTEM / PWA / DEVICE"]
-  C5["C5: PROJECTS / PORTFOLIO / ROADMAP / CHECKPOINTS / PROGRESS"]
+  C5["C5: PROJECTS / PORTFOLIO / ROADMAP / CHECKPOINTS / FOUNDRY"]
   C6["C6: BRAIN / AI INTELLIGENCE ECOSYSTEM"]
-  C7["C7: AGENT EXECUTION PLATFORM"]
+  C7["C7: THE AGENCY / MULTI-AGENT EXECUTION PLATFORM"]
   C8["C8: PERSONAL OPERATIONS / SEARCH / NEEDS ME / NOTIFICATIONS / AUTOMATION"]
   C9["C9: FINANCE / BANKING / CREDIT / OBLIGATIONS"]
   C10["C10: SOCIAL / COMMUNICATIONS / BRAND ACCOUNT IDENTITY"]
@@ -69,6 +71,7 @@ flowchart TD
   C1 --> C12
   C2 --> C12
   C3 --> C12
+  C4 --> C12
   C5 --> C12
   C6 --> C12
   C7 --> C12
@@ -82,6 +85,7 @@ flowchart TD
   C5 --> C13
   C6 --> C13
   C7 --> C13
+  C8 --> C13
   C1 --> C14
   C2 --> C14
   C3 --> C14
@@ -112,4 +116,10 @@ flowchart TD
   C14 --> C15
 ```
 
-Category 15 is the only category that contains production deployment and owner/Samsung acceptance.
+## Parallelism constraints
+
+The graph defines prerequisite contracts, not a mandate for single-threaded implementation. The Agency may parallelize ready work only when all upstream contracts needed by that work have passed and shared mutable resources are protected by declared claims, versions, leases/fencing, and integration arbitration.
+
+Same-project parallelism is allowed only for independent DAG nodes or explicitly coordinated fan-out/fan-in work. Cross-project work may proceed concurrently unless projects share a repository, schema, provider account, deployment target, protected asset, owner-exclusive resource, or other declared mutable resource requiring coordination.
+
+Category 15 is the only category containing production deployment and owner/physical-Samsung acceptance. A failed mandatory gate blocks downstream advancement regardless of apparent progress elsewhere.
