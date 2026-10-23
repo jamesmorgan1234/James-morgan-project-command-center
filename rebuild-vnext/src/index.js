@@ -12,6 +12,10 @@ import { ProtectedActionRegistry } from './security/protected-actions.js';
 import { SecretReferenceRegistry } from './security/secrets.js';
 import { SecurityAuditLog } from './security/audit-log.js';
 import { SecurityGate } from './security/gate.js';
+import { RecordStore } from './data/record-store.js';
+import { AssetRegistry } from './data/assets.js';
+import { CommandGraph } from './graph/command-graph.js';
+import { ProviderRegistry } from './providers/provider-registry.js';
 
 let runtimeSingleton = null;
 
@@ -29,6 +33,10 @@ export function createKernelRuntime() {
   const protectedActions = new ProtectedActionRegistry();
   const secrets = new SecretReferenceRegistry();
   const securityAudit = new SecurityAuditLog();
+  const records = new RecordStore();
+  const assets = new AssetRegistry();
+  const graph = new CommandGraph();
+  const providers = new ProviderRegistry();
 
   events.define('command.verified', event => {
     if (!event.requestId || !event.commandType) throw new TypeError('verified command event requires requestId and commandType');
@@ -39,7 +47,7 @@ export function createKernelRuntime() {
   const bootstrap = new ApplicationBootstrap(modules);
   const security = new SecurityGate({ sessions, authorizations, protectedActions, audit: securityAudit });
 
-  return Object.freeze({ authority, invariants, requirements, modules, capabilities, routes, events, commands, router, bootstrap, sessions, permissions, authorizations, protectedActions, secrets, securityAudit, security });
+  return Object.freeze({ authority, invariants, requirements, modules, capabilities, routes, events, commands, router, bootstrap, sessions, permissions, authorizations, protectedActions, secrets, securityAudit, security, records, assets, graph, providers });
 }
 
 export function getApplicationRuntime() {
