@@ -12,6 +12,11 @@ const APPROVED_ICON = join(PUBLIC, "assets", "command-center-approved-icon-512.p
 const APPROVED_ICON_SHA256 = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa";
 const releaseId = (process.env.COMMAND_CENTER_RELEASE_ID || process.env.GITHUB_SHA || "local-unverified").trim();
 const schemaCompatibility = "cc-runtime-snapshot-v1";
+const previewAcceptance = process.env.COMMAND_CENTER_PREVIEW_ACCEPTANCE === "1";
+if (previewAcceptance && process.env.VERCEL_ENV !== "preview") {
+  throw new Error("Synthetic acceptance data is restricted to Vercel Preview builds");
+}
+
 
 async function exists(path) { try { await stat(path); return true; } catch { return false; } }
 function sha256(content) { return createHash("sha256").update(content).digest("hex"); }
@@ -49,6 +54,39 @@ if (await exists(APPROVED_ICON)) {
   manifest.icons = [];
 }
 await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
+
+
+if (previewAcceptance) {
+  const { ProjectRegistry, ProjectTypeRegistry } = await import("../dist/projects/registry.js");
+  const { ProjectCheckpointStore } = await import("../dist/projects/checkpoints.js");
+  const { NeedsMeQueue } = await import("../dist/personal/needs-me.js");
+  const { assembleCanonicalRuntimeSnapshot } = await import("../dist/runtime/assembly.js");
+  const types = new ProjectTypeRegistry();
+  types.register({ key: "project-type:acceptance", version: 1, label: "Synthetic acceptance", capabilities: [], requiredDetailSections: ["roadmap"], domainPlaybookKey: "playbook:acceptance" });
+  const projects = new ProjectRegistry(types);
+  const checkpoints = new ProjectCheckpointStore();
+  const observedAt = "2026-10-23T00:00:00Z";
+  const definitions = [
+    ["fixture-critical", "[TEST] Critical rendering path", "critical", "active"],
+    ["fixture-normal", "[TEST] Normal rendering path", "normal", "active"],
+    ["fixture-low", "[TEST] Low rendering path", "low", "candidate"]
+  ];
+  for (const [id, name, priority, lifecycle] of definitions) {
+    projects.create({ id, typeKey: "project-type:acceptance", ownerId: "synthetic-owner", name, mission: "Synthetic preview record <fixture & evidence>; no real business data.", lifecycle, verification: "partial", priority, version: 1, createdAt: observedAt, updatedAt: observedAt, agentAccessEnabled: false, portfolioAutoEnabled: false, protected: true });
+    checkpoints.append({ id: id + "-checkpoint", projectId: id, roadmapVersion: 1, createdAt: observedAt, exactNextWorkUnitId: id + "-next", verificationMethod: "synthetic browser acceptance", evidenceRefs: ["synthetic:p15.14"], resumeStateHash: "synthetic-only" });
+  }
+  const roadmap = { projectId: "fixture-critical", version: 1, workUnits: [
+    { id: "fixture-a", categoryId: "fixture", phaseId: "1", title: "Synthetic verified unit", status: "verified", applicable: true, dependencyIds: [], gateIds: [], acceptanceCriteria: ["fixture only"] },
+    { id: "fixture-b", categoryId: "fixture", phaseId: "1", title: "Synthetic pending unit", status: "ready", applicable: true, dependencyIds: [], gateIds: [], acceptanceCriteria: ["fixture only"] }
+  ], gates: [] };
+  const snapshot = assembleCanonicalRuntimeSnapshot({ providerId: "runtime:synthetic-preview-acceptance", sourceRef: "synthetic:p15.14", observedAt, projects, checkpoints, needsMe: new NeedsMeQueue(), roadmaps: new Map([["fixture-critical", { roadmap, denominatorTrusted: true }]]), ownerDisplayName: "SYNTHETIC ACCEPTANCE FIXTURE", releaseId });
+  const fixture = { ...snapshot, connection: { ...snapshot.connection, message: "SYNTHETIC PREVIEW DATA — rendering tests only. No live accounts, real metrics, or execution connection." } };
+  await mkdir(join(OUT, "__preview__"), { recursive: true });
+  await writeFile(join(OUT, "__preview__", "runtime.json"), JSON.stringify(fixture, null, 2) + "\n");
+  const entryPath = join(OUT, "index.html");
+  const entry = await readFile(entryPath, "utf8");
+  await writeFile(entryPath, entry.replace("</head>", '  <meta name="command-center-runtime-endpoint" content="/__preview__/runtime.json">\n</head>'));
+}
 
 const files = (await walk(OUT)).filter((path) => !path.endsWith("release.json") && !path.endsWith("pwa-assets.json"));
 const assetManifest = [];
