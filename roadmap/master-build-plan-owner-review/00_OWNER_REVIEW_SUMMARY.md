@@ -1,76 +1,109 @@
 # COMMAND CENTER — MASTER BUILD PLAN — OWNER REVIEW SUMMARY
 
-**Status:** COMPLETE DRAFT — AWAITING OWNER REVIEW
+**Status:** OWNER-REVIEW DRAFT — AGENCY RECONCILIATION IN PROGRESS
 **Specification Lock v2:** NOT YET LOCKED
 **Owner/Samsung acceptance:** NOT APPLICABLE UNTIL CATEGORY 15
 
 ## Why this review exists
 
-The prior provisional VNext deployment is not the controlling build plan. This package is the owner-review draft that must be approved/corrected before Specification Lock v2 and before the full implementation is treated as authorized.
+The prior provisional VNext deployment is not the controlling build plan. This package is the owner-review draft that must be approved/corrected before Specification Lock v2 and before full implementation is authorized.
 
-## Scope totals
+The rebuild is clean-room. Historical Command Center code, Agent runners, queues, schedulers, tables, RPCs, leases, heartbeats, retries, workflows, and other implementation artifacts may be inspected as evidence of past ideas or requirements, but they do not prove the old implementation worked and they are not trusted as the new build foundation.
 
-- Historical canonical requirements after recovery/reconciliation: **5,825**
-- Restored missed historical requirement: **1**
-  - `CCR-05826` — biometric/fingerprint-backed WebAuthn security, recovered from prior Command Center history and reconfirmed by James
-- Current roadmap-review owner addition: **1**
-  - `CCR-05827` — reliable versioned PWA/application update system
-- Current owner-review canonical requirement set: **5,827**
-- Implementation categories: **15** plus Category 0 planning/baseline
-- Detailed phases/work packages: **147**
-- Canonical requirements mapped to a primary build category: **5,827 / 5,827**
-- Unmapped canonical requirements at category level: **0**
+## Current corrected scope state
+
+- Reconciled canonical requirement baseline before current Agency owner additions: **5,825**.
+- Biometric/fingerprint-backed WebAuthn security and reliable application updates are clarified/recovered existing scope and do **not** inflate the canonical baseline by themselves.
+- Previous detailed roadmap baseline: **147 phases/work packages**.
+- The owner has now directed a first-class scalable multi-agent system named **The Agency**.
+- Agency architecture specification: `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md`.
+- Agency specification currently contains **66 explicit architecture controls**.
+- The prior **147-phase** count is therefore a **pre-Agency baseline, not a final target**.
+- Final phase count and any genuinely new canonical requirement IDs are **pending Agency duplicate/lineage reconciliation**.
+- Do not preserve 147 or 5,825 merely for numerical convenience; preserve them only where reconciliation proves they remain correct.
 
 ## Category sequence
 
-- **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE** — 8 phases — planning/baseline
-- **Category 1 — CORE KERNEL + GOVERNANCE** — 8 phases — 702 primary historical requirements
-- **Category 2 — IDENTITY + SECURITY FOUNDATION** — 9 phases — 478 primary historical requirements **plus restored CCR-05826 biometric/fingerprint requirement**
-- **Category 3 — CANONICAL DATA / KNOWLEDGE / COMMAND GRAPH / PROVIDER PLATFORM** — 9 phases — 629 primary historical requirements
-- **Category 4 — APPLICATION SHELL / VISUAL SYSTEM / PWA / DEVICE** — 8 phases — 336 primary historical requirements **plus CCR-05827 reliable-update requirement**
-- **Category 5 — PROJECTS / PORTFOLIO / ROADMAP / CHECKPOINTS / PROGRESS** — 10 phases — 462 primary historical requirements
-- **Category 6 — BRAIN / AI INTELLIGENCE ECOSYSTEM** — 10 phases — 519 primary historical requirements
-- **Category 7 — AGENT EXECUTION PLATFORM** — 11 phases — 406 primary historical requirements
-- **Category 8 — PERSONAL OPERATIONS / SEARCH / NEEDS ME / NOTIFICATIONS / AUTOMATION** — 10 phases — 375 primary historical requirements
-- **Category 9 — FINANCE / BANKING / CREDIT / OBLIGATIONS** — 9 phases — 374 primary historical requirements
-- **Category 10 — SOCIAL / COMMUNICATIONS / BRAND ACCOUNT IDENTITY** — 8 phases — 106 primary historical requirements
-- **Category 11 — BOOKS / PUBLISHING PLATFORM** — 10 phases — 331 primary historical requirements
-- **Category 12 — SPECIALIST PROJECT ORCHESTRATION + INTEROPERABILITY** — 8 phases — 71 primary historical requirements
-- **Category 13 — ANALYTICS / OBSERVABILITY / RECOMMENDATIONS / SELF-AUDIT** — 8 phases — 409 primary historical requirements
-- **Category 14 — RECOVERY / MIGRATION / SCALE / DORMANT FUTURE** — 10 phases — 505 primary historical requirements **plus update rollback/recovery obligations**
-- **Category 15 — FINAL INTEGRATION / EVERY-FILE AUDIT / RELEASE / PRODUCTION / SAMSUNG ACCEPTANCE** — 11 phases — 122 primary historical requirements **plus biometric and update acceptance obligations**
+The Category 0–15 owner-facing sequence remains the current organizing framework, but Category 7 and cross-cutting Agency dependencies must be expanded before Spec Lock v2:
 
-## Historical recovery correction and current addition
+- **Category 0 — AUTHORITY / RECOVERY / ROADMAP / SPECIFICATION BASELINE**
+- **Category 1 — CORE KERNEL + GOVERNANCE**
+- **Category 2 — IDENTITY + SECURITY FOUNDATION**
+- **Category 3 — CANONICAL DATA / KNOWLEDGE / COMMAND GRAPH / PROVIDER PLATFORM**
+- **Category 4 — APPLICATION SHELL / VISUAL SYSTEM / PWA / DEVICE**
+- **Category 5 — PROJECTS / PORTFOLIO / ROADMAP / CHECKPOINTS / PROGRESS**
+- **Category 6 — BRAIN / AI INTELLIGENCE ECOSYSTEM**
+- **Category 7 — THE AGENCY / MULTI-AGENT EXECUTION PLATFORM**
+- **Category 8 — PERSONAL OPERATIONS / SEARCH / NEEDS ME / NOTIFICATIONS / AUTOMATION**
+- **Category 9 — FINANCE / BANKING / CREDIT / OBLIGATIONS**
+- **Category 10 — SOCIAL / COMMUNICATIONS / BRAND ACCOUNT IDENTITY**
+- **Category 11 — BOOKS / PUBLISHING PLATFORM**
+- **Category 12 — SPECIALIST PROJECT ORCHESTRATION + INTEROPERABILITY**
+- **Category 13 — ANALYTICS / OBSERVABILITY / RECOMMENDATIONS / SELF-AUDIT**
+- **Category 14 — RECOVERY / MIGRATION / SCALE / DORMANT FUTURE**
+- **Category 15 — FINAL INTEGRATION / EVERY-FILE AUDIT / RELEASE / PRODUCTION / SAMSUNG ACCEPTANCE**
 
-### CCR-05826 — Biometric / fingerprint security — RESTORED HISTORICAL REQUIREMENT
+## Agency clean-room correction
 
-This is not a new feature invented during the current review. Command Center history from 2026-10-19 shows James already wanted phone-security integration so Command Center could use fingerprint instead of password-only access. It was discussed as a separate future feature rather than implemented in that specific build, and the recovery/reconciliation process failed to carry it forward explicitly. James reconfirmed on 2026-10-23 that fingerprint was already part of the Command Center idea.
+Recovered requirements such as claims, leases, heartbeats, idempotency, retries, circuit breakers, dead-letter handling, checkpoints, and project locks remain useful **requirement evidence**. They are not accepted as working implementation merely because old files or database objects existed.
 
-The implementation architecture is WebAuthn/passkeys using the platform authenticator with required user verification. On compatible Samsung devices this can be fingerprint-backed. Command Center must never store fingerprint templates itself. Automatic relock, sensitive-action step-up verification, lost-device revocation/recovery, and Samsung physical acceptance are mandatory.
+The Agency must re-derive and newly prove:
 
-### CCR-05827 — Reliable application updates
+- scheduler/control plane;
+- project-agent identities;
+- elastic worker pools;
+- specialist departments;
+- immutable job manifests;
+- isolated workspaces;
+- declared read/write sets;
+- resource claims/locks;
+- lease + fencing-token correctness;
+- optimistic concurrency;
+- dependency-DAG scheduling;
+- fan-out/fan-in;
+- work stealing;
+- verifier and integration workers;
+- artifact-first handoffs;
+- context snapshots/compaction;
+- durable messaging;
+- dead-letter/poison-job containment;
+- compensation/uncertain-outcome reconciliation;
+- hierarchical stop/pause;
+- resource/backpressure governance;
+- $0/free-first routing;
+- worker performance/evaluation;
+- canary/shadow Agency upgrades;
+- Boundary Office / Needs Me routing;
+- owner-visible Agency topology and tracing;
+- future local/remote/federated worker seams.
 
-Every release must have an immutable release identity. The installed PWA must actively check for updates, install complete artifacts before activation, avoid mixed-version cache/runtime state, use safe activation/controller-change handling, preserve a known-good offline shell, support rollback, expose update health, and prove on Samsung that an installed older version reaches the new production release without uninstall/reinstall.
+See `03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md` for the complete 66-control specification.
 
-See `01_OWNER_ADDITIONS_BIOMETRIC_SECURITY_AND_UPDATES.md` for the controlling detail during owner review.
+## Specialist architecture resolution
+
+MarginCraftTools, Morgan's Garage Doors, and Torevi should not force one-off hard-coded Agent branches. They remain first known instances of reusable specialist archetypes:
+
+- digital-products specialist;
+- service-business specialist;
+- software-platform specialist.
+
+Agency departments/workers may serve those project types through registered capabilities while project state, credentials, accounts, assets, and mutable work remain isolated.
 
 ## Non-negotiable execution sequence
 
-1. Owner reviews/corrects this Master Build Plan.
-2. Keep CCR-05826 restored as historical recovered scope and CCR-05827 in the current owner-review set.
-3. Specification Lock v2 is created only after owner review.
-4. Build Categories 1–14 in dependency order, with developer QA continuously.
-5. No mid-build Samsung/owner acceptance.
-6. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery audits, exact release candidate, production deployment, then owner/Samsung acceptance.
+1. Complete Agency requirement/lineage reconciliation against the 5,825 baseline and recovered Future/Optional Agent requirements.
+2. Expand the phased Master Build Plan wherever Agency architecture requires additional explicit build/test phases.
+3. Run final roadmap completeness/dependency/security/dormant-capability audit.
+4. Present the complete reconciled owner-facing roadmap to James.
+5. Specification Lock v2 is created only after owner review/approval.
+6. Build Categories 1–14 under the locked specification.
+7. No premature Samsung/owner acceptance.
+8. Category 15 performs requirement-to-evidence mapping, every-file audit, architecture/security/visual/recovery/Agency concurrency audits, exact release candidate, production deployment, then owner/Samsung acceptance.
 
 ## Current provisional implementation
 
-The currently deployed VNext scaffold is **NON-AUTHORITATIVE / PROVISIONAL**. It may be reused only piece-by-piece after it passes the approved roadmap's requirement, architecture, visual, security, biometric, update, and quality gates. It is not an acceptance candidate.
-
-## Open roadmap-review items
-
-After the source-backed coverage audit, the remaining substantive named-specialist questions are MarginCraftTools, Morgan's Garage Doors, and Torevi, plus the standing rule that the current VNext scaffold remains provisional/non-authoritative. These are owner-review questions about whether each named specialist deserves a dedicated roadmap phase or should be handled through the generic specialist adapter framework.
+The currently deployed VNext scaffold and all historical Agent machinery remain **NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY**. Existing pieces may be reused only if a later clean-room implementation decision explicitly validates that exact component against the new specification and proves it independently. Existence is not proof.
 
 ## Review principle
 
-Owner review is about the roadmap and build order—not testing the unfinished application. Any owner correction updates this plan before Spec Lock v2.
+Owner review is about defining the complete system correctly before implementation. Quality, completeness, and future-safe architecture control the final requirement/phase counts—not historical numbers.
