@@ -13,7 +13,7 @@
     "audit:repository": "node scripts/category15-repository-audit.mjs --write",
     "audit:artifact": "node scripts/category15-release-artifact-audit.mjs",
     "audit:release-candidate": "node scripts/category15-release-artifact-audit.mjs --require-protected-assets",
-    "audit:category15": "node scripts/category15-phase-gate-audit.mjs --write --require-nonproduction",
+    "audit:category15": "node scripts/category15-phase-gate-audit.mjs --write --require-nonproduction --verified-by-prior-gates",
     "test:modules": "node --test tests/*.test.mjs",
     "test": "npm run check:legacy && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15"
   },
