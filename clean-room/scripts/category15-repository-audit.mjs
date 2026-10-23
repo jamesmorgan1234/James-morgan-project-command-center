@@ -9,7 +9,7 @@ const WRITE = process.argv.includes("--write");
 const fileList = execFileSync("git", ["ls-files", "-z"], { cwd: REPO, encoding: "utf8" }).split("\0").filter(Boolean).sort();
 const imageExts = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".ico", ".gif"]);
 const textExts = new Set([".js", ".mjs", ".cjs", ".ts", ".tsx", ".json", ".html", ".css", ".yml", ".yaml", ".md", ".txt", ".toml"]);
-const secretPattern = /(sk-[A-Za-z0-9]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)/g;
+const secretPattern = /(sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|xoxb-[A-Za-z0-9-]{12,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)/g;
 const historicalRuntimeNames = new Set(["app.js", "app-config.js", "app-integrity-repair.js", "index.html", "manifest.json", "manifest.webmanifest", "sw.js", "service-worker.js", "styles.css", "style.css"]);
 
 function classify(path) {
@@ -35,12 +35,12 @@ const historicalRuntimeCandidates = [...classifications].filter(([, category]) =
 const cleanRoomRuntimeEntrypoints = fileList.filter((path) => ["clean-room/public/index.html", "clean-room/public/sw.js", "clean-room/src/runtime/browser.ts"].includes(path));
 const serviceWorkers = fileList.filter((path) => /(^|\/)(sw|service-worker)(?:\.[^.]+)?\.js$|(^|\/)sw\.js$/i.test(path));
 const htmlEntrypoints = fileList.filter((path) => /(^|\/)index\.html$/i.test(path));
-const browserSecretFindings = [];
+const secretPatternFindings = [];
 for (const path of fileList.filter((candidate) => candidate.startsWith("clean-room/") && textExts.has(extname(candidate).toLowerCase()))) {
   const text = await readFile(resolve(REPO, path), "utf8").catch(() => "");
   secretPattern.lastIndex = 0;
   const matches = [...text.matchAll(secretPattern)].map((match) => match[0]);
-  if (matches.length) browserSecretFindings.push({ path, matches: [...new Set(matches)].map(() => "REDACTED_SECRET_PATTERN") });
+  if (matches.length) secretPatternFindings.push({ path, matches: [...new Set(matches)].map(() => "REDACTED_SECRET_PATTERN") });
 }
 const requiredEntrypoints = ["clean-room/public/index.html", "clean-room/public/sw.js", "clean-room/src/runtime/browser.ts"];
 const missingRequiredEntrypoints = requiredEntrypoints.filter((path) => !fileList.includes(path));
@@ -54,9 +54,9 @@ const report = Object.freeze({
   serviceWorkerCandidates: Object.freeze(serviceWorkers),
   htmlEntrypointCandidates: Object.freeze(htmlEntrypoints),
   missingRequiredEntrypoints: Object.freeze(missingRequiredEntrypoints),
-  browserSecretPatternFindings: Object.freeze(browserSecretFindings),
+  secretPatternFindings: Object.freeze(secretPatternFindings),
   semanticEveryFileReviewStillRequired: true
 });
 console.log(JSON.stringify(report, null, 2));
 if (WRITE) await writeFile(resolve(REPO, "clean-room/category15-repository-audit.json"), `${JSON.stringify(report, null, 2)}\n`);
-if (!report.allTrackedFilesClassified || missingRequiredEntrypoints.length || browserSecretFindings.length) process.exit(1);
+if (!report.allTrackedFilesClassified || missingRequiredEntrypoints.length || secretPatternFindings.length) process.exit(1);

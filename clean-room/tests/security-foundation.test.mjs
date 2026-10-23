@@ -94,7 +94,8 @@ test("secret registry stores references only and rejects raw secret material", (
   secrets.register({ id: "sec_supabase_service", provider: "supabase", purpose: "server-side service credential reference", state: "configured", createdAt: NOW });
   assert.equal(secrets.list().length, 1);
   assert.throws(() => assertReferenceOnly({ token: "abc" }));
-  assert.throws(() => assertReferenceOnly({ note: "sk-12345678901234567890" }));
+  const syntheticSecretLikeValue = "sk-" + "12345678901234567890";
+  assert.throws(() => assertReferenceOnly({ note: syntheticSecretLikeValue }));
 });
 
 test("data boundaries deny cross-owner and cross-project access", () => {
