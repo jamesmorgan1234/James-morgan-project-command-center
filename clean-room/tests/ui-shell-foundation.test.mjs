@@ -4,6 +4,7 @@ import {
   APPROVED_REFERENCE_VIEWPORT,
   APPROVED_VISUAL_REFERENCES,
   APPROVED_SHARED_VISUAL_LANGUAGE,
+  UNSEEN_SCREEN_DERIVATION_RULE,
   REJECTED_VISUAL_PATTERNS,
   scaleReferencePx,
   createCoreRouteRegistry,
@@ -31,6 +32,15 @@ test("approved visual authority is explicit without pretending legacy filename i
   assert.equal(APPROVED_REFERENCE_VIEWPORT.width, 864);
   assert.equal(APPROVED_REFERENCE_VIEWPORT.height, 1536);
   assert.equal(scaleReferencePx(48, 432), 24);
+});
+
+test("unseen screens derive from the four approved screens instead of switching design systems", () => {
+  assert.equal(UNSEEN_SCREEN_DERIVATION_RULE.authority, "owner_approved");
+  assert.equal(UNSEEN_SCREEN_DERIVATION_RULE.rule, "derive_not_redesign");
+  assert.deepEqual([...UNSEEN_SCREEN_DERIVATION_RULE.sourceScreens].sort(), ["active_live", "next_up", "project_detail_missing_hour", "projects"]);
+  assert.ok(UNSEEN_SCREEN_DERIVATION_RULE.requiredContinuity.some((rule) => rule.includes("orange/gold")));
+  assert.ok(UNSEEN_SCREEN_DERIVATION_RULE.requiredContinuity.some((rule) => rule.includes("new controls")));
+  assert.ok(REJECTED_VISUAL_PATTERNS.includes("new modules switching to a different design system"));
 });
 
 test("route registry has one owner per path and supports add/remove without core rewrite", () => {
