@@ -1,6 +1,7 @@
 const APPROVED_ATLAS_URL=new URL('./assets/book-cover-atlas-v2.webp',import.meta.url).href;
 let queued=false;
 let resizeTimer=null;
+let fitFrame=null;
 
 function visibleHomeScreen(){
   return [...document.querySelectorAll('.cc-screen')].find(screen=>screen.querySelector('.cc-title')?.textContent?.trim()==='Command Center')||null;
@@ -37,26 +38,27 @@ function targetHomeBottom(screen){
   return Math.min(viewportBottom,containerBottom);
 }
 
+function fitPass(screen,cards,attempt=0){
+  if(!screen.isConnected||cards.some(card=>!card.isConnected))return;
+  const rows=rowCount(cards);
+  const targetBottom=targetHomeBottom(screen);
+  const currentBottom=Math.max(...cards.map(card=>card.getBoundingClientRect().bottom));
+  const delta=targetBottom-currentBottom;
+  if(Math.abs(delta)<=2||attempt>=6)return;
+  const currentHeight=parseFloat(getComputedStyle(cards[0]).height)||74;
+  const next=Math.max(50,Math.min(108,currentHeight+(delta/rows)));
+  if(Math.abs(next-currentHeight)<0.05)return;
+  applyTileHeight(cards,next);
+  fitFrame=requestAnimationFrame(()=>fitPass(screen,cards,attempt+1));
+}
+
 function fitHomeToViewport(){
   const screen=visibleHomeScreen();
   if(!screen)return;
   const cards=homeCards(screen);
   if(cards.length<14)return;
-  const rows=rowCount(cards);
-  const firstHeight=parseFloat(getComputedStyle(cards[0]).height)||74;
-  const targetBottom=targetHomeBottom(screen);
-  const currentBottom=Math.max(...cards.map(card=>card.getBoundingClientRect().bottom));
-  const delta=targetBottom-currentBottom;
-  const next=Math.max(56,Math.min(108,firstHeight+(delta/rows)));
-  applyTileHeight(cards,next);
-  requestAnimationFrame(()=>{
-    const refinedBottom=Math.max(...cards.map(card=>card.getBoundingClientRect().bottom));
-    const refinedDelta=targetBottom-refinedBottom;
-    if(Math.abs(refinedDelta)>2){
-      const refinedHeight=Math.max(56,Math.min(108,next+(refinedDelta/rows)));
-      applyTileHeight(cards,refinedHeight);
-    }
-  });
+  if(fitFrame)cancelAnimationFrame(fitFrame);
+  fitPass(screen,cards,0);
 }
 
 function repairApprovedCoverUrls(){
