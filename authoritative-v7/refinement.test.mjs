@@ -83,7 +83,7 @@ test('authoritative roadmap matches the locked two-mode and Work-ladder contract
     'Agent Auto',
     'To Work Barriers',
     'mutually exclusive',
-    'strictly one project at a time',
+    'One project executes at a time',
     'Retry Luna High',
     'Retry Sol Light',
     'Sol Medium never auto-starts',
