@@ -72,7 +72,8 @@ test('root UI uses approved atlas path, larger mobile cards, and no-Work prepubl
   assert.match(ui,/\[PRE-PUBLISH BOOK REVIEW\]/);
   assert.match(ui,/allowWork:false/);
   assert.match(css,/height:86px!important/);
-  assert.match(sw,/command-center-v7-root-5/);
+  assert.match(sw,/command-center-v7-root-6/);
   assert.match(sw,/book-ui-fixes\.js\?v=1/);
   assert.match(sw,/publication-truth\.js/);
+  assert.match(sw,/phone-layout-cover-fix\.js\?v=1/);
 });
