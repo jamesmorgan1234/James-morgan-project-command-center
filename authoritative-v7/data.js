@@ -41,7 +41,7 @@ export async function loadSnapshot(ownerId) {
   ]);
   const projects = throwIf(projectsResult) || [];
   return {
-    projects: projects.filter(p => !CONFIG.excludedProjectNames.has(p.name)),
+    projects: projects.filter(p => !CONFIG.excludedProjectNames.has(p.name) && !String(p.source_status || '').startsWith('filing_only_hidden')),
     metrics: throwIf(metricsResult) || [],
     activity: throwIf(activityResult) || [],
     integrations: throwIf(integrationsResult) || [],
