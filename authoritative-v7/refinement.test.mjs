@@ -105,9 +105,9 @@ test('new owner RPCs are not granted to anonymous callers',()=>{
 });
 
 test('service workers cache refinement and approved atlas with new generations',()=>{
-  assert.match(rootSw,/command-center-v7-root-4/);
-  assert.match(isolatedSw,/command-center-v7-clean-9/);
-  for(const asset of ['refinement.css?v=1','refinement.js?v=1','home-books-refinement.css?v=1','home-books-refinement.js?v=1','book-cover-atlas-v2.webp']){
+  assert.match(rootSw,/command-center-v7-root-6/);
+  assert.match(isolatedSw,/command-center-v7-clean-10/);
+  for(const asset of ['refinement.css?v=1','refinement.js?v=1','home-books-refinement.css?v=1','home-books-refinement.js?v=1','phone-layout-cover-fix.js?v=1','book-cover-atlas-v2.webp']){
     assert.ok(rootSw.includes(asset),`root service worker missing ${asset}`);
     assert.ok(isolatedSw.includes(asset),`isolated service worker missing ${asset}`);
   }
