@@ -10,14 +10,14 @@ const isolated=await readFile(new URL('./index.html',import.meta.url),'utf8');
 const rootSw=await readFile(new URL('../service-worker.js',import.meta.url),'utf8');
 const isolatedSw=await readFile(new URL('./service-worker.js',import.meta.url),'utf8');
 
-test('all Home tiles share one phone footprint',()=>{
-  assert.match(css,/\.cc-agent-mode-card,\.cc-home-card,\.cc-module\{height:82px!important;min-height:82px!important;max-height:82px!important\}/);
+test('all Home tiles share one fitted phone footprint',()=>{
+  assert.match(css,/\.cc-agent-mode-card,\.cc-home-card,\.cc-module\{height:74px!important;min-height:74px!important;max-height:74px!important\}/);
   assert.match(css,/\.cc-agent-mode-grid,\.cc-home-grid,\.cc-module-grid\{gap:6px!important/);
 });
 
-test('Agent mode cards carry V7 atmospheric graphics',()=>{
-  assert.match(css,/neural-globe\.svg/);
-  assert.match(css,/road-mountains\.svg/);
+test('all Home control families carry V7 atmospheric graphics',()=>{
+  for(const asset of ['neural-globe.svg','road-mountains.svg','server-racks.svg','network-globe.svg','analytics-grid.svg','city-spires.svg','landscape-eclipse.svg','mobile-horizon.svg'])assert.ok(css.includes(asset),`missing Home artwork ${asset}`);
+  for(const route of ['brain','automation','integrations','analytics','security','deployment','active','about'])assert.ok(css.includes(`[data-nav="${route}"]`),`missing module art route ${route}`);
 });
 
 test('only true series or collections have grouped cover manifests',()=>{
