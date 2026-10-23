@@ -1,0 +1,53 @@
+name: Command Center V7 Native Agent Rebuild QA
+
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'authoritative-v7/app.js'
+      - 'authoritative-v7/index.html'
+      - 'authoritative-v7/agent-api.js'
+      - 'authoritative-v7/agent-native.css'
+      - 'authoritative-v7/agent-native.test.mjs'
+      - 'authoritative-v7/project-auto.js'
+      - '.github/workflows/cc7-agent-native-rebuild-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  native-agent-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Syntax check native Agent path
+        run: |
+          node --check authoritative-v7/app.js
+          node --check authoritative-v7/agent-api.js
+          node --check authoritative-v7/agent-native.test.mjs
+      - name: Run native Agent acceptance tests
+        run: node --test authoritative-v7/agent-native.test.mjs
+      - name: Reject observer-based Agent architecture
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R "MutationObserver" authoritative-v7/app.js authoritative-v7/agent-api.js; then
+            echo 'MutationObserver is forbidden in the native Agent/Project Auto path.'
+            exit 1
+          fi
+          test ! -f authoritative-v7/project-auto.js
+          ! grep -q "project-auto.js" index.html
+          ! grep -q "project-auto.js" authoritative-v7/index.html
+      - name: Verify startup/PWA files were not changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          changed="$(git diff --name-only origin/${{ github.base_ref }}...HEAD)"
+          echo "$changed"
+          if printf '%s\n' "$changed" | grep -Eq '^(service-worker\.js|authoritative-v7/service-worker\.js|authoritative-v7/root-pwa\.js|authoritative-v7/pwa\.js)$'; then
+            echo 'Native Agent rebuild must not change startup/PWA service-worker files.'
+            exit 1
+          fi
