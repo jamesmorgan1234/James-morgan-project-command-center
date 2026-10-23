@@ -131,6 +131,43 @@ Only after those checks have verified evidence may the durable book state advanc
 
 This standard applies whether James starts the Agent on one coloring-book project manually or the project is reached through a portfolio Agent mode. Project scope remains locked: the Agent may not mix pages, covers, rules, or approval state between coloring-book titles.
 
+## Locked cookbook Agent standard
+
+For every cookbook project, the first approved cookbook is the locked visual and production benchmark. Later cookbooks must preserve that same interior page system and overall visual architecture rather than inventing a new layout for each title.
+
+The only intentional series-level visual variation is title-specific color identity: each cookbook may have its own approved spine color, and that exact spine color becomes the recurring interior banner color for that cookbook. Banner placement, typography hierarchy, spacing, image placement/style, ingredient and method structure, headers, footers/page numbers, and other recurring design elements must otherwise remain visually consistent with the first approved cookbook unless James explicitly reopens that design system.
+
+The approved title and cover are a hard thematic contract for the recipe set. Every recipe included in the cookbook must belong to the food/category/style promised by that exact title and cover. Generic filler recipes, off-theme dishes, or recipes that do not fit the book's stated concept are failures even if they are individually usable.
+
+Every recipe page must be individually audited against all of these hard requirements:
+
+1. **Photo-to-recipe match** — the image must depict the actual recipe on that page. The visible dish, major ingredients, preparation style, toppings/garnishes, and overall finished result must reasonably agree with the recipe rather than showing generic or unrelated food imagery.
+2. **Ingredient-method consistency** — every listed ingredient must be accounted for in the method where appropriate, and the method must not call for ingredients that are missing from the ingredient list.
+3. **Recipe integrity** — quantities, units, temperatures, timing, yield/servings, equipment assumptions, sequence, and doneness cues must be internally coherent and practical for a normal home cook.
+4. **Finished-dish consistency** — the written recipe, listed ingredients, method, and accompanying image must all describe the same dish. Contradictory sauces, proteins, sides, garnishes, cooking methods, or other material mismatches are failures.
+5. **Human usability** — instructions must be understandable, naturally written, and complete enough for a person to cook the recipe without guessing at omitted critical steps.
+6. **Theme match** — the recipe must fit the approved title/cover promise and the cookbook's intended category; visually attractive but off-theme recipes do not pass.
+7. **Series-layout consistency** — the page must use the locked first-cookbook visual system, with only the approved title-specific spine/banner color variation.
+
+A recipe or page that fails any of those checks must be corrected, replaced, or otherwise resolved and then re-audited before the cookbook may advance. The Agent may not mark a cookbook ready merely because the page count is complete or a PDF exists.
+
+A final cookbook verification pass must confirm at minimum:
+
+- every required recipe is present and belongs to the approved title/cover theme;
+- every recipe's image matches that exact recipe;
+- ingredients, quantities, method, timing, temperature, yield/servings, and finished-dish description are internally consistent;
+- no method references missing ingredients and no material listed ingredient is silently unused without a legitimate reason;
+- the interior uses the first approved cookbook's locked visual system consistently;
+- the cookbook's approved spine color matches the recurring interior banner color;
+- title, cover, recipe set, imagery, and interior presentation read as one coherent product;
+- page order, front/back matter, trim/layout, images, metadata, and final KDP package are verified where applicable.
+
+Only after those checks have verified evidence may the durable cookbook state advance through readiness labels such as `RECIPE SET VERIFIED`, `PHOTO MATCH VERIFIED`, `INTERIOR VERIFIED`, `COVER/THEME VERIFIED`, `FINAL QC VERIFIED`, and finally `PUBLISH READY`.
+
+`PUBLISH READY` is a durable verification state. On later Agent runs, Command Center must first determine whether any readiness-critical recipe content, imagery, cover/title, layout asset, metadata, or package file changed. If nothing material changed, the Agent preserves the locked package and does not redo approved work. If anything material changed, the cookbook moves to a truthful `RECHECK REQUIRED`-type state until the affected QC is rerun.
+
+This standard applies whether James starts the Agent on one cookbook manually or the project is reached through a portfolio Agent mode. Project scope remains locked: the Agent may not mix recipes, imagery, color systems, covers, or approval state between cookbook titles.
+
 ## Legacy isolation
 
 During construction, the new implementation must live in a clearly isolated authoritative rebuild area and must not load legacy implementation files. When the new implementation reaches the cutover boundary, root startup/deployment files must be replaced so production loads only the new authoritative stack.
