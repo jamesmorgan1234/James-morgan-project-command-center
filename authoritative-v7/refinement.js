@@ -9,8 +9,9 @@ let realtimeChannel=null;
 let refreshTimer=null;
 let applying=false;
 let restoredScroll=false;
+let enhancementQueued=false;
 
-const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
 const unique=values=>[...new Set((values||[]).filter(Boolean))];
 
 function toast(message,error=false){
@@ -62,7 +63,7 @@ function runProgress(){
   const run=agent?.activeRun;
   if(!run)return null;
   if(run.status==='completed')return 100;
-  const tasks=(agent?.tasks||[]).filter(t=>t.status!=='stopped');
+  const tasks=(agent?.tasks||[]).filter(t=>!['stopped','skipped'].includes(t.status));
   if(!tasks.length)return null;
   const verified=tasks.filter(t=>t.status==='verified').length;
   return Math.max(0,Math.min(100,Math.round((verified/tasks.length)*100)));
@@ -111,7 +112,7 @@ function enhanceHome(){
   const homeGrid=document.querySelector('.cc-screen .cc-home-grid');
   if(!homeGrid)return;
   const oldStrip=homeGrid.parentElement?.querySelector(':scope > .cc-state-strip');
-  if(oldStrip)oldStrip.hidden=true;
+  if(oldStrip&&!oldStrip.hidden)oldStrip.hidden=true;
 
   let modeGrid=homeGrid.parentElement?.querySelector(':scope > .cc-agent-mode-grid');
   if(!modeGrid){
@@ -124,17 +125,19 @@ function enhanceHome(){
   const barrier=barrierSummary();
   const autoHeadline=agent?.activeRun?projectName(agent.activeRun.project_id):summary.line;
   const autoDetail=agent?.activeRun?(activeTask()?.title||runStateText()):'Regular unattended Agent mode';
-  modeGrid.innerHTML=
+  const modeMarkup=
     modeCard('auto','Agent Auto',controls.auto_enabled===true,autoHeadline,autoDetail)+
     modeCard('barriers','To Work Barriers',controls.boundary_sweep_enabled===true,barrier.headline,barrier.detail);
+  if(modeGrid.innerHTML!==modeMarkup)modeGrid.innerHTML=modeMarkup;
 
   const agentCard=homeGrid.querySelector('[data-nav="agent"]');
   if(agentCard){
     const p=agentCard.querySelector('p');
-    if(p)p.textContent=summary.percent===null?`${summary.line} · N/A run progress`:`${summary.line} · ${summary.percent}% run`;
+    const progressText=summary.percent===null?`${summary.line} · N/A run progress`:`${summary.line} · ${summary.percent}% run`;
+    if(p&&p.textContent!==progressText)p.textContent=progressText;
     let detail=agentCard.querySelector('.cc-agent-card-task');
     if(!detail){detail=document.createElement('small');detail.className='cc-agent-card-task';agentCard.appendChild(detail);}
-    detail.textContent=summary.detail;
+    if(detail.textContent!==summary.detail)detail.textContent=summary.detail;
     agentCard.classList.toggle('is-working',agent?.activeRun?.status==='working');
   }
 }
@@ -161,7 +164,8 @@ function enhanceAgent(){
   if(strip){
     const extra=strip.querySelector('.cc-mode-truth')||document.createElement('span');
     extra.className='cc-mode-truth';
-    extra.textContent=controls.boundary_sweep_enabled?'TO WORK BARRIERS ON · sequential one-project lock active':controls.auto_enabled?'AGENT AUTO ON · barrier sweep OFF':'Both automatic modes are OFF';
+    const modeTruth=controls.boundary_sweep_enabled?'TO WORK BARRIERS ON · sequential one-project lock active':controls.auto_enabled?'AGENT AUTO ON · barrier sweep OFF':'Both automatic modes are OFF';
+    if(extra.textContent!==modeTruth)extra.textContent=modeTruth;
     if(!extra.parentElement)strip.appendChild(extra);
   }
 
@@ -184,7 +188,8 @@ function enhanceAgent(){
       retry.className='cc-card cc-section cc-work-retry-panel';
       screen.querySelector('.cc-stack')?.appendChild(retry);
     }
-    retry.innerHTML=`<div class="cc-section-head"><div class="cc-section-title">WORK RETRY</div><span class="cc-section-note">Same approved task only</span></div><p class="cc-desc">The prior attempt failed for a transient provider/connection reason. Before execution, the runner must reconcile downstream state so a retry cannot duplicate a side effect.</p><div class="cc-agent-controls" style="margin-top:10px"><button class="cc-btn cc-control" type="button" data-cc7-retry-rung="luna_high" data-task-id="${esc(failedWork.id)}"><strong>Retry Luna High</strong><span>Same exact approved Work task</span></button><button class="cc-btn cc-control" type="button" data-cc7-retry-rung="sol_light" data-task-id="${esc(failedWork.id)}"><strong>Retry Sol Light</strong><span>Same exact approved Work task</span></button></div>`;
+    const retryMarkup=`<div class="cc-section-head"><div class="cc-section-title">WORK RETRY</div><span class="cc-section-note">Same approved task only</span></div><p class="cc-desc">The prior attempt failed for a transient provider/connection reason. Before execution, the runner must reconcile downstream state so a retry cannot duplicate a side effect.</p><div class="cc-agent-controls" style="margin-top:10px"><button class="cc-btn cc-control" type="button" data-cc7-retry-rung="luna_high" data-task-id="${esc(failedWork.id)}"><strong>Retry Luna High</strong><span>Same exact approved Work task</span></button><button class="cc-btn cc-control" type="button" data-cc7-retry-rung="sol_light" data-task-id="${esc(failedWork.id)}"><strong>Retry Sol Light</strong><span>Same exact approved Work task</span></button></div>`;
+    if(retry.innerHTML!==retryMarkup)retry.innerHTML=retryMarkup;
   }else if(retry){retry.remove();}
 }
 
@@ -205,6 +210,15 @@ function applyEnhancements(){
   enhanceHome();
   enhanceAgent();
   restoreScrollIfNeeded();
+}
+
+function scheduleEnhancements(){
+  if(enhancementQueued)return;
+  enhancementQueued=true;
+  queueMicrotask(()=>{
+    enhancementQueued=false;
+    applyEnhancements();
+  });
 }
 
 async function toggleMode(kind,button){
@@ -266,7 +280,7 @@ document.addEventListener('click',event=>{
   if(refresh){event.preventDefault();event.stopPropagation();globalRefresh();}
 },true);
 
-const observer=new MutationObserver(()=>applyEnhancements());
+const observer=new MutationObserver(()=>scheduleEnhancements());
 observer.observe(document.documentElement,{subtree:true,childList:true});
 
 async function startRealtime(){
