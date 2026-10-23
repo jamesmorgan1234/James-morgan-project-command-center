@@ -4,6 +4,7 @@ import {
   setAuto, createAgentRun, createProjectCheckpoint, requestPause, requestResume, requestStop,
   resolveApproval, subscribe
 } from './data.js';
+import { requestProjectAutoRecheck } from './agent-api.js';
 import { renderControlModule } from './control-modules.js';
 import { renderPortfolioOverview, renderProjectSnapshot } from './overview-screens.js';
 
@@ -42,6 +43,8 @@ function projectMetrics(projectId){return (state.snapshot?.metrics||[]).filter(m
 function metric(projectId,key){return projectMetrics(projectId).find(m=>m.key===key)||null;}
 function projectById(id){return (state.snapshot?.projects||[]).find(p=>p.id===id)||null;}
 function projectName(id){return projectById(id)?.name||(id?'Tracked project':'Portfolio');}
+function isBook(project){return String(project?.id||'').startsWith('kdp-')||/book|kdp/i.test(String(project?.category||''));}
+function agentAllowed(project){return project?.agent_access_enabled!==false;}
 
 function scopeInfo(project){
   const m=metric(project.id,'current_scope_progress_percent');
@@ -129,11 +132,48 @@ function liveRow(project){
 }
 function nextRow(project){return`<button class="cc-card cc-next-row" type="button" data-open-project="${esc(project.id)}"><div class="cc-icon-frame"><div class="cc-icon">${iconSvg(iconName(project))}</div></div><div class="cc-copy"><h2 class="cc-name">${esc(project.name)}</h2>${statusPill(project)}<p class="cc-desc" style="margin-top:10px">${esc(project.next_action||'No verified next action recorded.')}</p></div><div class="cc-chevron">›</div><div class="cc-art ${artClass(project)}"></div></button>`;}
 
+function agentProgress(){
+  const tasks=state.agent?.tasks||[];
+  const total=tasks.length;
+  const verified=tasks.filter(t=>t.status==='verified').length;
+  return{verified,total,percent:total?Math.round((verified/total)*100):null};
+}
+function activeAgentMode(){
+  const c=state.agent?.controls||{};
+  if(c.project_auto_enabled)return{key:'project_auto',label:'PROJECT AUTO ON',projectId:c.project_auto_project_id||state.agent?.activeRun?.project_id||null};
+  if(c.boundary_sweep_enabled)return{key:'boundary_sweep',label:'TO WORK BARRIERS ON',projectId:c.boundary_sweep_current_project_id||null};
+  if(c.auto_enabled)return{key:'auto',label:'AGENT AUTO ON',projectId:state.agent?.activeRun?.project_id||null};
+  return{key:'off',label:'AUTO OFF',projectId:null};
+}
+function humanRunState(){
+  const run=state.agent?.activeRun;
+  const mode=activeAgentMode();
+  if(!run){
+    if(mode.key==='auto'||mode.key==='boundary_sweep')return'Waiting for the scheduled runner to claim the next eligible project.';
+    if(mode.key==='project_auto')return`Waiting for the scheduled runner to claim ${projectName(mode.projectId)}.`;
+    return'No Agent run is active.';
+  }
+  if(run.status==='queued')return'Waiting for the scheduled runner cycle. Nothing is being claimed as working yet.';
+  if(run.status==='working')return'Working now.';
+  if(run.status==='needs_user')return'Waiting for your required step. After you complete it, press Project Checkpoint to verify and resume this same Project Auto run.';
+  if(run.status==='blocked')return'Blocked. Complete the exact blocker, then press Project Checkpoint to request re-verification.';
+  if(run.status==='work_boundary')return run.control_mode==='project_auto'?'At a Work boundary. Project Auto is authorized to use its three-stage Work ladder for this exact project.':'At a genuine Work boundary. No Work starts without the required exact approval.';
+  if(run.status==='paused')return'Paused by owner.';
+  return String(run.status||'Idle').replaceAll('_',' ');
+}
+function agentProgressBar(compact=false){
+  const p=agentProgress();
+  const label=p.percent===null?'N/A':`${p.percent}%`;
+  const detail=p.total?`${p.verified}/${p.total} verified steps`:'Plan not established yet';
+  const width=p.percent===null?0:p.percent;
+  return`<div class="cc-agent-progress${compact?' compact':''}"><div class="cc-agent-progress-head"><strong>${label}</strong><span>${detail}</span></div><div class="cc-agent-progress-track"><span style="width:${width}%"></span></div></div>`;
+}
+
 function homeScreen(){
   const projects=state.snapshot?.projects||[],active=projects.filter(isActiveProject).length,next=nextUpProjects().length;
   const revenueRows=projects.map(revenueInfo).filter(r=>r.value!==null),verifiedRevenue=revenueRows.reduce((sum,r)=>sum+r.value,0);
-  const agentState=state.agent?.activeRun?.status?state.agent.activeRun.status.replaceAll('_',' '):'Idle',auto=state.agent?.controls?.auto_enabled===true;
-  return`<section class="cc-screen">${header('Command Center','Projects • Progress • Priorities • Performance',false)}<div class="cc-state-strip cc-card"><div class="cc-state-main"><strong>Agent ${esc(agentState)}</strong><span>${auto?'AUTO ON · eligible clean-runner work may advance':'AUTO OFF · no background Agent execution'}</span></div><button class="cc-toggle" type="button" data-action="toggle-auto" aria-pressed="${auto}"></button></div><div class="cc-home-grid"><button class="cc-card cc-home-card" data-nav="projects"><div class="cc-art planet"></div><h2>Projects</h2><p>${projects.length} tracked</p></button><button class="cc-card cc-home-card" data-nav="next"><div class="cc-art road"></div><h2>Next Up</h2><p>${next} queued actions</p></button><button class="cc-card cc-home-card" data-nav="agent"><div class="cc-art neural"></div><h2>Agent</h2><p>${auto?'AUTO ON':'AUTO OFF'} · ${esc(agentState)}</p></button><button class="cc-card cc-home-card" data-nav="revenue"><div class="cc-art bars"></div><h2>Revenue</h2><p>${revenueRows.length?fmtMoney(verifiedRevenue):'N/A'} verified</p></button></div><div class="cc-module-grid">${moduleButton('brain','Brain','Durable project context','brain')}${moduleButton('automation','Automation','Schedules and watches','gear')}${moduleButton('integrations','Integrations','Connected sources','tag')}${moduleButton('analytics','Analytics','Verified performance','chart')}${moduleButton('security','Security','Owner gates','grid')}${moduleButton('deployment','Deployment','Release state','doc')}</div><div class="cc-module-grid">${moduleButton('active','Active / Live',`${active} currently active`,'folder')}${moduleButton('about','About / Advanced','System details','grid')}</div></section>`;
+  const run=state.agent?.activeRun||null,mode=activeAgentMode(),p=agentProgress();
+  return`<section class="cc-screen">${header('Command Center','Projects • Progress • Priorities • Performance',false)}<div class="cc-state-strip cc-card"><div class="cc-state-main"><strong>Agent ${run?.status?esc(run.status.replaceAll('_',' ')):'idle'}</strong><span>${esc(mode.label)} · ${esc(humanRunState())}</span></div><button class="cc-toggle" type="button" data-action="toggle-auto" aria-pressed="${state.agent?.controls?.auto_enabled===true}"></button></div><div class="cc-home-grid"><button class="cc-card cc-home-card" data-nav="projects"><div class="cc-art planet"></div><h2>Projects</h2><p>${projects.length} tracked</p></button><button class="cc-card cc-home-card" data-nav="next"><div class="cc-art road"></div><h2>Next Up</h2><p>${next} queued actions</p></button><button class="cc-card cc-home-card" data-nav="agent"><div class="cc-art neural"></div><h2>Agent</h2><p>${esc(mode.label)} · ${p.percent===null?'N/A':`${p.percent}%`}</p>${agentProgressBar(true)}</button><button class="cc-card cc-home-card" data-nav="revenue"><div class="cc-art bars"></div><h2>Revenue</h2><p>${revenueRows.length?fmtMoney(verifiedRevenue):'N/A'} verified</p></button></div><div class="cc-module-grid">${moduleButton('brain','Brain','Durable project context','brain')}${moduleButton('automation','Automation','Schedules and watches','gear')}${moduleButton('integrations','Integrations','Connected sources','tag')}${moduleButton('analytics','Analytics','Verified performance','chart')}${moduleButton('security','Security','Owner gates','grid')}${moduleButton('deployment','Deployment','Release state','doc')}</div><div class="cc-module-grid">${moduleButton('active','Active / Live',`${active} currently active`,'folder')}${moduleButton('about','About / Advanced','System details','grid')}</div></section>`;
 }
 function projectsScreen(){
   const projects=state.snapshot?.projects||[],live=projects.filter(isActiveProject).length,planning=projects.filter(p=>statusModel(p).label==='Planning').length;
@@ -181,16 +221,19 @@ function trackingIntegrationsScreen(projectId){
   return`<section class="cc-screen">${header('Tracking Integrations',project.name)}<div class="cc-stack">${items.length?items.map(i=>`<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title"><div class="cc-mini-icon">${iconSvg('tag')}</div>${esc(i.provider||'Integration')}</div><span class="cc-section-note">${esc(i.status||'Unknown')}</span></div><div class="cc-module-item"><strong>${esc(i.metric_label||i.metric_key||'Tracked source')}</strong><p>${esc(i.integration_mode||'Mode unavailable')} • ${i.requires_user_authorization?'Owner authorization required':'No owner authorization currently required'}</p><small>${esc(i.last_checked_at?`Last checked ${i.last_checked_at}`:'No verified check time')}</small></div>${i.next_step?`<div class="cc-module-item" style="margin-top:10px"><strong>Next source action</strong><p>${esc(i.next_step)}</p></div>`:''}</div>`).join(''):'<div class="cc-card cc-empty">No tracked integration records are available for this project.</div>'}</div></section>`;
 }
 
-function agentStatusLabel(agent){if(!agent?.heartbeat)return'Runner offline / not yet verified';const age=Date.now()-new Date(agent.heartbeat.last_seen_at).getTime();if(!Number.isFinite(age)||age>90*60*1000)return'Runner heartbeat stale';return`Runner ${agent.heartbeat.status}`;}
+function agentStatusLabel(agent){if(!agent?.heartbeat)return'Runner offline / not yet verified';const age=Date.now()-new Date(agent.heartbeat.last_seen_at).getTime();if(!Number.isFinite(age)||age>90*60*1000)return'Runner waiting for its next hourly cycle';return`Runner ${agent.heartbeat.status} · last check ${new Date(agent.heartbeat.last_seen_at).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}`;}
 function agentAction(action,title,desc,disabled=false){return`<button class="cc-btn cc-control" type="button" data-agent-action="${esc(action)}" ${disabled?'disabled':''}><strong>${esc(title)}</strong><span>${esc(desc)}</span></button>`;}
-function agentControl(mode,title,desc){return`<button class="cc-btn cc-control" type="button" data-agent-create="${esc(mode)}"><strong>${esc(title)}</strong><span>${esc(desc)}</span></button>`;}
+function agentControl(mode,title,desc,disabled=false){return`<button class="cc-btn cc-control" type="button" data-agent-create="${esc(mode)}" ${disabled?'disabled':''}><strong>${esc(title)}</strong><span>${esc(desc)}</span></button>`;}
 function agentScreen(projectId=null){
-  const a=state.agent||{},controls=a.controls||{auto_enabled:false,runner_state:'idle'},run=a.activeRun||null;
-  const selectedProject=projectId||run?.project_id||'';
+  const a=state.agent||{},controls=a.controls||{auto_enabled:false,runner_state:'idle'},run=a.activeRun||null,mode=activeAgentMode();
+  const selectedProject=projectId||run?.project_id||controls.project_auto_project_id||'';
   const currentTask=(a.tasks||[]).find(t=>t.status==='working')||(a.tasks||[]).find(t=>t.status==='pending')||null;
-  const verified=(a.tasks||[]).filter(t=>t.status==='verified').length,total=(a.tasks||[]).length,checkpoint=a.checkpoints?.[0]||a.latestCheckpoint||null;
-  const options=(state.snapshot?.projects||[]).map(p=>`<option value="${esc(p.id)}" ${p.id===selectedProject?'selected':''}>${esc(p.name)}</option>`).join('');
-  return`<section class="cc-screen">${header('Agent','Owner-controlled execution')}<div class="cc-stack"><div class="cc-state-strip cc-card"><div class="cc-state-main"><strong>AUTO ${controls.auto_enabled?'ON':'OFF'}</strong><span>${controls.auto_enabled?'Clean runner may advance eligible queued work.':'No background Agent execution is authorized.'}</span><span>${esc(agentStatusLabel(a))}</span></div><button class="cc-toggle" type="button" data-action="toggle-auto" aria-pressed="${controls.auto_enabled===true}"></button></div><div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">AGENT SCOPE</div><span class="cc-section-note">Explicit owner target</span></div><label class="cc-field">Project<select id="ccAgentProjectSelector"><option value="">Portfolio / all tracked projects</option>${options}</select></label><p class="cc-desc" style="margin-top:8px">Execution runs are locked to the selected project. Project Checkpoint is read-only and may review the selected project or the full portfolio instantly.</p></div><div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title"><div class="cc-mini-icon">${iconSvg('brain')}</div>CURRENT RUN</div><span class="cc-section-note">${run?esc(run.status):'Idle'}</span></div>${run?`<div class="cc-metrics"><div class="cc-metric"><div class="cc-mini-icon">${iconSvg('folder')}</div><div><strong>${esc(projectName(run.project_id))}</strong><span>Project</span></div></div><div class="cc-metric"><div class="cc-mini-icon">${iconSvg('doc')}</div><div><strong>${verified}/${total||0}</strong><span>Verified steps</span></div></div><div class="cc-metric"><div class="cc-mini-icon">›</div><div><strong>${esc(currentTask?.title||run.exact_next_action||'Awaiting clean runner')}</strong><span>Current / next task</span></div></div></div><p class="cc-desc" style="margin-top:12px">${esc(run.objective)}</p><div class="cc-agent-controls" style="margin-top:12px">${run.pause_requested?agentAction('resume','Resume','Allow the clean runner to continue.'):agentAction('pause','Pause','Stop before the next unstarted side effect.')}${agentAction('stop','Stop Agent','Preserve verified work and stop unstarted work.')}</div>`:'<div class="cc-empty">No clean Agent run is active.</div>'}</div>${checkpoint?`<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title"><div class="cc-mini-icon">${iconSvg('doc')}</div>LATEST CHECKPOINT</div><span class="cc-section-note">${esc(checkpoint.created_at||'')}</span></div><div class="cc-module-item"><strong>${esc(checkpoint.project_id?projectName(checkpoint.project_id):'Portfolio')}</strong><p>${esc(checkpoint.summary)}</p><small>${esc(checkpoint.exact_next_action||'No next action recorded')}</small></div></div>`:''}<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">OWNER CONTROLS</div><span class="cc-section-note">Fresh V7 execution path</span></div><div class="cc-agent-controls">${agentControl('next_step','Next Step','Run exactly the next verified project step.')}${agentControl('until_work','Until Work / Next Work Boundary','Advance in normal chat until the first genuine Work-only boundary.')}${agentControl('manual_task','Manual Task','Run one exact task you specify.')}${agentControl('project_checkpoint','Project Checkpoint','Instant status review only. No execution or side effects.')}${agentAction('stop','Stop Agent','Stop the current run without discarding verified work.',!run)}${agentAction('refresh','Refresh','Reload the clean Agent state now.')}</div></div>${(a.approvals||[]).filter(x=>x.state==='required').map(ap=>`<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">APPROVAL REQUIRED</div><span class="cc-section-note">${esc(ap.approval_type)}</span></div><p class="cc-desc">${esc(ap.reason||'Exact-step approval required.')}</p><div class="cc-agent-controls" style="margin-top:12px"><button class="cc-btn primary" data-approval="${esc(ap.id)}" data-approved="true">Approve exact step</button><button class="cc-btn" data-approval="${esc(ap.id)}" data-approved="false">Decline</button></div></div>`).join('')}</div></section>`;
+  const checkpoint=a.checkpoints?.[0]||a.latestCheckpoint||null;
+  const options=(state.snapshot?.projects||[]).filter(p=>agentAllowed(p)&&(!isBook(p)||p.id===selectedProject)).map(p=>`<option value="${esc(p.id)}" ${p.id===selectedProject?'selected':''}>${esc(p.name)}${isBook(p)?' — manual only':''}</option>`).join('');
+  const projectAutoProject=selectedProject?projectById(selectedProject):null;
+  const projectAutoDisabled=!projectAutoProject||!agentAllowed(projectAutoProject);
+  const runAction=(run?.status==='needs_user'||run?.status==='blocked')?run.exact_next_action:'';
+  return`<section class="cc-screen cc-agent-native">${header('Agent','Owner-controlled execution')}<div class="cc-stack"><div class="cc-state-strip cc-card"><div class="cc-state-main"><strong>${esc(mode.projectId?`${mode.label} — ${projectName(mode.projectId)}`:mode.label)}</strong><span>${esc(humanRunState())}</span><span>${esc(agentStatusLabel(a))}</span></div><button class="cc-toggle" type="button" data-action="toggle-auto" aria-pressed="${controls.auto_enabled===true}"></button></div><div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">AGENT SCOPE</div><span class="cc-section-note">Explicit owner target</span></div><label class="cc-field">Project<select id="ccAgentProjectSelector"><option value="">Portfolio / all tracked projects</option>${options}</select></label><p class="cc-desc" style="margin-top:8px">Execution runs stay locked to the selected project. Books are never selected by portfolio Auto; an exact Books project may be run only when you deliberately open/select it.</p></div><div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title"><div class="cc-mini-icon">${iconSvg('brain')}</div>CURRENT RUN</div><span class="cc-section-note">${run?esc(run.status):'Idle'}</span></div>${agentProgressBar(false)}${run?`<div class="cc-agent-current"><strong>${esc(currentTask?.title||run.exact_next_action||'Waiting for runner')}</strong><p>${esc(humanRunState())}</p>${runAction?`<div class="cc-agent-blocker"><b>${run.status==='blocked'?'BLOCKED':'ACTION REQUIRED'}</b><span>${esc(runAction)}</span></div>`:''}</div><div class="cc-agent-controls" style="margin-top:12px">${run.pause_requested?agentAction('resume','Resume','Allow the clean runner to continue.'):agentAction('pause','Pause','Stop before the next unstarted side effect.')}${agentAction('stop','Stop Agent','Preserve verified work and stop unstarted work.')}</div>`:'<div class="cc-empty">No clean Agent run is active.</div>'}</div>${checkpoint?`<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title"><div class="cc-mini-icon">${iconSvg('doc')}</div>LATEST CHECKPOINT</div><span class="cc-section-note">${esc(checkpoint.created_at||'')}</span></div><div class="cc-module-item"><strong>${esc(checkpoint.project_id?projectName(checkpoint.project_id):'Portfolio')}</strong><p>${esc(checkpoint.summary)}</p><small>${esc(checkpoint.exact_next_action||'No next action recorded')}</small></div></div>`:''}<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">OWNER CONTROLS</div><span class="cc-section-note">Native V7 execution path</span></div><div class="cc-agent-controls">${agentControl('project_auto',mode.key==='project_auto'?'Project Auto ON':'Project Auto',mode.key==='project_auto'?humanRunState():'Run only the selected project. Activating Project Auto authorizes the full Luna High → Sol Light → Sol Medium Work ladder for this exact project only.',projectAutoDisabled)}${agentControl('next_step','Next Step','Run exactly the next verified project step.')}${agentControl('until_work','Until Work / Next Work Boundary','Advance in normal chat until the first genuine Work-only boundary.')}${agentControl('manual_task','Manual Task','Run one exact task you specify.')}${agentControl('project_checkpoint','Project Checkpoint','Verify current state. For a blocked Project Auto run, recheck the owner-completed step and resume the same run when verified.')}${agentAction('stop','Stop Agent','Stop the current run without discarding verified work.',!run)}${agentAction('refresh','Refresh','Reload the clean Agent state now.')}</div></div>${(a.approvals||[]).filter(x=>x.state==='required'&&run?.control_mode!=='project_auto').map(ap=>`<div class="cc-card cc-section"><div class="cc-section-head"><div class="cc-section-title">APPROVAL REQUIRED</div><span class="cc-section-note">${esc(ap.approval_type)}</span></div><p class="cc-desc">${esc(ap.reason||'Exact-step approval required.')}</p><div class="cc-agent-controls" style="margin-top:12px"><button class="cc-btn primary" data-approval="${esc(ap.id)}" data-approved="true">Approve exact step</button><button class="cc-btn" data-approval="${esc(ap.id)}" data-approved="false">Decline</button></div></div>`).join('')}</div></section>`;
 }
 
 function moduleScreen(view){
@@ -244,17 +287,27 @@ async function handleAgentCreate(button){
   const project=projectId?projectById(projectId):null;
   if(mode==='project_checkpoint'){
     const result=await createProjectCheckpoint(state.ownerId,projectId);
+    const recheck=projectId?await requestProjectAutoRecheck(projectId):null;
     await refreshAll(true);
-    toast(`${project?.name||'Portfolio'} checkpoint complete.`);
+    toast(recheck?.recheck_requested?`${project?.name||'Project'} checkpoint verified; Project Auto recheck queued.`:`${project?.name||'Portfolio'} checkpoint complete.`);
     return result;
+  }
+  if(mode==='project_auto'){
+    if(!project)throw new Error('Project Auto requires one selected project.');
+    if(!agentAllowed(project))throw new Error('Agent access is disabled for this project.');
+    const objective=`[PROJECT AUTO] Continuously advance ${project.name} only. Stay locked to this project and never switch to another project. Continue every eligible normal-chat step. Activating Project Auto authorizes the Work ladder for this exact project only: Luna High first, then Sol Light only for verified capability/complexity failure, then Sol Medium only for verified capability/complexity failure. This does not authorize spending, paid credits, publishing, legal acceptance, communications, security changes, scope expansion, or bypassing other Command Center gates. Stop only when the owner stops the run, the project is complete, or a genuine authorization, device, availability, safety, or other real blocker prevents further progress. Current next action: ${project.next_action||'N/A'}`;
+    await createAgentRun({ownerId:state.ownerId,projectId:project.id,objective,controlMode:'project_auto',booksTarget:isBook(project)?project.name:null,allowWork:true});
+    await refreshAll(true);
+    toast(`${project.name} Project Auto queued. It will stay locked to this project.`);
+    return;
   }
   let objective;
   if(mode==='next_step')objective=project?.next_action||prompt('What exact next step should Agent run?');
   else if(mode==='until_work')objective=project?`Advance ${project.name} from its verified current state through normal-chat work until the first genuine Work-only boundary. Current next action: ${project.next_action||'N/A'}`:prompt('What exact project/task should Agent advance until the next genuine Work boundary?');
   else objective=prompt('Enter the exact manual task for Agent.');
   if(!objective)return;
-  const booksTarget=project&&/book|kdp/i.test(project.category||'')?prompt('Exact allowed Books target (required for Books Agent work):',project.name):null;
-  if(project&&/book|kdp/i.test(project.category||'')&&!booksTarget){toast('Books Agent work requires an exact target.',true);return;}
+  const booksTarget=project&&isBook(project)?prompt('Exact allowed Books target (required for Books Agent work):',project.name):null;
+  if(project&&isBook(project)&&!booksTarget){toast('Books Agent work requires an exact target.',true);return;}
   await createAgentRun({ownerId:state.ownerId,projectId,objective,controlMode:mode,booksTarget,allowWork:mode==='until_work'});
   await refreshAll(true);
   toast('Clean Agent run queued. It will not be shown as working until the V7 runner actually claims it.');
