@@ -13,6 +13,7 @@ const CORE=[
   './authoritative-v7/app.js?v=4',
   './authoritative-v7/refinement.js?v=1',
   './authoritative-v7/publication-truth.js',
+  './authoritative-v7/agent-execution.js',
   './authoritative-v7/book-ui-fixes.js?v=1',
   './authoritative-v7/home-books-refinement.js?v=1',
   './authoritative-v7/data.js',
