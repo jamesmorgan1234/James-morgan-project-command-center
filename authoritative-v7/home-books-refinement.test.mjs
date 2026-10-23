@@ -28,6 +28,12 @@ test('only true series or collections have grouped cover manifests',()=>{
   assert.doesNotMatch(js,/'kdp-standalones'\s*:/);
 });
 
+test('approved cover atlas resolves relative to its module in both root and isolated V7 entrypoints',()=>{
+  assert.match(js,/new URL\('\.\/assets\/book-cover-atlas-v2\.webp',import\.meta\.url\)\.href/);
+  assert.match(js,/background-image:url\('\$\{esc\(approvedAtlasUrl\)\}'\)/);
+  assert.doesNotMatch(js,/background-image:url\('\.\/assets\/book-cover-atlas-v2\.webp'\)/);
+});
+
 test('individual workbooks and standalone books auto-lock their own Agent target',()=>{
   assert.match(js,/independent workbook project/);
   assert.match(js,/independent standalone book project/);
