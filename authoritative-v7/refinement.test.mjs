@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
+const app=await readFile(new URL('./app.js',import.meta.url),'utf8');
 const js=await readFile(new URL('./refinement.js',import.meta.url),'utf8');
 const css=await readFile(new URL('./refinement.css',import.meta.url),'utf8');
 const rootHtml=await readFile(new URL('../index.html',import.meta.url),'utf8');
@@ -33,12 +34,21 @@ test('Home Agent progress fails truthful when denominator is unavailable',()=>{
   assert.match(js,/verified\/tasks\.length/);
 });
 
-test('global refresh preserves route and scroll before reloading state',()=>{
-  assert.match(js,/REFRESH_SCROLL_KEY/);
-  assert.match(js,/location\.pathname/);
-  assert.match(js,/window\.scrollY/);
-  assert.match(js,/location\.reload\(\)/);
-  assert.match(js,/window\.scrollTo/);
+test('global refresh uses the in-app clean V7 state path and preserves scroll',()=>{
+  assert.match(js,/CustomEvent\('cc7:global-refresh'\)/);
+  assert.doesNotMatch(js,/location\.reload\(\)/);
+  assert.doesNotMatch(js,/REFRESH_SCROLL_KEY/);
+  assert.match(app,/addEventListener\('cc7:global-refresh'/);
+  assert.match(app,/const refreshScrollY=window\.scrollY/);
+  assert.match(app,/routeUrl\(state\.route\)===refreshRoute/);
+  assert.match(app,/window\.scrollTo\(\{top:refreshScrollY,behavior:'instant'\}\)/);
+});
+
+test('refinement observer is idempotent instead of rewriting identical markup forever',()=>{
+  assert.match(js,/if\(modeGrid\.innerHTML!==modeMarkup\)modeGrid\.innerHTML=modeMarkup/);
+  assert.match(js,/if\(retry\.innerHTML!==retryMarkup\)retry\.innerHTML=retryMarkup/);
+  assert.match(js,/enhancementQueued/);
+  assert.match(js,/queueMicrotask/);
 });
 
 test('manual Work retry is bounded to approved Luna High and Sol Light rungs',()=>{
@@ -79,9 +89,9 @@ test('authoritative roadmap matches the locked two-mode and Work-ladder contract
 
 test('new owner RPCs are not granted to anonymous callers',()=>{
   for(const fn of ['cc7_agent_owner_set_boundary_sweep(boolean)','cc7_agent_owner_retry_work_rung(uuid,text)']){
-    assert.ok(rpcGrantMigration.includes(`from public`));
-    assert.ok(rpcGrantMigration.includes(`from anon`));
-    assert.ok(rpcGrantMigration.includes(`to authenticated`));
+    assert.ok(rpcGrantMigration.includes('from public'));
+    assert.ok(rpcGrantMigration.includes('from anon'));
+    assert.ok(rpcGrantMigration.includes('to authenticated'));
     assert.ok(rpcGrantMigration.includes(fn),`missing grant restriction for ${fn}`);
   }
 });
