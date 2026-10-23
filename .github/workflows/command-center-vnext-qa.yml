@@ -7,10 +7,16 @@ on:
     paths:
       - 'rebuild-vnext/**'
       - '.github/workflows/command-center-vnext-qa.yml'
+      - 'index.html'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
   pull_request:
     paths:
       - 'rebuild-vnext/**'
       - '.github/workflows/command-center-vnext-qa.yml'
+      - 'index.html'
+      - 'manifest.webmanifest'
+      - 'service-worker.js'
 
 permissions:
   contents: read
@@ -29,16 +35,22 @@ jobs:
         run: node --version
       - name: Run Category QA
         run: npm run qa
-      - name: Assert no legacy runtime import
+      - name: Assert executable VNext code has no legacy runtime import
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -R -E "\.\./(app|app-config|startup-loader|agent-repair|project-auto)\.js|authoritative-v7" src tests architecture web
+          if grep -R -n -E "from ['\"][^'\"]*(app|app-config|startup-loader|agent-repair|project-auto)\.js|import\(['\"][^'\"]*authoritative-v7" src tests web scripts; then
+            echo "Legacy runtime import detected in executable VNext code"
+            exit 1
+          fi
       - name: Assert production root is not a VNext dependency
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -R -E "from ['\"]\.\./\.\./(app|app-config)\.js|from ['\"]\.\./\.\./authoritative-v7" src tests web
+          if grep -R -n -E "from ['\"]\.\./\.\./(app|app-config)\.js|from ['\"]\.\./\.\./authoritative-v7" src tests web scripts; then
+            echo "Production legacy root dependency detected"
+            exit 1
+          fi
       - name: Verify isolated private shell in headless Chrome
         shell: bash
         run: |
