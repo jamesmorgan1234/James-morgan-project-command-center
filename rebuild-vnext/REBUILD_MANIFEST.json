@@ -1,0 +1,22 @@
+{
+  "project": "Command Center",
+  "rebuild": "vnext-cleanroom",
+  "status": "STARTED",
+  "spec_lock": "LOCKED FOR CLEAN REBUILD",
+  "spec_lock_date": "2026-10-23",
+  "production_baseline_sha": "af7b8b9955dca747009221f8793673ab53cea7f7",
+  "branch": "rebuild/command-center-spec-lock-cleanroom",
+  "production_modified": false,
+  "raw_recovered_entries": 5171,
+  "pass2_obligations": 528,
+  "pass3_obligations": 138,
+  "pass4_obligations": 108,
+  "standards_controls": 16,
+  "pre_reconciliation_candidates": 5961,
+  "canonical_requirements": 5825,
+  "true_duplicate_source_entries_merged": 136,
+  "spec_package_sha256": "fa9d8e57ba595f5ba507074c7eb0d2bc8840ad16b3750f47b6679ff146c6cc8a",
+  "historical_recovery_zip_sha256": "edd9d913036cc13cfea39c536fc7c06c5452bb0b795eb640d0e2d32a9ae9edc2",
+  "next_category": 1,
+  "gate_policy": "build -> test -> repair -> retest -> checkpoint -> advance"
+}
