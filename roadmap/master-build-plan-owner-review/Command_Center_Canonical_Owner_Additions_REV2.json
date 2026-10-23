@@ -2,12 +2,14 @@
   {
     "canonical_id": "CCR-05826",
     "canonical_text": "Command Center must use WebAuthn/passkeys with a platform authenticator and required user verification for biometric/fingerprint-backed owner unlock on compatible Samsung/Android devices, with automatic relock, fresh verification for protected actions, secure recovery/revocation, and no biometric template storage.",
-    "source_ids": ["OWNER-ADD-20261023-01"],
-    "source_kinds": ["owner_addition"],
+    "source_ids": ["HIST-20261019-FINGERPRINT", "OWNER-RECONFIRM-20261023-01"],
+    "source_kinds": ["recovered_historical_user_requirement", "owner_reconfirmation"],
+    "source_history": "Recovered from Command Center conversation history on 2026-10-19. James wanted phone-security integration so Command Center could use fingerprint instead of password and prioritized security over a simple keep-signed-in experience. The fingerprint feature was discussed as a separate future feature rather than implemented in that specific build. On 2026-10-23 James reconfirmed that fingerprint was already part of the Command Center idea and must be included in the roadmap.",
     "architecture_branch": "A03",
     "architecture_owner": "Identity / Authentication / Sessions / Devices",
     "classification": "SECURITY / RECOVERY",
-    "primary_category": 2
+    "primary_category": 2,
+    "reconciliation_correction": "This is NOT a newly invented 2026-10-23 requirement. It is a previously discussed Command Center requirement that was missed during historical reconciliation and is now restored to the canonical owner-review set."
   },
   {
     "canonical_id": "CCR-05827",
