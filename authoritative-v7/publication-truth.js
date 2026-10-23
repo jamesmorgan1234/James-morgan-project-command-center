@@ -31,6 +31,7 @@ export function bookHasAnyLiveFormat(book){
 }
 
 function prePublishState(lowered){
+  if(/corrections required|needs changes/.test(lowered))return{label:'Needs Changes',cls:'needs-changes'};
   if(/owner review required|agent verified/.test(lowered))return{label:'Owner Review Needed',cls:'owner-review'};
   if(/ready to publish/.test(lowered))return{label:'Ready to Publish',cls:'ready'};
   if(/agent review required|production complete|ready for kdp|unpublished|not published/.test(lowered))return{label:'Agent Review Needed',cls:'agent-review'};
