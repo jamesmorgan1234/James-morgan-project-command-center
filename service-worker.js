@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-root-8';
+const CACHE='command-center-v7-root-9';
 const CORE=[
   './',
   './index.html',
