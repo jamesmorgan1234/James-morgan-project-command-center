@@ -90,7 +90,7 @@ test('authoritative roadmap matches the locked two-mode and Work-ladder contract
     'If the denominator is not trustworthy',
     'completely unobstructed',
     'medium difficulty',
-    'first approved cookbook remains the layout benchmark'
+    'first approved cookbook is the locked layout benchmark'
   ])assert.ok(roadmap.includes(text),`roadmap missing locked requirement: ${text}`);
   assert.equal(roadmap.includes('numbered corner badges'),false,'stale cover-overlay rule remains in roadmap');
 });
