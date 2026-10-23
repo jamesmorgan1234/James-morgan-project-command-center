@@ -1,14 +1,14 @@
 export type ShellState = "cold" | "starting" | "hydrating" | "ready" | "offline_ready" | "degraded" | "failed";
 
-const ALLOWED: Readonly<Record<ShellState, readonly ShellState[]>> = Object.freeze({
-  cold: Object.freeze(["starting"]),
-  starting: Object.freeze(["hydrating", "failed"]),
-  hydrating: Object.freeze(["ready", "offline_ready", "degraded", "failed"]),
-  ready: Object.freeze(["offline_ready", "degraded", "failed"]),
-  offline_ready: Object.freeze(["ready", "degraded", "failed"]),
-  degraded: Object.freeze(["ready", "offline_ready", "failed"]),
-  failed: Object.freeze(["starting"])
-});
+const ALLOWED = {
+  cold: ["starting"],
+  starting: ["hydrating", "failed"],
+  hydrating: ["ready", "offline_ready", "degraded", "failed"],
+  ready: ["offline_ready", "degraded", "failed"],
+  offline_ready: ["ready", "degraded", "failed"],
+  degraded: ["ready", "offline_ready", "failed"],
+  failed: ["starting"]
+} as const satisfies Readonly<Record<ShellState, readonly ShellState[]>>;
 
 export interface ShellModuleMount {
   readonly slot: string;
@@ -22,7 +22,7 @@ export class ApplicationShell {
   get state(): ShellState { return this.#state; }
 
   transition(to: ShellState): void {
-    if (!ALLOWED[this.#state].includes(to)) throw new Error(`Invalid shell transition: ${this.#state} -> ${to}`);
+    if (!(ALLOWED[this.#state] as readonly ShellState[]).includes(to)) throw new Error(`Invalid shell transition: ${this.#state} -> ${to}`);
     this.#state = to;
   }
 
