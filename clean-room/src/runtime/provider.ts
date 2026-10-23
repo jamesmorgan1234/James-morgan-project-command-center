@@ -46,7 +46,8 @@ export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
     const relayAbort = (): void => controller.abort();
     signal?.addEventListener("abort", relayAbort, { once: true });
     try {
-      const response = await this.#fetcher(this.#endpoint, {
+      const fetcher = this.#fetcher;
+      const response = await fetcher(this.#endpoint, {
         method: "GET",
         headers: { accept: "application/json" },
         cache: "no-store",
