@@ -23,10 +23,10 @@ test('Home Agent progress uses verified durable tasks',()=>{
   assert.match(repair,/Plan not established yet/);
 });
 
-test('Queued is never described as working',()=>{
-  assert.match(repair,/Waiting for the scheduled runner cycle/);
-  assert.match(projectAuto,/Waiting for the scheduled runner cycle/);
-  assert.doesNotMatch(projectAuto,/Starting selected project only…[\s\S]*Working now/);
+test('Queued is described as waiting, not working',()=>{
+  assert.match(repair,/if\(run\.status==='queued'\)return'Waiting for the scheduled runner cycle\. Nothing is being claimed as working yet\.'/);
+  assert.match(projectAuto,/Waiting for the scheduled runner cycle\. This project stays locked/);
+  assert.match(projectAuto,/lastAgent\.activeRun\?\.status==='working'\?'Working now\.'/);
 });
 
 test('Project Auto verifies access and stays project-scoped',()=>{
