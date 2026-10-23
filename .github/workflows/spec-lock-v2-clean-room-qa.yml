@@ -1,0 +1,44 @@
+name: Spec Lock v2 Clean Room QA
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - 'clean-room/**'
+      - '.github/workflows/spec-lock-v2-clean-room-qa.yml'
+  pull_request:
+    paths:
+      - 'clean-room/**'
+      - '.github/workflows/spec-lock-v2-clean-room-qa.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: clean-room
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: clean-room/package.json
+      - name: Install zero-cost build dependency
+        run: npm install --no-audit --no-fund --ignore-scripts
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build and test
+        run: npm test
+      - name: Reject legacy runtime imports
+        run: |
+          if grep -R -n -E '(\.\./legacy|/legacy/|old-agent|cc7_agent_)' src; then
+            echo 'Legacy runtime dependency detected in clean-room source.' >&2
+            exit 1
+          fi
