@@ -2,7 +2,7 @@ const CACHE='command-center-v7-root-8';
 const CORE=[
   './',
   './index.html',
-  './manifest.webmanifest?v=10',
+  './manifest.webmanifest?v=11',
   './authoritative-v7/theme.css?v=4',
   './authoritative-v7/layout.css?v=4',
   './authoritative-v7/artwork.css?v=4',

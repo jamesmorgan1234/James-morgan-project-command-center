@@ -18,6 +18,7 @@ const forbiddenRootRuntime=[
 
 test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/data-command-center-runtime="v7-clean"/);
+  assert.match(rootHtml,/\.\/manifest\.webmanifest\?v=11/);
   assert.match(rootHtml,/\.\/authoritative-v7\/interaction-feedback\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/app\.js\?v=4/);
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.js\?v=1/);
@@ -44,7 +45,7 @@ test('V7 shells honor the HTML hidden state over component display rules',()=>{
 
 test('root manifest is clean standalone V7 identity',()=>{
   assert.equal(rootManifest.id,'./');
-  assert.equal(rootManifest.start_url,'./');
+  assert.equal(rootManifest.start_url,'./?cc7-launch=3');
   assert.equal(rootManifest.scope,'./');
   assert.equal(rootManifest.display,'standalone');
   assert.equal(rootManifest.background_color,'#000000');
@@ -56,6 +57,7 @@ test('root manifest is clean standalone V7 identity',()=>{
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
   assert.match(rootSw,/command-center-v7-root-8/);
+  assert.match(rootSw,/\.\/manifest\.webmanifest\?v=11/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);

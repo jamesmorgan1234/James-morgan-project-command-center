@@ -3,7 +3,7 @@
   "name": "Command Center",
   "short_name": "Command Center",
   "description": "James Morgan private project command center.",
-  "start_url": "./",
+  "start_url": "./?cc7-launch=3",
   "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
