@@ -119,6 +119,32 @@ jobs:
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' service-worker.js
           grep -Fq './authoritative-v7/assets/book-cover-atlas-v2.webp' service-worker.js
 
+      - name: Verify real root startup in headless Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4174 >/tmp/cc7-startup-http.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          sleep 1
+          CHROME="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          if [ -z "$CHROME" ]; then
+            echo "No headless Chrome/Chromium available on runner"
+            exit 1
+          fi
+          "$CHROME" \
+            --headless=new \
+            --no-sandbox \
+            --disable-gpu \
+            --virtual-time-budget=12000 \
+            --dump-dom \
+            "http://127.0.0.1:4174/" \
+            >/tmp/cc7-root-dom.html 2>/tmp/cc7-root-chrome.log
+          grep -Eq 'id="ccBoot"[^>]*hidden' /tmp/cc7-root-dom.html
+          grep -Fq 'Secure owner sign in' /tmp/cc7-root-dom.html
+          ! grep -Fq 'Command Center startup failed:' /tmp/cc7-root-dom.html
+          grep -Eq 'id="ccApp"[^>]*>.*cc-login' /tmp/cc7-root-dom.html || grep -Fq 'class="cc-login"' /tmp/cc7-root-dom.html
+
       - name: Audit every repository file
         run: node authoritative-v7/repository-audit.mjs
 
