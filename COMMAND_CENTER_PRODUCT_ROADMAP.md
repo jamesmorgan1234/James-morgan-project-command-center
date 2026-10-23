@@ -2,469 +2,345 @@
 
 Status: **AUTHORITATIVE CURRENT ROADMAP**
 
-This roadmap is the single product/behavior checklist for the clean-room Command Center V7 rebuild. It replaces older roadmap wording where conflicts exist. The approved screenshots recorded in `COMMAND_CENTER_APPROVED_VISUAL_SPEC.md` are literal visual specifications. This roadmap controls product behavior, owner controls, data truth, navigation, execution, and completion criteria.
+This is the controlling V7 product/behavior roadmap. James Morgan’s newest explicit instructions override older conflicting wording. The approved screenshots recorded in `COMMAND_CENTER_APPROVED_VISUAL_SPEC.md` remain literal visual specifications. `COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md` controls clean-room construction and protected Books QC rules.
 
-## 1. Product purpose
+## 1. Product purpose and global truth rules
 
-Command Center is James Morgan's private owner-controlled control plane for projects, progress, priorities, verified performance, project memory, automation, integrations, analytics, security, deployment, and Agent execution.
+Command Center is James Morgan’s private owner-controlled control plane for projects, progress, priorities, verified performance, project memory, automation, integrations, analytics, security, deployment, and Agent execution.
 
-Core rules:
+Locked rules:
 
-- Clean-room V7 implementation only. Do not use V4/V5/V6/approved legacy UI or Agent implementation as runtime building material.
+- V7 is clean-room only. V4/V5/V6 and legacy Agent/runtime code are reference evidence only, never runtime/build material.
 - Normal Chat is the default execution brain.
-- Both automatic Agent modes default and fail closed to OFF.
-- When both **Agent Auto** and **To Work Barriers** are OFF, background Agent execution is zero and the background runner writes no heartbeat.
-- Automatic Agent modes are mutually exclusive. They may never both be ON.
-- One project executes at a time. Portfolio-wide Agent behavior is sequential, never parallel or interleaved.
-- No purchases, subscriptions, trials, paid APIs, ads, credits, usage billing, or paid infrastructure without exact owner authorization.
-- No public publishing, deployment, merge, communication, legal acceptance, account-security change, or other protected side effect without the applicable authorization boundary.
-- No invented percentages, revenue, progress, publication status, integrations, permissions, completion, Work availability, or model execution.
-- Verified zero is shown as zero. Missing or unverified data is shown as `N/A` or another truthful defined state.
-- Internal IDs, raw JSON, source plumbing, private checkpoint mechanics, and backend diagnostics remain out of the normal owner UI.
+- $0/free-first. No purchases, subscriptions, trials, paid APIs, ads, credits, usage billing, or paid infrastructure without exact authorization.
+- No protected public/account action is implied by a general Agent mode. Publishing, deployment, merge, communications, legal acceptance, security changes, and spending keep their own authorization boundaries.
+- No invented percentages, revenue, completion, publication state, integrations, approvals, Work availability, or model execution.
+- Verified zero is zero. Missing/unverified data is `N/A` or another truthful defined state.
+- One project executes at a time. Portfolio-wide Agent work is sequential, never parallel or interleaved.
 - Approved/protected assets remain exact unless James explicitly reopens them.
+- Raw IDs, JSON, checkpoint plumbing, source metadata, private KPIs, and other backend internals stay out of normal owner UI.
 
-## 2. Global mobile experience
+## 2. Mobile/PWA experience
 
-The approved screenshots define the visual system:
-
-- near-black sci-fi control-surface background;
-- orange/gold illuminated clipped geometry;
-- compact dense mobile spacing;
-- glowing octagonal/circular icon machinery;
-- integrated project artwork inside cards;
-- white glowing primary titles and blue-gray supporting text;
-- semantic status pills with luminous dots;
-- large orange/gold chevrons;
-- no generic admin-panel appearance;
-- no excessive rounded cards or dead space.
-
-Mobile behavior requirements:
-
-- portrait-first installed-PWA experience;
-- viewport locked against pinch zoom;
-- native vertical scrolling preserved;
-- no horizontal overflow;
-- Android/system surfaces remain black;
-- safe-area spacing preserved;
-- browser/physical Back traverses the app history deepest-first;
-- per-screen scroll position is restored exactly once by the V7 router;
-- service-worker updates must replace stale V7 caches cleanly;
-- offline mode must never present stale live data as current;
-- approved launcher artwork remains exact and protected.
-
-### 2.1 Global Refresh
-
-A global owner Refresh control is available without reintroducing pull/swipe-to-refresh.
+The visual language is near-black, orange/gold sci-fi machinery, clipped/angular cards, glowing white titles, muted blue-gray support text, integrated atmospheric art, semantic status pills, large orange/gold chevrons, and dense phone-first hierarchy.
 
 Required behavior:
 
-- rereads current clean V7 state only;
-- does not create a run, checkpoint, Work request, source sync, or any project execution;
-- never turns on either Agent automatic mode;
-- preserves the current route and scroll position;
-- may visibly indicate refresh activity;
-- KDP/provider/source ingestion remains a separate action and must never be fabricated by Refresh.
+- portrait-first installed PWA;
+- pinch zoom locked while native vertical scrolling remains intact;
+- no horizontal overflow;
+- black Android/system surfaces;
+- safe-area spacing;
+- physical/browser Back traverses app history deepest-first;
+- per-screen scroll restoration owned once by V7 routing;
+- stale service-worker caches replaced cleanly;
+- offline mode never presents stale live data as current;
+- exact approved launcher artwork remains protected.
+
+### 2.1 Global Refresh
+
+Global Refresh is a read/reconcile utility, not an execution control.
+
+It must:
+
+- reread clean V7 projects, metrics, modules, Agent state, and current screen data;
+- stay on the current route;
+- preserve current scroll position;
+- avoid page reload when the in-app V7 data path is available;
+- never create a run, checkpoint, Work request, source sync, or project execution;
+- never change Agent Auto or To Work Barriers;
+- never impersonate KDP/provider ingestion. Source sync is separate.
+
+Pull/swipe-to-refresh is not reintroduced.
 
 ## 3. Home
 
-Home uses a uniform two-column card system. The first row is reserved for the two Agent operating modes:
+Home uses a uniform two-column card system.
 
-1. **Agent Auto** — regular unattended Agent mode.
-2. **To Work Barriers** — sequential portfolio sweep that advances each eligible project through normal-chat-safe work to its next genuine Work-only boundary and parks it there.
+Top row:
 
-These two mode cards:
+1. **Agent Auto**
+2. **To Work Barriers**
 
-- are equal visual peers to the rest of the Home card system;
-- are mutually exclusive;
-- show truthful ON/OFF state;
-- may use stronger glow/indicator treatment when active;
-- never imply execution merely because a mode is armed.
+Then:
 
-The primary Home navigation then contains:
+- Projects | Next Up
+- Agent | Revenue
+- Brain | Automation
+- Integrations | Analytics
+- Security | Deployment
+- Active / Live | About / Advanced
 
-- **Projects** — complete tracked portfolio;
-- **Next Up** — current priority/action queue;
-- **Agent** — owner-controlled Agent execution surface;
-- **Revenue** — verified revenue only;
-- Brain;
-- Automation;
-- Integrations;
-- Analytics;
-- Security;
-- Deployment;
-- Active / Live;
-- About / Advanced.
+The two Agent-mode cards are equal visual peers to the rest of the grid, show truthful ON/OFF state, and are mutually exclusive.
 
-### 3.1 Home Agent card truth
+### 3.1 Home Agent status/progress
 
-When an Agent run exists, the Home **Agent** card must show, where verified:
+When a run exists, the Home Agent card shows where verified:
 
 - exact current project;
 - current task or exact next action;
 - truthful run state;
 - Agent-run progress percentage.
 
-Agent-run progress is separate from project-scope progress. It is derived only from durable planned run tasks: verified completed tasks divided by the current trustworthy planned task count. It never advances because time passed. If a trustworthy denominator does not exist, Home shows `N/A` rather than inventing a percentage. If verified scope expands and planned tasks are added, the run percentage may truthfully decrease.
+Agent-run progress is separate from project-scope progress. It is based only on durable planned tasks: verified completed tasks divided by the current trustworthy planned task count. It never rises because time passed. If the denominator is not trustworthy, show `N/A`. If verified scope expands and tasks are added, the percentage may truthfully decrease.
 
-State presentation includes:
+For To Work Barriers, Home also shows the locked current project and reviewed/parked project count. That is a count, not a substitute percentage.
 
-- Working → project + task + verified run percentage where available;
-- Work Boundary → waiting for exact Work approval;
-- Needs Owner → owner action required;
-- Paused → paused state and retained verified run progress;
-- Completed → verified complete;
-- Idle → normal Agent state.
+## 4. Projects / Portfolio Overview
 
-For **To Work Barriers**, Home also surfaces the currently locked project and portfolio sweep progress such as reviewed/parked project count. That count is a project-count status, not a fabricated percentage.
+Projects follows the approved screenshot literally:
 
-## 4. Projects screen
-
-Visual source: approved `Projects` screenshot.
-
-Required structure:
-
-- title `Projects`;
-- subtitle `Full portfolio of tracked projects`;
-- full-width portfolio summary card;
-- large project count;
-- truthful portfolio status breakdown;
+- title/subtitle;
+- portfolio summary card;
+- truthful project count/status mix;
 - integrated landscape artwork;
-- project rows with left machinery icon, project title, subtitle/stage, status pill, integrated artwork, compact circular verified-scope ring where data is verified, fraction/detail beneath, and outer chevron.
-
-Behavior:
-
-- tapping a project opens Project Details;
-- the portfolio-summary chevron is real and opens **Portfolio Overview**;
-- no progress ring may display a guessed or stale percentage;
-- unverified scope displays `N/A` / `Scope unavailable`;
-- project count and status mix come from current clean V7 data.
-
-### 4.1 Portfolio Overview
-
-Portfolio Overview is the real destination behind the Projects summary card shown with a chevron.
-
-It presents verified clean V7 portfolio state only, including where available:
-
-- tracked project count;
-- Active / Live count;
-- attention count;
-- verified scope-record coverage;
-- verified revenue total;
-- tracked integration count;
-- status mix;
-- projects needing attention, each linking to its Project Details;
-- recent verified activity.
-
-No portfolio value may be inferred from screenshot sample data or stale legacy baselines.
-
-## 5. Active / Live screen
-
-Visual source: approved `Active / Live` screenshot.
-
-This is a distinct screen, not merely the Projects screen with rows hidden.
-
-Each row requires:
-
-- left machinery icon;
-- title;
-- semantic status pill;
-- exact current next-action sentence;
-- vertical divider;
-- large scope value plus `Scope` label;
-- secondary verified live/sync information;
-- integrated artwork;
-- outer chevron.
-
-No circular progress ring is used on this screen.
-
-The outer chevron opens the selected Project Details.
-
-## 6. Next Up screen
-
-Visual source: approved `Next Up` screenshot.
-
-Required structure:
-
-- title `Next Up`;
-- subtitle `Priority queue`;
-- compact priority rows;
-- left machinery icon;
-- title;
-- semantic status pill;
-- exact next-action sentence;
-- integrated artwork;
-- outer chevron.
-
-No progress rings.
-
-Priority must derive from verified project state/attention rules. Do not fabricate ranking. The row chevron opens the selected Project Details.
-
-## 7. Revenue screen
-
-Required behavior:
-
-- verified portfolio revenue total only;
-- project-by-project verified revenue;
-- verified zero displayed as `$0.00`;
-- unverified/missing revenue displayed as `N/A`;
-- test orders and test transactions never count as real revenue;
-- tapping a project opens its Project Details;
-- the summary-card chevron is real and opens the verified **Analytics** module for deeper portfolio performance.
-
-## 8. Project Details
-
-All projects receive a clean V7 detail screen with truthful project-specific information.
-
-The project hero is interactive because the approved composition includes a navigation chevron. Tapping it opens **Project Snapshot** for that exact project.
-
-### 8.1 Generic Project Details
-
-Required sections where supported:
-
-- hero identity/status card;
-- verified current scope;
-- verified revenue;
-- integration count/state;
-- exact next action;
-- blocker/integrity state;
-- verification summary;
-- real Tracking Integrations entry;
-- direct Agent Controls entry for that exact project.
-
-Rows that are only informational, such as Next Action, Blocker / Integrity, or Verification, render as informational cards rather than fake buttons or decorative chevrons.
-
-### 8.2 Project Snapshot
-
-Project Snapshot is the real destination behind a project hero chevron.
-
-It presents the selected project's current verified clean V7 state, including where available:
-
-- status;
-- current verified scope;
-- verified revenue;
-- tracked integration count;
-- exact next action;
-- blocker/integrity state;
-- verification summary;
-- Tracking Integrations entry;
-- direct Agent Controls entry;
-- recent project activity.
-
-Project Snapshot must not expose raw IDs, raw JSON, internal checkpoint plumbing, or legacy data structures.
-
-### 8.3 The Missing Hour Saga / Books detail
-
-Visual source: approved `The Missing Hour Saga — Project Details` screenshot, refined by James's newer explicit approved-cover instruction.
-
-Required sections:
-
-- hero with project/cover artwork, category kicker, title, description/stage, metadata, status pill, integrated eclipse/landscape art, chevron;
-- `KDP PERFORMANCE` section with a phone 3×2 metric grid;
-- `BOOKS IN SERIES` section with five exact approved covers across one row in the approved reference;
-- each approved cover remains completely unobstructed;
-- series labels such as `BOOK 1` are outside the approved cover art, followed by the book title;
-- no number, badge, overlay, tint, redraw, replacement, or synthetic artwork may cover or alter the exact approved cover;
-- `PUBLICATION STATUS` with Kindle eBook, KDP Select, Paperback, Hardcover across one row where viewport permits the approved reference geometry;
-- `KDP SNAPSHOT HISTORY` row;
-- `TRACKING INTEGRATIONS` row;
-- exact next action;
-- direct Agent Controls entry.
-
-The approved chevron rows are functional:
-
-- **KDP Snapshot History** opens a real V7 snapshot-history screen showing verified snapshot periods and metrics only.
-- **Tracking Integrations** opens a real V7 project-integration screen showing current provider records, source mode, authorization requirement, check freshness, and next source action where recorded.
-- the hero chevron opens Project Snapshot.
-
-Books/publication truth rules:
-
-- file existence is not approval;
-- approval is not publication;
-- publication must not be implied without verified evidence;
-- screenshot metrics are visual examples only and never production data authority;
-- approved book covers remain protected assets.
-
-## 9. Agent — owner controls
-
-The clean V7 Agent surface exposes these owner controls:
-
-1. **Agent Auto** automatic mode;
-2. **To Work Barriers** automatic mode;
-3. **Next Step**;
-4. **Until Work / Next Work Boundary**;
-5. **Manual Task**;
-6. **Project Checkpoint**;
-7. **Stop Agent**.
-
-Context-dependent controls additionally include:
-
-- Pause;
-- Resume;
-- Refresh;
-- exact Work approval;
-- `Retry Luna High` for the same already-approved Work task when eligible;
-- `Retry Sol Light` for the same already-approved Work task when eligible;
-- exact Sol Medium approval where the Work ladder reaches that rung;
-- decline approval.
-
-There is no generic global `Start Work` toggle.
-
-### 9.1 Automatic-mode gate
-
-**Agent Auto** and **To Work Barriers** are mutually exclusive. Enabling either turns the other off atomically. Both default OFF.
-
-When both are OFF:
-
-- the background runner may wake on its scheduler only long enough to read the clean V7 control gate;
-- it performs zero Agent execution;
-- it creates/claims/advances zero runs or tasks;
-- it writes no runner heartbeat;
-- it issues no Agent notification;
-- manual owner controls remain available.
-
-A database control-row update alone cannot produce `Working`. Working requires a real runner claim/execution state.
-
-### 9.2 Agent Auto
-
-Agent Auto is regular unattended execution, still bounded by all owner authorization rules.
-
-Required behavior:
-
-- one primary project/run at a time;
-- fresh control/run state reread before every new task and immediately before every external side effect;
-- stopping, pausing, or turning Agent Auto OFF outranks stale runner state;
-- may continue beyond normal-chat work only through the exact Work ladder in §9.11;
-- Agent Auto ON is not blanket Work, spending, publishing, deployment, merge, communication, legal, or security authorization.
-
-### 9.3 To Work Barriers
-
-To Work Barriers is a portfolio sweep, not parallel execution.
-
-Required behavior:
-
-- strictly one project at a time;
-- locks one current project before doing any execution;
-- advances that project through all safe normal-chat-capable work until the first genuine Work-only boundary;
-- writes a durable checkpoint and parks the project;
-- never enters Work itself, even if a Work approval happens to exist;
-- then selects the next eligible project;
-- does not mix project rules, files, pages, evidence, approvals, or actions;
-- projects already in a verified ready/complete state are reconciled and parked without unnecessary rework;
-- a project that needs James or is genuinely blocked is checkpointed and parked as skipped/needs-owner so other eligible projects can continue;
-- when every eligible project is reviewed/parked, the mode turns itself OFF and preserves the sweep result.
-
-### 9.4 Next Step
-
-- owner-triggered;
-- creates a bounded V7 run for exactly the next verified project action;
-- the run remains `queued` until the execution runner actually claims it;
-- UI must never display `Working` merely because the run exists.
-
-### 9.5 Until Work / Next Work Boundary
-
-- owner-triggered;
-- advances normal-chat-capable work within the selected project scope;
-- stops at the first genuine Work-only boundary;
-- creates an exact Work approval request at that boundary;
-- does not enter Work automatically, even if Agent Auto is otherwise enabled.
-
-### 9.6 Manual Task
-
-- owner provides one exact objective;
-- the run may do only that bounded objective;
-- Books/KDP execution requires an exact Books target;
-- the same Work ladder and retry rules apply to a manually selected project when it legitimately reaches Work.
-
-### 9.7 Project Checkpoint
-
-Project Checkpoint is **not background execution**.
-
-Required behavior:
-
-- owner-triggered immediate action;
-- works with both automatic modes OFF or ON;
-- does not wait for the hourly runner;
-- performs no project side effects;
-- does not require a Books target;
-- snapshots the selected project's current clean V7 state, verified metrics, integration state, and recent activity, or the whole portfolio when no project is selected;
-- writes a completed checkpoint audit record;
-- leaves any unrelated active run pointer/state unchanged;
-- returns the completed checkpoint to the UI immediately under normal database/network conditions.
-
-UI states visibly communicate `Checking` / `Complete` rather than implying background work.
-
-### 9.8 Pause / Resume
-
-Pause:
-
-- stops before the next unstarted action/side effect;
-- preserves verified completed work;
-- does not rewind already verified work.
-
-Resume:
-
-- resumes an eligible paused run;
-- terminal/stopped runs cannot be resumed.
-
-### 9.9 Stop Agent
-
-- immediate atomic V7 operation;
-- marks the run stopped;
-- stops all unstarted tasks;
-- preserves verified work;
-- writes stop evidence/checkpoint;
-- clears the active-run pointer when appropriate;
-- must not rely on the hourly runner eventually noticing a passive flag.
-
-### 9.10 Refresh
-
-Agent Refresh:
-
-- reloads clean current Agent state now;
-- does not create or execute work;
-- does not alter automatic-mode gates.
-
-### 9.11 Approvals / Work ladder
-
-Work is capability-bound, not convenience-bound. Normal chat performs all work it can first.
-
-The exact ladder for Agent Auto and manually selected project runs is:
-
-**Normal Chat → genuine Work boundary → exact owner `Approve Work` for that exact task → GPT-6 Luna High → at most one automatic transient retry → GPT-6.1 Sol Light only after a genuine capability/complexity failure → at most one automatic transient retry → STOP; GPT-6.1 Sol Medium requires a separate exact owner approval.**
+- project rows with machinery icon, title, stage, status pill, artwork, verified-scope ring where available, fraction/detail, chevron.
 
 Rules:
 
-- initial Work approval applies only to the exact bounded task;
-- Luna High is always the first Work rung;
-- one Luna High automatic retry maximum, only for a genuine transient provider/network/browser/connection failure and only after downstream reconciliation confirms the previous attempt did not already succeed;
-- provider/connection failure is never a capability failure and never triggers model escalation;
-- genuine `capability_insufficient` or `execution_complexity` failure may escalate Luna High → Sol Light without a second owner approval for the same exact task;
-- one Sol Light automatic retry maximum under the same transient-only/reconciliation rule;
-- if Sol Light then fails for genuine capability/complexity reasons, create a separate exact Sol Medium approval and stop;
-- Sol Medium never auto-starts, never auto-retries, and is the absolute ceiling;
-- Astra is prohibited;
-- never exceed Sol Medium;
-- Work approval does not authorize spending, paid credits/subscriptions, unrelated Work, or any other protected boundary.
+- tapping a project opens Project Details;
+- summary chevron opens Portfolio Overview;
+- unverified scope is `N/A` / `Scope unavailable`;
+- no screenshot sample percentage enters production data.
 
-### 9.12 Manual Work retry
+Portfolio Overview shows verified portfolio state only: project count, Active/Live count, attention count, verified scope coverage, verified revenue, tracked integrations, status mix, projects needing attention, and recent verified activity.
 
-When the single automatic retry on Luna High or Sol Light has been exhausted because of a verified transient provider/network/browser/connection problem, the owner may use:
+## 5. Active / Live
 
-- **Retry Luna High**;
-- **Retry Sol Light**.
+Distinct approved screen. Each row contains machinery icon, title, semantic pill, exact next action, divider, large Scope value, secondary verified live/sync information, integrated art, and chevron. No circular progress rings. Chevron opens Project Details.
 
-These controls:
+## 6. Next Up
 
-- apply only to the same already-approved exact Work task;
-- do not broaden project/task scope;
-- do not require reapproval merely because connectivity failed;
-- require downstream reconciliation before execution to prevent duplicate side effects;
-- preserve prior evidence and the exact task identity;
-- are unavailable for Sol Medium.
+Approved priority-queue screen with compact rows: machinery icon, title, semantic pill, exact next action, integrated artwork, chevron. No progress rings. Priority comes from verified state/attention rules, never invented ranking.
 
-## 10. Agent status, project locking, and progress truth
+## 7. Revenue
 
-Agent UI distinguishes these states clearly:
+- verified portfolio revenue only;
+- project-level verified revenue;
+- `$0.00` when verified zero;
+- `N/A` when missing/unverified;
+- test orders/transactions never count as real revenue;
+- project rows open Project Details;
+- revenue summary chevron opens Analytics.
+
+## 8. Project Details
+
+Every project has a clean V7 detail screen. Hero chevron opens Project Snapshot.
+
+Generic detail supports, where real data exists:
+
+- identity/status hero;
+- verified scope;
+- verified revenue;
+- integration state;
+- exact next action;
+- blocker/integrity state;
+- verification summary;
+- Tracking Integrations;
+- exact-project Agent Controls.
+
+Informational rows are not fake buttons.
+
+### 8.1 Project Snapshot
+
+Shows only verified selected-project state: status, scope, revenue, integrations, exact next action, blocker/integrity, verification summary, recent activity, Tracking Integrations, and project-scoped Agent entry. No raw backend plumbing.
+
+### 8.2 The Missing Hour Saga detail
+
+The approved screenshot plus James’s newer cover instruction controls this screen.
+
+Required:
+
+- approved hero composition;
+- KDP PERFORMANCE 3×2 phone grid;
+- five exact approved series covers in one row at approved reference geometry;
+- cover artwork completely unobstructed;
+- `BOOK 1` through `BOOK 5` outside the artwork;
+- exact title under/with each external book label;
+- no badge, number, overlay, tint, synthetic art, redraw, or replacement covering approved cover bytes;
+- publication status for Kindle eBook, KDP Select, Paperback, Hardcover;
+- real KDP Snapshot History screen;
+- real Tracking Integrations screen;
+- exact next action;
+- project-scoped Agent controls.
+
+Publication truth:
+
+- file existence ≠ approval;
+- approval ≠ publication;
+- publication requires verified evidence;
+- screenshot sample metrics never become production facts.
+
+## 9. Agent owner controls
+
+Visible controls:
+
+- Agent Auto;
+- To Work Barriers;
+- Next Step;
+- Until Work / Next Work Boundary;
+- Manual Task;
+- Project Checkpoint;
+- Stop Agent;
+- context-dependent Pause/Resume/Refresh;
+- exact Work approval;
+- Retry Luna High when eligible;
+- Retry Sol Light when eligible;
+- exact Sol Medium approval when required;
+- decline approval.
+
+There is no generic global Start Work toggle.
+
+### 9.1 Automatic-mode gate
+
+Agent Auto and To Work Barriers are mutually exclusive. Enabling one atomically turns the other OFF. Both default OFF.
+
+**Automatic modes OFF means no autonomous project selection or autonomous portfolio execution.**
+
+When both modes are OFF and there is no explicit owner-dispatched bounded run:
+
+- the scheduler may wake only to read the gate;
+- zero Agent execution occurs;
+- no run/task is created or claimed;
+- no runner heartbeat is written;
+- no Agent notification is emitted.
+
+When both modes are OFF but James explicitly presses **Next Step**, **Until Work / Next Work Boundary**, or **Manual Task**, that creates one bounded owner-dispatched run. The runner may execute only that exact run even though automatic modes remain OFF.
+
+For an explicit owner-dispatched run with automatic modes OFF:
+
+- project/objective/control mode remain hard-locked;
+- it may not select another project afterward;
+- it may not create unrelated work;
+- heartbeat is allowed only while that explicit run is eligible/being processed;
+- completion, parking, stop, blocker, or needs-owner state ends that execution path unless James explicitly resumes or dispatches another run.
+
+Project Checkpoint is direct/read-only and never needs the background runner.
+
+A control-row update alone can never display Working. Working requires a real runner claim/execution state.
+
+### 9.2 Agent Auto
+
+Regular unattended mode.
+
+- one project/run at a time;
+- fresh controls/run reread before every new task and immediately before every external side effect;
+- autonomous project selection stops when Auto turns OFF;
+- an already-existing explicit owner-dispatched bounded run is not autonomous and may continue within its exact scope while Auto is OFF unless paused/stopped or it reaches its defined boundary;
+- Work is allowed only through the exact ladder below;
+- Auto ON is never blanket Work/spending/publishing/deployment/merge/communication/legal/security permission.
+
+### 9.3 To Work Barriers
+
+Sequential portfolio sweep.
+
+For each eligible project:
+
+1. lock exactly one project;
+2. recover/reconcile current authoritative state;
+3. perform all safe normal-chat-capable work;
+4. stop at the first genuine Work-only boundary;
+5. checkpoint and park it;
+6. move to the next eligible project.
+
+Rules:
+
+- never two projects at once;
+- never enter Work, even if a Work approval already exists;
+- never mix files/pages/rules/evidence between projects;
+- verified ready/complete projects are reconciled/parked without unnecessary rework;
+- needs-owner/blocked projects are checkpointed and skipped so the sweep can continue;
+- completed/skipped project IDs are persisted;
+- current sweep project is persisted;
+- after every eligible project is reviewed/parked, To Work Barriers turns itself OFF and preserves its result.
+
+### 9.4 Next Step
+
+- owner-triggered bounded run;
+- can execute with both automatic modes OFF because James explicitly dispatched it;
+- exactly one verified next action;
+- remains queued until actually claimed;
+- after completion/parking/stopping with automatic modes OFF, runner does not choose another project.
+
+### 9.5 Until Work / Next Work Boundary
+
+- owner-triggered bounded run;
+- can execute with both automatic modes OFF;
+- performs normal-chat-capable work only;
+- stops at first genuine Work-only boundary;
+- creates one exact Work approval request there;
+- **never enters Work for that run**, even if Agent Auto is ON or approval later exists;
+- after parking, automatic modes OFF means no next-project selection.
+
+### 9.6 Manual Task
+
+- owner supplies one exact objective;
+- can execute with both automatic modes OFF;
+- hard-locked to exact project/objective;
+- Books/KDP requires exact Books target;
+- same Work ladder applies if the task legitimately reaches Work and is not an Until Work run;
+- after completion/parking/stopping with automatic modes OFF, no autonomous follow-on project.
+
+### 9.7 Project Checkpoint
+
+Immediate direct status-only operation:
+
+- works with automatic modes OFF or ON;
+- no project side effects;
+- no Books target required;
+- no hourly-runner wait;
+- selected project or whole portfolio;
+- snapshots current clean V7 project/metric/integration/activity state;
+- writes completed checkpoint audit record;
+- leaves unrelated active run intact;
+- UI shows Checking → Complete.
+
+### 9.8 Pause / Resume / Stop
+
+Pause stops before the next unstarted action and preserves verified work. Resume is owner-controlled and terminal/stopped runs cannot resume.
+
+Stop is atomic: marks run stopped, stops unstarted tasks, preserves verified work, records stop evidence/checkpoint, and clears active-run pointer where appropriate. It does not rely on the hourly runner to eventually notice.
+
+### 9.9 Agent Refresh
+
+Read-only clean Agent-state reload. No work creation/execution and no automatic-mode changes.
+
+### 9.10 Work ladder
+
+Work is capability-bound, not convenience-bound. Normal Chat performs everything it can first.
+
+For Agent Auto and eligible manually selected runs:
+
+**Normal Chat → genuine Work boundary → exact owner Approve Work for that exact task → GPT-6 Luna High → at most one automatic transient retry → GPT-6.1 Sol Light only after genuine capability/complexity failure → at most one automatic transient retry → STOP; GPT-6.1 Sol Medium requires a separate exact owner approval.**
+
+Locked rules:
+
+- approval applies only to exact bounded Work task;
+- Luna High always first;
+- one Luna High automatic retry maximum, transient provider/network/browser/connection only;
+- reconcile downstream state before retry so a side effect cannot duplicate;
+- provider/connection failure never triggers model escalation;
+- genuine `capability_insufficient` or `execution_complexity` may escalate Luna High → Sol Light without another approval for same task;
+- one Sol Light transient automatic retry maximum after reconciliation;
+- genuine Sol Light capability/complexity failure creates exact Sol Medium approval and stops;
+- Sol Medium never auto-starts and never auto-retries;
+- Sol Medium is absolute ceiling;
+- Astra prohibited;
+- Work approval never authorizes spending, paid credits/subscriptions, or unrelated protected actions;
+- Until Work runs never enter Work.
+
+### 9.11 Manual Work retry
+
+After a Luna High or Sol Light transient failure exhausts its one automatic retry, the owner may request:
+
+- Retry Luna High;
+- Retry Sol Light.
+
+Only for the same already-approved exact task. Downstream state must be reconciled first. Scope cannot broaden. Connectivity failure does not require reapproving the exact Work task. There is no Retry Sol Medium path.
+
+## 10. Agent status/progress/readiness truth
+
+Recognized states:
 
 - Idle;
 - Queued;
@@ -477,244 +353,153 @@ Agent UI distinguishes these states clearly:
 - Stopped;
 - Failed.
 
-The interface shows, where available:
+UI may show where verified: selected/current project, objective, current/next task, run progress, verified step count, latest checkpoint, runner health, active automatic mode, barrier-sweep current project/count, owner action, pending approval.
 
-- selected/current project;
-- objective;
-- current/next task;
-- truthful Agent-run progress;
-- verified step count;
-- latest checkpoint;
-- runner health;
-- active automatic mode;
-- To Work Barriers current project and reviewed/parked count;
-- user-required action;
-- pending approval.
+Hard invariant: one project at a time; no evidence/rules/files reused across projects.
 
-One-project execution is a hard invariant: no two projects execute concurrently and no task evidence from one project may be reused for another.
+Durable readiness states (`PUBLISH READY`, `DEPLOY READY`, `LAUNCH READY`, `WORK BOUNDARY`, `NEEDS OWNER`, `BLOCKED`, `COMPLETE`, `RECHECK REQUIRED`) require evidence. Preserve authoritative artifacts/file identifiers, checksums where available, QC checkpoint, verification time, and exact next protected boundary. Material changes force truthful recheck; no-change runs preserve approved work instead of redoing it.
 
-Agent-run progress is derived only from durable planned tasks and verified task completion. If the denominator is not trustworthy, it is `N/A`. Project-scope progress remains a separate metric.
+## 11. Books Agent standard
 
-## 10.1 Durable readiness states
+Normal Chat does all writing, rewriting, humanization, developmental editing, line editing, continuity, expansion/compression, repetition cleanup, artwork/interior/package production, formatting, metadata, and QC it can. Work remains for genuine publishing/account/browser-bound steps unless James explicitly changes that rule.
 
-Readiness labels such as:
+Before touching an unpublished book, recover the authoritative manuscript/interior, exact approved cover, title/author/series metadata, locked decisions, prior QC, package files, and newest checkpoint. Do not recreate approved work merely because recovery takes effort.
 
-- `PUBLISH READY`;
-- `DEPLOY READY`;
-- `LAUNCH READY`;
-- `WORK BOUNDARY`;
-- `NEEDS OWNER`;
-- `BLOCKED`;
-- `COMPLETE`;
-- `RECHECK REQUIRED`
+Prose production uses multi-pass structure/development, humanization/voice, character/dialogue where applicable, expansion/compression, continuity, repetition, line editing, cold final read, package/metadata QC, final verification.
 
-are evidence-backed durable states rather than temporary status messages.
+Coloring-book and cookbook hard standards in `COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md` are controlling:
 
-A readiness checkpoint should preserve available authoritative artifact/file identifiers, checksums where available, completed QC evidence, verification time, and exact next protected boundary. On later runs, the Agent first checks whether a readiness-critical input materially changed. If nothing changed, approved/verified work remains locked and is not redone merely for activity. If something material changed, affected readiness moves truthfully to `RECHECK REQUIRED` until the necessary QC is rerun.
+- every coloring page must match approved title/cover theme, be human-colorable, medium difficulty, print-suitable, consistent, individually QC-classified, and all failures corrected/rechecked before PUBLISH READY;
+- first approved cookbook is the locked layout benchmark; later cookbook approved spine color becomes recurring banner color; every recipe must match theme; every photo must depict actual recipe; ingredients/quantities/method/timing/temperature/yield/finished dish must be coherent before PUBLISH READY.
 
-## 10.2 Books execution standard
+## 12. Brain / Automation / Integrations / Analytics / Security / Deployment
 
-For unpublished Books projects, normal chat performs writing, rewriting, humanization, developmental editing, line editing, continuity, expansion/compression, repetition cleanup, artwork/interior/package production, formatting, metadata, and QC that it can. Work remains reserved for genuine publishing/account/browser-bound steps unless James explicitly changes that rule.
+### Brain
 
-Before editing, the Agent recovers the authoritative current manuscript/interior, exact approved cover, title/author/series metadata, locked decisions, prior QC, package files, and newest checkpoint. It does not recreate or replace approved work because it is inconvenient to recover.
+Durable project context, owner-locked rules, memories/context, brainstorms, plans, tasks, handoff builder, roadmaps, source truth/recovery context. Normal UI surfaces useful owner decisions, not raw plumbing.
 
-For prose books, the expected multi-pass process includes developmental/structure, humanization/voice, character/dialogue where applicable, expansion/compression, continuity, repetition, line editing, cold final read, package/metadata QC, and final verification.
+### Automation
 
-The detailed locked coloring-book and cookbook standards in `COMMAND_CENTER_CLEAN_REBUILD_STANDARD.md` are controlling requirements for those book types and must be retrieved from clean Command Center Brain/project context during Agent execution.
+Schedules, condition watches, notifications, active/paused/disabled/completed state, truthful next scheduled behavior, no autonomous spending. Agent automatic modes are distinct from general automations. UI must not imply continuous real-time background execution when scheduler cadence is hourly.
 
-Coloring-book hard minimum: every final page individually matches the exact approved title/cover theme, is genuinely human-colorable, passes medium difficulty, is print-suitable, and fits the book consistently before `PUBLISH READY`.
+### Integrations
 
-Cookbook hard minimum: the first approved cookbook remains the layout benchmark; later books preserve that page architecture, with each approved spine color becoming that title's recurring interior banner color. Every recipe must fit the approved title/cover theme, every photo must match the actual recipe, and ingredients/quantities/method/timing/temperature/yield/finished dish must be coherent before `PUBLISH READY`.
+Provider/service state, freshness, missing connection state, authorization need, project Tracking Integrations drill-down. No secrets/credentials in UI.
 
-## 11. Brain
+### Analytics
 
-Required capability surface:
+Verified KPIs, scope progress, revenue, project/portfolio performance, freshness, real trends, goals/anomalies where supported. Never infer missing metrics.
 
-- durable project context;
-- owner-locked rules and context items;
-- memories/context items;
-- brainstorm workspace;
-- project plans;
-- tasks/planner state;
-- handoff builder;
-- project roadmaps;
-- source truth / recovery context.
+### Security
 
-Normal UI surfaces useful owner decisions and summaries, not raw source plumbing.
+Owner access, permission envelopes, protected boundaries, pending approvals, Work/Sol approvals, alerts, fail-closed defaults. Client owner RPCs reject unauthenticated use and are not anonymously executable.
 
-## 12. Automation
+### Deployment
 
-Required capability surface:
+Release state, QA, hosting/deployment state, verified production SHA, rollback/recovery, release checks. Never claim deployment without provider evidence.
 
-- schedules;
-- condition watches;
-- notifications;
-- active/paused/disabled state;
-- completion state;
-- truthful next scheduled behavior;
-- no autonomous spending.
+## 13. Visible-control contract
 
-Agent automatic modes are separate from general Automation schedules.
+Every visible interactive control must:
 
-The current background Agent scheduler may run only as frequently as the platform actually supports. The UI must not imply a continuous real-time background loop if execution is scheduler-bound.
+1. have a real handler;
+2. reach clean V7 data/action path only;
+3. have a defined success state;
+4. show errors truthfully;
+5. explain unavailable/disabled state;
+6. never exist as fake decorative interaction;
+7. keep Refresh/Checkpoint/navigation out of background execution;
+8. use chevrons only for real navigation;
+9. make approved screenshot chevrons real where shown;
+10. keep Agent Auto and To Work Barriers mutually exclusive;
+11. keep retry controls within the same exact approved task.
 
-## 13. Integrations
+## 14. Data/progress truth
 
-Required capability surface:
+- `current_scope_progress_percent` displays only from current verified V7 metric.
+- No historical fallback percentages.
+- Scope expansion may truthfully lower percentage.
+- Project state, project-scope percentage, Agent-run percentage, and barrier-sweep count are separate concepts.
+- If Agent run denominator is not trustworthy, show `N/A`.
+- Hardcoded screenshot sample values never leak into production.
 
-- connected service/provider state;
-- source health/freshness;
-- missing connection state;
-- owner authorization requirement where applicable;
-- project-specific Tracking Integrations drill-down;
-- no secrets or backend credentials in the UI.
+## 15. Clean-room implementation boundary
 
-## 14. Analytics
+Allowed source truth:
 
-Required capability surface:
-
-- verified KPIs;
-- current scope progress;
-- verified revenue;
-- project/portfolio performance;
-- source freshness;
-- trends/time series where real data exists;
-- goals and anomaly state where supported;
-- Revenue summary drill-down.
-
-Never infer missing metrics from unrelated data.
-
-## 15. Security
-
-Required capability surface:
-
-- owner access state;
-- permission envelopes;
-- protected-action boundaries;
-- pending authorizations;
-- Work/Sol approval requirements;
-- security alerts;
-- fail-closed defaults.
-
-Owner-control RPCs exposed to the client must reject unauthenticated callers and must not grant anonymous execution privileges.
-
-## 16. Deployment
-
-Required capability surface:
-
-- release state;
-- QA state;
-- hosting/deployment state;
-- current production SHA when verified;
-- rollback/recovery state;
-- release checks;
-- no claim of deployment without real provider evidence.
-
-## 17. Visible-control contract
-
-Every visible interactive control must satisfy all of the following:
-
-1. It has a real handler.
-2. The handler reaches the clean V7 data/action path only.
-3. The action has a defined success state.
-4. Errors are visible and truthful.
-5. Disabled/unavailable actions explain why.
-6. No button exists solely as visual decoration unless it is explicitly non-interactive.
-7. A control that performs no project execution (Refresh, Project Checkpoint, navigation) must not be routed through the background execution runner.
-8. A visible chevron means navigation. If no navigation exists, the chevron must be removed and the row rendered as informational-only.
-9. Approved screenshot chevrons are implemented as real navigation wherever the screenshot presents the element as an actionable row/card.
-10. Automatic-mode controls are mutually exclusive and their visible state must match durable backend state.
-11. A retry control may never silently broaden the exact approved task.
-
-## 18. Data truth / progress
-
-- `current_scope_progress_percent` is displayed only when its current V7 metric is verified.
-- No fallback to old historical percentages.
-- A new scope expansion may legitimately lower a percentage because the denominator changed.
-- Project state and scope percentage are separate concepts.
-- Agent-run progress is also separate and may be shown only from a trustworthy planned-task denominator.
-- If Agent-run progress cannot be calculated truthfully, show `N/A` rather than a guessed value.
-- To Work Barriers reviewed-project count is a count, not a substitute for project-scope or Agent-run percentage.
-- No hardcoded screenshot sample values may leak into production screens.
-
-## 19. Clean-room implementation boundary
-
-Allowed inputs:
-
+- newest owner instructions;
 - approved screenshots;
-- approved launcher artwork;
-- other exact approved/protected assets such as approved book covers;
-- current project/global rules;
-- verified project data;
-- verified requirements and factual historical evidence.
+- approved launcher art;
+- exact approved/protected assets such as approved book covers;
+- current global/project rules;
+- verified project/business data;
+- verified factual historical evidence.
 
-Not allowed as V7 runtime building material:
+Forbidden runtime building material:
 
-- old renderer code;
-- old app shell;
-- old CSS architecture;
-- old startup/bootstrap code;
+- old renderer/app shell/CSS/bootstrap;
 - old Agent implementation;
-- old runner RPCs/tables;
-- old competing service-worker/runtime stacks.
+- legacy runner RPCs/tables;
+- competing service-worker stacks.
 
-Approved historical asset bytes may be recovered exactly where James has explicitly preserved/approved that asset; this does not authorize reuse of the old runtime that once displayed it.
+Exact approved historical asset bytes may be recovered without reusing the legacy runtime that once displayed them.
 
-## 20. QA and release sequence
+## 16. QA/release sequence
 
 1. Clean-room architecture isolation.
-2. Home and global shell.
-3. Projects and Portfolio Overview.
+2. Home/global shell.
+3. Projects/Portfolio Overview.
 4. Active / Live.
 5. Next Up.
-6. Revenue and Analytics drill-down.
-7. Generic Project Details and Project Snapshot.
-8. Books / Missing Hour detail, exact approved cover restoration, KDP Snapshot History, and Tracking Integrations.
-9. Agent owner controls, mutually exclusive automatic modes, and atomic backend actions.
-10. Sequential To Work Barriers behavior and truthful Home Agent progress/status.
-11. Work approval ladder and bounded retry/manual retry behavior.
-12. Brain / Automation / Integrations / Analytics / Security / Deployment.
-13. Android/PWA navigation, Back, scroll restoration, safe areas, offline/update behavior, and safe global Refresh.
-14. Visible-button and visible-chevron audit.
-15. Data-truth and progress-truth audit.
-16. Security advisor review for new backend functions and privileges.
-17. Screenshot-by-screenshot visual QA at approved 864×1536 reference geometry.
-18. First complete every-file repository audit.
-19. Fix all defects found.
-20. Second complete every-file repository audit, including roadmap/spec authority classification.
+6. Revenue/Analytics drill-down.
+7. Generic Project Details/Project Snapshot.
+8. Missing Hour detail with exact covers, KDP history, Tracking Integrations.
+9. Agent owner controls and mutually exclusive automatic modes.
+10. Sequential To Work Barriers and truthful Home Agent status/progress.
+11. Work ladder and bounded/manual retries.
+12. Brain/Automation/Integrations/Analytics/Security/Deployment.
+13. Android/PWA navigation, Back, scroll restoration, safe areas, offline/update, global Refresh.
+14. Visible-button/chevron audit.
+15. Data/progress truth audit.
+16. Security advisor review for new backend functions/privileges.
+17. Screenshot visual QA at approved 864×1536 reference geometry.
+18. Complete every-file repository audit.
+19. Fix defects.
+20. Repeat complete every-file audit.
 21. Pre-merge QA.
-22. Pull request / merge only after the authorized rebuild chain is satisfied.
-23. GitHub Pages deployment verification.
-24. Production SHA verification.
-25. Physical Android owner inspection.
-26. After production is verified, perform owner Android cache/site-data cleanup and uninstall/reinstall if needed so the fresh V7 PWA takes over without old installed-app state.
+22. Pull request.
+23. Production merge only after fresh exact owner merge authorization.
+24. Pages deployment verification.
+25. Production SHA verification.
+26. Physical Android owner inspection.
+27. Owner cache/site-data cleanup and reinstall if required after production verification.
 
-## 21. Definition of done
+## 17. Definition of done
 
-Command Center V7 is not complete merely because automated tests are green.
+Automated green tests alone are insufficient.
 
 Completion requires:
 
-- the approved screens visually reproduce the approved design system closely enough to pass owner physical-phone inspection;
-- all intended screens/modules and screenshot-driven drill-downs are reachable;
-- every visible button and navigation chevron is real and correctly wired;
-- exact approved Missing Hour covers are unobstructed and not replaced by synthetic art;
-- Agent Auto and To Work Barriers are mutually exclusive and both fail closed to OFF;
-- both automatic modes OFF produce zero background Agent work and zero background-runner heartbeat writes;
-- To Work Barriers processes one project at a time, never enters Work, parks each project durably, and turns itself OFF when the sweep is exhausted;
-- Agent Home status displays the actual current project/task/state and only a truthful Agent-run percentage or `N/A`;
-- Project Checkpoint completes immediately without waiting for the hourly runner;
-- Stop is immediate and atomic;
-- execution controls remain queued until actually claimed;
-- exact Work approval begins at Luna High; retries/escalation obey the bounded ladder; Sol Medium never auto-starts or auto-retries;
-- readiness states are evidence-backed and material changes force appropriate recheck rather than silent stale readiness;
-- progress/revenue/publication/integration data remains truthful;
-- Android Back and scroll restoration behave correctly;
-- global Refresh preserves route/scroll and performs no execution;
-- PWA identity/cache/offline behavior is correct;
-- approved launcher artwork is exact;
-- new owner RPCs are not anonymously executable;
-- the final every-file audit reports no unknown/unclassified implementation file and exactly the approved V7 authority set;
-- the deployed production SHA is verified;
-- James performs the final clean Android install/cache reset sequence after production verification;
-- James completes the final physical-phone visual acceptance.
+- approved screenshot screens reproduce approved visual system closely enough for physical-phone owner acceptance;
+- all intended screens/drill-downs reachable;
+- all visible controls/chevrons real;
+- exact Missing Hour approved covers unobstructed with external book labels;
+- Agent Auto and To Work Barriers mutually exclusive and default OFF;
+- automatic modes OFF produce zero autonomous work;
+- explicit owner-dispatched Next Step / Until Work / Manual Task can execute while automatic modes remain OFF but cannot trigger autonomous follow-on work;
+- To Work Barriers is one-project-at-a-time, never enters Work, parks projects durably, turns itself OFF at sweep completion;
+- Home Agent shows actual project/task/state and truthful run percentage or N/A;
+- Project Checkpoint immediate/read-only;
+- Stop atomic;
+- queued controls stay queued until claimed;
+- Work ladder begins Luna High and obeys bounded retry/escalation; Sol Medium never auto-starts/retries;
+- readiness evidence-backed and material changes cause recheck;
+- progress/revenue/publication/integration truth preserved;
+- Android Back/scroll correct;
+- global Refresh in-app, route/scroll preserving, execution-free;
+- PWA/cache/offline correct;
+- approved launcher exact;
+- owner RPCs not anonymously executable;
+- final every-file audit has no unknown/unclassified implementation file and only approved V7 authority;
+- deployed production SHA verified;
+- final physical-phone visual acceptance by James.
