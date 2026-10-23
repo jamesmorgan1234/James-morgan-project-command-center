@@ -186,7 +186,7 @@ test('clean PWA is isolated and fail-safe offline',()=>{
   assert.match(files.html,/\.\/manifest\.webmanifest\?v=4/);
   assert.match(files.html,/\.\/pwa\.js\?v=4/);
   assert.match(files.pwa,/authoritative-v7\/service-worker\.js/);
-  assert.match(files.sw,/command-center-v7-clean-7/);
+  assert.match(files.sw,/command-center-v7-clean-8/);
   assert.match(files.sw,/\.\/overview-screens\.js/);
   assert.match(files.offline,/No cached screen is being presented as current/);
 });
