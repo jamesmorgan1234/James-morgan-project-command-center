@@ -2,7 +2,7 @@
   "date": "2026-10-23",
   "last_reconciled_canonical_requirement_baseline": 5825,
   "canonical_requirement_total": null,
-  "canonical_requirement_total_status": "PENDING AGENCY/FOUNDRY DUPLICATE-LINEAGE RECONCILIATION",
+  "canonical_requirement_total_status": "PENDING AGENCY/FOUNDRY/HISTORICAL-RECOVERY DUPLICATE-LINEAGE RECONCILIATION",
   "biometric_security_status": {
     "type": "EXISTING_CANONICAL_SCOPE_CLARIFICATION",
     "clarification_id": "OWNER-CLARIFY-20261023-BIOMETRIC",
@@ -16,7 +16,7 @@
   "previous_phase_baseline": 147,
   "phase_count": null,
   "phase_count_status": "PENDING EXPANDED ROADMAP DECOMPOSITION",
-  "architecture_review_control_total": 390,
+  "architecture_review_control_total": 444,
   "architecture_review_files": [
     "03_AGENCY_MULTI_AGENT_EXECUTION_FABRIC.md",
     "04_AGENCY_EXHAUSTIVE_HARDENING_AND_EXPANSION.md",
@@ -25,8 +25,21 @@
     "07_PROJECT_FOUNDRY_MAJOR_GAP_AUDIT.md",
     "08_AGENCY_LEADERSHIP_AND_AUTONOMOUS_OPERATIONS.md",
     "09_AGENCY_DECISION_RIGHTS_AND_AUTONOMY_GOVERNANCE.md",
-    "10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md"
+    "10_FOUNDRY_PORTFOLIO_INCUBATION_AND_DOMAIN_PLAYBOOKS.md",
+    "12_HISTORICAL_EXPORT_MEMORY_MIGRATION_AND_PROJECT_RECOVERY.md"
   ],
+  "historical_export_recovery": {
+    "conversation_parts": 2,
+    "top_level_conversations_inventoried": 132,
+    "full_history_is_evidence_not_current_truth": true,
+    "newer_owner_decision_precedence_required": true,
+    "live_mutable_state_reverification_required": true,
+    "privacy_classification_required": true,
+    "forgotten_project_detection_required": true,
+    "rename_merge_supersession_lineage_required": true,
+    "missing_artifact_no_fabrication_required": true,
+    "historical_candidate_auto_activation_forbidden": true
+  },
   "clean_room_rebuild": {
     "legacy_implementation_reuse": false,
     "historical_code_authority": "REFERENCE/EVIDENCE ONLY",
@@ -43,19 +56,19 @@
     "unmapped": null
   },
   "category_dependency_dag": {
-    "status": "MUST BE REVALIDATED AFTER AGENCY/FOUNDRY PHASE EXPANSION"
+    "status": "MUST BE REVALIDATED AFTER AGENCY/FOUNDRY/HISTORICAL-RECOVERY PHASE EXPANSION"
   },
   "release_gates": {
     "existing_gate_baseline": ["G0","G1","G2","G3","G4","G5","G6","G7","G8","G9","G10","G11","G12","G13","G14"],
-    "status": "RETAIN AS BASELINE; VERIFY SUFFICIENCY AGAINST AGENCY/FOUNDRY"
+    "status": "RETAIN AS BASELINE; VERIFY SUFFICIENCY AGAINST AGENCY/FOUNDRY/HISTORICAL RECOVERY"
   },
   "owner_acceptance_before_category_15": false,
   "samsung_acceptance_before_category_15": false,
   "current_vnext_scaffold_authority": "NON-AUTHORITATIVE / PROVISIONAL / REFERENCE ONLY",
   "spec_lock_v2": "BLOCKED UNTIL EXPANDED RECONCILIATION + OWNER REVIEW",
-  "status": "PENDING — PREVIOUS PASS SUPERSEDED BY OWNER-DIRECTED AGENCY/FOUNDRY EXPANSION",
+  "status": "PENDING — PREVIOUS PASS SUPERSEDED BY OWNER-DIRECTED AGENCY/FOUNDRY + HISTORICAL-RECOVERY EXPANSION",
   "required_next_qc": [
-    "deduplicate/reconcile 390 controls against 5825 baseline",
+    "deduplicate/reconcile 444 controls against 5825 baseline",
     "assign genuinely new canonical requirement IDs only where needed",
     "map all canonical requirements to categories and phases",
     "expand Category 7 and cross-cutting categories",
@@ -63,6 +76,12 @@
     "validate autonomy decision rights and protected-action boundaries",
     "validate conversational idea-to-execution E2E",
     "validate high-volume portfolio/domain playbooks",
+    "validate historical export import/project-lineage/recovery E2E",
+    "validate newer-owner-decision supersession and live-state precedence",
+    "validate privacy isolation during historical recovery",
+    "validate forgotten-project detection without auto-activation",
+    "validate missing-artifact no-fabrication behavior",
+    "validate scope-drift and duplicate-project prevention",
     "validate extensibility/add-remove capability tests",
     "validate clean-room no-legacy-runtime dependency",
     "rerun full roadmap QC before owner review"
