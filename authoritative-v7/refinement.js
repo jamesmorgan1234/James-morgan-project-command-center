@@ -1,6 +1,5 @@
 import { client, loadAgentState, loadSnapshot } from './data.js';
 
-const REFRESH_SCROLL_KEY='cc7-global-refresh-scroll-v1';
 const transientFailures=new Set(['transient_network','provider_timeout','connection_error','provider_unavailable']);
 let ownerId=null;
 let agent=null;
@@ -8,10 +7,9 @@ let snapshot=null;
 let realtimeChannel=null;
 let refreshTimer=null;
 let applying=false;
-let restoredScroll=false;
 let enhancementQueued=false;
 
-const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#039;'}[c]));
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const unique=values=>[...new Set((values||[]).filter(Boolean))];
 
 function toast(message,error=false){
@@ -193,23 +191,10 @@ function enhanceAgent(){
   }else if(retry){retry.remove();}
 }
 
-function restoreScrollIfNeeded(){
-  if(restoredScroll)return;
-  let saved=null;
-  try{saved=JSON.parse(sessionStorage.getItem(REFRESH_SCROLL_KEY)||'null');}catch{}
-  if(!saved||saved.url!==`${location.pathname}${location.search}`){restoredScroll=true;return;}
-  const app=document.getElementById('ccApp');
-  if(!app||app.hidden)return;
-  restoredScroll=true;
-  sessionStorage.removeItem(REFRESH_SCROLL_KEY);
-  requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:Number(saved.y)||0,behavior:'instant'})));
-}
-
 function applyEnhancements(){
   enhanceHeader();
   enhanceHome();
   enhanceAgent();
-  restoreScrollIfNeeded();
 }
 
 function scheduleEnhancements(){
@@ -266,9 +251,10 @@ async function retryRung(button){
   }
 }
 
-function globalRefresh(){
-  try{sessionStorage.setItem(REFRESH_SCROLL_KEY,JSON.stringify({url:`${location.pathname}${location.search}`,y:window.scrollY,at:Date.now()}));}catch{}
-  location.reload();
+function globalRefresh(button){
+  button?.setAttribute('aria-busy','true');
+  window.dispatchEvent(new CustomEvent('cc7:global-refresh'));
+  setTimeout(()=>button?.removeAttribute('aria-busy'),700);
 }
 
 document.addEventListener('click',event=>{
@@ -277,7 +263,7 @@ document.addEventListener('click',event=>{
   const retry=event.target.closest('[data-cc7-retry-rung]');
   if(retry){event.preventDefault();event.stopPropagation();retryRung(retry).catch(error=>toast(error?.message||String(error),true));return;}
   const refresh=event.target.closest('[data-cc7-global-refresh]');
-  if(refresh){event.preventDefault();event.stopPropagation();globalRefresh();}
+  if(refresh){event.preventDefault();event.stopPropagation();globalRefresh(refresh);}
 },true);
 
 const observer=new MutationObserver(()=>scheduleEnhancements());
