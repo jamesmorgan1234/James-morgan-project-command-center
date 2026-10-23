@@ -17,11 +17,20 @@ export interface ShiftIncident {
 
 export function inspectShift(workers: readonly WorkerHealth[], now: string, stallAfterMs: number): readonly ShiftIncident[] {
   const nowMs = parseTimestamp(now, "now");
-  return Object.freeze(workers.flatMap((worker) => {
+  const incidents: ShiftIncident[] = [];
+  for (const worker of workers) {
     const heartbeat = parseTimestamp(worker.lastHeartbeatAt, "lastHeartbeatAt");
-    if (worker.state === "working" && nowMs - heartbeat > stallAfterMs) return [Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "stalled" as const, ownerAttentionRequired: false })];
-    if (worker.state === "failed") return [Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "failed" as const, ownerAttentionRequired: false })];
-    if (worker.state === "blocked") return [Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "blocked" as const, ownerAttentionRequired: true })];
-    return [];
-  }));
+    if (worker.state === "working" && nowMs - heartbeat > stallAfterMs) {
+      incidents.push(Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "stalled", ownerAttentionRequired: false }));
+      continue;
+    }
+    if (worker.state === "failed") {
+      incidents.push(Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "failed", ownerAttentionRequired: false }));
+      continue;
+    }
+    if (worker.state === "blocked") {
+      incidents.push(Object.freeze({ workerId: worker.workerId, taskId: worker.taskId, kind: "blocked", ownerAttentionRequired: true }));
+    }
+  }
+  return Object.freeze(incidents);
 }
