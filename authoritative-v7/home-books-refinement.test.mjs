@@ -32,6 +32,7 @@ test('approved cover atlas resolves relative to its module in both root and isol
   assert.match(js,/new URL\('\.\/assets\/book-cover-atlas-v2\.webp',import\.meta\.url\)\.href/);
   assert.match(js,/background-image:url\('\$\{esc\(approvedAtlasUrl\)\}'\)/);
   assert.doesNotMatch(js,/background-image:url\('\.\/assets\/book-cover-atlas-v2\.webp'\)/);
+  for(const html of [root,isolated])assert.match(html,/home-books-refinement\.js\?v=2/);
 });
 
 test('individual workbooks and standalone books auto-lock their own Agent target',()=>{
@@ -56,13 +57,13 @@ test('Drowned Crown can render owner-locked approved covers without fabricated s
 test('both V7 entrypoints and service workers load refinement layer',()=>{
   for(const text of [root,isolated]){
     assert.match(text,/home-books-refinement\.css\?v=1/);
-    assert.match(text,/home-books-refinement\.js\?v=1/);
+    assert.match(text,/home-books-refinement\.js\?v=2/);
   }
-  assert.match(rootSw,/command-center-v7-root-5/);
-  assert.match(isolatedSw,/command-center-v7-clean-9/);
+  assert.match(rootSw,/command-center-v7-root-6/);
+  assert.match(isolatedSw,/command-center-v7-clean-10/);
   for(const text of [rootSw,isolatedSw]){
     assert.match(text,/home-books-refinement\.css\?v=1/);
-    assert.match(text,/home-books-refinement\.js\?v=1/);
+    assert.match(text,/home-books-refinement\.js\?v=2/);
     assert.match(text,/book-cover-atlas-v2\.webp/);
   }
 });
