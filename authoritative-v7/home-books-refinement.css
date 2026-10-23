@@ -10,11 +10,22 @@
 .cc-module strong{font-size:.92rem!important;line-height:1.05}
 .cc-module .cc-desc{font-size:.72rem!important;line-height:1.12;margin-top:3px}
 
-/* The two Agent mode cards use the same atmospheric V7 art language as the rest of Home. */
-.cc-agent-mode-card:after{content:"";position:absolute;z-index:0;inset:0 0 0 32%;pointer-events:none;background-repeat:no-repeat;background-position:right center;background-size:contain;opacity:.52;filter:drop-shadow(0 0 10px rgba(255,83,0,.72))}
+/* Every Home tile carries the same atmospheric V7 visual language. */
+.cc-agent-mode-card:after,.cc-module:after{content:"";position:absolute;z-index:0;pointer-events:none;background-repeat:no-repeat;background-position:right center;background-size:contain;filter:drop-shadow(0 0 10px rgba(255,83,0,.72))}
+.cc-agent-mode-card:after{inset:0 0 0 32%;opacity:.52}
 .cc-agent-mode-card[data-cc7-mode="auto"]:after{background-image:url('./assets/neural-globe.svg')}
 .cc-agent-mode-card[data-cc7-mode="barriers"]:after{background-image:url('./assets/road-mountains.svg');opacity:.62}
 .cc-agent-mode-card h2,.cc-agent-mode-card p,.cc-agent-mode-card small,.cc-agent-mode-card .cc-mode-led{position:relative;z-index:3}
+.cc-module:after{inset:4px 5px 4px 38%;opacity:.25;background-size:cover}
+.cc-module[data-nav="brain"]:after{background-image:url('./assets/neural-globe.svg')}
+.cc-module[data-nav="automation"]:after{background-image:url('./assets/server-racks.svg')}
+.cc-module[data-nav="integrations"]:after{background-image:url('./assets/network-globe.svg')}
+.cc-module[data-nav="analytics"]:after{background-image:url('./assets/analytics-grid.svg')}
+.cc-module[data-nav="security"]:after{background-image:url('./assets/server-racks.svg')}
+.cc-module[data-nav="deployment"]:after{background-image:url('./assets/city-spires.svg')}
+.cc-module[data-nav="active"]:after{background-image:url('./assets/landscape-eclipse.svg')}
+.cc-module[data-nav="about"]:after{background-image:url('./assets/mobile-horizon.svg')}
+.cc-module>div{position:relative;z-index:2}
 
 /* Generic protected book shelf used by every KDP project with verified/owner-locked title identity. */
 .cc-v7-books-section{overflow:visible}
@@ -36,14 +47,19 @@
   .cc-agent-mode-grid,.cc-home-grid,.cc-module-grid{gap:6px!important;margin-top:6px!important}
   .cc-agent-mode-grid{margin-top:0!important;margin-bottom:6px!important}
   .cc-home-grid{margin-top:0!important}
-  .cc-agent-mode-card,.cc-home-card,.cc-module{height:82px!important;min-height:82px!important;max-height:82px!important}
-  .cc-module{padding:8px!important;grid-template-columns:30px minmax(0,1fr) 16px!important;gap:6px!important}
-  .cc-module .cc-mini-icon{width:29px!important;height:29px!important}
-  .cc-module strong{font-size:.72rem!important;line-height:1.02}
-  .cc-module .cc-desc{font-size:.54rem!important;line-height:1.08;margin-top:2px}
-  .cc-module .cc-chevron{font-size:24px!important}
+  .cc-agent-mode-card,.cc-home-card,.cc-module{height:74px!important;min-height:74px!important;max-height:74px!important}
+  .cc-module{padding:7px!important;grid-template-columns:28px minmax(0,1fr) 15px!important;gap:5px!important}
+  .cc-module .cc-mini-icon{width:27px!important;height:27px!important}
+  .cc-module strong{font-size:.69rem!important;line-height:1.02}
+  .cc-module .cc-desc{font-size:.51rem!important;line-height:1.07;margin-top:2px}
+  .cc-module .cc-chevron{font-size:22px!important}
+  .cc-agent-mode-card{padding:7px!important}
+  .cc-agent-mode-card h2{font-size:.82rem!important}
+  .cc-agent-mode-card .cc-mode-state{font-size:.54rem!important;margin-top:2px!important}
+  .cc-agent-mode-card small{font-size:.47rem!important;margin-top:2px!important;line-height:1.12!important}
   .cc-agent-mode-card:after{inset:0 0 0 36%;opacity:.48;background-size:cover}
   .cc-agent-mode-card[data-cc7-mode="barriers"]:after{opacity:.58}
+  .cc-module:after{inset:3px 4px 3px 42%;opacity:.22}
   .cc-v7-book-grid{gap:5px}
   .cc-v7-book-sequence{font-size:.42rem;margin-top:2px}
   .cc-v7-book-title{font-size:.55rem;margin-top:2px}
