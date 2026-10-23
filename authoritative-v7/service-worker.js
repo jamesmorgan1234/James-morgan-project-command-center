@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-clean-13';
+const CACHE='command-center-v7-clean-14';
 const CORE=[
   './index.html',
   './theme.css?v=4',
@@ -10,8 +10,6 @@ const CORE=[
   './refinement.js?v=1',
   './home-books-refinement.js?v=2',
   './phone-layout-cover-fix.js?v=1',
-  './startup-recovery.js?v=1',
-  './supabase-loader.js?v=1',
   './data.js',
   './config.js',
   './control-modules.js',
