@@ -1,8 +1,9 @@
-import { client, loadSnapshot } from './data.js';
+import { client, loadSnapshot, createAgentRun } from './data.js';
 
 let ownerId=null;
 let snapshot=null;
 let queued=false;
+let independentRunBusy=false;
 
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const normalize=value=>String(value||'').normalize('NFKD').toLowerCase().replace(/[’‘]/g,"'").replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();
@@ -29,18 +30,16 @@ for(const [title,index] of [
   ['The Summer We Don’t Leave',30]
 ])atlas.set(normalize(title),index);
 
+/* Only true series/collections belong here. Workbooks and standalone books are individual projects. */
 const projectManifest={
   'kdp-melted-cosmos':[
     'Melted Cosmos: Strange Worlds','Dreambeast Atlas','Rooms Beyond Geometry','Fungal Realms','Neon Dreadscapes','Electric Eden: Psychedelic Gardens Beyond Reality','Cities That Dream: Surreal Worlds to Color','Cathedral of Impossible Things: Strange Architecture to Color','Celestial Oddities: Cosmic Creatures and Alien Worlds','Mechanical Dreams: Surreal Machines, Clockwork Worlds & Impossible Devices'
   ],
-  'kdp-workbooks':['Daily Progress Planner','A Stronger You','Simple Budgeting Workbook','Take Control of Your Money','Garage Door Business Blueprint'],
   'kdp-drowned-crown':['The Map Beneath the Tide','The Kingdom Under Black Water','The Crown of the Drowned'],
   'kdp-glasswing-pier':['The Ferris Wheel Between Us','Kiss Me in the Haunted House','The Summer We Don’t Leave'],
-  'kdp-unfired-world':['The Empire Beneath the Glaze','The Shards Between Kingdoms','The Earth After Firing'],
-  'kdp-repeat-button':['Repeat Button'],
-  'kdp-standalones':['Pieces I Never Got Back','A Calmer Mind','Broken But Still Here','Moving Forward Anyway','The Alpha Mindset','The Last Hour I Trusted You']
+  'kdp-unfired-world':['The Empire Beneath the Glaze','The Shards Between Kingdoms','The Earth After Firing']
 };
-const orderedSeries=new Set(['kdp-melted-cosmos','kdp-drowned-crown','kdp-glasswing-pier','kdp-unfired-world']);
+const orderedSeries=new Set(Object.keys(projectManifest));
 
 function projectByVisibleTitle(){
   const screen=[...document.querySelectorAll('.cc-screen')].find(node=>node.querySelector('.cc-subtitle')?.textContent?.trim()==='Project Details');
@@ -58,6 +57,12 @@ function verifiedBookRows(projectId){
     .filter(row=>row&&row.title);
 }
 
+function isIndependentBookProject(project){
+  const source=String(project?.source_status||'').toLowerCase();
+  const category=String(project?.category||'').toLowerCase();
+  return source.includes('independent workbook project')||source.includes('independent standalone book project')||category.includes('— workbook')||category.includes('— standalone book');
+}
+
 function booksForProject(projectId){
   const verified=verifiedBookRows(projectId);
   const byTitle=new Map(verified.map(row=>[normalize(row.title),row]));
@@ -72,25 +77,18 @@ function booksForProject(projectId){
     const already=new Set(rows.map(row=>normalize(row.title)));
     rows.push(...verified.filter(row=>!already.has(normalize(row.title))));
   }else rows=verified;
-  if(rows.some(row=>Number.isFinite(Number(row.series_order)))){
-    rows.sort((a,b)=>(Number(a.series_order)||999)-(Number(b.series_order)||999));
-  }
+  if(rows.some(row=>Number.isFinite(Number(row.series_order))))rows.sort((a,b)=>(Number(a.series_order)||999)-(Number(b.series_order)||999));
   return rows;
 }
 
 function atlasIndex(title){
   const key=normalize(title);
   if(atlas.has(key))return atlas.get(key);
-  for(const [known,index] of atlas){
-    if(key===known||key.endsWith(` ${known}`)||known.endsWith(` ${key}`))return index;
-  }
+  for(const [known,index] of atlas){if(key===known||key.endsWith(` ${known}`)||known.endsWith(` ${key}`))return index;}
   return null;
 }
 
 function coverMarkup(book){
-  if(normalize(book.title)===normalize('The Last Hour I Trusted You')){
-    return `<div class="cc-v7-approved-cover is-missing" role="img" aria-label="${esc(book.title)} approved cover protected; display mirror pending">Approved cover protected<br>display mirror pending</div>`;
-  }
   const index=atlasIndex(book.title);
   if(index===null)return `<div class="cc-v7-approved-cover is-missing" role="img" aria-label="Approved cover asset unavailable">Approved cover<br>asset unavailable</div>`;
   const x=(index/40)*100;
@@ -101,9 +99,7 @@ function gridClass(count){if(count===1)return'cols-1';if(count===3||count===6)re
 function sectionLabel(projectId,count){
   if(projectId==='kdp-melted-cosmos')return['BOOKS IN COLLECTION',`${count} books`];
   if(orderedSeries.has(projectId))return['BOOKS IN SERIES',`${count} books`];
-  if(projectId==='kdp-workbooks')return['WORKBOOKS',`${count} titles`];
-  if(projectId==='kdp-standalones')return['BOOKS / TITLES',`${count} titles`];
-  return[count===1?'BOOK':'BOOKS / TITLES',`${count} ${count===1?'title':'titles'}`];
+  return['BOOK',`${count} title`];
 }
 
 function renderBooksSection(projectId,books){
@@ -136,6 +132,33 @@ function enhanceBookProject(){
   else stack.insertBefore(section,stack.children[1]||null);
 }
 
+function toast(message,error=false){
+  const host=document.getElementById('ccToastHost');
+  if(!host)return;
+  const node=document.createElement('div');
+  node.className=`cc-toast${error?' cc-error':''}`;
+  node.textContent=message;
+  host.appendChild(node);
+  setTimeout(()=>node.remove(),3600);
+}
+
+async function dispatchIndependentBookRun(button,project){
+  if(independentRunBusy)return;
+  independentRunBusy=true;
+  button.disabled=true;
+  try{
+    const mode=button.dataset.agentCreate;
+    let objective;
+    if(mode==='next_step')objective=project.next_action||prompt('What exact next step should Agent run?');
+    else if(mode==='until_work')objective=`Advance ${project.name} from its verified current state through normal-chat work until the first genuine Work-only boundary. Current next action: ${project.next_action||'N/A'}`;
+    else objective=prompt('Enter the exact manual task for Agent.');
+    if(!objective)return;
+    await createAgentRun({ownerId,projectId:project.id,objective,controlMode:mode,booksTarget:project.name,allowWork:mode==='until_work'});
+    window.dispatchEvent(new CustomEvent('cc7:global-refresh'));
+    toast(`${project.name} Agent run queued with this exact book locked as the target.`);
+  }catch(error){toast(error?.message||String(error),true);}finally{button.disabled=false;independentRunBusy=false;}
+}
+
 function apply(){enhanceBookProject();}
 function schedule(){if(queued)return;queued=true;queueMicrotask(()=>{queued=false;apply();});}
 
@@ -147,6 +170,17 @@ async function refresh(){
   snapshot=await loadSnapshot(ownerId);
   apply();
 }
+
+document.addEventListener('click',event=>{
+  const button=event.target.closest('[data-agent-create]');
+  if(!button||button.dataset.agentCreate==='project_checkpoint')return;
+  const projectId=document.getElementById('ccAgentProjectSelector')?.value||null;
+  const project=(snapshot?.projects||[]).find(p=>p.id===projectId);
+  if(!project||!isIndependentBookProject(project))return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  dispatchIndependentBookRun(button,project);
+},true);
 
 new MutationObserver(schedule).observe(document.documentElement,{subtree:true,childList:true});
 client.auth.onAuthStateChange((event,session)=>{
