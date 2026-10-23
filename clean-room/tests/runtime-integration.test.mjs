@@ -9,7 +9,7 @@ import { createDisconnectedRuntimeSnapshot } from "../dist/runtime/snapshot.js";
 import { HttpRuntimeSnapshotProvider } from "../dist/runtime/provider.js";
 
 const ROOT = new URL("../", import.meta.url);
-const EXPECTED_ICON_HASH = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157";
+const EXPECTED_ICON_HASH = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa";
 
 test("runtime exposes the locked major routes and resolves dynamic project paths", () => {
   const routes = createCoreRouteRegistry();
