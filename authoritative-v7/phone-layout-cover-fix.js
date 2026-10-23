@@ -28,6 +28,15 @@ function applyTileHeight(cards,height){
   }
 }
 
+function targetHomeBottom(screen){
+  const viewport=window.visualViewport;
+  const viewportBottom=(viewport?.offsetTop||0)+(viewport?.height||window.innerHeight)-8;
+  const boundedRoot=screen.closest('.fixture-root');
+  if(!boundedRoot)return viewportBottom;
+  const containerBottom=boundedRoot.getBoundingClientRect().bottom-6;
+  return Math.min(viewportBottom,containerBottom);
+}
+
 function fitHomeToViewport(){
   const screen=visibleHomeScreen();
   if(!screen)return;
@@ -35,17 +44,16 @@ function fitHomeToViewport(){
   if(cards.length<14)return;
   const rows=rowCount(cards);
   const firstHeight=parseFloat(getComputedStyle(cards[0]).height)||74;
-  const viewport=window.visualViewport;
-  const targetBottom=(viewport?.offsetTop||0)+(viewport?.height||window.innerHeight)-8;
+  const targetBottom=targetHomeBottom(screen);
   const currentBottom=Math.max(...cards.map(card=>card.getBoundingClientRect().bottom));
   const delta=targetBottom-currentBottom;
-  const next=Math.max(74,Math.min(108,firstHeight+(delta/rows)));
+  const next=Math.max(56,Math.min(108,firstHeight+(delta/rows)));
   applyTileHeight(cards,next);
   requestAnimationFrame(()=>{
     const refinedBottom=Math.max(...cards.map(card=>card.getBoundingClientRect().bottom));
     const refinedDelta=targetBottom-refinedBottom;
     if(Math.abs(refinedDelta)>2){
-      const refinedHeight=Math.max(74,Math.min(108,next+(refinedDelta/rows)));
+      const refinedHeight=Math.max(56,Math.min(108,next+(refinedDelta/rows)));
       applyTileHeight(cards,refinedHeight);
     }
   });
