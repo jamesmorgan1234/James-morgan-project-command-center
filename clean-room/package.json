@@ -1,0 +1,13 @@
+{
+  "name": "command-center-clean-room",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "test": "npm run build && node --test tests/*.test.mjs"
+  },
+  "devDependencies": {"typescript": "^5.8.3"}
+}
