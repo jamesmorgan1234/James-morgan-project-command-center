@@ -1,0 +1,13 @@
+{
+  "id": "/",
+  "name": "Command Center",
+  "short_name": "Command Center",
+  "description": "James Morgan's private Command Center application.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#ff6a00",
+  "orientation": "any",
+  "icons": []
+}

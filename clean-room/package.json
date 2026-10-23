@@ -6,7 +6,9 @@
   "engines": {"node": ">=22"},
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "build": "tsc -p tsconfig.build.json",
+    "build:modules": "tsc -p tsconfig.build.json",
+    "build:browser": "node scripts/build-browser.mjs",
+    "build": "npm run build:modules && npm run build:browser",
     "check:legacy": "node scripts/check-no-legacy-imports.mjs",
     "test": "npm run check:legacy && npm run build && node --test tests/*.test.mjs"
   },
