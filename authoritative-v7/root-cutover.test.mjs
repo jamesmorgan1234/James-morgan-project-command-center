@@ -24,6 +24,7 @@ test('production root shell is clean V7 only',()=>{
   assert.match(rootHtml,/\.\/authoritative-v7\/refinement\.css\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/home-books-refinement\.css\?v=1/);
+  assert.match(rootHtml,/\.\/authoritative-v7\/phone-layout-cover-fix\.js\?v=1/);
   assert.match(rootHtml,/\.\/authoritative-v7\/root-pwa\.js\?v=1/);
   for(const ref of forbiddenRootRuntime)assert.equal(rootHtml.includes(ref),false,`legacy root runtime reference found: ${ref}`);
 });
@@ -49,7 +50,7 @@ test('root manifest is clean standalone V7 identity',()=>{
 });
 
 test('root service worker takes over old caches and caches only V7 runtime',()=>{
-  assert.match(rootSw,/command-center-v7-root-4/);
+  assert.match(rootSw,/command-center-v7-root-6/);
   assert.match(rootSw,/key\.startsWith\('james-command-center-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-clean-'\)/);
   assert.match(rootSw,/key\.startsWith\('command-center-v7-root-'\)/);
@@ -60,6 +61,7 @@ test('root service worker takes over old caches and caches only V7 runtime',()=>
     './authoritative-v7/refinement.css?v=1',
     './authoritative-v7/home-books-refinement.js?v=1',
     './authoritative-v7/home-books-refinement.css?v=1',
+    './authoritative-v7/phone-layout-cover-fix.js?v=1',
     './authoritative-v7/data.js',
     './authoritative-v7/control-modules.js',
     './authoritative-v7/overview-screens.js',
