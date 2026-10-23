@@ -125,7 +125,7 @@ function renderActive(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   return section;
 }
 
-const PRIORITY_RANK: Readonly<Record<string, number>> = Object.freeze({ critical: 0, high: 1, medium: 2, low: 3 });
+const PRIORITY_RANK: Readonly<Record<string, number>> = Object.freeze({ critical: 0, high: 1, normal: 2, low: 3 });
 function nextProjects(snapshot: CommandCenterRuntimeSnapshot): readonly RuntimeProjectSnapshot[] { return Object.freeze([...snapshot.projects].filter((project) => project.nextAction.state === "known").sort((a, b) => (a.priority.state === "known" ? PRIORITY_RANK[a.priority.value] ?? 9 : 9) - (b.priority.state === "known" ? PRIORITY_RANK[b.priority.value] ?? 9 : 9))); }
 function renderNextRow(project: RuntimeProjectSnapshot): HTMLElement {
   const row = bevelCard("next-row");
