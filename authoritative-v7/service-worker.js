@@ -1,4 +1,4 @@
-const CACHE='command-center-v7-clean-11';
+const CACHE='command-center-v7-clean-12';
 const CORE=[
   './index.html',
   './theme.css?v=4',
