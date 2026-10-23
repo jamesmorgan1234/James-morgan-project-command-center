@@ -7,6 +7,7 @@ on:
       - rebuild/command-center-authoritative-v7
       - refine/global-refresh-and-approved-covers
       - refine/all-books-and-home-card-uniformity
+      - fix/v7-phone-home-and-book-covers-final
     paths:
       - 'index.html'
       - 'manifest.webmanifest'
@@ -52,6 +53,7 @@ jobs:
           node --check authoritative-v7/app.js
           node --check authoritative-v7/refinement.js
           node --check authoritative-v7/home-books-refinement.js
+          node --check authoritative-v7/phone-layout-cover-fix.js
           node --check authoritative-v7/book-ui-fixes.js
           node --check authoritative-v7/publication-truth.js
           node --check authoritative-v7/agent-execution.js
@@ -93,7 +95,9 @@ jobs:
           grep -Fq './refinement.js?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.css?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.js?v=2' authoritative-v7/index.html
-          grep -Fq "const CACHE='command-center-v7-clean-10'" authoritative-v7/service-worker.js
+          grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/index.html
+          grep -Fq "const CACHE='command-center-v7-clean-11'" authoritative-v7/service-worker.js
+          grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/service-worker.js
           ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
@@ -111,9 +115,10 @@ jobs:
           grep -Fq './authoritative-v7/book-ui-fixes.css?v=1' index.html
           grep -Fq './authoritative-v7/home-books-refinement.js?v=2' index.html
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' index.html
+          grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' index.html
           grep -Fq './authoritative-v7/root-pwa.js?v=1' index.html
           ! grep -Eiq 'app-config\.js|startup-loader\.js|command-center-v[456]|command-center-approved-ui|command-center-approved-nav|command-center-authoritative-runtime' index.html
-          grep -Fq "const CACHE='command-center-v7-root-6'" service-worker.js
+          grep -Fq "const CACHE='command-center-v7-root-7'" service-worker.js
           grep -Fq "key.startsWith('james-command-center-')" service-worker.js
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/refinement.js?v=1' service-worker.js
@@ -124,6 +129,7 @@ jobs:
           grep -Fq './authoritative-v7/agent-execution.js' service-worker.js
           grep -Fq './authoritative-v7/home-books-refinement.js?v=2' service-worker.js
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' service-worker.js
+          grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/assets/book-cover-atlas-v2.webp' service-worker.js
 
       - name: Audit every repository file
@@ -160,20 +166,34 @@ jobs:
             --disable-gpu \
             --hide-scrollbars \
             --force-device-scale-factor=2 \
-            --window-size=432,768 \
+            --window-size=360,768 \
             --screenshot="visual-output/home.png" \
             "http://127.0.0.1:4173/authoritative-v7/home-visual-fixture.html"
           python3 - <<'PY'
           import struct
           from pathlib import Path
+          expected={
+              'home.png':(720,1536),
+              'projects.png':(864,1536),
+              'active.png':(864,1536),
+              'next.png':(864,1536),
+              'detail.png':(864,1536),
+          }
+          found=set()
           for path in sorted(Path('visual-output').glob('*.png')):
               data=path.read_bytes()
               if data[:8] != b'\x89PNG\r\n\x1a\n':
                   raise SystemExit(f'{path.name}: not a PNG')
               width,height=struct.unpack('>II',data[16:24])
               print(path.name,(width,height))
-              if (width,height)!=(864,1536):
-                  raise SystemExit(f'{path.name}: expected 864x1536, got {(width,height)}')
+              wanted=expected.get(path.name)
+              if wanted is None:
+                  raise SystemExit(f'{path.name}: unexpected screenshot')
+              if (width,height)!=wanted:
+                  raise SystemExit(f'{path.name}: expected {wanted}, got {(width,height)}')
+              found.add(path.name)
+          if found != set(expected):
+              raise SystemExit('visual screenshot set mismatch')
           PY
 
       - name: Upload visual QA screenshots
