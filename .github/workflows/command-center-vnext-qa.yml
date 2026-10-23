@@ -1,0 +1,41 @@
+name: Command Center VNext QA
+
+on:
+  push:
+    branches:
+      - rebuild/command-center-spec-lock-cleanroom
+    paths:
+      - 'rebuild-vnext/**'
+      - '.github/workflows/command-center-vnext-qa.yml'
+  pull_request:
+    paths:
+      - 'rebuild-vnext/**'
+      - '.github/workflows/command-center-vnext-qa.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  vnext-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: rebuild-vnext
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify Node
+        run: node --version
+      - name: Run Category QA
+        run: npm run qa
+      - name: Assert no legacy runtime import
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -E "\.\./(app|app-config|startup-loader|agent-repair|project-auto)\.js|authoritative-v7" src tests architecture
+      - name: Assert production root is not a VNext dependency
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R -E "from ['\"]\.\./\.\./(app|app-config)\.js|from ['\"]\.\./\.\./authoritative-v7" src tests
