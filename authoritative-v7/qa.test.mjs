@@ -123,11 +123,12 @@ test('Agent owner controls use only atomic V7 owner RPC actions',()=>{
   assert.doesNotMatch(files.data,/client\.from\('cc7_agent_approvals'\)\.update/);
 });
 
-test('Project Checkpoint is immediate and does not queue worker execution',()=>{
+test('Project Checkpoint stays immediate; Project Auto recheck is a separate same-run request',()=>{
   assert.ok(files.data.includes('createProjectCheckpoint('));
   assert.ok(files.app.includes('createProjectCheckpoint(state.ownerId,projectId)'));
-  assert.match(files.app,/if\(mode==='project_checkpoint'\)[\s\S]*?createProjectCheckpoint\(state\.ownerId,projectId\)[\s\S]*?checkpoint complete/);
-  assert.match(files.app,/Instant status review only\. No execution or side effects\./);
+  assert.match(files.app,/if\(mode==='project_checkpoint'\)[\s\S]*?createProjectCheckpoint\(state\.ownerId,projectId\)[\s\S]*?requestProjectAutoRecheck\(projectId\)[\s\S]*?checkpoint complete/);
+  assert.match(files.app,/Project Checkpoint','Verify current state\. For a blocked Project Auto run, recheck the owner-completed step and resume the same run when verified\./);
+  assert.doesNotMatch(files.app,/createAgentRun\([^\n]*controlMode:'project_checkpoint'/);
   assert.ok(files.data.includes('latestCheckpoint'));
 });
 
