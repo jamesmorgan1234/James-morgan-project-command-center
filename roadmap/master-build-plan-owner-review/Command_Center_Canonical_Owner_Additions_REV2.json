@@ -1,24 +1,21 @@
-[
-  {
-    "canonical_id": "CCR-05826",
-    "canonical_text": "Command Center must use WebAuthn/passkeys with a platform authenticator and required user verification for biometric/fingerprint-backed owner unlock on compatible Samsung/Android devices, with automatic relock, fresh verification for protected actions, secure recovery/revocation, and no biometric template storage.",
-    "source_ids": ["HIST-20261019-FINGERPRINT", "OWNER-RECONFIRM-20261023-01"],
-    "source_kinds": ["recovered_historical_user_requirement", "owner_reconfirmation"],
-    "source_history": "Recovered from Command Center conversation history on 2026-10-19. James wanted phone-security integration so Command Center could use fingerprint instead of password and prioritized security over a simple keep-signed-in experience. The fingerprint feature was discussed as a separate future feature rather than implemented in that specific build. On 2026-10-23 James reconfirmed that fingerprint was already part of the Command Center idea and must be included in the roadmap.",
-    "architecture_branch": "A03",
-    "architecture_owner": "Identity / Authentication / Sessions / Devices",
-    "classification": "SECURITY / RECOVERY",
-    "primary_category": 2,
-    "reconciliation_correction": "This is NOT a newly invented 2026-10-23 requirement. It is a previously discussed Command Center requirement that was missed during historical reconciliation and is now restored to the canonical owner-review set."
-  },
-  {
-    "canonical_id": "CCR-05827",
-    "canonical_text": "Command Center must implement reliable versioned PWA/application updates with immutable release identity, active update discovery, complete install before activation, mixed-version prevention, controlled activation/reload, cache coherence, update observability, known-good offline preservation, rollback, and physical Samsung update acceptance.",
-    "source_ids": ["OWNER-ADD-20261023-02"],
-    "source_kinds": ["owner_addition"],
-    "architecture_branch": "A24",
-    "architecture_owner": "Client Shell / UX / PWA / Offline / Multi-device",
-    "classification": "CORE — ACTIVE",
-    "primary_category": 4
-  }
-]
+{
+  "status":"CORRECTED — NO NEW CANONICAL REQUIREMENTS CREATED",
+  "date":"2026-10-23",
+  "canonical_requirement_total_remains":5825,
+  "clarifications":[
+    {
+      "clarification_id":"OWNER-CLARIFY-20261023-BIOMETRIC",
+      "title":"Fingerprint / biometric security must be explicitly implemented as part of the existing identity/security requirements",
+      "provenance":"Recovered Command Center history from 2026-10-19 plus James's 2026-10-23 reaffirmation.",
+      "existing_canonical_requirement_ids":["CCR-04057","CCR-04058","CCR-04960","CCR-05541","CCR-05544","CCR-05746","CCR-05816"],
+      "binding_interpretation":"The existing passkey/WebAuthn/biometric requirements must result in real fingerprint/device-biometric-backed owner unlock on compatible Samsung/Android platform authenticators, automatic relock, fresh user verification for protected actions, secure credential recovery/revocation, and no biometric-template storage. This is roadmap surfacing/clarification of existing scope, not a new feature count."
+    },
+    {
+      "clarification_id":"OWNER-CLARIFY-20261023-UPDATES",
+      "title":"Reliable installed-PWA/application updates must be explicitly implemented as part of the existing PWA/release/recovery requirements",
+      "provenance":"Existing canonical update requirements plus James's 2026-10-23 reaffirmation after stale-version behavior.",
+      "existing_canonical_requirement_ids":["CCR-00306","CCR-00312","CCR-00313","CCR-00316","CCR-00649","CCR-00681","CCR-00852","CCR-00853","CCR-00971","CCR-01000","CCR-01438","CCR-01463","CCR-01466","CCR-01965","CCR-01982","CCR-01990","CCR-02000","CCR-02001","CCR-02203","CCR-02251","CCR-02252","CCR-05143","CCR-05666","CCR-05668","CCR-05669","CCR-05769","CCR-05771"],
+      "binding_interpretation":"The existing update/version/cache/recovery requirements must produce a reliable installed-PWA update lifecycle: immutable release identity, active update discovery, complete install before activation, no mixed-version runtime/cache state, controlled activation/reload, update observability, known-good offline preservation, rollback, and physical Samsung update acceptance. This is roadmap surfacing/clarification of existing scope, not a new feature count."
+    }
+  ]
+}
