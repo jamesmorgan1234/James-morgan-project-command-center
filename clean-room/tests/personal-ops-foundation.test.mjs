@@ -53,7 +53,7 @@ test("Needs Me dedupes one owner action across linked work and ranks unlock impa
   queue.upsert({ id: "need1", ownerId: "o", needKey: "provider-login:x", title: "Sign in", reason: "Two projects blocked", urgency: "normal", requiredEnvironment: "local_browser", ownerAction: "Authenticate provider", unlockRefs: ["work:a"], resumeRefs: ["run:a"], sourceRefs: ["a"], state: "open" });
   queue.upsert({ id: "need2", ownerId: "o", needKey: "provider-login:x", title: "Sign in", reason: "Same blocker", urgency: "high", requiredEnvironment: "local_browser", ownerAction: "Authenticate provider", unlockRefs: ["work:b"], resumeRefs: ["run:b"], sourceRefs: ["b"], state: "open" });
   assert.equal(queue.open().length, 1);
-  assert.deepEqual(queue.open()[0].unlockRefs.sort(), ["work:a", "work:b"]);
+  assert.deepEqual([...queue.open()[0].unlockRefs].sort(), ["work:a", "work:b"]);
   assert.equal(queue.open()[0].urgency, "high");
 });
 
