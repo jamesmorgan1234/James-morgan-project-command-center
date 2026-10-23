@@ -86,23 +86,22 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          GEN="$(sed -nE 's|.*\./app\.js\?v=([0-9]+).*|\1|p' authoritative-v7/index.html | head -n1)"
-          test -n "$GEN"
-          for asset in manifest.webmanifest theme.css layout.css artwork.css app.js pwa.js; do
-            grep -Fq "./${asset}?v=${GEN}" authoritative-v7/index.html
+          for asset in theme.css layout.css artwork.css app.js pwa.js; do
+            grep -Fq "./${asset}?v=4" authoritative-v7/index.html
           done
+          grep -Fq './manifest.webmanifest?v=5' authoritative-v7/index.html
           grep -Fq './refinement.css?v=1' authoritative-v7/index.html
           grep -Fq './refinement.js?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.css?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.js?v=2' authoritative-v7/index.html
           grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/index.html
-          grep -Fq 'cc7-startup-inline-recovery-v2' authoritative-v7/index.html
+          ! grep -Fq 'cc7-startup-inline-recovery-v2' authoritative-v7/index.html
           ! grep -Fq 'type="importmap"' authoritative-v7/index.html
-          grep -Fq "import { createClient } from './supabase-loader.js?v=1';" authoritative-v7/data.js
-          grep -Fq "const CACHE='command-center-v7-clean-13'" authoritative-v7/service-worker.js
+          grep -Fq "import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/+esm';" authoritative-v7/data.js
+          grep -Fq "const CACHE='command-center-v7-clean-14'" authoritative-v7/service-worker.js
           grep -Fq './phone-layout-cover-fix.js?v=1' authoritative-v7/service-worker.js
-          grep -Fq './startup-recovery.js?v=1' authoritative-v7/service-worker.js
-          grep -Fq './supabase-loader.js?v=1' authoritative-v7/service-worker.js
+          ! grep -Fq './startup-recovery.js?v=1' authoritative-v7/service-worker.js
+          ! grep -Fq './supabase-loader.js?v=1' authoritative-v7/service-worker.js
           ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
@@ -112,6 +111,7 @@ jobs:
         run: |
           set -euo pipefail
           grep -Fq 'data-command-center-runtime="v7-clean"' index.html
+          grep -Fq './manifest.webmanifest?v=12' index.html
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' index.html
           grep -Fq './authoritative-v7/app.js?v=4' index.html
           grep -Fq './authoritative-v7/refinement.js?v=1' index.html
@@ -122,10 +122,10 @@ jobs:
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' index.html
           grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' index.html
           grep -Fq './authoritative-v7/root-pwa.js?v=1' index.html
-          grep -Fq 'cc7-startup-inline-recovery-v2' index.html
+          ! grep -Fq 'cc7-startup-inline-recovery-v2' index.html
           ! grep -Fq 'type="importmap"' index.html
           ! grep -Eiq 'app-config\.js|startup-loader\.js|command-center-v[456]|command-center-approved-ui|command-center-approved-nav|command-center-authoritative-runtime' index.html
-          grep -Fq "const CACHE='command-center-v7-root-9'" service-worker.js
+          grep -Fq "const CACHE='command-center-v7-root-10'" service-worker.js
           grep -Fq "key.startsWith('james-command-center-')" service-worker.js
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/refinement.js?v=1' service-worker.js
@@ -137,8 +137,8 @@ jobs:
           grep -Fq './authoritative-v7/home-books-refinement.js?v=2' service-worker.js
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' service-worker.js
           grep -Fq './authoritative-v7/phone-layout-cover-fix.js?v=1' service-worker.js
-          grep -Fq './authoritative-v7/startup-recovery.js?v=1' service-worker.js
-          grep -Fq './authoritative-v7/supabase-loader.js?v=1' service-worker.js
+          ! grep -Fq './authoritative-v7/startup-recovery.js?v=1' service-worker.js
+          ! grep -Fq './authoritative-v7/supabase-loader.js?v=1' service-worker.js
           grep -Fq './authoritative-v7/assets/book-cover-atlas-v2.webp' service-worker.js
 
       - name: Audit every repository file
