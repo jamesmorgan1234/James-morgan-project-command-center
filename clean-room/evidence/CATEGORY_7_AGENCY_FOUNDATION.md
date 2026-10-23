@@ -1,8 +1,8 @@
 # Category 7 — The Agency / Multi-Agent Execution Platform
 
-Status: P7.1–P7.24 CLEAN-ROOM FOUNDATION IMPLEMENTED / CI VERIFICATION PENDING / LIVE EXECUTOR/LOAD ACCEPTANCE NOT YET CLAIMED
+Status: P7.1–P7.24 CLEAN-ROOM FOUNDATION IMPLEMENTED / UNIT-VERIFIED / LIVE EXECUTOR/LOAD ACCEPTANCE NOT YET CLAIMED
 
-Implemented:
+Implemented and unit-verified:
 
 - P7.1 explicit durable run/task state contracts with stop/pause truth gates
 - P7.2 persistent logical Project Agent identities separate from replaceable worker assignments
@@ -27,17 +27,25 @@ Implemented:
 - P7.21 deterministic orchestration choice/replay contract
 - P7.22 canary/shadow rollout safety decision contract
 - P7.23 orphan recovery and lead failover preserving checkpoint/mission/queue/authority
-- P7.24 adversarial foundation tests covering duplicate/stale/conflict/scope/authorization/recovery conditions; full load/soak remains later acceptance
+- P7.24 adversarial foundation tests; full load/soak remains later acceptance
+
+Automated evidence:
+
+- GitHub Actions workflow: `.github/workflows/spec-lock-v2-clean-room-qa.yml`
+- Run: `40006515016`
+- Head: `e6b95590acb5933f4b25abf244328597a177e31d`
+- Typecheck: PASS
+- Build and tests: PASS
 
 Still mandatory before final Category 7 acceptance:
 
 - canonical DB persistence and transactional scheduler/lease/RLS implementation
 - event-driven background executor that actually performs continuous Project Auto dispatch
 - real Work executor availability/rung integration
-- full Boundary Office/Needs Me UI integration
+- Boundary Office/Needs Me UI integration
 - resource locking over real branches/files/DB/providers/accounts/assets/deployments
 - independent live verifier/security workers
 - canary/shadow deployment path
 - failover/load/soak with hundreds/thousands of logical projects
 
-No production Agent tables/runtime were replaced, no external worker was dispatched, no Work usage was consumed, and no protected/paid/deployment action was performed by this foundation commit.
+No production Agent tables/runtime were replaced, no external worker was dispatched, no Work usage was consumed, and no protected/paid/deployment action was performed.
