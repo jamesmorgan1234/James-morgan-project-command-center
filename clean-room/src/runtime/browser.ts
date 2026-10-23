@@ -55,7 +55,7 @@ function renderConnection(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
 }
 function bevelCard(className = ""): HTMLElement { return el("article", `bevel-card ${className}`.trim()); }
 function statusPill(label: string, status: string): HTMLElement { const pill = el("span", availabilityClass(status), label); pill.prepend(el("span", "status__dot")); return pill; }
-function projectIcon(): HTMLElement { const icon = el("div", "project-icon"); icon.append(el("span", "project-icon__core", "◆")); return icon; }
+function projectIcon(): HTMLElement { const icon = el("div", "project-icon"); icon.setAttribute("aria-hidden", "true"); return icon; }
 function artPanel(): HTMLElement { const art = el("div", "project-art"); art.setAttribute("aria-hidden", "true"); return art; }
 function chevron(): HTMLElement { return el("span", "row-chevron", "›"); }
 function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
@@ -168,8 +168,8 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   return section;
 }
 
-function genericCard(title: string, body: string, status?: string): HTMLElement {
-  const node = bevelCard("surface-card");
+function genericCard(title: string, body: string, status?: string, path?: string): HTMLElement {
+  const node = path ? routeLink("", path, "bevel-card surface-card") : bevelCard("surface-card");
   const heading = el("div", "card-heading");
   heading.append(el("h3", "section-title", title));
   if (status) heading.append(statusPill(status.replaceAll("_", " "), status));
@@ -178,10 +178,10 @@ function genericCard(title: string, body: string, status?: string): HTMLElement 
 }
 function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = el("section", "home-grid");
-  section.append(genericCard("Projects", snapshot.projects.length > 0 ? `${snapshot.projects.length} canonical project record${snapshot.projects.length === 1 ? "" : "s"} loaded.` : "Project count unavailable", snapshot.connection.state));
+  section.append(genericCard("Projects", snapshot.projects.length > 0 ? `${snapshot.projects.length} canonical project record${snapshot.projects.length === 1 ? "" : "s"} loaded.` : "Project count unavailable", snapshot.connection.state, "/projects"));
   for (const key of ["needs-me", "agency"]) {
     const surface = snapshot.surfaces.find((candidate) => candidate.key === key);
-    section.append(genericCard(surface?.label ?? key, surface ? truthText(surface.summary) : "N/A", surface?.availability ?? "unavailable"));
+    section.append(genericCard(surface?.label ?? key, surface ? truthText(surface.summary) : "N/A", surface?.availability ?? "unavailable", `/${key}`));
   }
   section.append(genericCard("Release", truthText(snapshot.release.releaseId), snapshot.release.releaseId.state === "known" ? "available" : "unavailable"));
   return section;
@@ -258,14 +258,21 @@ function renderUnknownRoute(resolution: Exclude<BrowserRouteResolution, { state:
 function navigation(): HTMLElement {
   const nav = el("nav", "primary-nav");
   nav.setAttribute("aria-label", "Command Center");
+  const menu = el("details", "navigation-menu");
+  menu.append(el("summary", "navigation-toggle", "Navigate"));
+  const grid = el("div", "navigation-grid");
   for (const route of ROUTES.list()) {
     if (route.path.includes(":")) continue;
     const label = route.key === "route:home" ? "Home" : route.key === "route:active-live" ? "Active" : route.title;
-    nav.append(routeLink(label, route.path));
+    const link = routeLink(label, route.path);
+    if (window.location.pathname === route.path) link.setAttribute("aria-current", "page");
+    grid.append(link);
   }
+  menu.append(grid);
+  nav.append(menu);
   return nav;
 }
-function renderHeader(resolved: ResolvedRoute): HTMLElement {
+function renderHeader(resolved: ResolvedRoute, snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const header = el("header", "app-header");
   if (resolved.route.backBehavior !== "none") {
     const back = el("button", "back-control", "‹");
@@ -275,7 +282,8 @@ function renderHeader(resolved: ResolvedRoute): HTMLElement {
     header.append(back);
   }
   const brand = el("div", "brand-lockup");
-  brand.append(el("span", "brand-kicker", "COMMAND CENTER"), el("h1", "screen-title", resolved.route.title), el("p", "screen-subtitle", headerSubtitle(resolved)));
+  const title = resolved.route.key === "route:project-detail" ? snapshot.projects.find((project) => project.id === resolved.params.projectId)?.name ?? resolved.route.title : resolved.route.title;
+  brand.append(el("span", "brand-kicker", "COMMAND CENTER"), el("h1", "screen-title", title), el("p", "screen-subtitle", headerSubtitle(resolved)));
   header.append(brand, el("div", "header-planet"));
   return header;
 }
@@ -327,7 +335,7 @@ export async function renderApplication(provider?: RuntimeSnapshotProvider): Pro
   document.title = resolution.state === "known" ? `${resolution.resolved.route.title} · Command Center` : "Route unavailable · Command Center";
   root.replaceChildren();
   const shell = el("div", `app-shell app-shell--${APP_SHELL.state}`);
-  shell.append(resolution.state === "known" ? renderHeader(resolution.resolved) : renderUnknownHeader(resolution.path), renderConnection(snapshot), navigation(), renderPwaUpdateControl());
+  shell.append(resolution.state === "known" ? renderHeader(resolution.resolved, snapshot) : renderUnknownHeader(resolution.path), renderConnection(snapshot), navigation(), renderPwaUpdateControl());
   const main = el("main", "screen");
   main.append(resolution.state === "known" ? renderKnownRoute(snapshot, resolution) : renderUnknownRoute(resolution));
   shell.append(main);
