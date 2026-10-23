@@ -1,8 +1,8 @@
 # Category 8 — Personal Operations / Search / Needs Me / Notifications / Automation
 
-Status: P8.1–P8.11 CLEAN-ROOM FOUNDATION IMPLEMENTED / CI VERIFICATION PENDING / LIVE PROVIDER ACCEPTANCE NOT YET CLAIMED
+Status: P8.1–P8.11 CLEAN-ROOM FOUNDATION IMPLEMENTED / UNIT-VERIFIED / LIVE PROVIDER ACCEPTANCE NOT YET CLAIMED
 
-Implemented:
+Implemented and unit-verified:
 
 - P8.1 durable task/recurrence completion ledger with occurrence-level duplicate prevention and provenance
 - P8.2 replaceable calendar provider registry, absolute timestamp + IANA timezone validation, and owner-authorized reconciled mutation intents
@@ -15,6 +15,14 @@ Implemented:
 - P8.9 scheduled automation registry separate from Agency with idempotent occurrence execution, provider health, evidence history, and no protected-action authorization
 - P8.10 verified-transition condition watches that cannot self-authorize protected side effects
 - P8.11 privacy-boundary backup/restore dry-run controls
+
+Automated evidence:
+
+- GitHub Actions workflow: `.github/workflows/spec-lock-v2-clean-room-qa.yml`
+- Run: `40006945206`
+- Head: `187198998d47b4172831d0ae911809915a6dfae1`
+- Typecheck: PASS
+- Build and tests: PASS
 
 Still mandatory before final Category 8 acceptance:
 
