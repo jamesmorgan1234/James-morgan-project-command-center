@@ -21,11 +21,13 @@ test('unpublished production-complete book requires Agent review and is never Li
   assert.deepEqual(projectPublicationDisplay(project,metrics),{label:'Agent Review Needed',cls:'agent-review'});
 });
 
-test('explicit Agent-review and owner-review states remain distinct',async()=>{
+test('Agent review, owner review, Ready to Publish, and Needs Changes remain distinct',async()=>{
   const {projectPublicationDisplay}=await publicationModule();
   const metrics=[];
   assert.deepEqual(projectPublicationDisplay({id:'kdp-a',category:'Amazon Books / KDP',status:'Agent review required / unpublished'},metrics),{label:'Agent Review Needed',cls:'agent-review'});
   assert.deepEqual(projectPublicationDisplay({id:'kdp-b',category:'Amazon Books / KDP',status:'Owner review required — Agent verified / unpublished'},metrics),{label:'Owner Review Needed',cls:'owner-review'});
+  assert.deepEqual(projectPublicationDisplay({id:'kdp-c',category:'Amazon Books / KDP',status:'Ready to publish — owner approved / unpublished'},metrics),{label:'Ready to Publish',cls:'ready'});
+  assert.deepEqual(projectPublicationDisplay({id:'kdp-d',category:'Amazon Books / KDP',status:'Corrections required / unpublished'},metrics),{label:'Needs Changes',cls:'needs-changes'});
 });
 
 test('partially published series is Publishing, not Live',async()=>{
@@ -58,12 +60,13 @@ test('rebuild remains In Progress even when one book is already live',async()=>{
   assert.deepEqual(projectPublicationDisplay(project,metrics),{label:'In Progress',cls:'active-rebuild'});
 });
 
-test('root UI uses approved atlas path, larger mobile cards, and no-Work prepublish review',async()=>{
-  const [index,ui,css,sw]=await Promise.all([
+test('root UI uses approved atlas path, larger mobile cards, synchronous no-Work prepublish review, and cached execution client',async()=>{
+  const [index,ui,css,sw,agentExecution]=await Promise.all([
     readFile(new URL('../index.html',import.meta.url),'utf8'),
     readFile(new URL('./book-ui-fixes.js',import.meta.url),'utf8'),
     readFile(new URL('./book-ui-fixes.css',import.meta.url),'utf8'),
-    readFile(new URL('../service-worker.js',import.meta.url),'utf8')
+    readFile(new URL('../service-worker.js',import.meta.url),'utf8'),
+    readFile(new URL('./agent-execution.js',import.meta.url),'utf8')
   ]);
   assert.match(index,/book-ui-fixes\.js\?v=1/);
   assert.match(index,/book-ui-fixes\.css\?v=1/);
@@ -71,8 +74,13 @@ test('root UI uses approved atlas path, larger mobile cards, and no-Work prepubl
   assert.match(ui,/authoritative-v7\/assets\/book-cover-atlas-v2\.webp/);
   assert.match(ui,/\[PRE-PUBLISH BOOK REVIEW\]/);
   assert.match(ui,/allowWork:false/);
+  assert.match(ui,/executeAgentRun\(run\.id\)/);
+  assert.match(agentExecution,/cc7_agent_owner_execute_run/);
+  assert.match(agentExecution,/p_run_id:runId/);
   assert.match(css,/height:86px!important/);
+  assert.match(css,/\.cc-status\.needs-changes/);
   assert.match(sw,/command-center-v7-root-5/);
   assert.match(sw,/book-ui-fixes\.js\?v=1/);
   assert.match(sw,/publication-truth\.js/);
+  assert.match(sw,/agent-execution\.js/);
 });
