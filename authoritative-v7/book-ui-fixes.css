@@ -3,6 +3,7 @@
 .cc-status.owner-review{color:#15aefb}
 .cc-status.publishing{color:#ffd11a}
 .cc-status.needs-publishing{color:#ffb21b}
+.cc-status.needs-changes{color:#ff3545}
 
 @media(max-width:520px){
   .cc-agent-mode-card,.cc-home-card,.cc-module{
