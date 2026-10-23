@@ -83,7 +83,7 @@ test('root UI uses approved atlas path, larger mobile cards, synchronous no-Work
   assert.match(agentExecution,/p_run_id:runId/);
   assert.match(css,/height:86px!important/);
   assert.match(css,/\.cc-status\.needs-changes/);
-  assert.match(sw,/command-center-v7-root-8/);
+  assert.match(sw,/command-center-v7-root-9/);
   assert.match(sw,/book-ui-fixes\.js\?v=1/);
   assert.match(sw,/publication-truth\.js/);
   assert.match(sw,/agent-execution\.js/);
