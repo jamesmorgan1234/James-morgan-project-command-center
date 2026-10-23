@@ -49,6 +49,8 @@ jobs:
       - name: Syntax check clean modules
         run: |
           node --check authoritative-v7/app.js
+          node --check authoritative-v7/agent-api.js
+          node --check authoritative-v7/agent-native.test.mjs
           node --check authoritative-v7/refinement.js
           node --check authoritative-v7/home-books-refinement.js
           node --check authoritative-v7/data.js
@@ -69,6 +71,7 @@ jobs:
 
       - name: Run clean-room tests
         run: |
+          node --test authoritative-v7/agent-native.test.mjs
           node --test authoritative-v7/qa.test.mjs
           node --test authoritative-v7/root-cutover.test.mjs
           node --test authoritative-v7/refinement.test.mjs
@@ -87,8 +90,9 @@ jobs:
           grep -Fq './refinement.js?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.css?v=1' authoritative-v7/index.html
           grep -Fq './home-books-refinement.js?v=1' authoritative-v7/index.html
+          grep -Fq './agent-native.css?v=1' authoritative-v7/index.html
           grep -Fq "const CACHE='command-center-v7-clean-9'" authoritative-v7/service-worker.js
-          ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav' authoritative-v7/index.html
+          ! grep -Eiq 'command-center-v[456]|startup-loader|command-center-approved-ui|command-center-approved-nav|project-auto\.js|agent-repair\.js' authoritative-v7/index.html
           ! grep -Fq '../app.js' authoritative-v7/index.html
           ! grep -Fq '../styles.css' authoritative-v7/index.html
 
@@ -98,13 +102,14 @@ jobs:
           set -euo pipefail
           grep -Fq 'data-command-center-runtime="v7-clean"' index.html
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' index.html
-          grep -Fq './authoritative-v7/app.js?v=4' index.html
+          grep -Fq './authoritative-v7/app.js?v=5' index.html
+          grep -Fq './authoritative-v7/agent-native.css?v=1' index.html
           grep -Fq './authoritative-v7/refinement.js?v=1' index.html
           grep -Fq './authoritative-v7/refinement.css?v=1' index.html
           grep -Fq './authoritative-v7/home-books-refinement.js?v=1' index.html
           grep -Fq './authoritative-v7/home-books-refinement.css?v=1' index.html
           grep -Fq './authoritative-v7/root-pwa.js?v=1' index.html
-          ! grep -Eiq 'app-config\.js|startup-loader\.js|command-center-v[456]|command-center-approved-ui|command-center-approved-nav|command-center-authoritative-runtime' index.html
+          ! grep -Eiq 'app-config\.js|startup-loader\.js|command-center-v[456]|command-center-approved-ui|command-center-approved-nav|command-center-authoritative-runtime|project-auto\.js|agent-repair\.js' index.html
           grep -Fq "const CACHE='command-center-v7-root-4'" service-worker.js
           grep -Fq "key.startsWith('james-command-center-')" service-worker.js
           grep -Fq './authoritative-v7/interaction-feedback.js?v=1' service-worker.js
