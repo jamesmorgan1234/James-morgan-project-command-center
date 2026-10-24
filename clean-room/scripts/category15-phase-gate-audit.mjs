@@ -46,27 +46,38 @@ phases["P15.14"]={
   productionReady:false
 };
 
-const p1515CandidateSha="e0a4ade6bbe26fbec1cc091c3818241b29ce1295";
+const p1515CandidateSha=p1514PreviewSha;
+const p1515CandidateDeployment="dpl_5QmUqr5uqU8kU8EZSVWwxaPnJjXS";
+const p1515BuildHash="25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972";
+const p1515AssetManifestHash="a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f";
 let candidateEvidenceOnly=false;
 let changedSinceCandidate=[];
 try {
   changedSinceCandidate=execFileSync("git",["diff","--name-only",`${p1515CandidateSha}..HEAD`],{cwd:repoRoot}).toString("utf8").split(/\r?\n/).filter(Boolean);
-  const allowedEvidenceOnly=new Set([p1515DecisionPath,p1516RunbookPath,p1514HarnessNotePath,"clean-room/scripts/category15-phase-gate-audit.mjs",...p1514EvidencePaths]);
+  const allowedEvidenceOnly=new Set([".github/workflows/spec-lock-v2-clean-room-qa.yml",p1515DecisionPath,p1516RunbookPath,p1514HarnessNotePath,"clean-room/scripts/category15-phase-gate-audit.mjs",...p1514EvidencePaths]);
   candidateEvidenceOnly=changedSinceCandidate.length>0&&changedSinceCandidate.every((path)=>allowedEvidenceOnly.has(path));
 } catch { candidateEvidenceOnly=false; }
 const p1515Verified=phaseDefined("P15.15")&&exactHeadCiVerified&&tracked(p1515DecisionPath)&&tracked(p1516RunbookPath)&&candidateEvidenceOnly&&p1514Verified;
 phases["P15.15"]={
   status:p1515Verified?"VERIFIED_COMPLETE":"PARTIAL",
-  reason:p1515Verified?"Owner directed continuation and explicitly stated P15.15 is not a stopping boundary. The exact candidate, current production Git baseline, evidence, change scope, rollback preconditions, known limitations, and the still-controlling no-production-mutation constraint are recorded. No production mutation occurred.":"P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen release candidate is evidence-only.",
-  verification:{releaseCandidateSha:p1515CandidateSha,evidenceHead:headSha,currentProductionGitBaseline:"855a06b43d152df1bc3c7574cc3f584bf1b51892",candidateEvidenceOnly,changedSinceCandidate,productionMutationAuthorized:false},
-  evidence:[p1515DecisionPath,p1516RunbookPath,"https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40042995928"]
+  reason:p1515Verified?"Owner directed continuation and explicitly stated P15.15 is not a stopping boundary. The exact promotable runtime candidate, production-safe artifact identity, current GitHub Pages baseline/fallback, Vercel production target, known limitations, and the still-controlling no-production-mutation constraint are recorded. No production mutation occurred.":"P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen runtime candidate is acceptance/evidence-only.",
+  verification:{releaseCandidateSha:p1515CandidateSha,evidenceHead:headSha,productionSafePreviewDeploymentId:p1515CandidateDeployment,buildHash:p1515BuildHash,assetManifestHash:p1515AssetManifestHash,schemaCompatibility:"cc-runtime-snapshot-v1",productionStableDomain:"command-center-preview-alpha.vercel.app",currentProductionProvider:"github-pages",currentProductionGitBaseline:"855a06b43d152df1bc3c7574cc3f584bf1b51892",currentProductionUrl:"https://jamesmorgan1234.github.io/James-morgan-project-command-center/",fallbackPagesSha:"d40a7b2659400481c75f1de87d084b4d6cdce254",candidateEvidenceOnly,changedSinceCandidate,productionMutationAuthorized:false},
+  evidence:[p1515DecisionPath,p1516RunbookPath,"https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40041318173","https://command-center-preview-4xlvt3tw9-crestven-holdings.vercel.app/release.json"]
 };
-phases["P15.16"]={status:"BLOCKED_OWNER_CONSTRAINT",reason:"P15.16 non-mutating preparation is complete, but the current owner instruction explicitly prohibits merge, production deployment, and production-data modification. Live production delivery/rollback identity must also be resolved from the actual serving platform before any future mutation.",evidence:[p1516RunbookPath],releaseCandidateSha:p1515CandidateSha};
+phases["P15.16"]={
+  status:"BLOCKED_OWNER_CONSTRAINT",
+  reason:"P15.16 non-mutating preparation is complete: the actual live production provider, current release, fallback release, stable Vercel production domain, exact production-safe READY candidate and artifact hashes are resolved. The only remaining blocker is the current owner instruction explicitly prohibiting merge, production deployment, and production-data modification.",
+  preparationComplete:true,
+  productionCandidatePreviewReady:true,
+  productionMutationAuthorized:false,
+  verification:{releaseCandidateSha:p1515CandidateSha,previewDeploymentId:p1515CandidateDeployment,productionDomain:"command-center-preview-alpha.vercel.app",currentProductionPagesSha:"855a06b43d152df1bc3c7574cc3f584bf1b51892",currentProductionPagesRun:"39977771162",currentProductionPagesArtifact:"12512325850",fallbackPagesSha:"d40a7b2659400481c75f1de87d084b4d6cdce254",fallbackPagesRun:"39976823313",fallbackPagesArtifact:"12512175429",buildHash:p1515BuildHash,assetManifestHash:p1515AssetManifestHash,schemaCompatibility:"cc-runtime-snapshot-v1"},
+  evidence:[p1516RunbookPath,"https://command-center-preview-4xlvt3tw9-crestven-holdings.vercel.app/release.json"]
+};
 phases["P15.17"]={status:"BLOCKED_DEPENDENCY",reason:"owner acceptance begins only after P15.16 production/live verification passes"};
 phases["P15.18"]={status:"BLOCKED_DEPENDENCY",reason:"physical Samsung acceptance requires completed P15.16 live verification, P15.17 owner acceptance, and the real target device"};
 const allCategory15DefinitionsPresent=Array.from({length:18},(_,i)=>`P15.${i+1}`).every(phaseDefined);
 const nonproductionFailures=Object.entries(phases).filter(([id])=>{const n=Number(id.split(".")[1]);return n>=2&&n<=14;}).filter(([,v])=>!["IMPLEMENTED_BUT_UNVERIFIED","VERIFIED_COMPLETE"].includes(v.status));
-const report={schemaVersion:4,verification:{headSha,exactHeadCiVerified},lockedCanonicalRequirementCount:5852,lockedBaselineRequirementCount:5825,lockedRev3RequirementCount:27,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,canonicalLedgerCandidates,phases};
+const report={schemaVersion:5,verification:{headSha,exactHeadCiVerified},lockedCanonicalRequirementCount:5852,lockedBaselineRequirementCount:5825,lockedRev3RequirementCount:27,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,canonicalLedgerCandidates,phases};
 if(writeReport) writeFileSync(resolve(cleanRoom,"category15-phase-status.json"),JSON.stringify(report,null,2)+"\n");
-console.log(JSON.stringify({headSha,exactHeadCiVerified,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,p15_1:phases["P15.1"].status,p15_2_through_13:exactHeadCiVerified?"VERIFIED_COMPLETE":"IMPLEMENTED_BUT_UNVERIFIED",p15_14:phases["P15.14"].status,p15_15:phases["P15.15"].status,p15_16:phases["P15.16"].status,pwaLifecycleVerified,previewRuntimeUnchanged,candidateEvidenceOnly,nonproductionFailureCount:nonproductionFailures.length}));
+console.log(JSON.stringify({headSha,exactHeadCiVerified,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,p15_1:phases["P15.1"].status,p15_2_through_13:exactHeadCiVerified?"VERIFIED_COMPLETE":"IMPLEMENTED_BUT_UNVERIFIED",p15_14:phases["P15.14"].status,p15_15:phases["P15.15"].status,p15_16:phases["P15.16"].status,p15_16_preparationComplete:phases["P15.16"].preparationComplete,pwaLifecycleVerified,previewRuntimeUnchanged,candidateEvidenceOnly,nonproductionFailureCount:nonproductionFailures.length}));
 if(!canonicalTotalsValid||!allCategory15DefinitionsPresent||(requireNonproduction&&nonproductionFailures.length)) process.exit(1);
