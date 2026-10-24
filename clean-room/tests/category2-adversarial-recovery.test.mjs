@@ -40,7 +40,7 @@ function liveSession(overrides = {}) {
     deviceId: "device-a",
     projectId: "command-center",
     scopes: ["security:protected"],
-    assurance: "passkey_uv",
+    assurance: "fresh_passkey_uv",
     state: "active",
     createdAt: "2026-10-24T13:00:00Z",
     expiresAt: "2026-10-24T14:00:00Z",
@@ -98,6 +98,7 @@ test("adversarial: secret material cannot enter reference-only client state", ()
   assert.equal(secrets.list()[0].id, "provider-secret-ref");
   assert.throws(() => assertReferenceOnly({ password: "do-not-store" }));
   assert.throws(() => assertReferenceOnly({ authorization: "Bearer should-never-be-here" }));
+  assert.throws(() => assertReferenceOnly({ metadata: { refresh_token: "nested-do-not-store" } }));
 
   const integrationSql = migration("20261024104000_category2_integration_secret_isolation.sql");
   assert.match(integrationSql, /revoke select on table public\.integration_webhook_endpoints from authenticated/i);
