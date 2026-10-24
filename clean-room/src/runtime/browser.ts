@@ -177,23 +177,51 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   heroText.append(el("span", "eyebrow", truthText(project.priority, (value) => `${value} priority`).toUpperCase()), el("h2", "project-hero__title", project.name), el("p", "project-description", truthText(project.mission)), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
   hero.append(projectIcon(), heroText, artPanel(), chevron());
   section.append(hero);
-  const details = bevelCard("detail-grid-card");
-  details.append(el("h3", "section-title", "PROJECT STATUS"));
-  const grid = el("dl", "detail-grid");
-  const rows: readonly [string, string][] = [
-    ["Lifecycle", truthText(project.lifecycle)],
-    ["Verification", truthText(project.verification)],
-    ["Priority", truthText(project.priority)],
+
+  const performance = bevelCard("project-detail-section performance-section");
+  performance.append(el("h3", "section-title", "PERFORMANCE"));
+  const performanceGrid = el("div", "performance-grid");
+  const performanceMetrics: readonly [string, string][] = [
     ["Progress", truthText(project.progressPercent, (value) => `${value}%`)],
+    ["Stage", truthText(project.stage)],
+    ["Priority", truthText(project.priority)],
+    ["Needs Me", truthText(project.needsMeCount)]
+  ];
+  for (const [label, value] of performanceMetrics) {
+    const metric = el("div", "performance-metric");
+    metric.append(el("span", "performance-metric__label", label), el("strong", "performance-metric__value", value));
+    performanceGrid.append(metric);
+  }
+  performance.append(performanceGrid);
+  section.append(performance);
+
+  const series = bevelCard("project-detail-section series-strip");
+  series.append(el("h3", "section-title", "SERIES"), el("p", "muted", "Series data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
+  section.append(series);
+
+  const publication = bevelCard("project-detail-section publication-status");
+  publication.append(el("h3", "section-title", "PUBLICATION STATUS"), el("p", "muted", "Publication data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
+  section.append(publication);
+
+  const history = bevelCard("project-detail-section history-row");
+  history.append(el("h3", "section-title", "HISTORY"));
+  history.append(el("p", "muted", truthText(project.recentActivity, (values) => values.length ? values.join(" · ") : "No verified recent activity")));
+  const historyFacts = el("dl", "history-facts");
+  const historyRows: readonly [string, string][] = [
+    ["Verification", truthText(project.verification)],
     ["Checkpoint", truthText(project.currentCheckpoint)],
     ["Next action", truthText(project.nextAction)],
     ["Blockers", truthText(project.blockers, (values) => values.length ? values.join(" · ") : "None verified")],
     ["Agency", truthText(project.agencyState)]
   ];
-  for (const [label, value] of rows) grid.append(el("dt", undefined, label), el("dd", undefined, value));
-  details.append(grid);
-  if (project.specialistKey) details.append(el("p", "muted", `Specialist extension: ${project.specialistKey}`));
-  section.append(details);
+  for (const [label, value] of historyRows) historyFacts.append(el("dt", undefined, label), el("dd", undefined, value));
+  history.append(historyFacts);
+  section.append(history);
+
+  const integrations = bevelCard("project-detail-section integrations-row");
+  integrations.append(el("h3", "section-title", "INTEGRATIONS"), el("p", "muted", "Integration data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
+  if (project.specialistKey) integrations.append(el("p", "specialist-note", `Specialist extension: ${project.specialistKey}`));
+  section.append(integrations);
   return section;
 }
 
