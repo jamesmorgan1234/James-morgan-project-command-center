@@ -117,12 +117,19 @@ function deserializeCreationOptions(raw: JsonRecord): PublicKeyCredentialCreatio
   const challenge = requiredString(raw, "challenge", "Passkey registration options");
   if (!isRecord(raw.user)) throw new SupabasePasskeyError("Passkey registration options are missing user", "invalid_passkey_payload");
   const userId = requiredString(raw.user, "id", "Passkey registration user");
+  const providerSelection = isRecord(raw.authenticatorSelection) ? raw.authenticatorSelection : {};
   const output: PublicKeyCredentialCreationOptions = {
     ...(raw as unknown as PublicKeyCredentialCreationOptions),
     challenge: base64UrlToBytes(challenge).buffer as ArrayBuffer,
     user: {
       ...(raw.user as unknown as PublicKeyCredentialUserEntity),
       id: base64UrlToBytes(userId).buffer as ArrayBuffer
+    },
+    authenticatorSelection: {
+      ...(providerSelection as unknown as AuthenticatorSelectionCriteria),
+      authenticatorAttachment: "platform",
+      residentKey: "required",
+      userVerification: "required"
     }
   };
   if (Array.isArray(raw.excludeCredentials) && raw.excludeCredentials.length > 0) {
@@ -137,7 +144,8 @@ function deserializeRequestOptions(raw: JsonRecord): PublicKeyCredentialRequestO
   const challenge = requiredString(raw, "challenge", "Passkey authentication options");
   const output: PublicKeyCredentialRequestOptions = {
     ...(raw as unknown as PublicKeyCredentialRequestOptions),
-    challenge: base64UrlToBytes(challenge).buffer as ArrayBuffer
+    challenge: base64UrlToBytes(challenge).buffer as ArrayBuffer,
+    userVerification: "required"
   };
   if (Array.isArray(raw.allowCredentials) && raw.allowCredentials.length > 0) {
     output.allowCredentials = raw.allowCredentials.map(deserializeCredentialDescriptor);
@@ -152,6 +160,10 @@ function publicKeyCredential(value: Credential | null, ceremony: "registration" 
   const credential = value as PublicKeyCredential;
   if (!credential.response || typeof credential.getClientExtensionResults !== "function") {
     throw new SupabasePasskeyError(`Passkey ${ceremony} returned an invalid credential`, "webauthn_ceremony_failed");
+  }
+  const attachment = credentialAttachment(credential);
+  if (attachment && attachment !== "platform") {
+    throw new SupabasePasskeyError("Command Center requires a platform authenticator passkey", "webauthn_platform_required");
   }
   return credential;
 }
