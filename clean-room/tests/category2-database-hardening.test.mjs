@@ -47,3 +47,30 @@ test("owner session and device inventory is owner-scoped and revocation is canon
   assert.match(sql, /where s\.id = p_session_id and s\.user_id = v_owner/i);
   assert.doesNotMatch(sql, /refresh_token/i);
 });
+
+test("protected actions use server-owned policy and single-use session-bound authorization", () => {
+  const sql = migration("20261024103000_category2_policy_single_use_authorizations.sql");
+  assert.match(sql, /command_center_private\.security_action_policy/i);
+  assert.match(sql, /Protected action is not in the server policy catalog/i);
+  assert.match(sql, /risk class does not match server policy/i);
+  assert.match(sql, /resource type does not match server policy/i);
+  assert.match(sql, /authorized_session_id uuid/i);
+  assert.match(sql, /fresh_verified_at timestamptz/i);
+  assert.match(sql, /policy_version text/i);
+  assert.match(sql, /command_center_private\.consume_action_authorization/i);
+  assert.match(sql, /set status='consumed', consumed_at=now\(\)/i);
+  assert.match(sql, /status='authorized'/i);
+  assert.match(sql, /authorized_session_id is not null/i);
+  assert.match(sql, /from auth\.sessions s/i);
+  assert.match(sql, /from public\.command_center_owner_sessions cs/i);
+  assert.match(sql, /cs\.revoked_at is not null/i);
+  assert.match(sql, /cd\.revoked_at is not null/i);
+  assert.match(sql, /already consumed/i);
+  assert.match(sql, /trg_agent_step_protected_authorization/i);
+  assert.match(sql, /before update of status on public\.agent_steps/i);
+  assert.match(sql, /new\.status='running'/i);
+  assert.match(sql, /agent_mode_work_sol_medium/i);
+  assert.match(sql, /agent\.step\.execute/i);
+  assert.match(sql, /exact-action Security authorization/i);
+  assert.match(sql, /where status='authorized'[\s\S]*authorized_session_id is null/i);
+});
