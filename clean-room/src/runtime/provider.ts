@@ -135,12 +135,15 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     return fetch(proxied, init);
   };
 
-  const brokerAuthenticatedSession = async (response: Response): Promise<Response> => {
-    if (!useSessionBroker) return jsonResponse({ error: "secure_session_broker_required" }, 401);
+  const brokerAuthenticatedSession = async (response: Response, brokerRequired: boolean): Promise<Response> => {
     const payload: unknown = await response.json();
     if (!isObject(payload)) return jsonResponse(payload, response.status);
     const refreshToken = typeof payload.refresh_token === "string" ? payload.refresh_token : "";
     if (!refreshToken) return jsonResponse(payload, response.status);
+    if (!useSessionBroker) {
+      if (brokerRequired) return jsonResponse({ error: "secure_session_broker_required" }, 401);
+      return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
+    }
     const established = await broker("establish", refreshToken);
     if (!established.ok) return established;
     const brokerPayload: unknown = await established.json();
@@ -169,10 +172,9 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     const response = await proxiedAuthFetch(raw, input, init);
     if (!response.ok) return response;
 
-    const isPasswordSession = grantType === "password";
-    const isPasskeySession = authUrl.pathname.endsWith("/passkeys/authentication/verify");
-    if (!isPasswordSession && !isPasskeySession) return response;
-    return brokerAuthenticatedSession(response);
+    if (grantType === "password") return brokerAuthenticatedSession(response, false);
+    if (authUrl.pathname.endsWith("/passkeys/authentication/verify")) return brokerAuthenticatedSession(response, true);
+    return response;
   };
 
   return { fetcher, storage };
