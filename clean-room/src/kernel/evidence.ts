@@ -1,3 +1,5 @@
+import type { EnvironmentName } from "./config.js";
+
 export type EvidenceStrength = "self_report_only" | "recorded" | "tool_result" | "canonical_record" | "live_verified";
 
 const STRENGTH_RANK: Record<EvidenceStrength, number> = {
@@ -15,6 +17,27 @@ export interface EvidenceRecord {
   readonly sourceRef: string;
   readonly recordedAt: string;
   readonly verified: boolean;
+  readonly codeRef?: string;
+  readonly configDigest?: string;
+  readonly schemaVersion?: number;
+  readonly environment?: EnvironmentName;
+  readonly testRef?: string;
+  readonly scopeRef?: string;
+}
+
+export interface RequirementClosureRecord {
+  readonly requirementId: string;
+  readonly authoritativeSource: string;
+  readonly capabilityKey: string;
+  readonly owningPhase: string;
+  readonly dependencyIds: readonly string[];
+  readonly implementationRefs: readonly string[];
+  readonly positiveTestRefs: readonly string[];
+  readonly negativeTestRefs: readonly string[];
+  readonly failureTestRefs: readonly string[];
+  readonly evidenceIds: readonly string[];
+  readonly truthState: "planned" | "implemented_unverified" | "verified" | "blocked" | "not_applicable";
+  readonly blockerOrNonApplicabilityReason?: string;
 }
 
 export interface Checkpoint {
@@ -34,6 +57,15 @@ export function assertCompletionEvidence(records: readonly EvidenceRecord[], sub
   if (!records.some((record) => record.subjectId === subjectId && evidenceMeets(record, minimum))) {
     throw new Error(`Completion evidence missing for ${subjectId}; minimum=${minimum}`);
   }
+}
+
+export function validateRequirementClosure(record: RequirementClosureRecord): RequirementClosureRecord {
+  if (!record.requirementId.trim() || !record.authoritativeSource.trim() || !record.capabilityKey.trim() || !record.owningPhase.trim()) throw new Error("Requirement closure identity fields are required");
+  const collections = [record.dependencyIds, record.implementationRefs, record.positiveTestRefs, record.negativeTestRefs, record.failureTestRefs, record.evidenceIds];
+  for (const values of collections) if (new Set(values).size !== values.length) throw new Error(`Requirement closure contains duplicate references: ${record.requirementId}`);
+  if (record.truthState === "verified" && (record.implementationRefs.length === 0 || record.evidenceIds.length === 0 || record.positiveTestRefs.length === 0)) throw new Error("Verified requirement requires implementation, positive tests, and evidence");
+  if ((record.truthState === "blocked" || record.truthState === "not_applicable") && !record.blockerOrNonApplicabilityReason?.trim()) throw new Error("Blocked/not-applicable requirement needs a reason");
+  return Object.freeze({ ...record, dependencyIds: Object.freeze([...record.dependencyIds]), implementationRefs: Object.freeze([...record.implementationRefs]), positiveTestRefs: Object.freeze([...record.positiveTestRefs]), negativeTestRefs: Object.freeze([...record.negativeTestRefs]), failureTestRefs: Object.freeze([...record.failureTestRefs]), evidenceIds: Object.freeze([...record.evidenceIds]) });
 }
 
 export function createCheckpoint(checkpoint: Checkpoint): Checkpoint {
