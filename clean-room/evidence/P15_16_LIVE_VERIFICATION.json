@@ -2,27 +2,51 @@
   "schemaVersion": 1,
   "phase": "P15.16",
   "status": "VERIFIED_COMPLETE",
-  "verifiedAtUtc": "2026-10-24T02:04:00Z",
+  "verifiedAtUtc": "2026-10-24T02:28:24Z",
   "production": {
     "provider": "vercel",
     "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
     "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
-    "deploymentId": "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1",
-    "deploymentUrl": "https://command-center-preview-5bidohy0d-crestven-holdings.vercel.app",
+    "deploymentId": "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
+    "deploymentUrl": "https://command-center-preview-kx6z017k3-crestven-holdings.vercel.app",
     "stableDomain": "https://command-center-preview-alpha.vercel.app",
     "target": "production",
     "readyState": "READY"
   },
   "releaseIdentity": {
-    "releaseId": "26d084f66829052081ef3f9f1792d84b7a6f545f",
-    "sourceSha": "26d084f66829052081ef3f9f1792d84b7a6f545f",
-    "buildHash": "8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07",
-    "assetManifestHash": "281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01",
+    "releaseId": "42c50f3093f3f435e53065a877356c317c7ba2f1",
+    "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
+    "buildHash": "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd",
+    "assetManifestHash": "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
+  },
+  "repair": {
+    "trigger": "P15.17 Samsung owner sign-in defect",
+    "savedCredentialPromptPreviouslyUnavailable": true,
+    "emptyPasswordFalseSubmitPathRemoved": true,
+    "nativeValidationRestored": true,
+    "credentialAutocompleteSemanticsPresent": true,
+    "forcedInitialFocusRemoved": true,
+    "supabaseOwnerAccountHealthyBeforeRepair": true
+  },
+  "acceptancePreviews": {
+    "synthetic": {
+      "deploymentId": "dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb",
+      "url": "https://command-center-preview-p5sj70mqv-crestven-holdings.vercel.app",
+      "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
+      "fixtureEnabledOnlyForThisAcceptanceBuild": true
+    },
+    "productionSafe": {
+      "deploymentId": "dpl_4cNY1fgUH11DZiURwaJmEt6smvFK",
+      "url": "https://command-center-preview-jnhydn724-crestven-holdings.vercel.app",
+      "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
+      "syntheticPreviewRuntimePresent": false
+    }
   },
   "liveChecks": {
     "releaseJsonMatched": true,
     "htmlReleaseMetaMatched": true,
+    "authRepairBundleMatched": true,
     "manifestServed": true,
     "serviceWorkerServed": true,
     "declaredRouteCount": 19,
@@ -61,7 +85,7 @@
     "workflowRun": "39977771162",
     "artifactId": "12512325850",
     "previousKnownGoodSha": "d40a7b2659400481c75f1de87d084b4d6cdce254",
-    "priorVercelDeploymentId": "dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq"
+    "priorVercelDeploymentId": "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1"
   },
   "knownBlockers": {
     "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"
