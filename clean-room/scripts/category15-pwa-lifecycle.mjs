@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
@@ -70,18 +71,40 @@ async function stopBrowser() {
   }
 }
 
-async function waitForDevToolsPort() {
-  const activePortPath = join(profile, "DevToolsActivePort");
-  for (let attempt = 0; attempt < 100; attempt += 1) {
-    if (existsSync(activePortPath)) {
-      const [value] = readFileSync(activePortPath, "utf8").trim().split(/\r?\n/);
-      const parsed = Number(value);
-      if (Number.isInteger(parsed) && parsed > 0) return parsed;
-    }
+function reserveLoopbackPort() {
+  return new Promise((resolvePromise, reject) => {
+    const probe = createServer();
+    probe.unref();
+    probe.once("error", reject);
+    probe.listen(0, "127.0.0.1", () => {
+      const address = probe.address();
+      if (!address || typeof address === "string") {
+        probe.close(() => reject(new Error("Unable to reserve a loopback DevTools port")));
+        return;
+      }
+      const selected = address.port;
+      probe.close((error) => error ? reject(error) : resolvePromise(selected));
+    });
+  });
+}
+
+async function waitForDevToolsEndpoint(debugPort) {
+  let lastError = "not attempted";
+  for (let attempt = 0; attempt < 150; attempt += 1) {
     if (browser?.exitCode !== null) throw new Error(`Chrome exited before DevTools became ready\n${chromeLog}`);
+    try {
+      const response = await fetch(`http://127.0.0.1:${debugPort}/json/version`, { cache: "no-store" });
+      if (response.ok) {
+        const version = await response.json();
+        if (typeof version?.webSocketDebuggerUrl === "string" || typeof version?.Browser === "string") return;
+      }
+      lastError = `HTTP ${response.status}`;
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
+    }
     await sleep(100);
   }
-  throw new Error(`Chrome DevTools port did not become ready\n${chromeLog}`);
+  throw new Error(`Chrome DevTools endpoint did not become ready on 127.0.0.1:${debugPort}; last=${lastError}\n${chromeLog}`);
 }
 
 class CdpClient {
@@ -183,6 +206,7 @@ async function cleanup() {
 
 try {
   await startServer();
+  const debugPort = await reserveLoopbackPort();
   browser = spawn(chrome, [
     "--headless=new",
     "--no-sandbox",
@@ -190,14 +214,15 @@ try {
     "--disable-dev-shm-usage",
     "--no-first-run",
     "--no-default-browser-check",
-    "--remote-debugging-port=0",
+    "--remote-debugging-address=127.0.0.1",
+    `--remote-debugging-port=${debugPort}`,
     `--user-data-dir=${profile}`,
     "about:blank"
   ], { stdio: ["ignore", "pipe", "pipe"] });
   browser.stdout.on("data", (chunk) => appendLog("chrome", chunk));
   browser.stderr.on("data", (chunk) => appendLog("chrome", chunk));
 
-  const debugPort = await waitForDevToolsPort();
+  await waitForDevToolsEndpoint(debugPort);
   let targets;
   for (let attempt = 0; attempt < 50; attempt += 1) {
     try {
