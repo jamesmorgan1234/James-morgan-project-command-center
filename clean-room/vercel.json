@@ -1,6 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
+    {
+      "source": "/__cc_auth__/:path*",
+      "destination": "https://gmlsucpwliegwlxymjvp.supabase.co/auth/v1/:path*"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
