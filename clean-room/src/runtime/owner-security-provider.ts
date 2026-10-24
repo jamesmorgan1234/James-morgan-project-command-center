@@ -13,6 +13,8 @@ type JsonRecord = Record<string, unknown>;
 export interface OwnerSecurityRuntimeProvider {
   readonly id: string;
   load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot>;
+  signIn(email: string, password: string): Promise<void>;
+  signOut(): Promise<void>;
   listOwnerPasskeys(): Promise<readonly SupabasePasskeyDescriptor[]>;
   registerOwnerPasskey(): Promise<SupabasePasskeyDescriptor>;
   renameOwnerPasskey(passkeyId: string, friendlyName: string): Promise<SupabasePasskeyDescriptor>;
@@ -25,6 +27,8 @@ export interface OwnerSecurityRuntimeProvider {
 interface RuntimeProviderLike {
   readonly id: string;
   load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot>;
+  signIn(email: string, password: string): Promise<void>;
+  signOut(): Promise<void>;
 }
 
 interface StoredOwnerSession {
@@ -78,7 +82,9 @@ function sessionDescriptor(value: unknown): OwnerSessionDescriptor {
 
 export function isOwnerSecurityRuntimeProvider(value: RuntimeProviderLike): value is RuntimeProviderLike & OwnerSecurityRuntimeProvider {
   const candidate = value as Partial<OwnerSecurityRuntimeProvider>;
-  return typeof candidate.listOwnerPasskeys === "function"
+  return typeof candidate.signIn === "function"
+    && typeof candidate.signOut === "function"
+    && typeof candidate.listOwnerPasskeys === "function"
     && typeof candidate.registerOwnerPasskey === "function"
     && typeof candidate.renameOwnerPasskey === "function"
     && typeof candidate.removeOwnerPasskey === "function"
@@ -114,6 +120,14 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       publishableKey: this.#publishableKey,
       fetcher: this.#fetcher
     });
+  }
+
+  signIn(email: string, password: string): Promise<void> {
+    return this.#inner.signIn(email, password);
+  }
+
+  signOut(): Promise<void> {
+    return this.#inner.signOut();
   }
 
   async load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot> {
