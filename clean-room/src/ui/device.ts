@@ -18,7 +18,7 @@ export function classifyLayout(profile: DeviceProfile): LayoutClass {
 }
 
 export function assertAccessibleControl(control: { width: number; height: number; label?: string; ariaLabel?: string }): void {
-  if (control.width < 44 || control.height < 44) throw new Error("Interactive control must meet 44px minimum target size");
+  if (control.width < 48 || control.height < 48) throw new Error("Interactive control must meet the Command Center 48px minimum target size");
   if (!control.label?.trim() && !control.ariaLabel?.trim()) throw new Error("Interactive control requires an accessible label");
 }
 
