@@ -95,7 +95,7 @@ const p1516LiveEvidencePath = "clean-room/evidence/P15_16_LIVE_VERIFICATION.json
 const p1516LiveAuditPath = "clean-room/scripts/category15-production-live-audit.mjs";
 const packagePath = "clean-room/package.json";
 const p1514HarnessNotePath = "clean-room/evidence/P15_14_PWA_HARNESS_FLAKE_NOTE.md";
-const p1514PreviewSha = "26d084f66829052081ef3f9f1792d84b7a6f545f";
+const p1514PreviewSha = "42c50f3093f3f435e53065a877356c317c7ba2f1";
 const p1514EvidencePaths = [
   "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
   "clean-room/scripts/category15-pwa-lifecycle.sh",
@@ -138,12 +138,12 @@ const p1514Verified =
 phases["P15.14"] = {
   status: p1514Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
   reason: p1514Verified
-    ? "The Vercel Preview runtime at 26d084f6 was exercised across all 19 routes, and every later change is acceptance/release evidence infrastructure only. Exact-head CI additionally executes isolated canonical module contracts plus the observed single-session PWA install/offline/update lifecycle."
-    : "Preview acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested Preview runtime is evidence-only.",
+    ? "The repaired Vercel Preview runtime at 42c50f3 was exercised with the explicit synthetic acceptance fixture, the production-safe no-fixture Preview was separately verified, and every later change is acceptance/release evidence infrastructure only. Exact-head CI additionally executes isolated canonical module contracts plus the observed single-session PWA install/offline/update lifecycle."
+    : "Preview acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested repaired Preview runtime is evidence-only.",
   verification: {
     testedGitSha: p1514PreviewSha,
     evidenceHead: headSha,
-    deploymentId: "dpl_3ywqiM4cnKPMoQM6VzXqhQPH2af6",
+    deploymentId: "dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb",
     environment: "preview",
     dataMode: "explicit synthetic acceptance fixture plus isolated in-memory canonical contracts; no production data",
     routeCount: 19,
@@ -152,8 +152,8 @@ phases["P15.14"] = {
     changedSincePreview
   },
   evidence: [
-    "https://command-center-preview-6ytcspjwd-crestven-holdings.vercel.app",
-    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40049196636",
+    "https://command-center-preview-p5sj70mqv-crestven-holdings.vercel.app",
+    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40053887803",
     ...p1514EvidencePaths,
     p1514HarnessNotePath
   ],
@@ -167,9 +167,9 @@ phases["P15.14"] = {
 };
 
 const p1515CandidateSha = p1514PreviewSha;
-const p1515CandidateDeployment = "dpl_BhX4mp4T8Z5kyyPN3otkemWymetk";
-const p1515BuildHash = "8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07";
-const p1515AssetManifestHash = "281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01";
+const p1515CandidateDeployment = "dpl_4cNY1fgUH11DZiURwaJmEt6smvFK";
+const p1515BuildHash = "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd";
+const p1515AssetManifestHash = "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb";
 let candidateEvidenceOnly = false;
 let changedSinceCandidate = [];
 try {
@@ -193,8 +193,8 @@ const p1515Verified =
 phases["P15.15"] = {
   status: p1515Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
   reason: p1515Verified
-    ? "The owner repeatedly authorized Command Center production deployment and explicitly removed the false repeated authorization boundary. The exact runtime candidate, artifact identity, fallback, production target, and known P15.1 limitation are recorded on an exact evidence-only CI head."
-    : "P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen runtime candidate is evidence-only.",
+    ? "The owner repeatedly authorized Command Center production deployment and explicitly removed the false repeated authorization boundary. The repaired exact runtime candidate, artifact identity, fallback, production target, and known P15.1 limitation are recorded on an exact evidence-only CI head."
+    : "P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen repaired runtime candidate is evidence-only.",
   verification: {
     releaseCandidateSha: p1515CandidateSha,
     evidenceHead: headSha,
@@ -217,7 +217,7 @@ const liveEvidenceTracked = tracked(p1516LiveEvidencePath) && tracked(p1516LiveA
 phases["P15.16"] = {
   status: liveEvidenceTracked ? "PRODUCTION_LIVE_EVIDENCE_PENDING" : "BLOCKED_IMPLEMENTATION",
   reason: liveEvidenceTracked
-    ? "Production deployment and live verification evidence are tracked. The dedicated production-live audit runs immediately after this nonproduction phase gate and is the authority that can mark P15.16 VERIFIED_COMPLETE."
+    ? "Repaired production deployment and live verification evidence are tracked. The dedicated production-live audit runs immediately after this nonproduction phase gate and is the authority that can mark P15.16 VERIFIED_COMPLETE."
     : "Production live-verification evidence or its audit is missing.",
   preparationComplete: true,
   productionCandidatePreviewReady: true,
@@ -225,7 +225,7 @@ phases["P15.16"] = {
   verification: {
     releaseCandidateSha: p1515CandidateSha,
     previewDeploymentId: p1515CandidateDeployment,
-    productionDeploymentId: "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1",
+    productionDeploymentId: "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
     productionDomain: "command-center-preview-alpha.vercel.app",
     currentProductionPagesSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892",
     fallbackPagesSha: "d40a7b2659400481c75f1de87d084b4d6cdce254",
@@ -236,8 +236,8 @@ phases["P15.16"] = {
   evidence: [p1516RunbookPath, p1516LiveEvidencePath]
 };
 
-phases["P15.17"] = { status: "BLOCKED_DEPENDENCY", reason: "owner acceptance begins only after the dedicated P15.16 production/live evidence gate passes" };
-phases["P15.18"] = { status: "BLOCKED_DEPENDENCY", reason: "physical Samsung acceptance requires completed P15.16 live verification, P15.17 owner acceptance, and the real target device" };
+phases["P15.17"] = { status: "BLOCKED_DEPENDENCY", reason: "owner acceptance resumes only after the dedicated repaired P15.16 production/live evidence gate passes" };
+phases["P15.18"] = { status: "BLOCKED_DEPENDENCY", reason: "physical Samsung acceptance requires completed repaired P15.16 live verification, P15.17 owner acceptance, and the real target device" };
 
 const allCategory15DefinitionsPresent = Array.from({ length: 18 }, (_, i) => `P15.${i + 1}`).every(phaseDefined);
 const nonproductionFailures = Object.entries(phases)
