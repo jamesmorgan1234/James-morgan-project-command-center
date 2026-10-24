@@ -26,7 +26,7 @@ const p1515DecisionPath="clean-room/evidence/P15_15_OWNER_DECISION.md";
 const p1516RunbookPath="clean-room/evidence/P15_16_PRODUCTION_RUNBOOK.md";
 const p1514HarnessNotePath="clean-room/evidence/P15_14_PWA_HARNESS_FLAKE_NOTE.md";
 const p1514PreviewSha="39fb4ab2df17f5ad087e21917b7e2f1b3ede481b";
-const p1514EvidencePaths=["clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs","clean-room/scripts/category15-pwa-lifecycle.sh"];
+const p1514EvidencePaths=["clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs","clean-room/scripts/category15-pwa-lifecycle.sh","clean-room/scripts/category15-pwa-lifecycle.mjs"];
 const p1514AcceptanceTracked=allTracked(p1514EvidencePaths);
 const pwaLifecycleVerified=process.env.CATEGORY15_PWA_LIFECYCLE_VERIFIED==="true";
 let previewRuntimeUnchanged=false;
@@ -39,7 +39,7 @@ try {
 const p1514Verified=phaseDefined("P15.14")&&exactHeadCiVerified&&p1514AcceptanceTracked&&pwaLifecycleVerified&&previewRuntimeUnchanged;
 phases["P15.14"]={
   status:p1514Verified?"VERIFIED_COMPLETE":"PARTIAL",
-  reason:p1514Verified?"The already-authorized Vercel Preview runtime at 39fb4ab2 was exercised across all 19 routes, and the exact evidence head changed only acceptance/release-gate infrastructure. Exact-head CI additionally executed isolated real module contracts plus an observed Chrome PWA install/offline/update lifecycle. No production provider or production data was used.":"Preview/browser acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested Preview runtime is acceptance-only.",
+  reason:p1514Verified?"The already-authorized Vercel Preview runtime at 39fb4ab2 was exercised across all 19 routes, and the exact evidence head changed only acceptance/release-gate infrastructure. Exact-head CI additionally executed isolated real module contracts plus an observed single-session Chrome PWA install/offline/update lifecycle. No production provider or production data was used.":"Preview/browser acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested Preview runtime is acceptance-only.",
   verification:{testedGitSha:p1514PreviewSha,evidenceHead:headSha,deploymentId:"dpl_BfR5nzueza7PmcZYdLEsoB9usjjw",environment:"preview",dataMode:"explicit synthetic acceptance fixture plus isolated in-memory canonical contracts; no production data",routeCount:19,previewRuntimeUnchanged,pwaLifecycleVerified,changedSincePreview},
   evidence:["https://command-center-preview-ak1c2e863-crestven-holdings.vercel.app","https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40041318173",...p1514EvidencePaths,p1514HarnessNotePath],
   remainingBlockers:p1514Verified?[]:["Isolated canonical module/backend contract acceptance has not passed on the exact evidence head","Actual offline-cache replay and waiting-worker update activation have not passed on the exact evidence head"],
