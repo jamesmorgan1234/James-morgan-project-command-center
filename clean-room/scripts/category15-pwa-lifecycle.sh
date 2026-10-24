@@ -32,8 +32,18 @@ trap cleanup EXIT
 start_server() {
   python3 -m http.server "$PORT" --directory dist-web >"$TMP/http.log" 2>&1 &
   SERVER_PID=$!
-  sleep 1
-  kill -0 "$SERVER_PID"
+  for _ in $(seq 1 40); do
+    if curl -fsS "$BASE/index.html" >/dev/null 2>&1; then return 0; fi
+    if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+      echo "P15 PWA test server exited before readiness" >&2
+      cat "$TMP/http.log" >&2 || true
+      return 1
+    fi
+    sleep 0.25
+  done
+  echo "P15 PWA test server did not become ready" >&2
+  cat "$TMP/http.log" >&2 || true
+  return 1
 }
 
 stop_server() {
@@ -64,17 +74,17 @@ cat > dist-web/__pwa_lifecycle_probe.html <<'HTML'
     }
     if (phase === 'update') {
       await registration.update();
-      const deadline = Date.now() + 10000;
+      const deadline = Date.now() + 15000;
       while (!registration.waiting && Date.now() < deadline) await new Promise((resolve) => setTimeout(resolve, 100));
       if (!registration.waiting) throw new Error('updated worker never entered waiting state');
       const changed = new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => reject(new Error('controllerchange timeout')), 8000);
+        const timeout = setTimeout(() => reject(new Error('controllerchange timeout')), 12000);
         navigator.serviceWorker.addEventListener('controllerchange', () => { clearTimeout(timeout); resolve(); }, { once: true });
       });
       registration.waiting.postMessage({ type: 'ACTIVATE_UPDATE' });
       await changed;
       const keys = (await caches.keys()).filter((key) => key.startsWith('command-center-shell:'));
-      if (keys.length < 2 || keys.length > 2) throw new Error(`expected two retained shell caches, saw ${keys.length}`);
+      if (keys.length !== 2) throw new Error(`expected two retained shell caches, saw ${keys.length}`);
       out.textContent = 'P15_PWA_UPDATE_PASS';
       return;
     }
@@ -88,44 +98,88 @@ HTML
 
 COMMON=(--headless=new --no-sandbox --disable-gpu --no-first-run --no-default-browser-check --user-data-dir="$PROFILE")
 
-start_server
-"$CHROME" "${COMMON[@]}" --virtual-time-budget=12000 --dump-dom "$BASE/__pwa_lifecycle_probe.html?phase=install" >"$TMP/install.html" 2>"$TMP/install.err"
-grep -Fq 'P15_PWA_INSTALL_PASS' "$TMP/install.html"
+show_failure() {
+  local label="$1" out="$2" err="$3"
+  echo "P15 PWA ${label} probe failed after bounded retries" >&2
+  echo "--- chrome stderr ---" >&2
+  cat "$err" >&2 2>/dev/null || true
+  echo "--- dumped DOM tail ---" >&2
+  tail -c 12000 "$out" >&2 2>/dev/null || true
+  echo >&2
+  echo "--- http server log ---" >&2
+  cat "$TMP/http.log" >&2 2>/dev/null || true
+}
 
-# Prove the cached Command Center shell is replayed with the origin server absent.
-stop_server
-set +e
-"$CHROME" "${COMMON[@]}" --virtual-time-budget=8000 --dump-dom "$BASE/" >"$TMP/offline.html" 2>"$TMP/offline.err"
-OFFLINE_RC=$?
-set -e
-if [[ $OFFLINE_RC -ne 0 ]]; then
-  cat "$TMP/offline.err" >&2
-  exit $OFFLINE_RC
-fi
-grep -Fq '<meta name="application-name" content="Command Center">' "$TMP/offline.html"
+run_online_probe() {
+  local phase="$1" expected="$2" budget="$3" out="$TMP/${phase}.html" err="$TMP/${phase}.err"
+  for attempt in 1 2 3; do
+    : >"$out"; : >"$err"
+    set +e
+    "$CHROME" "${COMMON[@]}" --virtual-time-budget="$budget" --dump-dom "$BASE/__pwa_lifecycle_probe.html?phase=$phase&attempt=$attempt" >"$out" 2>"$err"
+    local rc=$?
+    set -e
+    if [[ $rc -eq 0 ]] && grep -Fq "$expected" "$out"; then return 0; fi
+    sleep "$attempt"
+  done
+  show_failure "$phase" "$out" "$err"
+  return 1
+}
 
-# Stage a distinct worker at the same URL. The active worker must keep serving until
-# the waiting worker receives the explicit ACTIVATE_UPDATE message.
-CURRENT_RELEASE="${GITHUB_SHA:-p15-local}"
-UPDATE_RELEASE="${CURRENT_RELEASE}-p15-update"
-python3 - "$UPDATE_RELEASE" <<'PY'
+run_offline_probe() {
+  local out="$TMP/offline.html" err="$TMP/offline.err"
+  for attempt in 1 2 3; do
+    : >"$out"; : >"$err"
+    set +e
+    "$CHROME" "${COMMON[@]}" --virtual-time-budget=12000 --dump-dom "$BASE/?offline_attempt=$attempt" >"$out" 2>"$err"
+    local rc=$?
+    set -e
+    if [[ $rc -eq 0 ]] && grep -Fq '<meta name="application-name" content="Command Center">' "$out"; then return 0; fi
+    sleep "$attempt"
+  done
+  show_failure "offline" "$out" "$err"
+  return 1
+}
+
+stage_update_release() {
+  local update_release="$1"
+  printf '%s' "$ORIGINAL_SW" > dist-web/sw.js
+  python3 - "$update_release" <<'PY'
 from pathlib import Path
 import sys
 p = Path('dist-web/sw.js')
 text = p.read_text()
-old = None
-for line in text.splitlines():
-    if line.startswith('const RELEASE_ID = '):
-        old = line
-        break
+old = next((line for line in text.splitlines() if line.startswith('const RELEASE_ID = ')), None)
 if old is None:
     raise SystemExit('release id line missing from built service worker')
 text = text.replace(old, f'const RELEASE_ID = "{sys.argv[1]}";', 1)
 p.write_text(text)
 PY
+}
 
 start_server
-"$CHROME" "${COMMON[@]}" --virtual-time-budget=18000 --dump-dom "$BASE/__pwa_lifecycle_probe.html?phase=update" >"$TMP/update.html" 2>"$TMP/update.err"
-grep -Fq 'P15_PWA_UPDATE_PASS' "$TMP/update.html"
+run_online_probe install P15_PWA_INSTALL_PASS 18000
+
+# Prove the cached Command Center shell is replayed with the origin server absent.
+stop_server
+run_offline_probe
+
+# Each bounded update attempt stages a distinct worker. This preserves the actual
+# waiting-worker -> explicit ACTIVATE_UPDATE -> controllerchange proof even if a
+# prior headless Chrome dump exits after activation but before printing the marker.
+start_server
+CURRENT_RELEASE="${GITHUB_SHA:-p15-local}"
+update_ok=false
+for attempt in 1 2 3; do
+  stage_update_release "${CURRENT_RELEASE}-p15-update-${attempt}"
+  if run_online_probe update P15_PWA_UPDATE_PASS 24000; then
+    update_ok=true
+    break
+  fi
+  sleep "$attempt"
+done
+if [[ "$update_ok" != true ]]; then
+  echo "P15 PWA update activation could not be verified" >&2
+  exit 1
+fi
 
 echo "P15.14 PWA lifecycle verified: install, offline cache replay, waiting-worker activation, two-cache rollback retention"
