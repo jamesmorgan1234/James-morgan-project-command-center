@@ -1,57 +1,63 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "phase": "P15.16",
   "status": "VERIFIED_COMPLETE",
-  "verifiedAtUtc": "2026-10-24T02:28:24Z",
+  "verifiedAtUtc": "2026-10-24T03:01:02Z",
   "production": {
     "provider": "vercel",
     "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
     "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
-    "deploymentId": "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
-    "deploymentUrl": "https://command-center-preview-kx6z017k3-crestven-holdings.vercel.app",
+    "deploymentId": "dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth",
+    "deploymentUrl": "https://command-center-preview-htgnl9tcy-crestven-holdings.vercel.app",
     "stableDomain": "https://command-center-preview-alpha.vercel.app",
     "target": "production",
     "readyState": "READY"
   },
   "releaseIdentity": {
-    "releaseId": "42c50f3093f3f435e53065a877356c317c7ba2f1",
-    "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
-    "buildHash": "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd",
-    "assetManifestHash": "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb",
+    "releaseId": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+    "sourceSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+    "buildHash": "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
+    "assetManifestHash": "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
   },
   "repair": {
-    "trigger": "P15.17 Samsung owner sign-in defect",
-    "savedCredentialPromptPreviouslyUnavailable": true,
-    "emptyPasswordFalseSubmitPathRemoved": true,
+    "trigger": "P15.17 Samsung owner sign-in still failed on the fresh production URL after the form-focused repair",
     "nativeValidationRestored": true,
     "credentialAutocompleteSemanticsPresent": true,
     "forcedInitialFocusRemoved": true,
-    "supabaseOwnerAccountHealthyBeforeRepair": true
+    "sameOriginAuthProxyAdded": true,
+    "privateRestRemainsDirect": true,
+    "supabaseOwnerAccountPreviouslyVerifiedHealthy": true,
+    "realSamsungAuthConfirmationPending": true
   },
-  "acceptancePreviews": {
-    "synthetic": {
-      "deploymentId": "dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb",
-      "url": "https://command-center-preview-p5sj70mqv-crestven-holdings.vercel.app",
-      "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
-      "fixtureEnabledOnlyForThisAcceptanceBuild": true
-    },
-    "productionSafe": {
-      "deploymentId": "dpl_4cNY1fgUH11DZiURwaJmEt6smvFK",
-      "url": "https://command-center-preview-jnhydn724-crestven-holdings.vercel.app",
-      "sourceSha": "42c50f3093f3f435e53065a877356c317c7ba2f1",
-      "syntheticPreviewRuntimePresent": false
-    }
+  "acceptancePreview": {
+    "deploymentId": "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
+    "url": "https://command-center-preview-k53dhma4y-crestven-holdings.vercel.app",
+    "sourceSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+    "syntheticPreviewRuntimePresent": false
   },
   "liveChecks": {
     "releaseJsonMatched": true,
     "htmlReleaseMetaMatched": true,
-    "authRepairBundleMatched": true,
+    "authProxyRulePresentInDeployedSource": true,
+    "authProxyRoutingRegressionPassed": true,
+    "privateRestDirectRoutingRegressionPassed": true,
     "manifestServed": true,
+    "approvedManifestIconPathMatched": true,
     "serviceWorkerServed": true,
+    "serviceWorkerReleaseIdMatched": true,
     "declaredRouteCount": 19,
-    "liveRouteShellCount": 19,
-    "unknownRouteServedSpaShell": true,
+    "exactHeadRouteContractPassed": true,
+    "liveRouteShellSpotCheckCount": 7,
+    "liveRouteShellSpotChecks": [
+      "/",
+      "/projects",
+      "/books",
+      "/brain",
+      "/agency",
+      "/settings/security",
+      "/settings/devices"
+    ],
     "syntheticPreviewRuntimePresent": false,
     "runtimeErrorsObserved": 0,
     "productionDataMutationRequired": false,
@@ -85,7 +91,8 @@
     "workflowRun": "39977771162",
     "artifactId": "12512325850",
     "previousKnownGoodSha": "d40a7b2659400481c75f1de87d084b4d6cdce254",
-    "priorVercelDeploymentId": "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1"
+    "priorVercelDeploymentId": "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
+    "priorVercelReleaseId": "42c50f3093f3f435e53065a877356c317c7ba2f1"
   },
   "knownBlockers": {
     "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"

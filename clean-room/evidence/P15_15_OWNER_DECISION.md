@@ -6,53 +6,44 @@ The owner has repeatedly authorized Command Center production deployment/modific
 
 This supersedes the earlier temporary no-production-mutation constraint for the authorized Command Center release path. It does not authorize paid services, unrelated projects, or unrelated destructive changes.
 
-During P15.17 physical owner acceptance, James reported a real Samsung sign-in defect: the saved-credential prompt did not appear and the form could submit with an empty password because native validation had been disabled. That defect reopened the relevant release gates. The repair restored browser validation/autofill compatibility and stabilized the GitHub-hosted Chrome PWA harness without changing production data.
+During P15.17 physical owner acceptance, James reported a real Samsung sign-in defect. The first repair restored native browser validation/autofill behavior, but James then confirmed that opening the fresh production link still reached the login surface and still could not complete sign-in. That kept P15.17 open and required another runtime repair rather than an install/reinstall workaround.
+
+The current repair routes only Supabase Auth calls through a same-origin Vercel rewrite while keeping private REST/data traffic direct to Supabase. This removes the Samsung/Chrome cross-origin Auth transport dependency without putting private data queries behind the PWA same-origin cache. Dedicated regression tests prove the Vercel-origin Auth route and the direct REST route separately.
 
 ## Frozen repaired runtime candidate
 
 Exact repaired clean-room runtime source:
 
-`42c50f3093f3f435e53065a877356c317c7ba2f1`
+`9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
 
-Production-safe build identity from the no-fixture Preview and production build:
+Production-safe artifact identity:
 
-- releaseId: `42c50f3093f3f435e53065a877356c317c7ba2f1`
-- buildHash: `3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd`
-- assetManifestHash: `10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb`
+- releaseId: `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
+- buildHash: `72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3`
+- assetManifestHash: `b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
 
-The repaired source includes the owner sign-in correction and the CI-only PWA Chrome startup stabilization. All later changes through the Category 15 evidence head are acceptance/release evidence only; no application runtime source changes are permitted after this frozen candidate.
+The repaired source includes the owner-sign-in form corrections, the same-origin Auth proxy, the direct private REST boundary, and the CI-only PWA Chrome startup stabilization. All changes after this frozen candidate must be acceptance/release evidence only unless a new owner-reported defect reopens runtime work.
 
-## Fresh P15.14 synthetic acceptance Preview
+## Production-safe Vercel Preview
 
-The repaired runtime was exercised on a new branch-scoped synthetic acceptance Preview:
-
-- deployment: `dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb`
-- URL: `command-center-preview-p5sj70mqv-crestven-holdings.vercel.app`
-- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
-- state: READY / Preview
-
-The fixture endpoint returned the explicit `runtime:synthetic-preview-acceptance` provider and the exact repaired release id. The deployed owner-auth bundle contained native `reportValidity()`, username/current-password autocomplete metadata, stable field identifiers, and no forced initial focus.
-
-The synthetic fixture was isolated to the Preview branch, used only for deterministic acceptance, then `COMMAND_CENTER_PREVIEW_ACCEPTANCE` was reset to `0`. It was never promoted to production.
-
-## Production-safe Vercel candidate
-
-A no-fixture Preview already built from the exact same repaired SHA while the fixture flag was `0` was verified as the production-safe candidate:
+A no-fixture Preview was built from the exact frozen SHA:
 
 - Vercel project: `command-center-preview`
 - project id: `prj_gJISweXK7OGvFk1Iy48umKXjFhGX`
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
-- Preview deployment: `dpl_4cNY1fgUH11DZiURwaJmEt6smvFK`
-- deployment URL: `command-center-preview-jnhydn724-crestven-holdings.vercel.app`
-- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- Preview deployment: `dpl_9GTPfksYY5En25ne6XdxFbRTQDHW`
+- deployment URL: `command-center-preview-k53dhma4y-crestven-holdings.vercel.app`
+- source SHA: `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
 - state: READY / Preview
 
-Its `/release.json` exactly matched the production-safe identity above. A request to `/__preview__/runtime.json` returned only the ordinary SPA shell rather than synthetic JSON.
+The branch fixture flag remained `0`; no synthetic Preview runtime was present in this candidate.
 
 ## Verification before production
 
-Exact-head QA on the repaired source verified typecheck, 184/184 tests, the 676/676 repository audit, zero secret findings, zero policy violations, the protected icon, and the observed PWA install/offline/update/two-cache rollback lifecycle. A transient hosted-runner Chrome/D-Bus startup incompatibility was reproduced and corrected in the CI harness; the PWA lifecycle then passed. The final nonproduction phase-state step correctly remained stale until this new runtime was re-baselined and did not get bypassed.
+Exact-head QA on the frozen source verified typecheck, 186/186 tests, the 677/677 repository audit, zero secret findings, zero policy violations, protected-icon verification, artifact validation, and the observed PWA install/offline/update/two-cache rollback lifecycle. The added Auth routing regressions verify that a Vercel browser origin sends password Auth to `/__cc_auth__/token?grant_type=password`, while private REST remains direct to the canonical Supabase project.
+
+The final phase-state step intentionally remained stale until this new runtime was re-baselined; that guard was not bypassed.
 
 ## Production authorization result
 
@@ -75,10 +66,12 @@ Previous known-good Pages release retained as an additional fallback:
 - Pages workflow run: `39976823313`
 - Pages artifact id: `12512175429`
 
-The immediately prior Vercel production deployment remains a rollback target:
+The immediately prior Vercel production deployment remains the first Vercel rollback target:
 
-- deployment: `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`
-- release SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- deployment: `dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5`
+- release SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+
+The older repaired Vercel deployment `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1` remains available as an additional containment point.
 
 ## P15.1 blocker
 

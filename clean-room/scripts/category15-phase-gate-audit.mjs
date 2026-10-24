@@ -95,9 +95,10 @@ const p1516LiveEvidencePath = "clean-room/evidence/P15_16_LIVE_VERIFICATION.json
 const p1516LiveAuditPath = "clean-room/scripts/category15-production-live-audit.mjs";
 const packagePath = "clean-room/package.json";
 const p1514HarnessNotePath = "clean-room/evidence/P15_14_PWA_HARNESS_FLAKE_NOTE.md";
-const p1514PreviewSha = "42c50f3093f3f435e53065a877356c317c7ba2f1";
+const p1514PreviewSha = "9b6d136447def58ad8a4df3f05261f7bd6b7ef80";
 const p1514EvidencePaths = [
   "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
+  "clean-room/tests/owner-auth-proxy-routing.test.mjs",
   "clean-room/scripts/category15-pwa-lifecycle.sh",
   "clean-room/scripts/category15-pwa-lifecycle.mjs"
 ];
@@ -109,7 +110,7 @@ const evidenceOnlyPaths = new Set([
   "clean-room/scripts/category15-phase-gate-audit.mjs",
   p1516LiveAuditPath,
   packagePath,
-  ...p1514EvidencePaths,
+  ...["clean-room/scripts/category15-pwa-lifecycle.sh", "clean-room/scripts/category15-pwa-lifecycle.mjs"],
   p1514HarnessNotePath,
   p1515DecisionPath,
   p1516RunbookPath,
@@ -138,38 +139,38 @@ const p1514Verified =
 phases["P15.14"] = {
   status: p1514Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
   reason: p1514Verified
-    ? "The repaired Vercel Preview runtime at 42c50f3 was exercised with the explicit synthetic acceptance fixture, the production-safe no-fixture Preview was separately verified, and every later change is acceptance/release evidence infrastructure only. Exact-head CI additionally executes isolated canonical module contracts plus the observed single-session PWA install/offline/update lifecycle."
-    : "Preview acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested repaired Preview runtime is evidence-only.",
+    ? "The exact repaired no-fixture Vercel Preview at 9b6d136 was built from the frozen runtime, and every later change is acceptance/release evidence only. Exact-head CI executes isolated canonical module contracts, the same-origin Auth/direct-REST routing regressions, and the observed single-session PWA install/offline/update lifecycle."
+    : "P15.14 remains partial until the isolated module-contract/Auth-routing tests and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested repaired Preview runtime is evidence-only.",
   verification: {
     testedGitSha: p1514PreviewSha,
     evidenceHead: headSha,
-    deploymentId: "dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb",
+    deploymentId: "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
     environment: "preview",
-    dataMode: "explicit synthetic acceptance fixture plus isolated in-memory canonical contracts; no production data",
+    dataMode: "production-safe no-fixture Preview plus isolated in-memory canonical contracts; no production data",
     routeCount: 19,
     previewRuntimeUnchanged,
     pwaLifecycleVerified,
     changedSincePreview
   },
   evidence: [
-    "https://command-center-preview-p5sj70mqv-crestven-holdings.vercel.app",
-    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40053887803",
+    "https://command-center-preview-k53dhma4y-crestven-holdings.vercel.app",
+    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40055742778",
     ...p1514EvidencePaths,
     p1514HarnessNotePath
   ],
   remainingBlockers: p1514Verified
     ? []
     : [
-        "Isolated canonical module/backend contract acceptance has not passed on the exact evidence head",
+        "Isolated canonical module/Auth-routing acceptance has not passed on the exact evidence head",
         "Actual offline-cache replay and waiting-worker update activation have not passed on the exact evidence head"
       ],
   productionReady: p1514Verified
 };
 
 const p1515CandidateSha = p1514PreviewSha;
-const p1515CandidateDeployment = "dpl_4cNY1fgUH11DZiURwaJmEt6smvFK";
-const p1515BuildHash = "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd";
-const p1515AssetManifestHash = "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb";
+const p1515CandidateDeployment = "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW";
+const p1515BuildHash = "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3";
+const p1515AssetManifestHash = "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7";
 let candidateEvidenceOnly = false;
 let changedSinceCandidate = [];
 try {
@@ -193,7 +194,7 @@ const p1515Verified =
 phases["P15.15"] = {
   status: p1515Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
   reason: p1515Verified
-    ? "The owner repeatedly authorized Command Center production deployment and explicitly removed the false repeated authorization boundary. The repaired exact runtime candidate, artifact identity, fallback, production target, and known P15.1 limitation are recorded on an exact evidence-only CI head."
+    ? "The owner repeatedly authorized Command Center production deployment and explicitly removed the false repeated authorization boundary. The repaired exact runtime candidate, same-origin Auth boundary, artifact identity, fallback, production target, and known P15.1 limitation are recorded on an exact evidence-only CI head."
     : "P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen repaired runtime candidate is evidence-only.",
   verification: {
     releaseCandidateSha: p1515CandidateSha,
@@ -225,7 +226,7 @@ phases["P15.16"] = {
   verification: {
     releaseCandidateSha: p1515CandidateSha,
     previewDeploymentId: p1515CandidateDeployment,
-    productionDeploymentId: "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
+    productionDeploymentId: "dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth",
     productionDomain: "command-center-preview-alpha.vercel.app",
     currentProductionPagesSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892",
     fallbackPagesSha: "d40a7b2659400481c75f1de87d084b4d6cdce254",
@@ -248,7 +249,7 @@ const nonproductionFailures = Object.entries(phases)
   .filter(([, value]) => !["IMPLEMENTED_BUT_UNVERIFIED", "VERIFIED_COMPLETE"].includes(value.status));
 
 const report = {
-  schemaVersion: 6,
+  schemaVersion: 7,
   verification: { headSha, exactHeadCiVerified },
   lockedCanonicalRequirementCount: 5852,
   lockedBaselineRequirementCount: 5825,

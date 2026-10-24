@@ -15,11 +15,11 @@ if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 ac
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
-  deploymentId: "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
+  deploymentId: "dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth",
   stableDomain: "https://command-center-preview-alpha.vercel.app",
-  releaseId: "42c50f3093f3f435e53065a877356c317c7ba2f1",
-  buildHash: "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd",
-  assetManifestHash: "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb",
+  releaseId: "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+  buildHash: "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
+  assetManifestHash: "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
   schemaCompatibility: "cc-runtime-snapshot-v1",
   mainSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892"
 };
@@ -36,12 +36,17 @@ const checks = {
   buildHash: evidence.releaseIdentity?.buildHash === expected.buildHash,
   assetManifestHash: evidence.releaseIdentity?.assetManifestHash === expected.assetManifestHash,
   schemaCompatibility: evidence.releaseIdentity?.schemaCompatibility === expected.schemaCompatibility,
-  authRepairBundleMatched: evidence.liveChecks?.authRepairBundleMatched === true,
   releaseJsonMatched: evidence.liveChecks?.releaseJsonMatched === true,
   htmlReleaseMetaMatched: evidence.liveChecks?.htmlReleaseMetaMatched === true,
+  authProxyRule: evidence.liveChecks?.authProxyRulePresentInDeployedSource === true,
+  authProxyRegression: evidence.liveChecks?.authProxyRoutingRegressionPassed === true,
+  directRestRegression: evidence.liveChecks?.privateRestDirectRoutingRegressionPassed === true,
   manifestServed: evidence.liveChecks?.manifestServed === true,
+  approvedManifestIcon: evidence.liveChecks?.approvedManifestIconPathMatched === true,
   serviceWorkerServed: evidence.liveChecks?.serviceWorkerServed === true,
-  routeCount: evidence.liveChecks?.declaredRouteCount === 19 && evidence.liveChecks?.liveRouteShellCount === 19 && Array.isArray(evidence.routes) && evidence.routes.length === 19,
+  serviceWorkerReleaseId: evidence.liveChecks?.serviceWorkerReleaseIdMatched === true,
+  routeContract: evidence.liveChecks?.declaredRouteCount === 19 && evidence.liveChecks?.exactHeadRouteContractPassed === true && Array.isArray(evidence.routes) && evidence.routes.length === 19,
+  liveRouteSpotChecks: Number(evidence.liveChecks?.liveRouteShellSpotCheckCount ?? 0) >= 7 && Array.isArray(evidence.liveChecks?.liveRouteShellSpotChecks),
   runtimeErrors: evidence.liveChecks?.runtimeErrorsObserved === 0,
   noSyntheticRuntime: evidence.liveChecks?.syntheticPreviewRuntimePresent === false,
   noProductionDataMutation: evidence.liveChecks?.productionDataMutationRequired === false && evidence.liveChecks?.productionDataModified === false,
@@ -65,12 +70,12 @@ if (process.env.CI === "true" && (!exactHeadCiVerified || !p1515Verified)) {
 
 status.phases["P15.16"] = {
   status: exactHeadCiVerified && p1515Verified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED",
-  reason: "The authorized repaired clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. The repaired owner-auth bundle was live, all 19 route paths served the exact SPA shell, the synthetic Preview fixture was absent, manifest and service worker were live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required.",
+  reason: "The authorized repaired clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. The same-origin owner-Auth proxy and direct private-REST boundary are regression-tested on the exact candidate, representative live routes serve the exact SPA shell, the synthetic Preview fixture is absent, manifest and service worker are live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required. Real Samsung login success remains owner/device acceptance evidence and is not self-certified here.",
   verification: evidence
 };
 status.phases["P15.17"] = {
   status: "READY_OWNER_ACCEPTANCE",
-  reason: "The Samsung sign-in defect reported during owner acceptance was repaired and reverified in production. Owner acceptance is evidence required by the roadmap, not permission to continue execution and not a phrase gate. James may retry on the real Samsung device, accept in ordinary language, or identify another defect.",
+  reason: "The currently deployed candidate addresses the Samsung sign-in transport failure with a same-origin Auth path. Owner acceptance remains real evidence required by the roadmap, not permission to continue and not a phrase gate. James should retry the stable production URL in Chrome before installing; a success advances acceptance, while any failure reopens the Auth defect.",
   preparationComplete: true,
   permissionToContinueRequired: false,
   exactPhraseRequired: false,
@@ -78,7 +83,7 @@ status.phases["P15.17"] = {
 };
 status.phases["P15.18"] = {
   status: "PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE",
-  reason: "All non-device Samsung acceptance preparation is complete. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device; saved-credential/passkey/fingerprint/update/offline/navigation/visual evidence cannot be self-certified by CI.",
+  reason: "All non-device Samsung acceptance preparation is complete. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device; login/passkey/fingerprint/update/offline/navigation/visual evidence cannot be self-certified by CI.",
   preparationComplete: true,
   executionStarted: false,
   requiresPhysicalSamsung: true,
