@@ -16,5 +16,5 @@ test("browser runtime keeps approved Projects, Active / Live, Next Up and Projec
 test("browser visual shell uses the locked beveled phone-first control-system geometry", async () => {
   const css = await readFile(new URL("public/app.css", ROOT), "utf8");
   for (const marker of ["clip-path:polygon", ".back-control", ".project-row", ".active-row", ".next-row", ".progress-ring", ".header-planet", ".row-chevron"]) assert.match(css, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-  assert.match(css, /--cc-orange:#ff7900/);
+  assert.match(css, /--cc-orange:#ff6a00/);
 });
