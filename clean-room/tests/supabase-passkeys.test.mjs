@@ -14,11 +14,11 @@ function bytes(...values) {
   return new Uint8Array(values).buffer;
 }
 
-function registrationCredential() {
+function registrationCredential(attachment = "platform") {
   return {
     id: "credential-registration-1",
     type: "public-key",
-    authenticatorAttachment: "platform",
+    authenticatorAttachment: attachment,
     response: {
       attestationObject: bytes(1, 2, 3),
       clientDataJSON: bytes(4, 5)
@@ -27,11 +27,11 @@ function registrationCredential() {
   };
 }
 
-function authenticationCredential() {
+function authenticationCredential(attachment = "platform") {
   return {
     id: "credential-authentication-1",
     type: "public-key",
-    authenticatorAttachment: "platform",
+    authenticatorAttachment: attachment,
     response: {
       authenticatorData: bytes(7, 8, 9),
       clientDataJSON: bytes(10, 11),
@@ -42,7 +42,7 @@ function authenticationCredential() {
   };
 }
 
-test("Supabase passkey registration performs authenticated options/create/verify without private biometric material", async () => {
+test("Supabase passkey registration forces platform UV even if provider options are weaker", async () => {
   const calls = [];
   let createOptions;
   const client = new SupabasePasskeyClient({
@@ -62,7 +62,7 @@ test("Supabase passkey registration performs authenticated options/create/verify
             rp: { id: "command-center.example", name: "Command Center" },
             user: { id: "BAUG", name: "owner@example.com", displayName: "Command Center Owner" },
             pubKeyCredParams: [{ type: "public-key", alg: -7 }],
-            authenticatorSelection: { authenticatorAttachment: "platform", residentKey: "required", userVerification: "required" }
+            authenticatorSelection: { authenticatorAttachment: "cross-platform", residentKey: "discouraged", userVerification: "discouraged" }
           }
         });
       }
@@ -77,6 +77,8 @@ test("Supabase passkey registration performs authenticated options/create/verify
   assert.deepEqual(registered, { id: "pk-one", friendlyName: "Google Password Manager", createdAt: "2026-10-24T01:00:00Z" });
   assert.deepEqual([...new Uint8Array(createOptions.publicKey.challenge)], [1, 2, 3]);
   assert.deepEqual([...new Uint8Array(createOptions.publicKey.user.id)], [4, 5, 6]);
+  assert.equal(createOptions.publicKey.authenticatorSelection.authenticatorAttachment, "platform");
+  assert.equal(createOptions.publicKey.authenticatorSelection.residentKey, "required");
   assert.equal(createOptions.publicKey.authenticatorSelection.userVerification, "required");
 
   assert.equal(calls.length, 2);
@@ -94,7 +96,7 @@ test("Supabase passkey registration performs authenticated options/create/verify
   assert.equal(serialized.includes("fingerprint"), false);
 });
 
-test("discoverable passkey sign-in supports conditional mediation and returns a normalized session", async () => {
+test("discoverable passkey sign-in forces user verification and returns a normalized session", async () => {
   const calls = [];
   let getOptions;
   const client = new SupabasePasskeyClient({
@@ -107,7 +109,7 @@ test("discoverable passkey sign-in supports conditional mediation and returns a 
     async fetcher(url, init) {
       calls.push({ url: String(url), init, body: init?.body ? JSON.parse(String(init.body)) : undefined });
       if (String(url).endsWith("/passkeys/authentication/options")) {
-        return json({ challenge_id: "authentication-challenge", options: { challenge: "BwgJ", rpId: "command-center.example", userVerification: "required" } });
+        return json({ challenge_id: "authentication-challenge", options: { challenge: "BwgJ", rpId: "command-center.example", userVerification: "discouraged" } });
       }
       if (String(url).endsWith("/passkeys/authentication/verify")) {
         return json({
@@ -138,6 +140,25 @@ test("discoverable passkey sign-in supports conditional mediation and returns a 
   assert.equal(calls[1].body.credential.response.clientDataJSON, "Cgs");
   assert.equal(calls[1].body.credential.response.signature, "DA0");
   assert.equal(calls[1].body.credential.response.userHandle, "Dg");
+});
+
+test("passkey client rejects a reported cross-platform authenticator", async () => {
+  const client = new SupabasePasskeyClient({
+    authBaseUrl: AUTH_BASE,
+    publishableKey: KEY,
+    credentials: {
+      async create() { return registrationCredential("cross-platform"); },
+      async get() { return authenticationCredential("cross-platform"); }
+    },
+    async fetcher(url) {
+      if (String(url).endsWith("/passkeys/registration/options")) return json({ challenge_id: "reg", options: { challenge: "AQID", rp: { id: "command-center.example", name: "Command Center" }, user: { id: "BAUG", name: "owner@example.com", displayName: "Owner" }, pubKeyCredParams: [{ type: "public-key", alg: -7 }] } });
+      if (String(url).endsWith("/passkeys/authentication/options")) return json({ challenge_id: "auth", options: { challenge: "BwgJ", rpId: "command-center.example" } });
+      throw new Error("verify must not be called");
+    }
+  });
+
+  await assert.rejects(() => client.register(ACCESS), (error) => error instanceof SupabasePasskeyError && error.code === "webauthn_platform_required");
+  await assert.rejects(() => client.signIn(), (error) => error instanceof SupabasePasskeyError && error.code === "webauthn_platform_required");
 });
 
 test("passkey management is owner-session authenticated and supports list, rename, and delete", async () => {
