@@ -15,11 +15,11 @@ if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 ac
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
-  deploymentId: "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1",
+  deploymentId: "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
   stableDomain: "https://command-center-preview-alpha.vercel.app",
-  releaseId: "26d084f66829052081ef3f9f1792d84b7a6f545f",
-  buildHash: "8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07",
-  assetManifestHash: "281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01",
+  releaseId: "42c50f3093f3f435e53065a877356c317c7ba2f1",
+  buildHash: "3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd",
+  assetManifestHash: "10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb",
   schemaCompatibility: "cc-runtime-snapshot-v1",
   mainSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892"
 };
@@ -36,6 +36,7 @@ const checks = {
   buildHash: evidence.releaseIdentity?.buildHash === expected.buildHash,
   assetManifestHash: evidence.releaseIdentity?.assetManifestHash === expected.assetManifestHash,
   schemaCompatibility: evidence.releaseIdentity?.schemaCompatibility === expected.schemaCompatibility,
+  authRepairBundleMatched: evidence.liveChecks?.authRepairBundleMatched === true,
   releaseJsonMatched: evidence.liveChecks?.releaseJsonMatched === true,
   htmlReleaseMetaMatched: evidence.liveChecks?.htmlReleaseMetaMatched === true,
   manifestServed: evidence.liveChecks?.manifestServed === true,
@@ -64,12 +65,12 @@ if (process.env.CI === "true" && (!exactHeadCiVerified || !p1515Verified)) {
 
 status.phases["P15.16"] = {
   status: exactHeadCiVerified && p1515Verified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED",
-  reason: "The authorized exact clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. All 19 route paths served the exact SPA shell, the synthetic Preview fixture was absent, manifest and service worker were live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required.",
+  reason: "The authorized repaired clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. The repaired owner-auth bundle was live, all 19 route paths served the exact SPA shell, the synthetic Preview fixture was absent, manifest and service worker were live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required.",
   verification: evidence
 };
 status.phases["P15.17"] = {
   status: "READY_OWNER_ACCEPTANCE",
-  reason: "All automatable and non-owner acceptance preparation is complete. Owner acceptance is evidence required by the roadmap, not permission to continue execution and not a phrase gate. James may accept in ordinary language or identify defects; defects reopen the relevant gates.",
+  reason: "The Samsung sign-in defect reported during owner acceptance was repaired and reverified in production. Owner acceptance is evidence required by the roadmap, not permission to continue execution and not a phrase gate. James may retry on the real Samsung device, accept in ordinary language, or identify another defect.",
   preparationComplete: true,
   permissionToContinueRequired: false,
   exactPhraseRequired: false,
@@ -77,7 +78,7 @@ status.phases["P15.17"] = {
 };
 status.phases["P15.18"] = {
   status: "PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE",
-  reason: "All non-device Samsung acceptance preparation is complete. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device; hardware/passkey/fingerprint/update/offline/navigation/visual evidence cannot be self-certified by CI.",
+  reason: "All non-device Samsung acceptance preparation is complete. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device; saved-credential/passkey/fingerprint/update/offline/navigation/visual evidence cannot be self-certified by CI.",
   preparationComplete: true,
   executionStarted: false,
   requiresPhysicalSamsung: true,
