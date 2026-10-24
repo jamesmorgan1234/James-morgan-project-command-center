@@ -119,7 +119,10 @@ test("adversarial: policy downgrade and unknown protected actions are denied", (
   const downgraded = new AuthSessionStore();
   downgraded.register(liveSession({ id: "session-low", assurance: "authenticated" }));
   const downgradedGate = new ProtectedActionGate(downgraded, policy);
-  assert.equal(downgradedGate.authorize({ sessionId: "session-low", action: "security.critical", resourceOwnerId: "owner-a", resourceProjectId: "command-center", now: NOW }).allowed, false);
+  assert.throws(
+    () => downgradedGate.authorize({ sessionId: "session-low", action: "security.critical", resourceOwnerId: "owner-a", resourceProjectId: "command-center", now: NOW }),
+    /insufficient_assurance/i
+  );
 
   const passkeys = new PasskeyRegistry();
   assert.throws(() => passkeys.register({ id: "cross-platform", ownerId: "owner-a", publicKeyRef: "ref", authenticatorAttachment: "cross-platform", userVerification: "required", transports: ["usb"], createdAt: NOW }));
