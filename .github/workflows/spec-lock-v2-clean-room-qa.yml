@@ -50,6 +50,8 @@ jobs:
         env:
           CATEGORY15_PWA_LIFECYCLE_VERIFIED: 'true'
         run: npm run audit:category15
+      - name: P15.16 production live evidence gate
+        run: npm run audit:production-live
       - name: Publish Category 15 audit summaries
         if: always()
         run: |
