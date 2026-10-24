@@ -4,31 +4,44 @@ State: VERIFIED COMPLETE, pending exact-head evidence CI confirmation.
 
 ## Exact production candidate
 
-Frozen runtime source:
+Frozen repaired runtime source:
 
-`26d084f66829052081ef3f9f1792d84b7a6f545f`
+`42c50f3093f3f435e53065a877356c317c7ba2f1`
 
 Frozen production-safe artifact identity:
 
-- releaseId: `26d084f66829052081ef3f9f1792d84b7a6f545f`
-- buildHash: `8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07`
-- assetManifestHash: `281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01`
+- releaseId: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- buildHash: `3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd`
+- assetManifestHash: `10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
 
-P15.14 used a branch-scoped synthetic Preview only for deterministic acceptance. That fixture was disabled before the production-safe candidate was built and was never promoted to production.
+This candidate repairs the P15.17 Samsung owner-sign-in defect by restoring native form validation, preserving username/current-password autofill semantics, adding stable field identifiers, removing forced initial focus, and reporting missing/network/authorization failures truthfully. It also contains a CI-only fix that unsets a malformed hosted-runner D-Bus address before the observed PWA Chrome lifecycle harness starts.
+
+## P15.14 repaired acceptance
+
+Branch-scoped synthetic acceptance Preview:
+
+- deployment id: `dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb`
+- URL: `https://command-center-preview-p5sj70mqv-crestven-holdings.vercel.app`
+- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- state: READY / Preview
+
+The synthetic runtime endpoint returned the explicit synthetic acceptance provider and exact repaired release id. The synthetic fixture was then disabled by returning `COMMAND_CENTER_PREVIEW_ACCEPTANCE` to `0` for the clean-room Preview branch. It was never promoted to production.
 
 Production-safe no-fixture Preview:
 
-- deployment id: `dpl_BhX4mp4T8Z5kyyPN3otkemWymetk`
-- URL: `https://command-center-preview-ciq81vc3m-crestven-holdings.vercel.app`
-- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- deployment id: `dpl_4cNY1fgUH11DZiURwaJmEt6smvFK`
+- URL: `https://command-center-preview-jnhydn724-crestven-holdings.vercel.app`
+- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
 - state: READY / Preview
 
-Its `/release.json` matched the frozen identity above and its HTML contained no synthetic runtime endpoint.
+Its `/release.json` matched the frozen production-safe identity above. `/__preview__/runtime.json` returned only the ordinary SPA shell rather than fixture JSON. The repaired compiled owner-auth bundle was present.
+
+Exact-head QA on this repaired source passed typecheck, 184/184 tests, the 676/676 every-file repository audit, zero secret findings, zero violations, protected-icon verification, release-artifact validation, and the observed PWA install/offline/update/two-cache rollback lifecycle.
 
 ## Production execution
 
-Because the P15.14 synthetic Preview was acceptance-only, it was not promoted. The release used a fresh Vercel production-target build pinned directly to the exact frozen Git SHA so production environment rules were applied from source.
+Because the synthetic Preview was acceptance-only, it was not promoted. Production was rebuilt directly from the exact frozen Git SHA under production environment rules.
 
 Production deployment:
 
@@ -36,33 +49,26 @@ Production deployment:
 - project: `command-center-preview`
 - project id: `prj_gJISweXK7OGvFk1Iy48umKXjFhGX`
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
-- deployment id: `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`
-- deployment URL: `https://command-center-preview-5bidohy0d-crestven-holdings.vercel.app`
+- deployment id: `dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5`
+- deployment URL: `https://command-center-preview-kx6z017k3-crestven-holdings.vercel.app`
 - stable production domain: `https://command-center-preview-alpha.vercel.app`
-- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
 - target: production
 - state: READY
 
-Production aliases include:
-
-- `command-center-preview-alpha.vercel.app`
-- `command-center-preview-crestven-holdings.vercel.app`
-- `command-center-preview-git-build-spec-88e6a5-crestven-holdings.vercel.app`
+Production aliases include the stable `command-center-preview-alpha.vercel.app` alias.
 
 ## Live verification
 
-Live `/release.json` on the stable production domain matches the frozen identity exactly:
+Live `/release.json` on the stable production domain exactly matches the frozen repaired identity.
 
-- releaseId: `26d084f66829052081ef3f9f1792d84b7a6f545f`
-- buildHash: `8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07`
-- assetManifestHash: `281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01`
-- schemaCompatibility: `cc-runtime-snapshot-v1`
+The live HTML shell carries release id `42c50f3093f3f435e53065a877356c317c7ba2f1`, includes the dedicated owner-auth stylesheet and publishable Supabase client configuration, and contains no synthetic P15.14 runtime injection. `/__preview__/runtime.json` resolves only to the ordinary SPA shell.
 
-The live HTML shell carries the same release id, includes the dedicated owner-auth stylesheet and publishable Supabase configuration, and contains no P15.14 synthetic runtime endpoint. A request to `/__preview__/runtime.json` resolves only to the ordinary SPA shell rather than synthetic JSON.
+The compiled live owner-auth module contains the Samsung-focused repair: form autocomplete enabled, stable email/password IDs, username/current-password autocomplete semantics, required fields, `reportValidity()` before submit, and no forced initial email focus. This prevents the previous empty-password false submission path and restores standards-compatible credential-manager behavior.
 
-The live manifest is valid at root scope and references the exact approved Command Center icon. The live service worker carries the same release id and the verified install/cache/offline/update/two-cache rollback logic.
+The live manifest is valid at root scope and references `/assets/command-center-approved-icon-512.png`. The live service worker carries the same repaired release id and the verified install/cache/offline/update/two-cache rollback logic.
 
-All 19 declared route paths were checked against the stable production domain and returned the same Command Center SPA shell for the exact repaired release:
+All 19 declared route paths were individually checked on the stable production domain and returned HTTP 200 with the same exact repaired Command Center SPA shell:
 
 1. `/`
 2. `/projects`
@@ -84,76 +90,67 @@ All 19 declared route paths were checked against the stable production domain an
 18. `/settings/security`
 19. `/settings/devices`
 
-An unknown route also returned the SPA shell; the exact deployed runtime's already-passed route-state tests enforce that unknown routes resolve to the explicit unavailable state rather than silently falling back to Home.
+Vercel reported zero error/fatal runtime logs for the repaired production deployment in the post-deploy verification window.
 
-Vercel reported zero production runtime errors in the post-deploy verification window.
-
-The production runtime is the authenticated owner-scoped canonical Supabase runtime introduced by `26d084f6`. The cutover required no database migration and no production-data mutation.
+The production runtime remains the authenticated owner-scoped canonical Supabase runtime. The repair required no database migration and no production-data mutation.
 
 ## Rollback / containment
 
-The immediately prior Vercel production remains a rollback target:
+The immediately prior Vercel production remains the first rollback target:
 
-- deployment id: `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`
-- release SHA: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+- deployment id: `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`
+- release SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
 
-The GitHub Pages production/fallback also remains available:
+The older Vercel production `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq` and GitHub Pages fallback remain available as additional containment options.
+
+GitHub Pages baseline:
 
 - URL: `https://jamesmorgan1234.github.io/James-morgan-project-command-center/`
-- current Pages/main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
+- current protected main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
 - Pages workflow run: `39977771162`
 - Pages artifact id: `12512325850`
+- previous known-good Pages SHA: `d40a7b2659400481c75f1de87d084b4d6cdce254`
 
-Previous known-good Pages release:
-
-- SHA: `d40a7b2659400481c75f1de87d084b4d6cdce254`
-- Pages workflow run: `39976823313`
-- Pages artifact id: `12512175429`
-
-GitHub `main` was reverified after the Vercel deployment and remains exactly `855a06b43d152df1bc3c7574cc3f584bf1b51892`.
+Production deployment did not modify GitHub `main`.
 
 ## P15.17 owner acceptance handling
 
-P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. Normal execution must continue through every non-owner-dependent step without asking James for an authorization phrase.
+P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. James previously reported the Samsung sign-in defect, which reopened this phase. The defect has now been repaired and production reverified; P15.17 returns to `READY_OWNER_ACCEPTANCE` once the exact-head evidence CI passes.
 
-Owner acceptance covers functional and visual review of the live production product, including approved visual-system fidelity; Home, Projects, Active / Live, Next Up, Project Detail; Brain, Agency, Needs Me, Search, Automations; Personal, Finance, Social, Books, Specialists, Analytics; Settings, Security, Devices; navigation, Back, scroll, loading/empty/error states, responsive geometry, truthful unavailable/disconnected/unknown states, protected assets, and authenticated canonical-data behavior.
-
-James may accept in ordinary language or identify defects. No exact wording is required. Any reported defect reopens only the relevant gate/phase and must be repaired and reverified before final completion. CI must not fabricate or self-certify owner acceptance.
-
-P15.17 preparation state: `READY_OWNER_ACCEPTANCE`.
+The next owner step is to retry the stable production surface on the real Samsung device. James may accept in ordinary language or report any remaining defect. No exact wording is required. CI must not fabricate or self-certify owner acceptance.
 
 ## P15.18 Samsung acceptance preparation
 
-All non-device preparation is complete before the physical Samsung boundary. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device.
+All non-device preparation remains complete. Formal P15.18 execution depends on successful P15.17 owner acceptance and the real target Samsung device.
 
-The physical acceptance matrix is:
+Physical acceptance matrix:
 
-1. Install the production PWA/app surface from the stable production URL.
-2. Confirm the exact approved Command Center icon after install.
-3. Confirm passkey sign-in through the Samsung/platform authenticator.
-4. Confirm fingerprint/device biometric mediation remains platform-owned and Command Center never stores biometric templates.
-5. Confirm lock, session expiry, resume, and fresh verification fail closed.
-6. Confirm update behavior from the older known-good release to the current production release without mixed-version state.
-7. Confirm all 19 declared routes are reachable as intended on-device.
-8. Confirm Android Back behavior.
-9. Confirm scroll position and navigation-state behavior.
-10. Confirm offline shell/cache behavior after a successful online load.
-11. Confirm reconnect/resume does not present stale data as current.
-12. Confirm visual fidelity at Samsung phone dimensions, including safe-area behavior and no horizontal overflow.
-13. Confirm Brain and Agency core flows remain truthful on-device.
-14. Confirm update activation and known-good rollback behavior align with the verified PWA lifecycle.
+1. Install/open the production PWA/app surface from the stable URL.
+2. Confirm the exact approved Command Center icon.
+3. Confirm saved-credential/password-manager behavior and owner sign-in on Samsung.
+4. Confirm passkey sign-in through the Samsung/platform authenticator when that flow is exercised.
+5. Confirm fingerprint/device biometric mediation remains platform-owned and Command Center never stores biometric templates.
+6. Confirm lock/session expiry/resume/fresh verification fail closed.
+7. Confirm update behavior from the older known-good release to the current release without mixed-version state.
+8. Confirm all 19 declared routes are reachable as intended on-device.
+9. Confirm Android Back behavior.
+10. Confirm scroll position and navigation-state behavior.
+11. Confirm offline shell/cache behavior after a successful online load.
+12. Confirm reconnect/resume does not present stale data as current.
+13. Confirm visual fidelity at Samsung phone dimensions, safe areas, and no horizontal overflow.
+14. Confirm Brain and Agency core flows remain truthful on-device.
 15. Capture any physical-device-only defects precisely enough to reopen the affected phase/gate.
 
-Browser Use is prohibited for this Command Center workflow and is not required for Samsung acceptance. Hardware/passkey/fingerprint/Samsung acceptance must not be inferred from CI, Vercel, GitHub, or desktop automation.
+Hardware/passkey/fingerprint/Samsung evidence must not be inferred from CI, Vercel, GitHub, or desktop automation.
 
 P15.18 preparation state: `PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE`.
 
 ## Phase result
 
-P15.16 = `VERIFIED_COMPLETE` once this evidence package passes exact-head CI.
+P15.16 = `VERIFIED_COMPLETE` once this repaired evidence package passes exact-head CI.
 
-P15.17 owner acceptance preparation is complete and is not a permission boundary.
+P15.17 = `READY_OWNER_ACCEPTANCE` after that verification; no authorization phrase is required.
 
-P15.18 non-device preparation is complete; the genuine remaining boundary is owner verdict plus real target-Samsung evidence.
+P15.18 non-device preparation is complete; the remaining boundary is real owner/device evidence.
 
 P15.1 remains `BLOCKED_SOURCE_ARTIFACT`: the final reconciled individual `CCR-00001` through `CCR-05825` ledger is absent.
