@@ -93,3 +93,22 @@ test("integration credentials stay server-side and writes use canonical protecte
   assert.match(sql, /command_center_integration_service_mark_connected/i);
   assert.match(sql, /integration\.reconnect_mark_connected/i);
 });
+
+test("security incidents have a durable owner-scoped containment and recovery trail", () => {
+  const sql = migration("20261024105000_category2_security_incident_response.sql");
+  assert.match(sql, /create table if not exists public\.security_incidents/i);
+  assert.match(sql, /status text not null default 'open' check \(status in \('open','acknowledged','contained','recovering','resolved'\)\)/i);
+  assert.match(sql, /alter table public\.security_incidents enable row level security/i);
+  assert.match(sql, /grant select on table public\.security_incidents to authenticated/i);
+  assert.doesNotMatch(sql, /grant (insert|update|delete).*security_incidents.*authenticated/i);
+  assert.match(sql, /command_center_private\.log_security_incident_event/i);
+  assert.match(sql, /insert into public\.security_audit_events/i);
+  assert.match(sql, /command_center_security_open_incident/i);
+  assert.match(sql, /command_center_security_acknowledge_incident/i);
+  assert.match(sql, /command_center_security_contain_incident/i);
+  assert.match(sql, /Incident must be contained before recovery/i);
+  assert.match(sql, /command_center_security_begin_recovery/i);
+  assert.match(sql, /Incident must complete containment and recovery before resolution/i);
+  assert.match(sql, /command_center_security_resolve_incident/i);
+  assert.match(sql, /security\.incident\.resolved/i);
+});
