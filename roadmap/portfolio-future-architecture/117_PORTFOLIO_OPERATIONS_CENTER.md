@@ -56,17 +56,34 @@ Composite health is decomposed: availability, execution, security, privacy, fina
 ## Alerts
 Portfolio alerts are deduplicated/correlated; one root incident should not create hundreds of company alerts. Severity includes blast radius and root/shared-provider correlation while preserving company isolation.
 
+## Source-refresh operating surface
+
+Portfolio Operations Center also owns the truthful operational view for shared source ingestion defined by `122_ALL_CHAT_INCREMENTAL_SOURCE_REFRESH_ARCHITECTURE.md`.
+
+It must expose, without title-based filtering:
+- accessible chats discovered in the latest complete enumeration;
+- new/changed/unchanged-skipped/renamed/tombstoned/unreadable counts;
+- full vs delta reads and messages/bytes processed;
+- last successful complete enumeration and incremental sweep;
+- oldest unresolved source and refresh lag;
+- provider quota/rate pressure;
+- current parser/hash/index schema versions;
+- quarantined/untrusted-content events;
+- source refresh failures that require Needs Me.
+
+A chat title is display-only. Stable chat identity and provenance drive refresh state. “Fully refreshed” may not be shown when enumeration is partial or changed/new sources remain unresolved.
+
 ## Scale behavior
 At 1–10 companies list directly. 25–50 adds filters/grouping/priority views. 100+ adds search, saved views, incident/resource heatmaps, hierarchical categories and pagination/virtualization. Never collapse companies into one generic aggregate.
 
 ## DESIGN NOW
-Company operational snapshot contract, truth-state metadata, project-button navigation, health dimensions, Needs Me/incident/resource/financial refs and evidence freshness.
+Company operational snapshot contract, truth-state metadata, project-button navigation, health dimensions, Needs Me/incident/resource/financial refs, evidence freshness, and all-chat source-refresh snapshot contracts.
 
 ## BUILD NOW
-Ensure current Command Center Home/Projects/portfolio snapshot models can represent a company/project subtype and category/group without changing core renderer for each company. Do not add 100 live buttons until company project records are deliberately registered in the current portfolio state.
+Ensure current Command Center Home/Projects/portfolio snapshot models can represent a company/project subtype and category/group without changing core renderer for each company. Preserve interfaces for stable source identity, incremental refresh state and source provenance. Do not add 100 live buttons until company project records are deliberately registered in the current portfolio state.
 
 ## BUILD BEFORE FIRST COMPANY
-Portfolio Ops UI, per-company runtime telemetry, customer/billing/support/resource/deployment summaries and owner controls.
+Portfolio Ops UI, per-company runtime telemetry, customer/billing/support/resource/deployment summaries, owner controls, and production-grade source-refresh telemetry only when its provider/account authorization exists.
 
 ## Acceptance
-A synthetic 100-company dataset can render/search/group 100 independent project buttons with truthful planned/active states, no metric fabrication and no cross-company customer/private detail leakage.
+A synthetic 100-company dataset can render/search/group independent project buttons with truthful planned/active states, no metric fabrication and no cross-company customer/private detail leakage. A synthetic source-refresh dataset can represent renamed, unchanged, changed, new, tombstoned and errored chats without relying on chat title as identity.
