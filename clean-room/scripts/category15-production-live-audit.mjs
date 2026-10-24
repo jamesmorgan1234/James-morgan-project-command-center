@@ -15,11 +15,11 @@ if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 ac
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
-  deploymentId: "dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq",
+  deploymentId: "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1",
   stableDomain: "https://command-center-preview-alpha.vercel.app",
-  releaseId: "39fb4ab2df17f5ad087e21917b7e2f1b3ede481b",
-  buildHash: "25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972",
-  assetManifestHash: "a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f",
+  releaseId: "26d084f66829052081ef3f9f1792d84b7a6f545f",
+  buildHash: "8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07",
+  assetManifestHash: "281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01",
   schemaCompatibility: "cc-runtime-snapshot-v1",
   mainSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892"
 };
@@ -42,6 +42,7 @@ const checks = {
   serviceWorkerServed: evidence.liveChecks?.serviceWorkerServed === true,
   routeCount: evidence.liveChecks?.declaredRouteCount === 19 && evidence.liveChecks?.liveRouteShellCount === 19 && Array.isArray(evidence.routes) && evidence.routes.length === 19,
   runtimeErrors: evidence.liveChecks?.runtimeErrorsObserved === 0,
+  noSyntheticRuntime: evidence.liveChecks?.syntheticPreviewRuntimePresent === false,
   noProductionDataMutation: evidence.liveChecks?.productionDataMutationRequired === false && evidence.liveChecks?.productionDataModified === false,
   fallbackMain: evidence.fallback?.mainSha === expected.mainSha,
   p15_1Visible: typeof evidence.knownBlockers?.["P15.1"] === "string" && evidence.knownBlockers["P15.1"].includes("BLOCKED_SOURCE_ARTIFACT")
@@ -63,7 +64,7 @@ if (process.env.CI === "true" && (!exactHeadCiVerified || !p1515Verified)) {
 
 status.phases["P15.16"] = {
   status: exactHeadCiVerified && p1515Verified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED",
-  reason: "The authorized exact clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. All 19 route paths served the exact SPA shell, manifest and service worker were live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required.",
+  reason: "The authorized exact clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. All 19 route paths served the exact SPA shell, the synthetic Preview fixture was absent, manifest and service worker were live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required.",
   verification: evidence
 };
 status.phases["P15.17"] = {

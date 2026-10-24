@@ -1,23 +1,34 @@
 # P15.16 production deployment and live-verification runbook
 
-State: VERIFIED COMPLETE.
+State: VERIFIED COMPLETE, pending exact-head evidence CI confirmation.
 
 ## Exact production candidate
 
 Frozen runtime source:
 
-`39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+`26d084f66829052081ef3f9f1792d84b7a6f545f`
 
 Frozen production-safe artifact identity:
 
-- releaseId: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
-- buildHash: `25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972`
-- assetManifestHash: `a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f`
+- releaseId: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- buildHash: `8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07`
+- assetManifestHash: `281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
+
+P15.14 used a branch-scoped synthetic Preview only for deterministic acceptance. That fixture was disabled before the production-safe candidate was built and was never promoted to production.
+
+Production-safe no-fixture Preview:
+
+- deployment id: `dpl_BhX4mp4T8Z5kyyPN3otkemWymetk`
+- URL: `https://command-center-preview-ciq81vc3m-crestven-holdings.vercel.app`
+- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- state: READY / Preview
+
+Its `/release.json` matched the frozen identity above and its HTML contained no synthetic runtime endpoint.
 
 ## Production execution
 
-The original Vercel promote call returned HTTP 422 and did not change production. The release then used Vercel's production-target redeploy path from the exact frozen Preview deployment, preserving the same pinned Git SHA and project settings.
+Because the P15.14 synthetic Preview was acceptance-only, it was not promoted. The release used a fresh Vercel production-target build pinned directly to the exact frozen Git SHA so production environment rules were applied from source.
 
 Production deployment:
 
@@ -25,10 +36,10 @@ Production deployment:
 - project: `command-center-preview`
 - project id: `prj_gJISweXK7OGvFk1Iy48umKXjFhGX`
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
-- deployment id: `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`
-- deployment URL: `https://command-center-preview-aswi4snqb-crestven-holdings.vercel.app`
+- deployment id: `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`
+- deployment URL: `https://command-center-preview-5bidohy0d-crestven-holdings.vercel.app`
 - stable production domain: `https://command-center-preview-alpha.vercel.app`
-- source SHA: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
 - target: production
 - state: READY
 
@@ -40,16 +51,18 @@ Production aliases include:
 
 ## Live verification
 
-Live `/release.json` on the production domain matches the frozen identity exactly:
+Live `/release.json` on the stable production domain matches the frozen identity exactly:
 
-- releaseId: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
-- buildHash: `25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972`
-- assetManifestHash: `a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f`
+- releaseId: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- buildHash: `8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07`
+- assetManifestHash: `281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
 
-The live HTML shell carries the same release id. The live manifest is valid at root scope and references the exact approved Command Center icon. The live service worker carries the same release id and the verified install/cache/offline/update/two-cache rollback logic.
+The live HTML shell carries the same release id, includes the dedicated owner-auth stylesheet and publishable Supabase configuration, and contains no P15.14 synthetic runtime endpoint. A request to `/__preview__/runtime.json` resolves only to the ordinary SPA shell rather than synthetic JSON.
 
-All 19 declared route paths were checked against the live production deployment and returned the same Command Center SPA shell for the exact release:
+The live manifest is valid at root scope and references the exact approved Command Center icon. The live service worker carries the same release id and the verified install/cache/offline/update/two-cache rollback logic.
+
+All 19 declared route paths were checked against the stable production domain and returned the same Command Center SPA shell for the exact repaired release:
 
 1. `/`
 2. `/projects`
@@ -71,18 +84,23 @@ All 19 declared route paths were checked against the live production deployment 
 18. `/settings/security`
 19. `/settings/devices`
 
-An unknown route also returned the SPA shell; the exact deployed runtime's already-passed route-state tests and P15.14 integrated acceptance enforce that unknown routes resolve to the explicit unavailable state rather than silently falling back to Home.
+An unknown route also returned the SPA shell; the exact deployed runtime's already-passed route-state tests enforce that unknown routes resolve to the explicit unavailable state rather than silently falling back to Home.
 
 Vercel reported zero production runtime errors in the post-deploy verification window.
 
-The production release is static/disconnected and required no production database migration or production-data mutation.
+The production runtime is the authenticated owner-scoped canonical Supabase runtime introduced by `26d084f6`. The cutover required no database migration and no production-data mutation.
 
 ## Rollback / containment
 
-The prior GitHub Pages production remains available during owner acceptance:
+The immediately prior Vercel production remains a rollback target:
+
+- deployment id: `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`
+- release SHA: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+
+The GitHub Pages production/fallback also remains available:
 
 - URL: `https://jamesmorgan1234.github.io/James-morgan-project-command-center/`
-- current Pages SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
+- current Pages/main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
 - Pages workflow run: `39977771162`
 - Pages artifact id: `12512325850`
 
@@ -98,7 +116,7 @@ GitHub `main` was reverified after the Vercel deployment and remains exactly `85
 
 P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. Normal execution must continue through every non-owner-dependent step without asking James for an authorization phrase.
 
-Owner acceptance covers functional and visual review of the live production product, including approved visual-system fidelity; Home, Projects, Active / Live, Next Up, Project Detail; Brain, Agency, Needs Me, Search, Automations; Personal, Finance, Social, Books, Specialists, Analytics; Settings, Security, Devices; navigation, Back, scroll, loading/empty/error states, responsive geometry, truthful unavailable/disconnected/unknown states, and protected assets.
+Owner acceptance covers functional and visual review of the live production product, including approved visual-system fidelity; Home, Projects, Active / Live, Next Up, Project Detail; Brain, Agency, Needs Me, Search, Automations; Personal, Finance, Social, Books, Specialists, Analytics; Settings, Security, Devices; navigation, Back, scroll, loading/empty/error states, responsive geometry, truthful unavailable/disconnected/unknown states, protected assets, and authenticated canonical-data behavior.
 
 James may accept in ordinary language or identify defects. No exact wording is required. Any reported defect reopens only the relevant gate/phase and must be repaired and reverified before final completion. CI must not fabricate or self-certify owner acceptance.
 

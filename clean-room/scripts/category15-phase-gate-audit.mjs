@@ -95,7 +95,7 @@ const p1516LiveEvidencePath = "clean-room/evidence/P15_16_LIVE_VERIFICATION.json
 const p1516LiveAuditPath = "clean-room/scripts/category15-production-live-audit.mjs";
 const packagePath = "clean-room/package.json";
 const p1514HarnessNotePath = "clean-room/evidence/P15_14_PWA_HARNESS_FLAKE_NOTE.md";
-const p1514PreviewSha = "39fb4ab2df17f5ad087e21917b7e2f1b3ede481b";
+const p1514PreviewSha = "26d084f66829052081ef3f9f1792d84b7a6f545f";
 const p1514EvidencePaths = [
   "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
   "clean-room/scripts/category15-pwa-lifecycle.sh",
@@ -138,12 +138,12 @@ const p1514Verified =
 phases["P15.14"] = {
   status: p1514Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
   reason: p1514Verified
-    ? "The Vercel Preview runtime at 39fb4ab2 was exercised across all 19 routes, and every later change is acceptance/release evidence infrastructure only. Exact-head CI additionally executes isolated canonical module contracts plus the observed single-session PWA install/offline/update lifecycle."
+    ? "The Vercel Preview runtime at 26d084f6 was exercised across all 19 routes, and every later change is acceptance/release evidence infrastructure only. Exact-head CI additionally executes isolated canonical module contracts plus the observed single-session PWA install/offline/update lifecycle."
     : "Preview acceptance exists, but P15.14 remains partial until the isolated module-contract test and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested Preview runtime is evidence-only.",
   verification: {
     testedGitSha: p1514PreviewSha,
     evidenceHead: headSha,
-    deploymentId: "dpl_BfR5nzueza7PmcZYdLEsoB9usjjw",
+    deploymentId: "dpl_3ywqiM4cnKPMoQM6VzXqhQPH2af6",
     environment: "preview",
     dataMode: "explicit synthetic acceptance fixture plus isolated in-memory canonical contracts; no production data",
     routeCount: 19,
@@ -152,8 +152,8 @@ phases["P15.14"] = {
     changedSincePreview
   },
   evidence: [
-    "https://command-center-preview-ak1c2e863-crestven-holdings.vercel.app",
-    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40041318173",
+    "https://command-center-preview-6ytcspjwd-crestven-holdings.vercel.app",
+    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40049196636",
     ...p1514EvidencePaths,
     p1514HarnessNotePath
   ],
@@ -167,9 +167,9 @@ phases["P15.14"] = {
 };
 
 const p1515CandidateSha = p1514PreviewSha;
-const p1515CandidateDeployment = "dpl_5QmUqr5uqU8kU8EZSVWwxaPnJjXS";
-const p1515BuildHash = "25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972";
-const p1515AssetManifestHash = "a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f";
+const p1515CandidateDeployment = "dpl_BhX4mp4T8Z5kyyPN3otkemWymetk";
+const p1515BuildHash = "8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07";
+const p1515AssetManifestHash = "281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01";
 let candidateEvidenceOnly = false;
 let changedSinceCandidate = [];
 try {
@@ -225,7 +225,7 @@ phases["P15.16"] = {
   verification: {
     releaseCandidateSha: p1515CandidateSha,
     previewDeploymentId: p1515CandidateDeployment,
-    productionDeploymentId: "dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq",
+    productionDeploymentId: "dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1",
     productionDomain: "command-center-preview-alpha.vercel.app",
     currentProductionPagesSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892",
     fallbackPagesSha: "d40a7b2659400481c75f1de87d084b4d6cdce254",
