@@ -1,6 +1,7 @@
 export * from "./types.js";
 export * from "./auth.js";
 export * from "./passkeys.js";
+export * from "./supabase-passkeys.js";
 export * from "./devices.js";
 export * from "./policy.js";
 export * from "./boundaries.js";
