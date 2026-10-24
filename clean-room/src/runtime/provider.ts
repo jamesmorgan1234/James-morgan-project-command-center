@@ -68,6 +68,22 @@ export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
   }
 }
 
+function ownerAuthFetch(documentRef: Document, supabaseUrl: string): typeof fetch {
+  let page: URL | undefined;
+  try { page = new URL(documentRef.baseURI); } catch {}
+  const useProxy = page?.protocol === "https:" && page.hostname.endsWith(".vercel.app");
+  const upstreamAuthBase = `${supabaseUrl.replace(/\/$/, "")}/auth/v1/`;
+  const proxyAuthBase = page ? new URL("/__cc_auth__/", page).toString() : "";
+
+  return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    const raw = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    if (!useProxy || !proxyAuthBase || !raw.startsWith(upstreamAuthBase)) return fetch(input, init);
+    const proxied = `${proxyAuthBase}${raw.slice(upstreamAuthBase.length)}`;
+    if (input instanceof Request) return fetch(new Request(proxied, input), init);
+    return fetch(proxied, init);
+  };
+}
+
 export function providerFromDocument(documentRef: Document): RuntimeSnapshotProvider {
   const endpoint = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-runtime-endpoint"]')?.content.trim();
   if (endpoint) return new HttpRuntimeSnapshotProvider({ endpoint });
@@ -80,6 +96,7 @@ export function providerFromDocument(documentRef: Document): RuntimeSnapshotProv
       supabaseUrl,
       publishableKey,
       ...(releaseId ? { releaseId } : {}),
+      fetcher: ownerAuthFetch(documentRef, supabaseUrl),
       promptForCredentials: promptForOwnerCredentials,
       onAuthenticated: installOwnerSignOutControl
     });
