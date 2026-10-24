@@ -1,4 +1,5 @@
 import { SupabasePasskeyClient, type SupabasePasskeyDescriptor } from "../security/supabase-passkeys.js";
+import { installOwnerPasskeySettings } from "./owner-security-settings.js";
 import type { SessionStorageLike } from "./supabase-owner-provider.js";
 import type { CommandCenterRuntimeSnapshot } from "./snapshot.js";
 
@@ -70,7 +71,13 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
   }
 
-  load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot> { return this.#inner.load(signal); }
+  async load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot> {
+    const snapshot = await this.#inner.load(signal);
+    if (snapshot.connection.state === "connected" || snapshot.connection.state === "degraded") {
+      setTimeout(() => installOwnerPasskeySettings(this), 0);
+    }
+    return snapshot;
+  }
 
   async listOwnerPasskeys(): Promise<readonly SupabasePasskeyDescriptor[]> {
     const session = this.#currentSession();
