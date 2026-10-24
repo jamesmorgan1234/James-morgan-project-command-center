@@ -5,11 +5,15 @@ import { resolve } from "node:path";
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
 const evidencePath = resolve(cleanRoom, "evidence/P15_16_LIVE_VERIFICATION.json");
+const ownerAcceptancePrepPath = resolve(cleanRoom, "evidence/P15_17_OWNER_ACCEPTANCE_PREP.md");
+const samsungAcceptancePrepPath = resolve(cleanRoom, "evidence/P15_18_SAMSUNG_ACCEPTANCE_PREP.md");
 const statusPath = resolve(cleanRoom, "category15-phase-status.json");
 const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString("utf8").trim();
 const exactHeadCiVerified = process.env.CI === "true" && /^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA ?? "") && process.env.GITHUB_SHA === headSha;
 
 if (!existsSync(evidencePath)) throw new Error("P15.16 live-verification evidence is missing");
+if (!existsSync(ownerAcceptancePrepPath)) throw new Error("P15.17 owner-acceptance preparation evidence is missing");
+if (!existsSync(samsungAcceptancePrepPath)) throw new Error("P15.18 Samsung-acceptance preparation evidence is missing");
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
@@ -65,12 +69,21 @@ status.phases["P15.16"] = {
   verification: evidence
 };
 status.phases["P15.17"] = {
-  status: "BLOCKED_OWNER_ACCEPTANCE",
-  reason: "P15.16 production/live verification is complete; James must now accept the live functional/visual product or identify explicit defects."
+  status: "READY_OWNER_ACCEPTANCE",
+  reason: "All automatable and non-owner acceptance preparation is complete. Owner acceptance is evidence required by the roadmap, not permission to continue execution and not a phrase gate. James may accept in ordinary language or identify defects; defects reopen the relevant gates.",
+  preparationComplete: true,
+  permissionToContinueRequired: false,
+  exactPhraseRequired: false,
+  evidence: ["clean-room/evidence/P15_17_OWNER_ACCEPTANCE_PREP.md", "clean-room/evidence/P15_16_LIVE_VERIFICATION.json"]
 };
 status.phases["P15.18"] = {
-  status: "BLOCKED_DEPENDENCY",
-  reason: "Physical Samsung acceptance begins after P15.17 owner acceptance and requires the real target Samsung device."
+  status: "PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE",
+  reason: "All non-device Samsung acceptance preparation is complete. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device; hardware/passkey/fingerprint/update/offline/navigation/visual evidence cannot be self-certified by CI.",
+  preparationComplete: true,
+  executionStarted: false,
+  requiresPhysicalSamsung: true,
+  exactPhraseRequired: false,
+  evidence: ["clean-room/evidence/P15_18_SAMSUNG_ACCEPTANCE_PREP.md"]
 };
 writeFileSync(statusPath, JSON.stringify(status, null, 2) + "\n");
 
@@ -79,7 +92,10 @@ console.log(JSON.stringify({
   exactHeadCiVerified,
   p15_16: status.phases["P15.16"].status,
   p15_17: status.phases["P15.17"].status,
+  p15_17_preparationComplete: status.phases["P15.17"].preparationComplete,
+  p15_17_permissionToContinueRequired: status.phases["P15.17"].permissionToContinueRequired,
   p15_18: status.phases["P15.18"].status,
+  p15_18_preparationComplete: status.phases["P15.18"].preparationComplete,
   p15_1: status.phases?.["P15.1"]?.status,
   productionDeploymentId: expected.deploymentId,
   productionReleaseId: expected.releaseId,
