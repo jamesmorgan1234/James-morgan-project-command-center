@@ -28,6 +28,16 @@ export interface RuntimeNextWorkReadiness {
   readonly evidence: readonly RuntimeEvidenceRef[];
 }
 
+export interface RuntimeProjectDetailSection {
+  readonly key: string;
+  readonly title: string;
+  readonly sortOrder: number;
+  readonly required: boolean;
+  readonly capabilityKey?: string;
+  readonly content: TruthValue<string>;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
 export interface RuntimeProjectSnapshot {
   readonly id: string;
   readonly name: string;
@@ -49,6 +59,7 @@ export interface RuntimeProjectSnapshot {
   readonly nextWorkReadiness?: TruthValue<RuntimeNextWorkReadiness>;
   readonly typeKey?: TruthValue<string>;
   readonly companyId?: TruthValue<string>;
+  readonly detailSections?: readonly RuntimeProjectDetailSection[];
   readonly specialistKey?: string;
 }
 
