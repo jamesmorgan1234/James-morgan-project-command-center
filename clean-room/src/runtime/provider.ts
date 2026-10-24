@@ -69,6 +69,7 @@ export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
 }
 
 const OWNER_SESSION_KEY = "command-center:owner-session:v1";
+const OWNER_DEVICE_KEY = "command-center:owner-device:v1";
 const BROKER_REFRESH_SENTINEL = "__command_center_http_only_refresh__";
 const BROKER_RESTORE_ACCESS_SENTINEL = "__command_center_restore__";
 
@@ -103,15 +104,39 @@ function sessionPayloadWithBrokerSentinel(payload: unknown): unknown {
   return { ...payload, refresh_token: BROKER_REFRESH_SENTINEL };
 }
 
+function persistentOwnerDeviceId(documentRef: Document): string {
+  const windowRef = documentRef.defaultView;
+  const cryptoRef = windowRef?.crypto ?? globalThis.crypto;
+  if (!cryptoRef?.randomUUID) throw new Error("Secure device identity is unavailable");
+  let storage: Storage | undefined;
+  try { storage = windowRef?.localStorage; } catch {}
+  try {
+    const existing = storage?.getItem(OWNER_DEVICE_KEY)?.trim();
+    if (existing && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(existing)) return existing;
+  } catch {}
+  const generated = cryptoRef.randomUUID();
+  try { storage?.setItem(OWNER_DEVICE_KEY, generated); } catch {}
+  return generated;
+}
+
+function ownerDeviceMetadata(documentRef: Document): { label: string; platform: string } {
+  const nav = documentRef.defaultView?.navigator;
+  const platform = (nav?.platform || "Browser").trim().slice(0, 120) || "Browser";
+  return { label: `${platform} owner device`, platform };
+}
+
 function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableKey: string): { fetcher: typeof fetch; storage: SessionStorageLike } {
   let page: URL | undefined;
   try { page = new URL(documentRef.baseURI); } catch {}
   const useVercelProxy = page?.protocol === "https:" && page.hostname.endsWith(".vercel.app");
   const useSessionBroker = useVercelProxy;
   const upstreamAuthBase = `${supabaseUrl.replace(/\/$/, "")}/auth/v1/`;
+  const rpcBase = `${supabaseUrl.replace(/\/$/, "")}/rest/v1/rpc/`;
   const proxyAuthBase = page ? new URL("/__cc_auth__/", page).toString() : "";
   const brokerUrl = page ? new URL("/api/owner-session", page).toString() : "";
   const storage = new EphemeralOwnerSessionStorage(useSessionBroker);
+  const clientDeviceId = persistentOwnerDeviceId(documentRef);
+  const deviceMetadata = ownerDeviceMetadata(documentRef);
 
   const broker = async (action: "establish" | "refresh" | "clear", refreshToken?: string): Promise<Response> => {
     if (!useSessionBroker || !brokerUrl) return jsonResponse({ error: "secure_session_broker_unavailable" }, 401);
@@ -128,6 +153,32 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     });
   };
 
+  const touchCanonicalSession = async (payload: unknown): Promise<boolean> => {
+    if (!isObject(payload)) return false;
+    const accessToken = typeof payload.access_token === "string" ? payload.access_token : "";
+    if (!accessToken || accessToken === BROKER_RESTORE_ACCESS_SENTINEL) return false;
+    try {
+      const response = await fetch(`${rpcBase}command_center_touch_current_session`, {
+        method: "POST",
+        headers: {
+          apikey: publishableKey,
+          authorization: `Bearer ${accessToken}`,
+          "content-type": "application/json",
+          accept: "application/json"
+        },
+        body: JSON.stringify({
+          p_client_device_id: clientDeviceId,
+          p_label: deviceMetadata.label,
+          p_platform: deviceMetadata.platform
+        }),
+        cache: "no-store"
+      });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  };
+
   const proxiedAuthFetch = async (raw: string, input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     if (!useVercelProxy || !proxyAuthBase || !raw.startsWith(upstreamAuthBase)) return fetch(input, init);
     const proxied = `${proxyAuthBase}${raw.slice(upstreamAuthBase.length)}`;
@@ -142,11 +193,16 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     if (!refreshToken) return jsonResponse(payload, response.status);
     if (!useSessionBroker) {
       if (brokerRequired) return jsonResponse({ error: "secure_session_broker_required" }, 401);
+      if (!await touchCanonicalSession(payload)) return jsonResponse({ error: "owner_session_registration_failed" }, 401);
       return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
     }
     const established = await broker("establish", refreshToken);
     if (!established.ok) return established;
     const brokerPayload: unknown = await established.json();
+    if (!await touchCanonicalSession(brokerPayload)) {
+      await broker("clear");
+      return jsonResponse({ error: "owner_session_registration_failed" }, 401);
+    }
     return jsonResponse(sessionPayloadWithBrokerSentinel(brokerPayload), established.status);
   };
 
@@ -162,6 +218,10 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
       const response = await broker("refresh");
       if (!response.ok) return response;
       const payload: unknown = await response.json();
+      if (!await touchCanonicalSession(payload)) {
+        await broker("clear");
+        return jsonResponse({ error: "owner_session_registration_failed" }, 401);
+      }
       return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
     }
 
