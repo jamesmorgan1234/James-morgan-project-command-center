@@ -29,24 +29,35 @@ function ownerRuntimeFetch({ authorized = true } = {}) {
     if (url.pathname === "/auth/v1/logout") return json({});
     const table = url.pathname.split("/").at(-1);
     if (table === "cc7_owner_access") return json(authorized ? [{ enabled: true }] : []);
-    if (table === "cc7_projects") return json([{ id: "edge-finder", name: "Edge Finder", category: "software", status: "Active", verification: "verified", stage: "build", next_action: "Run exact next work unit", blocker: null, attention: true, sort_order: 1, last_verified: "2026-10-23", source_status: "verified", updated_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_metrics") return json([{ project_id: "edge-finder", key: "current_scope_progress_percent", value_numeric: 42, value_text: null, unit: "%", verified: true, source: "test", updated_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_activity") return json([{ project_id: "edge-finder", headline: "Verified activity", detail: "Evidence", happened_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_agent_controls") return json([{ auto_enabled: false, current_run_id: null, runner_state: "ready", updated_at: "2026-10-23T20:00:00Z", project_auto_enabled: false, project_auto_project_id: null }]);
+    if (table === "command_center_project_profiles") return json([{
+      project_id: "project-1", type_key: "project-type:software", company_id: "company-1", name: "Project One", mission: "Build the verified project system",
+      lifecycle: "active", status: "building", verification: "verified", priority: "high", version: 1, updated_at: "2026-10-24T20:00:00Z"
+    }]);
+    if (table === "command_center_project_roadmaps") return json([{
+      project_id: "project-1", version: 1, state: "current", structure_verified: true, denominator_trusted: true,
+      denominator_evidence_refs: ["roadmap:complete"], source_ref: "roadmap:test", created_at: "2026-10-24T19:00:00Z"
+    }]);
+    if (table === "command_center_project_work_units") return json([
+      { project_id: "project-1", roadmap_version: 1, work_unit_id: "w1", category_id: "c1", phase_id: "p1", title: "Foundation", status: "verified", applicable: true, dependency_ids: [], gate_ids: [], acceptance_criteria: ["done"], evidence_refs: ["test:w1"], updated_at: "2026-10-24T19:10:00Z" },
+      { project_id: "project-1", roadmap_version: 1, work_unit_id: "w2", category_id: "c1", phase_id: "p2", title: "Exact next work unit", status: "planned", applicable: true, dependency_ids: ["w1"], gate_ids: ["gate:owner"], acceptance_criteria: ["done"], evidence_refs: [], updated_at: "2026-10-24T19:20:00Z" }
+    ]);
+    if (table === "command_center_project_roadmap_gates") return json([{ project_id: "project-1", roadmap_version: 1, gate_id: "gate:owner", satisfied: true, evidence_refs: ["owner:approved"], updated_at: "2026-10-24T19:15:00Z" }]);
+    if (table === "command_center_project_checkpoints") return json([{ checkpoint_id: "checkpoint-1", project_id: "project-1", roadmap_version: 1, exact_next_work_unit_id: "w2", blocker: null, required_environment: "any_device", owner_action: "Review exact next work", verification_method: "tests", evidence_refs: ["test:checkpoint"], resume_state_hash: "a".repeat(64), created_at: "2026-10-24T19:30:00Z" }]);
+    if (table === "cc7_activity") return json([{ project_id: "project-1", headline: "Verified activity", detail: "Evidence", happened_at: "2026-10-24T19:40:00Z" }]);
+    if (table === "cc7_agent_controls") return json([{ auto_enabled: false, current_run_id: null, runner_state: "ready", updated_at: "2026-10-24T20:00:00Z", project_auto_enabled: false, project_auto_project_id: null }]);
     if (table === "cc7_agent_runs") return json([]);
-    if (table === "cc7_brain_items") return json([{ id: "brain-1", project_id: "edge-finder", kind: "fact", title: "Canonical fact", status: "active", importance: 5, trust_state: "verified", source_ref: "test", source_observed_at: "2026-10-23T20:00:00Z", updated_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_automations") return json([{ id: "automation-1", project_id: null, kind: "scheduled", name: "Daily", status: "active", next_run_at: null, last_run_at: null, run_count: 1, updated_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_notifications") return json([{ id: "notification-1", project_id: "edge-finder", title: "Needs attention", severity: "normal", status: "pending", created_at: "2026-10-23T20:00:00Z", delivered_at: null, read_at: null }]);
-    if (table === "cc7_analytics_kpis") return json([{ id: "kpi-1", project_id: "edge-finder", metric_key: "verified", label: "Verified KPI", value_numeric: 1, value_text: null, unit: "count", currency: null, verified: true, source_count: 1, observed_at: "2026-10-23T20:00:00Z", updated_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "cc7_deployment_releases") return json([{ release_key: "release-1", environment: "production", provider: "vercel", source_commit: "known-good-sha", status: "verified", known_good: true, deployed_at: "2026-10-23T20:00:00Z", verified_at: "2026-10-23T20:00:00Z", created_at: "2026-10-23T20:00:00Z" }]);
-    if (table === "source_checkpoints") return json([{ id: "checkpoint-1", project_id: "edge-finder", observed_at: "2026-10-23T20:00:00Z", summary: "Verified checkpoint", verified: true, created_at: "2026-10-23T20:00:00Z" }]);
+    if (table === "cc7_brain_items") return json([{ id: "brain-1", project_id: "project-1", kind: "fact", title: "Canonical fact", status: "active", importance: 5, trust_state: "verified", source_ref: "test", source_observed_at: "2026-10-24T20:00:00Z", updated_at: "2026-10-24T20:00:00Z" }]);
+    if (table === "cc7_automations") return json([{ id: "automation-1", project_id: null, kind: "scheduled", name: "Daily", status: "active", next_run_at: null, last_run_at: null, run_count: 1, updated_at: "2026-10-24T20:00:00Z" }]);
+    if (table === "cc7_notifications") return json([{ id: "notification-1", project_id: "project-1", title: "Needs attention", severity: "normal", status: "pending", created_at: "2026-10-24T20:00:00Z", delivered_at: null, read_at: null }]);
+    if (table === "cc7_analytics_kpis") return json([{ id: "kpi-1", project_id: "project-1", metric_key: "verified", label: "Verified KPI", value_numeric: 1, value_text: null, unit: "count", currency: null, verified: true, source_count: 1, observed_at: "2026-10-24T20:00:00Z", updated_at: "2026-10-24T20:00:00Z" }]);
+    if (table === "cc7_deployment_releases") return json([{ release_key: "release-1", environment: "production", provider: "vercel", source_commit: "known-good-sha", status: "verified", known_good: true, deployed_at: "2026-10-24T20:00:00Z", verified_at: "2026-10-24T20:00:00Z", created_at: "2026-10-24T20:00:00Z" }]);
     if (table === "book_owner_reviews" || table === "book_publication_states") return json([]);
     throw new Error(`Unexpected test request: ${url}`);
   };
   return { fetcher, calls };
 }
 
-test("owner runtime prompts for a real authenticated session and loads canonical Supabase state", async () => {
+test("owner runtime prompts for a real authenticated session and loads canonical P5 project state", async () => {
   const storage = new MemoryStorage();
   const mock = ownerRuntimeFetch();
   let prompts = 0;
@@ -66,10 +77,16 @@ test("owner runtime prompts for a real authenticated session and loads canonical
   assert.equal(authenticatedCallbacks, 1);
   assert.equal(snapshot.connection.state, "connected");
   assert.equal(snapshot.projects.length, 1);
-  assert.equal(snapshot.projects[0].id, "edge-finder");
+  assert.equal(snapshot.projects[0].id, "project-1");
+  assert.equal(snapshot.projects[0].mission.state, "known");
+  assert.equal(snapshot.projects[0].typeKey.state, "known");
+  assert.equal(snapshot.projects[0].companyId.state, "known");
   assert.equal(snapshot.projects[0].progressPercent.state, "known");
-  assert.equal(snapshot.projects[0].progressPercent.value, 42);
+  assert.equal(snapshot.projects[0].progressPercent.value, 50);
   assert.equal(snapshot.projects[0].currentCheckpoint.state, "known");
+  assert.equal(snapshot.projects[0].nextWorkReadiness.state, "known");
+  assert.equal(snapshot.projects[0].nextWorkReadiness.value.workUnitId, "w2");
+  assert.equal(snapshot.projects[0].liveExecution.state, "unknown");
   assert.equal(snapshot.release.releaseId.state, "known");
   assert.equal(snapshot.release.releaseId.value, "release-under-test");
   const needsMe = snapshot.surfaces.find((surface) => surface.key === "needs-me");
@@ -81,6 +98,8 @@ test("owner runtime prompts for a real authenticated session and loads canonical
 
   const restCalls = mock.calls.filter((call) => call.url.pathname.startsWith("/rest/v1/"));
   assert.ok(restCalls.length > 0);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/cc7_projects")), false);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_profiles")), true);
   for (const call of restCalls) {
     const headers = new Headers(call.init.headers);
     assert.equal(headers.get("apikey"), "sb_publishable_public-test-key");
