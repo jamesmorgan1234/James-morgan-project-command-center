@@ -6,5 +6,8 @@ export * from "./devices.js";
 export * from "./policy.js";
 export * from "./boundaries.js";
 export * from "./secrets.js";
+export * from "./keyring.js";
+export * from "./intent.js";
+export * from "./webhooks.js";
 export * from "./protected-gate.js";
 export * from "./events.js";

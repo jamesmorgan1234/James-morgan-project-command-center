@@ -6,24 +6,19 @@ export interface SecretReferenceMetadata {
   readonly purpose: string;
   readonly state: SecretReferenceState;
   readonly createdAt: string;
+  readonly version?: number;
+  readonly keyVersion?: number;
   readonly expiresAt?: string;
   readonly rotatedAt?: string;
+  readonly revokedAt?: string;
+  readonly replacedBy?: string;
+  readonly rotationOverlapUntil?: string;
   readonly lastHealthCheckAt?: string;
+  readonly dependentServiceKeys?: readonly string[];
 }
 
 const FORBIDDEN_KEYS = new Set([
-  "secret",
-  "token",
-  "password",
-  "apikey",
-  "privatekey",
-  "credentialvalue",
-  "raw",
-  "authorization",
-  "accesstoken",
-  "refreshtoken",
-  "clientsecret",
-  "webhooksecret"
+  "secret", "token", "password", "apikey", "privatekey", "credentialvalue", "raw", "authorization", "accesstoken", "refreshtoken", "clientsecret", "webhooksecret"
 ]);
 const SECRET_PATTERNS = [
   /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
@@ -66,18 +61,42 @@ export class SecretReferenceRegistry {
     if (!record.id.trim() || !record.provider.trim() || !record.purpose.trim()) throw new Error("Secret reference id/provider/purpose are required");
     parseTimestamp(record.createdAt, "createdAt");
     if (record.expiresAt) parseTimestamp(record.expiresAt, "expiresAt");
+    if (record.version !== undefined && (!Number.isSafeInteger(record.version) || record.version < 1)) throw new Error("Secret reference version must be positive");
+    if (record.keyVersion !== undefined && (!Number.isSafeInteger(record.keyVersion) || record.keyVersion < 1)) throw new Error("Secret reference keyVersion must be positive");
+    if (record.dependentServiceKeys && new Set(record.dependentServiceKeys).size !== record.dependentServiceKeys.length) throw new Error("dependentServiceKeys must be unique");
     if (this.#references.has(record.id)) throw new Error(`Secret reference already exists: ${record.id}`);
-    this.#references.set(record.id, Object.freeze({ ...record }));
+    this.#references.set(record.id, Object.freeze({ ...record, ...(record.dependentServiceKeys ? { dependentServiceKeys: Object.freeze([...record.dependentServiceKeys]) } : {}) }));
   }
 
   get(id: string): SecretReferenceMetadata | undefined { return this.#references.get(id); }
   list(): readonly SecretReferenceMetadata[] { return Object.freeze([...this.#references.values()]); }
 
+  assertUsable(id: string, at: string): SecretReferenceMetadata {
+    const current = this.#required(id);
+    const now = parseTimestamp(at, "at");
+    if (current.state === "revoked" || current.revokedAt) throw new Error(`Secret reference revoked: ${id}`);
+    if (current.state === "expired") throw new Error(`Secret reference expired: ${id}`);
+    if (current.expiresAt && now >= parseTimestamp(current.expiresAt, "expiresAt")) throw new Error(`Secret reference expired: ${id}`);
+    if (current.state === "degraded" && current.rotationOverlapUntil && now >= parseTimestamp(current.rotationOverlapUntil, "rotationOverlapUntil")) throw new Error(`Secret rotation overlap ended: ${id}`);
+    return current;
+  }
+
+  rotate(id: string, replacement: SecretReferenceMetadata, rotatedAt: string, rotationOverlapUntil?: string): readonly [SecretReferenceMetadata, SecretReferenceMetadata] {
+    const current = this.#required(id);
+    parseTimestamp(rotatedAt, "rotatedAt");
+    if (replacement.provider !== current.provider || replacement.purpose !== current.purpose) throw new Error("Replacement credential must preserve provider/purpose");
+    if (rotationOverlapUntil && parseTimestamp(rotationOverlapUntil, "rotationOverlapUntil") <= parseTimestamp(rotatedAt, "rotatedAt")) throw new Error("Rotation overlap must end after rotation time");
+    this.register(replacement);
+    const updated = Object.freeze({ ...current, state: "degraded" as const, rotatedAt, replacedBy: replacement.id, ...(rotationOverlapUntil ? { rotationOverlapUntil } : {}) });
+    this.#references.set(id, updated);
+    return Object.freeze([updated, this.#required(replacement.id)]);
+  }
+
   setState(id: string, state: SecretReferenceState, at: string): SecretReferenceMetadata {
     const current = this.#required(id);
     parseTimestamp(at, "at");
     const updated = state === "revoked"
-      ? Object.freeze({ ...current, state, rotatedAt: at })
+      ? Object.freeze({ ...current, state, revokedAt: at })
       : Object.freeze({ ...current, state, lastHealthCheckAt: at });
     this.#references.set(id, updated);
     return updated;

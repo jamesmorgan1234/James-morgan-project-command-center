@@ -1,3 +1,4 @@
+import type { EnvironmentName } from "../kernel/config.js";
 import { assuranceAtLeast, parseTimestamp, type AssuranceLevel, type SessionState } from "./types.js";
 
 export interface AuthSessionRecord {
@@ -5,6 +6,9 @@ export interface AuthSessionRecord {
   readonly ownerId: string;
   readonly deviceId?: string;
   readonly projectId?: string;
+  readonly companyId?: string;
+  readonly accountId?: string;
+  readonly environment?: EnvironmentName;
   readonly scopes: readonly string[];
   readonly assurance: AssuranceLevel;
   readonly state: SessionState;
@@ -12,18 +16,29 @@ export interface AuthSessionRecord {
   readonly expiresAt: string;
   readonly lastValidatedAt: string;
   readonly lastVerifiedAt?: string;
+  readonly policyEpoch?: number;
   readonly lockedAt?: string;
   readonly revokedAt?: string;
   readonly revocationReason?: string;
 }
 
+function assertOptionalId(value: string | undefined, label: string): void {
+  if (value !== undefined && !value.trim()) throw new Error(`${label} cannot be empty`);
+}
+
 function assertSessionShape(session: AuthSessionRecord): void {
   if (!session.id.trim() || !session.ownerId.trim()) throw new Error("Session id and ownerId are required");
+  assertOptionalId(session.deviceId, "deviceId");
+  assertOptionalId(session.projectId, "projectId");
+  assertOptionalId(session.companyId, "companyId");
+  assertOptionalId(session.accountId, "accountId");
   const created = parseTimestamp(session.createdAt, "createdAt");
   const expires = parseTimestamp(session.expiresAt, "expiresAt");
   parseTimestamp(session.lastValidatedAt, "lastValidatedAt");
+  if (session.lastVerifiedAt) parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt");
   if (expires <= created) throw new Error("Session expiresAt must be after createdAt");
   if (new Set(session.scopes).size !== session.scopes.length) throw new Error("Session scopes must be unique");
+  if (session.policyEpoch !== undefined && (!Number.isSafeInteger(session.policyEpoch) || session.policyEpoch < 1)) throw new Error("policyEpoch must be a positive safe integer");
 }
 
 export class AuthSessionStore {
@@ -60,6 +75,16 @@ export class AuthSessionStore {
     parseTimestamp(verifiedAt, "verifiedAt");
     if (!assuranceAtLeast(assurance, current.assurance)) throw new Error("Verification cannot lower session assurance");
     const updated = Object.freeze({ ...current, assurance, lastVerifiedAt: verifiedAt, lastValidatedAt: verifiedAt });
+    this.#sessions.set(id, updated);
+    return updated;
+  }
+
+  setPolicyEpoch(id: string, policyEpoch: number, at: string): AuthSessionRecord {
+    if (!Number.isSafeInteger(policyEpoch) || policyEpoch < 1) throw new Error("policyEpoch must be a positive safe integer");
+    parseTimestamp(at, "at");
+    const current = this.#required(id);
+    if (current.state !== "active") throw new Error(`Cannot update policy epoch on non-active session: ${id}`);
+    const updated = Object.freeze({ ...current, policyEpoch, lastValidatedAt: at });
     this.#sessions.set(id, updated);
     return updated;
   }

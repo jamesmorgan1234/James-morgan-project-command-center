@@ -1,3 +1,5 @@
+import type { EnvironmentName } from "../kernel/config.js";
+
 export const ASSURANCE_LEVELS = ["anonymous", "authenticated", "passkey_uv", "fresh_passkey_uv"] as const;
 export type AssuranceLevel = (typeof ASSURANCE_LEVELS)[number];
 
@@ -28,7 +30,13 @@ export interface SecuritySubject {
   readonly sessionId: string;
   readonly deviceId?: string;
   readonly projectId?: string;
+  readonly companyId?: string;
+  readonly accountId?: string;
+  readonly environment?: EnvironmentName;
+  readonly machineIdentityId?: string;
+  readonly delegationId?: string;
   readonly assurance: AssuranceLevel;
   readonly scopes: readonly string[];
   readonly lastVerifiedAt?: string;
+  readonly policyEpoch?: number;
 }
