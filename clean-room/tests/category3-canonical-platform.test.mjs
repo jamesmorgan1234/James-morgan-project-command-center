@@ -7,6 +7,7 @@ function migration(name) {
 }
 
 const sql = migration("20261024112000_category3_canonical_platform.sql");
+const provenanceSql = migration("20261024114000_category3_knowledge_provenance_invariant.sql");
 
 test("P3 canonical platform persists entities, provenance, assets, graph, and providers", () => {
   for (const table of [
@@ -32,13 +33,16 @@ test("canonical mutations are owner-authorized, versioned, and tombstones cannot
   assert.match(sql, /not public\.is_command_center_authorized\(\)/i);
 });
 
-test("knowledge truth state preserves known zero versus unknown and N\/A", () => {
+test("knowledge truth state preserves known zero versus unknown and N\/A with storage-level provenance integrity", () => {
   assert.match(sql, /truth_state in \('known','unknown','not_applicable'\)/i);
   assert.match(sql, /truth_state='known' and value_jsonb is not null/i);
   assert.match(sql, /truth_state in \('unknown','not_applicable'\) and value_jsonb is null/i);
   assert.match(sql, /kind <> 'inferred' or confidence < 1/i);
   assert.match(sql, /Current knowledge requires explicit advancing supersession/i);
-  assert.match(sql, /Unique provenance source refs are required|source_refs.*unique/i);
+  assert.match(sql, /c3_assert_unique_text_array\(p_source_refs,'source_refs'\)/i);
+  assert.match(provenanceSql, /c3_text_array_unique_nonblank\(source_refs\)/i);
+  assert.match(provenanceSql, /command_center_knowledge_source_refs_unique_nonblank/i);
+  assert.match(provenanceSql, /Existing knowledge provenance violates unique nonblank source_refs invariant/i);
 });
 
 test("locked assets require explicit owner evidence and the Category 2 protected gate", () => {
