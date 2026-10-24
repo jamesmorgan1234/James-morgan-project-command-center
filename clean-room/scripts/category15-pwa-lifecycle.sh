@@ -111,7 +111,11 @@ show_failure() {
 }
 
 run_online_probe() {
-  local phase="$1" expected="$2" budget="$3" out="$TMP/${phase}.html" err="$TMP/${phase}.err"
+  local phase="$1"
+  local expected="$2"
+  local budget="$3"
+  local out="$TMP/${phase}.html"
+  local err="$TMP/${phase}.err"
   for attempt in 1 2 3; do
     : >"$out"; : >"$err"
     set +e
@@ -126,7 +130,8 @@ run_online_probe() {
 }
 
 run_offline_probe() {
-  local out="$TMP/offline.html" err="$TMP/offline.err"
+  local out="$TMP/offline.html"
+  local err="$TMP/offline.err"
   for attempt in 1 2 3; do
     : >"$out"; : >"$err"
     set +e
