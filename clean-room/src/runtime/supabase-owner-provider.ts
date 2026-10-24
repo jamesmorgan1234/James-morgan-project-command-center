@@ -150,7 +150,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("release", "cc7_deployment_releases", "release_key,environment,provider,source_commit,status,known_good,deployed_at,verified_at,created_at", { order: "created_at.desc", limit: "100" }),
         safe("checkpoints", "source_checkpoints", "id,project_id,observed_at,summary,verified,created_at", { verified: "eq.true", order: "observed_at.desc", limit: "1200" }),
         safe("books", "book_owner_reviews", "id,project_id,status,updated_at", { order: "updated_at.desc", limit: "200" }),
-        safe("books", "book_publication_states", "id,project_id,status,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
+        safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
       ]);
 
       const filteredProjects = projects.filter((row) => {
