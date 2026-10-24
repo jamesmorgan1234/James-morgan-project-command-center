@@ -19,7 +19,7 @@ test("P4.2 runtime uses one canonical phone bottom-navigation hierarchy with con
   const browser = await source("src/runtime/browser.ts");
   const css = await source("public/app.css");
   assert.match(browser, /const PRIMARY_NAV_ROUTE_KEYS = Object\.freeze\(\["route:home", "route:projects", "route:active-live", "route:next-up"\]/);
-  assert.match(browser, /className = "bottom-nav__link"/);
+  assert.match(browser, /routeLink\([^\n]+"bottom-nav__link"\)/);
   assert.match(browser, /navigation-overflow/);
   assert.match(browser, /shell\.append\(main, navigation\(\)\)/);
   assert.match(css, /\.primary-nav\{[^}]*position:fixed;[^}]*bottom:0/s);
