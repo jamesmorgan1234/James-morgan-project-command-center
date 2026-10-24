@@ -11,14 +11,51 @@ export interface SecretReferenceMetadata {
   readonly lastHealthCheckAt?: string;
 }
 
-const FORBIDDEN_KEYS = new Set(["secret", "token", "password", "apiKey", "privateKey", "credentialValue", "raw"]);
-const SECRET_PATTERNS = [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, /\bsk-[A-Za-z0-9_-]{12,}\b/, /\bghp_[A-Za-z0-9]{20,}\b/, /\bxoxb-[A-Za-z0-9-]{12,}\b/];
+const FORBIDDEN_KEYS = new Set([
+  "secret",
+  "token",
+  "password",
+  "apikey",
+  "privatekey",
+  "credentialvalue",
+  "raw",
+  "authorization",
+  "accesstoken",
+  "refreshtoken",
+  "clientsecret",
+  "webhooksecret"
+]);
+const SECRET_PATTERNS = [
+  /-----BEGIN [A-Z ]*PRIVATE KEY-----/,
+  /\bsk-[A-Za-z0-9_-]{12,}\b/,
+  /\bghp_[A-Za-z0-9]{20,}\b/,
+  /\bxoxb-[A-Za-z0-9-]{12,}\b/,
+  /\bBearer\s+[A-Za-z0-9._~+\/-]{12,}={0,2}\b/i
+];
+
+function normalizedKey(key: string): string { return key.replace(/[^a-z0-9]/giu, "").toLowerCase(); }
+
+function inspectReferenceOnly(value: unknown, path: string, seen: WeakSet<object>): void {
+  if (typeof value === "string") {
+    if (SECRET_PATTERNS.some((pattern) => pattern.test(value))) throw new Error(`Secret-like material is forbidden in metadata field: ${path}`);
+    return;
+  }
+  if (typeof value !== "object" || value === null) return;
+  if (seen.has(value)) return;
+  seen.add(value);
+  if (Array.isArray(value)) {
+    value.forEach((entry, index) => inspectReferenceOnly(entry, `${path}[${index}]`, seen));
+    return;
+  }
+  for (const [key, raw] of Object.entries(value as Record<string, unknown>)) {
+    const nextPath = path ? `${path}.${key}` : key;
+    if (FORBIDDEN_KEYS.has(normalizedKey(key))) throw new Error(`Secret material field is forbidden: ${nextPath}`);
+    inspectReferenceOnly(raw, nextPath, seen);
+  }
+}
 
 export function assertReferenceOnly(value: Record<string, unknown>): void {
-  for (const [key, raw] of Object.entries(value)) {
-    if (FORBIDDEN_KEYS.has(key)) throw new Error(`Secret material field is forbidden: ${key}`);
-    if (typeof raw === "string" && SECRET_PATTERNS.some((pattern) => pattern.test(raw))) throw new Error(`Secret-like material is forbidden in metadata field: ${key}`);
-  }
+  inspectReferenceOnly(value, "metadata", new WeakSet<object>());
 }
 
 export class SecretReferenceRegistry {
