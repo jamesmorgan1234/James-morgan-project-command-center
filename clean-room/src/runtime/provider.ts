@@ -135,6 +135,18 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     return fetch(proxied, init);
   };
 
+  const brokerAuthenticatedSession = async (response: Response): Promise<Response> => {
+    if (!useSessionBroker) return jsonResponse({ error: "secure_session_broker_required" }, 401);
+    const payload: unknown = await response.json();
+    if (!isObject(payload)) return jsonResponse(payload, response.status);
+    const refreshToken = typeof payload.refresh_token === "string" ? payload.refresh_token : "";
+    if (!refreshToken) return jsonResponse(payload, response.status);
+    const established = await broker("establish", refreshToken);
+    if (!established.ok) return established;
+    const brokerPayload: unknown = await established.json();
+    return jsonResponse(sessionPayloadWithBrokerSentinel(brokerPayload), established.status);
+  };
+
   const fetcher: typeof fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
     const raw = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
     if (!raw.startsWith(upstreamAuthBase)) return fetch(input, init);
@@ -155,21 +167,12 @@ function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableK
     }
 
     const response = await proxiedAuthFetch(raw, input, init);
-    if (grantType !== "password" || !response.ok) return response;
+    if (!response.ok) return response;
 
-    const payload: unknown = await response.json();
-    if (!isObject(payload)) return jsonResponse(payload, response.status);
-    const refreshToken = typeof payload.refresh_token === "string" ? payload.refresh_token : "";
-    if (!refreshToken) return jsonResponse(payload, response.status);
-
-    if (!useSessionBroker) {
-      return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
-    }
-
-    const established = await broker("establish", refreshToken);
-    if (!established.ok) return established;
-    const brokerPayload: unknown = await established.json();
-    return jsonResponse(sessionPayloadWithBrokerSentinel(brokerPayload), established.status);
+    const isPasswordSession = grantType === "password";
+    const isPasskeySession = authUrl.pathname.endsWith("/passkeys/authentication/verify");
+    if (!isPasswordSession && !isPasskeySession) return response;
+    return brokerAuthenticatedSession(response);
   };
 
   return { fetcher, storage };
