@@ -36,8 +36,9 @@ as $$
 declare
   u uuid:=auth.uid();
   v_input bigint;
-  v_output bigint;
+  v_output bigint:=0;
   v_hash text;
+  v_failure text;
 begin
   if u is null or not public.is_command_center_authorized() then raise exception 'Unauthorized'; end if;
   if p_run_id is null or coalesce(btrim(p_source_ref),'')='' then raise exception 'Recovery run identity and provenance are required'; end if;
@@ -47,25 +48,33 @@ begin
   insert into public.command_center_data_recovery_runs(id,owner_id,recovery_kind,state,source_ref,input_count)
   values(p_run_id,u,'projection_rebuild','running',btrim(p_source_ref),v_input);
 
-  -- Projection is explicitly derived state. Rebuild never updates canonical source rows.
-  delete from public.command_center_canonical_projection where owner_id=u;
-  insert into public.command_center_canonical_projection(owner_id,entity_id,project_id,entity_type,version,schema_version,payload,content_hash,canonical_updated_at,deleted_at,projected_at)
-  select owner_id,entity_id,project_id,entity_type,version,schema_version,payload,content_hash,updated_at,deleted_at,now()
-  from public.command_center_canonical_entities where owner_id=u;
+  -- The inner subtransaction rolls back any partial projection rewrite, while the outer
+  -- recovery row remains available for durable failed-run evidence.
+  begin
+    delete from public.command_center_canonical_projection where owner_id=u;
+    insert into public.command_center_canonical_projection(owner_id,entity_id,project_id,entity_type,version,schema_version,payload,content_hash,canonical_updated_at,deleted_at,projected_at)
+    select owner_id,entity_id,project_id,entity_type,version,schema_version,payload,content_hash,updated_at,deleted_at,now()
+    from public.command_center_canonical_entities where owner_id=u;
 
-  select count(*) into v_output from public.command_center_canonical_projection where owner_id=u;
-  if v_output<>v_input then
-    update public.command_center_data_recovery_runs set state='failed',output_count=v_output,completed_at=now(),details=jsonb_build_object('reason','projection_count_mismatch') where id=p_run_id and owner_id=u;
-    raise exception 'Projection rebuild count mismatch';
+    select count(*) into v_output from public.command_center_canonical_projection where owner_id=u;
+    if v_output<>v_input then raise exception 'Projection rebuild count mismatch'; end if;
+    select encode(extensions.digest(coalesce(string_agg(entity_id||':'||version::text||':'||content_hash,'|' order by entity_id),''),'sha256'),'hex')
+      into v_hash from public.command_center_canonical_projection where owner_id=u;
+  exception when others then
+    v_failure:=sqlstate||':'||sqlerrm;
+  end;
+
+  if v_failure is not null then
+    update public.command_center_data_recovery_runs
+       set state='failed',output_count=0,completed_at=now(),details=jsonb_build_object('reason','projection_rebuild_failed','sqlstate',split_part(v_failure,':',1),'canonical_mutated',false,'projection_preserved',true)
+     where id=p_run_id and owner_id=u;
+    return jsonb_build_object('run_id',p_run_id,'state','failed','reason','projection_rebuild_failed','canonical_mutated',false,'projection_preserved',true);
   end if;
-  select encode(extensions.digest(coalesce(string_agg(entity_id||':'||version::text||':'||content_hash,'|' order by entity_id),''),'sha256'),'hex') into v_hash from public.command_center_canonical_projection where owner_id=u;
-  update public.command_center_data_recovery_runs set state='succeeded',output_count=v_output,evidence_hash=v_hash,completed_at=now(),details=jsonb_build_object('canonical_mutated',false,'projection_rebuilt',true) where id=p_run_id and owner_id=u;
+
+  update public.command_center_data_recovery_runs
+     set state='succeeded',output_count=v_output,evidence_hash=v_hash,completed_at=now(),details=jsonb_build_object('canonical_mutated',false,'projection_rebuilt',true)
+   where id=p_run_id and owner_id=u;
   return jsonb_build_object('run_id',p_run_id,'state','succeeded','input_count',v_input,'output_count',v_output,'evidence_hash',v_hash,'canonical_mutated',false);
-exception when others then
-  if exists(select 1 from public.command_center_data_recovery_runs where id=p_run_id and owner_id=u and state='running') then
-    update public.command_center_data_recovery_runs set state='failed',completed_at=now(),details=jsonb_build_object('reason','projection_rebuild_failed') where id=p_run_id and owner_id=u;
-  end if;
-  raise;
 end $$;
 
 create or replace function public.command_center_validate_provider_replacement(
@@ -86,33 +95,42 @@ declare
   newp public.command_center_provider_registry%rowtype;
   cap text;
   v_hash text;
+  v_failure text;
 begin
   if u is null or not public.is_command_center_authorized() then raise exception 'Unauthorized'; end if;
   if p_run_id is null or coalesce(btrim(p_source_ref),'')='' or not command_center_private.c3_text_array_unique_nonblank(p_required_capabilities) then raise exception 'Replacement validation identity, capabilities and provenance are required'; end if;
   if exists(select 1 from public.command_center_data_recovery_runs where id=p_run_id) then raise exception 'Recovery run already exists'; end if;
-  select * into oldp from public.command_center_provider_registry where owner_id=u and provider_key=p_old_provider_key;
-  if not found then raise exception 'Old provider is not registered'; end if;
-  select * into newp from public.command_center_provider_registry where owner_id=u and provider_key=p_replacement_provider_key;
-  if not found then raise exception 'Replacement provider is not registered'; end if;
 
   insert into public.command_center_data_recovery_runs(id,owner_id,recovery_kind,state,source_ref,input_count)
   values(p_run_id,u,'provider_replacement_validation','running',btrim(p_source_ref),cardinality(p_required_capabilities));
 
-  if not newp.enabled or newp.health in ('unavailable','unconfigured','retired') then raise exception 'Replacement provider is not operationally eligible'; end if;
-  if coalesce(p_free_first,false) and newp.cost='paid' then raise exception 'Paid replacement violates free-first without owner authorization'; end if;
-  foreach cap in array p_required_capabilities loop
-    if not (newp.capabilities @> array[cap]) then raise exception 'Replacement provider missing required capability'; end if;
-  end loop;
-  if newp.provider_key=oldp.provider_key and newp.version<=oldp.version then raise exception 'Same provider replacement must advance version'; end if;
+  select * into oldp from public.command_center_provider_registry where owner_id=u and provider_key=p_old_provider_key;
+  if not found then v_failure:='old_provider_not_registered'; end if;
+  if v_failure is null then
+    select * into newp from public.command_center_provider_registry where owner_id=u and provider_key=p_replacement_provider_key;
+    if not found then v_failure:='replacement_provider_not_registered'; end if;
+  end if;
+  if v_failure is null and (not newp.enabled or newp.health in ('unavailable','unconfigured')) then v_failure:='replacement_provider_not_operationally_eligible'; end if;
+  if v_failure is null and coalesce(p_free_first,false) and newp.cost='paid' then v_failure:='paid_replacement_violates_free_first'; end if;
+  if v_failure is null then
+    foreach cap in array p_required_capabilities loop
+      if not (newp.capabilities @> array[cap]) then v_failure:='replacement_provider_missing_required_capability'; exit; end if;
+    end loop;
+  end if;
+  if v_failure is null and newp.provider_key=oldp.provider_key and newp.version<=oldp.version then v_failure:='same_provider_replacement_must_advance_version'; end if;
+
+  if v_failure is not null then
+    update public.command_center_data_recovery_runs
+       set state='failed',completed_at=now(),details=jsonb_build_object('reason',v_failure,'validated_only',true,'provider_switched',false)
+     where id=p_run_id and owner_id=u;
+    return jsonb_build_object('run_id',p_run_id,'state','failed','reason',v_failure,'provider_switched',false);
+  end if;
 
   v_hash:=encode(extensions.digest(oldp.provider_key||'|'||oldp.version::text||'|'||newp.provider_key||'|'||newp.version::text||'|'||array_to_string(p_required_capabilities,','),'sha256'),'hex');
-  update public.command_center_data_recovery_runs set state='succeeded',output_count=cardinality(p_required_capabilities),evidence_hash=v_hash,completed_at=now(),details=jsonb_build_object('old_provider',oldp.provider_key,'replacement_provider',newp.provider_key,'validated_only',true,'provider_switched',false) where id=p_run_id and owner_id=u;
+  update public.command_center_data_recovery_runs
+     set state='succeeded',output_count=cardinality(p_required_capabilities),evidence_hash=v_hash,completed_at=now(),details=jsonb_build_object('old_provider',oldp.provider_key,'replacement_provider',newp.provider_key,'validated_only',true,'provider_switched',false)
+   where id=p_run_id and owner_id=u;
   return jsonb_build_object('run_id',p_run_id,'state','succeeded','replacement_provider',newp.provider_key,'evidence_hash',v_hash,'provider_switched',false);
-exception when others then
-  if exists(select 1 from public.command_center_data_recovery_runs where id=p_run_id and owner_id=u and state='running') then
-    update public.command_center_data_recovery_runs set state='failed',completed_at=now(),details=jsonb_build_object('reason','provider_replacement_validation_failed') where id=p_run_id and owner_id=u;
-  end if;
-  raise;
 end $$;
 
 revoke all on function public.command_center_rebuild_canonical_projection(uuid,text) from public,anon;
