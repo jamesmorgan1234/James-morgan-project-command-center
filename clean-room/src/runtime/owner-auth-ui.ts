@@ -1,4 +1,5 @@
 import type { OwnerCredentialSubmit } from "./supabase-owner-provider.js";
+import { establishOwnerPasskeySession, ownerPasskeyAvailability } from "./owner-passkey-auth.js";
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -17,6 +18,7 @@ function authHeader(): HTMLElement {
 
 function authFailureMessage(reason: unknown): string {
   const message = reason instanceof Error ? reason.message : "";
+  if (message.toLowerCase().includes("passkey") || message.toLowerCase().includes("webauthn")) return message || "Passkey sign-in failed. Use your password or try the passkey again.";
   if (message.includes("required")) return "Enter both the owner email and password, or use your saved sign-in, then try again.";
   if (message.includes("not authorized")) return "This account signed in successfully but is not authorized for Command Center.";
   if (message.includes("Failed to fetch") || message.includes("NetworkError") || message.includes("network")) return "Command Center could not reach the secure sign-in service. Check the connection and try again.";
@@ -40,7 +42,7 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
     const main = el("main", "screen owner-auth-screen");
     const card = el("section", "bevel-card owner-auth-card");
     const inner = el("div", "owner-auth-card__inner");
-    inner.append(el("h2", "section-title", "Secure owner sign in"), el("p", "muted", "Use the existing Command Center owner account. Authentication is handled by Supabase; the browser receives only the public project key and your authenticated session."));
+    inner.append(el("h2", "section-title", "Secure owner sign in"), el("p", "muted", "Use a verified owner passkey when available, or the existing Command Center owner account. Authentication is handled by Supabase and refresh state is kept behind the secure owner-session broker."));
 
     const form = el("form", "owner-auth-form");
     form.autocomplete = "on";
@@ -77,9 +79,39 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
     email.setAttribute("aria-describedby", error.id);
     password.setAttribute("aria-describedby", error.id);
 
-    const button = el("button", "owner-auth-submit", "Sign in");
+    const button = el("button", "owner-auth-submit", "Sign in with password");
     button.type = "submit";
     form.append(emailLabel, passwordLabel, error, button);
+
+    const passkeyState = ownerPasskeyAvailability(document);
+    if (passkeyState.supported) {
+      const passkeyButton = el("button", "owner-auth-submit owner-auth-passkey", "Sign in with passkey");
+      passkeyButton.type = "button";
+      passkeyButton.addEventListener("click", () => {
+        if (passkeyButton.disabled || button.disabled) return;
+        error.hidden = true;
+        passkeyButton.disabled = true;
+        button.disabled = true;
+        passkeyButton.textContent = "Verifying passkey…";
+        void establishOwnerPasskeySession({ documentRef: document }).then(() => {
+          password.value = "";
+          window.location.reload();
+        }).catch((reason: unknown) => {
+          error.textContent = authFailureMessage(reason);
+          error.hidden = false;
+          passkeyButton.disabled = false;
+          button.disabled = false;
+          passkeyButton.textContent = "Sign in with passkey";
+        });
+      });
+      form.prepend(passkeyButton);
+    } else {
+      const fallback = el("p", "muted owner-auth-passkey-fallback", passkeyState.reason === "webauthn_unavailable"
+        ? "Passkey sign-in is not supported by this browser. Password sign-in remains available."
+        : "Passkey sign-in requires the secure Command Center origin. Password sign-in remains available here.");
+      form.prepend(fallback);
+    }
+
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       if (button.disabled || !form.reportValidity()) return;
@@ -94,7 +126,7 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
         error.textContent = authFailureMessage(reason);
         error.hidden = false;
         button.disabled = false;
-        button.textContent = "Sign in";
+        button.textContent = "Sign in with password";
         password.focus();
       });
     });
