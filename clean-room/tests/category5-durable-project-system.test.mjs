@@ -2,9 +2,10 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import {
-  RoadmapDag,
-  CheckpointStore,
-  computeProgress,
+  ProjectCheckpointStore,
+  calculateProjectProgress,
+  validateRoadmap,
+  workReadiness,
   advanceFoundry,
   compileUltimateSpec,
   validatePrototypeFeedback,
@@ -37,7 +38,13 @@ test("P5.5 persistent progress stays N/A until denominator is trusted", async ()
   assert.match(sql, /'kind','na'/);
   assert.match(sql, /roadmap_denominator_untrusted/);
   assert.match(sql, /v_verified::numeric\/v_applicable::numeric/);
-  assert.deepEqual(computeProgress({ denominatorTrusted: false, applicable: 10, verified: 10 }), { kind: "na", label: "N/A", reason: "untrusted_denominator" });
+  const roadmap = {
+    projectId: "p1",
+    version: 1,
+    workUnits: [{ id: "w1", categoryId: "c1", phaseId: "p1", title: "First", status: "verified", applicable: true, dependencyIds: [], gateIds: [], acceptanceCriteria: ["done"] }],
+    gates: []
+  };
+  assert.deepEqual(calculateProjectProgress(roadmap, false), { kind: "na", label: "N/A", reason: "roadmap_denominator_untrusted", roadmapVersion: 1 });
 });
 
 test("P5.9 detail registry is project-type/capability extensible without core surgery", async () => {
@@ -131,12 +138,20 @@ test("P5.14 recovery preserves lineage/decisions/checkpoints and consumes fresh 
 });
 
 test("P5.3 in-memory DAG and P5.4 checkpoint models remain fail-closed", () => {
-  const dag = new RoadmapDag();
-  dag.add({ id: "w1", projectId: "p1", categoryId: "c1", phaseId: "p1", title: "First", dependencies: [], gates: [], acceptanceCriteria: ["done"], status: "verified", applicable: true, evidenceRefs: ["ev:1"] });
-  dag.add({ id: "w2", projectId: "p1", categoryId: "c1", phaseId: "p2", title: "Second", dependencies: ["w1"], gates: ["gate:owner"], acceptanceCriteria: ["done"], status: "planned", applicable: true, evidenceRefs: [] });
-  assert.equal(dag.readiness("w2", new Set()).ready, false);
-  assert.equal(dag.readiness("w2", new Set(["gate:owner"])).ready, true);
+  const roadmap = {
+    projectId: "p1",
+    version: 1,
+    workUnits: [
+      { id: "w1", categoryId: "c1", phaseId: "p1", title: "First", status: "verified", applicable: true, dependencyIds: [], gateIds: [], acceptanceCriteria: ["done"] },
+      { id: "w2", categoryId: "c1", phaseId: "p2", title: "Second", status: "planned", applicable: true, dependencyIds: ["w1"], gateIds: ["gate:owner"], acceptanceCriteria: ["done"] }
+    ],
+    gates: [{ id: "gate:owner", satisfied: false, evidenceRefs: [] }]
+  };
+  validateRoadmap(roadmap);
+  assert.equal(workReadiness(roadmap, "w2").ready, false);
+  const readyRoadmap = { ...roadmap, gates: [{ id: "gate:owner", satisfied: true, evidenceRefs: ["owner:decision"] }] };
+  assert.equal(workReadiness(readyRoadmap, "w2").ready, true);
 
-  const checkpoints = new CheckpointStore();
-  assert.throws(() => checkpoints.save({ id: "cp1", projectId: "p1", roadmapVersion: 1, createdAt: "2026-10-24T12:00:00Z", verificationMethod: "tests", evidenceRefs: [] }));
+  const checkpoints = new ProjectCheckpointStore();
+  assert.throws(() => checkpoints.append({ id: "cp1", projectId: "p1", roadmapVersion: 1, createdAt: "2026-10-24T12:00:00Z", verificationMethod: "tests", evidenceRefs: [], resumeStateHash: "a".repeat(64) }));
 });
