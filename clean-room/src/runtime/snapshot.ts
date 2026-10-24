@@ -9,6 +9,25 @@ export interface RuntimeEvidenceRef {
   readonly reference?: string;
 }
 
+export interface RuntimeLiveExecution {
+  readonly runId: string;
+  readonly taskId: string;
+  readonly status: "working";
+  readonly executorClaimed: true;
+  readonly lastHeartbeatAt: string;
+  readonly currentTaskTitle?: string;
+  readonly blocker?: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeNextWorkReadiness {
+  readonly workUnitId: string;
+  readonly ready: true;
+  readonly title: string;
+  readonly priorityRank: number;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
 export interface RuntimeProjectSnapshot {
   readonly id: string;
   readonly name: string;
@@ -26,6 +45,10 @@ export interface RuntimeProjectSnapshot {
   readonly agencyState: TruthValue<string>;
   readonly recentActivity: TruthValue<readonly string[]>;
   readonly evidence: readonly RuntimeEvidenceRef[];
+  readonly liveExecution?: TruthValue<RuntimeLiveExecution>;
+  readonly nextWorkReadiness?: TruthValue<RuntimeNextWorkReadiness>;
+  readonly typeKey?: TruthValue<string>;
+  readonly companyId?: TruthValue<string>;
   readonly specialistKey?: string;
 }
 
