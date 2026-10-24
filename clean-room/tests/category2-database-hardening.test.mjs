@@ -112,3 +112,14 @@ test("security incidents have a durable owner-scoped containment and recovery tr
   assert.match(sql, /command_center_security_resolve_incident/i);
   assert.match(sql, /security\.incident\.resolved/i);
 });
+
+test("passkey removal consumes the canonical critical authorization before provider deletion", () => {
+  const sql = migration("20261024105500_category2_passkey_removal_gate.sql");
+  assert.match(sql, /command_center_security_consume_passkey_removal/i);
+  assert.match(sql, /auth\.uid\(\)/i);
+  assert.match(sql, /not public\.is_command_center_authorized\(\)/i);
+  assert.match(sql, /command_center_private\.consume_action_authorization/i);
+  assert.match(sql, /'security\.passkey\.remove'/i);
+  assert.match(sql, /'passkey'/i);
+  assert.match(sql, /grant execute on function public\.command_center_security_consume_passkey_removal\(uuid,text\) to authenticated/i);
+});
