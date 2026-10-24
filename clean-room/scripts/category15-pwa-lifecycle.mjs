@@ -52,7 +52,22 @@ async function stopServer() {
   server = undefined;
   if (current.exitCode === null) current.kill("SIGTERM");
   await Promise.race([new Promise((resolvePromise) => current.once("exit", resolvePromise)), sleep(3000)]);
-  if (current.exitCode === null) current.kill("SIGKILL");
+  if (current.exitCode === null) {
+    current.kill("SIGKILL");
+    await Promise.race([new Promise((resolvePromise) => current.once("exit", resolvePromise)), sleep(2000)]);
+  }
+}
+
+async function stopBrowser() {
+  if (!browser) return;
+  const current = browser;
+  browser = undefined;
+  if (current.exitCode === null) current.kill("SIGTERM");
+  await Promise.race([new Promise((resolvePromise) => current.once("exit", resolvePromise)), sleep(4000)]);
+  if (current.exitCode === null) {
+    current.kill("SIGKILL");
+    await Promise.race([new Promise((resolvePromise) => current.once("exit", resolvePromise)), sleep(2000)]);
+  }
 }
 
 async function waitForDevToolsPort() {
@@ -160,10 +175,10 @@ function stageUpdatedWorker(releaseId) {
 
 async function cleanup() {
   try { cdp?.close(); } catch {}
-  if (browser?.exitCode === null) browser.kill("SIGTERM");
+  await stopBrowser().catch(() => {});
   await stopServer().catch(() => {});
   writeFileSync(swPath, originalSw, "utf8");
-  rmSync(profile, { recursive: true, force: true });
+  rmSync(profile, { recursive: true, force: true, maxRetries: 10, retryDelay: 100 });
 }
 
 try {
@@ -208,7 +223,6 @@ try {
   })()`);
   if (!installed?.active || installed.keys.length < 1) throw new Error(`Initial service-worker install/cache proof failed: ${JSON.stringify(installed)}`);
 
-  // Reload under the same browser/profile so the installed worker is unquestionably the controller.
   await navigate(`${base}/?p15_controlled=1`, "?p15_controlled=1");
   const controlled = await pollBrowser(
     `({controller:!!navigator.serviceWorker.controller,app:document.querySelector('meta[name="application-name"]')?.content})`,
@@ -218,7 +232,6 @@ try {
   );
   if (!controlled.controller) throw new Error("Service worker did not control the live page");
 
-  // Shut down only this isolated localhost origin, leaving the same Chrome process alive.
   await stopServer();
   await navigate(`${base}/?p15_offline=1`, "?p15_offline=1");
   const offline = await evaluate(`({
