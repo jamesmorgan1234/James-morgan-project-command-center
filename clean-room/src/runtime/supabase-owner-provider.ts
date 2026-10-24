@@ -5,6 +5,7 @@ import {
   type RuntimeEvidenceRef,
   type RuntimeLiveExecution,
   type RuntimeNextWorkReadiness,
+  type RuntimeProjectDetailSection,
   type RuntimeProjectSnapshot,
   type RuntimeSurfaceSnapshot
 } from "./snapshot.js";
@@ -152,11 +153,13 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, activity, controls, runs, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, controls, runs, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
         safe("project-checkpoints", "command_center_project_checkpoints", "checkpoint_id,project_id,roadmap_version,exact_next_work_unit_id,blocker,required_environment,owner_action,verification_method,evidence_refs,resume_state_hash,created_at", { order: "created_at.desc", limit: "1200" }),
+        safe("project-details", "command_center_project_detail_sections", "section_key,title,sort_order,capability_key,active,updated_at", { active: "eq.true", order: "sort_order.asc,section_key.asc" }),
+        safe("project-details", "command_center_project_type_detail_sections", "type_key,section_key,required,source_ref,created_at", { order: "type_key.asc,section_key.asc" }),
         safe("activity", "cc7_activity", "project_id,headline,detail,happened_at", { order: "happened_at.desc", limit: "120" }),
         safe("agency", "cc7_agent_controls", "auto_enabled,current_run_id,runner_state,updated_at,project_auto_enabled,project_auto_project_id", { limit: "1" }),
         safe("agency", "cc7_agent_runs", "id,project_id,objective,status,exact_next_action,created_at,started_at,completed_at,updated_at", { order: "created_at.desc", limit: "60" }),
@@ -169,7 +172,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
       ]);
 
-      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, activity, observedAt);
+      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt);
       const attentionCount = projectSnapshots.filter((project) => project.needsMeCount.state === "known" && project.needsMeCount.value > 0).length;
       const surfaceSnapshots = this.#surfaceSnapshots({
         observedAt,
@@ -295,12 +298,15 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     workUnits: readonly JsonRecord[],
     gates: readonly JsonRecord[],
     checkpoints: readonly JsonRecord[],
+    detailSections: readonly JsonRecord[],
+    typeDetailSections: readonly JsonRecord[],
     activity: readonly JsonRecord[],
     observedAt: string
   ): readonly RuntimeProjectSnapshot[] {
     return Object.freeze(projects.map((project) => {
       const id = text(project.project_id) as string;
       const name = text(project.name) as string;
+      const typeKey = text(project.type_key);
       const roadmap = roadmaps.find((row) => row.project_id === id && text(row.state) === "current");
       const roadmapVersion = numeric(roadmap?.version);
       const projectUnits = roadmapVersion === undefined ? [] : workUnits.filter((row) => row.project_id === id && numeric(row.roadmap_version) === roadmapVersion);
@@ -349,6 +355,33 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
             evidence: evidence("supabase:command_center_project_work_units", readyObservedAt, `${id}:${roadmapVersion ?? "na"}:${readyId}`)
           }))
         : unknown<RuntimeNextWorkReadiness>();
+
+      const boundSections: readonly RuntimeProjectDetailSection[] = typeKey
+        ? Object.freeze(typeDetailSections
+            .filter((binding) => text(binding.type_key) === typeKey)
+            .map((binding) => {
+              const sectionKey = text(binding.section_key);
+              const definition = sectionKey ? detailSections.find((candidate) => text(candidate.section_key) === sectionKey && candidate.active === true) : undefined;
+              if (!sectionKey || !definition) return undefined;
+              const title = text(definition.title);
+              const sortOrder = numeric(definition.sort_order);
+              if (!title || sortOrder === undefined) return undefined;
+              const capabilityKey = text(definition.capability_key);
+              const observed = text(definition.updated_at) ?? text(binding.created_at) ?? observedAt;
+              return Object.freeze({
+                key: sectionKey,
+                title,
+                sortOrder,
+                required: binding.required === true,
+                ...(capabilityKey ? { capabilityKey } : {}),
+                content: unknown<string>(),
+                evidence: evidence("supabase:command_center_project_detail_sections", observed, `${typeKey}:${sectionKey}`)
+              }) as RuntimeProjectDetailSection;
+            })
+            .filter((section): section is RuntimeProjectDetailSection => !!section)
+            .sort((a, b) => a.sortOrder - b.sortOrder || a.key.localeCompare(b.key)))
+        : Object.freeze([]);
+
       const updatedAt = text(project.updated_at) ?? observedAt;
       return Object.freeze({
         id,
@@ -370,7 +403,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         liveExecution: unknown<RuntimeLiveExecution>(),
         nextWorkReadiness,
         typeKey: truthText(project.type_key),
-        companyId: truthText(project.company_id)
+        companyId: truthText(project.company_id),
+        detailSections: boundSections
       });
     }));
   }
