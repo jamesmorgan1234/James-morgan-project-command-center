@@ -1,15 +1,17 @@
 # 124 — Current Authority and Resume Pointer
 
 **Owner / final authority:** James Morgan  
-**Status:** CURRENT / POST-AUDIT / SUPERSESSION AUTHORITY  
+**Status:** CURRENT / P0.11 COMPLETE / NEXT TARGETED CATEGORY 1 PREREQUISITES  
 **Specification authority:** `roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md`  
 **P0.11 authority:** `roadmap/master-build-plan-owner-review/16_P0_11_POST_LOCK_107PLUS_RECONCILIATION.md`  
+**Control register:** `125_POST_AUDIT_133_CONTROL_REGISTER.md`  
+**34-family coverage:** `126_34_FAMILY_POST_AUDIT_COVERAGE_CROSSWALK.md`  
 **Current amended phase count:** `189`  
 **Current reconciled audit controls:** `133`
 
 ## Purpose
 
-This file is the single current resume pointer after completion of the 107-company reverse map, independent architecture audit, second-pass audit additions, and James Morgan's acceptance of the reconciled roadmap amendment.
+This file is the single current resume pointer after completion of the 107-company reverse map, independent architecture audit, second-pass audit additions, James Morgan's acceptance of the reconciled roadmap amendment, and P0.11 post-lock reconciliation.
 
 It exists specifically to prevent stale historical checkpoints from restarting already-completed portfolio work.
 
@@ -37,23 +39,26 @@ These files remain preserved as historical evidence of the sequence in which the
 - Historical phase baseline: 188.
 - Current amended roadmap: 189 phases through addition of P0.11 only.
 - Reconciled audit register: 133 controls/checks.
+- P0.11 durable authority/control/coverage reconciliation: **COMPLETE**.
 
-## Current implementation resume order
+## Completed P0.11 deliverables
 
-### 1. P0.11 — current planning/authority reconciliation
-
-P0.11 owns:
+P0.11 has durably established:
 
 - versioned post-lock amendment;
+- Specification Lock v2.1;
 - 133-control ownership map;
+- 34-family coverage crosswalk;
 - stale-resume supersession;
 - evidence/CI corrections;
 - migration source-map corrections;
-- current resume authority;
 - preservation of the unavailable original CCR ledger gap;
+- one current resume authority;
 - explicit next dependency order.
 
-### 2. Targeted affected Category 1 contracts/proofs
+## Current implementation resume order
+
+### 1. Targeted affected Category 1 contracts/proofs — CURRENT NEXT SEAM
 
 Do **not** reopen or rebuild all of Category 1.
 
@@ -66,9 +71,11 @@ Inspect and amend only actual gaps in the post-lock prerequisites, principally:
 - P1.8 — Configuration, Environment, and Compatibility Contracts;
 - P1.9 — Kernel Recovery Shell.
 
-### 3. Category 2 — Identity + Security Foundation retrofit gap closure
+Preserve all valid existing Category 1 work. The purpose is to close only the prerequisites introduced or strengthened by Specification Lock v2.1.
 
-This is the earliest active implementation seam identified by the completed 107-company reverse map.
+### 2. Category 2 — Identity + Security Foundation retrofit gap closure
+
+After the affected Category 1 prerequisite contracts/proofs are resolved, Category 2 is the earliest active implementation retrofit seam identified by the completed 107-company reverse map.
 
 Do **not** restart P2.1–P2.9. Preserve existing valid work and close only real gaps against Specification Lock v2.1, including as applicable:
 
@@ -82,15 +89,15 @@ Do **not** restart P2.1–P2.9. Preserve existing valid work and close only real
 - protected-action/revocation/freshness semantics;
 - security incident/recovery proof.
 
-### 4. Category 3 — shared source/provenance/contracts
+### 3. Category 3 — shared source/provenance/contracts
 
 After the relevant Category 2 gaps are closed, proceed into canonical source identity, provenance, conflict/correction/retraction semantics, privacy/retention, provider capability truth, all-chat refresh contracts, callbacks/reconciliation and lineage.
 
-### 5. Isolated cross-module vertical proof
+### 4. Isolated cross-module vertical proof
 
 Before multiplying Brain/Agency implementation breadth, prove one complete isolated flow across browser/API/SQL/worker/policy/evidence boundaries with failure injection and cross-company denial cases.
 
-### 6. Brain / Agency expansion
+### 5. Brain / Agency expansion
 
 Continue Categories 6 and 7 only after inherited scope/version/delegation/resource/evaluation/recovery contracts are present and proven at the required maturity.
 
@@ -104,6 +111,7 @@ Do not:
 - redo the completed reverse map from scratch;
 - treat the old 100-company count as current;
 - treat 107 as a hard ceiling;
+- repeat P0.11 after its completion unless James explicitly reopens it or new evidence invalidates it;
 - jump directly to Category 3 while bypassing the targeted prerequisite amendments and Category 2 retrofit gap check;
 - treat aggregate file counts or roadmap declarations as independent proof that all 107 companies were semantically recertified by the Work audit.
 
@@ -126,4 +134,4 @@ This resume pointer authorizes no production merge/deploy, Supabase production m
 
 ## Current resume pointer
 
-**Resume from P0.11 until its exit gate is durably satisfied. After P0.11, continue with the targeted affected Category 1 prerequisite contracts/proofs, then close only actual Category 2 retrofit gaps.**
+**P0.11 is complete. Resume next at the targeted affected Category 1 prerequisite contracts/proofs (P1.2, P1.4, P1.6, P1.7, P1.8 and P1.9), preserving all valid existing work. After those prerequisites, close only actual Category 2 retrofit gaps.**
