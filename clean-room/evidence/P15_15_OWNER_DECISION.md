@@ -6,55 +6,63 @@ The owner has repeatedly authorized Command Center production deployment/modific
 
 This supersedes the earlier temporary no-production-mutation constraint for the authorized Command Center release path. It does not authorize paid services, unrelated projects, or unrelated destructive changes.
 
-## Frozen runtime candidate
+During P15.17 physical owner acceptance, James reported a real Samsung sign-in defect: the saved-credential prompt did not appear and the form could submit with an empty password because native validation had been disabled. That defect reopened the relevant release gates. The repair restored browser validation/autofill compatibility and stabilized the GitHub-hosted Chrome PWA harness without changing production data.
 
-Exact promotable clean-room runtime source:
+## Frozen repaired runtime candidate
 
-`26d084f66829052081ef3f9f1792d84b7a6f545f`
+Exact repaired clean-room runtime source:
 
-Production-safe build identity from exact-source CI and the no-fixture Preview:
+`42c50f3093f3f435e53065a877356c317c7ba2f1`
 
-- releaseId: `26d084f66829052081ef3f9f1792d84b7a6f545f`
-- buildHash: `8983949b56415320f5a2bef039ed7198d7f8bab2bb565eb58359121f253d2c07`
-- assetManifestHash: `281006562b117dfdcd47cb4886ed5b5496c95e8683fc9d88e8c7094080ba4a01`
+Production-safe build identity from the no-fixture Preview and production build:
+
+- releaseId: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- buildHash: `3058c8c9c30ac6d95b1c3e31da677ac37ce715ae8b6de7a86cd4f70223f325fd`
+- assetManifestHash: `10422fdc2b3f482491f4feb2b5691446605895ca416d945ed52d173b42a8f1eb`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
 
-All commits after `26d084f6` through the Category 15 evidence head are acceptance/evidence infrastructure only; no application runtime source changed.
+The repaired source includes the owner sign-in correction and the CI-only PWA Chrome startup stabilization. All later changes through the Category 15 evidence head are acceptance/release evidence only; no application runtime source changes are permitted after this frozen candidate.
 
-## P15.14 synthetic acceptance Preview
+## Fresh P15.14 synthetic acceptance Preview
 
-The repaired runtime was first exercised on a branch-scoped synthetic acceptance Preview:
+The repaired runtime was exercised on a new branch-scoped synthetic acceptance Preview:
 
-- deployment: `dpl_3ywqiM4cnKPMoQM6VzXqhQPH2af6`
-- URL: `command-center-preview-6ytcspjwd-crestven-holdings.vercel.app`
-- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
+- deployment: `dpl_8yUhayFvx98pw5X5rcwoS7LSZLmb`
+- URL: `command-center-preview-p5sj70mqv-crestven-holdings.vercel.app`
+- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
 - state: READY / Preview
 
-The synthetic fixture was explicitly isolated to Preview and was used only for deterministic rendering/route acceptance. It was disabled before production-safe candidate construction and was never promoted to production.
+The fixture endpoint returned the explicit `runtime:synthetic-preview-acceptance` provider and the exact repaired release id. The deployed owner-auth bundle contained native `reportValidity()`, username/current-password autocomplete metadata, stable field identifiers, and no forced initial focus.
+
+The synthetic fixture was isolated to the Preview branch, used only for deterministic acceptance, then `COMMAND_CENTER_PREVIEW_ACCEPTANCE` was reset to `0`. It was never promoted to production.
 
 ## Production-safe Vercel candidate
 
-After synthetic acceptance completed, `COMMAND_CENTER_PREVIEW_ACCEPTANCE` was set to `0` for the clean-room Preview branch and a fresh no-fixture Preview was built from exactly `26d084f6`:
+A no-fixture Preview already built from the exact same repaired SHA while the fixture flag was `0` was verified as the production-safe candidate:
 
 - Vercel project: `command-center-preview`
 - project id: `prj_gJISweXK7OGvFk1Iy48umKXjFhGX`
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
-- Preview deployment: `dpl_BhX4mp4T8Z5kyyPN3otkemWymetk`
-- deployment URL: `command-center-preview-ciq81vc3m-crestven-holdings.vercel.app`
-- source SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
-- state before cutover: READY / Preview
+- Preview deployment: `dpl_4cNY1fgUH11DZiURwaJmEt6smvFK`
+- deployment URL: `command-center-preview-jnhydn724-crestven-holdings.vercel.app`
+- source SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- state: READY / Preview
 
-The deployed `/release.json` exactly matched the production-safe CI identity above. Its `index.html` contained no synthetic P15.14 runtime endpoint, and `/__preview__/runtime.json` resolved only to the ordinary SPA shell rather than fixture JSON.
+Its `/release.json` exactly matched the production-safe identity above. A request to `/__preview__/runtime.json` returned only the ordinary SPA shell rather than synthetic JSON.
+
+## Verification before production
+
+Exact-head QA on the repaired source verified typecheck, 184/184 tests, the 676/676 repository audit, zero secret findings, zero policy violations, the protected icon, and the observed PWA install/offline/update/two-cache rollback lifecycle. A transient hosted-runner Chrome/D-Bus startup incompatibility was reproduced and corrected in the CI harness; the PWA lifecycle then passed. The final nonproduction phase-state step correctly remained stale until this new runtime was re-baselined and did not get bypassed.
 
 ## Production authorization result
 
-P15.15 is `VERIFIED_COMPLETE` once the evidence-only head passes exact-head CI.
+The owner had already authorized continuation through the Command Center release and explicitly removed any false repeated authorization phrase gate. The repaired release proceeded through production without a new authorization phrase and without any paid-resource change.
 
-The owner directed continuation through P15.16 and production deployment. The repaired release proceeded without another authorization phrase and without any paid-resource change.
+P15.15 is `VERIFIED_COMPLETE` once the new evidence-only head passes exact-head CI.
 
 ## Existing production baseline and fallback
 
-GitHub `main` remained unchanged during the Vercel cutover:
+GitHub `main` remains protected and unchanged:
 
 - main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
 - Pages URL: `https://jamesmorgan1234.github.io/James-morgan-project-command-center/`
@@ -67,10 +75,10 @@ Previous known-good Pages release retained as an additional fallback:
 - Pages workflow run: `39976823313`
 - Pages artifact id: `12512175429`
 
-The prior Vercel production deployment also remains a rollback target:
+The immediately prior Vercel production deployment remains a rollback target:
 
-- deployment: `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`
-- release SHA: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+- deployment: `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`
+- release SHA: `26d084f66829052081ef3f9f1792d84b7a6f545f`
 
 ## P15.1 blocker
 
