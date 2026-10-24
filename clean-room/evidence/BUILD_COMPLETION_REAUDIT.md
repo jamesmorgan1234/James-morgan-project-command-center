@@ -19,7 +19,7 @@ Final owner/Samsung app acceptance is now **DEFERRED** until all applicable upst
 |---|---|---|
 | C0 Authority / Recovery / Roadmap / Specification | **VERIFIED COMPLETE** | Specification Lock v2 exists and locks 5,852 requirements / 188 phases. |
 | C1 Core Kernel + Governance | **VERIFIED COMPLETE** | `CATEGORY_1_KERNEL_ACCEPTANCE.md` explicitly records verified Category-1 completion. |
-| C2 Identity + Security | **REOPENED — FOUNDATION ONLY** | Existing evidence explicitly says full category acceptance not claimed. Live WebAuthn/passkeys, canonical DB RLS, credential/provider integration, and adversarial/recovery acceptance remain mandatory. |
+| C2 Identity + Security | **PARTIAL — BRANCH IMPLEMENTATION COMPLETE / PRODUCTION + DEVICE ACCEPTANCE PENDING** | Reconciled `CATEGORY_2_SECURITY_FOUNDATION.md` records P2.1–P2.8 implemented branch-side and P2.9 branch QA verified. Exact-head core QA passed 226/226 tests. Live read-only audit confirms production RLS/security-invoker/owner-boundary foundations; branch hardening fixes the identified service-helper ACL gap. Remaining C2 boundaries are production migration/deploy verification, Samsung platform-passkey acceptance, Supabase leaked-password protection, and production adversarial evidence. |
 | C3 Canonical Data / Knowledge / Command Graph / Providers | **REOPENED — FOUNDATION ONLY** | Existing evidence explicitly leaves canonical DB migrations/RLS, realtime reconciliation, full historical import, provider replacement, scale/soak, and Brain/Agency consumers pending. |
 | C4 App Shell / Visual / PWA / Device | **REOPENED — PARTIAL** | PWA/runtime exists, but Category-4 foundation evidence did not claim rendered/device acceptance. Current owner review also found inconsistent card geometry, plain controls, arrows that must be removed, incomplete whole-card navigation, and unfinished shared visual consistency. Final physical Samsung acceptance remains Category 15. |
 | C5 Projects / Portfolio / Roadmap / Foundry | **REOPENED — FOUNDATION ONLY** | Evidence leaves real DB/RLS/live sync, complete project registry/scale, Foundry↔Brain↔Agency integration, historical discovery, and finished owner-facing project interactions pending. |
@@ -55,13 +55,14 @@ These are requirements to carry forward, not reasons to keep doing final phone Q
 - Repair/complete upstream categories in dependency order.
 - A foundation/unit test file is **not** category completion evidence.
 - Each reopened category requires real persistence/provider/UI/security/recovery/scale gates applicable to that category, plus an explicit completion evidence artifact.
+- C2 branch implementation may remain preserved while its production/provider/device acceptance waits at an explicit owner boundary; this does not authorize bypassing C2 security dependencies in later categories.
 - Do not resume P15 owner/Samsung acceptance until all applicable C0–C14 category gates are verified against the integrated build.
 - Production `main` remains untouched unless a later explicit production authorization boundary is satisfied.
 
 ## Immediate execution order
 
-1. C2 live identity/security completion dependencies that C3+ require.
-2. C3 canonical production data/RLS/provider/sync foundations.
+1. Preserve C2 branch security implementation; complete its production migration/deploy/provider/device acceptance only when explicitly authorized.
+2. Continue C3 canonical data/RLS/provider/sync implementation on the isolated branch without weakening or bypassing C2 controls.
 3. C4/C5 integrated shell + Projects/Foundry behavior using the preserved approved visual system.
 4. C6 Brain real conversation/memory/provider experience.
 5. C7 Agency real executor/control-plane/workflow experience.
