@@ -24,16 +24,16 @@ jobs:
       run:
         working-directory: clean-room
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 20
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
           cache: 'npm'
           cache-dependency-path: clean-room/package.json
       - name: Install zero-cost build dependency
-        run: npm install --no-audit --no-fund --ignore-scripts
+        run: npm install --no-audit --no-fund --ignore-scripts --no-save typescript@5.8.3
       - name: Typecheck
         run: npm run typecheck
       - name: Category 15 exact-head core QA and release gates
