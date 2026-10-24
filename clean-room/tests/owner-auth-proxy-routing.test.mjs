@@ -35,7 +35,17 @@ function brokerSessionPayload() {
   };
 }
 
-test("Vercel browser origin hands refresh state to same-origin broker while private REST stays direct", async () => {
+function isTouchRpc(url) {
+  return url === "https://gmlsucpwliegwlxymjvp.supabase.co/rest/v1/rpc/command_center_touch_current_session";
+}
+
+function assertTouchBody(body) {
+  assert.match(body?.p_client_device_id ?? "", /^[0-9a-f-]{36}$/i);
+  assert.equal(body?.p_label, "Browser owner device");
+  assert.equal(body?.p_platform, "Browser");
+}
+
+test("Vercel browser origin brokers refresh state and registers the canonical session without exposing refresh state", async () => {
   const originalFetch = globalThis.fetch;
   const calls = [];
   globalThis.fetch = async (input, init = {}) => {
@@ -46,8 +56,15 @@ test("Vercel browser origin hands refresh state to same-origin broker while priv
       return new Response(JSON.stringify(authSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
     }
     if (url.endsWith("/api/owner-session")) {
+      if (body?.action === "clear") return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "content-type": "application/json" } });
       assert.deepEqual(body, { action: "establish", refreshToken: "refresh-token" });
       return new Response(JSON.stringify(brokerSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    if (isTouchRpc(url)) {
+      assertTouchBody(body);
+      const headers = new Headers(init.headers);
+      assert.equal(headers.get("authorization"), "Bearer broker-access-token");
+      return new Response(JSON.stringify("00000000-0000-4000-8000-000000000001"), { status: 200, headers: { "content-type": "application/json" } });
     }
     if (url.startsWith("https://gmlsucpwliegwlxymjvp.supabase.co/rest/v1/cc7_owner_access")) {
       const headers = new Headers(init.headers);
@@ -64,14 +81,40 @@ test("Vercel browser origin hands refresh state to same-origin broker while priv
     assert.equal(calls[0].method, "POST");
     assert.equal(calls[1].url, "https://command-center-preview-alpha.vercel.app/api/owner-session");
     assert.equal(calls[1].credentials, "same-origin");
-    assert.match(calls[2].url, /^https:\/\/gmlsucpwliegwlxymjvp\.supabase\.co\/rest\/v1\/cc7_owner_access\?/);
+    assert.equal(isTouchRpc(calls[2].url), true);
+    assert.match(calls[3].url, /^https:\/\/gmlsucpwliegwlxymjvp\.supabase\.co\/rest\/v1\/cc7_owner_access\?/);
     assert.equal(calls.some((call) => call.url.includes("/__cc_auth__/rest/")), false);
+    assert.equal(calls.some((call) => JSON.stringify(call.body ?? {}).includes("broker-access-token")), false);
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
-test("non-Vercel browser origin keeps access state ephemeral and never performs browser refresh-token rotation", async () => {
+test("session registration failure fails closed and clears the HttpOnly broker session", async () => {
+  const originalFetch = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (input, init = {}) => {
+    const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    const body = init.body ? JSON.parse(String(init.body)) : undefined;
+    calls.push({ url, body });
+    if (url.includes("/__cc_auth__/token?grant_type=password")) return new Response(JSON.stringify(authSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
+    if (url.endsWith("/api/owner-session")) {
+      if (body?.action === "clear") return new Response(JSON.stringify({ ok: true }), { status: 200, headers: { "content-type": "application/json" } });
+      return new Response(JSON.stringify(brokerSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    if (isTouchRpc(url)) return new Response(JSON.stringify({ message: "revoked" }), { status: 403, headers: { "content-type": "application/json" } });
+    throw new Error(`Unexpected fetch ${url}`);
+  };
+  try {
+    const provider = providerFromDocument(fakeDocument("https://command-center-preview-alpha.vercel.app/"));
+    await assert.rejects(() => provider.signIn("owner@example.com", "password-value"));
+    assert.equal(calls.some((call) => call.body?.action === "clear"), true);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("non-Vercel browser origin keeps auth state ephemeral while registering only a non-secret device identity", async () => {
   const originalFetch = globalThis.fetch;
   const originalLocalStorage = globalThis.localStorage;
   const calls = [];
@@ -79,16 +122,21 @@ test("non-Vercel browser origin keeps access state ephemeral and never performs 
   Object.defineProperty(globalThis, "localStorage", {
     configurable: true,
     value: {
-      getItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be read"); },
-      setItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be written"); },
-      removeItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be mutated"); }
+      getItem() { persistentStorageTouched = true; throw new Error("global persistent storage must not be read"); },
+      setItem() { persistentStorageTouched = true; throw new Error("global persistent storage must not be written"); },
+      removeItem() { persistentStorageTouched = true; throw new Error("global persistent storage must not be mutated"); }
     }
   });
   globalThis.fetch = async (input, init = {}) => {
     const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
-    calls.push({ url, method: init.method ?? (input instanceof Request ? input.method : "GET") });
+    const body = init.body ? JSON.parse(String(init.body)) : undefined;
+    calls.push({ url, method: init.method ?? (input instanceof Request ? input.method : "GET"), body });
     if (url.startsWith("https://gmlsucpwliegwlxymjvp.supabase.co/auth/v1/token?grant_type=password")) {
       return new Response(JSON.stringify(authSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    if (isTouchRpc(url)) {
+      assertTouchBody(body);
+      return new Response(JSON.stringify("00000000-0000-4000-8000-000000000001"), { status: 200, headers: { "content-type": "application/json" } });
     }
     if (url.startsWith("https://gmlsucpwliegwlxymjvp.supabase.co/rest/v1/cc7_owner_access")) {
       return new Response(JSON.stringify([{ enabled: true }]), { status: 200, headers: { "content-type": "application/json" } });
@@ -101,6 +149,7 @@ test("non-Vercel browser origin keeps access state ephemeral and never performs 
     await provider.signIn("owner@example.com", "password-value");
     assert.equal(calls[0].url, "https://gmlsucpwliegwlxymjvp.supabase.co/auth/v1/token?grant_type=password");
     assert.equal(calls[0].method, "POST");
+    assert.equal(isTouchRpc(calls[1].url), true);
     assert.equal(persistentStorageTouched, false);
     assert.equal(calls.some((call) => call.url.includes("grant_type=refresh_token")), false);
   } finally {
