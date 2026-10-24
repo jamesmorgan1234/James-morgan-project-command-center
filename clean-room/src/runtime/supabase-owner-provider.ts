@@ -43,8 +43,13 @@ function numeric(value: unknown): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 function truthText(value: unknown): TruthValue<string> { const parsed = text(value); return parsed ? known(parsed) : unknown<string>(); }
-function defaultStorage(): SessionStorageLike | undefined {
-  try { return typeof localStorage === "undefined" ? undefined : localStorage; } catch { return undefined; }
+function defaultStorage(): SessionStorageLike {
+  const values = new Map<string, string>();
+  return {
+    getItem(key: string): string | null { return values.get(key) ?? null; },
+    setItem(key: string, value: string): void { values.set(key, value); },
+    removeItem(key: string): void { values.delete(key); }
+  };
 }
 function evidence(source: string, observedAt: string, reference?: string): readonly RuntimeEvidenceRef[] {
   const ref = reference ? Object.freeze({ source, observedAt, reference }) : Object.freeze({ source, observedAt });

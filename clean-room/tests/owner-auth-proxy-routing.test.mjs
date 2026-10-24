@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { providerFromDocument } from "../dist/runtime/provider.js";
+import { SupabaseOwnerRuntimeSnapshotProvider } from "../dist/runtime/supabase-owner-provider.js";
 
 function fakeDocument(baseURI) {
   const metas = new Map([
@@ -104,6 +105,48 @@ test("non-Vercel browser origin keeps access state ephemeral and never performs 
     assert.equal(calls.some((call) => call.url.includes("grant_type=refresh_token")), false);
   } finally {
     globalThis.fetch = originalFetch;
+    if (originalLocalStorage === undefined) delete globalThis.localStorage;
+    else Object.defineProperty(globalThis, "localStorage", { configurable: true, value: originalLocalStorage });
+  }
+});
+
+test("direct Supabase owner provider defaults to volatile storage and never touches localStorage", async () => {
+  const originalLocalStorage = globalThis.localStorage;
+  let persistentStorageTouched = false;
+  Object.defineProperty(globalThis, "localStorage", {
+    configurable: true,
+    value: {
+      getItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be read"); },
+      setItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be written"); },
+      removeItem() { persistentStorageTouched = true; throw new Error("persistent storage must not be mutated"); }
+    }
+  });
+
+  const calls = [];
+  const fetcher = async (input, init = {}) => {
+    const url = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    calls.push({ url, method: init.method ?? (input instanceof Request ? input.method : "GET") });
+    if (url.includes("/auth/v1/token?grant_type=password")) {
+      return new Response(JSON.stringify(authSessionPayload()), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    if (url.includes("/rest/v1/cc7_owner_access")) {
+      return new Response(JSON.stringify([{ enabled: true }]), { status: 200, headers: { "content-type": "application/json" } });
+    }
+    if (url.includes("/auth/v1/logout?scope=local")) return new Response(null, { status: 204 });
+    throw new Error(`Unexpected fetch ${url}`);
+  };
+
+  try {
+    const provider = new SupabaseOwnerRuntimeSnapshotProvider({
+      supabaseUrl: "https://gmlsucpwliegwlxymjvp.supabase.co",
+      publishableKey: "sb_publishable_test_key",
+      fetcher
+    });
+    await provider.signIn("owner@example.com", "password-value");
+    await provider.signOut();
+    assert.equal(persistentStorageTouched, false);
+    assert.equal(calls.some((call) => call.url.includes("/auth/v1/logout?scope=local")), true);
+  } finally {
     if (originalLocalStorage === undefined) delete globalThis.localStorage;
     else Object.defineProperty(globalThis, "localStorage", { configurable: true, value: originalLocalStorage });
   }
