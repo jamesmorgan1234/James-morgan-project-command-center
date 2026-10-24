@@ -1,6 +1,6 @@
 import { createDisconnectedRuntimeSnapshot, type CommandCenterRuntimeSnapshot } from "./snapshot.js";
 import { installOwnerSignOutControl, promptForOwnerCredentials } from "./owner-auth-ui.js";
-import { SupabaseOwnerRuntimeSnapshotProvider } from "./supabase-owner-provider.js";
+import { SupabaseOwnerRuntimeSnapshotProvider, type SessionStorageLike } from "./supabase-owner-provider.js";
 
 export interface RuntimeSnapshotProvider {
   readonly id: string;
@@ -68,20 +68,111 @@ export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
   }
 }
 
-function ownerAuthFetch(documentRef: Document, supabaseUrl: string): typeof fetch {
+const OWNER_SESSION_KEY = "command-center:owner-session:v1";
+const BROKER_REFRESH_SENTINEL = "__command_center_http_only_refresh__";
+const BROKER_RESTORE_ACCESS_SENTINEL = "__command_center_restore__";
+
+class EphemeralOwnerSessionStorage implements SessionStorageLike {
+  readonly #values = new Map<string, string>();
+
+  constructor(seedBrokerRestore: boolean) {
+    if (!seedBrokerRestore) return;
+    this.#values.set(OWNER_SESSION_KEY, JSON.stringify({
+      accessToken: BROKER_RESTORE_ACCESS_SENTINEL,
+      refreshToken: BROKER_REFRESH_SENTINEL,
+      expiresAt: 0,
+      userId: BROKER_RESTORE_ACCESS_SENTINEL
+    }));
+  }
+
+  getItem(key: string): string | null { return this.#values.get(key) ?? null; }
+  setItem(key: string, value: string): void { this.#values.set(key, value); }
+  removeItem(key: string): void { this.#values.delete(key); }
+}
+
+function jsonResponse(payload: unknown, status = 200): Response {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: { "content-type": "application/json", "cache-control": "no-store" }
+  });
+}
+
+function sessionPayloadWithBrokerSentinel(payload: unknown): unknown {
+  if (!isObject(payload)) return payload;
+  if (typeof payload.access_token !== "string" || !payload.access_token) return payload;
+  return { ...payload, refresh_token: BROKER_REFRESH_SENTINEL };
+}
+
+function ownerAuthFetch(documentRef: Document, supabaseUrl: string, publishableKey: string): { fetcher: typeof fetch; storage: SessionStorageLike } {
   let page: URL | undefined;
   try { page = new URL(documentRef.baseURI); } catch {}
-  const useProxy = page?.protocol === "https:" && page.hostname.endsWith(".vercel.app");
+  const useVercelProxy = page?.protocol === "https:" && page.hostname.endsWith(".vercel.app");
+  const useSessionBroker = useVercelProxy;
   const upstreamAuthBase = `${supabaseUrl.replace(/\/$/, "")}/auth/v1/`;
   const proxyAuthBase = page ? new URL("/__cc_auth__/", page).toString() : "";
+  const brokerUrl = page ? new URL("/api/owner-session", page).toString() : "";
+  const storage = new EphemeralOwnerSessionStorage(useSessionBroker);
 
-  return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
-    const raw = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
-    if (!useProxy || !proxyAuthBase || !raw.startsWith(upstreamAuthBase)) return fetch(input, init);
+  const broker = async (action: "establish" | "refresh" | "clear", refreshToken?: string): Promise<Response> => {
+    if (!useSessionBroker || !brokerUrl) return jsonResponse({ error: "secure_session_broker_unavailable" }, 401);
+    return fetch(brokerUrl, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        "x-cc-supabase-key": publishableKey
+      },
+      body: JSON.stringify(refreshToken ? { action, refreshToken } : { action }),
+      credentials: "same-origin",
+      cache: "no-store"
+    });
+  };
+
+  const proxiedAuthFetch = async (raw: string, input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    if (!useVercelProxy || !proxyAuthBase || !raw.startsWith(upstreamAuthBase)) return fetch(input, init);
     const proxied = `${proxyAuthBase}${raw.slice(upstreamAuthBase.length)}`;
     if (input instanceof Request) return fetch(new Request(proxied, input), init);
     return fetch(proxied, init);
   };
+
+  const fetcher: typeof fetch = async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    const raw = typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
+    if (!raw.startsWith(upstreamAuthBase)) return fetch(input, init);
+
+    const authUrl = new URL(raw);
+    const grantType = authUrl.pathname.endsWith("/token") ? authUrl.searchParams.get("grant_type") : null;
+
+    if (grantType === "refresh_token") {
+      if (!useSessionBroker) return jsonResponse({ error: "secure_session_restore_requires_same_origin_broker" }, 401);
+      const response = await broker("refresh");
+      if (!response.ok) return response;
+      const payload: unknown = await response.json();
+      return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
+    }
+
+    if (authUrl.pathname.endsWith("/logout") && useSessionBroker) {
+      return broker("clear");
+    }
+
+    const response = await proxiedAuthFetch(raw, input, init);
+    if (grantType !== "password" || !response.ok) return response;
+
+    const payload: unknown = await response.json();
+    if (!isObject(payload)) return jsonResponse(payload, response.status);
+    const refreshToken = typeof payload.refresh_token === "string" ? payload.refresh_token : "";
+    if (!refreshToken) return jsonResponse(payload, response.status);
+
+    if (!useSessionBroker) {
+      return jsonResponse(sessionPayloadWithBrokerSentinel(payload), response.status);
+    }
+
+    const established = await broker("establish", refreshToken);
+    if (!established.ok) return established;
+    const brokerPayload: unknown = await established.json();
+    return jsonResponse(sessionPayloadWithBrokerSentinel(brokerPayload), established.status);
+  };
+
+  return { fetcher, storage };
 }
 
 export function providerFromDocument(documentRef: Document): RuntimeSnapshotProvider {
@@ -92,11 +183,13 @@ export function providerFromDocument(documentRef: Document): RuntimeSnapshotProv
   const publishableKey = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-supabase-publishable-key"]')?.content.trim();
   const releaseId = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-release"]')?.content.trim();
   if (supabaseUrl && publishableKey) {
+    const ownerAuth = ownerAuthFetch(documentRef, supabaseUrl, publishableKey);
     return new SupabaseOwnerRuntimeSnapshotProvider({
       supabaseUrl,
       publishableKey,
       ...(releaseId ? { releaseId } : {}),
-      fetcher: ownerAuthFetch(documentRef, supabaseUrl),
+      fetcher: ownerAuth.fetcher,
+      storage: ownerAuth.storage,
       promptForCredentials: promptForOwnerCredentials,
       onAuthenticated: installOwnerSignOutControl
     });
