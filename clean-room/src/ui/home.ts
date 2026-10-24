@@ -8,7 +8,7 @@ export interface HomePrimaryModule {
   readonly route: string;
   readonly status?: SemanticStatus;
   readonly progress?: ProgressDisplay;
-  readonly verifiedCount?: number;
+  readonly verifiedCount?: number | undefined;
   readonly supportingText: string;
 }
 
