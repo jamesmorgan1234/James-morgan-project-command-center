@@ -7,8 +7,8 @@
 
 ## Durable mapping status
 
-- Companies 001–020: **EXHAUSTIVE ROADMAP PASS v1 COMPLETE / SATURATION RECORDED**
-- Companies 021–100: **PENDING EXHAUSTIVE ROADMAP PASS**
+- Companies 001–030: **EXHAUSTIVE ROADMAP PASS v1 COMPLETE / SATURATION RECORDED**
+- Companies 031–100: **PENDING EXHAUSTIVE ROADMAP PASS**
 
 ## Completed individual roadmap files
 
@@ -31,7 +31,17 @@
 017 SaaS Spend Autopilot  
 018 Customer Churn Prevention AI  
 019 Inventory Forecasting API  
-020 Data Cleanup Autopilot
+020 Data Cleanup Autopilot  
+021 Lead Qualification Infrastructure  
+022 Cybersecurity Hygiene Autopilot for SMBs  
+023 Contract Obligation Tracker  
+024 Vendor Risk Autopilot  
+025 Niche Research Subscription  
+026 License & Certification Tracker  
+027 Review & Reputation Autopilot  
+028 AI Knowledge-Base Maintainer  
+029 Vertical Business OS Generator  
+030 Invoice / Payment Recovery AI
 
 Each completed file includes product/feature/customer/vertical/Brain/agent/service/workflow/integration/data/API/monetization/distribution/automation/moat/platform/risk/scale/spinoff analysis, Command Center dependencies, DESIGN NOW / BUILD NOW / defer classification, autonomous mature state, and saturation result.
 
@@ -39,6 +49,6 @@ Each completed file includes product/feature/customer/vertical/Brain/agent/servi
 
 Continue at:
 
-**Company 021 — Lead Qualification Infrastructure**
+**Company 031 — Business Form Automation Platform**
 
 Do not resume Category 8 implementation until all 100 company saturation passes, shared capability deduplication, retrofit-risk audit and Command Center reverse-map are complete.
