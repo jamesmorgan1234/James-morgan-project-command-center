@@ -74,3 +74,22 @@ test("protected actions use server-owned policy and single-use session-bound aut
   assert.match(sql, /exact-action Security authorization/i);
   assert.match(sql, /where status='authorized'[\s\S]*authorized_session_id is null/i);
 });
+
+test("integration credentials stay server-side and writes use canonical protected authorization", () => {
+  const sql = migration("20261024104000_category2_integration_secret_isolation.sql");
+  assert.match(sql, /revoke select on table public\.integration_webhook_endpoints from authenticated/i);
+  assert.match(sql, /command_center_integration_webhook_status/i);
+  assert.match(sql, /'secret_ref','webhook:'/i);
+  assert.match(sql, /Raw webhook secret rotation is server-side only/i);
+  assert.match(sql, /command_center_integration_service_rotate_webhook_secret/i);
+  assert.match(sql, /consume_action_authorization[\s\S]*integration\.rotate_webhook_secret/i);
+  assert.match(sql, /grant execute on function public\.command_center_integration_service_rotate_webhook_secret\(uuid,uuid,uuid\) to service_role/i);
+  assert.doesNotMatch(sql, /grant execute on function public\.command_center_integration_rotate_webhook_secret\(uuid\) to authenticated/i);
+  assert.match(sql, /security_authorization_id uuid references public\.security_action_authorizations/i);
+  assert.match(sql, /command_center_integration_attach_write_authorization/i);
+  assert.match(sql, /trg_integration_write_protected_authorization/i);
+  assert.match(sql, /integration\.execute_write/i);
+  assert.match(sql, /Connected state requires server-side provider verification/i);
+  assert.match(sql, /command_center_integration_service_mark_connected/i);
+  assert.match(sql, /integration\.reconnect_mark_connected/i);
+});
