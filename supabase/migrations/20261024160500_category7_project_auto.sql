@@ -121,7 +121,7 @@ begin
     where e.owner_id=u and e.enabled and e.retired_at is null and e.health not in ('unavailable','unconfigured')
       and ready_task.capability=any(e.capabilities)
       and ready_task.preferred_environment=any(e.environments)
-      and (cardinality(e.project_type_keys)=0 or exists(select 1 from public.command_center_project_profiles pp where pp.owner_id=u and pp.project_id=r.project_id and pp.project_type_key=any(e.project_type_keys)))
+      and (cardinality(e.project_type_keys)=0 or exists(select 1 from public.command_center_project_profiles pp where pp.owner_id=u and pp.project_id=r.project_id and pp.type_key=any(e.project_type_keys)))
       and e.cost_class<>'paid'
       and (case ready_task.risk when 'low' then 0 when 'medium' then 1 when 'high' then 2 else 3 end)
           <= (case e.max_risk when 'low' then 0 when 'medium' then 1 else 2 end)
