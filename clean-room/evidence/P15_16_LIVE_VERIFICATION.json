@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "phase": "P15.16",
+  "status": "VERIFIED_COMPLETE",
+  "verifiedAtUtc": "2026-10-24T00:45:00Z",
+  "production": {
+    "provider": "vercel",
+    "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
+    "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
+    "deploymentId": "dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq",
+    "deploymentUrl": "https://command-center-preview-aswi4snqb-crestven-holdings.vercel.app",
+    "stableDomain": "https://command-center-preview-alpha.vercel.app",
+    "target": "production",
+    "readyState": "READY"
+  },
+  "releaseIdentity": {
+    "releaseId": "39fb4ab2df17f5ad087e21917b7e2f1b3ede481b",
+    "sourceSha": "39fb4ab2df17f5ad087e21917b7e2f1b3ede481b",
+    "buildHash": "25fcf841de982da4428cad74080ca7c91e2bb234894a7a942ba889c193aa2972",
+    "assetManifestHash": "a4636b5279685425a782a3c58160a94e6bd56bc52ca20efab691d389a8ee754f",
+    "schemaCompatibility": "cc-runtime-snapshot-v1"
+  },
+  "liveChecks": {
+    "releaseJsonMatched": true,
+    "htmlReleaseMetaMatched": true,
+    "manifestServed": true,
+    "serviceWorkerServed": true,
+    "declaredRouteCount": 19,
+    "liveRouteShellCount": 19,
+    "unknownRouteServedSpaShell": true,
+    "runtimeErrorsObserved": 0,
+    "productionDataMutationRequired": false,
+    "productionDataModified": false
+  },
+  "routes": [
+    "/",
+    "/projects",
+    "/active",
+    "/next-up",
+    "/project/test-project",
+    "/brain",
+    "/agency",
+    "/needs-me",
+    "/search",
+    "/automations",
+    "/personal",
+    "/finance",
+    "/social",
+    "/books",
+    "/specialists",
+    "/analytics",
+    "/settings",
+    "/settings/security",
+    "/settings/devices"
+  ],
+  "fallback": {
+    "provider": "github-pages",
+    "url": "https://jamesmorgan1234.github.io/James-morgan-project-command-center/",
+    "mainSha": "855a06b43d152df1bc3c7574cc3f584bf1b51892",
+    "workflowRun": "39977771162",
+    "artifactId": "12512325850",
+    "previousKnownGoodSha": "d40a7b2659400481c75f1de87d084b4d6cdce254"
+  },
+  "knownBlockers": {
+    "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"
+  }
+}

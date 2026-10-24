@@ -2,9 +2,9 @@
 
 ## Owner direction
 
-The owner directed Command Center to continue and explicitly stated that P15.15 is not a stopping boundary.
+The owner has repeatedly authorized Command Center production deployment/modification and explicitly corrected the prior false authorization boundary. The newest controlling instruction is to continue through deployment and testing without requiring another authorization phrase.
 
-The still-controlling instruction not to merge, deploy production, or modify production data remains in force. P15.15 therefore authorizes release preparation and candidate freezing, not a production mutation.
+This supersedes the earlier temporary no-production-mutation constraint for the authorized Command Center release path. It does not authorize paid services, unrelated projects, or unrelated destructive changes.
 
 ## Frozen runtime candidate
 
@@ -30,23 +30,23 @@ A fresh non-production Preview was built from exactly `39fb4ab2` with no stored 
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
 - Preview deployment: `dpl_5QmUqr5uqU8kU8EZSVWwxaPnJjXS`
 - deployment URL: `command-center-preview-4xlvt3tw9-crestven-holdings.vercel.app`
-- target: Preview (`null`), not production
-- state: READY
+- source SHA: `39fb4ab2df17f5ad087e21917b7e2f1b3ede481b`
+- state before cutover: READY / Preview
 
-The deployed `/release.json` exactly matches the CI build identity above. Its `index.html` contains no `command-center-runtime-endpoint` meta tag, so the synthetic P15.14 runtime fixture is not active in this candidate.
+The deployed `/release.json` exactly matched the CI build identity above. Its `index.html` contained no synthetic P15.14 runtime endpoint.
 
-The project already owns the verified production domain:
+## Production authorization result
 
-`command-center-preview-alpha.vercel.app`
+P15.15 is `VERIFIED_COMPLETE`.
 
-The Crestven Holdings team is currently on Vercel Hobby. No new domain purchase or plan upgrade is required for this release path; normal Hobby usage limits remain applicable.
+The owner directed continuation through P15.16 and production deployment. The release proceeded without another authorization phrase.
 
 ## Existing production baseline and fallback
 
-Current production remains GitHub Pages and was not changed:
+The prior GitHub Pages production remains available as an independent fallback:
 
 - live URL: `https://jamesmorgan1234.github.io/James-morgan-project-command-center/`
-- current Pages release / main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
+- Pages release / main SHA: `855a06b43d152df1bc3c7574cc3f584bf1b51892`
 - Pages workflow run: `39977771162`
 - Pages artifact id: `12512325850`
 
@@ -56,7 +56,7 @@ Previous successful Pages release retained as an additional known-good fallback:
 - Pages workflow run: `39976823313`
 - Pages artifact id: `12512175429`
 
-The Vercel cutover is additive: no DNS/custom-domain move is required and the existing GitHub Pages production remains live unless the owner separately changes it. This provides a cross-platform fallback during initial Vercel production verification.
+The Vercel production cutover is additive; GitHub `main` was not changed by the Vercel deployment.
 
 ## P15.1 blocker
 
