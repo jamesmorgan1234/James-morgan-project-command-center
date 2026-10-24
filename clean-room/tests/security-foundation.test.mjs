@@ -105,14 +105,16 @@ test("data boundaries deny cross-owner and cross-project access", () => {
   assert.equal(evaluateDataBoundary({ ownerId: "owner-1", projectIds: ["command-center"], businessIds: ["biz-one"] }, boundary).reason, "project_boundary_mismatch");
 });
 
-test("security incidents have constrained lifecycle and append-only event evidence", () => {
+test("security incidents require containment and recovery before resolution and append every transition", () => {
   const events = new SecurityEventLedger();
   const incidents = new IncidentRegistry(events);
   incidents.open({ id: "inc_one", ownerId: "owner-1", title: "Suspicious session", riskClass: "high", state: "open", openedAt: NOW, updatedAt: NOW }, "sev_one", "security-test");
   incidents.transition("inc_one", "acknowledged", "2026-10-23T18:31:00Z", "sev_two", "security-test");
   incidents.transition("inc_one", "contained", "2026-10-23T18:32:00Z", "sev_three", "security-test");
-  incidents.transition("inc_one", "resolved", "2026-10-23T18:33:00Z", "sev_four", "security-test");
+  assert.throws(() => incidents.transition("inc_one", "resolved", "2026-10-23T18:32:30Z", "sev_bad", "security-test"));
+  incidents.transition("inc_one", "recovering", "2026-10-23T18:33:00Z", "sev_four", "security-test");
+  incidents.transition("inc_one", "resolved", "2026-10-23T18:34:00Z", "sev_five", "security-test");
   assert.equal(incidents.get("inc_one").state, "resolved");
-  assert.equal(events.list("owner-1").length, 4);
-  assert.throws(() => incidents.transition("inc_one", "open", "2026-10-23T18:34:00Z", "sev_five", "security-test"));
+  assert.equal(events.list("owner-1").length, 5);
+  assert.throws(() => incidents.transition("inc_one", "open", "2026-10-23T18:35:00Z", "sev_six", "security-test"));
 });
