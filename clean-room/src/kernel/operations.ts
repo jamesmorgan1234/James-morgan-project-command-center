@@ -16,14 +16,14 @@ export interface OperationRecord {
   readonly errorCode?: string;
 }
 
-const ALLOWED: Readonly<Record<OperationState, readonly OperationState[]>> = Object.freeze({
-  prepared: Object.freeze(["dispatched", "failed"]),
-  dispatched: Object.freeze(["succeeded", "failed", "unknown"]),
-  unknown: Object.freeze(["reconciled", "succeeded", "failed"]),
-  reconciled: Object.freeze([]),
-  succeeded: Object.freeze([]),
-  failed: Object.freeze([])
-});
+const ALLOWED = {
+  prepared: ["dispatched", "failed"],
+  dispatched: ["succeeded", "failed", "unknown"],
+  unknown: ["reconciled", "succeeded", "failed"],
+  reconciled: [],
+  succeeded: [],
+  failed: []
+} as const satisfies Readonly<Record<OperationState, readonly OperationState[]>>;
 
 export class OperationJournal {
   readonly #records = new Map<string, OperationRecord>();
@@ -48,9 +48,9 @@ export class OperationJournal {
 
   transition(id: string, state: OperationState, updatedAt: string, details: { readonly providerReceiptRef?: string; readonly errorCode?: string } = {}): OperationRecord {
     const current = this.#required(id);
-    parseTimestamp(updatedAt, "updatedAt");
-    if (parseTimestamp(updatedAt, "updatedAt") < parseTimestamp(current.updatedAt, "current.updatedAt")) throw new Error("Operation transition cannot move backward in time");
-    if (!ALLOWED[current.state].includes(state)) throw new Error(`Invalid operation transition: ${current.state} -> ${state}`);
+    const nextTime = parseTimestamp(updatedAt, "updatedAt");
+    if (nextTime < parseTimestamp(current.updatedAt, "current.updatedAt")) throw new Error("Operation transition cannot move backward in time");
+    if (!(ALLOWED[current.state] as readonly OperationState[]).includes(state)) throw new Error(`Invalid operation transition: ${current.state} -> ${state}`);
     const next = Object.freeze({ ...current, state, updatedAt, ...details });
     this.#records.set(id, next);
     return next;

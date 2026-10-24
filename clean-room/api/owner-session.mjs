@@ -1,6 +1,7 @@
-const SUPABASE_URL = "https://gmlsucpwliegwlxymjvp.supabase.co";
 const COOKIE_NAME = "__Host-cc-owner-refresh";
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
+const MAX_BODY_BYTES = 16 * 1024;
+const UPSTREAM_TIMEOUT_MS = 8_000;
 
 function header(req, name) {
   const value = req.headers?.[name] ?? req.headers?.[name.toLowerCase()];
@@ -18,10 +19,7 @@ function clearCookie(res) {
 }
 
 function setRefreshCookie(res, refreshToken) {
-  res.setHeader(
-    "Set-Cookie",
-    `${COOKIE_NAME}=${encodeURIComponent(refreshToken)}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${COOKIE_MAX_AGE_SECONDS}`
-  );
+  res.setHeader("Set-Cookie", `${COOKIE_NAME}=${encodeURIComponent(refreshToken)}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${COOKIE_MAX_AGE_SECONDS}`);
 }
 
 function cookieValue(req, name) {
@@ -48,11 +46,37 @@ function sameOrigin(req) {
   }
 }
 
+function serverConfig() {
+  const environment = process.env.CC_ENVIRONMENT;
+  const supabaseUrl = process.env.CC_SUPABASE_URL;
+  const projectRef = process.env.CC_SUPABASE_PROJECT_REF;
+  const publishableKey = process.env.CC_SUPABASE_PUBLISHABLE_KEY;
+  if (!["development", "test", "staging", "production"].includes(environment ?? "")) throw new Error("invalid_environment_configuration");
+  if (!supabaseUrl || !projectRef || !publishableKey?.startsWith("sb_publishable_")) throw new Error("identity_provider_configuration_missing");
+  const url = new URL(supabaseUrl);
+  if (url.protocol !== "https:") throw new Error("identity_provider_https_required");
+  if (url.hostname.endsWith(".supabase.co") && url.hostname !== `${projectRef}.supabase.co`) throw new Error("identity_provider_project_mismatch");
+  return Object.freeze({ environment, supabaseUrl: url.origin, projectRef, publishableKey });
+}
+
 async function readJson(req) {
-  if (req.body && typeof req.body === "object") return req.body;
-  if (typeof req.body === "string" && req.body.trim()) return JSON.parse(req.body);
+  if (req.body && typeof req.body === "object") {
+    const encoded = Buffer.from(JSON.stringify(req.body), "utf8");
+    if (encoded.length > MAX_BODY_BYTES) throw new Error("body_too_large");
+    return req.body;
+  }
+  if (typeof req.body === "string" && req.body.trim()) {
+    if (Buffer.byteLength(req.body, "utf8") > MAX_BODY_BYTES) throw new Error("body_too_large");
+    return JSON.parse(req.body);
+  }
   const chunks = [];
-  for await (const chunk of req) chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+  let total = 0;
+  for await (const chunk of req) {
+    const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    total += buffer.length;
+    if (total > MAX_BODY_BYTES) throw new Error("body_too_large");
+    chunks.push(buffer);
+  }
   if (chunks.length === 0) return {};
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
@@ -69,26 +93,26 @@ function publicSession(payload) {
   return { access_token: accessToken, expires_at: expiresAt, user: { id: userId } };
 }
 
-async function refreshWithSupabase(refreshToken, publishableKey) {
-  return fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
-    method: "POST",
-    headers: {
-      apikey: publishableKey,
-      accept: "application/json",
-      "content-type": "application/json"
-    },
-    body: JSON.stringify({ refresh_token: refreshToken }),
-    cache: "no-store"
+async function providerFetch(config, path, options = {}) {
+  return fetch(`${config.supabaseUrl}${path}`, {
+    ...options,
+    headers: { apikey: config.publishableKey, ...(options.headers ?? {}) },
+    cache: "no-store",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS)
   });
 }
 
-async function revokeLocal(accessToken, publishableKey) {
+async function refreshWithSupabase(config, refreshToken) {
+  return providerFetch(config, "/auth/v1/token?grant_type=refresh_token", {
+    method: "POST",
+    headers: { accept: "application/json", "content-type": "application/json" },
+    body: JSON.stringify({ refresh_token: refreshToken })
+  });
+}
+
+async function revokeLocal(config, accessToken) {
   try {
-    await fetch(`${SUPABASE_URL}/auth/v1/logout?scope=local`, {
-      method: "POST",
-      headers: { apikey: publishableKey, authorization: `Bearer ${accessToken}` },
-      cache: "no-store"
-    });
+    await providerFetch(config, "/auth/v1/logout?scope=local", { method: "POST", headers: { authorization: `Bearer ${accessToken}` } });
   } catch {}
 }
 
@@ -100,24 +124,29 @@ export default async function handler(req, res) {
   }
   if (!sameOrigin(req)) return res.status(403).json({ error: "same_origin_required" });
 
-  const publishableKey = header(req, "x-cc-supabase-key");
-  if (typeof publishableKey !== "string" || !publishableKey.startsWith("sb_publishable_")) {
-    return res.status(400).json({ error: "publishable_key_required" });
-  }
-
   let body;
   try { body = await readJson(req); }
-  catch { return res.status(400).json({ error: "invalid_json" }); }
+  catch (error) { return res.status(error?.message === "body_too_large" ? 413 : 400).json({ error: error?.message === "body_too_large" ? "body_too_large" : "invalid_json" }); }
   const action = typeof body?.action === "string" ? body.action : "";
+
+  let config;
+  try { config = serverConfig(); }
+  catch {
+    if (action === "clear") {
+      clearCookie(res);
+      return res.status(204).end();
+    }
+    return res.status(503).json({ error: "identity_provider_configuration_unavailable" });
+  }
 
   if (action === "clear") {
     const refreshToken = cookieValue(req, COOKIE_NAME);
     if (refreshToken) {
       try {
-        const refreshed = await refreshWithSupabase(refreshToken, publishableKey);
+        const refreshed = await refreshWithSupabase(config, refreshToken);
         if (refreshed.ok) {
           const payload = await refreshed.json();
-          if (typeof payload?.access_token === "string") await revokeLocal(payload.access_token, publishableKey);
+          if (typeof payload?.access_token === "string") await revokeLocal(config, payload.access_token);
         }
       } catch {}
     }
@@ -138,7 +167,7 @@ export default async function handler(req, res) {
   if (action !== "establish" && action !== "refresh") return res.status(400).json({ error: "invalid_action" });
 
   let upstream;
-  try { upstream = await refreshWithSupabase(refreshToken, publishableKey); }
+  try { upstream = await refreshWithSupabase(config, refreshToken); }
   catch {
     clearCookie(res);
     return res.status(503).json({ error: "identity_provider_unavailable" });
