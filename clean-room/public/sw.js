@@ -3,6 +3,7 @@ const CACHE_PREFIX = "command-center-shell:";
 const CURRENT_CACHE = `${CACHE_PREFIX}${RELEASE_ID}`;
 const META_PATH = "/__cc-release-meta__";
 const CORE = ["/", "/index.html", "/app.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser.js"];
+const SHELL_PATHS = new Set(CORE);
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
@@ -34,10 +35,23 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-async function networkFirst(request) {
+function isProtectedNetworkOnlyPath(pathname) {
+  return pathname.startsWith("/api/") || pathname.startsWith("/__cc_auth__/") || pathname.startsWith("/auth/");
+}
+
+function isCacheableShellPath(pathname) {
+  if (SHELL_PATHS.has(pathname)) return true;
+  return pathname.startsWith("/app/") || pathname.startsWith("/assets/");
+}
+
+async function networkOnly(request) {
+  return fetch(request, { cache: "no-store" });
+}
+
+async function shellNetworkFirst(request) {
   try {
     const response = await fetch(request);
-    if (response.ok && request.method === "GET" && new URL(request.url).origin === self.location.origin) {
+    if (response.ok && request.method === "GET") {
       const cache = await caches.open(CURRENT_CACHE);
       await cache.put(request, response.clone());
     }
@@ -49,7 +63,7 @@ async function networkFirst(request) {
       const shell = await caches.match("/index.html");
       if (shell) return shell;
     }
-    throw new Error("Network unavailable and no cached response exists");
+    throw new Error("Network unavailable and no cached shell response exists");
   }
 }
 
@@ -58,5 +72,13 @@ self.addEventListener("fetch", (event) => {
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  event.respondWith(networkFirst(request));
+  if (isProtectedNetworkOnlyPath(url.pathname)) {
+    event.respondWith(networkOnly(request));
+    return;
+  }
+  if (request.mode === "navigate" || isCacheableShellPath(url.pathname)) {
+    event.respondWith(shellNetworkFirst(request));
+    return;
+  }
+  event.respondWith(networkOnly(request));
 });
