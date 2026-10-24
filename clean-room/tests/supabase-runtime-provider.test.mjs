@@ -43,6 +43,13 @@ function ownerRuntimeFetch({ authorized = true } = {}) {
     ]);
     if (table === "command_center_project_roadmap_gates") return json([{ project_id: "project-1", roadmap_version: 1, gate_id: "gate:owner", satisfied: true, evidence_refs: ["owner:approved"], updated_at: "2026-10-24T19:15:00Z" }]);
     if (table === "command_center_project_checkpoints") return json([{ checkpoint_id: "checkpoint-1", project_id: "project-1", roadmap_version: 1, exact_next_work_unit_id: "w2", blocker: null, required_environment: "any_device", owner_action: "Review exact next work", verification_method: "tests", evidence_refs: ["test:checkpoint"], resume_state_hash: "a".repeat(64), created_at: "2026-10-24T19:30:00Z" }]);
+    if (table === "command_center_project_detail_sections") return json([
+      { section_key: "project-section:performance", title: "Performance", sort_order: 10, capability_key: null, active: true, updated_at: "2026-10-24T19:35:00Z" },
+      { section_key: "project-section:software-delivery", title: "Software Delivery", sort_order: 90, capability_key: "capability:software-delivery", active: true, updated_at: "2026-10-24T19:36:00Z" }
+    ]);
+    if (table === "command_center_project_type_detail_sections") return json([
+      { type_key: "project-type:software", section_key: "project-section:software-delivery", required: true, source_ref: "type-binding:test", created_at: "2026-10-24T19:37:00Z" }
+    ]);
     if (table === "cc7_activity") return json([{ project_id: "project-1", headline: "Verified activity", detail: "Evidence", happened_at: "2026-10-24T19:40:00Z" }]);
     if (table === "cc7_agent_controls") return json([{ auto_enabled: false, current_run_id: null, runner_state: "ready", updated_at: "2026-10-24T20:00:00Z", project_auto_enabled: false, project_auto_project_id: null }]);
     if (table === "cc7_agent_runs") return json([]);
@@ -87,6 +94,10 @@ test("owner runtime prompts for a real authenticated session and loads canonical
   assert.equal(snapshot.projects[0].nextWorkReadiness.state, "known");
   assert.equal(snapshot.projects[0].nextWorkReadiness.value.workUnitId, "w2");
   assert.equal(snapshot.projects[0].liveExecution.state, "unknown");
+  assert.equal(snapshot.projects[0].detailSections.length, 1);
+  assert.equal(snapshot.projects[0].detailSections[0].key, "project-section:software-delivery");
+  assert.equal(snapshot.projects[0].detailSections[0].required, true);
+  assert.equal(snapshot.projects[0].detailSections[0].content.state, "unknown");
   assert.equal(snapshot.release.releaseId.state, "known");
   assert.equal(snapshot.release.releaseId.value, "release-under-test");
   const needsMe = snapshot.surfaces.find((surface) => surface.key === "needs-me");
@@ -100,6 +111,8 @@ test("owner runtime prompts for a real authenticated session and loads canonical
   assert.ok(restCalls.length > 0);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/cc7_projects")), false);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_profiles")), true);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_detail_sections")), true);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_type_detail_sections")), true);
   for (const call of restCalls) {
     const headers = new Headers(call.init.headers);
     assert.equal(headers.get("apikey"), "sb_publishable_public-test-key");
