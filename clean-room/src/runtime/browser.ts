@@ -10,6 +10,7 @@ import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
 const PRIMARY_NAV_ROUTE_KEYS = Object.freeze(["route:home", "route:projects", "route:active-live", "route:next-up"] as const);
+const LIVE_EXECUTION_STALE_AFTER_MS = 120_000;
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -119,14 +120,29 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
 }
 
 function activeProjects(snapshot: CommandCenterRuntimeSnapshot): readonly RuntimeProjectSnapshot[] {
-  return snapshot.projects.filter((project) => project.lifecycle.state === "known" && ["active", "live"].includes(project.lifecycle.value));
+  const nowMs = Date.parse(snapshot.generatedAt);
+  if (!Number.isFinite(nowMs)) return Object.freeze([]);
+  return Object.freeze(snapshot.projects.filter((project) => {
+    if (project.lifecycle.state === "known" && ["archived", "superseded", "completed"].includes(project.lifecycle.value)) return false;
+    const live = project.liveExecution;
+    if (!live || live.state !== "known") return false;
+    const heartbeatMs = Date.parse(live.value.lastHeartbeatAt);
+    if (!Number.isFinite(heartbeatMs) || heartbeatMs > nowMs || nowMs - heartbeatMs > LIVE_EXECUTION_STALE_AFTER_MS) return false;
+    return live.value.status === "working" && live.value.executorClaimed === true && live.value.evidence.length > 0;
+  }));
 }
 function renderActiveRow(project: RuntimeProjectSnapshot): HTMLElement {
   const row = bevelCard("active-row");
   const text = el("div", "active-row__text");
-  text.append(projectTitle(project), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"), el("p", "next-action", truthText(project.nextAction)));
+  const live = project.liveExecution?.state === "known" ? project.liveExecution.value : undefined;
+  const activeTask = live?.currentTaskTitle ?? (project.nextAction.state === "known" ? project.nextAction.value : "Verified executor active");
+  text.append(projectTitle(project), statusPill("LIVE", "live"), el("p", "next-action", activeTask));
   const scope = el("div", "scope-column");
-  scope.append(el("strong", undefined, truthText(project.progressPercent, (value) => `${value}%`)), el("span", "metric-label", "Scope"), el("span", "sync-note", project.agencyState.state === "known" ? project.agencyState.value : "Execution state unavailable"));
+  scope.append(
+    el("strong", undefined, truthText(project.progressPercent, (value) => `${value}%`)),
+    el("span", "metric-label", "Scope"),
+    el("span", "sync-note", live ? `Heartbeat ${live.lastHeartbeatAt}` : "Execution evidence unavailable")
+  );
   row.append(projectIcon(), text, el("div", "vertical-divider"), scope, artPanel(), chevron());
   return row;
 }
@@ -134,23 +150,29 @@ function renderActive(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = el("section", "screen-stack");
   const projects = activeProjects(snapshot);
   if (projects.length === 0) {
-    section.append(emptyState("No verified live projects", "No project in the current canonical snapshot is verified as active/live. This does not mean none exist outside the snapshot.", snapshot.connection.state));
+    section.append(emptyState("No verified live projects", "No project has a currently claimed executor with a fresh verified heartbeat in this snapshot. Project lifecycle/status alone is not treated as live execution.", snapshot.connection.state));
     return section;
   }
   for (const project of projects) section.append(renderActiveRow(project));
   return section;
 }
 
-const PRIORITY_RANK: Readonly<Record<string, number>> = Object.freeze({ critical: 0, high: 1, normal: 2, low: 3 });
 function nextProjects(snapshot: CommandCenterRuntimeSnapshot): readonly RuntimeProjectSnapshot[] {
   return Object.freeze([...snapshot.projects]
-    .filter((project) => project.nextAction.state === "known")
-    .sort((a, b) => (a.priority.state === "known" ? PRIORITY_RANK[a.priority.value] ?? 9 : 9) - (b.priority.state === "known" ? PRIORITY_RANK[b.priority.value] ?? 9 : 9)));
+    .filter((project) => !(project.lifecycle.state === "known" && ["archived", "superseded", "completed"].includes(project.lifecycle.value)))
+    .filter((project) => project.nextWorkReadiness?.state === "known" && project.nextWorkReadiness.value.ready && project.nextWorkReadiness.value.evidence.length > 0)
+    .sort((a, b) => {
+      const aReady = a.nextWorkReadiness?.state === "known" ? a.nextWorkReadiness.value : undefined;
+      const bReady = b.nextWorkReadiness?.state === "known" ? b.nextWorkReadiness.value : undefined;
+      return (aReady?.priorityRank ?? Number.MAX_SAFE_INTEGER) - (bReady?.priorityRank ?? Number.MAX_SAFE_INTEGER) || a.name.localeCompare(b.name);
+    }));
 }
 function renderNextRow(project: RuntimeProjectSnapshot): HTMLElement {
   const row = bevelCard("next-row");
   const text = el("div", "next-row__text");
-  text.append(projectTitle(project), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"), el("p", "next-action", truthText(project.nextAction)));
+  const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
+  const action = project.nextAction.state === "known" ? project.nextAction.value : readiness?.title ?? "N/A";
+  text.append(projectTitle(project), statusPill("READY", "ready"), el("p", "next-action", action));
   row.append(projectIcon(), text, artPanel(), chevron());
   return row;
 }
@@ -158,7 +180,7 @@ function renderNextUp(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = el("section", "screen-stack");
   const projects = nextProjects(snapshot);
   if (projects.length === 0) {
-    section.append(emptyState("Priority queue unavailable", "No canonical project currently has a verified exact next action in this snapshot.", snapshot.connection.state));
+    section.append(emptyState("Priority queue unavailable", "No project currently has verified roadmap readiness with supporting evidence in this snapshot. A next-action string by itself is not enough.", snapshot.connection.state));
     return section;
   }
   for (const project of projects) section.append(renderNextRow(project));
@@ -252,14 +274,14 @@ function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
       title: "Active / Live",
       route: "/active",
       verifiedCount: connected ? active.length : undefined,
-      supportingText: connected ? `${active.length} project${active.length === 1 ? "" : "s"} verified active/live.` : "Live-project count unavailable until canonical runtime reconnects."
+      supportingText: connected ? `${active.length} project${active.length === 1 ? "" : "s"} with a claimed executor and fresh verified heartbeat.` : "Live-project count unavailable until canonical runtime reconnects."
     },
     {
       key: "next_up",
       title: "Next Up",
       route: "/next-up",
       verifiedCount: connected ? next.length : undefined,
-      supportingText: connected ? `${next.length} project${next.length === 1 ? "" : "s"} with a verified exact next action.` : "Priority queue unavailable until canonical runtime reconnects."
+      supportingText: connected ? `${next.length} project${next.length === 1 ? "" : "s"} with verified roadmap readiness and evidence.` : "Priority queue unavailable until canonical runtime reconnects."
     },
     {
       key: "owner_attention",
