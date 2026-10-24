@@ -19,12 +19,14 @@ permissions:
 jobs:
   category-15:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     defaults:
       run:
         working-directory: clean-room
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 20
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -34,8 +36,20 @@ jobs:
         run: npm install --no-audit --no-fund --ignore-scripts
       - name: Typecheck
         run: npm run typecheck
-      - name: Category 15 exact-head QA and release gates
-        run: npm test
+      - name: Category 15 exact-head core QA and release gates
+        run: |
+          npm run check:legacy
+          npm run audit:repository
+          npm run build
+          npm run audit:artifact
+          npm run test:modules
+          npm run audit:release-candidate
+      - name: P15.14 observed PWA lifecycle
+        run: bash scripts/category15-pwa-lifecycle.sh
+      - name: Final Category 15 nonproduction phase gate
+        env:
+          CATEGORY15_PWA_LIFECYCLE_VERIFIED: 'true'
+        run: npm run audit:category15
       - name: Publish Category 15 audit summaries
         if: always()
         run: |
