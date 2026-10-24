@@ -18,5 +18,5 @@
     "test:modules": "node --test tests/*.test.mjs",
     "test": "npm run check:legacy && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15 && npm run audit:production-live"
   },
-  "devDependencies": {"typescript": "^5.8.3"}
+  "devDependencies": {"typescript": "5.8.3"}
 }
