@@ -15,6 +15,14 @@ function authHeader(): HTMLElement {
   return header;
 }
 
+function authFailureMessage(reason: unknown): string {
+  const message = reason instanceof Error ? reason.message : "";
+  if (message.includes("required")) return "Enter both the owner email and password, or use your saved sign-in, then try again.";
+  if (message.includes("not authorized")) return "This account signed in successfully but is not authorized for Command Center.";
+  if (message.includes("Failed to fetch") || message.includes("NetworkError") || message.includes("network")) return "Command Center could not reach the secure sign-in service. Check the connection and try again.";
+  return "Sign-in failed. Check the owner email and password, then try again.";
+}
+
 export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promise<void> {
   const root = document.querySelector<HTMLElement>("#app");
   if (!root) return Promise.reject(new Error("Missing #app root for owner sign-in"));
@@ -35,20 +43,27 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
     inner.append(el("h2", "section-title", "Secure owner sign in"), el("p", "muted", "Use the existing Command Center owner account. Authentication is handled by Supabase; the browser receives only the public project key and your authenticated session."));
 
     const form = el("form", "owner-auth-form");
-    form.noValidate = true;
+    form.autocomplete = "on";
+
     const emailLabel = el("label", "owner-auth-field");
+    emailLabel.htmlFor = "command-center-owner-email";
     emailLabel.append(el("span", "owner-auth-label", "Email"));
     const email = el("input", "owner-auth-input");
+    email.id = "command-center-owner-email";
     email.type = "email";
     email.name = "email";
     email.autocomplete = "username";
     email.inputMode = "email";
+    email.autocapitalize = "none";
+    email.spellcheck = false;
     email.required = true;
     emailLabel.append(email);
 
     const passwordLabel = el("label", "owner-auth-field");
+    passwordLabel.htmlFor = "command-center-owner-password";
     passwordLabel.append(el("span", "owner-auth-label", "Password"));
     const password = el("input", "owner-auth-input");
+    password.id = "command-center-owner-password";
     password.type = "password";
     password.name = "password";
     password.autocomplete = "current-password";
@@ -56,22 +71,27 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
     passwordLabel.append(password);
 
     const error = el("p", "owner-auth-error");
+    error.id = "command-center-owner-auth-error";
     error.hidden = true;
+    error.setAttribute("role", "alert");
+    email.setAttribute("aria-describedby", error.id);
+    password.setAttribute("aria-describedby", error.id);
+
     const button = el("button", "owner-auth-submit", "Sign in");
     button.type = "submit";
     form.append(emailLabel, passwordLabel, error, button);
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (button.disabled) return;
+      if (button.disabled || !form.reportValidity()) return;
       error.hidden = true;
       button.disabled = true;
       button.textContent = "Signing in…";
       void submit(email.value, password.value).then(() => {
         password.value = "";
         resolve();
-      }).catch(() => {
+      }).catch((reason: unknown) => {
         password.value = "";
-        error.textContent = "Sign-in failed. Check the owner email and password, then try again.";
+        error.textContent = authFailureMessage(reason);
         error.hidden = false;
         button.disabled = false;
         button.textContent = "Sign in";
@@ -84,7 +104,6 @@ export function promptForOwnerCredentials(submit: OwnerCredentialSubmit): Promis
     main.append(card);
     shell.append(main);
     root.append(shell);
-    requestAnimationFrame(() => email.focus());
   });
 }
 
