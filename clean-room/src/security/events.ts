@@ -41,7 +41,7 @@ export class SecurityEventLedger {
 const NEXT = {
   open: ["acknowledged", "contained"],
   acknowledged: ["contained"],
-  contained: ["recovering", "resolved"],
+  contained: ["recovering"],
   recovering: ["contained", "resolved"],
   resolved: []
 } as const satisfies Readonly<Record<IncidentState, readonly IncidentState[]>>;
