@@ -94,10 +94,48 @@ Previous known-good Pages release:
 
 GitHub `main` was reverified after the Vercel deployment and remains exactly `855a06b43d152df1bc3c7574cc3f584bf1b51892`.
 
+## P15.17 owner acceptance handling
+
+P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. Normal execution must continue through every non-owner-dependent step without asking James for an authorization phrase.
+
+Owner acceptance covers functional and visual review of the live production product, including approved visual-system fidelity; Home, Projects, Active / Live, Next Up, Project Detail; Brain, Agency, Needs Me, Search, Automations; Personal, Finance, Social, Books, Specialists, Analytics; Settings, Security, Devices; navigation, Back, scroll, loading/empty/error states, responsive geometry, truthful unavailable/disconnected/unknown states, and protected assets.
+
+James may accept in ordinary language or identify defects. No exact wording is required. Any reported defect reopens only the relevant gate/phase and must be repaired and reverified before final completion. CI must not fabricate or self-certify owner acceptance.
+
+P15.17 preparation state: `READY_OWNER_ACCEPTANCE`.
+
+## P15.18 Samsung acceptance preparation
+
+All non-device preparation is complete before the physical Samsung boundary. Formal P15.18 execution remains dependent on P15.17 owner acceptance and the real target Samsung device.
+
+The physical acceptance matrix is:
+
+1. Install the production PWA/app surface from the stable production URL.
+2. Confirm the exact approved Command Center icon after install.
+3. Confirm passkey sign-in through the Samsung/platform authenticator.
+4. Confirm fingerprint/device biometric mediation remains platform-owned and Command Center never stores biometric templates.
+5. Confirm lock, session expiry, resume, and fresh verification fail closed.
+6. Confirm update behavior from the older known-good release to the current production release without mixed-version state.
+7. Confirm all 19 declared routes are reachable as intended on-device.
+8. Confirm Android Back behavior.
+9. Confirm scroll position and navigation-state behavior.
+10. Confirm offline shell/cache behavior after a successful online load.
+11. Confirm reconnect/resume does not present stale data as current.
+12. Confirm visual fidelity at Samsung phone dimensions, including safe-area behavior and no horizontal overflow.
+13. Confirm Brain and Agency core flows remain truthful on-device.
+14. Confirm update activation and known-good rollback behavior align with the verified PWA lifecycle.
+15. Capture any physical-device-only defects precisely enough to reopen the affected phase/gate.
+
+Browser Use is prohibited for this Command Center workflow and is not required for Samsung acceptance. Hardware/passkey/fingerprint/Samsung acceptance must not be inferred from CI, Vercel, GitHub, or desktop automation.
+
+P15.18 preparation state: `PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE`.
+
 ## Phase result
 
 P15.16 = `VERIFIED_COMPLETE` once this evidence package passes exact-head CI.
 
-P15.17 owner acceptance is the next phase.
+P15.17 owner acceptance preparation is complete and is not a permission boundary.
+
+P15.18 non-device preparation is complete; the genuine remaining boundary is owner verdict plus real target-Samsung evidence.
 
 P15.1 remains `BLOCKED_SOURCE_ARTIFACT`: the final reconciled individual `CCR-00001` through `CCR-05825` ledger is absent.

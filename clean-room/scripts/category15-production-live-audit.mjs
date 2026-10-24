@@ -5,15 +5,13 @@ import { resolve } from "node:path";
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
 const evidencePath = resolve(cleanRoom, "evidence/P15_16_LIVE_VERIFICATION.json");
-const ownerAcceptancePrepPath = resolve(cleanRoom, "evidence/P15_17_OWNER_ACCEPTANCE_PREP.md");
-const samsungAcceptancePrepPath = resolve(cleanRoom, "evidence/P15_18_SAMSUNG_ACCEPTANCE_PREP.md");
+const acceptanceRunbookPath = resolve(cleanRoom, "evidence/P15_16_PRODUCTION_RUNBOOK.md");
 const statusPath = resolve(cleanRoom, "category15-phase-status.json");
 const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString("utf8").trim();
 const exactHeadCiVerified = process.env.CI === "true" && /^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA ?? "") && process.env.GITHUB_SHA === headSha;
 
 if (!existsSync(evidencePath)) throw new Error("P15.16 live-verification evidence is missing");
-if (!existsSync(ownerAcceptancePrepPath)) throw new Error("P15.17 owner-acceptance preparation evidence is missing");
-if (!existsSync(samsungAcceptancePrepPath)) throw new Error("P15.18 Samsung-acceptance preparation evidence is missing");
+if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 acceptance runbook evidence is missing");
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
@@ -74,7 +72,7 @@ status.phases["P15.17"] = {
   preparationComplete: true,
   permissionToContinueRequired: false,
   exactPhraseRequired: false,
-  evidence: ["clean-room/evidence/P15_17_OWNER_ACCEPTANCE_PREP.md", "clean-room/evidence/P15_16_LIVE_VERIFICATION.json"]
+  evidence: ["clean-room/evidence/P15_16_PRODUCTION_RUNBOOK.md", "clean-room/evidence/P15_16_LIVE_VERIFICATION.json"]
 };
 status.phases["P15.18"] = {
   status: "PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE",
@@ -83,7 +81,7 @@ status.phases["P15.18"] = {
   executionStarted: false,
   requiresPhysicalSamsung: true,
   exactPhraseRequired: false,
-  evidence: ["clean-room/evidence/P15_18_SAMSUNG_ACCEPTANCE_PREP.md"]
+  evidence: ["clean-room/evidence/P15_16_PRODUCTION_RUNBOOK.md"]
 };
 writeFileSync(statusPath, JSON.stringify(status, null, 2) + "\n");
 
