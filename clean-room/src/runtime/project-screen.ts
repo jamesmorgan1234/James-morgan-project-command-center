@@ -3,12 +3,12 @@ import type { RuntimeProjectSnapshot } from "./snapshot.js";
 export type RuntimeProjectGroupBy = "none" | "type" | "company" | "lifecycle" | "priority";
 
 export interface RuntimeProjectFilter {
-  readonly query?: string;
-  readonly lifecycle?: string;
-  readonly priority?: string;
-  readonly typeKey?: string;
-  readonly companyId?: string;
-  readonly groupBy?: RuntimeProjectGroupBy;
+  readonly query?: string | undefined;
+  readonly lifecycle?: string | undefined;
+  readonly priority?: string | undefined;
+  readonly typeKey?: string | undefined;
+  readonly companyId?: string | undefined;
+  readonly groupBy?: RuntimeProjectGroupBy | undefined;
 }
 
 export interface RuntimeProjectGroup {
