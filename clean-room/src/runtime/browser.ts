@@ -6,11 +6,19 @@ import { providerFromDocument, type RuntimeSnapshotProvider } from "./provider.j
 import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfaceSnapshot } from "./snapshot.js";
 import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
+import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
 
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
 const PRIMARY_NAV_ROUTE_KEYS = Object.freeze(["route:home", "route:projects", "route:active-live", "route:next-up"] as const);
 const LIVE_EXECUTION_STALE_AFTER_MS = 120_000;
+const CORE_PROJECT_DETAIL_SECTION_KEYS = new Set([
+  "project-section:performance",
+  "project-section:series",
+  "project-section:publication-status",
+  "project-section:history",
+  "project-section:integrations"
+]);
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -25,8 +33,17 @@ function truthText<T>(truth: TruthValue<T>, format: (value: T) => string = (valu
 }
 function availabilityClass(value: string): string { return `status status--${value.replace(/[^a-z0-9-]/gi, "-").toLowerCase()}`; }
 function navigate(path: string): void {
-  if (window.location.pathname === path) return;
+  if (window.location.pathname === path && !window.location.search) return;
   window.history.pushState({}, "", path);
+  void renderApplication();
+}
+function updateProjectQuery(updates: Readonly<Record<string, string | undefined>>): void {
+  const url = new URL(window.location.href);
+  for (const [key, value] of Object.entries(updates)) {
+    if (value?.trim()) url.searchParams.set(key, value.trim());
+    else url.searchParams.delete(key);
+  }
+  window.history.pushState({}, "", `${url.pathname}${url.search}`);
   void renderApplication();
 }
 function routeLink(label: string, path: string, className = "nav-link"): HTMLAnchorElement {
@@ -93,20 +110,82 @@ function emptyState(title: string, body: string, status: string): HTMLElement {
   return card;
 }
 
-function renderPortfolioSummary(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+function renderPortfolioSummary(snapshot: CommandCenterRuntimeSnapshot, displayedCount = snapshot.projects.length): HTMLElement {
   const card = bevelCard("portfolio-summary");
   card.append(projectIcon());
   const count = el("div", "portfolio-count");
   count.append(el("strong", undefined, String(snapshot.projects.length)), el("span", undefined, "TOTAL PROJECTS"));
-  card.append(count, el("div", "portfolio-breakdown", snapshot.projects.length ? "Canonical project records loaded" : "Canonical project set unavailable"), artPanel(), chevron());
+  const summary = displayedCount === snapshot.projects.length ? "Canonical project profiles loaded" : `${displayedCount} shown · ${snapshot.projects.length} canonical total`;
+  card.append(count, el("div", "portfolio-breakdown", summary), artPanel(), chevron());
   return card;
 }
+function runtimeTruthValue(value: RuntimeProjectSnapshot["typeKey"]): string { return value?.state === "known" ? value.value : "N/A"; }
 function renderProjectRow(project: RuntimeProjectSnapshot): HTMLElement {
   const row = bevelCard("project-row");
   const text = el("div", "project-row__text");
-  text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
+  const metadata = el("div", "project-meta");
+  metadata.append(
+    el("span", "project-meta__item", `Type: ${runtimeTruthValue(project.typeKey)}`),
+    el("span", "project-meta__item", `Company: ${runtimeTruthValue(project.companyId)}`),
+    el("span", "project-meta__item", `Priority: ${truthText(project.priority)}`)
+  );
+  text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), metadata, statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
   row.append(projectIcon(), text, artPanel(), progressRing(project), chevron());
   return row;
+}
+function projectSelect(labelText: string, queryKey: string, values: readonly string[], current: string | undefined): HTMLLabelElement {
+  const label = el("label", "project-filter-field");
+  label.append(el("span", "project-filter-label", labelText));
+  const select = el("select", "project-filter-control");
+  select.setAttribute("aria-label", labelText);
+  const all = el("option", undefined, `All ${labelText.toLowerCase()}`);
+  all.value = "";
+  select.append(all);
+  for (const value of values) {
+    const option = el("option", undefined, value.replace(/^.*?:/, "").replaceAll("_", " "));
+    option.value = value;
+    option.selected = current === value;
+    select.append(option);
+  }
+  select.addEventListener("change", () => updateProjectQuery({ [queryKey]: select.value || undefined }));
+  label.append(select);
+  return label;
+}
+function renderProjectControls(snapshot: CommandCenterRuntimeSnapshot, filter: RuntimeProjectFilter): HTMLElement {
+  const toolbar = bevelCard("project-toolbar");
+  const search = el("form", "project-search");
+  search.setAttribute("role", "search");
+  const inputLabel = el("label", "project-filter-field project-filter-field--search");
+  inputLabel.append(el("span", "project-filter-label", "Search"));
+  const input = el("input", "project-filter-control");
+  input.type = "search";
+  input.name = "q";
+  input.value = filter.query ?? "";
+  input.placeholder = "Project name, mission, type, company";
+  input.setAttribute("aria-label", "Search projects");
+  inputLabel.append(input);
+  const submit = el("button", "project-filter-button", "Apply");
+  submit.type = "submit";
+  search.append(inputLabel, submit);
+  search.addEventListener("submit", (event) => { event.preventDefault(); updateProjectQuery({ q: input.value || undefined }); });
+
+  const facets = projectFacetValues(snapshot.projects);
+  const filters = el("div", "project-filter-grid");
+  filters.append(
+    projectSelect("Lifecycle", "lifecycle", facets.lifecycles, filter.lifecycle),
+    projectSelect("Priority", "priority", facets.priorities, filter.priority),
+    projectSelect("Type", "type", facets.typeKeys, filter.typeKey),
+    projectSelect("Company", "company", facets.companyIds, filter.companyId)
+  );
+  const grouping = projectSelect("Group", "group", ["none", "type", "company", "lifecycle", "priority"], filter.groupBy ?? "none");
+  grouping.classList.add("project-filter-field--group");
+  const reset = el("button", "project-filter-button project-filter-button--secondary", "Reset");
+  reset.type = "button";
+  reset.addEventListener("click", () => updateProjectQuery({ q: undefined, lifecycle: undefined, priority: undefined, type: undefined, company: undefined, group: undefined }));
+  const footer = el("div", "project-toolbar__footer");
+  footer.append(grouping, reset);
+  toolbar.append(search, filters, footer);
+  return toolbar;
 }
 function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = el("section", "screen-stack");
@@ -114,8 +193,22 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     section.append(emptyState("Projects unavailable", "No canonical project records are loaded. This is not interpreted as zero projects.", snapshot.connection.state));
     return section;
   }
-  section.append(renderPortfolioSummary(snapshot));
-  for (const project of snapshot.projects) section.append(renderProjectRow(project));
+  const filter = projectFilterFromSearch(window.location.search);
+  const filtered = filterRuntimeProjects(snapshot.projects, filter);
+  const groups = groupRuntimeProjects(filtered, filter.groupBy ?? "none");
+  section.append(renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
+  if (filtered.length === 0) {
+    section.append(emptyState("No matching projects", "The canonical project registry is loaded, but no project matches the current filters. Reset the filters to show the full portfolio.", "available"));
+    return section;
+  }
+  for (const group of groups) {
+    if ((filter.groupBy ?? "none") !== "none") {
+      const heading = el("div", "project-group-heading");
+      heading.append(el("h2", "section-title", group.label.toUpperCase()), el("span", "project-group-count", String(group.projects.length)));
+      section.append(heading);
+    }
+    for (const project of group.projects) section.append(renderProjectRow(project));
+  }
   return section;
 }
 
@@ -187,6 +280,22 @@ function renderNextUp(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   return section;
 }
 
+function appendDynamicProjectDetailSections(section: HTMLElement, project: RuntimeProjectSnapshot): void {
+  for (const detail of project.detailSections ?? []) {
+    if (CORE_PROJECT_DETAIL_SECTION_KEYS.has(detail.key)) continue;
+    const card = bevelCard("project-detail-section dynamic-project-section");
+    card.dataset.sectionKey = detail.key;
+    const heading = el("div", "card-heading");
+    heading.append(el("h3", "section-title", detail.title));
+    if (detail.required) heading.append(statusPill("REQUIRED", "candidate"));
+    card.append(heading);
+    if (detail.content.state === "known") card.append(el("p", "muted", detail.content.value));
+    else if (detail.content.state === "not_applicable") card.append(el("p", "muted", "Not applicable for this project."));
+    else card.append(el("p", "muted", "No verified content is available for this type-specific section in the current canonical runtime snapshot."));
+    if (detail.capabilityKey) card.append(el("p", "project-detail-capability", detail.capabilityKey));
+    section.append(card);
+  }
+}
 function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: string): HTMLElement {
   const project = snapshot.projects.find((candidate) => candidate.id === projectId);
   const section = el("section", "screen-stack");
@@ -244,6 +353,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   integrations.append(el("h3", "section-title", "INTEGRATIONS"), el("p", "muted", "Integration data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
   if (project.specialistKey) integrations.append(el("p", "specialist-note", `Specialist extension: ${project.specialistKey}`));
   section.append(integrations);
+  appendDynamicProjectDetailSections(section, project);
   return section;
 }
 
