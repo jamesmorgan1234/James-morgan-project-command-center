@@ -1,5 +1,6 @@
 import { SupabasePasskeyClient, type SupabasePasskeyDescriptor } from "../security/supabase-passkeys.js";
 import { installOwnerPasskeySettings } from "./owner-security-settings.js";
+import { installOwnerSessionSettings, type OwnerSessionDescriptor } from "./owner-session-settings.js";
 import type { SessionStorageLike } from "./supabase-owner-provider.js";
 import type { CommandCenterRuntimeSnapshot } from "./snapshot.js";
 
@@ -16,6 +17,9 @@ export interface OwnerSecurityRuntimeProvider {
   registerOwnerPasskey(): Promise<SupabasePasskeyDescriptor>;
   renameOwnerPasskey(passkeyId: string, friendlyName: string): Promise<SupabasePasskeyDescriptor>;
   removeOwnerPasskey(passkeyId: string): Promise<void>;
+  listOwnerSessions(): Promise<readonly OwnerSessionDescriptor[]>;
+  revokeOwnerSession(sessionId: string): Promise<void>;
+  revokeOwnerDevice(deviceId: string): Promise<void>;
 }
 
 interface RuntimeProviderLike {
@@ -30,16 +34,57 @@ interface StoredOwnerSession {
   readonly userId: string;
 }
 
+interface FreshAuthorization {
+  readonly session: StoredOwnerSession;
+  readonly authorizationId: string;
+}
+
 function isRecord(value: unknown): value is JsonRecord { return typeof value === "object" && value !== null && !Array.isArray(value); }
 function stringValue(value: unknown): string | undefined { return typeof value === "string" && value.trim() ? value.trim() : undefined; }
 function numberValue(value: unknown): number | undefined { return typeof value === "number" && Number.isFinite(value) ? value : undefined; }
+function booleanValue(value: unknown): boolean { return value === true; }
+
+function sessionDescriptor(value: unknown): OwnerSessionDescriptor {
+  if (!isRecord(value)) throw new Error("Owner session inventory returned an invalid row");
+  const sessionId = stringValue(value.session_id);
+  const deviceLabel = stringValue(value.device_label);
+  const trustState = stringValue(value.trust_state);
+  const assurance = stringValue(value.assurance);
+  const sessionCreatedAt = stringValue(value.session_created_at);
+  const lastSeenAt = stringValue(value.last_seen_at);
+  if (!sessionId || !deviceLabel || !trustState || !assurance || !sessionCreatedAt || !lastSeenAt) {
+    throw new Error("Owner session inventory row is incomplete");
+  }
+  const deviceId = stringValue(value.device_id);
+  const platform = stringValue(value.platform);
+  const notAfter = stringValue(value.not_after);
+  const revokedAt = stringValue(value.revoked_at);
+  const revokedReason = stringValue(value.revoked_reason);
+  return Object.freeze({
+    sessionId,
+    deviceLabel,
+    trustState,
+    assurance,
+    sessionCreatedAt,
+    lastSeenAt,
+    isCurrent: booleanValue(value.is_current),
+    ...(deviceId ? { deviceId } : {}),
+    ...(platform ? { platform } : {}),
+    ...(notAfter ? { notAfter } : {}),
+    ...(revokedAt ? { revokedAt } : {}),
+    ...(revokedReason ? { revokedReason } : {})
+  });
+}
 
 export function isOwnerSecurityRuntimeProvider(value: RuntimeProviderLike): value is RuntimeProviderLike & OwnerSecurityRuntimeProvider {
   const candidate = value as Partial<OwnerSecurityRuntimeProvider>;
   return typeof candidate.listOwnerPasskeys === "function"
     && typeof candidate.registerOwnerPasskey === "function"
     && typeof candidate.renameOwnerPasskey === "function"
-    && typeof candidate.removeOwnerPasskey === "function";
+    && typeof candidate.removeOwnerPasskey === "function"
+    && typeof candidate.listOwnerSessions === "function"
+    && typeof candidate.revokeOwnerSession === "function"
+    && typeof candidate.revokeOwnerDevice === "function";
 }
 
 export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider {
@@ -74,7 +119,10 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   async load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot> {
     const snapshot = await this.#inner.load(signal);
     if (snapshot.connection.state === "connected" || snapshot.connection.state === "degraded") {
-      setTimeout(() => installOwnerPasskeySettings(this), 0);
+      setTimeout(() => {
+        installOwnerPasskeySettings(this);
+        installOwnerSessionSettings(this);
+      }, 0);
     }
     return snapshot;
   }
@@ -97,29 +145,64 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   async removeOwnerPasskey(passkeyId: string): Promise<void> {
     const id = passkeyId.trim();
     if (!id) throw new Error("Passkey id is required");
+    const fresh = await this.#freshProtectedAuthorization(
+      "security.passkey.remove", "passkey", id, "critical", "Owner initiated passkey removal"
+    );
+    await this.#rpc("command_center_security_consume_passkey_removal", fresh.session.accessToken, {
+      p_authorization_id: fresh.authorizationId,
+      p_passkey_id: id
+    });
+    await this.#passkeys.remove(fresh.session.accessToken, id);
+  }
 
-    // Credential removal is a protected security action. Require an immediate platform-UV
-    // ceremony, replace the broker with that fresh session, then cross the canonical policy
-    // and single-use authorization gate before deleting the credential at the auth provider.
+  async listOwnerSessions(): Promise<readonly OwnerSessionDescriptor[]> {
+    const session = this.#currentSession();
+    const rows = await this.#rpcRows("command_center_list_owner_sessions", session.accessToken, {});
+    return Object.freeze(rows.map(sessionDescriptor));
+  }
+
+  async revokeOwnerSession(sessionId: string): Promise<void> {
+    const id = sessionId.trim();
+    if (!id) throw new Error("Session id is required");
+    const fresh = await this.#freshProtectedAuthorization(
+      "security.revoke_session", "owner_session", id, "high", "Owner initiated session revocation"
+    );
+    await this.#rpc("command_center_revoke_owner_session_authorized", fresh.session.accessToken, {
+      p_session_id: id,
+      p_authorization_id: fresh.authorizationId,
+      p_reason: "owner_revoked_from_security_settings"
+    });
+  }
+
+  async revokeOwnerDevice(deviceId: string): Promise<void> {
+    const id = deviceId.trim();
+    if (!id) throw new Error("Device id is required");
+    const fresh = await this.#freshProtectedAuthorization(
+      "security.revoke_device", "owner_device", id, "critical", "Owner initiated device revocation"
+    );
+    await this.#rpc("command_center_revoke_owner_device_authorized", fresh.session.accessToken, {
+      p_device_id: id,
+      p_authorization_id: fresh.authorizationId,
+      p_reason: "owner_revoked_device_from_security_settings"
+    });
+  }
+
+  async #freshProtectedAuthorization(action: string, resourceType: string, resourceId: string, riskLevel: "high" | "critical", reason: string): Promise<FreshAuthorization> {
+    // Unsupported/failed platform verification never falls through to a weaker protected-action path.
     const verified = await this.#passkeys.signIn({ mediation: "required" });
-    const fresh = this.#storeFreshPasskeySession(verified.session, verified.user);
-    const authorization = await this.#rpc("command_center_security_authorize_action", fresh.accessToken, {
-      p_action_key: "security.passkey.remove",
-      p_resource_type: "passkey",
-      p_resource_id: id,
-      p_risk_level: "critical",
-      p_reason: "Owner initiated passkey removal",
+    const freshSession = this.#storeFreshPasskeySession(verified.session, verified.user);
+    const authorization = await this.#rpc("command_center_security_authorize_action", freshSession.accessToken, {
+      p_action_key: action,
+      p_resource_type: resourceType,
+      p_resource_id: resourceId,
+      p_risk_level: riskLevel,
+      p_reason: reason,
       p_expires_at: null,
-      p_idempotency_key: `passkey-remove:${this.#randomId()}`
+      p_idempotency_key: `${action}:${this.#randomId()}`
     });
     const authorizationId = stringValue(authorization.authorization_id);
     if (!authorizationId) throw new Error("Security authorization did not return an authorization id");
-
-    await this.#rpc("command_center_security_consume_passkey_removal", fresh.accessToken, {
-      p_authorization_id: authorizationId,
-      p_passkey_id: id
-    });
-    await this.#passkeys.remove(fresh.accessToken, id);
+    return Object.freeze({ session: freshSession, authorizationId });
   }
 
   #currentSession(): StoredOwnerSession {
@@ -154,6 +237,18 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   }
 
   async #rpc(name: string, accessToken: string, body: JsonRecord): Promise<JsonRecord> {
+    const payload = await this.#rpcPayload(name, accessToken, body);
+    if (!isRecord(payload)) throw new Error(`Security RPC ${name} returned an invalid response`);
+    return payload;
+  }
+
+  async #rpcRows(name: string, accessToken: string, body: JsonRecord): Promise<readonly JsonRecord[]> {
+    const payload = await this.#rpcPayload(name, accessToken, body);
+    if (!Array.isArray(payload) || !payload.every(isRecord)) throw new Error(`Security RPC ${name} returned an invalid row set`);
+    return Object.freeze(payload);
+  }
+
+  async #rpcPayload(name: string, accessToken: string, body: JsonRecord): Promise<unknown> {
     const response = await this.#fetcher(`${this.#supabaseUrl}/rest/v1/rpc/${name}`, {
       method: "POST",
       headers: {
@@ -175,7 +270,6 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       const record = isRecord(payload) ? payload : {};
       throw new Error(stringValue(record.message) ?? stringValue(record.msg) ?? `Security RPC ${name} failed`);
     }
-    if (!isRecord(payload)) throw new Error(`Security RPC ${name} returned an invalid response`);
     return payload;
   }
 
