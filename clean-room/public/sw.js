@@ -2,7 +2,7 @@ const RELEASE_ID = "__COMMAND_CENTER_RELEASE_ID__";
 const CACHE_PREFIX = "command-center-shell:";
 const CURRENT_CACHE = `${CACHE_PREFIX}${RELEASE_ID}`;
 const META_PATH = "/__cc-release-meta__";
-const CORE = ["/", "/index.html", "/app.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser.js"];
+const CORE = ["/", "/index.html", "/app.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser.js"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {

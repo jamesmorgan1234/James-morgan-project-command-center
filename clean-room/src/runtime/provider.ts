@@ -1,4 +1,6 @@
 import { createDisconnectedRuntimeSnapshot, type CommandCenterRuntimeSnapshot } from "./snapshot.js";
+import { installOwnerSignOutControl, promptForOwnerCredentials } from "./owner-auth-ui.js";
+import { SupabaseOwnerRuntimeSnapshotProvider } from "./supabase-owner-provider.js";
 
 export interface RuntimeSnapshotProvider {
   readonly id: string;
@@ -68,5 +70,20 @@ export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
 
 export function providerFromDocument(documentRef: Document): RuntimeSnapshotProvider {
   const endpoint = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-runtime-endpoint"]')?.content.trim();
-  return endpoint ? new HttpRuntimeSnapshotProvider({ endpoint }) : new DisconnectedRuntimeSnapshotProvider();
+  if (endpoint) return new HttpRuntimeSnapshotProvider({ endpoint });
+
+  const supabaseUrl = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-supabase-url"]')?.content.trim();
+  const publishableKey = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-supabase-publishable-key"]')?.content.trim();
+  const releaseId = documentRef.querySelector<HTMLMetaElement>('meta[name="command-center-release"]')?.content.trim();
+  if (supabaseUrl && publishableKey) {
+    return new SupabaseOwnerRuntimeSnapshotProvider({
+      supabaseUrl,
+      publishableKey,
+      ...(releaseId ? { releaseId } : {}),
+      promptForCredentials: promptForOwnerCredentials,
+      onAuthenticated: installOwnerSignOutControl
+    });
+  }
+
+  return new DisconnectedRuntimeSnapshotProvider();
 }
