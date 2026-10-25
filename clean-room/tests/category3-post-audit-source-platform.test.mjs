@@ -10,6 +10,7 @@ import {
   compareSourceAuthority,
   createContextSnapshot,
   evaluateCoverage,
+  evaluateEnumerationStability,
   fairRefreshOrder
 } from "../dist/data/index.js";
 
@@ -91,6 +92,49 @@ test("same-size or rename-only metadata cannot falsely prove unchanged content",
   assert.equal(classifyRefresh(previous, { stableId: "s1", byteSize: 100, title: "new" }), "uncertain");
   assert.equal(classifyRefresh({ stableId: "s1", contentHash: "h1", title: "old" }, { stableId: "s1", contentHash: "h1", title: "new" }), "unchanged");
   assert.equal(classifyRefresh({ stableId: "s1", revisionId: "r1" }, { stableId: "s1", revisionId: "r2" }), "changed");
+});
+
+test("paginated enumeration fails closed on cursor drift, source duplication, or changing provider snapshots", () => {
+  const stable = evaluateEnumerationStability({
+    stablePagination: "verified_supported",
+    startFingerprint: "inventory-v1",
+    endFingerprint: "inventory-v1",
+    pages: [
+      { nextCursor: "cursor-2", consistencyToken: "snapshot-1", stableIds: ["a", "b"] },
+      { cursor: "cursor-2", consistencyToken: "snapshot-1", stableIds: ["c"] }
+    ]
+  });
+  assert.deepEqual(stable, { complete: true, restartRequired: false, reason: "stable_complete", enumeratedCount: 3 });
+
+  assert.equal(evaluateEnumerationStability({ stablePagination: "verified_supported", pages: [
+    { nextCursor: "cursor-2", stableIds: ["a"] },
+    { cursor: "different", stableIds: ["b"] }
+  ] }).reason, "cursor_chain_changed");
+
+  assert.equal(evaluateEnumerationStability({ stablePagination: "verified_supported", pages: [
+    { nextCursor: "cursor-2", stableIds: ["a"] },
+    { cursor: "cursor-2", stableIds: ["a"] }
+  ] }).reason, "duplicate_source_during_enumeration");
+
+  assert.equal(evaluateEnumerationStability({ stablePagination: "verified_supported", pages: [
+    { nextCursor: "cursor-2", consistencyToken: "snapshot-1", stableIds: ["a"] },
+    { cursor: "cursor-2", consistencyToken: "snapshot-2", stableIds: ["b"] }
+  ] }).reason, "enumeration_changed_during_pagination");
+
+  assert.equal(evaluateEnumerationStability({ stablePagination: "verified_supported", startFingerprint: "inventory-v1", endFingerprint: "inventory-v2", pages: [
+    { stableIds: ["a"] }
+  ] }).reason, "enumeration_fingerprint_changed");
+});
+
+test("multi-page enumeration cannot claim complete when pagination stability is unverified and no consistency token exists", () => {
+  const result = evaluateEnumerationStability({
+    stablePagination: "unverified",
+    pages: [
+      { nextCursor: "cursor-2", stableIds: ["a"] },
+      { cursor: "cursor-2", stableIds: ["b"] }
+    ]
+  });
+  assert.deepEqual(result, { complete: false, restartRequired: false, reason: "pagination_stability_unverified", enumeratedCount: 2 });
 });
 
 test("refresh leases use generations so an expired prior refresher cannot commit", () => {
