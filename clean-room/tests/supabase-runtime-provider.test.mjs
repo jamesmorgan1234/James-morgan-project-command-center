@@ -51,8 +51,21 @@ function ownerRuntimeFetch({ authorized = true } = {}) {
       { type_key: "project-type:software", section_key: "project-section:software-delivery", required: true, source_ref: "type-binding:test", created_at: "2026-10-24T19:37:00Z" }
     ]);
     if (table === "cc7_activity") return json([{ project_id: "project-1", headline: "Verified activity", detail: "Evidence", happened_at: "2026-10-24T19:40:00Z" }]);
-    if (table === "cc7_agent_controls") return json([{ auto_enabled: false, current_run_id: null, runner_state: "ready", updated_at: "2026-10-24T20:00:00Z", project_auto_enabled: false, project_auto_project_id: null }]);
-    if (table === "cc7_agent_runs") return json([]);
+    if (table === "command_center_agency_runs") return json([{
+      project_id: "project-1", run_id: "agency-run:test", objective: "Execute verified work", control_mode: "project_auto", state: "working", generation: 2,
+      authorization_ref: "owner:authorized", priority: 10, stop_requested: false, pause_requested: false, blocker: null, checkpoint_id: "checkpoint-1",
+      evidence_refs: ["test:run"], created_at: "2026-10-24T19:45:00Z", updated_at: "2026-10-24T20:00:00Z", completed_at: null
+    }]);
+    if (table === "command_center_agency_jobs") return json([{
+      project_id: "project-1", run_id: "agency-run:test", job_id: "agency-job:test", objective: "Implement", state: "working", risk: "medium", cost_class: "free",
+      preferred_environment: "normal_chat", capability: "code", retry_count: 0, blocker: null, checkpoint_ref: "checkpoint-1", evidence_refs: ["test:job"],
+      created_at: "2026-10-24T19:46:00Z", updated_at: "2026-10-24T20:00:00Z"
+    }]);
+    if (table === "command_center_agency_tasks") return json([{
+      project_id: "project-1", run_id: "agency-run:test", job_id: "agency-job:test", task_id: "agency-task:test", title: "Wire canonical Agency view", state: "working",
+      dependency_ids: [], capability: "code", risk: "medium", cost_class: "free", preferred_environment: "normal_chat", retry_count: 0, idempotency_key: "agency-task:test:v1",
+      blocker: null, checkpoint_ref: "checkpoint-1", evidence_refs: ["test:task"], verification_refs: [], created_at: "2026-10-24T19:47:00Z", updated_at: "2026-10-24T20:00:00Z"
+    }]);
     if (table === "cc7_brain_items") return json([{ id: "brain-1", project_id: "project-1", kind: "fact", title: "Canonical fact", status: "active", importance: 5, trust_state: "verified", source_ref: "test", source_observed_at: "2026-10-24T20:00:00Z", updated_at: "2026-10-24T20:00:00Z" }]);
     if (table === "cc7_automations") return json([{ id: "automation-1", project_id: null, kind: "scheduled", name: "Daily", status: "active", next_run_at: null, last_run_at: null, run_count: 1, updated_at: "2026-10-24T20:00:00Z" }]);
     if (table === "cc7_notifications") return json([{ id: "notification-1", project_id: "project-1", title: "Needs attention", severity: "normal", status: "pending", created_at: "2026-10-24T20:00:00Z", delivered_at: null, read_at: null }]);
@@ -64,7 +77,7 @@ function ownerRuntimeFetch({ authorized = true } = {}) {
   return { fetcher, calls };
 }
 
-test("owner runtime prompts for a real authenticated session and loads canonical P5 project state", async () => {
+test("owner runtime prompts for a real authenticated session and loads canonical P5 project state plus durable P7 Agency truth", async () => {
   const storage = new MemoryStorage();
   const mock = ownerRuntimeFetch();
   let prompts = 0;
@@ -100,19 +113,31 @@ test("owner runtime prompts for a real authenticated session and loads canonical
   assert.equal(snapshot.projects[0].detailSections[0].content.state, "unknown");
   assert.equal(snapshot.release.releaseId.state, "known");
   assert.equal(snapshot.release.releaseId.value, "release-under-test");
+  assert.equal(snapshot.agency?.availability, "available");
+  assert.equal(snapshot.agency?.runs.length, 1);
+  assert.equal(snapshot.agency?.runs[0].runId, "agency-run:test");
+  assert.equal(snapshot.agency?.jobs.length, 1);
+  assert.equal(snapshot.agency?.tasks.length, 1);
+  assert.equal(snapshot.agency?.tasks[0].preferredEnvironment, "normal_chat");
   const needsMe = snapshot.surfaces.find((surface) => surface.key === "needs-me");
   const agency = snapshot.surfaces.find((surface) => surface.key === "agency");
   assert.equal(needsMe?.summary.state, "known");
   assert.match(needsMe.summary.value, /1 project/i);
   assert.equal(agency?.summary.state, "known");
-  assert.match(agency.summary.value, /Runner ready/i);
+  assert.match(agency.summary.value, /1 nonterminal durable run/i);
+  assert.match(agency.summary.value, /1 working task/i);
 
   const restCalls = mock.calls.filter((call) => call.url.pathname.startsWith("/rest/v1/"));
   assert.ok(restCalls.length > 0);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/cc7_projects")), false);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/cc7_agent_controls")), false);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/cc7_agent_runs")), false);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_profiles")), true);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_detail_sections")), true);
   assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_project_type_detail_sections")), true);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_agency_runs")), true);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_agency_jobs")), true);
+  assert.equal(restCalls.some((call) => call.url.pathname.endsWith("/command_center_agency_tasks")), true);
   for (const call of restCalls) {
     const headers = new Headers(call.init.headers);
     assert.equal(headers.get("apikey"), "sb_publishable_public-test-key");
@@ -137,11 +162,20 @@ test("owner runtime refuses a signed-in account without enabled owner access", a
   assert.equal(snapshot.projects.length, 0);
 });
 
-test("production shell contains only publishable Supabase configuration and a dedicated owner-auth stylesheet", async () => {
+test("production shell contains only publishable Supabase configuration, a dedicated owner-auth stylesheet, and a dedicated Agency renderer", async () => {
   const html = await readFile(new URL("../public/index.html", import.meta.url), "utf8");
+  const browser = await readFile(new URL("../src/runtime/browser.ts", import.meta.url), "utf8");
+  const agencyView = await readFile(new URL("../src/runtime/agency-view.ts", import.meta.url), "utf8");
   assert.match(html, /command-center-supabase-url/);
   assert.match(html, /command-center-supabase-publishable-key/);
   assert.match(html, /sb_publishable_/);
   assert.doesNotMatch(html, /service[_-]?role/i);
   assert.match(html, /owner-auth\.css/);
+  assert.match(browser, /import \{ renderAgencyView \} from "\.\/agency-view\.js"/);
+  assert.match(browser, /function renderAgency\(snapshot: CommandCenterRuntimeSnapshot\): HTMLElement \{ return renderAgencyView\(snapshot\); \}/);
+  assert.doesNotMatch(browser, /function renderAgency\([^\n]+renderCanonicalSurface/);
+  assert.match(agencyView, /DURABLE EXECUTION TRUTH/);
+  assert.match(agencyView, /Partial or legacy execution state is not substituted/);
+  assert.match(agencyView, /does not authorize protected actions/);
+  assert.match(agencyView, /claimed executor and fresh verified heartbeat/);
 });

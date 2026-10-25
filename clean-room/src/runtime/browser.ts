@@ -8,6 +8,7 @@ import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
 import { renderBrainView } from "./brain-view.js";
+import { renderAgencyView } from "./agency-view.js";
 
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
@@ -75,6 +76,7 @@ function headerSubtitle(route: ResolvedRoute): string {
     case "route:next-up": return "Priority queue";
     case "route:project-detail": return "Project Details";
     case "route:brain": return "Persistent intelligence workspace";
+    case "route:agency": return "Durable execution and autonomy truth";
     default: return "Private owner command system";
   }
 }
@@ -475,7 +477,7 @@ function renderCanonicalSurface(snapshot: CommandCenterRuntimeSnapshot, key: str
   return section;
 }
 function renderBrain(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderBrainView(snapshot, activeProvider, () => renderApplication()); }
-function renderAgency(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "agency", "Agency", "Agency runtime state is not configured in the current canonical snapshot."); }
+function renderAgency(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderAgencyView(snapshot); }
 function renderNeedsMe(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "needs-me", "Needs Me", "Owner-attention queue state is unavailable in the current canonical snapshot."); }
 function renderSearch(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "search", "Search", "Search runtime state is not configured in the current canonical snapshot. No search results are inferred."); }
 function renderAutomations(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "automations", "Automations", "Automation runtime state is not configured in the current canonical snapshot. No automation status is inferred."); }

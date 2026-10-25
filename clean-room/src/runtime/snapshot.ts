@@ -63,6 +63,66 @@ export interface RuntimeProjectSnapshot {
   readonly specialistKey?: string;
 }
 
+export interface RuntimeAgencyRunSnapshot {
+  readonly runId: string;
+  readonly projectId: string;
+  readonly objective: string;
+  readonly controlMode: string;
+  readonly state: string;
+  readonly generation: number;
+  readonly priority: number;
+  readonly stopRequested: boolean;
+  readonly pauseRequested: boolean;
+  readonly blocker?: string;
+  readonly checkpointId?: string;
+  readonly updatedAt: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeAgencyJobSnapshot {
+  readonly jobId: string;
+  readonly runId: string;
+  readonly projectId: string;
+  readonly objective: string;
+  readonly state: string;
+  readonly risk: string;
+  readonly costClass: string;
+  readonly preferredEnvironment: string;
+  readonly capability: string;
+  readonly retryCount: number;
+  readonly blocker?: string;
+  readonly checkpointRef?: string;
+  readonly updatedAt: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeAgencyTaskSnapshot {
+  readonly taskId: string;
+  readonly jobId: string;
+  readonly runId: string;
+  readonly projectId: string;
+  readonly title: string;
+  readonly state: string;
+  readonly capability: string;
+  readonly risk: string;
+  readonly costClass: string;
+  readonly preferredEnvironment: string;
+  readonly retryCount: number;
+  readonly blocker?: string;
+  readonly checkpointRef?: string;
+  readonly verificationRefs: readonly string[];
+  readonly updatedAt: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeAgencySnapshot {
+  readonly availability: SurfaceAvailability;
+  readonly runs: readonly RuntimeAgencyRunSnapshot[];
+  readonly jobs: readonly RuntimeAgencyJobSnapshot[];
+  readonly tasks: readonly RuntimeAgencyTaskSnapshot[];
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
 export interface RuntimeBrainConversationTurn {
   readonly id: string;
   readonly conversationId: string;
@@ -149,6 +209,7 @@ export interface CommandCenterRuntimeSnapshot {
   }>;
   readonly projects: readonly RuntimeProjectSnapshot[];
   readonly surfaces: readonly RuntimeSurfaceSnapshot[];
+  readonly agency?: RuntimeAgencySnapshot;
   readonly brain?: RuntimeBrainSnapshot;
   readonly release: Readonly<{
     releaseId: TruthValue<string>;

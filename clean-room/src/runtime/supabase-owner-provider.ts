@@ -1,7 +1,9 @@
 import { known, unknown, type TruthValue } from "../data/canonical.js";
+import { buildRuntimeAgencySnapshot } from "./agency-runtime-projection.js";
 import {
   createDisconnectedRuntimeSnapshot,
   type CommandCenterRuntimeSnapshot,
+  type RuntimeAgencySnapshot,
   type RuntimeEvidenceRef,
   type RuntimeLiveExecution,
   type RuntimeNextWorkReadiness,
@@ -41,7 +43,7 @@ interface StoredSession {
 type JsonRecord = Record<string, unknown>;
 
 const SESSION_KEY = "command-center:owner-session:v1";
-const NONTERMINAL_RUN_STATES = new Set(["queued", "working", "paused", "blocked", "needs_user", "needs_owner", "work_boundary"]);
+const NONTERMINAL_RUN_STATES = new Set(["queued", "working", "paused", "blocked", "needs_user"]);
 const PROJECT_PRIORITY_RANK: Readonly<Record<string, number>> = Object.freeze({ critical: 0, high: 1, normal: 2, low: 3 });
 
 function isRecord(value: unknown): value is JsonRecord { return typeof value === "object" && value !== null && !Array.isArray(value); }
@@ -59,7 +61,7 @@ function defaultStorage(): SessionStorageLike {
   const values = new Map<string, string>();
   return {
     getItem(key: string): string | null { return values.get(key) ?? null; },
-    setItem(key: string, value: string): void { values.set(key, value); },
+    setItem(key: string, value: string): void { values.set(key, String(value)); },
     removeItem(key: string): void { values.delete(key); }
   };
 }
@@ -153,7 +155,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, controls, runs, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
@@ -161,8 +163,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("project-details", "command_center_project_detail_sections", "section_key,title,sort_order,capability_key,active,updated_at", { active: "eq.true", order: "sort_order.asc,section_key.asc" }),
         safe("project-details", "command_center_project_type_detail_sections", "type_key,section_key,required,source_ref,created_at", { order: "type_key.asc,section_key.asc" }),
         safe("activity", "cc7_activity", "project_id,headline,detail,happened_at", { order: "happened_at.desc", limit: "120" }),
-        safe("agency", "cc7_agent_controls", "auto_enabled,current_run_id,runner_state,updated_at,project_auto_enabled,project_auto_project_id", { limit: "1" }),
-        safe("agency", "cc7_agent_runs", "id,project_id,objective,status,exact_next_action,created_at,started_at,completed_at,updated_at", { order: "created_at.desc", limit: "60" }),
+        safe("agency", "command_center_agency_runs", "project_id,run_id,objective,control_mode,state,generation,authorization_ref,priority,stop_requested,pause_requested,blocker,checkpoint_id,evidence_refs,created_at,updated_at,completed_at", { order: "updated_at.desc", limit: "120" }),
+        safe("agency", "command_center_agency_jobs", "project_id,run_id,job_id,objective,state,risk,cost_class,preferred_environment,capability,retry_count,blocker,checkpoint_ref,evidence_refs,created_at,updated_at", { order: "updated_at.desc", limit: "240" }),
+        safe("agency", "command_center_agency_tasks", "project_id,run_id,job_id,task_id,title,state,dependency_ids,capability,risk,cost_class,preferred_environment,retry_count,idempotency_key,blocker,checkpoint_ref,evidence_refs,verification_refs,created_at,updated_at", { order: "updated_at.desc", limit: "600" }),
         safe("brain", "cc7_brain_items", "id,project_id,kind,title,status,importance,trust_state,source_ref,source_observed_at,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("automations", "cc7_automations", "id,project_id,kind,name,status,next_run_at,last_run_at,run_count,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("personal", "cc7_notifications", "id,project_id,title,severity,status,created_at,delivered_at,read_at", { order: "created_at.desc", limit: "100" }),
@@ -172,14 +175,14 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
       ]);
 
+      const agency = buildRuntimeAgencySnapshot({ runs: agencyRuns, jobs: agencyJobs, tasks: agencyTasks, observedAt, unavailable: optionalErrors.has("agency") });
       const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt);
       const attentionCount = projectSnapshots.filter((project) => project.needsMeCount.state === "known" && project.needsMeCount.value > 0).length;
       const surfaceSnapshots = this.#surfaceSnapshots({
         observedAt,
         projectCount: projectSnapshots.length,
         attentionCount,
-        controls,
-        runs,
+        agency,
         brainItems,
         automations,
         notifications,
@@ -203,6 +206,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         owner: Object.freeze({ displayName: unknown<string>() }),
         projects: Object.freeze(projectSnapshots),
         surfaces: Object.freeze(surfaceSnapshots),
+        agency,
         release: Object.freeze({
           releaseId: this.#releaseId ? known(this.#releaseId) : unknown<string>(),
           knownGoodReleaseId: knownGoodId ? known(knownGoodId) : unknown<string>()
@@ -413,8 +417,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     observedAt: string;
     projectCount: number;
     attentionCount: number;
-    controls: readonly JsonRecord[];
-    runs: readonly JsonRecord[];
+    agency: RuntimeAgencySnapshot;
     brainItems: readonly JsonRecord[];
     automations: readonly JsonRecord[];
     notifications: readonly JsonRecord[];
@@ -426,9 +429,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     const available = (key: string, label: string, summary: string, source: string): RuntimeSurfaceSnapshot => Object.freeze({ key, label, availability: "available" as const, summary: known(summary), evidence: evidence(source, input.observedAt) });
     const unavailable = (key: string, label: string): RuntimeSurfaceSnapshot => Object.freeze({ key, label, availability: "unavailable" as const, summary: unknown<string>(), evidence: Object.freeze([]) as readonly RuntimeEvidenceRef[] });
     const safeSurface = (sourceKey: string, key: string, label: string, summary: string, source: string): RuntimeSurfaceSnapshot => input.optionalErrors.has(sourceKey) ? unavailable(key, label) : available(key, label, summary, source);
-    const control = input.controls[0];
-    const nonterminalRuns = input.runs.filter((run) => NONTERMINAL_RUN_STATES.has(text(run.status)?.toLowerCase() ?? ""));
-    const runner = text(control?.runner_state) ?? "state unavailable";
+    const nonterminalRuns = input.agency.runs.filter((run) => NONTERMINAL_RUN_STATES.has(run.state.toLowerCase()));
+    const workingTasks = input.agency.tasks.filter((task) => task.state.toLowerCase() === "working").length;
+    const attentionTasks = input.agency.tasks.filter((task) => ["blocked", "needs_user", "work_boundary"].includes(task.state.toLowerCase())).length;
     const activeAutomations = input.automations.filter((item) => ["active", "enabled", "scheduled", "watching"].includes(text(item.status)?.toLowerCase() ?? "")).length;
     const unreadNotifications = input.notifications.filter((item) => !item.read_at && text(item.status)?.toLowerCase() !== "dismissed").length;
     const verifiedKpis = input.kpis.filter((item) => item.verified === true).length;
@@ -437,7 +440,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       available("home", "Home", "Canonical Command Center runtime connected.", "supabase:owner-runtime"),
       available("projects", "Projects", `${input.projectCount} canonical project profile${input.projectCount === 1 ? "" : "s"} loaded.`, "supabase:command_center_project_profiles"),
       safeSurface("brain", "brain", "Brain", `${input.brainItems.length} canonical Brain item${input.brainItems.length === 1 ? "" : "s"} loaded.`, "supabase:cc7_brain_items"),
-      safeSurface("agency", "agency", "Agency", `Runner ${runner} · ${nonterminalRuns.length} nonterminal run record${nonterminalRuns.length === 1 ? "" : "s"}. Active/Live project status still requires executor-claim heartbeat evidence.`, "supabase:cc7_agent_controls"),
+      input.agency.availability === "available"
+        ? available("agency", "Agency", `${nonterminalRuns.length} nonterminal durable run${nonterminalRuns.length === 1 ? "" : "s"} · ${workingTasks} working task${workingTasks === 1 ? "" : "s"} · ${attentionTasks} task${attentionTasks === 1 ? "" : "s"} requiring blocker/user/work-boundary handling.`, "supabase:command_center_agency_runs+jobs+tasks")
+        : unavailable("agency", "Agency"),
       available("needs-me", "Needs Me", `${input.attentionCount} project${input.attentionCount === 1 ? "" : "s"} with an explicit owner action in the latest durable checkpoint.`, "supabase:command_center_project_checkpoints.owner_action"),
       available("search", "Search", `${input.projectCount} canonical project profile${input.projectCount === 1 ? "" : "s"} available to search.`, "supabase:command_center_project_profiles"),
       safeSurface("automations", "automations", "Automations", `${activeAutomations} active automation${activeAutomations === 1 ? "" : "s"} of ${input.automations.length} loaded.`, "supabase:cc7_automations"),
