@@ -1,7 +1,7 @@
 # 124 — Current Authority and Resume Pointer
 
 **Owner / final authority:** James Morgan  
-**Status:** CURRENT / CATEGORY 1 VERIFIED / CATEGORY 2 BRANCH FOUNDATION VERIFIED WITH PROTECTED ACCEPTANCE GATES / A11.2 SQL PROOF VERIFIED / CATEGORY 3 P3.1–P3.12 BRANCH VERIFIED / CATEGORY 4 P4.1–P4.8 BRANCH VERIFIED / CATEGORY 5 P5.1–P5.14 BRANCH VERIFIED / 133-CONTROL EVIDENCE RECONCILED / CATEGORY 6 BRANCH AUDIT CURRENT  
+**Status:** CURRENT / CATEGORY 1 VERIFIED / CATEGORY 2 BRANCH FOUNDATION VERIFIED WITH PROTECTED ACCEPTANCE GATES / A11.2 SQL PROOF VERIFIED / CATEGORY 3 P3.1–P3.12 BRANCH VERIFIED / CATEGORY 4 P4.1–P4.8 BRANCH VERIFIED / CATEGORY 5 P5.1–P5.14 BRANCH VERIFIED / CATEGORY 6 P6.1–P6.15 BRANCH VERIFIED / 133-CONTROL EVIDENCE RECONCILED / CATEGORY 7 BRANCH AUDIT CURRENT  
 **Specification authority:** `roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md`  
 **Top-Brain amendment:** `roadmap/master-build-plan-owner-review/19_COMMAND_CENTER_TOP_BRAIN_AUTHORITY_AMENDMENT.md`  
 **P0.11 authority:** `roadmap/master-build-plan-owner-review/16_P0_11_POST_LOCK_107PLUS_RECONCILIATION.md`  
@@ -12,12 +12,13 @@
 **Category 3 branch closure:** `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`  
 **Category 4 branch closure:** `clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`  
 **Category 5 branch closure:** `clean-room/evidence/CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md`  
+**Category 6 branch closure:** `clean-room/evidence/CATEGORY_6_BRANCH_CLOSURE_2026-10-25.md`  
 **Current amended phase count:** `189`  
 **Current reconciled audit controls:** `133`
 
 ## Purpose
 
-This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting completed planning, prerequisite, SQL-proof, control-reconciliation, Category 3, Category 4, or Category 5 branch work while preserving every protected production/live-provider/device boundary.
+This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting completed planning, prerequisite, SQL-proof, control-reconciliation, Category 3, Category 4, Category 5, or Category 6 branch work while preserving every protected production/live-provider/device boundary.
 
 James Morgan’s newest explicit instruction remains controlling. Command Center work continues automatically in normal chat until a genuine authorization boundary, a genuine Work handoff after normal-chat capabilities are exhausted, or true completion remains.
 
@@ -106,6 +107,28 @@ Category 5 branch closure includes the generic project/type registry; governed l
 
 Category 5 branch closure does **not** claim production DB/RLS execution, production merge/deploy, unavailable historical-provider completeness, live production Brain/Agency provider execution, physical-device acceptance, or final Category 15 launch acceptance.
 
+## Category 6 — preserved branch truth
+
+Category 6 P6.1 through P6.15 are **branch implemented and branch verified**.
+
+Primary exact-head evidence:
+- implementation/evidence head: `029f9b88d4dea8a486a46f7ad1725cc6f585f0dd`;
+- exact-head GitHub Actions run: `40211675608`;
+- exact-head job: `121224029481`;
+- module tests: **568 passed / 0 failed**;
+- typecheck: passed;
+- exact-head core QA/release gates: passed;
+- semantic repository audit: **1,150/1,150** tracked files reviewed, zero secret findings, zero violations;
+- release-artifact and release-candidate audits: passed with protected icon verified, zero structural errors and zero readiness blockers;
+- observed PWA lifecycle: passed install, same-session offline replay, waiting-worker activation and two-cache rollback retention;
+- final Category 15 phase gate: still deferred/fail-closed for separate historical-ledger, historical-diff, production/live, owner and physical-device evidence boundaries.
+
+Current closure: `clean-room/evidence/CATEGORY_6_BRANCH_CLOSURE_2026-10-25.md`.
+
+Category 6 branch closure includes Command Center-owned Brain boundaries; provider/model routing; governed durable memory; scoped Context Builder; evidence-aware planning; specialist intelligence; a shipped project-aware persistent text conversation/workspace experience; exact referent snapshots; safe live steering; precedent without inherited authorization; replaceable browser voice capture with explicit microphone/transcript/cancel/edit/permission behavior and no auto-submit; an owner-facing Improvements Center with governed accept/reject and accepted-proposal scope conversion; deterministic no-AI operation; and adversarial/safety quality coverage. Brain discussion/recognition never itself grants protected execution authority.
+
+Category 6 branch closure does **not** claim production DB/RLS execution, production merge/deploy, live external/paid AI-provider acceptance, real production multi-device/provider-outage drills, physical Samsung/microphone acceptance, or final Category 15 launch acceptance.
+
 ## Current 133-control implementation truth
 
 The original full map remains `127_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_MAP.md` and the current reconciliation delta remains `128_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_RECONCILIATION_2026-10-25.md`. Where 128 differs from 127, 128 is newer and controls until a future full-map rewrite supersedes it.
@@ -117,23 +140,23 @@ Current exact totals remain:
 - `1` — **BLOCKED_EXTERNAL**
 - Total: `133`
 
-No Category 4 or Category 5 documentation update changes those totals without a separate evidence-map reconciliation proving a control-state change.
+No Category 4, Category 5, or Category 6 documentation update changes those totals without a separate evidence-map reconciliation proving a control-state change.
 
 ## Superseded resume statements
 
-Do **not** follow stale instructions that say to continue at Company 041, use the old 100-company count, redo Companies 101–107/001–100 conformance/the reverse map/P0.11, restart Category 1/2 wholesale, restart A11.2 without regression evidence, redo the initial 133-control reconciliation, resume at the A08.5/A08.6 seam, or treat Category 3, Category 4, or Category 5 as still foundation-only/branch-incomplete.
+Do **not** follow stale instructions that say to continue at Company 041, use the old 100-company count, redo Companies 101–107/001–100 conformance/the reverse map/P0.11, restart Category 1/2 wholesale, restart A11.2 without regression evidence, redo the initial 133-control reconciliation, resume at the A08.5/A08.6 seam, or treat Category 3, Category 4, Category 5, or Category 6 as still foundation-only/branch-incomplete.
 
 ## Current implementation resume order
 
-### 1. Category 6 Brain / AI Intelligence Ecosystem branch audit and closure — CURRENT
+### 1. Category 7 Agency / Multi-Agent Execution Platform branch audit and closure — CURRENT
 
-Re-audit every locked P6 phase against the current 189-phase authority and the **actual current branch**, not the older “foundation only” label. Preserve implementation that satisfies locked gates; close real branch-side persistence/runtime/UI/provider-contract/adversarial gaps; and distinguish branch proof from protected production/live-provider/device acceptance.
+Re-audit every locked P7.1–P7.24 phase against the current 189-phase authority and the **actual current branch**, not the older “foundation only” label. Preserve implementation that satisfies locked gates; close real branch-side persistence/runtime/UI/scheduler/executor/resource/delegation/verification/replay/failover/scale gaps; and distinguish branch proof from protected production/live-provider/device acceptance.
 
-The exact-head C5 run already proves substantial P6 test coverage exists, including durable AI routing, memory governance, Context Builder, planning, specialist registry, conversation, project workspace, exact referent snapshots, live steering, owner precedent, voice intent/security, Improvements Center, AI-outage survival and adversarial Brain behavior. Those tests are evidence to inspect, not automatic permission to claim Category 6 closure.
+The exact-head C6 run proves the integrated branch is stable before the C7 audit. Existing Agency foundation tests and durable contracts are evidence to inspect, not automatic permission to claim Category 7 closure.
 
-### 2. Continue C7–C14 in dependency order
+### 2. Continue C8–C14 in dependency order
 
-After Category 6 branch closure, continue directly through C7–C14. Do not redo controls already branch-verified. Close actual branch gaps, preserve external/provider/production boundaries, and update evidence only when proof changes.
+After Category 7 branch closure, continue directly through C8–C14. Do not redo controls already branch-verified. Close actual branch gaps, preserve external/provider/production boundaries, and update evidence only when proof changes.
 
 ### 3. Remaining isolated cross-module proof work
 
@@ -159,4 +182,4 @@ This pointer authorizes **no** production merge/deploy, Supabase production muta
 
 ## Current resume pointer
 
-**Category 3 P3.1–P3.12, Category 4 P4.1–P4.8, and Category 5 P5.1–P5.14 are branch verified. Category 5 exact-head proof is `a83e227c565874e94650119069127d08ddcf6d45` / run `40204117222`, with 558/558 module tests plus typecheck, 1,142/1,142 semantic every-file audit, release-artifact audit and observed PWA lifecycle passing. The post-audit implementation truth remains 62 VERIFIED_BRANCH / 61 PARTIAL / 9 UNVERIFIED / 1 BLOCKED_EXTERNAL until separately reconciled. Resume immediately with the Category 6 Brain / AI Intelligence Ecosystem branch audit and closure on `build/spec-lock-v2-clean-room`, then continue automatically through C7–C14. Preserve every production/live-provider/device/launch boundary and keep Category 15 deferred until upstream work and protected final gates are genuinely satisfied.**
+**Category 3 P3.1–P3.12, Category 4 P4.1–P4.8, Category 5 P5.1–P5.14, and Category 6 P6.1–P6.15 are branch verified. Category 6 exact-head proof is `029f9b88d4dea8a486a46f7ad1725cc6f585f0dd` / run `40211675608`, with 568/568 module tests plus typecheck, 1,150/1,150 semantic every-file audit, release-artifact/release-candidate audits and observed PWA lifecycle passing. The post-audit implementation truth remains 62 VERIFIED_BRANCH / 61 PARTIAL / 9 UNVERIFIED / 1 BLOCKED_EXTERNAL until separately reconciled. Resume immediately with the Category 7 Agency / Multi-Agent Execution Platform branch audit and closure on `build/spec-lock-v2-clean-room`, then continue automatically through C8–C14. Preserve every production/live-provider/device/launch boundary and keep Category 15 deferred until upstream work and protected final gates are genuinely satisfied.**
