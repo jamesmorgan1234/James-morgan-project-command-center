@@ -47,7 +47,9 @@ export class ProvenanceLedger {
   }
 
   current(sourceId: string): SourceObservation | undefined {
-    return [...this.#records].reverse().find((record) => record.sourceId === sourceId && !["superseded", "retracted", "tombstone"].includes(record.state));
+    const latest = this.latest(sourceId);
+    if (!latest || latest.state === "retracted" || latest.state === "tombstone" || latest.state === "superseded") return undefined;
+    return latest;
   }
 
   latest(sourceId: string): SourceObservation | undefined {
