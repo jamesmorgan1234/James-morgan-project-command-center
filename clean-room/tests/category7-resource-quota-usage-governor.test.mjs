@@ -109,8 +109,12 @@ test("late nonduplicate receipts reopen reconciliation while duplicates do not",
 
 test("unchanged repeated matched reconciliation is idempotent", async () => {
   const sql = await hardening();
-  assert.match(sql, /if r\.state='reconciled' then[\s\S]*x\.state<>'matched'[\s\S]*'duplicate_reconciliation',true/is);
-  const duplicateBranch = sql.match(/if r\.state='reconciled' then[\s\S]*?end if;/i)?.[0] ?? "";
+  const reconcileFunction =
+    sql.match(/create or replace function public\.command_center_resource_reconcile_usage\([\s\S]*?\nend \$\$;/i)?.[0] ?? "";
+  assert.notEqual(reconcileFunction, "");
+  assert.match(reconcileFunction, /if r\.state='reconciled' then[\s\S]*x\.state<>'matched'[\s\S]*'duplicate_reconciliation',true/is);
+  const duplicateBranch = reconcileFunction.match(/if r\.state='reconciled' then[\s\S]*?end if;/i)?.[0] ?? "";
+  assert.notEqual(duplicateBranch, "");
   assert.doesNotMatch(duplicateBranch, /generation=generation\+1/i);
 });
 
