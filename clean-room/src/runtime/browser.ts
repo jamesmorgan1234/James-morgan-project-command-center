@@ -13,11 +13,17 @@ const APP_SHELL = new ApplicationShell();
 const PRIMARY_NAV_ROUTE_KEYS = Object.freeze(["route:home", "route:projects", "route:active-live", "route:next-up"] as const);
 const LIVE_EXECUTION_STALE_AFTER_MS = 120_000;
 const CORE_PROJECT_DETAIL_SECTION_KEYS = new Set([
-  "project-section:performance",
-  "project-section:series",
-  "project-section:publication-status",
+  "project-section:snapshot",
+  "project-section:owner-inputs",
   "project-section:history",
-  "project-section:integrations"
+  "project-section:roadmap",
+  "project-section:assets",
+  "project-section:decisions",
+  "project-section:integrations",
+  "project-section:brain",
+  "project-section:agency",
+  "project-section:analytics",
+  "project-section:conversation"
 ]);
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
@@ -72,6 +78,11 @@ function headerSubtitle(route: ResolvedRoute): string {
 }
 function statusLabel(project: RuntimeProjectSnapshot): string { return project.lifecycle.state === "known" ? project.lifecycle.value.replaceAll("_", " ") : truthText(project.status); }
 function projectHref(project: RuntimeProjectSnapshot): string { return `/project/${encodeURIComponent(project.id)}`; }
+function projectContextHref(surface: "brain" | "agency" | "analytics", projectId: string, mode?: string): string {
+  const params = new URLSearchParams({ project: projectId });
+  if (mode) params.set("mode", mode);
+  return `/${surface}?${params.toString()}`;
+}
 function renderConnection(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const strip = el("section", "connection-strip");
   strip.append(
@@ -300,6 +311,12 @@ function appendDynamicProjectDetailSections(section: HTMLElement, project: Runti
     section.append(card);
   }
 }
+function coreProjectDetailCard(key: string, title: string, body: string, status?: string, path?: string): HTMLElement {
+  const card = path ? genericCard(title, body, status, path) : genericCard(title, body, status);
+  card.classList.add("project-detail-section", "core-project-section");
+  card.dataset.sectionKey = `project-section:${key}`;
+  return card;
+}
 function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: string): HTMLElement {
   const project = snapshot.projects.find((candidate) => candidate.id === projectId);
   const section = el("section", "screen-stack");
@@ -307,56 +324,83 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     section.append(emptyState("Project unavailable", "This project is not present in the current canonical runtime snapshot.", snapshot.connection.state));
     return section;
   }
-  const hero = bevelCard("project-hero");
-  const heroText = el("div", "project-hero__text");
-  heroText.append(el("span", "eyebrow", truthText(project.priority, (value) => `${value} priority`).toUpperCase()), el("h2", "project-hero__title", project.name), el("p", "project-description", truthText(project.mission)), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
-  hero.append(projectIcon(), heroText, artPanel());
-  section.append(hero);
 
-  const performance = bevelCard("project-detail-section performance-section");
-  performance.append(el("h3", "section-title", "PERFORMANCE"));
-  const performanceGrid = el("div", "performance-grid");
-  const performanceMetrics: readonly [string, string][] = [
+  const hero = bevelCard("project-hero project-detail-section core-project-section");
+  hero.dataset.sectionKey = "project-section:snapshot";
+  const heroText = el("div", "project-hero__text");
+  heroText.append(
+    el("span", "eyebrow", truthText(project.priority, (value) => `${value} priority`).toUpperCase()),
+    el("h2", "project-hero__title", project.name),
+    el("p", "project-description", truthText(project.mission)),
+    statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable")
+  );
+  hero.append(projectIcon(), heroText, artPanel());
+  const snapshotMetrics = el("div", "performance-grid");
+  const metrics: readonly [string, string][] = [
     ["Progress", truthText(project.progressPercent, (value) => `${value}%`)],
     ["Stage", truthText(project.stage)],
     ["Priority", truthText(project.priority)],
-    ["Needs Me", truthText(project.needsMeCount)]
+    ["Verification", truthText(project.verification)]
   ];
-  for (const [label, value] of performanceMetrics) {
+  for (const [label, value] of metrics) {
     const metric = el("div", "performance-metric");
     metric.append(el("span", "performance-metric__label", label), el("strong", "performance-metric__value", value));
-    performanceGrid.append(metric);
+    snapshotMetrics.append(metric);
   }
-  performance.append(performanceGrid);
-  section.append(performance);
+  hero.append(snapshotMetrics);
+  section.append(hero);
 
-  const series = bevelCard("project-detail-section series-strip");
-  series.append(el("h3", "section-title", "SERIES"), el("p", "muted", "Series data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
-  section.append(series);
+  const ownerInputs = bevelCard("project-detail-section core-project-section owner-inputs-section");
+  ownerInputs.dataset.sectionKey = "project-section:owner-inputs";
+  ownerInputs.append(el("h3", "section-title", "OWNER INPUTS"));
+  const ownerFacts = el("dl", "history-facts");
+  ownerFacts.append(
+    el("dt", undefined, "Needs Me"), el("dd", undefined, truthText(project.needsMeCount)),
+    el("dt", undefined, "Blockers"), el("dd", undefined, truthText(project.blockers, (values) => values.length ? values.join(" · ") : "None verified"))
+  );
+  ownerInputs.append(ownerFacts);
+  section.append(ownerInputs);
 
-  const publication = bevelCard("project-detail-section publication-status");
-  publication.append(el("h3", "section-title", "PUBLICATION STATUS"), el("p", "muted", "Publication data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
-  section.append(publication);
-
-  const history = bevelCard("project-detail-section history-row");
+  const history = bevelCard("project-detail-section core-project-section history-row");
+  history.dataset.sectionKey = "project-section:history";
   history.append(el("h3", "section-title", "HISTORY"));
   history.append(el("p", "muted", truthText(project.recentActivity, (values) => values.length ? values.join(" · ") : "No verified recent activity")));
-  const historyFacts = el("dl", "history-facts");
-  const historyRows: readonly [string, string][] = [
-    ["Verification", truthText(project.verification)],
-    ["Checkpoint", truthText(project.currentCheckpoint)],
-    ["Next action", truthText(project.nextAction)],
-    ["Blockers", truthText(project.blockers, (values) => values.length ? values.join(" · ") : "None verified")],
-    ["Agency", truthText(project.agencyState)]
-  ];
-  for (const [label, value] of historyRows) historyFacts.append(el("dt", undefined, label), el("dd", undefined, value));
-  history.append(historyFacts);
   section.append(history);
 
-  const integrations = bevelCard("project-detail-section integrations-row");
+  const roadmap = bevelCard("project-detail-section core-project-section roadmap-section");
+  roadmap.dataset.sectionKey = "project-section:roadmap";
+  roadmap.append(el("h3", "section-title", "ROADMAP"));
+  const roadmapFacts = el("dl", "history-facts");
+  const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
+  roadmapFacts.append(
+    el("dt", undefined, "Progress"), el("dd", undefined, truthText(project.progressPercent, (value) => `${value}%`)),
+    el("dt", undefined, "Checkpoint"), el("dd", undefined, truthText(project.currentCheckpoint)),
+    el("dt", undefined, "Next action"), el("dd", undefined, truthText(project.nextAction)),
+    el("dt", undefined, "Readiness"), el("dd", undefined, readiness ? (readiness.ready ? "Ready with evidence" : "Not ready") : "N/A")
+  );
+  roadmap.append(roadmapFacts);
+  section.append(roadmap);
+
+  section.append(coreProjectDetailCard("assets", "ASSETS", "No verified project asset summary is available in the current canonical runtime snapshot.", "unavailable"));
+  section.append(coreProjectDetailCard("decisions", "DECISIONS", "No verified project decision summary is available in the current canonical runtime snapshot.", "unavailable"));
+
+  const integrations = bevelCard("project-detail-section core-project-section integrations-row");
+  integrations.dataset.sectionKey = "project-section:integrations";
   integrations.append(el("h3", "section-title", "INTEGRATIONS"), el("p", "muted", "Integration data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
   if (project.specialistKey) integrations.append(el("p", "specialist-note", `Specialist extension: ${project.specialistKey}`));
   section.append(integrations);
+
+  const brainHref = projectContextHref("brain", project.id);
+  const agencyHref = projectContextHref("agency", project.id);
+  const analyticsHref = projectContextHref("analytics", project.id);
+  const conversationHref = projectContextHref("brain", project.id, "conversation");
+  section.append(
+    coreProjectDetailCard("brain", "BRAIN", "Open this project in Brain context. Current Brain availability remains governed by the canonical Brain runtime.", undefined, brainHref),
+    coreProjectDetailCard("agency", "AGENCY", `Current project Agency state: ${truthText(project.agencyState)}. Open the project-scoped Agency surface for canonical execution state.`, undefined, agencyHref),
+    coreProjectDetailCard("analytics", "ANALYTICS", "Open project-scoped analytics. No metric is inferred when the canonical analytics surface has no current evidence.", undefined, analyticsHref),
+    coreProjectDetailCard("conversation", "CONVERSATION", "Open project-scoped Brain conversation context. Conversation availability and history are determined by the canonical Brain runtime.", undefined, conversationHref)
+  );
+
   appendDynamicProjectDetailSections(section, project);
   return section;
 }
