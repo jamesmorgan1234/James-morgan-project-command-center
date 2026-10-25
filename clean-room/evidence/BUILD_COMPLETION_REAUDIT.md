@@ -6,22 +6,23 @@ Authority:
 - James Morgan's newest explicit direction: finish Command Center itself before final app/device acceptance; do not treat a working shell as a finished app.
 - `roadmap/master-build-plan-owner-review/15_SPECIFICATION_LOCK_V2.md`
 - `roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`
+- Current authority pointer: `roadmap/portfolio-future-architecture/124_CURRENT_AUTHORITY_AND_RESUME_POINTER.md`
 
 ## Why this re-audit exists
 
 The clean-room branch advanced into Category 15 release/device work while mandatory upstream categories were not fully accepted. Foundation/unit evidence was incorrectly treated as sufficient for later-category advancement. This checkpoint corrects that sequence without discarding verified work.
 
-Final owner/Samsung app acceptance is now **DEFERRED** until all applicable upstream Categories 0–14 satisfy their locked exit gates and the affected Category 15 gates are rerun against the integrated finished product.
+Final owner/Samsung app acceptance remains **DEFERRED** until all applicable upstream Categories 0–14 satisfy their locked exit gates and the affected Category 15 gates are rerun against the integrated finished product.
 
 ## Category regrade
 
 | Category | Re-audit status | Evidence basis / required disposition |
 |---|---|---|
-| C0 Authority / Recovery / Roadmap / Specification | **VERIFIED COMPLETE** | Specification Lock v2 exists and locks 5,852 requirements / 188 phases. |
+| C0 Authority / Recovery / Roadmap / Specification | **VERIFIED COMPLETE** | Specification Lock v2 exists and locks the authoritative requirements/phase system. Later authority amendments and the current resume pointer remain controlling where newer. |
 | C1 Core Kernel + Governance | **VERIFIED COMPLETE** | `CATEGORY_1_KERNEL_ACCEPTANCE.md` explicitly records verified Category-1 completion. |
-| C2 Identity + Security | **PARTIAL — BRANCH IMPLEMENTATION COMPLETE / PRODUCTION + DEVICE ACCEPTANCE PENDING** | Reconciled `CATEGORY_2_SECURITY_FOUNDATION.md` records P2.1–P2.8 implemented branch-side and P2.9 branch QA verified. Exact-head core QA passed 226/226 tests. Live read-only audit confirms production RLS/security-invoker/owner-boundary foundations; branch hardening fixes the identified service-helper ACL gap. Remaining C2 boundaries are production migration/deploy verification, Samsung platform-passkey acceptance, Supabase leaked-password protection, and production adversarial evidence. |
-| C3 Canonical Data / Knowledge / Command Graph / Providers | **REOPENED — FOUNDATION ONLY** | Existing evidence explicitly leaves canonical DB migrations/RLS, realtime reconciliation, full historical import, provider replacement, scale/soak, and Brain/Agency consumers pending. |
-| C4 App Shell / Visual / PWA / Device | **REOPENED — PARTIAL** | PWA/runtime exists, but Category-4 foundation evidence did not claim rendered/device acceptance. Current owner review also found inconsistent card geometry, plain controls, arrows that must be removed, incomplete whole-card navigation, and unfinished shared visual consistency. Final physical Samsung acceptance remains Category 15. |
+| C2 Identity + Security | **PARTIAL — BRANCH IMPLEMENTATION COMPLETE / PRODUCTION + DEVICE ACCEPTANCE PENDING** | Reconciled `CATEGORY_2_SECURITY_FOUNDATION.md` records P2.1–P2.8 implemented branch-side and P2.9 branch QA verified. Remaining protected boundaries include production migration/deploy verification, physical-device/passkey acceptance and production adversarial/provider evidence. |
+| C3 Canonical Data / Knowledge / Command Graph / Providers | **BRANCH VERIFIED — P3.1–P3.12 IMPLEMENTED / EXTERNAL + PRODUCTION ACCEPTANCE PENDING** | `CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md` records exact branch proof at implementation head `ebb4fc21e0332848d77b0c9926a7e4eefcf05f77`, run `40177280650`, **507/507** module tests, successful typecheck/core QA/release audit/PWA lifecycle, plus durable post-audit hardening for refresh recovery/acknowledgements, derivative lineage/propagation, audit-payload separation and restore-time current-state revalidation. This does not claim A07.1 live all-chat provider capability, production Supabase migration, real historical-export completeness, live protocol/provider execution, cross-device transport, production scale/recovery or device acceptance. |
+| C4 App Shell / Visual / PWA / Device | **REOPENED — PARTIAL / CURRENT BRANCH AUDIT** | PWA/runtime and some C4 tests exist, but Category-4 branch closure has not yet been re-established against the locked phase gates and approved screenshot/design authority. Current owner findings require consistent card geometry, shared beveled sci-fi controls, no unwanted arrows, whole-card navigation and finished shared visual consistency. Final physical Samsung acceptance remains Category 15. |
 | C5 Projects / Portfolio / Roadmap / Foundry | **REOPENED — FOUNDATION ONLY** | Evidence leaves real DB/RLS/live sync, complete project registry/scale, Foundry↔Brain↔Agency integration, historical discovery, and finished owner-facing project interactions pending. |
 | C6 Brain / AI Intelligence Ecosystem | **REOPENED — FOUNDATION ONLY** | Evidence leaves live provider/model adapters, canonical memory persistence/RLS, real conversational/project-room UI, voice behavior, broader adversarial evaluation, and Agency integration pending. Current browser surface is only a generic summary renderer. |
 | C7 Agency / Multi-Agent Execution | **REOPENED — FOUNDATION ONLY** | Evidence leaves transactional DB scheduler/leases/RLS, real continuous executor, Work rung integration, Boundary Office/Needs Me integration, real resource locks, independent live verification, canary/shadow path, and failover/load/soak pending. Current browser surface is only a generic summary renderer. |
@@ -32,11 +33,34 @@ Final owner/Samsung app acceptance is now **DEFERRED** until all applicable upst
 | C12 Specialists / Interoperability | **REOPENED — NO CATEGORY COMPLETION EVIDENCE** | Specialist contracts/modules exist, but no Category-12 completion evidence artifact exists. Real specialist registration, isolation, handoff, failure/recovery, and cross-domain integration acceptance remain. |
 | C13 Analytics / Observability / Recommendations / Self-Audit | **REOPENED — NO CATEGORY COMPLETION EVIDENCE** | Analytics modules exist, but no Category-13 completion evidence artifact exists. Real end-to-end observability, metric semantics, recommendation outcomes, security analytics, self-audit, scale/privacy/recovery acceptance remain. |
 | C14 Recovery / Migration / Scale / Dormant Future | **REOPENED — NO CATEGORY COMPLETION EVIDENCE** | No Category-14 completion evidence exists. Backup/restore drills, schema/client migration compatibility, provider replacement, 10×/100× scale, dormant reactivation, multi-user/commercial/interface seams, and combined chaos/recovery suite remain mandatory. |
-| C15 Final Integration / Release / Owner / Samsung Acceptance | **DEFERRED / MUST BE RERUN AFTER C2–C14** | Prior C15 work proves useful shell/release/PWA facts but cannot constitute final product acceptance while upstream mandatory categories remain incomplete. P15 final owner/device acceptance must be last. |
+| C15 Final Integration / Release / Owner / Samsung Acceptance | **DEFERRED / MUST BE RERUN AFTER C2–C14** | Prior C15 work proves useful shell/release/PWA facts but cannot constitute final product acceptance while upstream mandatory categories remain incomplete. P15 final owner/device acceptance must be last. The current phase-gate audit also has a fail-closed historical-diff visibility defect because the shallow Actions checkout no longer contains the frozen baseline revision; any later fix must restore evidence access without weakening the gate. |
+
+## Category 3 advancement record
+
+Category 3 is no longer classified as foundation-only.
+
+Current exact branch evidence:
+
+- implementation head: `ebb4fc21e0332848d77b0c9926a7e4eefcf05f77`;
+- exact-head QA run: `40177280650`;
+- 507/507 module tests passed;
+- typecheck, semantic repository audit, release-artifact audit and observed PWA lifecycle passed;
+- closure evidence: `CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`;
+- post-audit reconciliation: `roadmap/portfolio-future-architecture/128_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_RECONCILIATION_2026-10-25.md`.
+
+The post-audit implementation-control totals after C3 closure are:
+
+- 62 VERIFIED_BRANCH;
+- 61 PARTIAL;
+- 9 UNVERIFIED;
+- 1 BLOCKED_EXTERNAL;
+- 133 total.
+
+The unresolved C3 boundaries are protected/external acceptance layers, not a reason to restart P3.1–P3.12 branch implementation.
 
 ## Preserved owner acceptance findings from the current live shell
 
-These are requirements to carry forward, not reasons to keep doing final phone QA now:
+These are requirements to carry forward, not reasons to resume final phone QA now:
 
 1. Preserve the current improved black/orange/gold visual direction and deeper-menu quality.
 2. Normalize card sizing/geometry across pages.
@@ -52,24 +76,25 @@ These are requirements to carry forward, not reasons to keep doing final phone Q
 ## Advancement rule from this checkpoint
 
 - Preserve verified C0/C1 work.
-- Repair/complete upstream categories in dependency order.
+- Preserve C2 branch security implementation while its protected production/provider/device acceptance remains gated.
+- Preserve C3 P3.1–P3.12 branch implementation; do not reopen it absent regression evidence.
+- Repair/complete C4–C14 branch work in dependency order.
 - A foundation/unit test file is **not** category completion evidence.
-- Each reopened category requires real persistence/provider/UI/security/recovery/scale gates applicable to that category, plus an explicit completion evidence artifact.
-- C2 branch implementation may remain preserved while its production/provider/device acceptance waits at an explicit owner boundary; this does not authorize bypassing C2 security dependencies in later categories.
+- Each reopened category requires the applicable persistence/provider/UI/security/recovery/scale branch gates and an explicit evidence artifact.
+- Branch proof must remain distinct from production/provider/device proof.
 - Do not resume P15 owner/Samsung acceptance until all applicable C0–C14 category gates are verified against the integrated build.
 - Production `main` remains untouched unless a later explicit production authorization boundary is satisfied.
 
 ## Immediate execution order
 
-1. Preserve C2 branch security implementation; complete its production migration/deploy/provider/device acceptance only when explicitly authorized.
-2. Continue C3 canonical data/RLS/provider/sync implementation on the isolated branch without weakening or bypassing C2 controls.
-3. C4/C5 integrated shell + Projects/Foundry behavior using the preserved approved visual system.
-4. C6 Brain real conversation/memory/provider experience.
-5. C7 Agency real executor/control-plane/workflow experience.
-6. C8 Personal Ops/Search/Needs Me/Automations real durable runners and UI.
-7. C9 Finance real connected/read-only owner experience and protected money-action boundaries as applicable.
-8. C10 Social, C11 Books, C12 Specialists, C13 Analytics.
-9. C14 recovery/migration/scale/dormant-future acceptance.
-10. Re-enter C15 only after upstream completion evidence is green.
+1. **Current:** audit and close Category 4 branch-side experience-system phases against the locked roadmap and approved design authority.
+2. Continue directly through Category 5 integrated Projects/Portfolio/Roadmap/Foundry behavior.
+3. C6 Brain real conversation/memory/provider experience.
+4. C7 Agency real executor/control-plane/workflow experience.
+5. C8 Personal Ops/Search/Needs Me/Automations real durable runners and UI.
+6. C9 Finance real connected/read-only owner experience and protected money-action boundaries as applicable.
+7. C10 Social, C11 Books, C12 Specialists, C13 Analytics.
+8. C14 recovery/migration/scale/dormant-future acceptance.
+9. Re-enter C15 only after upstream completion evidence is green and protected acceptance boundaries are actually available.
 
-This checkpoint does not erase earlier test/release evidence. It corrects what that evidence is allowed to prove.
+This checkpoint does not erase earlier test/release evidence. It corrects what that evidence is allowed to prove and advances Category 3 only to the level actually demonstrated.
