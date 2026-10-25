@@ -103,10 +103,26 @@ export interface RuntimeBrainProjectWorkspace {
   readonly evidence: readonly RuntimeEvidenceRef[];
 }
 
+export interface RuntimeBrainImprovementProposal {
+  readonly id: string;
+  readonly projectId?: string;
+  readonly area: "roadmap_gap" | "manual_work" | "fragility" | "provider" | "cost" | "security" | "historical_lesson" | "quality";
+  readonly title: string;
+  readonly detailRef: string;
+  readonly confidence: number;
+  readonly evidenceRefs: readonly string[];
+  readonly state: "proposed" | "accepted" | "rejected" | "converted_to_scope";
+  readonly installsAutomatically: false;
+  readonly createdAt: string;
+  readonly decidedAt?: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
 export interface RuntimeBrainSnapshot {
   readonly availability: SurfaceAvailability;
   readonly conversations: readonly RuntimeBrainConversation[];
   readonly workspaces: readonly RuntimeBrainProjectWorkspace[];
+  readonly improvements: readonly RuntimeBrainImprovementProposal[];
   readonly evidence: readonly RuntimeEvidenceRef[];
 }
 
