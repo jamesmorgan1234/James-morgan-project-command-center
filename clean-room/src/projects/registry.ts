@@ -1,6 +1,7 @@
 import { assertProjectRecord, type ProjectRecord, type ProjectTypeDefinition } from "./types.js";
 
 const PROJECT_TYPE_KEY = /^project-type:[a-z0-9][a-z0-9._:-]{0,119}$/;
+const GOVERNED_LIFECYCLES = new Set(["archived", "superseded"]);
 
 function assertNonblankUnique(values: readonly string[], label: string): void {
   if (values.some((value) => !value.trim())) throw new Error(`${label} entries cannot be blank`);
@@ -50,6 +51,10 @@ export class ProjectRegistry {
     if (!this.types.get(project.typeKey)) throw new Error(`Unknown project type: ${project.typeKey}`);
     if (current.version !== expectedVersion || project.version !== current.version + 1) throw new Error(`Project version conflict: ${project.id}`);
     if (project.ownerId !== current.ownerId || project.createdAt !== current.createdAt) throw new Error("Project owner/creation identity cannot be rewritten");
+    if (project.typeKey !== current.typeKey || project.name !== current.name || project.mission !== current.mission) throw new Error("Project type/name/mission changes require governed lineage operations");
+    if (project.agentAccessEnabled !== current.agentAccessEnabled || project.portfolioAutoEnabled !== current.portfolioAutoEnabled) throw new Error("Project authorization changes require governed authorization operations");
+    if (project.protected !== current.protected) throw new Error("Project protected-state changes require governed authorization operations");
+    if (project.lifecycle !== current.lifecycle && (GOVERNED_LIFECYCLES.has(project.lifecycle) || GOVERNED_LIFECYCLES.has(current.lifecycle))) throw new Error("Project archive/supersession lifecycle changes require governed recovery/lineage operations");
     this.#projects.set(project.id, Object.freeze({ ...project }));
   }
 
