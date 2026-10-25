@@ -1,3 +1,5 @@
+import { parseTimestamp } from "../security/types.js";
+
 export type ResourceClaimMode = "shared" | "exclusive";
 
 export interface ResourceRequest {
@@ -37,4 +39,40 @@ export class ResourceClaimManager {
       if (remaining.length === 0) this.#claims.delete(key); else this.#claims.set(key, remaining);
     }
   }
+}
+
+export interface LeasedResourceClaim extends ResourceClaim {
+  readonly claimId: string;
+  readonly generation: number;
+  readonly acquiredAt: string;
+  readonly expiresAt: string;
+  readonly evidenceRefs: readonly string[];
+  readonly releasedAt?: string;
+}
+
+export interface ResourceRecoveryEvent {
+  readonly claimId: string;
+  readonly resourceKey: string;
+  readonly priorOwnerKey: string;
+  readonly generation: number;
+  readonly recoveredAt: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export function recoverExpiredResourceClaims(claims: readonly LeasedResourceClaim[], now: string, evidenceRefs: readonly string[]): Readonly<{ claims: readonly LeasedResourceClaim[]; events: readonly ResourceRecoveryEvent[] }> {
+  const nowMs = parseTimestamp(now, "now");
+  if (evidenceRefs.length === 0 || new Set(evidenceRefs).size !== evidenceRefs.length || evidenceRefs.some((ref) => !ref.trim())) throw new Error("Resource recovery requires unique evidence references");
+  const events: ResourceRecoveryEvent[] = [];
+  const next = claims.map((claim) => {
+    if (!claim.claimId.trim() || !claim.ownerKey.trim() || !claim.resourceKey.trim() || !Number.isSafeInteger(claim.generation) || claim.generation < 1) throw new Error("Invalid leased resource claim");
+    const acquiredMs = parseTimestamp(claim.acquiredAt, "claim.acquiredAt");
+    const expiresMs = parseTimestamp(claim.expiresAt, "claim.expiresAt");
+    if (expiresMs <= acquiredMs) throw new Error("Resource claim expiry must follow acquisition");
+    if (claim.evidenceRefs.length === 0) throw new Error("Resource claim requires evidence");
+    if (claim.releasedAt || expiresMs > nowMs) return Object.freeze({ ...claim, evidenceRefs: Object.freeze([...claim.evidenceRefs]) });
+    events.push(Object.freeze({ claimId: claim.claimId, resourceKey: claim.resourceKey, priorOwnerKey: claim.ownerKey, generation: claim.generation, recoveredAt: now, evidenceRefs: Object.freeze([...evidenceRefs]) }));
+    return Object.freeze({ ...claim, evidenceRefs: Object.freeze([...claim.evidenceRefs]), releasedAt: now });
+  });
+  events.sort((a, b) => a.resourceKey.localeCompare(b.resourceKey) || a.claimId.localeCompare(b.claimId));
+  return Object.freeze({ claims: Object.freeze(next), events: Object.freeze(events) });
 }
