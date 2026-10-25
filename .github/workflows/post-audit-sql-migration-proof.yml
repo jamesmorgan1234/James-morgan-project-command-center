@@ -1,0 +1,76 @@
+name: Post-Audit SQL Migration Proof
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - 'supabase/migrations/20261024112000_category3_canonical_platform.sql'
+      - 'supabase/migrations/20261024113000_category3_sync_reconciliation.sql'
+      - 'supabase/migrations/20261024113500_category3_import_policy_extension.sql'
+      - 'supabase/migrations/20261024114000_category3_knowledge_provenance_invariant.sql'
+      - 'supabase/migrations/20261024115000_category3_portability_batches.sql'
+      - 'supabase/migrations/20261024120000_category3_historical_export_staging.sql'
+      - 'supabase/migrations/20261024121000_category3_context_artifact_exchange.sql'
+      - 'supabase/migrations/20261024122000_category3_protocol_adapter_registry.sql'
+      - 'supabase/migrations/20261024123000_category3_recovery_scale_evidence.sql'
+      - 'supabase/migrations/2026102413*.sql'
+      - 'supabase/migrations/2026102414*.sql'
+      - 'supabase/migrations/2026102415*.sql'
+      - 'supabase/migrations/2026102416*.sql'
+      - 'supabase/migrations/2026102417*.sql'
+      - 'supabase/migrations/20261025011500_category3_source_provenance_refresh_retrofit.sql'
+      - 'supabase/migrations/20261025013000_category7_distributed_work_hardening.sql'
+      - 'supabase/migrations/20261025014500_category7_side_effect_outbox_inbox.sql'
+      - 'supabase/migrations/20261025020000_category7_resource_quota_usage_governor.sql'
+      - 'supabase/migrations/20261025020100_category7_resource_quota_usage_reconciliation_hardening.sql'
+      - 'scripts/ci/post-audit-postgres-bootstrap.sql'
+      - 'scripts/ci/run-post-audit-sql-proof.sh'
+      - '.github/workflows/post-audit-sql-migration-proof.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  a11-real-sql-execution:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact head
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: Start disposable local PostgreSQL
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v psql
+          sudo systemctl start postgresql
+          sudo -u postgres psql -v ON_ERROR_STOP=1 -c "alter user postgres password 'postgres';"
+          for i in {1..20}; do
+            if PGPASSWORD=postgres pg_isready -h 127.0.0.1 -p 5432 -U postgres; then
+              exit 0
+            fi
+            sleep 1
+          done
+          echo 'Disposable PostgreSQL did not become ready' >&2
+          exit 1
+
+      - name: A11.2 execute clean-chain and prior-supported migration paths
+        shell: bash
+        env:
+          PGHOST: 127.0.0.1
+          PGPORT: '5432'
+          PGUSER: postgres
+          PGPASSWORD: postgres
+        run: bash scripts/ci/run-post-audit-sql-proof.sh
+
+      - name: Print SQL execution evidence
+        if: always()
+        shell: bash
+        run: |
+          if [ -f audit-output/post-audit-sql-proof.log ]; then
+            tail -n 200 audit-output/post-audit-sql-proof.log
+          else
+            echo 'No SQL proof log was produced.'
+          fi
