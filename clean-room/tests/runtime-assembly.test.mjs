@@ -10,9 +10,9 @@ test("canonical runtime assembler consumes clean-room project, roadmap, checkpoi
   const types = new ProjectTypeRegistry();
   types.register({ key: "project-type:software", version: 1, label: "Software", capabilities: ["build"], requiredDetailSections: ["roadmap"], domainPlaybookKey: "playbook:software" });
   const projects = new ProjectRegistry(types);
-  projects.create({ id: "command-center", typeKey: "project-type:software", ownerId: "james", name: "Command Center", mission: "Operate projects truthfully", lifecycle: "active", verification: "partial", priority: "critical", version: 1, createdAt: "2026-10-01T00:00:00Z", updatedAt: "2026-10-23T00:00:00Z", agentAccessEnabled: true, portfolioAutoEnabled: false, protected: true });
+  projects.create({ id: "command-center", typeKey: "project-type:software", ownerId: "james", name: "Command Center", mission: "Operate projects truthfully", lifecycle: "active", status: "Build in progress", verification: "partial", priority: "critical", version: 1, createdAt: "2026-10-01T00:00:00Z", updatedAt: "2026-10-23T00:00:00Z", agentAccessEnabled: true, portfolioAutoEnabled: false, protected: true });
   const checkpoints = new ProjectCheckpointStore();
-  checkpoints.append({ id: "cp-15", projectId: "command-center", roadmapVersion: 1, createdAt: "2026-10-23T00:00:00Z", exactNextWorkUnitId: "c15-runtime", verificationMethod: "qa", evidenceRefs: ["github:run"], resumeStateHash: "abc" });
+  checkpoints.append({ id: "cp-15", projectId: "command-center", roadmapVersion: 1, createdAt: "2026-10-23T00:00:00Z", exactNextWorkUnitId: "c15-runtime", verificationMethod: "qa", evidenceRefs: ["github:run"], resumeStateHash: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" });
   const needsMe = new NeedsMeQueue();
   needsMe.upsert({ id: "need-1", ownerId: "james", needKey: "physical-device", title: "Samsung acceptance", reason: "physical evidence required", urgency: "normal", requiredEnvironment: "phone", ownerAction: "Run final acceptance", unlockRefs: ["release"], resumeRefs: ["c15"], sourceRefs: ["spec"], state: "open" });
   const roadmaps = new Map([["command-center", { roadmap: { projectId: "command-center", version: 1, workUnits: [
