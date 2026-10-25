@@ -15,6 +15,19 @@ test("browser runtime keeps approved Projects, Active / Live, Next Up and Projec
 
 test("browser visual shell uses the locked beveled phone-first control-system geometry", async () => {
   const css = await readFile(new URL("public/app.css", ROOT), "utf8");
-  for (const marker of ["clip-path:polygon", ".back-control", ".project-row", ".active-row", ".next-row", ".progress-ring", ".header-planet", ".row-chevron"]) assert.match(css, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  const projectCss = await readFile(new URL("public/project-system.css", ROOT), "utf8");
+  for (const marker of ["clip-path:polygon", ".back-control", ".project-row", ".active-row", ".next-row", ".progress-ring", ".header-planet"]) assert.match(css, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(css, /--cc-orange:#ff6a00/);
+  assert.match(projectCss, /\.project-navigation-card\{[^}]*text-decoration:none[^}]*cursor:pointer/s);
+  assert.match(projectCss, /\.row-chevron\{display:none!important\}/);
+});
+
+test("owner-facing project navigation uses the whole card and no decorative chevron markup", async () => {
+  const source = await readFile(new URL("src/runtime/browser.ts", ROOT), "utf8");
+  assert.match(source, /function bevelRouteCard\(/);
+  assert.match(source, /bevelRouteCard\(projectHref\(project\), "project-row project-navigation-card"/);
+  assert.match(source, /bevelRouteCard\(projectHref\(project\), "active-row project-navigation-card"/);
+  assert.match(source, /bevelRouteCard\(projectHref\(project\), "next-row project-navigation-card"/);
+  assert.doesNotMatch(source, /row-chevron/);
+  assert.doesNotMatch(source, /function chevron\(/);
 });
