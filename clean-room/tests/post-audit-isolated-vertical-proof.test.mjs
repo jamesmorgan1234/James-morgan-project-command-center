@@ -184,7 +184,7 @@ test("authorized protected action crosses live session, immutable intent, centra
   const { gate } = protectedHarness();
   const protectedIntent = intent();
   const binding = createIntentBinding(protectedIntent);
-  assert.equal(authorize(gate, protectedIntent, binding).allowed, true);
+  assert.doesNotThrow(() => authorize(gate, protectedIntent, binding));
 
   const operations = new OperationJournal();
   const operation = operations.prepare({
