@@ -5,7 +5,7 @@
 create or replace function public.command_center_resource_record_provider_usage_receipt(
   p_reservation_id uuid,p_provider_receipt_id text,p_provider_receipt_hash text,p_reported_units bigint,p_reported_cost_microusd bigint,p_evidence_refs text[],p_occurred_at timestamptz,p_observed_at timestamptz
 ) returns jsonb language plpgsql security definer set search_path='' as $$
-declare u uuid:=auth.uid(); r public.command_center_resource_quota_reservations%rowtype; b public.command_center_resource_quota_buckets%rowtype; x public.command_center_provider_usage_receipts%rowtype; begin
+declare u uuid:=auth.uid(); r public.command_center_resource_quota_reservations%rowtype; b public.command_center_resource_quota_buckets%rowtype; x public.command_center_provider_usage_receipts%rowtype; v_reopened boolean:=false; begin
   if u is null or not public.is_command_center_authorized() then raise exception 'Unauthorized'; end if;
   if coalesce(btrim(p_provider_receipt_id),'')='' or coalesce(p_provider_receipt_hash,'') !~ '^[a-f0-9]{64}$' then raise exception 'Provider usage receipt stable identity and hash required'; end if;
   if p_reported_units is null or p_reported_units<0 or p_reported_cost_microusd is null or p_reported_cost_microusd<0 then raise exception 'Provider usage receipt must report known non-negative usage and cost'; end if;
@@ -27,6 +27,7 @@ declare u uuid:=auth.uid(); r public.command_center_resource_quota_reservations%
   end if;
 
   if r.state='reconciled' then
+    v_reopened:=true;
     update public.command_center_resource_quota_reservations
       set state='settled_pending_receipt',generation=generation+1,reconciled_at=null,evidence_refs=p_evidence_refs,updated_at=p_observed_at
       where owner_id=u and reservation_id=r.reservation_id returning * into r;
@@ -35,8 +36,8 @@ declare u uuid:=auth.uid(); r public.command_center_resource_quota_reservations%
   insert into public.command_center_provider_usage_receipts(owner_id,reservation_id,provider_key,account_id,environment,provider_receipt_id,provider_receipt_hash,reported_units,reported_cost_microusd,evidence_refs,occurred_at,observed_at)
     values(u,r.reservation_id,b.provider_key,b.account_id,b.environment,btrim(p_provider_receipt_id),p_provider_receipt_hash,p_reported_units,p_reported_cost_microusd,p_evidence_refs,p_occurred_at,p_observed_at)
     returning * into x;
-  perform command_center_private.c7_record_quota_event(u,b.bucket_id,r.reservation_id,'receipt_recorded',r.generation,jsonb_build_object('provider_receipt_id',x.provider_receipt_id,'reported_units',x.reported_units,'reported_cost_microusd',x.reported_cost_microusd,'reconciliation_reopened',r.reconciled_at is null),p_evidence_refs,p_observed_at);
-  return jsonb_build_object('usage_receipt_id',x.usage_receipt_id,'duplicate',false,'reservation_id',x.reservation_id,'reconciliation_reopened',r.state='settled_pending_receipt');
+  perform command_center_private.c7_record_quota_event(u,b.bucket_id,r.reservation_id,'receipt_recorded',r.generation,jsonb_build_object('provider_receipt_id',x.provider_receipt_id,'reported_units',x.reported_units,'reported_cost_microusd',x.reported_cost_microusd,'reconciliation_reopened',v_reopened),p_evidence_refs,p_observed_at);
+  return jsonb_build_object('usage_receipt_id',x.usage_receipt_id,'duplicate',false,'reservation_id',x.reservation_id,'reconciliation_reopened',v_reopened);
 end $$;
 
 create or replace function public.command_center_resource_reconcile_usage(
