@@ -76,7 +76,7 @@ test("P15.14 composes real clean-room contracts in isolated nonproduction state 
   const projectTypes = new ProjectTypeRegistry();
   projectTypes.register({ key: "project-type:software", version: 1, label: "Software", capabilities: ["verify"], requiredDetailSections: ["roadmap"], domainPlaybookKey: "playbook:software" });
   const projects = new ProjectRegistry(projectTypes);
-  projects.create({ id: "command-center", typeKey: "project-type:software", ownerId: "owner:p15", name: "Command Center", mission: "Isolated P15.14 acceptance", lifecycle: "active", verification: "verified", priority: "critical", version: 1, createdAt: NOW, updatedAt: NOW, agentAccessEnabled: true, portfolioAutoEnabled: false, protected: true });
+  projects.create({ id: "command-center", typeKey: "project-type:software", ownerId: "owner:p15", name: "Command Center", mission: "Isolated P15.14 acceptance", lifecycle: "active", status: "Isolated acceptance", verification: "verified", priority: "critical", version: 1, createdAt: NOW, updatedAt: NOW, agentAccessEnabled: true, portfolioAutoEnabled: false, protected: true });
   const snapshot = assembleCanonicalRuntimeSnapshot({ providerId: "runtime:p15-isolated", observedAt: NOW, sourceRef: "acceptance:p15", projects, checkpoints: new ProjectCheckpointStore(), needsMe: new NeedsMeQueue(), surfaceReaders: readers, releaseId: "p15-isolated-contract" });
   const surfaces = new Map(snapshot.surfaces.map((surface) => [surface.key, surface]));
   assert.equal(surfaces.get("brain")?.availability, "available");
