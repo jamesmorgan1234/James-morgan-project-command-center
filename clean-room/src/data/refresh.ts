@@ -200,7 +200,7 @@ export interface DerivedProjectionAcknowledgement extends DerivedInvalidationExp
   readonly evidenceRefs: readonly string[];
 }
 
-export type RefreshRecoveryAction = "restart_source" | "awaiting_derived_acknowledgements" | "complete" | "resume_from_checkpoint";
+export type RefreshRecoveryAction = "restart_source" | "awaiting_derived_expectation_snapshot" | "awaiting_derived_acknowledgements" | "complete" | "resume_from_checkpoint";
 
 export interface RefreshRecoveryDecision {
   readonly sourceId: string;
@@ -226,10 +226,10 @@ function assertEvidenceRefs(evidenceRefs: readonly string[]): readonly string[] 
 
 /**
  * In-memory contract for the durable A07.6 refresh seam. A committed source checkpoint is
- * not enough to call a changed source recovered: every expected dependent derived projection
- * must acknowledge the resulting deleted/restricted state with evidence. A newer worker
- * generation may resume from a successful older checkpoint only after those acknowledgements
- * have closed, so worker replacement cannot silently bypass derivative invalidation.
+ * not enough to call a changed source recovered: its dependent-invalidations snapshot must
+ * first exist, and every expected dependent derived projection must then acknowledge its
+ * resulting deleted/restricted state with evidence. A newer worker generation may resume
+ * only after that closure, so replacement cannot silently bypass derivative invalidation.
  */
 export class RefreshRecoveryCoordinator {
   readonly #checkpoints = new Map<string, RefreshCheckpoint>();
@@ -315,9 +315,21 @@ export class RefreshRecoveryCoordinator {
     if (!checkpoint.successful) return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "restart_source", reason: "checkpoint_unsuccessful", pendingDerivedIds: Object.freeze([]) });
 
     const key = this.#key(sourceId, checkpoint.generation);
-    const expectations = this.#expectations.get(key) ?? new Map<string, DerivedInvalidationExpectation>();
+    const expectations = this.#expectations.get(key);
+    if (checkpoint.classification !== "unchanged" && expectations === undefined) {
+      return Object.freeze({
+        sourceId,
+        requestedGeneration,
+        checkpointGeneration: checkpoint.generation,
+        checkpointRef: checkpoint.checkpointRef,
+        action: "awaiting_derived_expectation_snapshot",
+        reason: "dependent_derived_expectation_snapshot_missing",
+        pendingDerivedIds: Object.freeze([])
+      });
+    }
+    const expected = expectations ?? new Map<string, DerivedInvalidationExpectation>();
     const acknowledgements = this.#acknowledgements.get(key) ?? new Map<string, DerivedProjectionAcknowledgement>();
-    const pendingDerivedIds = Object.freeze([...expectations.keys()].filter((derivedId) => !acknowledgements.has(derivedId)).sort());
+    const pendingDerivedIds = Object.freeze([...expected.keys()].filter((derivedId) => !acknowledgements.has(derivedId)).sort());
     if (pendingDerivedIds.length > 0) {
       return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "awaiting_derived_acknowledgements", reason: "dependent_derived_invalidation_unacknowledged", pendingDerivedIds });
     }
