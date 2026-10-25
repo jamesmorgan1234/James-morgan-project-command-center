@@ -4,6 +4,8 @@ import handler from "../api/owner-session.mjs";
 
 const ORIGIN = "https://command-center-preview-alpha.vercel.app";
 const HOST = "command-center-preview-alpha.vercel.app";
+const PROJECT_REF = "test-command-center";
+const SUPABASE_URL = `https://${PROJECT_REF}.supabase.co`;
 const KEY = "sb_publishable_test_key";
 
 function request(body, extraHeaders = {}) {
@@ -13,7 +15,6 @@ function request(body, extraHeaders = {}) {
       origin: ORIGIN,
       host: HOST,
       "sec-fetch-site": "same-origin",
-      "x-cc-supabase-key": KEY,
       ...extraHeaders
     },
     body
@@ -43,8 +44,27 @@ function tokenPayload(suffix = "one") {
   };
 }
 
+function withServerIdentityConfig() {
+  const prior = {
+    environment: process.env.CC_ENVIRONMENT,
+    url: process.env.CC_SUPABASE_URL,
+    ref: process.env.CC_SUPABASE_PROJECT_REF,
+    key: process.env.CC_SUPABASE_PUBLISHABLE_KEY
+  };
+  process.env.CC_ENVIRONMENT = "test";
+  process.env.CC_SUPABASE_URL = SUPABASE_URL;
+  process.env.CC_SUPABASE_PROJECT_REF = PROJECT_REF;
+  process.env.CC_SUPABASE_PUBLISHABLE_KEY = KEY;
+  return () => {
+    for (const [name, value] of [["CC_ENVIRONMENT", prior.environment], ["CC_SUPABASE_URL", prior.url], ["CC_SUPABASE_PROJECT_REF", prior.ref], ["CC_SUPABASE_PUBLISHABLE_KEY", prior.key]]) {
+      if (value === undefined) delete process.env[name]; else process.env[name] = value;
+    }
+  };
+}
+
 test("owner session broker rotates the refresh token into an HttpOnly host cookie and never returns it to JavaScript", async () => {
   const originalFetch = globalThis.fetch;
+  const restoreConfig = withServerIdentityConfig();
   const upstreamCalls = [];
   globalThis.fetch = async (url, init) => {
     upstreamCalls.push({ url: String(url), init, body: JSON.parse(String(init.body)) });
@@ -58,7 +78,7 @@ test("owner session broker rotates the refresh token into an HttpOnly host cooki
 
     assert.equal(res.statusCode, 200);
     assert.equal(upstreamCalls.length, 1);
-    assert.match(upstreamCalls[0].url, /\/auth\/v1\/token\?grant_type=refresh_token$/);
+    assert.match(upstreamCalls[0].url, new RegExp(`^${SUPABASE_URL.replaceAll(".", "\\.")}\\/auth\\/v1\\/token\\?grant_type=refresh_token$`));
     assert.deepEqual(upstreamCalls[0].body, { refresh_token: "initial-refresh-token" });
     assert.equal(upstreamCalls[0].init.headers.apikey, KEY);
 
@@ -77,11 +97,13 @@ test("owner session broker rotates the refresh token into an HttpOnly host cooki
     assert.equal(res.getHeader("cache-control"), "no-store, max-age=0");
   } finally {
     globalThis.fetch = originalFetch;
+    restoreConfig();
   }
 });
 
 test("owner session broker refreshes only from the HttpOnly cookie and sign-out clears and revokes it", async () => {
   const originalFetch = globalThis.fetch;
+  const restoreConfig = withServerIdentityConfig();
   const upstreamCalls = [];
   globalThis.fetch = async (url, init = {}) => {
     const call = { url: String(url), init, body: init.body ? JSON.parse(String(init.body)) : undefined };
@@ -98,6 +120,7 @@ test("owner session broker refreshes only from the HttpOnly cookie and sign-out 
     await handler(request({ action: "refresh" }, { cookie: "__Host-cc-owner-refresh=refresh-cookie-value" }), refreshRes);
     assert.equal(refreshRes.statusCode, 200);
     assert.deepEqual(upstreamCalls[0].body, { refresh_token: "refresh-cookie-value" });
+    assert.equal(upstreamCalls[0].init.headers.apikey, KEY);
     assert.equal("refresh_token" in refreshRes.body, false);
     assert.match(String(refreshRes.getHeader("set-cookie")), /^__Host-cc-owner-refresh=refresh-next;/);
 
@@ -113,6 +136,7 @@ test("owner session broker refreshes only from the HttpOnly cookie and sign-out 
     assert.match(String(clearRes.getHeader("set-cookie")), /Max-Age=0/);
   } finally {
     globalThis.fetch = originalFetch;
+    restoreConfig();
   }
 });
 
