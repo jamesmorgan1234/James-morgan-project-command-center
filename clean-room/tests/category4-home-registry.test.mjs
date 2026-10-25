@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { HomeModuleRegistry } from "../dist/ui/home.js";
+import { HomeModuleRegistry, createHomeGrid, listHomeGridExtensions, registerHomeGridExtension } from "../dist/ui/home.js";
 import { buildHomeModuleGrid, createCoreHomeModuleRegistry } from "../dist/runtime/home-modules.js";
 import { createFixtureRuntimeSnapshot } from "../dist/runtime/snapshot.js";
 import { known } from "../dist/data/canonical.js";
@@ -26,7 +26,7 @@ test("P4.4 core Home catalog is registry-driven and preserves approved one-colum
   assert.equal(grid.modules.find((module) => module.key === "owner_attention")?.supportingText, "Nothing currently requires owner action.");
 });
 
-test("P4.4 a future Home tile registers without changing registry or renderer internals", () => {
+test("P4.4 a future Home tile registers through the context registry without changing renderer internals", () => {
   const extension = {
     key: "future-capability",
     title: "Future Capability",
@@ -36,6 +36,26 @@ test("P4.4 a future Home tile registers without changing registry or renderer in
   const grid = buildHomeModuleGrid(context(), [extension]);
   assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "active_live", "next_up", "owner_attention", "future-capability"]);
   assert.equal(grid.modules.at(-1)?.verifiedCount, 3);
+});
+
+test("P4.4 shipped createHomeGrid consumes registered extension tiles without browser renderer surgery", () => {
+  assert.equal(listHomeGridExtensions().length, 0);
+  const unregister = registerHomeGridExtension({
+    key: "runtime-extension",
+    title: "Runtime Extension",
+    route: "/runtime-extension",
+    verifiedCount: 2,
+    supportingText: "Two verified runtime items."
+  });
+  try {
+    const grid = createHomeGrid([{ key: "projects", title: "Projects", route: "/projects", supportingText: "Projects" }]);
+    assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "runtime-extension"]);
+    assert.equal(grid.modules.at(-1)?.verifiedCount, 2);
+    assert.throws(() => registerHomeGridExtension({ key: "runtime-extension", title: "Duplicate", route: "/duplicate", supportingText: "Duplicate" }), /Duplicate Home grid extension/);
+  } finally {
+    unregister();
+  }
+  assert.equal(listHomeGridExtensions().length, 0);
 });
 
 test("P4.4 registry rejects duplicate or invalid registrations and supports removal", () => {
@@ -48,11 +68,13 @@ test("P4.4 registry rejects duplicate or invalid registrations and supports remo
   assert.equal(registry.list().length, 0);
 });
 
-test("P4.4 browser Home rendering is data-driven over the grid and contains no module-key rendering switch", async () => {
+test("P4.4 browser Home rendering is data-driven over createHomeGrid and contains no module-key rendering switch", async () => {
   const browser = await source("src/runtime/browser.ts");
   const start = browser.indexOf("function renderHome(");
   const end = browser.indexOf("function renderCanonicalSurface", start);
   const body = browser.slice(start, end);
+  assert.match(browser, /import \{ createHomeGrid \} from "\.\.\/ui\/home\.js"/);
+  assert.match(body, /const grid = createHomeGrid\(/);
   assert.match(body, /for \(const module of grid\.modules\)/);
   assert.doesNotMatch(body, /switch\s*\(module\.key\)/);
   assert.doesNotMatch(body, /if\s*\(module\.key\s*===/);
