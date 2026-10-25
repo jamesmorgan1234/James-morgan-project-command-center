@@ -60,6 +60,19 @@ test("changed refresh cannot complete until every dependent derived invalidation
   assert.equal(recovery.evaluate("source:chat-1", 4).action, "complete");
 });
 
+test("changed or uncertain checkpoint requires an explicit derivative expectation snapshot even when the true set is empty", () => {
+  for (const classification of ["changed", "uncertain"]) {
+    const recovery = new RefreshRecoveryCoordinator();
+    recovery.recordCheckpoint(checkpoint({ classification }));
+    const missing = recovery.evaluate("source:chat-1", 4);
+    assert.equal(missing.action, "awaiting_derived_expectation_snapshot");
+    assert.equal(missing.reason, "dependent_derived_expectation_snapshot_missing");
+
+    recovery.expectDerivedInvalidations("source:chat-1", 4, []);
+    assert.equal(recovery.evaluate("source:chat-1", 4).action, "complete");
+  }
+});
+
 test("worker replacement cannot bypass pending derivative acknowledgements and resumes only after closure", () => {
   const recovery = new RefreshRecoveryCoordinator();
   recovery.recordCheckpoint(checkpoint());
