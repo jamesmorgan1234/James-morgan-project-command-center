@@ -8,3 +8,4 @@ export * from "./home.js";
 export * from "./pwa.js";
 export * from "./device.js";
 export * from "./fixtures.js";
+export * from "./primitives.js";
