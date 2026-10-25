@@ -32,7 +32,17 @@ export class ProjectDetailSectionRegistry {
 export function createCoreProjectSections(): ProjectDetailSectionRegistry {
   const sections = new ProjectDetailSectionRegistry();
   const universal: readonly [string, number, string][] = [
-    ["snapshot", 10, "Snapshot"], ["owner-inputs", 20, "Owner Inputs"], ["history", 30, "History"], ["roadmap", 40, "Roadmap"], ["assets", 50, "Assets"], ["decisions", 60, "Decisions"], ["integrations", 70, "Integrations"], ["brain", 80, "Brain"], ["agency", 90, "Agency"], ["analytics", 100, "Analytics"]
+    ["snapshot", 10, "Snapshot"],
+    ["owner-inputs", 20, "Owner Inputs"],
+    ["history", 30, "History"],
+    ["roadmap", 40, "Roadmap"],
+    ["assets", 50, "Assets"],
+    ["decisions", 60, "Decisions"],
+    ["integrations", 70, "Integrations"],
+    ["brain", 80, "Brain"],
+    ["agency", 90, "Agency"],
+    ["analytics", 100, "Analytics"],
+    ["conversation", 110, "Conversation"]
   ];
   for (const [key, order, title] of universal) sections.register({ key: `project-section:${key}`, order, projectTypeKeys: [], title });
   return sections;
