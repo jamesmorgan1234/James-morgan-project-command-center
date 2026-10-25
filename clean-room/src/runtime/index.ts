@@ -6,3 +6,4 @@ export * from "./surface-readers.js";
 export * from "./route-state.js";
 export * from "./browser-navigation.js";
 export * from "./browser-startup.js";
+export * from "./home-modules.js";
