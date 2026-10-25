@@ -70,6 +70,11 @@ export interface RestoreRevalidationDecision {
   readonly evidenceRefs: readonly string[];
 }
 
+export interface RestoreProjectionResult {
+  readonly decision: RestoreRevalidationDecision;
+  readonly projection: ProjectionRebuildEvidence;
+}
+
 function restoreDecision(input: RestoreRevalidationInput, status: RestoreDecisionStatus, reason: string, evidenceRefs: readonly string[]): RestoreRevalidationDecision {
   return Object.freeze({
     status,
@@ -111,4 +116,16 @@ export function evaluateRestoreRevalidation(input: RestoreRevalidationInput): Re
   if (input.sourceLifecycle === "degraded" || input.sourceLifecycle === "unavailable") return restoreDecision(input, "restricted", `source_${input.sourceLifecycle}`, evidenceRefs);
 
   return restoreDecision(input, "active", "current_authority_and_privacy_revalidated", evidenceRefs);
+}
+
+/**
+ * Restore-specific projection rebuild. A backup/event stream does not become usable merely
+ * because its event chain is internally valid: current authorization, privacy, key,
+ * application, source, purpose, retention, and evidence truth must all be active first.
+ * Restricted and denied decisions fail closed before any projection is produced.
+ */
+export function rebuildProjectionForRestore(events: readonly ProjectionEvent[], revalidation: RestoreRevalidationInput): RestoreProjectionResult {
+  const decision = evaluateRestoreRevalidation(revalidation);
+  if (decision.status !== "active") throw new Error(`Restore ${decision.status}: ${decision.reason}`);
+  return Object.freeze({ decision, projection: rebuildProjection(events) });
 }
