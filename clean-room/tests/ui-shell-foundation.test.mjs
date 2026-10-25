@@ -28,7 +28,9 @@ test("approved visual authority is explicit without pretending legacy filename i
     assert.equal(reference.libraryStructuralMatch.identityStatus, "structural_match_filename_unmapped");
   }
   assert.ok(APPROVED_SHARED_VISUAL_LANGUAGE.includes("near-black sci-fi canvas"));
+  assert.ok(APPROVED_SHARED_VISUAL_LANGUAGE.includes("whole-card navigation for navigational cards"));
   assert.ok(REJECTED_VISUAL_PATTERNS.includes("generic SaaS dashboard"));
+  assert.ok(REJECTED_VISUAL_PATTERNS.includes("decorative arrows or chevrons on owner-facing cards"));
   assert.equal(APPROVED_REFERENCE_VIEWPORT.width, 864);
   assert.equal(APPROVED_REFERENCE_VIEWPORT.height, 1536);
   assert.equal(scaleReferencePx(48, 432), 24);
@@ -40,6 +42,7 @@ test("unseen screens derive from the four approved screens instead of switching 
   assert.deepEqual([...UNSEEN_SCREEN_DERIVATION_RULE.sourceScreens].sort(), ["active_live", "next_up", "project_detail_missing_hour", "projects"]);
   assert.ok(UNSEEN_SCREEN_DERIVATION_RULE.requiredContinuity.some((rule) => rule.includes("orange/gold")));
   assert.ok(UNSEEN_SCREEN_DERIVATION_RULE.requiredContinuity.some((rule) => rule.includes("new controls")));
+  assert.ok(UNSEEN_SCREEN_DERIVATION_RULE.requiredContinuity.some((rule) => rule.includes("full card")));
   assert.ok(REJECTED_VISUAL_PATTERNS.includes("new modules switching to a different design system"));
 });
 
@@ -114,9 +117,15 @@ test("device adaptation remains phone-first and accessibility fail-closed", () =
   assert.equal(motionDuration({ width: 412, height: 915, pixelRatio: 2.5, reducedMotion: true, highContrast: false }), 0);
 });
 
-test("visual fixtures preserve every structure actually shown by approved screens", () => {
+test("visual fixtures preserve approved structures under the current owner card rules", () => {
   assert.ok(APPROVED_SCREEN_FIXTURES.projects.requiredCardTraits.includes("progress_ring"));
+  assert.ok(APPROVED_SCREEN_FIXTURES.projects.requiredCardTraits.includes("whole_card_navigation"));
   assert.ok(APPROVED_SCREEN_FIXTURES.active_live.requiredCardTraits.includes("scope_or_activity_fact"));
+  assert.ok(APPROVED_SCREEN_FIXTURES.active_live.requiredCardTraits.includes("whole_card_navigation"));
   assert.ok(APPROVED_SCREEN_FIXTURES.next_up.requiredRegions.includes("priority_queue"));
+  assert.ok(APPROVED_SCREEN_FIXTURES.next_up.requiredCardTraits.includes("whole_card_navigation"));
+  for (const fixture of Object.values(APPROVED_SCREEN_FIXTURES)) {
+    assert.equal(fixture.requiredCardTraits.some((trait) => trait.includes("chevron")), false);
+  }
   assert.ok(APPROVED_SCREEN_FIXTURES.project_detail_missing_hour.requiredRegions.includes("publication_status"));
 });
