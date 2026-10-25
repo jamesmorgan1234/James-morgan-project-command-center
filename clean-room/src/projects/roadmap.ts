@@ -31,18 +31,41 @@ export interface WorkReadiness {
   readonly unmetGates: readonly string[];
 }
 
+const WORK_UNIT_STATUSES = new Set<WorkUnitStatus>(["planned", "ready", "working", "blocked", "verified", "skipped"]);
+
+function assertNonblankUnique(values: readonly string[], label: string): void {
+  if (values.some((value) => !value.trim())) throw new Error(`${label} entries cannot be blank`);
+  if (new Set(values).size !== values.length) throw new Error(`${label} entries must be unique`);
+}
+
 export function validateRoadmap(roadmap: ProjectRoadmap): void {
   if (!roadmap.projectId.trim() || !Number.isSafeInteger(roadmap.version) || roadmap.version < 1) throw new Error("Roadmap project/version are required");
+
   const ids = new Set(roadmap.workUnits.map((unit) => unit.id));
   if (ids.size !== roadmap.workUnits.length) throw new Error("Roadmap work-unit IDs must be unique");
   const gateIds = new Set(roadmap.gates.map((gate) => gate.id));
   if (gateIds.size !== roadmap.gates.length) throw new Error("Roadmap gate IDs must be unique");
+
+  for (const gate of roadmap.gates) {
+    if (!gate.id.trim()) throw new Error("Roadmap gate ID cannot be blank");
+    if (typeof gate.satisfied !== "boolean") throw new Error(`Roadmap gate satisfied state must be boolean: ${gate.id}`);
+    assertNonblankUnique(gate.evidenceRefs, `Roadmap gate evidence for ${gate.id}`);
+    if (gate.satisfied && gate.evidenceRefs.length === 0) throw new Error(`Satisfied roadmap gate requires evidence: ${gate.id}`);
+  }
+
   for (const unit of roadmap.workUnits) {
+    if (!unit.id.trim() || !unit.categoryId.trim() || !unit.phaseId.trim() || !unit.title.trim()) throw new Error("Roadmap work-unit identity/category/phase/title are required");
+    if (!WORK_UNIT_STATUSES.has(unit.status)) throw new Error(`Invalid work-unit status: ${String(unit.status)}`);
+    if (typeof unit.applicable !== "boolean") throw new Error(`Work-unit applicable state must be boolean: ${unit.id}`);
+    assertNonblankUnique(unit.dependencyIds, `Work-unit dependencies for ${unit.id}`);
+    assertNonblankUnique(unit.gateIds, `Work-unit gates for ${unit.id}`);
+    assertNonblankUnique(unit.acceptanceCriteria, `Acceptance criteria for ${unit.id}`);
     if (unit.dependencyIds.includes(unit.id)) throw new Error(`Work unit cannot depend on itself: ${unit.id}`);
     for (const dependency of unit.dependencyIds) if (!ids.has(dependency)) throw new Error(`Unknown dependency ${dependency} for ${unit.id}`);
     for (const gate of unit.gateIds) if (!gateIds.has(gate)) throw new Error(`Unknown gate ${gate} for ${unit.id}`);
     if (unit.acceptanceCriteria.length === 0) throw new Error(`Work unit requires acceptance criteria: ${unit.id}`);
   }
+
   const visiting = new Set<string>();
   const visited = new Set<string>();
   const byId = new Map(roadmap.workUnits.map((unit) => [unit.id, unit]));
