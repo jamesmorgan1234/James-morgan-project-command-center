@@ -262,7 +262,7 @@ declare u uuid:=auth.uid(); i public.command_center_agency_side_effect_inbox%row
   select * into i from public.command_center_agency_side_effect_inbox
     where owner_id=u and provider_key=btrim(p_provider_key) and account_id=btrim(p_account_id) and provider_event_id=btrim(p_provider_event_id) for update;
   if found then
-    if i.provider_event_hash<>p_provider_event_hash or i.project_id<>btrim(p_project_id) or i.environment<>p_environment then raise exception 'Provider event identity collision with modified payload/scope'; end if;
+    if i.provider_event_hash<>p_provider_event_hash or i.project_id<>btrim(p_project_id) or i.environment<>p_environment or i.effect_id is distinct from p_effect_id then raise exception 'Provider event identity collision with modified payload/scope/effect'; end if;
     return jsonb_build_object('inbox_id',i.inbox_id,'state',i.state,'duplicate',true,'apply_allowed',false);
   end if;
 
@@ -294,7 +294,7 @@ declare u uuid:=auth.uid(); i public.command_center_agency_side_effect_inbox%row
   return jsonb_build_object('inbox_id',i.inbox_id,'state','applied','duplicate_apply',false);
 end $$;
 
-revoke all on function public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text[],timestamptz) from public,anon;
+revoke all on function public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text,text[],timestamptz) from public,anon;
 revoke all on function public.command_center_agency_claim_side_effect(text,text,integer,timestamptz) from public,anon;
 revoke all on function public.command_center_agency_mark_side_effect_dispatched(uuid,bigint,text,text[],timestamptz) from public,anon;
 revoke all on function public.command_center_agency_record_side_effect_outcome(uuid,bigint,text,timestamptz,jsonb,text[],timestamptz) from public,anon;
@@ -303,7 +303,7 @@ revoke all on function public.command_center_agency_reconcile_unknown_side_effec
 revoke all on function public.command_center_agency_record_side_effect_inbox(text,uuid,text,text,text,text,text,bigint,text[],timestamptz) from public,anon;
 revoke all on function public.command_center_agency_apply_side_effect_inbox(uuid,uuid,text[],timestamptz) from public,anon;
 
-grant execute on function public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text[],timestamptz) to authenticated;
+grant execute on function public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text,text[],timestamptz) to authenticated;
 grant execute on function public.command_center_agency_claim_side_effect(text,text,integer,timestamptz) to authenticated;
 grant execute on function public.command_center_agency_mark_side_effect_dispatched(uuid,bigint,text,text[],timestamptz) to authenticated;
 grant execute on function public.command_center_agency_record_side_effect_outcome(uuid,bigint,text,timestamptz,jsonb,text[],timestamptz) to authenticated;
