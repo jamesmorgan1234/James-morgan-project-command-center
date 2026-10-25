@@ -19,6 +19,11 @@ export interface ProjectLineageEvent {
 
 const OWNER_DECISION_KINDS = new Set<ProjectLineageKind>(["renamed", "mission_changed", "alias_added", "merged", "superseded", "forked", "branched", "reactivated", "retired"]);
 
+function compareLineageEvents(a: ProjectLineageEvent, b: ProjectLineageEvent): number {
+  const time = Date.parse(a.occurredAt) - Date.parse(b.occurredAt);
+  return time || a.id.localeCompare(b.id);
+}
+
 export class ProjectLineageLedger {
   readonly #events: ProjectLineageEvent[] = [];
   readonly #ids = new Set<string>();
@@ -38,11 +43,13 @@ export class ProjectLineageLedger {
     this.#events.push(Object.freeze({ ...event, evidenceRefs: Object.freeze([...event.evidenceRefs]) }));
   }
 
-  history(projectId: string): readonly ProjectLineageEvent[] { return Object.freeze(this.#events.filter((event) => event.projectId === projectId)); }
+  history(projectId: string): readonly ProjectLineageEvent[] {
+    return Object.freeze(this.#ordered(projectId));
+  }
 
   currentName(projectId: string, originalName: string): string {
     let name = originalName;
-    for (const event of this.#events.filter((candidate) => candidate.projectId === projectId && candidate.kind === "renamed")) {
+    for (const event of this.#ordered(projectId).filter((candidate) => candidate.kind === "renamed")) {
       if (event.toName) name = event.toName;
     }
     return name;
@@ -50,16 +57,20 @@ export class ProjectLineageLedger {
 
   currentMission(projectId: string, originalMission: string): string {
     let mission = originalMission;
-    for (const event of this.#events.filter((candidate) => candidate.projectId === projectId && candidate.kind === "mission_changed")) {
+    for (const event of this.#ordered(projectId).filter((candidate) => candidate.kind === "mission_changed")) {
       if (event.toMission) mission = event.toMission;
     }
     return mission;
   }
 
   aliases(projectId: string): readonly string[] {
-    const values = this.#events
-      .filter((event) => event.projectId === projectId && event.kind === "alias_added" && event.alias)
+    const values = this.#ordered(projectId)
+      .filter((event) => event.kind === "alias_added" && event.alias)
       .map((event) => event.alias as string);
     return Object.freeze([...new Set(values)]);
+  }
+
+  #ordered(projectId: string): ProjectLineageEvent[] {
+    return this.#events.filter((event) => event.projectId === projectId).sort(compareLineageEvents);
   }
 }
