@@ -15,7 +15,7 @@
     "audit:release-candidate": "node scripts/category15-release-artifact-audit.mjs --require-protected-assets",
     "audit:category15": "node scripts/category15-phase-gate-audit.mjs --write --require-nonproduction --verified-by-prior-gates",
     "audit:production-live": "node scripts/category15-production-live-audit.mjs",
-    "test:modules": "node --test --test-reporter=spec tests/*.test.mjs",
+    "test:modules": "node --test --test-reporter=spec tests/category6-*.test.mjs tests/runtime*.test.mjs && node --test --test-reporter=dot tests/*.test.mjs",
     "test": "npm run check:legacy && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15 && npm run audit:production-live"
   },
   "devDependencies": {"typescript": "5.8.3"}
