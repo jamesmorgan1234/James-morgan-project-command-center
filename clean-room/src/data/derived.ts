@@ -69,7 +69,7 @@ export class DerivedLifecycleRegistry {
       holdReleasedAt: at,
       holdReleaseAuthorizationRef: normalizedAuthorizationRef,
       holdReleaseReason: normalizedReason,
-      restrictionReason: invalidatedWhileHeld ? `hold_released_after_invalidated:${normalizedReason}` : current.restrictionReason
+      ...(invalidatedWhileHeld ? { restrictionReason: `hold_released_after_invalidated:${normalizedReason}` } : {})
     });
     this.#records.set(id, next);
     return next;
