@@ -82,6 +82,11 @@ function renderConnection(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   return strip;
 }
 function bevelCard(className = ""): HTMLElement { return el("article", `bevel-card ${className}`.trim()); }
+function bevelRouteCard(path: string, className: string, accessibleLabel: string): HTMLAnchorElement {
+  const card = routeLink("", path, `bevel-card ${className}`.trim());
+  card.setAttribute("aria-label", accessibleLabel);
+  return card;
+}
 function statusPill(label: string, status: string): HTMLElement {
   const pill = el("span", availabilityClass(status), label);
   pill.prepend(el("span", "status__dot"));
@@ -89,7 +94,6 @@ function statusPill(label: string, status: string): HTMLElement {
 }
 function projectIcon(): HTMLElement { const icon = el("div", "project-icon"); icon.setAttribute("aria-hidden", "true"); return icon; }
 function artPanel(): HTMLElement { const art = el("div", "project-art"); art.setAttribute("aria-hidden", "true"); return art; }
-function chevron(): HTMLElement { return el("span", "row-chevron", "›"); }
 function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
   const wrap = el("div", "progress-wrap");
   const ring = el("div", "progress-ring");
@@ -103,7 +107,7 @@ function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
   wrap.append(ring, el("span", "metric-label", "Scope"));
   return wrap;
 }
-function projectTitle(project: RuntimeProjectSnapshot): HTMLAnchorElement { return routeLink(project.name, projectHref(project), "project-title"); }
+function projectTitle(project: RuntimeProjectSnapshot): HTMLSpanElement { return el("span", "project-title", project.name); }
 function emptyState(title: string, body: string, status: string): HTMLElement {
   const card = bevelCard("empty-state");
   card.append(el("h2", "section-title", title), el("p", "muted", body), statusPill(status.toUpperCase(), status));
@@ -116,12 +120,12 @@ function renderPortfolioSummary(snapshot: CommandCenterRuntimeSnapshot, displaye
   const count = el("div", "portfolio-count");
   count.append(el("strong", undefined, String(snapshot.projects.length)), el("span", undefined, "TOTAL PROJECTS"));
   const summary = displayedCount === snapshot.projects.length ? "Canonical project profiles loaded" : `${displayedCount} shown · ${snapshot.projects.length} canonical total`;
-  card.append(count, el("div", "portfolio-breakdown", summary), artPanel(), chevron());
+  card.append(count, el("div", "portfolio-breakdown", summary), artPanel());
   return card;
 }
 function runtimeTruthValue(value: RuntimeProjectSnapshot["typeKey"]): string { return value?.state === "known" ? value.value : "N/A"; }
 function renderProjectRow(project: RuntimeProjectSnapshot): HTMLElement {
-  const row = bevelCard("project-row");
+  const row = bevelRouteCard(projectHref(project), "project-row project-navigation-card", `Open ${project.name}`);
   const text = el("div", "project-row__text");
   const metadata = el("div", "project-meta");
   metadata.append(
@@ -130,7 +134,7 @@ function renderProjectRow(project: RuntimeProjectSnapshot): HTMLElement {
     el("span", "project-meta__item", `Priority: ${truthText(project.priority)}`)
   );
   text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), metadata, statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
-  row.append(projectIcon(), text, artPanel(), progressRing(project), chevron());
+  row.append(projectIcon(), text, artPanel(), progressRing(project));
   return row;
 }
 function projectSelect(labelText: string, queryKey: string, values: readonly string[], current: string | undefined): HTMLLabelElement {
@@ -225,7 +229,7 @@ function activeProjects(snapshot: CommandCenterRuntimeSnapshot): readonly Runtim
   }));
 }
 function renderActiveRow(project: RuntimeProjectSnapshot): HTMLElement {
-  const row = bevelCard("active-row");
+  const row = bevelRouteCard(projectHref(project), "active-row project-navigation-card", `Open ${project.name}`);
   const text = el("div", "active-row__text");
   const live = project.liveExecution?.state === "known" ? project.liveExecution.value : undefined;
   const activeTask = live?.currentTaskTitle ?? (project.nextAction.state === "known" ? project.nextAction.value : "Verified executor active");
@@ -236,7 +240,7 @@ function renderActiveRow(project: RuntimeProjectSnapshot): HTMLElement {
     el("span", "metric-label", "Scope"),
     el("span", "sync-note", live ? `Heartbeat ${live.lastHeartbeatAt}` : "Execution evidence unavailable")
   );
-  row.append(projectIcon(), text, el("div", "vertical-divider"), scope, artPanel(), chevron());
+  row.append(projectIcon(), text, el("div", "vertical-divider"), scope, artPanel());
   return row;
 }
 function renderActive(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
@@ -261,12 +265,12 @@ function nextProjects(snapshot: CommandCenterRuntimeSnapshot): readonly RuntimeP
     }));
 }
 function renderNextRow(project: RuntimeProjectSnapshot): HTMLElement {
-  const row = bevelCard("next-row");
+  const row = bevelRouteCard(projectHref(project), "next-row project-navigation-card", `Open ${project.name}`);
   const text = el("div", "next-row__text");
   const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
   const action = project.nextAction.state === "known" ? project.nextAction.value : readiness?.title ?? "N/A";
   text.append(projectTitle(project), statusPill("READY", "ready"), el("p", "next-action", action));
-  row.append(projectIcon(), text, artPanel(), chevron());
+  row.append(projectIcon(), text, artPanel());
   return row;
 }
 function renderNextUp(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
@@ -306,7 +310,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   const hero = bevelCard("project-hero");
   const heroText = el("div", "project-hero__text");
   heroText.append(el("span", "eyebrow", truthText(project.priority, (value) => `${value} priority`).toUpperCase()), el("h2", "project-hero__title", project.name), el("p", "project-description", truthText(project.mission)), statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
-  hero.append(projectIcon(), heroText, artPanel(), chevron());
+  hero.append(projectIcon(), heroText, artPanel());
   section.append(hero);
 
   const performance = bevelCard("project-detail-section performance-section");
