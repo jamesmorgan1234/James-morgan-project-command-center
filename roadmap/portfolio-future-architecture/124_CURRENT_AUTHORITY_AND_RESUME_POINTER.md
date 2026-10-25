@@ -1,44 +1,54 @@
 # 124 — Current Authority and Resume Pointer
 
 **Owner / final authority:** James Morgan  
-**Status:** CURRENT / CATEGORY 1 VERIFIED / CATEGORY 2 BRANCH FOUNDATION VERIFIED WITH PROTECTED ACCEPTANCE GATES / A11.2 SQL PROOF VERIFIED / CATEGORY 3 P3.1–P3.12 BRANCH VERIFIED / CATEGORY 4 P4.1–P4.8 BRANCH VERIFIED / CATEGORY 5 P5.1–P5.14 BRANCH VERIFIED / CATEGORY 6 P6.1–P6.15 BRANCH VERIFIED / 133-CONTROL EVIDENCE RECONCILED / CATEGORY 7 BRANCH AUDIT CURRENT  
+**Status:** CURRENT / C1–C6 BRANCH VERIFIED / C7 BRANCH AUDITED + HARDENED / ECOSYSTEM-INTELLIGENCE AMENDMENT ACTIVE / PRE-C8 INTELLIGENCE-FOUNDATION RECONCILIATION CURRENT  
 **Specification authority:** `roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md`  
 **Top-Brain amendment:** `roadmap/master-build-plan-owner-review/19_COMMAND_CENTER_TOP_BRAIN_AUTHORITY_AMENDMENT.md`  
+**Ecosystem-intelligence amendment:** `roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md`  
+**Ecosystem-intelligence roadmap reconciliation:** `roadmap/master-build-plan-owner-review/21_ECOSYSTEM_INTELLIGENCE_ROADMAP_RECONCILIATION_2026-10-25.md`  
 **P0.11 authority:** `roadmap/master-build-plan-owner-review/16_P0_11_POST_LOCK_107PLUS_RECONCILIATION.md`  
 **Control register:** `125_POST_AUDIT_133_CONTROL_REGISTER.md`  
 **34-family coverage:** `126_34_FAMILY_POST_AUDIT_COVERAGE_CROSSWALK.md`  
 **Original implementation map:** `127_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_MAP.md`  
 **Current reconciliation delta:** `128_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_RECONCILIATION_2026-10-25.md`  
-**Category 3 branch closure:** `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`  
-**Category 4 branch closure:** `clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`  
-**Category 5 branch closure:** `clean-room/evidence/CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md`  
-**Category 6 branch closure:** `clean-room/evidence/CATEGORY_6_BRANCH_CLOSURE_2026-10-25.md`  
-**Current amended phase count:** `189`  
+**Category 3 closure:** `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`  
+**Category 4 closure:** `clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`  
+**Category 5 closure:** `clean-room/evidence/CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md`  
+**Category 6 closure:** `clean-room/evidence/CATEGORY_6_BRANCH_CLOSURE_2026-10-25.md`  
+**Current amended phase count for resume/control:** `189` pending final intelligence-package renumber reconciliation  
 **Current reconciled audit controls:** `133`
 
 ## Purpose
 
-This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting completed planning, prerequisite, SQL-proof, control-reconciliation, Category 3, Category 4, Category 5, or Category 6 branch work while preserving every protected production/live-provider/device boundary.
+This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting verified work and records the newest controlling ecosystem-intelligence architecture without fabricating implementation completion.
 
-James Morgan’s newest explicit instruction remains controlling. Command Center work continues automatically in normal chat until a genuine authorization boundary, a genuine Work handoff after normal-chat capabilities are exhausted, or true completion remains.
+James Morgan's newest explicit instruction controls. Normal Chat continues automatically until a genuine authorization boundary, a genuine Work-only boundary after normal-chat capability is exhausted, or true completion.
 
 ## Current controlling architecture truth
 
+- James Morgan remains final owner authority.
 - Command Center is the **top Brain**, highest-level orchestrator, and authoritative control plane over every other Brain/Agent/domain intelligence system.
 - ARO remains a separate specialist high-intelligence system subordinate to Command Center.
-- VeloClip, Coupon AutoPilot, Loopwren, and future domain/company Brains remain subordinate to Command Center while retaining scoped domain truth and specialization.
+- VeloClip, Coupon AutoPilot, Loopwren, company Brains, project Brains, specialist Brains and future intelligence systems remain subordinate while retaining scoped domain truth and specialization.
+- Command Center must learn from validated ecosystem evidence without blindly globalizing local methods or duplicating protected private data.
+- Cross-system learning now uses governed applicability, provenance, evidence, multiple competing methods, promotion classes, rollback and revalidation under Amendment 20.
+- No learned behavior, benchmark result, recommendation or self-improvement may bypass Command Center policy or James's reserved authority.
 - Known portfolio: `107` companies; permanent portfolio maximum: `NONE`.
 - Companies 001–100 current-standard conformance work is complete.
 - Companies 101–107 are natively mapped under the stronger 28-pass / A–BZ standard.
-- The 107-company reverse map and P0.11 durable authority/control/coverage reconciliation are complete planning/architecture work.
-- The accepted post-audit control register remains exactly `133` controls. Acceptance of a control is not the same as implementation, production, provider, device, or launch acceptance.
 - Original individual `CCR-00001–CCR-05825` historical ledger remains unavailable and must never be reconstructed or fabricated.
+
+## Current roadmap-count truth
+
+The older expanded master-plan artifact is still physically named `14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`, but the current authority had already amended the operational count to `189` before the ecosystem-intelligence addition.
+
+Amendments 20–21 intentionally do **not** invent a new total before the intelligence work packages are converted into final numbered phase units. For resume/control purposes, `189` remains the current amended count until that renumber reconciliation is verified.
 
 ## Preserved verified prerequisite/security work
 
 The isolated branch retains tested foundations for capability maturity/proof and compatibility contracts; canonical owner/company/project/account/environment execution scope; zero-budget/resource admission; idempotency and unknown-outcome reconciliation; trusted environment/backend identity; constrained protected recovery; immutable protected-intent binding; fail-closed policy/revocation handling and policy epoch checks; credential rotation and encryption-key lifecycle; webhook signature/freshness/replay/scope/order controls; hardened server-bound owner-session backend identity; and Category 7 compatibility seams required by durable Agency tests.
 
-Historical exact proof head `46b3691a755061cabbae664aa4a5ab71e5068a56` / run `40148545261` remains valid historical evidence for that retrofit. It proved 401/401 tests, typecheck, repository audit, release audit, icon verification and PWA lifecycle. Its overall workflow failure was the intentionally unresolved final Category 15 gate, not failure of the prerequisite/security seam.
+Historical exact proof head `46b3691a755061cabbae664aa4a5ab71e5068a56` / run `40148545261` remains valid historical evidence for that retrofit. Its overall workflow failure was the intentionally unresolved final Category 15 gate, not failure of the prerequisite/security seam.
 
 ## A11.2 isolated SQL proof — verified closed
 
@@ -46,133 +56,179 @@ Historical exact proof head `46b3691a755061cabbae664aa4a5ab71e5068a56` / run `40
 - GitHub Actions run: `40161711952`
 - Result: **SUCCESS**
 
-This disposable-PostgreSQL proof did not touch production or live Supabase. Do not restart A11.2 unless later branch changes invalidate its tested migration path.
+This disposable-PostgreSQL proof did not touch production/live Supabase.
 
 ## Category 3 — preserved branch truth
 
-Category 3 P3.1 through P3.12 are **branch implemented and branch verified**.
+P3.1–P3.12 are branch implemented and branch verified.
 
 Primary evidence:
-- implementation head: `ebb4fc21e0332848d77b0c9926a7e4eefcf05f77`;
-- implementation-head QA run: `40177280650`;
-- closure-evidence commit: `4ad9d31f8615b5f648c88ee42dd695afd26d8c70`;
-- closure-evidence QA run: `40184497039`;
-- module tests at implementation head: **507 passed / 0 failed / 0 skipped**;
-- typecheck: passed;
-- repository semantic every-file audit: 1123/1123 reviewed, zero secret findings, zero violations;
-- release-artifact audit: passed;
-- observed PWA lifecycle: passed;
-- final Category 15 gate: still failed/deferred as expected; production evidence skipped.
+- implementation head `ebb4fc21e0332848d77b0c9926a7e4eefcf05f77`;
+- implementation run `40177280650`;
+- closure commit `4ad9d31f8615b5f648c88ee42dd695afd26d8c70`;
+- closure run `40184497039`;
+- 507 passed / 0 failed / 0 skipped at implementation head;
+- typecheck, semantic every-file audit, release audit and observed PWA lifecycle passed.
 
-Current closure: `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`.
-
-Category 3 branch closure does **not** claim A07.1 live provider ability to enumerate/edit/delete all accessible chats, production Supabase migration, real historical user-export completeness, real cross-device/provider transport, live protocol/provider execution, production load/disaster drill, physical-device acceptance, or launch acceptance.
+External/provider/production/device/launch acceptance remains protected.
 
 ## Category 4 — preserved branch truth
 
-Category 4 P4.1 through P4.8 are **branch implemented and branch verified**.
+P4.1–P4.8 are branch implemented and verified.
 
-Primary exact-head evidence:
-- implementation head: `9949cf7ac1fdaf29691cdb91ac2658beafd1fd60`;
-- exact-head GitHub Actions run: `40186073201`;
-- module tests: **543 passed / 0 failed / 0 skipped / 0 cancelled**;
-- typecheck: passed;
-- semantic repository audit: **1,139/1,139** tracked files reviewed, zero secret findings, zero violations;
-- release-artifact audit: passed;
-- protected Command Center icon: verified;
-- release structural errors/readiness blockers: zero;
-- observed PWA lifecycle: passed for install, same-session offline replay, waiting-worker activation and two-cache rollback retention.
+Primary evidence:
+- head `9949cf7ac1fdaf29691cdb91ac2658beafd1fd60`;
+- run `40186073201`;
+- 543 passed / 0 failed / 0 skipped / 0 cancelled;
+- typecheck passed;
+- 1,139/1,139 semantic audit passed with zero secret findings/violations;
+- release audits/icon/PWA lifecycle passed.
 
-Current closure: `clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`.
-
-Category 4 branch closure includes approved visual/design authority and regression fingerprinting, privacy-safe startup ownership, deterministic navigation/history/scroll ownership, whole-card navigation/no owner-facing chevrons, extensible Home registration, canonical shared primitives, PWA/update rollback preservation, and responsive/accessibility behavior. It does **not** claim production merge/deploy, production Supabase mutation, live production provider/Auth acceptance, physical Samsung acceptance, physical-device pixel comparison, or final Category 15 launch acceptance.
+Production/live/device/final acceptance remains protected.
 
 ## Category 5 — preserved branch truth
 
-Category 5 P5.1 through P5.14 are **branch implemented and branch verified**.
+P5.1–P5.14 are branch implemented and verified.
 
-Primary exact-head evidence:
-- implementation/evidence head: `a83e227c565874e94650119069127d08ddcf6d45`;
-- exact-head GitHub Actions run: `40204117222`;
-- module tests: **558 passed / 0 failed / 0 skipped / 0 cancelled**;
-- typecheck: passed;
-- semantic repository audit: **1,142/1,142** tracked files reviewed, zero secret findings, zero violations;
-- release-artifact audit: passed with protected icon verified, zero structural errors, zero readiness blockers;
-- observed PWA lifecycle: passed for install, same-session offline replay, waiting-worker activation and two-cache rollback retention;
-- final Category 15 phase gate: still deferred/fail-closed for separate historical-ledger, historical-diff, production/live and device evidence boundaries.
+Primary evidence:
+- head `a83e227c565874e94650119069127d08ddcf6d45`;
+- run `40204117222`;
+- 558 passed / 0 failed / 0 skipped / 0 cancelled;
+- typecheck, 1,142/1,142 semantic audit, release audits and PWA lifecycle passed.
 
-Current closure: `clean-room/evidence/CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md`.
-
-Category 5 branch closure includes the generic project/type registry; governed lineage; roadmap DAG/gates; SHA-256 checkpoint/resume identity; truthful project progress; Projects/Active-Live/Next-Up owner surfaces; universal extensible project rooms with project-scoped Brain/Agency/Analytics/Conversation links; discovery/provenance and owner disposition; ordered Foundry with owner authorization before Agency execution; Ultimate-Spec closure; prototype-lineage protection; recovery/revival/rescue governance; and 2,048-project scale proof.
-
-Category 5 branch closure does **not** claim production DB/RLS execution, production merge/deploy, unavailable historical-provider completeness, live production Brain/Agency provider execution, physical-device acceptance, or final Category 15 launch acceptance.
+Production/live/device/final acceptance remains protected.
 
 ## Category 6 — preserved branch truth
 
-Category 6 P6.1 through P6.15 are **branch implemented and branch verified**.
+P6.1–P6.15 are branch implemented and verified.
 
-Primary exact-head evidence:
-- implementation/evidence head: `029f9b88d4dea8a486a46f7ad1725cc6f585f0dd`;
-- exact-head GitHub Actions run: `40211675608`;
-- exact-head job: `121224029481`;
-- module tests: **568 passed / 0 failed**;
-- typecheck: passed;
-- exact-head core QA/release gates: passed;
-- semantic repository audit: **1,150/1,150** tracked files reviewed, zero secret findings, zero violations;
-- release-artifact and release-candidate audits: passed with protected icon verified, zero structural errors and zero readiness blockers;
-- observed PWA lifecycle: passed install, same-session offline replay, waiting-worker activation and two-cache rollback retention;
-- final Category 15 phase gate: still deferred/fail-closed for separate historical-ledger, historical-diff, production/live, owner and physical-device evidence boundaries.
+Primary evidence:
+- head `029f9b88d4dea8a486a46f7ad1725cc6f585f0dd`;
+- run `40211675608`;
+- job `121224029481`;
+- 568 passed / 0 failed;
+- typecheck and exact-head core QA/release gates passed;
+- 1,150/1,150 semantic audit passed with zero secret findings/violations;
+- release artifacts and PWA lifecycle passed.
 
-Current closure: `clean-room/evidence/CATEGORY_6_BRANCH_CLOSURE_2026-10-25.md`.
+Verified C6 foundations include Command Center-owned Brain boundaries, provider/model routing, governed durable memory, scoped Context Builder, evidence-aware planning, specialist intelligence, persistent text workspace, exact referent snapshots, safe steering, precedent without inherited authorization, replaceable voice capture, Improvements Center, deterministic no-AI operation, and adversarial/safety quality coverage.
 
-Category 6 branch closure includes Command Center-owned Brain boundaries; provider/model routing; governed durable memory; scoped Context Builder; evidence-aware planning; specialist intelligence; a shipped project-aware persistent text conversation/workspace experience; exact referent snapshots; safe live steering; precedent without inherited authorization; replaceable browser voice capture with explicit microphone/transcript/cancel/edit/permission behavior and no auto-submit; an owner-facing Improvements Center with governed accept/reject and accepted-proposal scope conversion; deterministic no-AI operation; and adversarial/safety quality coverage. Brain discussion/recognition never itself grants protected execution authority.
+Amendment 20 extends these foundations; it does not retroactively claim the new intelligence capabilities are already implemented.
 
-Category 6 branch closure does **not** claim production DB/RLS execution, production merge/deploy, live external/paid AI-provider acceptance, real production multi-device/provider-outage drills, physical Samsung/microphone acceptance, or final Category 15 launch acceptance.
+## Category 7 — current preserved branch truth
+
+Category 7 P7.1–P7.24 received a branch audit and the concrete Agent Auto / Project Auto transition-integrity gap was hardened at:
+
+- implementation head `a7425ba5a6e3021372cddd436bc076e916b8e8fc`;
+- commit message `category7: harden auto execution transitions`;
+- exact-head Actions run `40217577784`;
+- canonical Project Auto and Agent Auto execution now dispatch through the canonical run transition path instead of treating planning/direct state mutation as execution;
+- deterministic Books exclusion, priority/generation/checkpoint/authorization/resource/lock checks, non-paid executor admission, dispatch evidence and immutable dispatch events are enforced by the hardening seam;
+- core QA, typecheck, branch tests/release-gate suite and PWA lifecycle passed; the only remaining red gate was the intentionally unresolved Category 15 final nonproduction gate.
+
+This branch result does not authorize production merge/deploy, production database mutation, paid services, live external execution, or physical-device acceptance.
+
+## Ecosystem-intelligence architecture — CURRENT
+
+Amendment 20 is now controlling architecture. It adds, among other things:
+
+- Specialist Model Registry;
+- Capability + Method Portfolio;
+- canonical Learning Packets;
+- scoped knowledge-promotion classes;
+- shared ontology;
+- temporal/causal knowledge graph extensions;
+- explicit epistemic states;
+- uncertainty propagation/calibration;
+- contradiction governance;
+- layered memory, decay and revalidation;
+- Context Compiler;
+- Evaluator Registry and benchmark fabric;
+- outcome learning/decision-quality analysis;
+- Negative Knowledge Library;
+- Transferability Map;
+- governed cross-Brain learning;
+- evidence-aware routing;
+- Ecosystem Intelligence Compiler;
+- capability inheritance;
+- specialist lifecycle/collaboration/skill composition;
+- procedure learning;
+- self-improvement governor;
+- shadow ecosystem/digital twin;
+- simulation/counterfactual/causal support;
+- failure intelligence and correlated-error detection;
+- trace/dependency/version integration;
+- architecture/config drift detection;
+- intelligence-state recovery;
+- external-reality reconciliation;
+- cognitive/ecosystem health;
+- Architecture Critic;
+- Ecosystem Optimizer;
+- automatic documentation/explainability;
+- permanent Operational/Learning/Improvement/Ecosystem loops.
+
+These are requirements/architecture until branch implementation and evidence prove them.
+
+## Pre-C8 intelligence-foundation seam — CURRENT NEXT BUILD
+
+Roadmap reconciliation 21 defines mandatory IF-1 through IF-10:
+
+1. shared intelligence contracts/ontology;
+2. Capability/Method Portfolio;
+3. Specialist Model Registry;
+4. Learning Packet + promotion governance;
+5. epistemic/contradiction/uncertainty layer;
+6. layered memory/revalidation/Context Compiler;
+7. evaluator/outcome/decision-quality foundation;
+8. negative knowledge/transferability;
+9. trace/dependency/version integration;
+10. self-improvement/recovery invariants.
+
+These packages must be implemented/tested in dependency order before substantive C8 feature expansion, while preserving verified C1–C7 work unless a concrete incompatibility is found.
 
 ## Current 133-control implementation truth
 
-The original full map remains `127_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_MAP.md` and the current reconciliation delta remains `128_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_RECONCILIATION_2026-10-25.md`. Where 128 differs from 127, 128 is newer and controls until a future full-map rewrite supersedes it.
+The current reconciled totals remain:
 
-Current exact totals remain:
-- `62` — **VERIFIED_BRANCH**
-- `61` — **PARTIAL**
-- `9` — **UNVERIFIED**
-- `1` — **BLOCKED_EXTERNAL**
-- Total: `133`
+- `62` VERIFIED_BRANCH
+- `61` PARTIAL
+- `9` UNVERIFIED
+- `1` BLOCKED_EXTERNAL
+- Total `133`
 
-No Category 4, Category 5, or Category 6 documentation update changes those totals without a separate evidence-map reconciliation proving a control-state change.
+Amendments 20–21 do not silently change those counts. A future control-state reconciliation must prove any changes.
 
 ## Superseded resume statements
 
-Do **not** follow stale instructions that say to continue at Company 041, use the old 100-company count, redo Companies 101–107/001–100 conformance/the reverse map/P0.11, restart Category 1/2 wholesale, restart A11.2 without regression evidence, redo the initial 133-control reconciliation, resume at the A08.5/A08.6 seam, or treat Category 3, Category 4, Category 5, or Category 6 as still foundation-only/branch-incomplete.
+Do not follow stale instructions that say to continue at Company 041, use the old 100-company count, redo Companies 101–107/001–100 conformance/the reverse map/P0.11, restart C1/C2 wholesale, restart A11.2 without regression evidence, redo the initial 133-control reconciliation, resume at A08.5/A08.6, treat C3–C6 as incomplete, or continue directly into C8 without first reconciling/implementing the newly accepted intelligence foundation.
 
 ## Current implementation resume order
 
-### 1. Category 7 Agency / Multi-Agent Execution Platform branch audit and closure — CURRENT
+### 1. Implement IF-1 through IF-10 — CURRENT
 
-Re-audit every locked P7.1–P7.24 phase against the current 189-phase authority and the **actual current branch**, not the older “foundation only” label. Preserve implementation that satisfies locked gates; close real branch-side persistence/runtime/UI/scheduler/executor/resource/delegation/verification/replay/failover/scale gaps; and distinguish branch proof from protected production/live-provider/device acceptance.
+Use Amendment 20 and Reconciliation 21 as controlling requirements. Extend existing canonical owners first; create a new component only where the reconciliation classifies the need as genuinely NEW.
 
-The exact-head C6 run proves the integrated branch is stable before the C7 audit. Existing Agency foundation tests and durable contracts are evidence to inspect, not automatic permission to claim Category 7 closure.
+For each IF package: build → test/gates → if pass continue → if fail fix/retest → next package. Do not stop for discretionary checkpoints.
 
 ### 2. Continue C8–C14 in dependency order
 
-After Category 7 branch closure, continue directly through C8–C14. Do not redo controls already branch-verified. Close actual branch gaps, preserve external/provider/production boundaries, and update evidence only when proof changes.
+After the intelligence-foundation seam is branch-verified, continue C8–C14. Carry mid/late intelligence work into C12–C14 as specified by Reconciliation 21.
 
-### 3. Remaining isolated cross-module proof work
+### 3. Remaining isolated cross-module proof
 
-A11.2 remains closed. Complete remaining applicable A11 scope only where actual gaps remain, including integrated boundary proof and measurable acceptance evidence that normal chat can establish without crossing protected production/provider boundaries.
+A11.2 remains closed. Complete only actual remaining cross-module gaps that normal chat can prove without crossing protected production/provider/device boundaries.
 
-### 4. Category 15 remains deferred final acceptance
+### 4. Category 15 final acceptance
 
-Do not weaken Category 15 gates merely to make CI green. The current final gate remains correctly unresolved while upstream categories and protected acceptance gates remain open. The shallow Actions checkout still cannot resolve the old frozen candidate revision for one historical diff; any later repair must restore evidence access rather than weaken the gate.
+Do not weaken Category 15 gates merely to make CI green. Resolve the historical shallow-checkout baseline/diff problem by restoring evidence access, not deleting the gate. Production/live/device/owner acceptance remains protected.
 
 ## Evidence maintenance rule
 
-After each coherent implementation seam:
+After each coherent seam:
 1. run applicable exact-head tests/CI;
 2. record only evidence actually proved;
 3. keep branch proof separate from production/provider/device proof;
-4. update this authority pointer only when verified state advances;
+4. update authority only when verified state advances;
 5. checkpoint durable progress;
 6. continue automatically rather than stopping at the checkpoint.
 
@@ -182,4 +238,4 @@ This pointer authorizes **no** production merge/deploy, Supabase production muta
 
 ## Current resume pointer
 
-**Category 3 P3.1–P3.12, Category 4 P4.1–P4.8, Category 5 P5.1–P5.14, and Category 6 P6.1–P6.15 are branch verified. Category 6 exact-head proof is `029f9b88d4dea8a486a46f7ad1725cc6f585f0dd` / run `40211675608`, with 568/568 module tests plus typecheck, 1,150/1,150 semantic every-file audit, release-artifact/release-candidate audits and observed PWA lifecycle passing. The post-audit implementation truth remains 62 VERIFIED_BRANCH / 61 PARTIAL / 9 UNVERIFIED / 1 BLOCKED_EXTERNAL until separately reconciled. Resume immediately with the Category 7 Agency / Multi-Agent Execution Platform branch audit and closure on `build/spec-lock-v2-clean-room`, then continue automatically through C8–C14. Preserve every production/live-provider/device/launch boundary and keep Category 15 deferred until upstream work and protected final gates are genuinely satisfied.**
+**C3–C6 remain branch verified. C7 is branch audited/hardened at `a7425ba5a6e3021372cddd436bc076e916b8e8fc` with Actions run `40217577784`; its concrete auto-execution transition gap was closed while Category 15 remained intentionally unresolved. Ecosystem-intelligence Amendment 20 and Reconciliation 21 are now controlling. Resume immediately by implementing IF-1 through IF-10 on `build/spec-lock-v2-clean-room`, then continue automatically through C8–C14 and final C15 without weakening protected production/live/provider/device/launch boundaries.**
