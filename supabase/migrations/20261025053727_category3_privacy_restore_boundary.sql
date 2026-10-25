@@ -142,7 +142,7 @@ security definer
 set search_path=''
 as $$
 declare
-  v_changed boolean:=false;
+  v_changed bigint:=0;
   v_reason text;
   v_recorded_at timestamptz:=clock_timestamp();
 begin
@@ -161,7 +161,7 @@ begin
        and state='present';
     get diagnostics v_changed = row_count;
 
-    if v_changed then
+    if v_changed>0 then
       insert into public.command_center_derived_payload_audit(
         owner_id,derived_id,action,reason,evidence_refs,recorded_at
       ) values (
@@ -185,7 +185,7 @@ begin
        and state<>'erased';
     get diagnostics v_changed = row_count;
 
-    if v_changed then
+    if v_changed>0 then
       insert into public.command_center_derived_payload_audit(
         owner_id,derived_id,action,reason,evidence_refs,recorded_at
       ) values (
