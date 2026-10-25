@@ -12,6 +12,13 @@ function response(payload, status = 200) {
   return new Response(JSON.stringify(payload), { status, headers: { "content-type": "application/json" } });
 }
 
+function requestUrl(input) {
+  if (input instanceof URL) return new URL(input.toString());
+  if (typeof input === "string") return new URL(input);
+  if (input && typeof input.url === "string") return new URL(input.url);
+  throw new TypeError("Test fetch mock received an unsupported request input");
+}
+
 function storageWithSession() {
   const values = new Map([["command-center:owner-session:v1", JSON.stringify({ accessToken: "owner-token", refreshToken: "refresh-token", expiresAt: 9999999999, userId: "owner-1" })]]);
   return {
@@ -26,7 +33,7 @@ test("P6.7/P6.8/P6.13 managed owner runtime reads canonical Brain conversations,
   const storage = storageWithSession();
   const calls = [];
   const fetcher = async (input, init = {}) => {
-    const url = new URL(typeof input === "string" ? input : input.url);
+    const url = requestUrl(input);
     calls.push({ url: url.toString(), method: init.method ?? "GET" });
     if (url.pathname.endsWith("/command_center_brain_conversations")) return response([{ conversation_id: "conv-1", project_id: "project-1", title: "Project Brain", state: "active", created_at: "2026-10-25T10:00:00Z", updated_at: "2026-10-25T10:02:00Z" }]);
     if (url.pathname.endsWith("/command_center_brain_conversation_turns")) return response([
@@ -64,7 +71,7 @@ test("P6.7 protected-looking owner input is persisted as a request only and neve
   const requests = [];
   let workspace = null;
   const fetcher = async (input, init = {}) => {
-    const url = new URL(typeof input === "string" ? input : input.url);
+    const url = requestUrl(input);
     const method = init.method ?? "GET";
     const body = init.body ? JSON.parse(init.body) : undefined;
     requests.push({ url: url.toString(), method, body });
@@ -100,7 +107,7 @@ test("P6.13 owner improvement decision and scope conversion use governed RPCs an
   const storage = storageWithSession();
   const requests = [];
   const fetcher = async (input, init = {}) => {
-    const url = new URL(typeof input === "string" ? input : input.url);
+    const url = requestUrl(input);
     const body = init.body ? JSON.parse(init.body) : undefined;
     requests.push({ url: url.toString(), method: init.method ?? "GET", body });
     if (url.pathname.endsWith("/rpc/command_center_brain_decide_improvement")) return response({ improvement_id: "improvement-1", state: "accepted", installs_automatically: false, roadmap_mutated: false });
