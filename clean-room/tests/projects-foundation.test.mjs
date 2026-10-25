@@ -69,9 +69,10 @@ test("roadmap DAG cannot advance past dependencies or gates and rejects cycles",
 
 test("checkpoint persists exact next task and owner boundary without chat reconstruction", () => {
   const store = new ProjectCheckpointStore();
-  store.append({ id: "cp1", projectId: "edge-finder", roadmapVersion: 3, createdAt: T0, exactNextWorkUnitId: "w17", blocker: "provider login", requiredEnvironment: "local_browser", ownerAction: "Authenticate provider", verificationMethod: "live provider check", evidenceRefs: ["evt1"], resumeStateHash: "hash1" });
+  store.append({ id: "cp1", projectId: "edge-finder", roadmapVersion: 3, createdAt: T0, exactNextWorkUnitId: "w17", blocker: "provider login", requiredEnvironment: "local_browser", ownerAction: "Authenticate provider", verificationMethod: "live provider check", evidenceRefs: ["evt1"], resumeStateHash: "a".repeat(64) });
   assert.equal(store.latest("edge-finder").exactNextWorkUnitId, "w17");
   assert.equal(store.latest("edge-finder").requiredEnvironment, "local_browser");
+  assert.throws(() => store.append({ id: "cp2", projectId: "edge-finder", roadmapVersion: 3, createdAt: T1, exactNextWorkUnitId: "w18", verificationMethod: "tests", evidenceRefs: ["evt2"], resumeStateHash: "hash1" }), /SHA-256/i);
 });
 
 test("project progress and Agency progress remain separate and N/A when denominator is unknown", () => {
