@@ -60,11 +60,11 @@ export class DerivedLifecycleRegistry {
     if (!current.legalHold) throw new Error("Derived record is not on legal hold");
 
     const invalidatedWhileHeld = current.state === "restricted" && current.restrictionReason?.startsWith("legal_hold:") === true;
-    const next = Object.freeze({
-      ...current,
+    const { holdReason: _releasedHoldReason, ...withoutActiveHoldReason } = current;
+    const next: DerivedRecord = Object.freeze({
+      ...withoutActiveHoldReason,
       legalHold: false,
-      holdReason: undefined,
-      state: invalidatedWhileHeld ? "deleted" as const : current.state,
+      state: invalidatedWhileHeld ? "deleted" : current.state,
       updatedAt: at,
       holdReleasedAt: at,
       holdReleaseAuthorizationRef: normalizedAuthorizationRef,
