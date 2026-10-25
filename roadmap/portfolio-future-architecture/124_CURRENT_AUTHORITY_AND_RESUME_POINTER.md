@@ -1,7 +1,7 @@
 # 124 — Current Authority and Resume Pointer
 
 **Owner / final authority:** James Morgan  
-**Status:** CURRENT / TARGETED CATEGORY 1 + CATEGORY 2 RETROFIT IMPLEMENTATION VERIFIED / CATEGORY 3 CURRENT SEAM  
+**Status:** CURRENT / TARGETED CATEGORY 1 + CATEGORY 2 RETROFIT VERIFIED / A11.2 SQL PROOF VERIFIED / CATEGORY 3 CURRENT SEAM  
 **Specification authority:** `roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md`  
 **Top-Brain amendment:** `roadmap/master-build-plan-owner-review/19_COMMAND_CENTER_TOP_BRAIN_AUTHORITY_AMENDMENT.md`  
 **P0.11 authority:** `roadmap/master-build-plan-owner-review/16_P0_11_POST_LOCK_107PLUS_RECONCILIATION.md`  
@@ -12,9 +12,9 @@
 
 ## Purpose
 
-This file is the single current resume pointer after completion of the 107-company reverse map, P0.11 reconciliation, and the first targeted post-audit implementation retrofit across Category 1 prerequisite contracts and Category 2 security foundations.
+This file is the single current resume pointer after completion of the 107-company reverse map, P0.11 reconciliation, the first targeted post-audit implementation retrofit across Category 1 prerequisite contracts and Category 2 security foundations, and the isolated A11.2 SQL migration proof.
 
-It prevents stale checkpoints from restarting already-completed portfolio or prerequisite work.
+It prevents stale checkpoints from restarting already-completed portfolio, prerequisite, or A11.2 work.
 
 ## Current controlling architecture truth
 
@@ -70,6 +70,28 @@ The workflow's final overall conclusion remained `failure` only because the Cate
 
 That Category 15 result is preserved as release truth and is **not** a failure of the targeted prerequisite/security retrofit.
 
+## A11.2 isolated SQL migration proof — verified closed
+
+A11.2 now has a dedicated disposable-PostgreSQL proof on the isolated branch.
+
+Exact proof head before this resume-pointer-only checkpoint:
+
+`ff77df12c1bdba5e4affaca669b0aeb977802187`
+
+GitHub Actions run:
+
+`40161711952`
+
+Result:
+
+**SUCCESS**
+
+The run executed the post-audit migration proof in disposable PostgreSQL and closed the verified predecessor-contract/fail-closed assertion defects without touching production or live Supabase.
+
+This A11.2 result is scoped only to the SQL migration proof. The commit did not trigger the broader clean-room QA workflows, so no broader exact-head QA claim is made for `ff77df12...`.
+
+A11.2 must not be restarted unless later branch changes invalidate its tested migration path.
+
 ## Superseded resume statements
 
 Historical-only instructions that must not be followed include:
@@ -77,7 +99,8 @@ Historical-only instructions that must not be followed include:
 - `Continue at Company 041`;
 - the old 100-company count;
 - statements that 001–100 conformance, 101–107 mapping, or the 107-company reverse map remain unfinished;
-- the prior version of this file that pointed next to targeted Category 1 prerequisites.
+- the prior version of this file that pointed next to targeted Category 1 prerequisites;
+- any statement that A11.2 remains unproven at `ff77df12...`.
 
 Do not redo Companies 101–107 or restart Category 1/2 wholesale.
 
@@ -105,9 +128,16 @@ Implement/close only actual post-audit gaps around:
 
 Close only verified gaps for deadlock/cycle detection, resource/lock recovery, starvation/bounded escalation, delegation identity/scope/cost/resource attenuation, and policy revalidation.
 
-### 3. Isolated cross-module vertical proof
+### 3. Remaining isolated cross-module proof work
 
-Prove one isolated path across browser/API/SQL/worker/policy/evidence with authorized + denied behavior, cross-company denial, stale session, duplicate event, lost response, worker failure, and rollback/recovery.
+A11.2 is closed. Complete the remaining applicable A11 proof scope without rerunning already-proven work unnecessarily:
+
+- A11.1 complete scenario definition;
+- A11.3 browser/API/SQL/worker boundary integration;
+- A11.4 unauthorized and cross-company negative cases;
+- A11.5 failure injection plus rollback/recovery;
+- A11.6 exact code/config/schema/environment evidence and blockers;
+- A11.7 measurable gate workload/environment/threshold/method/evidence.
 
 ### 4. Evidence/control closure
 
@@ -116,6 +146,16 @@ Update the 133-control implementation/evidence map and checkpoint truth without 
 ### 5. Return to normal 189-phase build
 
 Only after the retrofit seams above are verified closed, advance the authoritative resume pointer back into the normal Command Center build sequence.
+
+## Category 15 truth boundary
+
+Category 15 is **deferred**, not complete.
+
+- `clean-room/evidence/BUILD_COMPLETION_REAUDIT.md` reopens C3–C14 work that must be finished before final C15 acceptance.
+- P15.1 remains blocked by the unavailable original individual `CCR-00001–CCR-05825` reconciled ledger; the accepted 133-control register does not fabricate or replace that historical ledger.
+- P15.14–P15.18 remain protected external/owner/device gates.
+
+The accepted 133 controls are roadmap/acceptance requirements; acceptance of the control register is not equivalent to implementation completion.
 
 ## Preserved proof limits
 
@@ -131,4 +171,4 @@ This pointer authorizes no production merge/deploy, Supabase production mutation
 
 ## Current resume pointer
 
-**Targeted Category 1 prerequisite and Category 2 retrofit implementation has passed its exact-head implementation QA scope. Resume at Category 3 shared source/provenance/provider contracts, then close remaining distributed-work hardening, perform the isolated cross-module proof, reconcile the 133-control evidence map, and only then return to the normal 189-phase build.**
+**A11.2 is verified closed at `ff77df12...` / run `40161711952`. Resume at Category 3 shared source/provenance/provider contracts, then close remaining distributed-work hardening, complete the remaining A11 cross-module proof scope, reconcile the 133-control evidence map, and only then return to the normal 189-phase build. Category 15 remains deferred until the reopened upstream categories and protected final gates are actually satisfied.**
