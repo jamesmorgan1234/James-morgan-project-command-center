@@ -128,7 +128,11 @@ export function renderAgencyView(snapshot: CommandCenterRuntimeSnapshot): HTMLEl
     attention.append(el("h2", "section-title", "BLOCKED / OWNER / WORK-BOUNDARY TASKS"), el("p", "muted", `${attentionTasks.length} canonical task${attentionTasks.length === 1 ? "" : "s"} currently require explicit handling.`));
     section.append(attention);
     for (const task of attentionTasks.slice(0, 20)) section.append(attentionTaskCard(task));
-    if (attentionTasks.length > 20) section.append(card("agency-truncation")).append(el("p", "muted", `${attentionTasks.length - 20} additional attention task records remain in the snapshot.`));
+    if (attentionTasks.length > 20) {
+      const truncation = card("agency-truncation");
+      truncation.append(el("p", "muted", `${attentionTasks.length - 20} additional attention task records remain in the snapshot.`));
+      section.append(truncation);
+    }
   }
 
   if (runs.length === 0) {
@@ -142,6 +146,10 @@ export function renderAgencyView(snapshot: CommandCenterRuntimeSnapshot): HTMLEl
   for (const run of runs.slice(0, 30)) {
     section.append(runCard(run, tasks.filter((task) => task.runId === run.runId).length, jobs.filter((job) => job.runId === run.runId).length));
   }
-  if (runs.length > 30) section.append(card("agency-truncation")).append(el("p", "muted", `${runs.length - 30} additional run records remain in the snapshot.`));
+  if (runs.length > 30) {
+    const truncation = card("agency-truncation");
+    truncation.append(el("p", "muted", `${runs.length - 30} additional run records remain in the snapshot.`));
+    section.append(truncation);
+  }
   return section;
 }
