@@ -39,6 +39,109 @@ export function classifyRefresh(previous: SourceFingerprint | undefined, next: S
   return "uncertain";
 }
 
+export interface EnumerationPage {
+  readonly cursor?: string;
+  readonly nextCursor?: string;
+  readonly stableIds: readonly string[];
+  readonly consistencyToken?: string;
+}
+
+export type EnumerationStabilityReason =
+  | "stable_complete"
+  | "no_pages"
+  | "pagination_stability_unverified"
+  | "cursor_chain_changed"
+  | "cursor_loop"
+  | "duplicate_source_during_enumeration"
+  | "enumeration_changed_during_pagination"
+  | "enumeration_fingerprint_changed"
+  | "not_terminal";
+
+export interface EnumerationStabilityResult {
+  readonly complete: boolean;
+  readonly restartRequired: boolean;
+  readonly reason: EnumerationStabilityReason;
+  readonly enumeratedCount: number;
+}
+
+function normalizedOptionalToken(value: string | undefined, label: string): string | undefined {
+  if (value === undefined) return undefined;
+  const normalized = value.trim();
+  if (!normalized) throw new Error(`${label} cannot be empty`);
+  return normalized;
+}
+
+export function evaluateEnumerationStability(input: {
+  readonly stablePagination: CapabilityTruth;
+  readonly pages: readonly EnumerationPage[];
+  readonly startFingerprint?: string;
+  readonly endFingerprint?: string;
+}): EnumerationStabilityResult {
+  if (input.pages.length === 0) return Object.freeze({ complete: false, restartRequired: false, reason: "no_pages", enumeratedCount: 0 });
+
+  const startFingerprint = normalizedOptionalToken(input.startFingerprint, "startFingerprint");
+  const endFingerprint = normalizedOptionalToken(input.endFingerprint, "endFingerprint");
+  if ((startFingerprint === undefined) !== (endFingerprint === undefined)) throw new Error("Enumeration fingerprints must provide both start and end values");
+  if (startFingerprint !== undefined && startFingerprint !== endFingerprint) {
+    return Object.freeze({ complete: false, restartRequired: true, reason: "enumeration_fingerprint_changed", enumeratedCount: 0 });
+  }
+
+  const seenIds = new Set<string>();
+  const seenCursors = new Set<string>();
+  let priorNextCursor: string | undefined;
+  let consistencyToken: string | undefined;
+  let allPagesHaveConsistencyToken = true;
+
+  for (let index = 0; index < input.pages.length; index += 1) {
+    const page = input.pages[index]!;
+    const cursor = normalizedOptionalToken(page.cursor, `pages[${index}].cursor`);
+    const nextCursor = normalizedOptionalToken(page.nextCursor, `pages[${index}].nextCursor`);
+    const pageToken = normalizedOptionalToken(page.consistencyToken, `pages[${index}].consistencyToken`);
+
+    if (index > 0 && cursor !== priorNextCursor) {
+      return Object.freeze({ complete: false, restartRequired: true, reason: "cursor_chain_changed", enumeratedCount: seenIds.size });
+    }
+    if (cursor !== undefined) {
+      if (seenCursors.has(cursor)) return Object.freeze({ complete: false, restartRequired: true, reason: "cursor_loop", enumeratedCount: seenIds.size });
+      seenCursors.add(cursor);
+    }
+    if (nextCursor !== undefined && (nextCursor === cursor || seenCursors.has(nextCursor))) {
+      return Object.freeze({ complete: false, restartRequired: true, reason: "cursor_loop", enumeratedCount: seenIds.size });
+    }
+
+    if (pageToken === undefined) {
+      allPagesHaveConsistencyToken = false;
+    } else if (consistencyToken === undefined) {
+      consistencyToken = pageToken;
+    } else if (pageToken !== consistencyToken) {
+      return Object.freeze({ complete: false, restartRequired: true, reason: "enumeration_changed_during_pagination", enumeratedCount: seenIds.size });
+    }
+
+    const pageIds = new Set<string>();
+    for (const rawId of page.stableIds) {
+      const stableId = rawId.trim();
+      if (!stableId) throw new Error(`pages[${index}].stableIds cannot contain empty ids`);
+      if (pageIds.has(stableId) || seenIds.has(stableId)) {
+        return Object.freeze({ complete: false, restartRequired: true, reason: "duplicate_source_during_enumeration", enumeratedCount: seenIds.size });
+      }
+      pageIds.add(stableId);
+      seenIds.add(stableId);
+    }
+    priorNextCursor = nextCursor;
+  }
+
+  if (priorNextCursor !== undefined) {
+    return Object.freeze({ complete: false, restartRequired: false, reason: "not_terminal", enumeratedCount: seenIds.size });
+  }
+
+  const multiPage = input.pages.length > 1;
+  if (multiPage && input.stablePagination !== "verified_supported" && !allPagesHaveConsistencyToken) {
+    return Object.freeze({ complete: false, restartRequired: false, reason: "pagination_stability_unverified", enumeratedCount: seenIds.size });
+  }
+
+  return Object.freeze({ complete: true, restartRequired: false, reason: "stable_complete", enumeratedCount: seenIds.size });
+}
+
 export interface RefreshLease {
   readonly sourceId: string;
   readonly holderId: string;
