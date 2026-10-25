@@ -31,7 +31,7 @@ export class BrowserStartupCoordinator {
   }
 
   degrade(generation: number): BrowserStartupView {
-    if (generation !== this.#generation) return this.#current;
+    if (generation !== this.#generation || this.#current.state === "failed") return this.#current;
     this.#current = view(generation, "degraded", false);
     return this.#current;
   }
@@ -43,7 +43,7 @@ export class BrowserStartupCoordinator {
   }
 
   commitReady(generation: number): BrowserStartupView {
-    if (generation !== this.#generation) return this.#current;
+    if (!this.canCommit(generation)) return this.#current;
     this.#current = view(generation, "ready", true);
     return this.#current;
   }
