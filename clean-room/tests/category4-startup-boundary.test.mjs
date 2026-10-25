@@ -29,7 +29,12 @@ test("P4.2 degraded and failed startup states never authorize private data", () 
   assert.equal(view.state, "failed");
   assert.equal(view.privateDataAllowed, false);
   assert.equal(failed.canCommit(fg), false);
+  assert.equal(failed.commitReady(fg).state, "failed");
+  assert.equal(failed.commitReady(fg).privateDataAllowed, false);
+  assert.equal(failed.degrade(fg).state, "failed");
   assert.equal(isSafeBootstrapMessage(view.message), true);
+  const recovery = failed.begin();
+  assert.equal(failed.commitReady(recovery.generation).state, "ready");
 });
 
 test("P4.2 shipped HTML contains only fixed non-private bootstrap state before runtime", async () => {
