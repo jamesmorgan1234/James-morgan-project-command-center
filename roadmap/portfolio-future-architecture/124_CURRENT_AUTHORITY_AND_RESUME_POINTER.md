@@ -1,7 +1,7 @@
 # 124 — Current Authority and Resume Pointer
 
 **Owner / final authority:** James Morgan  
-**Status:** CURRENT / CATEGORY 1 VERIFIED / CATEGORY 2 BRANCH FOUNDATION VERIFIED WITH PROTECTED ACCEPTANCE GATES / A11.2 SQL PROOF VERIFIED / CATEGORY 3 P3.1–P3.12 BRANCH VERIFIED / 133-CONTROL EVIDENCE RECONCILED / CATEGORY 4 BRANCH AUDIT CURRENT  
+**Status:** CURRENT / CATEGORY 1 VERIFIED / CATEGORY 2 BRANCH FOUNDATION VERIFIED WITH PROTECTED ACCEPTANCE GATES / A11.2 SQL PROOF VERIFIED / CATEGORY 3 P3.1–P3.12 BRANCH VERIFIED / CATEGORY 4 P4.1–P4.8 BRANCH VERIFIED / 133-CONTROL EVIDENCE RECONCILED / CATEGORY 5 BRANCH AUDIT CURRENT  
 **Specification authority:** `roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md`  
 **Top-Brain amendment:** `roadmap/master-build-plan-owner-review/19_COMMAND_CENTER_TOP_BRAIN_AUTHORITY_AMENDMENT.md`  
 **P0.11 authority:** `roadmap/master-build-plan-owner-review/16_P0_11_POST_LOCK_107PLUS_RECONCILIATION.md`  
@@ -10,14 +10,15 @@
 **Original implementation map:** `127_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_MAP.md`  
 **Current reconciliation delta:** `128_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_RECONCILIATION_2026-10-25.md`  
 **Category 3 branch closure:** `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`  
+**Category 4 branch closure:** `clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`  
 **Current amended phase count:** `189`  
 **Current reconciled audit controls:** `133`
 
 ## Purpose
 
-This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting completed planning, prerequisite, SQL-proof, control-reconciliation, or Category 3 branch work, while preserving every protected production/live-provider/device boundary.
+This is the single current resume pointer for the isolated clean-room build. It prevents stale checkpoints from restarting completed planning, prerequisite, SQL-proof, control-reconciliation, Category 3, or Category 4 branch work while preserving every protected production/live-provider/device boundary.
 
-James Morgan’s newest explicit instruction remains controlling. Command Center work continues automatically in normal chat until a genuine authorization boundary or a genuine Work handoff remains after normal-chat capabilities are exhausted.
+James Morgan’s newest explicit instruction remains controlling. Command Center work continues automatically in normal chat until a genuine authorization boundary, a genuine Work handoff after normal-chat capabilities are exhausted, or true completion remains.
 
 ## Current controlling architecture truth
 
@@ -58,9 +59,9 @@ Historical exact proof head `46b3691a755061cabbae664aa4a5ab71e5068a56` / run `40
 
 This disposable-PostgreSQL proof did not touch production or live Supabase. Do not restart A11.2 unless later branch changes invalidate its tested migration path.
 
-## Category 3 — current branch truth
+## Category 3 — preserved branch truth
 
-Category 3 P3.1 through P3.12 are now **branch implemented and branch verified**.
+Category 3 P3.1 through P3.12 are **branch implemented and branch verified**.
 
 Primary evidence:
 
@@ -79,13 +80,6 @@ Current Category 3 closure record:
 
 `clean-room/evidence/CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md`
 
-That record covers P3.1–P3.12 and the post-audit hardening for:
-
-- A07.6 refresh checkpoint recovery plus exact downstream-derived acknowledgement closure;
-- A08.3/A08.7 canonical derivative-artifact lineage/propagation across summaries, memories, indexes, vectors, exports, metrics and recommendations;
-- A08.5 metadata-only durable audit separated from erasable sensitive payload;
-- A08.6/A16.5/A16.8 restore/rebuild revalidation against current authorization, privacy, key, application, source-lifecycle, purpose and retention truth.
-
 ### Category 3 boundaries that remain explicitly external/protected
 
 Branch closure does **not** claim:
@@ -100,6 +94,51 @@ Branch closure does **not** claim:
 
 Those boundaries remain later acceptance work. They do not require re-opening already verified Category 3 branch implementation.
 
+## Category 4 — preserved branch truth
+
+Category 4 P4.1 through P4.8 are **branch implemented and branch verified**.
+
+Primary exact-head evidence:
+
+- implementation head: `9949cf7ac1fdaf29691cdb91ac2658beafd1fd60`;
+- exact-head GitHub Actions run: `40186073201`;
+- module tests: **543 passed / 0 failed / 0 skipped / 0 cancelled**;
+- typecheck: passed;
+- semantic repository audit: **1,139/1,139** tracked files reviewed, zero secret findings, zero violations;
+- release-artifact audit: passed;
+- protected Command Center icon: verified;
+- release structural errors/readiness blockers: zero;
+- observed PWA lifecycle: passed for install, same-session offline replay, waiting-worker activation and two-cache rollback retention;
+- Category 15 final gate: still failed/deferred, including the known shallow-checkout historical-diff defect; production evidence skipped.
+
+Current Category 4 closure record:
+
+`clean-room/evidence/CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md`
+
+Branch-verified Category 4 includes:
+
+- explicit approved visual/design authority and visual regression fingerprinting;
+- privacy-safe current-generation startup/failure ownership;
+- deterministic route/query/history/scroll ownership;
+- whole-card navigation and removal of owner-facing arrows/chevrons unless explicitly reauthorized;
+- extensible Home module registration without browser-renderer surgery;
+- canonical shared primitives and shipped primitive styling;
+- PWA/update/rollback lifecycle preservation;
+- responsive device classification, touch sizing, zoom allowance, safe-area, focus, reduced-motion, high-contrast and forced-colors behavior.
+
+### Category 4 boundaries that remain explicitly external/protected
+
+Branch closure does **not** claim:
+
+- production merge, promotion or deployment;
+- production Supabase mutation;
+- live production provider/Auth acceptance;
+- final physical Samsung/Android owner acceptance;
+- physical-device pixel-by-pixel acceptance for every approved screen;
+- final Category 15 launch acceptance.
+
+Those boundaries remain later acceptance work and do not require re-opening P4.1–P4.8 absent regression evidence.
+
 ## Current 133-control implementation truth
 
 The original full map remains `127_POST_AUDIT_133_IMPLEMENTATION_EVIDENCE_MAP.md`.
@@ -110,7 +149,7 @@ The current reconciliation delta is:
 
 Where 128 differs from 127 for the seven changed rows or counts/evidence basis, 128 is newer and controls until a future full-map rewrite supersedes it.
 
-Current exact totals:
+Current exact totals remain:
 
 - `62` — **VERIFIED_BRANCH**
 - `61` — **PARTIAL**
@@ -118,7 +157,7 @@ Current exact totals:
 - `1` — **BLOCKED_EXTERNAL**
 - Total: `133`
 
-The seven newly branch-verified controls are A07.6, A08.3, A08.5, A08.6, A08.7, A16.5 and A16.8.
+No Category 4 documentation update changes those totals without a separate evidence-map reconciliation proving a control-state change.
 
 ## Superseded resume statements
 
@@ -131,33 +170,30 @@ Do **not** follow stale instructions that say to:
 - restart A11.2 without regression evidence;
 - redo the initial 133-control reconciliation;
 - resume at the A08.5/A08.6 privacy/restore seam;
-- treat Category 3 as foundation-only or still branch-incomplete.
+- treat Category 3 as foundation-only or still branch-incomplete;
+- treat Category 4 as partial/current or still branch-incomplete.
 
 ## Current implementation resume order
 
-### 1. Category 4 experience-system branch audit and closure — CURRENT
+### 1. Category 5 Projects / Portfolio / Roadmap / Foundry branch audit and closure — CURRENT
 
-Resume the normal 189-phase build at Category 4. Audit P4 phases and current implementation/test evidence against the locked roadmap, preserve approved screenshot/design authority, and close only actual branch-side gaps.
+Re-audit the current P5 phases against the latest locked 189-phase authority and the **actual current branch**, not the older “foundation only” label. Preserve existing implementation that satisfies the locked gates, close real branch-side gaps, and distinguish branch proof from protected production/provider/device acceptance.
 
-Do not confuse branch implementation with final physical-device/production acceptance. Branch implementation should proceed wherever normal chat can implement and verify it safely.
+The current branch already contains broad P5 persistence/runtime/UI/gate tests; those are evidence to inspect, not automatic permission to claim closure.
 
-### 2. Category 5 project-system branch audit and closure
+### 2. Continue C6–C14 in dependency order
 
-After Category 4 branch-side gaps are verified, continue directly through Category 5, preserving the project/company scope and durable data contracts already proven upstream.
+After Category 5 branch closure, continue directly through C6–C14. Do not redo controls already branch-verified. Close actual partial/unverified branch gaps, preserve external/provider/production boundaries, and update evidence only when proof changes.
 
-### 3. Continue C6–C14 in dependency order
-
-Do not redo controls already branch-verified. Close actual partial/unverified branch gaps, preserve external/provider/production boundaries, and update evidence only when proof changes.
-
-### 4. Remaining isolated cross-module proof work
+### 3. Remaining isolated cross-module proof work
 
 A11.2 remains closed. Complete remaining applicable A11 scope only where actual gaps remain, including integrated boundary proof and measurable acceptance evidence that normal chat can establish without crossing protected production/provider boundaries.
 
-### 5. Category 15 remains deferred final acceptance
+### 4. Category 15 remains deferred final acceptance
 
 Do not weaken Category 15 gates merely to make CI green. The current final gate remains correctly unresolved while upstream categories and protected acceptance gates remain open.
 
-A separate Category 15 audit defect is also known: the current shallow Actions checkout can no longer resolve the old frozen candidate revision for a historical diff, causing the audit to fail closed. Fixing that evidence-access defect later must preserve, not weaken, the gate.
+A separate Category 15 audit defect is also known: the current shallow Actions checkout cannot resolve the old frozen candidate revision for a historical diff. Fixing that evidence-access defect later must preserve, not weaken, the gate.
 
 ## Evidence maintenance rule
 
@@ -176,4 +212,4 @@ This pointer authorizes **no** production merge/deploy, Supabase production muta
 
 ## Current resume pointer
 
-**Category 3 P3.1–P3.12 is branch verified at implementation head `ebb4fc21...` with 507/507 module tests and functional QA gates passing. The post-audit implementation truth is now 62 VERIFIED_BRANCH / 61 PARTIAL / 9 UNVERIFIED / 1 BLOCKED_EXTERNAL. Resume immediately with the Category 4 experience-system branch audit and closure on `build/spec-lock-v2-clean-room`, then continue automatically through the normal dependency order. Preserve every production/live-provider/device/launch boundary and keep Category 15 deferred until upstream work and protected final gates are genuinely satisfied.**
+**Category 3 P3.1–P3.12 and Category 4 P4.1–P4.8 are branch verified. Category 4 exact-head proof is `9949cf7ac1fdaf29691cdb91ac2658beafd1fd60` / run `40186073201`, with 543/543 module tests plus typecheck, 1,139/1,139 semantic every-file audit, release-artifact audit and observed PWA lifecycle passing. The post-audit implementation truth remains 62 VERIFIED_BRANCH / 61 PARTIAL / 9 UNVERIFIED / 1 BLOCKED_EXTERNAL until separately reconciled. Resume immediately with the Category 5 Projects/Portfolio/Roadmap/Foundry branch audit and closure on `build/spec-lock-v2-clean-room`, then continue automatically through C6–C14. Preserve every production/live-provider/device/launch boundary and keep Category 15 deferred until upstream work and protected final gates are genuinely satisfied.**
