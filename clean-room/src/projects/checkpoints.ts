@@ -14,11 +14,14 @@ export interface ProjectCheckpoint {
   readonly resumeStateHash: string;
 }
 
+const SHA256_HEX = /^[0-9a-f]{64}$/i;
+
 export class ProjectCheckpointStore {
   readonly #byProject = new Map<string, ProjectCheckpoint[]>();
 
   append(checkpoint: ProjectCheckpoint): void {
     if (!checkpoint.id.trim() || !checkpoint.projectId.trim() || !checkpoint.verificationMethod.trim() || !checkpoint.resumeStateHash.trim()) throw new Error("Checkpoint identity/verification/resume hash are required");
+    if (!SHA256_HEX.test(checkpoint.resumeStateHash)) throw new Error("Checkpoint resume-state hash must be SHA-256 hex");
     if (!Number.isSafeInteger(checkpoint.roadmapVersion) || checkpoint.roadmapVersion < 1) throw new Error("Checkpoint roadmap version must be positive");
     parseTimestamp(checkpoint.createdAt, "createdAt");
     if (checkpoint.evidenceRefs.length === 0) throw new Error("Checkpoint requires evidence");
