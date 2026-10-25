@@ -316,7 +316,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       if (redactionState === "safe_text" && !safeText) throw new Error("Brain safe-text turn is missing content");
       const evidenceRefs = stringArray(row.evidence_refs);
       const evidence = evidenceRefs.length
-        ? Object.freeze(evidenceRefs.map((reference) => Object.freeze({ source: "supabase:command_center_brain_conversation_turns", observedAt: recordedAt, reference })))
+        ? Object.freeze(evidenceRefs.map((reference) => Object.freeze({ source: "supabase:command_center_brain_conversation_turns", observedAt: recordedAt as string, reference })))
         : runtimeEvidence("supabase:command_center_brain_conversation_turns", recordedAt, id);
       const turn: RuntimeBrainConversationTurn = Object.freeze({
         id,
