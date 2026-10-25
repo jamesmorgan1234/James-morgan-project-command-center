@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { DerivedPayloadRegistry, evaluateRestoreRevalidation } from "../dist/data/index.js";
+import { DerivedPayloadRegistry, evaluateRestoreRevalidation, rebuildProjectionForRestore } from "../dist/data/index.js";
 
 const T0 = "2026-10-25T01:00:00Z";
 const T1 = "2026-10-25T01:01:00Z";
@@ -44,6 +44,13 @@ function restore(overrides = {}) {
     evidenceRefs: ["evidence:current-auth", "evidence:privacy", "evidence:key"],
     ...overrides
   };
+}
+
+function projectionEvents() {
+  return [
+    { sequence: 1, eventId: "event:1", payloadHash: "hash:1" },
+    { sequence: 2, eventId: "event:2", payloadHash: "hash:2" }
+  ];
 }
 
 test("derived payload erasure preserves metadata-only audit history while removing payload material", () => {
@@ -147,4 +154,37 @@ test("restore fails closed when current evidence is absent blank or duplicated",
     assert.equal(decision.status, "denied");
     assert.equal(decision.reason, "restore_evidence_missing_or_invalid");
   }
+});
+
+test("restore rebuild is inseparably gated by current authorization privacy key and application truth", () => {
+  const result = rebuildProjectionForRestore(projectionEvents(), restore());
+  assert.equal(result.decision.status, "active");
+  assert.equal(result.projection.eventCount, 2);
+  assert.equal(result.projection.lastSequence, 2);
+
+  const denied = [
+    restore({ authorizationState: "revoked" }),
+    restore({ privacyState: "deleted" }),
+    restore({ keyState: "revoked" }),
+    restore({ applicationState: "invalid" }),
+    restore({ payloadState: "erased" })
+  ];
+  for (const input of denied) assert.throws(() => rebuildProjectionForRestore(projectionEvents(), input), /Restore denied:/);
+});
+
+test("restricted restore cannot emit an active projection", () => {
+  for (const input of [
+    restore({ privacyState: "restricted" }),
+    restore({ payloadState: "restricted" }),
+    restore({ keyState: "decrypt_only" }),
+    restore({ sourceLifecycle: "degraded" })
+  ]) {
+    assert.throws(() => rebuildProjectionForRestore(projectionEvents(), input), /Restore restricted:/);
+  }
+});
+
+test("restore revalidation runs before event-chain rebuilding", () => {
+  const invalidChain = [{ sequence: 2, eventId: "event:gap", payloadHash: "hash:gap" }];
+  assert.throws(() => rebuildProjectionForRestore(invalidChain, restore({ authorizationState: "revoked" })), /Restore denied: authorization_revoked/);
+  assert.throws(() => rebuildProjectionForRestore(invalidChain, restore()), /Projection sequence gap/);
 });
