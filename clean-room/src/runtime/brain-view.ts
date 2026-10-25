@@ -1,5 +1,5 @@
 import type { RuntimeSnapshotProvider } from "./provider.js";
-import type { CommandCenterRuntimeSnapshot, RuntimeBrainConversation, RuntimeBrainConversationTurn, RuntimeBrainProjectWorkspace } from "./snapshot.js";
+import type { CommandCenterRuntimeSnapshot, RuntimeBrainConversation, RuntimeBrainConversationTurn, RuntimeBrainImprovementProposal, RuntimeBrainProjectWorkspace } from "./snapshot.js";
 import { isBrainConversationRuntimeProvider } from "./owner-security-provider.js";
 import { createDefaultBrowserVoiceRegistry, type BrowserVoiceCapture } from "./browser-voice.js";
 
@@ -121,6 +121,80 @@ function conversationPanel(conversation: RuntimeBrainConversation | undefined): 
   if (conversation.turns.length === 0) panel.append(emptyState("Conversation has no recorded turns", "The durable conversation exists, but no owner/Brain/system turn has been recorded yet.", "unavailable"));
   else for (const turn of conversation.turns) panel.append(conversationTurn(turn));
   return panel;
+}
+
+function improvementsCenter(
+  proposals: readonly RuntimeBrainImprovementProposal[],
+  projectId: string | undefined,
+  provider: RuntimeSnapshotProvider | undefined,
+  rerender: () => Promise<void>
+): HTMLElement {
+  const center = card("brain-improvements-center");
+  const scoped = projectId ? proposals.filter((proposal) => !proposal.projectId || proposal.projectId === projectId) : proposals;
+  const heading = el("div", "brain-card__heading");
+  heading.append(el("h2", "section-title", "IMPROVEMENTS CENTER"), pill(String(scoped.length), scoped.length ? "available" : "unavailable"));
+  center.append(
+    heading,
+    el("p", "muted", "Evidence-backed recommendations only. Improvements never self-install, never silently rewrite roadmap scope, and require an explicit owner decision before conversion to a structured scope request.")
+  );
+  if (scoped.length === 0) {
+    center.append(el("p", "brain-improvement-empty", "No evidence-backed improvement proposal is currently recorded for this context."));
+    return center;
+  }
+  const writable = !!provider && isBrainConversationRuntimeProvider(provider);
+  for (const proposal of scoped) {
+    const item = el("article", "brain-improvement");
+    const itemHeading = el("div", "brain-card__heading");
+    itemHeading.append(el("strong", "brain-improvement__title", proposal.title), pill(proposal.state.replaceAll("_", " ").toUpperCase(), proposal.state === "proposed" ? "candidate" : proposal.state === "rejected" ? "stale" : "available"));
+    item.append(
+      itemHeading,
+      el("p", "brain-improvement__meta", `${proposal.area.replaceAll("_", " ")} · confidence ${Math.round(proposal.confidence * 100)}% · ${proposal.evidenceRefs.length} evidence ref${proposal.evidenceRefs.length === 1 ? "" : "s"}`),
+      el("p", "muted", `Detail: ${proposal.detailRef}`),
+      el("p", "brain-protected-notice", "Automatic installation: disabled. Roadmap mutation: not authorized by this proposal or decision.")
+    );
+    const actionStatus = el("p", "brain-improvement__status muted", proposal.state === "converted_to_scope" ? "Converted to a structured scope request. The roadmap itself was not silently mutated." : "");
+    const actions = el("div", "brain-improvement__actions");
+    const runAction = (button: HTMLButtonElement, action: () => Promise<unknown>, pending: string, failed: string): void => {
+      button.addEventListener("click", () => {
+        void (async () => {
+          for (const candidate of actions.querySelectorAll<HTMLButtonElement>("button")) candidate.disabled = true;
+          actionStatus.textContent = pending;
+          try {
+            await action();
+            await rerender();
+          } catch {
+            for (const candidate of actions.querySelectorAll<HTMLButtonElement>("button")) candidate.disabled = false;
+            actionStatus.textContent = failed;
+          }
+        })();
+      });
+    };
+    if (proposal.state === "proposed") {
+      const accept = el("button", "cc-button brain-improvement__accept", "Accept proposal");
+      accept.type = "button";
+      const reject = el("button", "cc-button cc-button--secondary brain-improvement__reject", "Reject proposal");
+      reject.type = "button";
+      accept.disabled = !writable;
+      reject.disabled = !writable;
+      if (writable && provider && isBrainConversationRuntimeProvider(provider)) {
+        runAction(accept, () => provider.decideBrainImprovement(proposal.id, "accepted"), "Recording explicit owner acceptance…", "Acceptance could not be recorded. Proposal state was not changed locally.");
+        runAction(reject, () => provider.decideBrainImprovement(proposal.id, "rejected"), "Recording explicit owner rejection…", "Rejection could not be recorded. Proposal state was not changed locally.");
+      }
+      actions.append(accept, reject);
+    } else if (proposal.state === "accepted") {
+      const convert = el("button", "cc-button brain-improvement__convert", "Create scope request");
+      convert.type = "button";
+      convert.disabled = !writable;
+      if (writable && provider && isBrainConversationRuntimeProvider(provider)) {
+        runAction(convert, () => provider.convertBrainImprovementToScopeRequest(proposal), "Creating structured scope request from the verified detail reference/hash…", "Scope request could not be created. The roadmap was not changed.");
+      }
+      actions.append(convert);
+    }
+    if (actions.childElementCount) item.append(actions);
+    item.append(actionStatus);
+    center.append(item);
+  }
+  return center;
 }
 
 function mergeVoiceTranscript(base: string, transcript: string): string {
@@ -305,13 +379,13 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   overview.append(
     overviewHeading,
     el("p", "brain-overview__scope", project ? `Project context: ${project.name}` : "Command Center-wide intelligence context"),
-    el("p", "muted", `${brain.conversations.length} persistent conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} durable project workspace${brain.workspaces.length === 1 ? "" : "s"}. Conversation itself never grants protected-action authority.`)
+    el("p", "muted", `${brain.conversations.length} persistent conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} durable project workspace${brain.workspaces.length === 1 ? "" : "s"} · ${brain.improvements.length} evidence-backed improvement proposal${brain.improvements.length === 1 ? "" : "s"}. Conversation itself never grants protected-action authority.`)
   );
   const actions = el("div", "brain-overview__actions");
   if (project) actions.append(routeLink("Back to project", `/project/${encodeURIComponent(project.id)}`, "cc-button cc-button--secondary", rerender));
   if (selected || scopedConversations.length > 0) actions.append(routeLink("New conversation", brainHref(projectId, undefined, true), "cc-button", rerender));
   overview.append(actions);
-  section.append(overview);
+  section.append(overview, improvementsCenter(brain.improvements, projectId, provider, rerender));
 
   if (requestedConversationId && !selected && !forceNew) {
     section.append(emptyState("Conversation scope mismatch", "The requested conversation is not available inside the current project scope. Command Center did not substitute another conversation.", "unavailable"));
