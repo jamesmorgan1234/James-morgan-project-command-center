@@ -23,6 +23,14 @@ create table if not exists auth.users (
   id uuid primary key
 );
 
+-- Minimal Supabase Auth session platform contract used by checked migrations.
+-- These columns are provider primitives in Supabase and are not application schema.
+create table if not exists auth.sessions (
+  id uuid primary key,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  not_after timestamptz
+);
+
 create or replace function auth.uid()
 returns uuid
 language sql

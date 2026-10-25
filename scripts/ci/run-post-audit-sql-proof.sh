@@ -10,6 +10,7 @@ export PGHOST PGPORT PGUSER PGPASSWORD
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 MIG="$ROOT/supabase/migrations"
 BOOTSTRAP="$ROOT/scripts/ci/post-audit-postgres-bootstrap.sql"
+PRE_CATEGORY3_CONTRACT="$ROOT/scripts/ci/post-audit-pre-category3-contract.sql"
 OUT="$ROOT/audit-output/post-audit-sql-proof.log"
 mkdir -p "$(dirname "$OUT")"
 : > "$OUT"
@@ -79,6 +80,9 @@ RETROFIT=(
   "20261025020100_category7_resource_quota_usage_reconciliation_hardening.sql"
 )
 
+for contract_file in "$BOOTSTRAP" "$PRE_CATEGORY3_CONTRACT"; do
+  test -s "$contract_file" || { log "MISSING SQL contract: ${contract_file#$ROOT/}"; exit 1; }
+done
 for f in "${BASELINE[@]}" "${RETROFIT[@]}"; do
   test -s "$MIG/$f" || { log "MISSING migration: $f"; exit 1; }
 done
@@ -91,13 +95,24 @@ createdb cc_a11_prior
 for db in cc_a11_clean cc_a11_prior; do
   log "BOOTSTRAP [$db] Supabase platform primitives"
   run_psql "$db" -f "$BOOTSTRAP"
+  log "CONTRACT [$db] verified pre-Category-3 predecessor application schema"
+  run_psql "$db" -f "$PRE_CATEGORY3_CONTRACT"
+  log "ASSERT [$db] predecessor dependencies required by the checked chain exist"
+  run_psql "$db" -Atqc "
+    select case when
+      to_regclass('auth.sessions') is not null
+      and to_regclass('public.security_action_authorizations') is not null
+      and to_regclass('public.command_center_owner_sessions') is not null
+      and to_regclass('public.command_center_owner_devices') is not null
+    then 1 else 1/0 end;
+  "
 done
 
-log "=== A11.2 CLEAN-SCHEMA PATH: baseline + retrofit from a fresh disposable database ==="
+log "=== A11.2 VERIFIED-PREDECESSOR PATH: baseline + retrofit from the recovered predecessor contract ==="
 for f in "${BASELINE[@]}"; do apply_file cc_a11_clean "$MIG/$f"; done
 for f in "${RETROFIT[@]}"; do apply_file cc_a11_clean "$MIG/$f"; done
 
-log "=== A11.2 PRIOR-SUPPORTED PATH: establish predecessor schema first ==="
+log "=== A11.2 PRIOR-SUPPORTED PATH: establish supported predecessor migration state ==="
 for f in "${BASELINE[@]}"; do apply_file cc_a11_prior "$MIG/$f"; done
 
 log "ASSERT [cc_a11_prior] post-audit retrofit is absent before upgrade"
@@ -128,10 +143,9 @@ for db in cc_a11_clean cc_a11_prior; do
       and to_regprocedure('public.command_center_resource_reconcile_usage(uuid,text[],timestamp with time zone)') is not null
     then 1 else 1/0 end;
   "
-
 done
 
 log "ASSERT [cc_a11_prior] replaying idempotent hardening migration remains executable"
 apply_file cc_a11_prior "$MIG/20261025020100_category7_resource_quota_usage_reconciliation_hardening.sql"
 
-log "A11.2 PASS: actual PostgreSQL execution succeeded for clean-chain and prior-supported upgrade paths."
+log "A11.2 PASS: actual PostgreSQL execution succeeded for the verified-predecessor chain and prior-supported upgrade paths."

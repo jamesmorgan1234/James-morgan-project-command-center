@@ -26,6 +26,7 @@ on:
       - 'supabase/migrations/20261025020000_category7_resource_quota_usage_governor.sql'
       - 'supabase/migrations/20261025020100_category7_resource_quota_usage_reconciliation_hardening.sql'
       - 'scripts/ci/post-audit-postgres-bootstrap.sql'
+      - 'scripts/ci/post-audit-pre-category3-contract.sql'
       - 'scripts/ci/run-post-audit-sql-proof.sh'
       - '.github/workflows/post-audit-sql-migration-proof.yml'
 
@@ -56,7 +57,7 @@ jobs:
           echo 'Disposable PostgreSQL did not become ready' >&2
           exit 1
 
-      - name: A11.2 execute clean-chain and prior-supported migration paths
+      - name: A11.2 execute verified-predecessor and prior-supported migration paths
         shell: bash
         env:
           PGHOST: 127.0.0.1
