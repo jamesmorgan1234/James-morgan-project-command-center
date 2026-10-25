@@ -1,6 +1,7 @@
 import type { RuntimeSnapshotProvider } from "./provider.js";
 import type { CommandCenterRuntimeSnapshot, RuntimeBrainConversation, RuntimeBrainConversationTurn, RuntimeBrainProjectWorkspace } from "./snapshot.js";
 import { isBrainConversationRuntimeProvider } from "./owner-security-provider.js";
+import { createDefaultBrowserVoiceRegistry, type BrowserVoiceCapture } from "./browser-voice.js";
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -122,6 +123,14 @@ function conversationPanel(conversation: RuntimeBrainConversation | undefined): 
   return panel;
 }
 
+function mergeVoiceTranscript(base: string, transcript: string): string {
+  const prefix = base.trim();
+  const voice = transcript.trim();
+  if (!prefix) return voice;
+  if (!voice) return prefix;
+  return `${prefix}${/[.!?]$/u.test(prefix) ? "" : "."} ${voice}`;
+}
+
 function composer(
   snapshot: CommandCenterRuntimeSnapshot,
   provider: RuntimeSnapshotProvider | undefined,
@@ -146,19 +155,92 @@ function composer(
   const submit = el("button", "cc-button brain-composer__submit", "Persist owner turn");
   submit.type = "submit";
   submit.disabled = !writable;
+  const voiceControls = el("div", "brain-voice-controls");
+  const voiceButton = el("button", "cc-button cc-button--secondary brain-voice-start", "Use microphone");
+  voiceButton.type = "button";
+  const cancelVoice = el("button", "cc-button cc-button--secondary brain-voice-cancel", "Cancel voice");
+  cancelVoice.type = "button";
+  cancelVoice.hidden = true;
+  const voiceStatus = el("span", "brain-voice-status muted", "Text input is always available.");
+  voiceControls.append(voiceButton, cancelVoice, voiceStatus);
   const message = el("p", "brain-composer__message muted", writable
     ? "This stores an owner conversation turn in the canonical Brain record. Protected-action language is recognized as a request only and cannot bypass Command Center authorization."
     : "Persistent Brain input is unavailable because the authenticated canonical Brain provider is not currently writable. Nothing will be stored locally as a substitute.");
-  form.append(input, submit);
+  form.append(input, voiceControls, submit);
   node.append(form, message);
+
+  let voiceCapture: BrowserVoiceCapture | undefined;
+  let preVoiceText = "";
+  let voiceFinalized = false;
+  const voiceRegistry = typeof window !== "undefined" && typeof navigator !== "undefined" ? createDefaultBrowserVoiceRegistry(window, navigator) : undefined;
+  const voiceAdapter = voiceRegistry?.firstAvailable();
+  voiceButton.disabled = !writable || !voiceAdapter;
+  if (!voiceAdapter) voiceStatus.textContent = "Speech provider unavailable. Text input remains available.";
+
+  const finishVoiceUi = (status: string, restore = false): void => {
+    if (restore) input.value = preVoiceText;
+    voiceCapture = undefined;
+    voiceButton.disabled = !writable || !voiceAdapter;
+    cancelVoice.hidden = true;
+    submit.disabled = !writable;
+    voiceStatus.textContent = status;
+    input.focus();
+  };
+
+  voiceButton.addEventListener("click", () => {
+    if (!writable || !voiceAdapter || voiceCapture) return;
+    void (async () => {
+      preVoiceText = input.value;
+      voiceFinalized = false;
+      voiceButton.disabled = true;
+      cancelVoice.hidden = false;
+      submit.disabled = true;
+      voiceStatus.textContent = "Requesting microphone permission…";
+      try {
+        voiceCapture = await voiceAdapter.start({
+          partial: (text) => {
+            if (voiceFinalized) return;
+            input.value = mergeVoiceTranscript(preVoiceText, text);
+            voiceStatus.textContent = "Listening… interim transcript is editable only after capture ends.";
+          },
+          final: (text) => {
+            voiceFinalized = true;
+            input.value = mergeVoiceTranscript(preVoiceText, text);
+            finishVoiceUi("Final transcript ready. Review or edit it before persisting; voice never auto-submits.");
+          },
+          error: () => {
+            finishVoiceUi("Speech provider failed. Original text was restored; text input remains available.", true);
+          },
+          ended: () => {
+            if (!voiceFinalized && voiceCapture) finishVoiceUi("Voice capture ended without a final transcript. Text input remains available.", true);
+          }
+        });
+        if (voiceCapture) voiceStatus.textContent = "Listening… use Cancel voice to discard this capture.";
+      } catch {
+        finishVoiceUi("Microphone permission or speech provider is unavailable. Text input remains available.", true);
+      }
+    })();
+  });
+
+  cancelVoice.addEventListener("click", () => {
+    if (!voiceCapture) return;
+    const active = voiceCapture;
+    voiceCapture = undefined;
+    active.cancel();
+    finishVoiceUi("Voice capture cancelled. Original text restored; nothing was submitted.", true);
+  });
+
   if (!writable || !provider || !isBrainConversationRuntimeProvider(provider)) return node;
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    if (voiceCapture) return;
     void (async () => {
       const value = input.value.trim();
       if (!value) return;
       input.disabled = true;
+      voiceButton.disabled = true;
+      cancelVoice.disabled = true;
       submit.disabled = true;
       submit.textContent = "Persisting…";
       message.textContent = "Persisting through the authenticated canonical Brain RPC…";
@@ -173,6 +255,8 @@ function composer(
         await rerender();
       } catch {
         input.disabled = false;
+        voiceButton.disabled = !voiceAdapter;
+        cancelVoice.disabled = false;
         submit.disabled = false;
         submit.textContent = "Persist owner turn";
         message.textContent = "Brain input could not be persisted. No protected action was executed and no local substitute record was created.";
