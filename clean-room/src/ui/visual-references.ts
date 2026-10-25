@@ -31,7 +31,7 @@ export const APPROVED_VISUAL_REFERENCES: Readonly<Record<ApprovedScreenKey, Appr
     screen: "next_up",
     approvedLegacyFilename: "3373(5).png",
     authority: "owner_approved",
-    controls: Object.freeze(["priority queue hierarchy", "dense beveled cards", "left icon frame", "status pill", "description", "right artwork and chevron"]),
+    controls: Object.freeze(["priority queue hierarchy", "dense beveled cards", "left icon frame", "status pill", "description", "right artwork", "whole-card navigation", "no decorative navigation chevrons"]),
     libraryStructuralMatch: Object.freeze({ fileId: "file_00000000110081f5b8492397e995297d", currentName: "image-gen-2(4).png", identityStatus: "structural_match_filename_unmapped" })
   }),
   project_detail_missing_hour: Object.freeze({
@@ -54,7 +54,9 @@ export const APPROVED_SHARED_VISUAL_LANGUAGE = Object.freeze([
   "approved screen hierarchy",
   "approved card treatment",
   "truthful progress treatment",
-  "machinery/icon language"
+  "machinery/icon language",
+  "whole-card navigation for navigational cards",
+  "no decorative arrows or chevrons on owner-facing cards"
 ] as const);
 
 export const UNSEEN_SCREEN_DERIVATION_RULE = Object.freeze({
@@ -67,6 +69,8 @@ export const UNSEEN_SCREEN_DERIVATION_RULE = Object.freeze({
     "same typography hierarchy, density, spacing rhythm, and semantic status treatment",
     "same phone-first interaction scale and compact control language",
     "new controls must look native to the approved screens rather than generic web UI",
+    "navigational cards use the full card as the interactive target rather than title-only links",
+    "owner-facing cards do not add decorative arrows or chevrons unless the owner explicitly reauthorizes them",
     "expanded capability may change information architecture but not the governing visual identity"
   ]),
   discoveryPolicy: "additional historically approved screenshots may strengthen exact screen authority when verified, but absence of another screenshot does not block deriving necessary screens from the locked visual system" as const,
@@ -80,5 +84,7 @@ export const REJECTED_VISUAL_PATTERNS = Object.freeze([
   "unverified revenue or performance figures",
   "visual structure invented as exact authority for an unseen screen",
   "new modules switching to a different design system",
-  "generic browser-default buttons that ignore the approved machinery language"
+  "generic browser-default buttons that ignore the approved machinery language",
+  "title-only navigation on cards that are themselves navigational",
+  "decorative arrows or chevrons on owner-facing cards"
 ] as const);
