@@ -22,7 +22,7 @@ create table if not exists public.command_center_agency_boundaries (
   automatic_work_launch boolean not null default false check (automatic_work_launch=false),
   created_at timestamptz not null,
   resolved_at timestamptz,
-  primary key(owner_id,boundary_id),
+  unique(owner_id,boundary_id),
   foreign key(owner_id,project_id,run_id) references public.command_center_agency_runs(owner_id,project_id,run_id) on delete cascade,
   foreign key(checkpoint_id) references public.command_center_project_checkpoints(checkpoint_id) on delete restrict,
   check (cardinality(evidence_refs)>0),
