@@ -176,6 +176,159 @@ export class RefreshLeaseManager {
   }
 }
 
+export interface RefreshCheckpoint {
+  readonly sourceId: string;
+  readonly generation: number;
+  readonly checkpointRef: string;
+  readonly classification: RefreshClassification;
+  readonly successful: boolean;
+  readonly checkedAt: string;
+}
+
+export type DerivedInvalidationState = "deleted" | "restricted";
+
+export interface DerivedInvalidationExpectation {
+  readonly derivedId: string;
+  readonly observationId: string;
+  readonly resultingState: DerivedInvalidationState;
+}
+
+export interface DerivedProjectionAcknowledgement extends DerivedInvalidationExpectation {
+  readonly sourceId: string;
+  readonly generation: number;
+  readonly acknowledgedAt: string;
+  readonly evidenceRefs: readonly string[];
+}
+
+export type RefreshRecoveryAction = "restart_source" | "awaiting_derived_acknowledgements" | "complete" | "resume_from_checkpoint";
+
+export interface RefreshRecoveryDecision {
+  readonly sourceId: string;
+  readonly requestedGeneration: number;
+  readonly checkpointGeneration?: number;
+  readonly checkpointRef?: string;
+  readonly action: RefreshRecoveryAction;
+  readonly reason: string;
+  readonly pendingDerivedIds: readonly string[];
+}
+
+function assertPositiveGeneration(generation: number, label: string): void {
+  if (!Number.isSafeInteger(generation) || generation < 1) throw new Error(`${label} must be a positive safe integer`);
+}
+
+function assertEvidenceRefs(evidenceRefs: readonly string[]): readonly string[] {
+  const normalized = evidenceRefs.map((ref) => ref.trim());
+  if (normalized.length === 0 || normalized.some((ref) => ref.length === 0) || new Set(normalized).size !== normalized.length) {
+    throw new Error("Derived projection acknowledgement evidence must be non-empty and unique");
+  }
+  return Object.freeze(normalized);
+}
+
+/**
+ * In-memory contract for the durable A07.6 refresh seam. A committed source checkpoint is
+ * not enough to call a changed source recovered: every expected dependent derived projection
+ * must acknowledge the resulting deleted/restricted state with evidence. A newer worker
+ * generation may resume from a successful older checkpoint only after those acknowledgements
+ * have closed, so worker replacement cannot silently bypass derivative invalidation.
+ */
+export class RefreshRecoveryCoordinator {
+  readonly #checkpoints = new Map<string, RefreshCheckpoint>();
+  readonly #expectations = new Map<string, ReadonlyMap<string, DerivedInvalidationExpectation>>();
+  readonly #acknowledgements = new Map<string, ReadonlyMap<string, DerivedProjectionAcknowledgement>>();
+
+  #key(sourceId: string, generation: number): string {
+    return `${sourceId}#${generation}`;
+  }
+
+  recordCheckpoint(checkpoint: RefreshCheckpoint): RefreshCheckpoint {
+    if (!checkpoint.sourceId.startsWith("source:")) throw new Error("Refresh checkpoint sourceId is invalid");
+    assertPositiveGeneration(checkpoint.generation, "Refresh checkpoint generation");
+    if (!checkpoint.checkpointRef.trim()) throw new Error("Refresh checkpoint reference is required");
+    parseTimestamp(checkpoint.checkedAt, "checkpoint.checkedAt");
+    const normalized = Object.freeze({ ...checkpoint, checkpointRef: checkpoint.checkpointRef.trim() });
+    const prior = this.#checkpoints.get(checkpoint.sourceId);
+    if (prior) {
+      if (checkpoint.generation < prior.generation) throw new Error("Stale refresh checkpoint generation rejected");
+      if (checkpoint.generation === prior.generation) {
+        if (JSON.stringify(prior) === JSON.stringify(normalized)) return prior;
+        throw new Error("Refresh generation already committed with different checkpoint");
+      }
+    }
+    this.#checkpoints.set(checkpoint.sourceId, normalized);
+    return normalized;
+  }
+
+  expectDerivedInvalidations(sourceId: string, generation: number, expectations: readonly DerivedInvalidationExpectation[]): readonly DerivedInvalidationExpectation[] {
+    const checkpoint = this.#checkpoints.get(sourceId);
+    if (!checkpoint || checkpoint.generation !== generation || !checkpoint.successful) throw new Error("Derived invalidation expectations require the successful committed checkpoint generation");
+    if (checkpoint.classification === "unchanged" && expectations.length > 0) throw new Error("Unchanged refresh checkpoint cannot require derived invalidation acknowledgements");
+    const byDerived = new Map<string, DerivedInvalidationExpectation>();
+    for (const expectation of expectations) {
+      if (!expectation.derivedId.startsWith("derived:") || !expectation.observationId.startsWith("observation:")) throw new Error("Derived invalidation expectation identity is invalid");
+      if (byDerived.has(expectation.derivedId)) throw new Error(`Duplicate derived invalidation expectation: ${expectation.derivedId}`);
+      byDerived.set(expectation.derivedId, Object.freeze({ ...expectation }));
+    }
+    const key = this.#key(sourceId, generation);
+    const prior = this.#expectations.get(key);
+    const normalized = Object.freeze([...byDerived.values()].sort((a, b) => a.derivedId.localeCompare(b.derivedId)));
+    if (prior) {
+      const priorValues = [...prior.values()].sort((a, b) => a.derivedId.localeCompare(b.derivedId));
+      if (JSON.stringify(priorValues) === JSON.stringify(normalized)) return normalized;
+      throw new Error("Derived invalidation expectations already registered differently for checkpoint generation");
+    }
+    this.#expectations.set(key, new Map(normalized.map((item) => [item.derivedId, item])));
+    return normalized;
+  }
+
+  acknowledge(acknowledgement: DerivedProjectionAcknowledgement): DerivedProjectionAcknowledgement {
+    if (!acknowledgement.sourceId.startsWith("source:")) throw new Error("Derived projection acknowledgement sourceId is invalid");
+    assertPositiveGeneration(acknowledgement.generation, "Derived projection acknowledgement generation");
+    const checkpoint = this.#checkpoints.get(acknowledgement.sourceId);
+    if (!checkpoint || checkpoint.generation !== acknowledgement.generation || !checkpoint.successful) throw new Error("Acknowledgement must bind the successful committed checkpoint generation");
+    const key = this.#key(acknowledgement.sourceId, acknowledgement.generation);
+    const expectation = this.#expectations.get(key)?.get(acknowledgement.derivedId);
+    if (!expectation) throw new Error("Unexpected derived projection acknowledgement");
+    if (expectation.observationId !== acknowledgement.observationId || expectation.resultingState !== acknowledgement.resultingState) {
+      throw new Error("Derived projection acknowledgement does not match expected invalidation");
+    }
+    const acknowledgedAt = parseTimestamp(acknowledgement.acknowledgedAt, "acknowledgement.acknowledgedAt");
+    if (acknowledgedAt < parseTimestamp(checkpoint.checkedAt, "checkpoint.checkedAt")) throw new Error("Derived projection acknowledgement predates checkpoint");
+    const evidenceRefs = assertEvidenceRefs(acknowledgement.evidenceRefs);
+    const normalized = Object.freeze({ ...acknowledgement, evidenceRefs });
+    const current = new Map(this.#acknowledgements.get(key) ?? []);
+    const prior = current.get(acknowledgement.derivedId);
+    if (prior) {
+      if (JSON.stringify(prior) === JSON.stringify(normalized)) return prior;
+      throw new Error("Conflicting derived projection acknowledgement");
+    }
+    current.set(acknowledgement.derivedId, normalized);
+    this.#acknowledgements.set(key, current);
+    return normalized;
+  }
+
+  evaluate(sourceId: string, requestedGeneration: number): RefreshRecoveryDecision {
+    if (!sourceId.startsWith("source:")) throw new Error("Refresh recovery sourceId is invalid");
+    assertPositiveGeneration(requestedGeneration, "Refresh recovery requestedGeneration");
+    const checkpoint = this.#checkpoints.get(sourceId);
+    if (!checkpoint) return Object.freeze({ sourceId, requestedGeneration, action: "restart_source", reason: "checkpoint_missing", pendingDerivedIds: Object.freeze([]) });
+    if (checkpoint.generation > requestedGeneration) throw new Error("Refresh recovery requested generation is stale");
+    if (!checkpoint.successful) return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "restart_source", reason: "checkpoint_unsuccessful", pendingDerivedIds: Object.freeze([]) });
+
+    const key = this.#key(sourceId, checkpoint.generation);
+    const expectations = this.#expectations.get(key) ?? new Map<string, DerivedInvalidationExpectation>();
+    const acknowledgements = this.#acknowledgements.get(key) ?? new Map<string, DerivedProjectionAcknowledgement>();
+    const pendingDerivedIds = Object.freeze([...expectations.keys()].filter((derivedId) => !acknowledgements.has(derivedId)).sort());
+    if (pendingDerivedIds.length > 0) {
+      return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "awaiting_derived_acknowledgements", reason: "dependent_derived_invalidation_unacknowledged", pendingDerivedIds });
+    }
+
+    if (requestedGeneration === checkpoint.generation) {
+      return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "complete", reason: "checkpoint_and_derived_acknowledgements_complete", pendingDerivedIds });
+    }
+    return Object.freeze({ sourceId, requestedGeneration, checkpointGeneration: checkpoint.generation, checkpointRef: checkpoint.checkpointRef, action: "resume_from_checkpoint", reason: "prior_checkpoint_closed_and_resumable", pendingDerivedIds });
+  }
+}
+
 export type InventoryItemState = "readable" | "unreadable" | "tombstone";
 
 export interface InventoryItem {
