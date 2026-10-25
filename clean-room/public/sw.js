@@ -2,7 +2,7 @@ const RELEASE_ID = "__COMMAND_CENTER_RELEASE_ID__";
 const CACHE_PREFIX = "command-center-shell:";
 const CURRENT_CACHE = `${CACHE_PREFIX}${RELEASE_ID}`;
 const META_PATH = "/__cc-release-meta__";
-const CORE = ["/", "/index.html", "/app.css", "/primitive-system.css", "/project-system.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser-startup-runtime.js", "/app/runtime/browser-startup.js", "/app/runtime/browser-navigation-runtime.js", "/app/runtime/browser-navigation.js", "/app/runtime/browser.js"];
+const CORE = ["/", "/index.html", "/app.css", "/primitive-system.css", "/project-system.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser-startup-runtime.js", "/app/runtime/browser-startup.js", "/app/runtime/browser-navigation-runtime.js", "/app/runtime/browser-navigation.js", "/app/runtime/browser.js", "/app/runtime/brain-view.js", "/app/runtime/browser-voice.js"];
 const SHELL_PATHS = new Set(CORE);
 
 self.addEventListener("install", (event) => {
