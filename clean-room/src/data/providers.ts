@@ -1,3 +1,6 @@
+import { parseTimestamp } from "../security/types.js";
+import type { CapabilityTruth, EnumerationCapability } from "./refresh.js";
+
 export type ProviderCost = "free" | "paid" | "unknown";
 export type ProviderHealth = "available" | "degraded" | "unavailable" | "unconfigured";
 export type ProviderFailureMode = "fail_closed" | "read_only" | "degraded";
@@ -59,4 +62,51 @@ export class ProviderRegistry {
     if (!provider) throw new Error(`Unknown provider: ${key}`);
     return provider;
   }
+}
+
+export interface ProviderCapabilitySnapshot {
+  readonly id: string;
+  readonly providerKey: string;
+  readonly observedAt: string;
+  readonly apiVersion?: string;
+  readonly modelVersion?: string;
+  readonly schemaFingerprint: string;
+  readonly capabilityFingerprint: string;
+  readonly capabilities: readonly string[];
+  readonly enumeration: EnumerationCapability;
+  readonly callbacks: CapabilityTruth;
+  readonly pricing: ProviderCost;
+  readonly verification: "tool_result" | "live_verified";
+}
+
+export type ProviderDrift = "none" | "compatible" | "breaking" | "pricing_unknown";
+
+export function classifyProviderDrift(previous: ProviderCapabilitySnapshot | undefined, next: ProviderCapabilitySnapshot): ProviderDrift {
+  if (!next.id.startsWith("provider-snapshot:") || !next.providerKey.startsWith("provider:") || !next.schemaFingerprint.trim() || !next.capabilityFingerprint.trim()) throw new Error("Provider capability snapshot identity/fingerprints are required");
+  parseTimestamp(next.observedAt, "providerSnapshot.observedAt");
+  if (new Set(next.capabilities).size !== next.capabilities.length) throw new Error("Provider snapshot capabilities must be unique");
+  if (next.pricing === "unknown") return "pricing_unknown";
+  if (!previous) return "compatible";
+  if (previous.providerKey !== next.providerKey) throw new Error("Cannot compare drift across different providers");
+  const removedCapability = previous.capabilities.some((capability) => !next.capabilities.includes(capability));
+  const enumerationRegression = (Object.keys(next.enumeration) as (keyof EnumerationCapability)[]).some((key) => previous.enumeration[key] === "verified_supported" && next.enumeration[key] !== "verified_supported");
+  if (removedCapability || enumerationRegression) return "breaking";
+  if (previous.schemaFingerprint !== next.schemaFingerprint || previous.capabilityFingerprint !== next.capabilityFingerprint || previous.apiVersion !== next.apiVersion || previous.modelVersion !== next.modelVersion || previous.pricing !== next.pricing) return "compatible";
+  return "none";
+}
+
+export class ProviderCapabilityLedger {
+  readonly #snapshots = new Map<string, ProviderCapabilitySnapshot[]>();
+
+  record(snapshot: ProviderCapabilitySnapshot): Readonly<{ snapshot: ProviderCapabilitySnapshot; drift: ProviderDrift }> {
+    const history = this.#snapshots.get(snapshot.providerKey) ?? [];
+    const previous = history.at(-1);
+    const drift = classifyProviderDrift(previous, snapshot);
+    const frozen = Object.freeze({ ...snapshot, capabilities: Object.freeze([...snapshot.capabilities]), enumeration: Object.freeze({ ...snapshot.enumeration }) });
+    this.#snapshots.set(snapshot.providerKey, [...history, frozen]);
+    return Object.freeze({ snapshot: frozen, drift });
+  }
+
+  latest(providerKey: string): ProviderCapabilitySnapshot | undefined { return this.#snapshots.get(providerKey)?.at(-1); }
+  history(providerKey: string): readonly ProviderCapabilitySnapshot[] { return Object.freeze([...(this.#snapshots.get(providerKey) ?? [])]); }
 }
