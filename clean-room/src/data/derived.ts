@@ -31,7 +31,6 @@ export class DerivedLifecycleRegistry {
     const updated = parseTimestamp(record.updatedAt, "derived.updatedAt");
     if (updated < created) throw new Error("Derived updatedAt cannot predate createdAt");
     if (record.state === "deleted" && record.legalHold) throw new Error("Held derived record cannot start deleted");
-    if (record.legalHold && !record.holdReason?.trim()) throw new Error("Held derived record requires holdReason");
     if (!record.legalHold && record.holdReason !== undefined) throw new Error("holdReason requires an active legal hold");
     if (record.holdReleasedAt !== undefined || record.holdReleaseAuthorizationRef !== undefined || record.holdReleaseReason !== undefined) throw new Error("New derived records cannot start with hold-release evidence");
     if (this.#records.has(record.id)) throw new Error(`Derived record already exists: ${record.id}`);
