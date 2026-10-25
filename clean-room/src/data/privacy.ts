@@ -70,9 +70,14 @@ export class DerivedPayloadRegistry {
     const recordKey = key(record.ownerId, record.derivedId);
     if (this.#records.has(recordKey)) throw new Error(`Derived payload already exists: ${record.derivedId}`);
     const frozen: DerivedPayloadRecord = Object.freeze({
-      ...record,
-      payloadRef: record.payloadRef?.trim(),
-      contentHash: record.contentHash?.toLowerCase()
+      ownerId: record.ownerId,
+      derivedId: record.derivedId,
+      state: record.state,
+      payloadRef: record.payloadRef!.trim(),
+      contentHash: record.contentHash!.toLowerCase(),
+      keyVersion: record.keyVersion!,
+      createdAt: record.createdAt,
+      updatedAt: record.updatedAt
     });
     this.#appendAudit(record.ownerId, record.derivedId, "registered", audit);
     this.#records.set(recordKey, frozen);
