@@ -23,8 +23,8 @@ Final owner/Samsung app acceptance remains **DEFERRED** until all applicable ups
 | C2 Identity + Security | **PARTIAL — BRANCH IMPLEMENTATION COMPLETE / PRODUCTION + DEVICE ACCEPTANCE PENDING** | Reconciled `CATEGORY_2_SECURITY_FOUNDATION.md` records P2.1–P2.8 implemented branch-side and P2.9 branch QA verified. Remaining protected boundaries include production migration/deploy verification, physical-device/passkey acceptance and production adversarial/provider evidence. |
 | C3 Canonical Data / Knowledge / Command Graph / Providers | **BRANCH VERIFIED — P3.1–P3.12 IMPLEMENTED / EXTERNAL + PRODUCTION ACCEPTANCE PENDING** | `CATEGORY_3_BRANCH_CLOSURE_2026-10-25.md` records exact branch proof at implementation head `ebb4fc21e0332848d77b0c9926a7e4eefcf05f77`, run `40177280650`, **507/507** module tests, successful typecheck/core QA/release audit/PWA lifecycle, plus durable post-audit hardening for refresh recovery/acknowledgements, derivative lineage/propagation, audit-payload separation and restore-time current-state revalidation. This does not claim A07.1 live all-chat provider capability, production Supabase migration, real historical-export completeness, live protocol/provider execution, cross-device transport, production scale/recovery or device acceptance. |
 | C4 App Shell / Visual / PWA / Device | **BRANCH VERIFIED — P4.1–P4.8 IMPLEMENTED / PRODUCTION + PHYSICAL-DEVICE ACCEPTANCE PENDING** | `CATEGORY_4_BRANCH_CLOSURE_2026-10-25.md` records exact branch proof at implementation head `9949cf7ac1fdaf29691cdb91ac2658beafd1fd60`, run `40186073201`, **543/543** module tests, successful typecheck, **1,139/1,139** semantic every-file audit with zero violations/secret findings, successful release-artifact audit, protected icon verification, and observed PWA lifecycle. It also records the corrected whole-card/no-chevron owner interaction rule, deterministic navigation/scroll ownership, privacy-safe startup, shared primitives, responsive/accessibility gates, extensible Home registry and visual regression fingerprints. Production deployment, live production provider/Auth acceptance and final physical Samsung acceptance remain protected later gates. |
-| C5 Projects / Portfolio / Roadmap / Foundry | **REOPENED — CURRENT BRANCH AUDIT** | Older evidence classified this as foundation-only. The current branch now contains substantially broader P5.1–P5.14 persistence/runtime/UI tests, so Category 5 must be re-audited phase-by-phase against the current locked roadmap before any closure claim. Remaining claimed gaps from the older checkpoint—real DB/RLS/live sync, complete registry/scale, Foundry↔Brain↔Agency integration, historical discovery and finished owner-facing interactions—must be reclassified using current implementation evidence rather than assumed stale. |
-| C6 Brain / AI Intelligence Ecosystem | **REOPENED — FOUNDATION ONLY** | Evidence leaves live provider/model adapters, canonical memory persistence/RLS, real conversational/project-room UI, voice behavior, broader adversarial evaluation, and Agency integration pending. Current browser surface is only a generic summary renderer. |
+| C5 Projects / Portfolio / Roadmap / Foundry | **BRANCH VERIFIED — P5.1–P5.14 IMPLEMENTED / PRODUCTION + LIVE-PROVIDER + PHYSICAL-DEVICE ACCEPTANCE PENDING** | `CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md` records exact-head proof at implementation/evidence head `a83e227c565874e94650119069127d08ddcf6d45`, run `40204117222`, **558/558** module tests, successful typecheck, **1,142/1,142** semantic every-file audit with zero violations/secret findings, release-artifact audit, and observed PWA lifecycle. The re-audit closed runtime/persistence parity gaps, generic mutation bypasses, project-type orphaning, evidence/readiness semantics, project-room extensibility, book-only leakage, recovery governance, and 2,048-project scale proof. Production DB/provider/device acceptance is not claimed. |
+| C6 Brain / AI Intelligence Ecosystem | **REOPENED — CURRENT BRANCH AUDIT** | Earlier evidence labeled this foundation-only, but the current branch contains substantial P6 durable/runtime/adversarial coverage. Re-audit every locked P6 phase against actual persistence, provider routing, memory, context, planning, specialist, conversation, workspace, referent, steering, precedent, voice, improvement, outage and adversarial behavior before classifying any remaining branch gaps. |
 | C7 Agency / Multi-Agent Execution | **REOPENED — FOUNDATION ONLY** | Evidence leaves transactional DB scheduler/leases/RLS, real continuous executor, Work rung integration, Boundary Office/Needs Me integration, real resource locks, independent live verification, canary/shadow path, and failover/load/soak pending. Current browser surface is only a generic summary renderer. |
 | C8 Personal Ops / Search / Needs Me / Notifications / Automation | **REOPENED — FOUNDATION ONLY** | Evidence leaves live provider adapters, durable recurrence/restart behavior, integrated Needs Me/notification UI, production federated search/RLS, real scheduled/event runners, and backup/restore drills pending. Current Search/Needs Me/Automations surfaces are not finished product workflows. |
 | C9 Finance / Banking / Credit / Obligations | **REOPENED — FOUNDATION ONLY** | Evidence leaves live provider adapters, production RLS/audit/secret isolation, real dashboard/UI, outage/relink/restore drills, and broader anomaly/rollback testing pending. |
@@ -77,6 +77,27 @@ The overall workflow failure on that exact head was the intentionally deferred C
 
 The unresolved Category 4 boundaries are production/live-provider/physical-device acceptance layers. They do not justify reopening P4.1–P4.8 absent regression evidence.
 
+## Category 5 advancement record
+
+Category 5 is no longer classified as foundation-only or a current branch audit.
+
+Exact branch evidence:
+
+- implementation/evidence head: `a83e227c565874e94650119069127d08ddcf6d45`;
+- exact-head QA run: `40204117222`;
+- **558/558** module tests passed;
+- typecheck passed;
+- semantic repository audit reviewed **1,142/1,142** tracked files with zero secret findings and zero violations;
+- release-artifact audit passed with protected icon verified, zero structural errors and zero readiness blockers;
+- observed PWA lifecycle passed install, offline replay, waiting-worker activation and two-cache rollback retention;
+- closure evidence: `CATEGORY_5_BRANCH_CLOSURE_2026-10-25.md`.
+
+The re-audit verified P5.1–P5.14 branch implementation and corrected real parity/governance defects rather than simply promoting old foundation evidence. The generic project-room shell now owns universal project regions while type-specific sections remain registry-driven; the approved Books detail authority remains preserved without leaking book-only assumptions into every project.
+
+The exact-head workflow's remaining Category 15 failure is intentionally deferred and includes missing original historical ledger evidence, shallow-checkout historical-diff visibility, production evidence and final owner/device acceptance. It is not a Category 5 regression.
+
+The unresolved Category 5 boundaries are production database/provider/device acceptance layers. They do not justify reopening P5.1–P5.14 absent regression evidence.
+
 ## Preserved owner acceptance findings from the current live shell
 
 These are requirements to carry forward, not reasons to resume final phone QA now:
@@ -98,7 +119,8 @@ These are requirements to carry forward, not reasons to resume final phone QA no
 - Preserve C2 branch security implementation while its protected production/provider/device acceptance remains gated.
 - Preserve C3 P3.1–P3.12 branch implementation; do not reopen it absent regression evidence.
 - Preserve C4 P4.1–P4.8 branch implementation; do not reopen it absent regression evidence.
-- Repair/complete C5–C14 branch work in dependency order.
+- Preserve C5 P5.1–P5.14 branch implementation; do not reopen it absent regression evidence.
+- Repair/complete C6–C14 branch work in dependency order.
 - A foundation/unit test file is **not** category completion evidence.
 - Each reopened category requires the applicable persistence/provider/UI/security/recovery/scale branch gates and an explicit evidence artifact.
 - Branch proof must remain distinct from production/provider/device proof.
@@ -107,13 +129,12 @@ These are requirements to carry forward, not reasons to resume final phone QA no
 
 ## Immediate execution order
 
-1. **Current:** audit and close Category 5 integrated Projects/Portfolio/Roadmap/Foundry phases against the current locked roadmap and actual branch implementation.
-2. C6 Brain real conversation/memory/provider experience.
-3. C7 Agency real executor/control-plane/workflow experience.
-4. C8 Personal Ops/Search/Needs Me/Automations real durable runners and UI.
-5. C9 Finance real connected/read-only owner experience and protected money-action boundaries as applicable.
-6. C10 Social, C11 Books, C12 Specialists, C13 Analytics.
-7. C14 recovery/migration/scale/dormant-future acceptance.
-8. Re-enter C15 only after upstream completion evidence is green and protected acceptance boundaries are actually available.
+1. **Current:** audit and close Category 6 Brain / AI Intelligence Ecosystem phases against the current locked roadmap and actual branch implementation.
+2. C7 Agency real executor/control-plane/workflow experience.
+3. C8 Personal Ops/Search/Needs Me/Automations real durable runners and UI.
+4. C9 Finance real connected/read-only owner experience and protected money-action boundaries as applicable.
+5. C10 Social, C11 Books, C12 Specialists, C13 Analytics.
+6. C14 recovery/migration/scale/dormant-future acceptance.
+7. Re-enter C15 only after upstream completion evidence is green and protected acceptance boundaries are actually available.
 
-This checkpoint does not erase earlier test/release evidence. It corrects what that evidence is allowed to prove, preserves Category 3 and Category 4 branch closure, and moves the active branch audit to Category 5.
+This checkpoint does not erase earlier test/release evidence. It corrects what that evidence is allowed to prove, preserves Category 3, Category 4 and Category 5 branch closure, and moves the active branch audit to Category 6.
