@@ -8,6 +8,7 @@ import type {
   CommandCenterRuntimeSnapshot,
   RuntimeBrainConversation,
   RuntimeBrainConversationTurn,
+  RuntimeBrainImprovementProposal,
   RuntimeBrainProjectWorkspace,
   RuntimeBrainSnapshot,
   RuntimeEvidenceRef,
@@ -62,6 +63,9 @@ interface FreshAuthorization {
   readonly session: StoredOwnerSession;
   readonly authorizationId: string;
 }
+
+const IMPROVEMENT_AREAS = new Set(["roadmap_gap", "manual_work", "fragility", "provider", "cost", "security", "historical_lesson", "quality"]);
+const IMPROVEMENT_STATES = new Set(["proposed", "accepted", "rejected", "converted_to_scope"]);
 
 function isRecord(value: unknown): value is JsonRecord { return typeof value === "object" && value !== null && !Array.isArray(value); }
 function stringValue(value: unknown): string | undefined { return typeof value === "string" && value.trim() ? value.trim() : undefined; }
@@ -177,6 +181,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
           availability: "unavailable" as const,
           conversations: Object.freeze([]),
           workspaces: Object.freeze([]),
+          improvements: Object.freeze([]),
           evidence: Object.freeze([])
         }));
       }
@@ -290,10 +295,11 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
 
   async #loadBrainSnapshot(): Promise<RuntimeBrainSnapshot> {
     const session = this.#currentSession();
-    const [conversationRows, turnRows, workspaceRows] = await Promise.all([
+    const [conversationRows, turnRows, workspaceRows, improvementRows] = await Promise.all([
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
       this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
-      this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" })
+      this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
+      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" })
     ]);
 
     const turnsByConversation = new Map<string, RuntimeBrainConversationTurn[]>();
@@ -390,13 +396,47 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       });
     });
 
+    const improvements: RuntimeBrainImprovementProposal[] = improvementRows.map((row) => {
+      const id = stringValue(row.improvement_id);
+      const projectId = stringValue(row.project_id);
+      const area = stringValue(row.area);
+      const title = stringValue(row.title);
+      const detailRef = stringValue(row.detail_ref);
+      const confidence = numberValue(row.confidence);
+      const evidenceRefs = stringArray(row.evidence_refs);
+      const state = stringValue(row.state);
+      const createdAt = stringValue(row.created_at);
+      const decidedAt = stringValue(row.decided_at);
+      if (!id || !area || !IMPROVEMENT_AREAS.has(area) || !title || !detailRef || confidence === undefined || confidence < 0 || confidence > 1 || evidenceRefs.length === 0 || new Set(evidenceRefs).size !== evidenceRefs.length || !state || !IMPROVEMENT_STATES.has(state) || !createdAt) {
+        throw new Error("Brain improvement proposal is malformed");
+      }
+      if (row.installs_automatically !== false) throw new Error("Brain improvement proposal cannot install automatically");
+      if ((state === "proposed" && decidedAt) || (state !== "proposed" && !decidedAt)) throw new Error("Brain improvement decision state is inconsistent");
+      return Object.freeze({
+        id,
+        ...(projectId ? { projectId } : {}),
+        area: area as RuntimeBrainImprovementProposal["area"],
+        title,
+        detailRef,
+        confidence,
+        evidenceRefs,
+        state: state as RuntimeBrainImprovementProposal["state"],
+        installsAutomatically: false as const,
+        createdAt,
+        ...(decidedAt ? { decidedAt } : {}),
+        evidence: Object.freeze(evidenceRefs.map((reference) => Object.freeze({ source: "supabase:command_center_brain_improvement_proposals", observedAt: decidedAt ?? createdAt, reference })))
+      });
+    });
+
     return Object.freeze({
       availability: "available" as const,
       conversations: Object.freeze(conversations),
       workspaces: Object.freeze(workspaces),
+      improvements: Object.freeze(improvements),
       evidence: Object.freeze([
         ...runtimeEvidence("supabase:command_center_brain_conversations"),
-        ...runtimeEvidence("supabase:command_center_brain_project_workspaces")
+        ...runtimeEvidence("supabase:command_center_brain_project_workspaces"),
+        ...runtimeEvidence("supabase:command_center_brain_improvement_proposals")
       ])
     });
   }
@@ -407,7 +447,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
           key: "brain",
           label: "Brain",
           availability: "available" as const,
-          summary: known(`${brain.conversations.length} persistent Brain conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} project workspace${brain.workspaces.length === 1 ? "" : "s"}.`),
+          summary: known(`${brain.conversations.length} persistent Brain conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} project workspace${brain.workspaces.length === 1 ? "" : "s"} · ${brain.improvements.length} evidence-backed improvement proposal${brain.improvements.length === 1 ? "" : "s"}.`),
           evidence: brain.evidence
         })
       : Object.freeze({ key: "brain", label: "Brain", availability: brain.availability, summary: unknown<string>(), evidence: brain.evidence });
