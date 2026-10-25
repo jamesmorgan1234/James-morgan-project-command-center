@@ -5,6 +5,7 @@ export * from "./graph.js";
 export * from "./sources.js";
 export * from "./provenance.js";
 export * from "./derived.js";
+export * from "./privacy.js";
 export * from "./refresh.js";
 export * from "./providers.js";
 export * from "./sync.js";
