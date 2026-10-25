@@ -17,8 +17,14 @@
   <link rel="stylesheet" href="/owner-auth.css">
 </head>
 <body>
-  <div id="app" aria-live="polite"></div>
+  <div id="app" aria-live="polite">
+    <section class="boot-state bevel-card" data-command-center-bootstrap data-state="loading" aria-busy="true">
+      <span class="brand-kicker">COMMAND CENTER</span>
+      <p class="boot-state__message" role="status">Starting Command Center…</p>
+    </section>
+  </div>
   <noscript>Command Center requires JavaScript to run.</noscript>
+  <script type="module" src="/app/runtime/browser-startup-runtime.js"></script>
   <script type="module" src="/app/runtime/browser-navigation-runtime.js"></script>
   <script type="module" src="/app/runtime/browser.js"></script>
 </body>
