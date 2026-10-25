@@ -109,6 +109,7 @@ export interface RuntimeBrainImprovementProposal {
   readonly area: "roadmap_gap" | "manual_work" | "fragility" | "provider" | "cost" | "security" | "historical_lesson" | "quality";
   readonly title: string;
   readonly detailRef: string;
+  readonly detailHash: string;
   readonly confidence: number;
   readonly evidenceRefs: readonly string[];
   readonly state: "proposed" | "accepted" | "rejected" | "converted_to_scope";
