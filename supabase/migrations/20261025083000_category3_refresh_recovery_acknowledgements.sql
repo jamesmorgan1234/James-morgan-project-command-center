@@ -23,8 +23,7 @@ create table if not exists public.command_center_source_refresh_checkpoint_histo
     on delete cascade,
   check (length(btrim(checkpoint_ref)) between 1 and 1000),
   check (content_hash is null or content_hash ~ '^[a-f0-9]{64}$'),
-  check (provider_revision_id is null or length(btrim(provider_revision_id)) between 1 and 1000),
-  check (committed_at >= checked_at)
+  check (provider_revision_id is null or length(btrim(provider_revision_id)) between 1 and 1000)
 );
 
 create index if not exists command_center_source_refresh_checkpoint_history_latest_idx
@@ -119,15 +118,13 @@ create table if not exists public.command_center_source_refresh_derived_expectat
   foreign key(owner_id,source_id,generation)
     references public.command_center_source_refresh_derived_expectation_sets(owner_id,source_id,generation)
     on delete cascade,
-  foreign key(owner_id,derived_id)
-    references public.command_center_derived_records(owner_id,derived_id)
-    on delete cascade,
   foreign key(owner_id,observation_id)
     references public.command_center_source_observations(owner_id,observation_id)
-    on delete restrict
+    on delete restrict,
+  check (derived_id ~ '^derived:[A-Za-z0-9._:-]{1,240}$')
 );
 
-create index if not exists command_center_source_refresh_derived_expectation_observation_idx
+create index if not exists cc_source_refresh_derived_expectation_obs_idx
   on public.command_center_source_refresh_derived_expectations(owner_id,observation_id,derived_id);
 
 create table if not exists public.command_center_source_refresh_derived_acknowledgements (
@@ -145,8 +142,7 @@ create table if not exists public.command_center_source_refresh_derived_acknowle
     references public.command_center_source_refresh_derived_expectations(
       owner_id,source_id,generation,derived_id,observation_id,resulting_state
     ) on delete cascade,
-  check (cardinality(evidence_refs) > 0),
-  check (recorded_at >= acknowledged_at)
+  check (cardinality(evidence_refs) > 0)
 );
 
 create index if not exists command_center_source_refresh_derived_ack_history_idx
@@ -216,10 +212,14 @@ begin
   if p_generation is null or p_generation<1 then
     raise exception 'Refresh generation must be positive';
   end if;
+  if p_captured_at is null then
+    raise exception 'Derived expectation capture time is required';
+  end if;
 
   select * into h
   from public.command_center_source_refresh_checkpoint_history
-  where owner_id=u and source_id=btrim(p_source_id) and generation=p_generation;
+  where owner_id=u and source_id=btrim(p_source_id) and generation=p_generation
+  for update;
   if not found then
     raise exception 'Committed refresh checkpoint generation not found';
   end if;
@@ -334,6 +334,9 @@ declare
 begin
   if u is null or not public.is_command_center_authorized() then
     raise exception 'Unauthorized';
+  end if;
+  if p_acknowledged_at is null then
+    raise exception 'Derived projection acknowledgement time is required';
   end if;
   perform command_center_private.c3_assert_unique_text_array(p_evidence_refs,'Derived projection acknowledgement evidence');
   if cardinality(coalesce(p_evidence_refs,'{}'::text[]))=0 then
