@@ -63,6 +63,53 @@ export interface RuntimeProjectSnapshot {
   readonly specialistKey?: string;
 }
 
+export interface RuntimeBrainConversationTurn {
+  readonly id: string;
+  readonly conversationId: string;
+  readonly projectId?: string;
+  readonly role: "owner" | "brain" | "system";
+  readonly intent?: string;
+  readonly protectedActionPossible: boolean;
+  readonly redactionState: "safe_text" | "redacted" | "reference_only";
+  readonly content: TruthValue<string>;
+  readonly contentRef: string;
+  readonly createdAt: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeBrainConversation {
+  readonly id: string;
+  readonly projectId?: string;
+  readonly title: string;
+  readonly state: "active" | "closed";
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  readonly turns: readonly RuntimeBrainConversationTurn[];
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeBrainProjectWorkspace {
+  readonly projectId: string;
+  readonly version: number;
+  readonly specVersion: number;
+  readonly conversationId: TruthValue<string>;
+  readonly turnIds: readonly string[];
+  readonly decisionRefs: readonly string[];
+  readonly executionRunId: TruthValue<string>;
+  readonly blockerRefs: readonly string[];
+  readonly evidenceRefs: readonly string[];
+  readonly verifiedResultRefs: readonly string[];
+  readonly updatedAt: string;
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
+export interface RuntimeBrainSnapshot {
+  readonly availability: SurfaceAvailability;
+  readonly conversations: readonly RuntimeBrainConversation[];
+  readonly workspaces: readonly RuntimeBrainProjectWorkspace[];
+  readonly evidence: readonly RuntimeEvidenceRef[];
+}
+
 export interface RuntimeSurfaceSnapshot {
   readonly key: string;
   readonly label: string;
@@ -85,6 +132,7 @@ export interface CommandCenterRuntimeSnapshot {
   }>;
   readonly projects: readonly RuntimeProjectSnapshot[];
   readonly surfaces: readonly RuntimeSurfaceSnapshot[];
+  readonly brain?: RuntimeBrainSnapshot;
   readonly release: Readonly<{
     releaseId: TruthValue<string>;
     knownGoodReleaseId: TruthValue<string>;
