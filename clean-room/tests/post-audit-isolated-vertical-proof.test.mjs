@@ -290,7 +290,7 @@ test("SQL layer is contract-verified only; no backend execution is claimed", asy
   assert.match(policySql, /policy_version.*category2-v1/is);
 
   assert.match(resourceSql, /pg_advisory_xact_lock/);
-  assert.match(resourceSql, /fencing_token/i);
+  assert.match(resourceSql, /generation bigint not null/i);
   assert.match(resourceSql, /expires_at/i);
   assert.match(resourceSql, /released_at/i);
 
