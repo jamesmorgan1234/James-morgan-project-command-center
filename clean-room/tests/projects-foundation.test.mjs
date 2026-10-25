@@ -31,7 +31,7 @@ function typeRegistry() {
 }
 
 function project(overrides = {}) {
-  return { id: "edge-finder", typeKey: "project-type:software", ownerId: "owner-1", name: "Edge Finder", mission: "Find evidence-backed sports betting edges with strict no-bet safety", lifecycle: "active", verification: "verified", priority: "high", version: 1, createdAt: T0, updatedAt: T0, agentAccessEnabled: true, portfolioAutoEnabled: true, protected: false, ...overrides };
+  return { id: "edge-finder", typeKey: "project-type:software", ownerId: "owner-1", name: "Edge Finder", mission: "Find evidence-backed sports betting edges with strict no-bet safety", lifecycle: "active", status: "building", verification: "verified", priority: "high", version: 1, createdAt: T0, updatedAt: T0, agentAccessEnabled: true, portfolioAutoEnabled: true, protected: false, ...overrides };
 }
 
 test("project types and projects register without project-engine surgery", () => {
