@@ -10,6 +10,7 @@ function assertNonblankUnique(values: readonly string[], label: string): void {
 
 export class ProjectTypeRegistry {
   readonly #types = new Map<string, ProjectTypeDefinition>();
+  readonly #projectUsage = new Map<string, number>();
 
   register(type: ProjectTypeDefinition): void {
     if (!PROJECT_TYPE_KEY.test(type.key)) throw new Error(`Invalid project type key: ${type.key}`);
@@ -19,14 +20,22 @@ export class ProjectTypeRegistry {
     assertNonblankUnique(type.requiredDetailSections, "Project detail sections");
     if (this.#types.has(type.key)) throw new Error(`Project type already exists: ${type.key}`);
     this.#types.set(type.key, Object.freeze({ ...type, capabilities: Object.freeze([...type.capabilities]), requiredDetailSections: Object.freeze([...type.requiredDetailSections]) }));
+    this.#projectUsage.set(type.key, 0);
   }
 
   remove(key: string, expectedVersion: number): ProjectTypeDefinition {
     const current = this.#types.get(key);
     if (!current) throw new Error(`Unknown project type: ${key}`);
     if (current.version !== expectedVersion) throw new Error(`Project type version conflict: ${key}`);
+    if ((this.#projectUsage.get(key) ?? 0) > 0) throw new Error(`Project type is still referenced by projects: ${key}`);
     this.#types.delete(key);
+    this.#projectUsage.delete(key);
     return current;
+  }
+
+  retainForProject(key: string): void {
+    if (!this.#types.has(key)) throw new Error(`Unknown project type: ${key}`);
+    this.#projectUsage.set(key, (this.#projectUsage.get(key) ?? 0) + 1);
   }
 
   get(key: string): ProjectTypeDefinition | undefined { return this.#types.get(key); }
@@ -42,6 +51,7 @@ export class ProjectRegistry {
     if (!this.types.get(project.typeKey)) throw new Error(`Unknown project type: ${project.typeKey}`);
     if (project.version !== 1) throw new Error("New project must start at version 1");
     if (this.#projects.has(project.id)) throw new Error(`Project already exists: ${project.id}`);
+    this.types.retainForProject(project.typeKey);
     this.#projects.set(project.id, Object.freeze({ ...project }));
   }
 
