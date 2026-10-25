@@ -25,19 +25,38 @@ export interface HomeModuleGridContract {
   readonly modules: readonly HomePrimaryModule[];
 }
 
+const HOME_GRID_EXTENSIONS = new Map<HomePrimaryModuleKey, HomePrimaryModule>();
+
 function assertModule(module: HomePrimaryModule): void {
   if (!module.key.trim() || !module.title.trim() || !module.route.startsWith("/") || !module.supportingText.trim()) throw new Error(`Invalid Home module: ${module.key || "<blank>"}`);
   if (module.verifiedCount !== undefined && (!Number.isSafeInteger(module.verifiedCount) || module.verifiedCount < 0)) throw new Error(`Home verifiedCount must be non-negative: ${module.key}`);
 }
 
+export function registerHomeGridExtension(module: HomePrimaryModule): () => void {
+  assertModule(module);
+  if (HOME_GRID_EXTENSIONS.has(module.key)) throw new Error(`Duplicate Home grid extension: ${module.key}`);
+  HOME_GRID_EXTENSIONS.set(module.key, Object.freeze({ ...module }));
+  let removed = false;
+  return () => {
+    if (removed) return;
+    removed = true;
+    HOME_GRID_EXTENSIONS.delete(module.key);
+  };
+}
+
+export function listHomeGridExtensions(): readonly HomePrimaryModule[] {
+  return Object.freeze([...HOME_GRID_EXTENSIONS.values()]);
+}
+
 export function createHomeGrid(modules: readonly HomePrimaryModule[]): HomeModuleGridContract {
+  const combined = [...modules, ...listHomeGridExtensions()];
   const seen = new Set<HomePrimaryModuleKey>();
-  for (const module of modules) {
+  for (const module of combined) {
     assertModule(module);
     if (seen.has(module.key)) throw new Error(`Duplicate Home primary module: ${module.key}`);
     seen.add(module.key);
   }
-  return Object.freeze({ columns: 1, equalCardHeight: true, modules: Object.freeze([...modules]) });
+  return Object.freeze({ columns: 1, equalCardHeight: true, modules: Object.freeze(combined) });
 }
 
 export class HomeModuleRegistry<TContext> {
