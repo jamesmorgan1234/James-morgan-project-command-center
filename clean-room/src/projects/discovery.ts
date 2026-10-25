@@ -23,6 +23,12 @@ function tokens(value: string): Set<string> {
   return new Set(value.toLowerCase().replace(/[^a-z0-9]+/g, " ").split(/\s+/).filter((token) => token.length >= 3));
 }
 
+function assertNonblankUnique(values: readonly string[], label: string): void {
+  if (values.length === 0) throw new Error(`${label} is required`);
+  if (values.some((value) => !value.trim())) throw new Error(`${label} entries cannot be blank`);
+  if (new Set(values).size !== values.length) throw new Error(`${label} entries must be unique`);
+}
+
 export function missionSimilarity(a: string, b: string): number {
   const left = tokens(a);
   const right = tokens(b);
@@ -34,11 +40,16 @@ export function missionSimilarity(a: string, b: string): number {
 }
 
 export function discoverDuplicateSignals(candidate: ProjectCandidate, projects: readonly ProjectMissionFingerprint[], threshold = 0.42): readonly DuplicateSignal[] {
-  if (candidate.sourceRefs.length === 0) throw new Error("Project candidate requires provenance");
+  if (!candidate.id.trim() || !candidate.proposedName.trim() || !candidate.mission.trim()) throw new Error("Project candidate identity, name, and mission are required");
+  assertNonblankUnique(candidate.sourceRefs, "Project candidate provenance");
+  if (!Number.isFinite(threshold) || threshold < 0 || threshold > 1) throw new Error("Duplicate-signal threshold must be between 0 and 1");
+  for (const project of projects) {
+    if (!project.projectId.trim() || !project.name.trim() || !project.mission.trim()) throw new Error("Project mission fingerprints require projectId, name, and mission");
+  }
   return Object.freeze(projects
     .map((project) => ({ projectId: project.projectId, score: missionSimilarity(candidate.mission, project.mission), reason: "mission_token_similarity" }))
     .filter((signal) => signal.score >= threshold)
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score || a.projectId.localeCompare(b.projectId))
     .map((signal) => Object.freeze(signal)));
 }
 
@@ -52,4 +63,5 @@ export interface CandidateDecision {
 export function assertOwnerGovernedCandidateDecision(decision: CandidateDecision): void {
   if (!decision.candidateId.trim() || !decision.ownerDecisionRef.trim()) throw new Error("Candidate disposition requires explicit owner decision evidence");
   if (decision.disposition === "merge" && !decision.targetProjectId?.trim()) throw new Error("Merge disposition requires targetProjectId");
+  if (decision.disposition !== "merge" && decision.targetProjectId?.trim()) throw new Error("Only merge disposition may specify targetProjectId");
 }
