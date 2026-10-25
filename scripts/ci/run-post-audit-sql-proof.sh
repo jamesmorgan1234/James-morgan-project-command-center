@@ -99,12 +99,16 @@ for db in cc_a11_clean cc_a11_prior; do
   run_psql "$db" -f "$PRE_CATEGORY3_CONTRACT"
   log "ASSERT [$db] predecessor dependencies required by the checked chain exist"
   run_psql "$db" -Atqc "
-    select case when
-      to_regclass('auth.sessions') is not null
-      and to_regclass('public.security_action_authorizations') is not null
-      and to_regclass('public.command_center_owner_sessions') is not null
-      and to_regclass('public.command_center_owner_devices') is not null
-    then 1 else 1/0 end;
+    do \$\$
+    begin
+      if to_regclass('auth.sessions') is null
+         or to_regclass('public.security_action_authorizations') is null
+         or to_regclass('public.command_center_owner_sessions') is null
+         or to_regclass('public.command_center_owner_devices') is null then
+        raise exception 'A11.2 predecessor contract is incomplete';
+      end if;
+    end
+    \$\$;
   "
 done
 
@@ -117,12 +121,15 @@ for f in "${BASELINE[@]}"; do apply_file cc_a11_prior "$MIG/$f"; done
 
 log "ASSERT [cc_a11_prior] post-audit retrofit is absent before upgrade"
 run_psql cc_a11_prior -Atqc "
-  select case
-    when to_regclass('public.command_center_source_registry') is not null then 1/0
-    when to_regclass('public.command_center_agency_side_effect_outbox') is not null then 1/0
-    when to_regclass('public.command_center_resource_quota_buckets') is not null then 1/0
-    else 1
-  end;
+  do \$\$
+  begin
+    if to_regclass('public.command_center_source_registry') is not null
+       or to_regclass('public.command_center_agency_side_effect_outbox') is not null
+       or to_regclass('public.command_center_resource_quota_buckets') is not null then
+      raise exception 'A11.2 retrofit objects unexpectedly exist before upgrade';
+    end if;
+  end
+  \$\$;
 "
 
 log "=== A11.2 PRIOR-SUPPORTED PATH: apply only post-audit retrofit migrations ==="
@@ -131,17 +138,21 @@ for f in "${RETROFIT[@]}"; do apply_file cc_a11_prior "$MIG/$f"; done
 for db in cc_a11_clean cc_a11_prior; do
   log "ASSERT [$db] required retrofit tables and RPCs exist"
   run_psql "$db" -Atqc "
-    select case when
-      to_regclass('public.command_center_source_registry') is not null
-      and to_regclass('public.command_center_source_refresh_runs') is not null
-      and to_regclass('public.command_center_agency_side_effect_outbox') is not null
-      and to_regclass('public.command_center_agency_side_effect_inbox') is not null
-      and to_regclass('public.command_center_resource_quota_buckets') is not null
-      and to_regclass('public.command_center_provider_usage_receipts') is not null
-      and to_regprocedure('public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text,text[],timestamp with time zone)') is not null
-      and to_regprocedure('public.command_center_resource_reserve_quota(text,text,text,text,text,text,text,text,text,text,bigint,bigint,timestamp with time zone,text[],timestamp with time zone)') is not null
-      and to_regprocedure('public.command_center_resource_reconcile_usage(uuid,text[],timestamp with time zone)') is not null
-    then 1 else 1/0 end;
+    do \$\$
+    begin
+      if to_regclass('public.command_center_source_registry') is null
+         or to_regclass('public.command_center_source_refresh_runs') is null
+         or to_regclass('public.command_center_agency_side_effect_outbox') is null
+         or to_regclass('public.command_center_agency_side_effect_inbox') is null
+         or to_regclass('public.command_center_resource_quota_buckets') is null
+         or to_regclass('public.command_center_provider_usage_receipts') is null
+         or to_regprocedure('public.command_center_agency_prepare_side_effect(text,text,text,text,text,text,text,text,text,text,text,text,text[],timestamp with time zone)') is null
+         or to_regprocedure('public.command_center_resource_reserve_quota(text,text,text,text,text,text,text,text,text,text,bigint,bigint,timestamp with time zone,text[],timestamp with time zone)') is null
+         or to_regprocedure('public.command_center_resource_reconcile_usage(uuid,text[],timestamp with time zone)') is null then
+        raise exception 'A11.2 required retrofit relation or RPC is missing';
+      end if;
+    end
+    \$\$;
   "
 done
 
