@@ -31,6 +31,8 @@ export interface BrainConversationRuntimeProvider {
   load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot>;
   createBrainConversation(projectId: string | undefined, title: string): Promise<string>;
   recordBrainOwnerTurn(conversationId: string, text: string): Promise<BrainTurnWriteResult>;
+  decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void>;
+  convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
 
 export interface OwnerSecurityRuntimeProvider extends BrainConversationRuntimeProvider {
@@ -114,7 +116,10 @@ function sessionDescriptor(value: unknown): OwnerSessionDescriptor {
 
 export function isBrainConversationRuntimeProvider(value: Readonly<{ id: string; load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot> }>): value is BrainConversationRuntimeProvider {
   const candidate = value as Partial<BrainConversationRuntimeProvider>;
-  return typeof candidate.createBrainConversation === "function" && typeof candidate.recordBrainOwnerTurn === "function";
+  return typeof candidate.createBrainConversation === "function"
+    && typeof candidate.recordBrainOwnerTurn === "function"
+    && typeof candidate.decideBrainImprovement === "function"
+    && typeof candidate.convertBrainImprovementToScopeRequest === "function";
 }
 
 export function isOwnerSecurityRuntimeProvider(value: RuntimeProviderLike): value is RuntimeProviderLike & OwnerSecurityRuntimeProvider {
@@ -129,7 +134,9 @@ export function isOwnerSecurityRuntimeProvider(value: RuntimeProviderLike): valu
     && typeof candidate.revokeOwnerSession === "function"
     && typeof candidate.revokeOwnerDevice === "function"
     && typeof candidate.createBrainConversation === "function"
-    && typeof candidate.recordBrainOwnerTurn === "function";
+    && typeof candidate.recordBrainOwnerTurn === "function"
+    && typeof candidate.decideBrainImprovement === "function"
+    && typeof candidate.convertBrainImprovementToScopeRequest === "function";
 }
 
 export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider {
@@ -233,6 +240,39 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     return Object.freeze({ turnId, classification });
   }
 
+  async decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void> {
+    const id = improvementId.trim();
+    if (!id) throw new Error("Improvement id is required");
+    if (decision !== "accepted" && decision !== "rejected") throw new Error("Improvement decision must be accepted or rejected");
+    const session = this.#currentSession();
+    const ownerDecisionRef = `brain:owner-improvement-decision:${id}:${decision}:${this.#randomId()}`;
+    await this.#rpcPayload("command_center_brain_decide_improvement", session.accessToken, {
+      p_improvement_id: id,
+      p_expected_state: "proposed",
+      p_decision: decision,
+      p_owner_decision_ref: ownerDecisionRef,
+      p_evidence_refs: [ownerDecisionRef]
+    });
+  }
+
+  async convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string> {
+    if (improvement.state !== "accepted") throw new Error("Only an accepted improvement may become a scope request");
+    if (!/^[a-f0-9]{64}$/u.test(improvement.detailHash)) throw new Error("Improvement detail hash is invalid");
+    const session = this.#currentSession();
+    const ownerDecisionRef = `brain:owner-improvement-scope:${improvement.id}:${this.#randomId()}`;
+    const evidenceRefs = Object.freeze([...new Set([...improvement.evidenceRefs, ownerDecisionRef])]);
+    const payload = await this.#rpcPayload("command_center_brain_convert_improvement_to_scope_request", session.accessToken, {
+      p_improvement_id: improvement.id,
+      p_expected_state: "accepted",
+      p_proposed_roadmap_parent_ref: null,
+      p_scope_ref: improvement.detailRef,
+      p_scope_hash: improvement.detailHash,
+      p_owner_decision_ref: ownerDecisionRef,
+      p_evidence_refs: evidenceRefs
+    });
+    return this.#scalarId(payload, "Improvement scope request");
+  }
+
   async listOwnerPasskeys(): Promise<readonly SupabasePasskeyDescriptor[]> {
     const session = this.#currentSession();
     return this.#passkeys.list(session.accessToken);
@@ -299,7 +339,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
       this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
       this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
-      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" })
+      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" })
     ]);
 
     const turnsByConversation = new Map<string, RuntimeBrainConversationTurn[]>();
@@ -402,12 +442,13 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       const area = stringValue(row.area);
       const title = stringValue(row.title);
       const detailRef = stringValue(row.detail_ref);
+      const detailHash = stringValue(row.detail_hash);
       const confidence = numberValue(row.confidence);
       const evidenceRefs = stringArray(row.evidence_refs);
       const state = stringValue(row.state);
       const createdAt = stringValue(row.created_at);
       const decidedAt = stringValue(row.decided_at);
-      if (!id || !area || !IMPROVEMENT_AREAS.has(area) || !title || !detailRef || confidence === undefined || confidence < 0 || confidence > 1 || evidenceRefs.length === 0 || new Set(evidenceRefs).size !== evidenceRefs.length || !state || !IMPROVEMENT_STATES.has(state) || !createdAt) {
+      if (!id || !area || !IMPROVEMENT_AREAS.has(area) || !title || !detailRef || !detailHash || !/^[a-f0-9]{64}$/u.test(detailHash) || confidence === undefined || confidence < 0 || confidence > 1 || evidenceRefs.length === 0 || new Set(evidenceRefs).size !== evidenceRefs.length || !state || !IMPROVEMENT_STATES.has(state) || !createdAt) {
         throw new Error("Brain improvement proposal is malformed");
       }
       if (row.installs_automatically !== false) throw new Error("Brain improvement proposal cannot install automatically");
@@ -418,6 +459,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
         area: area as RuntimeBrainImprovementProposal["area"],
         title,
         detailRef,
+        detailHash,
         confidence,
         evidenceRefs,
         state: state as RuntimeBrainImprovementProposal["state"],
@@ -595,7 +637,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const direct = stringValue(payload);
     if (direct) return direct;
     if (isRecord(payload)) {
-      const candidate = stringValue(payload.id) ?? stringValue(payload.conversation_id) ?? stringValue(payload.turn_id);
+      const candidate = stringValue(payload.id) ?? stringValue(payload.conversation_id) ?? stringValue(payload.turn_id) ?? stringValue(payload.scope_request_id);
       if (candidate) return candidate;
     }
     throw new Error(`${label} RPC did not return an id`);
