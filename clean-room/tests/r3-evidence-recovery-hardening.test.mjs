@@ -167,5 +167,9 @@ test("R3: recovery grant is atomically single-use and records exactly one eviden
   assert.equal(results.filter((result) => !result.allowed).length, 1);
   assert.equal(store.consumed("recovery:1"), true);
   assert.equal(evidence.length, 1);
-  assert.equal(evidence[0].metadata.authorizationId, "recovery:1");
+  assert.equal(evidence[0].subjectId, "operation:1");
+  assert.equal(evidence[0].strength, "canonical_record");
+  assert.equal(evidence[0].verified, true);
+  assert.equal(evidence[0].scopeRef, "project:1");
+  assert.match(evidence[0].sourceRef, /recovery-consumption-store:recovery:1|recovery-authorization-store:recovery:1/);
 });
