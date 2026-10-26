@@ -2,6 +2,7 @@ export * from "./canonical.js";
 export * from "./knowledge.js";
 export * from "./intelligence-contracts.js";
 export * from "./learning.js";
+export * from "./epistemics.js";
 export * from "./assets.js";
 export * from "./graph.js";
 export * from "./sources.js";
