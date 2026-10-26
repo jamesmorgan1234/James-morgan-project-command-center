@@ -1,4 +1,4 @@
-import { validateTrustedEnvironmentBinding } from "./trusted-environment.mjs";
+import { inferBackendClassification, validateTrustedEnvironmentBinding } from "./trusted-environment.mjs";
 
 export type EnvironmentName = "development" | "test" | "preview" | "staging" | "production";
 export type BackendClassification = "isolated" | "shared-nonproduction" | "protected-production";
@@ -17,7 +17,7 @@ export interface RuntimeConfig {
 export interface TrustedBackendBinding {
   readonly providerKey: string;
   readonly environment: EnvironmentName;
-  readonly classification: BackendClassification;
+  readonly classification?: BackendClassification;
   readonly baseUrl: string;
   readonly projectRef: string;
   readonly authIssuer: string;
@@ -47,9 +47,10 @@ export function validateRuntimeConfig(config: RuntimeConfig): RuntimeConfig {
 export function validateTrustedEnvironment(descriptor: TrustedEnvironmentDescriptor): TrustedEnvironmentDescriptor {
   if (!descriptor.releaseId.trim() || !descriptor.configurationDigest.trim()) throw new Error("Trusted environment releaseId/configurationDigest are required");
   if (descriptor.backend.environment !== descriptor.environment) throw new Error("Frontend/backend environment mismatch blocked");
+  const classification = descriptor.backend.classification ?? inferBackendClassification(descriptor.backend.projectRef);
   validateTrustedEnvironmentBinding({
     deploymentEnvironment: descriptor.environment,
-    backendClassification: descriptor.backend.classification,
+    backendClassification: classification,
     providerKey: descriptor.backend.providerKey,
     projectRef: descriptor.backend.projectRef,
     baseUrl: descriptor.backend.baseUrl,
@@ -57,5 +58,5 @@ export function validateTrustedEnvironment(descriptor: TrustedEnvironmentDescrip
     authAudience: descriptor.backend.authAudience,
     configDigest: descriptor.configurationDigest
   });
-  return Object.freeze({ ...descriptor, backend: Object.freeze({ ...descriptor.backend }) });
+  return Object.freeze({ ...descriptor, backend: Object.freeze({ ...descriptor.backend, classification }) });
 }
