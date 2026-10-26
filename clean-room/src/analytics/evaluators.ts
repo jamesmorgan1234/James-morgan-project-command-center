@@ -54,6 +54,7 @@ export interface EvaluationResult {
   readonly eligibleProductionEvidence: boolean;
   readonly acceptanceEligible: boolean;
   readonly evidenceClasses: readonly EvaluationEvidenceClass[];
+  readonly evidenceRefs: readonly string[];
   readonly reasonCodes: readonly string[];
 }
 
@@ -104,6 +105,9 @@ export class EvaluatorRegistry {
 
 export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: DecisionTimeSnapshot, observations: readonly EvaluationObservation[], context: { domain: string; taskClass: string; candidateOwnerRef: string; calibrationScore: number }): EvaluationResult {
   validateEvaluator(definition); score(context.calibrationScore, "Evaluator calibration score"); ts(snapshot.capturedAt, "Decision snapshot time");
+  if (!snapshot.candidateRef.trim() || !snapshot.baselineRef.trim() || !snapshot.inputFingerprint.trim() || !snapshot.environmentFingerprint.trim()) throw new Error("Decision snapshot candidate/baseline/input/environment identity is required");
+  unique(snapshot.constraintRefs, "Decision snapshot constraints");
+  unique(snapshot.evidenceRefs, "Decision snapshot evidence", true);
   if (snapshot.evaluatorKey !== definition.key || snapshot.evaluatorVersion !== definition.version) throw new Error("Decision snapshot must pin exact evaluator version");
   const reasons: string[] = [];
   if (!definition.active) reasons.push("evaluator_inactive");
@@ -116,6 +120,7 @@ export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: Dec
   const productionEvidence = observations.some((item) => !item.synthetic && (item.evidenceClass === "production" || item.evidenceClass === "external" || item.evidenceClass === "owner_verified"));
   if (!productionEvidence) reasons.push("no_production_grade_outcome_evidence");
   const allSources = observations.flatMap((item) => item.sourceRefs); if (allSources.length === 0 || allSources.some((source) => !source.trim())) reasons.push("provenance_missing");
+  const evidenceRefs = Object.freeze([...new Set([...definition.calibrationEvidenceRefs, ...snapshot.evidenceRefs, ...allSources])].sort());
   const meanDelta = observations.length === 0 ? 0 : observations.reduce((sum, item) => sum + (item.candidateScore - item.baselineScore), 0) / observations.length;
   const rawConfidence = observations.length === 0 ? 0 : observations.reduce((sum, item) => sum + item.confidence, 0) / observations.length;
   const calibratedConfidence = rawConfidence * context.calibrationScore;
@@ -123,7 +128,7 @@ export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: Dec
   const selfEvaluator = definition.ownerRef === context.candidateOwnerRef; if (selfEvaluator) reasons.push("self_evaluator_cannot_control_acceptance");
   const evidenceSufficient = reasons.filter((reason) => reason !== "self_evaluator_cannot_control_acceptance").length === 0;
   const decision: EvaluationDecision = !evidenceSufficient ? "insufficient_evidence" : Math.abs(meanDelta) < 1e-9 ? "equivalent" : meanDelta > 0 ? "better" : "worse";
-  return Object.freeze({ evaluatorKey: definition.key, evaluatorVersion: definition.version, decision, calibratedConfidence, meanDelta, eligibleProductionEvidence: productionEvidence, acceptanceEligible: evidenceSufficient && !selfEvaluator, evidenceClasses: Object.freeze(observedClasses), reasonCodes: Object.freeze(reasons.length ? reasons : ["eligible_evidence_and_bounds_satisfied"]) });
+  return Object.freeze({ evaluatorKey: definition.key, evaluatorVersion: definition.version, decision, calibratedConfidence, meanDelta, eligibleProductionEvidence: productionEvidence, acceptanceEligible: evidenceSufficient && !selfEvaluator, evidenceClasses: Object.freeze(observedClasses), evidenceRefs, reasonCodes: Object.freeze(reasons.length ? reasons : ["eligible_evidence_and_bounds_satisfied"]) });
 }
 
 export function validateActualOutcome(outcome: ActualOutcomeRecord): ActualOutcomeRecord {
