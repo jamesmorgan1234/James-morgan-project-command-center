@@ -106,11 +106,11 @@ export const DEFAULT_EVIDENCE_BACKED_BOOK_POLICY: EvidenceBackedBookExecutionPol
   projectId: "books",
   version: 1,
   portfolioAgentAutoAllowed: false,
-  normalChatScope: Object.freeze(["planning","research","writing","editing","artwork","interior","cover","formatting","qc","package_creation"]),
-  workScope: Object.freeze(["publishing_account_browser_upload","previewer","submission","provider_account_bound_publishing"]),
-  brainScope: Object.freeze(["planning","research"]),
-  foundryScope: Object.freeze(["planning","research","package_creation"]),
-  projectAgentScope: Object.freeze(["planning","research","writing","editing","qc","package_creation"]),
+  normalChatScope: Object.freeze(["planning","research","writing","editing","artwork","interior","cover","formatting","qc","package_creation"] as BookExecutionAction[]),
+  workScope: Object.freeze(["publishing_account_browser_upload","previewer","submission","provider_account_bound_publishing"] as BookExecutionAction[]),
+  brainScope: Object.freeze(["planning","research"] as BookExecutionAction[]),
+  foundryScope: Object.freeze(["planning","research","package_creation"] as BookExecutionAction[]),
+  projectAgentScope: Object.freeze(["planning","research","writing","editing","qc","package_creation"] as BookExecutionAction[]),
   sourceRefs: Object.freeze(["owner:books-boundary-policy"]),
   observedAt: "1970-01-01T00:00:00.000Z"
 });
