@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P4_ACCESSIBILITY_DEVICE_PARITY",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05134": {
+      "requirement": "accessibility foundations",
+      "canonicalSourceIds": ["P2-0040"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "shared UI controls", "application shell", "owner-facing interaction surfaces"],
+      "owningPhases": ["P4.7"],
+      "dependencies": ["C1", "C2", "C3"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/ui/device.ts#assertAccessibleControl", "clean-room/src/ui/primitives.ts#assertPrimitiveAccessibility", "clean-room/public/app.css", "clean-room/public/primitive-system.css"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 canonical touch gate requires both 48px geometry and accessible naming", "clean-room/tests/category4-shared-primitives.test.mjs :: P4.5 expansion, dialog and tooltip contracts preserve keyboard/accessibility semantics"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category4-shared-primitives.test.mjs :: P4.5 interactive primitives fail closed on undersized, unnamed, color-only or decorative-chevron controls", "clean-room/tests/category4-offline-accessibility-security.test.mjs :: P4.7 canonical accessibility gate requires 48px controls and labels"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40411904394 / job 121884446158 on exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99: current-authority validation, typecheck, Category 15 exact-head core QA/release gates, and P15.14 observed PWA lifecycle all passed; final Category 15 phase gate remained intentionally red for legitimate remaining closure work", "P4.7 device/accessibility implementation enforces minimum target geometry, accessible naming, visible focus, safe browser zoom, forced-colors/high-contrast behavior, safe-area adaptation, narrow-layout wrapping, and fail-closed invalid device inputs", "Current C4 dependency authority requires C1, C2, and C3; those dependencies remained green in exact-head QA"],
+      "evidenceVersion": "git:9d1b4edc3bde9d69330f05f5db015e5d4186fb99; ci:40411904394",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Accessibility foundations are enforced as executable shared contracts rather than screen-local conventions."
+    },
+    "CCR-05142": {
+      "requirement": "phone/desktop parity rules",
+      "canonicalSourceIds": ["P2-0048"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "compact phone", "phone", "tablet", "desktop"],
+      "owningPhases": ["P4.7"],
+      "dependencies": ["C1", "C2", "C3"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/ui/device.ts#classifyLayout", "clean-room/public/index.html", "clean-room/public/app.css", "clean-room/public/primitive-system.css"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 device classification covers compact phone through desktop and reduced motion fails to zero", "clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 shipped shell preserves browser zoom and safe-area adaptation", "clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 narrow-layout styles avoid fixed text boxes and retain wrapping for state content"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40411904394 / job 121884446158 on exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99 passed authority validation, typecheck, exact-head core QA/release gates, and observed PWA lifecycle", "The device contract classifies compact phone, phone, tablet, and desktop deterministically while the shipped shell preserves one accessibility/control contract, browser zoom, safe-area handling, wrapping, focus visibility, reduced-motion, high-contrast, and forced-colors behavior across classes", "Invalid dimensions or pixel ratios fail closed instead of silently selecting an unsafe layout"],
+      "evidenceVersion": "git:9d1b4edc3bde9d69330f05f5db015e5d4186fb99; ci:40411904394",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Parity is implemented as shared behavior and safety/accessibility rules across supported layout classes, not as pixel-identical geometry."
+    },
+    "CCR-05154": {
+      "requirement": "accessibility and reduced-motion behavior",
+      "canonicalSourceIds": ["P2-0060"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "motion-sensitive owner experience", "shared UI controls", "application shell"],
+      "owningPhases": ["P4.7"],
+      "dependencies": ["C1", "C2", "C3"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/ui/device.ts#motionDuration", "clean-room/src/ui/device.ts#assertAccessibleControl", "clean-room/public/app.css", "clean-room/public/primitive-system.css"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 device classification covers compact phone through desktop and reduced motion fails to zero", "clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 shipped CSS provides visible focus, 48px controls and global reduced-motion behavior", "clean-room/tests/category4-shared-primitives.test.mjs :: P4.5 shared visual primitive classes are shipped once with reduced-motion and forced-colors support"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 canonical touch gate requires both 48px geometry and accessible naming", "clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category4-accessibility-device-adaptation.test.mjs :: P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40411904394 / job 121884446158 on exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99 passed authority validation, typecheck, exact-head core QA/release gates, and P15.14 observed PWA lifecycle", "motionDuration returns zero whenever reduced motion is requested, rejects invalid negative durations, and shipped CSS disables transitions/animations/smooth scrolling globally under prefers-reduced-motion while preserving focus and accessibility controls", "Forced-colors and high-contrast behavior are tested against the real card/navigation/status system"],
+      "evidenceVersion": "git:9d1b4edc3bde9d69330f05f5db015e5d4186fb99; ci:40411904394",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 9d1b4edc3bde9d69330f05f5db015e5d4186fb99",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Reduced-motion behavior is enforced both in executable duration logic and in shipped global CSS, with invalid motion input rejected rather than normalized silently."
+    }
+  }
+}
