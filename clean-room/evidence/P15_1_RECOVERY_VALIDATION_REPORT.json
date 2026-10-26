@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "RECOVERED_LEDGER_SEMANTIC_VALIDATION_COMPLETE",
+  "branchHeadVerified": "c8ba34eb57766622fd2b058583af43fa5cb4ae40",
+  "treeVerified": "2c1a27a029a84f54d6a671a0258d9c3871cd95f9",
+  "authoritativeOriginal": {
+    "jsonSha256RecordedByRepositoryAuthority": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+    "csvSha256RecordedByRepositoryAuthority": "1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2",
+    "historicalPackageSha256": "fa9d8e57ba595f5ba507074c7eb0d2bc8840ad16b3750f47b6679ff146c6cc8a"
+  },
+  "transportExtraction": {
+    "normalizedSemanticJsonSha256": "fe4c9e62442af591e675ee378d9c1334623d6e822660219c83a635e5536769ca",
+    "note": "This is a normalized text extraction hash and is not represented as the original artifact byte hash."
+  },
+  "canonicalValidation": {
+    "baselineRows": 5825,
+    "firstId": "CCR-00001",
+    "lastId": "CCR-05825",
+    "idContinuity": true,
+    "uniqueSourceIds": 5961,
+    "totalSourceReferences": 5961,
+    "duplicateSourceIdReferences": 0,
+    "netReconciliationReduction": 136,
+    "reversibleSourceLineageSemanticallyPresent": true
+  },
+  "auditRangeValidation": {
+    "pass2": {"count": 528, "range": "P2-0001–P2-0528"},
+    "pass3": {"count": 138, "range": "P3-0001–P3-0138"},
+    "pass4": {"count": 108, "range": "P4-0001–P4-0108"},
+    "standards": {"count": 16, "range": "STD-001–STD-016"}
+  },
+  "mergeClusters": {
+    "singleSourceCanonicalRows": 5699,
+    "multiSourceCanonicalRows": 126,
+    "size2": 117,
+    "size3": 8,
+    "size4": 1,
+    "maxClusterSize": 4
+  },
+  "currentAuthority": {
+    "baseline": 5825,
+    "rev3": 27,
+    "total": 5852,
+    "range": "CCR-00001–CCR-05852"
+  },
+  "closureTruth": {
+    "originalSourceArtifactBlockerResolved": true,
+    "p15_1RequirementClosureComplete": false,
+    "reason": "Requirement-level current implementation/test/evidence mapping is not yet proven for all 5,852 rows."
+  }
+}
