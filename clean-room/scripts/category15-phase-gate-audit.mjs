@@ -1,71 +1,82 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
+import { expandPhaseManifest, validateEvidenceReceipt } from "./current-authority-lib.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
 const writeReport = process.argv.includes("--write");
 const requireNonproduction = process.argv.includes("--require-nonproduction");
 const verifiedByPriorGates = process.argv.includes("--verified-by-prior-gates");
-
-const roadmap = readFileSync(resolve(repoRoot, "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md"), "utf8");
-const spec = readFileSync(resolve(repoRoot, "roadmap/master-build-plan-owner-review/15_SPECIFICATION_LOCK_V2.md"), "utf8");
-const rev3 = JSON.parse(readFileSync(resolve(repoRoot, "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json"), "utf8"));
-
-function tracked(path) {
-  try {
-    execFileSync("git", ["ls-files", "--error-unmatch", path], { cwd: repoRoot, stdio: "ignore" });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function phaseDefined(id) {
-  return roadmap.includes(`### ${id} `) || roadmap.includes(`### ${id} —`);
-}
-
-function allTracked(paths) {
-  return paths.every(tracked);
-}
-
+const read = (path) => readFileSync(resolve(repoRoot, path), "utf8");
+const tracked = (path) => {
+  try { execFileSync("git", ["ls-files", "--error-unmatch", path], { cwd: repoRoot, stdio: "ignore" }); return true; }
+  catch { return false; }
+};
+const allTracked = (paths) => paths.every(tracked);
 const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString("utf8").trim();
-const exactHeadCiVerified =
-  verifiedByPriorGates &&
-  process.env.CI === "true" &&
-  /^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA ?? "") &&
-  process.env.GITHUB_SHA === headSha;
-const presentStatus = exactHeadCiVerified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED";
+const exactHeadCiVerified = verifiedByPriorGates && process.env.CI === "true" && /^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA ?? "") && process.env.GITHUB_SHA === headSha;
 
+const manifest = JSON.parse(read("roadmap/master-build-plan-owner-review/23_CURRENT_199_PHASE_MACHINE_MANIFEST.json"));
+const { phaseIds } = expandPhaseManifest(manifest);
+const phaseSet = new Set(phaseIds);
+const spec = read("roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_V2_1.md");
+const rev3 = JSON.parse(read("roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json"));
 const expectedNew = Array.from({ length: 27 }, (_, i) => `CCR-${String(5826 + i).padStart(5, "0")}`);
 const observedNew = Array.isArray(rev3.requirements) ? rev3.requirements.map((item) => item.id) : [];
-const canonicalTotalsValid =
-  /5,852/.test(spec) &&
-  /5,825/.test(spec) &&
-  rev3.baseline_canonical_requirement_total === 5825 &&
-  rev3.new_canonical_requirement_count === 27 &&
-  rev3.owner_review_canonical_requirement_total === 5852 &&
-  expectedNew.every((id, index) => observedNew[index] === id);
+const canonicalTotalsValid = /5,852/.test(spec) && /5,825/.test(spec) && rev3.baseline_canonical_requirement_total === 5825 && rev3.new_canonical_requirement_count === 27 && rev3.owner_review_canonical_requirement_total === 5852 && expectedNew.every((id, index) => observedNew[index] === id);
+const allCategory15DefinitionsPresent = Array.from({ length: 18 }, (_, i) => `P15.${i + 1}`).every((id) => phaseSet.has(id));
 
-const canonicalLedgerCandidates = [
+const authorityAuditPath = "clean-room/current-authority-audit.json";
+let authorityAuditVerified = false;
+if (existsSync(resolve(repoRoot, authorityAuditPath))) {
+  try {
+    const audit = JSON.parse(read(authorityAuditPath));
+    authorityAuditVerified = audit.ok === true && audit.headSha === headSha && audit.currentPhaseCount === 199 && audit.amendment20SectionCount === 45 && audit.pifMappedCapabilityFamilyCount === 34;
+  } catch { authorityAuditVerified = false; }
+}
+
+function loadReceipt(id) {
+  const path = `clean-room/evidence/phase-receipts/${id.replaceAll(".", "_")}.json`;
+  if (!tracked(path) || !existsSync(resolve(repoRoot, path))) return { path, receipt: null, valid: false };
+  try {
+    const receipt = JSON.parse(read(path));
+    return { path, receipt, valid: validateEvidenceReceipt(receipt, { phaseId: id, headSha }) };
+  } catch { return { path, receipt: null, valid: false }; }
+}
+
+const historicalLedgerCandidates = [
   "roadmap/master-build-plan-owner-review/02_MASTER_BUILD_PLAN_REQUIREMENT_LEDGER.md",
   "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Requirement_Registry.json",
   "clean-room/evidence/category15-requirement-traceability.json"
 ];
-const canonicalLedgerPresent = canonicalLedgerCandidates.some(tracked);
+const originalHistoricalLedgerRecovered = false;
+const ownerReconciledReplacementPath = "clean-room/evidence/P15_1_OWNER_RECONCILED_REQUIREMENT_AUTHORITY.json";
+let ownerReconciledReplacementValid = false;
+if (tracked(ownerReconciledReplacementPath) && existsSync(resolve(repoRoot, ownerReconciledReplacementPath))) {
+  try {
+    const replacement = JSON.parse(read(ownerReconciledReplacementPath));
+    ownerReconciledReplacementValid = replacement.status === "OWNER_RECONCILED_AUTHORITY" && replacement.gitSha === headSha && Array.isArray(replacement.evidence) && replacement.evidence.length > 0;
+  } catch { ownerReconciledReplacementValid = false; }
+}
+const canonicalRequirementAuthoritySatisfied = originalHistoricalLedgerRecovered || ownerReconciledReplacementValid;
 
-const phases = {
-  "P15.1": canonicalLedgerPresent
-    ? { status: presentStatus, reason: "canonical individual traceability artifact present; exact-head gate state applied" }
-    : {
-        status: "BLOCKED_SOURCE_ARTIFACT",
-        reason: "final reconciled CCR-00001–CCR-05825 individual canonical ledger/traceability matrix is not present; recovered raw registers cannot substitute for the final reconciled ledger"
-      },
-  "P15.2": {
-    status: presentStatus,
-    reason: exactHeadCiVerified ? "semantic every-file audit passed on the exact CI head" : "semantic every-file audit is enforced; exact-head CI must pass"
-  }
-};
+const phases = {};
+phases["P15.1"] = canonicalRequirementAuthoritySatisfied
+  ? { status: "VERIFIED_COMPLETE", reason: "Original reconciled historical ledger or explicit owner-reconciled provenance-preserving replacement is bound to this exact head." }
+  : { status: "BLOCKED_SOURCE_ARTIFACT", reason: "Original CCR-00001–CCR-05825 ledger remains unavailable and no exact-head owner-reconciled replacement authority is present. Raw registers/file presence cannot substitute." };
+
+const repositoryAuditPath = "clean-room/category15-repository-audit.json";
+let semanticReviewVerified = false;
+if (existsSync(resolve(repoRoot, repositoryAuditPath))) {
+  try {
+    const repoAudit = JSON.parse(read(repositoryAuditPath));
+    semanticReviewVerified = repoAudit.headSha === headSha && repoAudit.semanticEveryFileReviewComplete === true;
+  } catch { semanticReviewVerified = false; }
+}
+phases["P15.2"] = semanticReviewVerified
+  ? { status: "VERIFIED_COMPLETE", reason: "Separately evidenced semantic every-file review is bound to this exact head." }
+  : { status: "PARTIAL", reason: "Automated all-file scanning may pass, but semantic every-file review requires a separate exact-head evidence receipt." };
 
 const requiredTests = {
   "P15.3": ["clean-room/tests/kernel-foundation.test.mjs", "clean-room/tests/runtime-integration.test.mjs"],
@@ -77,209 +88,69 @@ const requiredTests = {
   "P15.9": ["clean-room/tests/projects-foundation.test.mjs", "clean-room/tests/agency-foundation.test.mjs"],
   "P15.10": ["clean-room/tests/personal-ops-foundation.test.mjs", "clean-room/tests/agency-foundation.test.mjs"],
   "P15.11": ["clean-room/tests/recovery-scale-foundation.test.mjs", "clean-room/tests/category15-release-artifact-audit.test.mjs"],
-  "P15.12": ["clean-room/tests/category15-performance-load-soak.test.mjs"]
+  "P15.12": ["clean-room/tests/category15-performance-load-soak.test.mjs"],
+  "P15.13": ["clean-room/scripts/category15-release-artifact-audit.mjs", "clean-room/scripts/build-browser.mjs", "clean-room/public/assets/command-center-approved-icon-512.png"],
+  "P15.14": ["clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs", "clean-room/tests/owner-auth-proxy-routing.test.mjs", "clean-room/scripts/category15-pwa-lifecycle.mjs"]
 };
+
 for (const [id, paths] of Object.entries(requiredTests)) {
-  phases[id] = { status: allTracked(paths) && phaseDefined(id) ? presentStatus : "BLOCKED_IMPLEMENTATION", evidence: paths };
+  const receipt = loadReceipt(id);
+  const foundationsPresent = allTracked(paths) && phaseSet.has(id);
+  phases[id] = receipt.valid
+    ? { status: "VERIFIED_COMPLETE", reason: "Exact-head semantic/effect evidence receipt validates the full current phase gate.", evidence: [receipt.path, ...paths] }
+    : { status: foundationsPresent ? "IMPLEMENTED_BUT_UNVERIFIED" : "BLOCKED_IMPLEMENTATION", reason: foundationsPresent ? "Required foundation/test artifacts are tracked, but tracked-file presence and exact-head CI alone do not prove the full semantic/effect gate." : "Required implementation/test artifacts are missing.", evidence: paths, requiredReceipt: receipt.path };
 }
 
-const exactIcon = "clean-room/public/assets/command-center-approved-icon-512.png";
-phases["P15.13"] = {
-  status: tracked(exactIcon) && phaseDefined("P15.13") ? presentStatus : "BLOCKED_PROTECTED_ASSET",
-  evidence: [exactIcon, "clean-room/scripts/category15-release-artifact-audit.mjs", "clean-room/scripts/build-browser.mjs"]
+const historicalCandidate = {
+  releaseCandidateSha: "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+  previewDeploymentId: "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
+  buildHash: "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
+  assetManifestHash: "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
+  status: "HISTORICAL_EVIDENCE_ONLY",
+  note: "This frozen historical candidate and its historical owner decision are not authorization for a materially different future candidate."
 };
 
-const p1515DecisionPath = "clean-room/evidence/P15_15_OWNER_DECISION.md";
-const p1516RunbookPath = "clean-room/evidence/P15_16_PRODUCTION_RUNBOOK.md";
-const p1516LiveEvidencePath = "clean-room/evidence/P15_16_LIVE_VERIFICATION.json";
-const p1516LiveAuditPath = "clean-room/scripts/category15-production-live-audit.mjs";
-const packagePath = "clean-room/package.json";
-const p1514HarnessNotePath = "clean-room/evidence/P15_14_PWA_HARNESS_FLAKE_NOTE.md";
-const p1514PreviewSha = "9b6d136447def58ad8a4df3f05261f7bd6b7ef80";
-const p1514EvidencePaths = [
-  "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
-  "clean-room/tests/owner-auth-proxy-routing.test.mjs",
-  "clean-room/scripts/category15-pwa-lifecycle.sh",
-  "clean-room/scripts/category15-pwa-lifecycle.mjs"
-];
-const p1514AcceptanceTracked = allTracked(p1514EvidencePaths);
-const pwaLifecycleVerified = process.env.CATEGORY15_PWA_LIFECYCLE_VERIFIED === "true";
-
-const evidenceOnlyPaths = new Set([
-  ".github/workflows/spec-lock-v2-clean-room-qa.yml",
-  "clean-room/scripts/category15-phase-gate-audit.mjs",
-  p1516LiveAuditPath,
-  packagePath,
-  ...["clean-room/scripts/category15-pwa-lifecycle.sh", "clean-room/scripts/category15-pwa-lifecycle.mjs"],
-  p1514HarnessNotePath,
-  p1515DecisionPath,
-  p1516RunbookPath,
-  p1516LiveEvidencePath
-]);
-
-let previewRuntimeUnchanged = false;
-let changedSincePreview = [];
-try {
-  changedSincePreview = execFileSync("git", ["diff", "--name-only", `${p1514PreviewSha}..HEAD`], { cwd: repoRoot })
-    .toString("utf8")
-    .split(/\r?\n/)
-    .filter(Boolean);
-  previewRuntimeUnchanged = changedSincePreview.length > 0 && changedSincePreview.every((path) => evidenceOnlyPaths.has(path));
-} catch {
-  previewRuntimeUnchanged = false;
+const currentCandidateManifestPath = "clean-room/evidence/CURRENT_RELEASE_CANDIDATE.json";
+const currentOwnerDecisionPath = "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json";
+let currentCandidate = null;
+let currentProductionAuthorizationValid = false;
+if (tracked(currentCandidateManifestPath) && existsSync(resolve(repoRoot, currentCandidateManifestPath))) {
+  try { currentCandidate = JSON.parse(read(currentCandidateManifestPath)); } catch { currentCandidate = null; }
 }
-
-const p1514Verified =
-  phaseDefined("P15.14") &&
-  exactHeadCiVerified &&
-  p1514AcceptanceTracked &&
-  pwaLifecycleVerified &&
-  previewRuntimeUnchanged;
-
-phases["P15.14"] = {
-  status: p1514Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
-  reason: p1514Verified
-    ? "The exact repaired no-fixture Vercel Preview at 9b6d136 was built from the frozen runtime, and every later change is acceptance/release evidence only. Exact-head CI executes isolated canonical module contracts, the same-origin Auth/direct-REST routing regressions, and the observed single-session PWA install/offline/update lifecycle."
-    : "P15.14 remains partial until the isolated module-contract/Auth-routing tests and observed PWA lifecycle pass on an exact CI evidence head whose diff from the tested repaired Preview runtime is evidence-only.",
-  verification: {
-    testedGitSha: p1514PreviewSha,
-    evidenceHead: headSha,
-    deploymentId: "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
-    environment: "preview",
-    dataMode: "production-safe no-fixture Preview plus isolated in-memory canonical contracts; no production data",
-    routeCount: 19,
-    previewRuntimeUnchanged,
-    pwaLifecycleVerified,
-    changedSincePreview
-  },
-  evidence: [
-    "https://command-center-preview-k53dhma4y-crestven-holdings.vercel.app",
-    "https://github.com/jamesmorgan1234/James-morgan-project-command-center/actions/runs/40055742778",
-    ...p1514EvidencePaths,
-    p1514HarnessNotePath
-  ],
-  remainingBlockers: p1514Verified
-    ? []
-    : [
-        "Isolated canonical module/Auth-routing acceptance has not passed on the exact evidence head",
-        "Actual offline-cache replay and waiting-worker update activation have not passed on the exact evidence head"
-      ],
-  productionReady: p1514Verified
-};
-
-const p1515CandidateSha = p1514PreviewSha;
-const p1515CandidateDeployment = "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW";
-const p1515BuildHash = "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3";
-const p1515AssetManifestHash = "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7";
-let candidateEvidenceOnly = false;
-let changedSinceCandidate = [];
-try {
-  changedSinceCandidate = execFileSync("git", ["diff", "--name-only", `${p1515CandidateSha}..HEAD`], { cwd: repoRoot })
-    .toString("utf8")
-    .split(/\r?\n/)
-    .filter(Boolean);
-  candidateEvidenceOnly = changedSinceCandidate.length > 0 && changedSinceCandidate.every((path) => evidenceOnlyPaths.has(path));
-} catch {
-  candidateEvidenceOnly = false;
+if (tracked(currentOwnerDecisionPath) && existsSync(resolve(repoRoot, currentOwnerDecisionPath)) && currentCandidate) {
+  try {
+    const decision = JSON.parse(read(currentOwnerDecisionPath));
+    currentProductionAuthorizationValid = decision.status === "AUTHORIZED" && decision.releaseCandidateSha === currentCandidate.gitSha && decision.releaseCandidateManifestHash === currentCandidate.manifestHash && decision.operationId === currentCandidate.productionOperationId;
+  } catch { currentProductionAuthorizationValid = false; }
 }
+phases["P15.15"] = currentProductionAuthorizationValid
+  ? { status: "VERIFIED_COMPLETE", reason: "Current owner authorization is bound to the exact current candidate and production operation.", evidence: [currentCandidateManifestPath, currentOwnerDecisionPath] }
+  : { status: "BLOCKED_OWNER_AUTHORIZATION", reason: "No current exact-candidate production authorization is established. Historical authorization is retained only as historical evidence.", historicalCandidate };
 
-const p1515Verified =
-  phaseDefined("P15.15") &&
-  exactHeadCiVerified &&
-  tracked(p1515DecisionPath) &&
-  tracked(p1516RunbookPath) &&
-  candidateEvidenceOnly &&
-  p1514Verified;
+phases["P15.16"] = { status: "BLOCKED_DEPENDENCY", reason: "Production deployment/live verification requires a verified current P15.15 authorization for the exact current candidate." };
+phases["P15.17"] = { status: "BLOCKED_DEPENDENCY", reason: "Owner acceptance requires completed current production/live verification." };
+phases["P15.18"] = { status: "BLOCKED_DEPENDENCY", reason: "Physical Samsung acceptance requires current live verification, owner acceptance, and the real device." };
 
-phases["P15.15"] = {
-  status: p1515Verified ? "VERIFIED_COMPLETE" : "PARTIAL",
-  reason: p1515Verified
-    ? "The owner repeatedly authorized Command Center production deployment and explicitly removed the false repeated authorization boundary. The repaired exact runtime candidate, same-origin Auth boundary, artifact identity, fallback, production target, and known P15.1 limitation are recorded on an exact evidence-only CI head."
-    : "P15.15 evidence/decision package must be tracked and verified on an exact CI evidence head whose diff from the frozen repaired runtime candidate is evidence-only.",
-  verification: {
-    releaseCandidateSha: p1515CandidateSha,
-    evidenceHead: headSha,
-    productionSafePreviewDeploymentId: p1515CandidateDeployment,
-    buildHash: p1515BuildHash,
-    assetManifestHash: p1515AssetManifestHash,
-    schemaCompatibility: "cc-runtime-snapshot-v1",
-    productionStableDomain: "command-center-preview-alpha.vercel.app",
-    priorProductionProvider: "github-pages",
-    priorProductionGitBaseline: "855a06b43d152df1bc3c7574cc3f584bf1b51892",
-    fallbackPagesSha: "d40a7b2659400481c75f1de87d084b4d6cdce254",
-    candidateEvidenceOnly,
-    changedSinceCandidate,
-    productionMutationAuthorized: true
-  },
-  evidence: [p1515DecisionPath, p1516RunbookPath, p1516LiveEvidencePath]
-};
-
-const liveEvidenceTracked = tracked(p1516LiveEvidencePath) && tracked(p1516LiveAuditPath);
-phases["P15.16"] = {
-  status: liveEvidenceTracked ? "PRODUCTION_LIVE_EVIDENCE_PENDING" : "BLOCKED_IMPLEMENTATION",
-  reason: liveEvidenceTracked
-    ? "Repaired production deployment and live verification evidence are tracked. The dedicated production-live audit runs immediately after this nonproduction phase gate and is the authority that can mark P15.16 VERIFIED_COMPLETE."
-    : "Production live-verification evidence or its audit is missing.",
-  preparationComplete: true,
-  productionCandidatePreviewReady: true,
-  productionMutationAuthorized: true,
-  verification: {
-    releaseCandidateSha: p1515CandidateSha,
-    previewDeploymentId: p1515CandidateDeployment,
-    productionDeploymentId: "dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth",
-    productionDomain: "command-center-preview-alpha.vercel.app",
-    currentProductionPagesSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892",
-    fallbackPagesSha: "d40a7b2659400481c75f1de87d084b4d6cdce254",
-    buildHash: p1515BuildHash,
-    assetManifestHash: p1515AssetManifestHash,
-    schemaCompatibility: "cc-runtime-snapshot-v1"
-  },
-  evidence: [p1516RunbookPath, p1516LiveEvidencePath]
-};
-
-phases["P15.17"] = { status: "BLOCKED_DEPENDENCY", reason: "owner acceptance resumes only after the dedicated repaired P15.16 production/live evidence gate passes" };
-phases["P15.18"] = { status: "BLOCKED_DEPENDENCY", reason: "physical Samsung acceptance requires completed repaired P15.16 live verification, P15.17 owner acceptance, and the real target device" };
-
-const allCategory15DefinitionsPresent = Array.from({ length: 18 }, (_, i) => `P15.${i + 1}`).every(phaseDefined);
 const nonproductionFailures = Object.entries(phases)
-  .filter(([id]) => {
-    const n = Number(id.split(".")[1]);
-    return n >= 2 && n <= 14;
-  })
-  .filter(([, value]) => !["IMPLEMENTED_BUT_UNVERIFIED", "VERIFIED_COMPLETE"].includes(value.status));
+  .filter(([id]) => { const n = Number(id.split(".")[1]); return n >= 2 && n <= 14; })
+  .filter(([, value]) => value.status !== "VERIFIED_COMPLETE");
 
 const report = {
-  schemaVersion: 7,
-  verification: { headSha, exactHeadCiVerified },
+  schemaVersion: 8,
+  verification: { headSha, exactHeadCiVerified, authorityAuditVerified },
+  currentPhaseCount: phaseIds.length,
   lockedCanonicalRequirementCount: 5852,
   lockedBaselineRequirementCount: 5825,
   lockedRev3RequirementCount: 27,
   canonicalTotalsValid,
   allCategory15DefinitionsPresent,
-  canonicalLedgerPresent,
-  canonicalLedgerCandidates,
+  historicalLedgerCandidates,
+  canonicalRequirementAuthoritySatisfied,
+  historicalCandidate,
+  currentCandidateManifestPath,
+  currentOwnerDecisionPath,
   phases
 };
-
 if (writeReport) writeFileSync(resolve(cleanRoom, "category15-phase-status.json"), JSON.stringify(report, null, 2) + "\n");
-
-console.log(
-  JSON.stringify({
-    headSha,
-    exactHeadCiVerified,
-    canonicalTotalsValid,
-    allCategory15DefinitionsPresent,
-    canonicalLedgerPresent,
-    p15_1: phases["P15.1"].status,
-    p15_2_through_13: exactHeadCiVerified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED",
-    p15_14: phases["P15.14"].status,
-    p15_15: phases["P15.15"].status,
-    p15_16: phases["P15.16"].status,
-    pwaLifecycleVerified,
-    previewRuntimeUnchanged,
-    candidateEvidenceOnly,
-    nonproductionFailureCount: nonproductionFailures.length
-  })
-);
-
-if (!canonicalTotalsValid || !allCategory15DefinitionsPresent || (requireNonproduction && nonproductionFailures.length)) process.exit(1);
+console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_3_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
+if (!canonicalTotalsValid || !allCategory15DefinitionsPresent || !authorityAuditVerified || (requireNonproduction && nonproductionFailures.length)) process.exit(1);

@@ -7,7 +7,10 @@ const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
 const writeReport = process.argv.includes("--write");
 const tracked = execFileSync("git", ["ls-files", "-z"], { cwd: repoRoot }).toString("utf8").split("\0").filter(Boolean).sort();
+const trackedSet = new Set(tracked);
+const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString("utf8").trim();
 const requiredEntrypoints = ["clean-room/public/index.html","clean-room/public/sw.js","clean-room/src/runtime/browser.ts"];
+const semanticEvidencePath = "clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json";
 const textExtensions = new Set([".js",".mjs",".cjs",".ts",".tsx",".json",".md",".txt",".csv",".yml",".yaml",".html",".css",".scss",".sql",".toml",".xml",".webmanifest"]);
 const secretPatterns = [
   { key: "openai_api_key", re: /\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b/g },
@@ -22,7 +25,7 @@ function roleFor(path) {
   if (path.startsWith("clean-room/scripts/")) return "verification-tooling";
   if (path.startsWith("clean-room/evidence/")) return "verification-evidence";
   if (/^clean-room\/(?:package(?:-lock)?\.json|tsconfig[^/]*\.json|README\.md)$/.test(path)) return "clean-room-build-config";
-  if (path.startsWith("roadmap/")) return "locked-roadmap-authority";
+  if (path.startsWith("roadmap/")) return "roadmap-authority-or-evidence";
   if (path.startsWith(".github/")) return "ci-workflow";
   if (path.startsWith("supabase/")) return "backend-integration";
   if (/^(?:index\.html|app\.js|sw\.js|styles\.css|manifest\.webmanifest)$/.test(path)) return "historical-root-runtime-excluded";
@@ -44,27 +47,72 @@ for (const path of tracked) {
   const text = isProbablyText(path, bytes) ? bytes.toString("utf8") : null;
   const fileViolations = [];
   if (text !== null) {
-    for (const { key, re } of secretPatterns) { re.lastIndex = 0; if (re.test(text)) { const f={path,code:key}; secretFindings.push(f); fileViolations.push(f); } }
+    for (const { key, re } of secretPatterns) {
+      re.lastIndex = 0;
+      if (re.test(text)) { const finding = { path, code: key }; secretFindings.push(finding); fileViolations.push(finding); }
+    }
     if (role === "active-clean-room-source" || role === "active-clean-room-public") {
       const forbidden = [
         { code: "legacy_root_app_reference", re: /(?:src|href)=["']\/app\.js["']|from\s+["'][^"']*\/app\.js["']/ },
         { code: "legacy_root_sw_reference", re: /navigator\.serviceWorker\.register\(["']\/sw\.js["']\)/ },
         { code: "runtime_monkey_patch", re: /\bMutationObserver\b.*\bdocument\.(?:body|documentElement)\b/s }
       ];
-      for (const item of forbidden) if (item.re.test(text)) fileViolations.push({path,code:item.code});
+      for (const item of forbidden) if (item.re.test(text)) fileViolations.push({ path, code: item.code });
     }
   }
   violations.push(...fileViolations);
-  reviews.push({path,sha256,bytes:bytes.length,contentKind:text===null?"binary":"text",role,review:fileViolations.length?"violation":"reviewed"});
+  reviews.push({ path, sha256, bytes: bytes.length, contentKind: text === null ? "binary" : "text", role, automatedScan: fileViolations.length ? "violation" : "passed" });
 }
-const missingRequiredEntrypoints = requiredEntrypoints.filter((path)=>!tracked.includes(path));
-for (const path of missingRequiredEntrypoints) violations.push({path,code:"required_entrypoint_missing"});
-const activeHtmlEntrypoints = tracked.filter((p)=>p === "clean-room/public/index.html");
-const activeServiceWorkers = tracked.filter((p)=>p === "clean-room/public/sw.js");
-if (activeHtmlEntrypoints.length !== 1) violations.push({code:"active_html_entrypoint_count",count:activeHtmlEntrypoints.length});
-if (activeServiceWorkers.length !== 1) violations.push({code:"active_service_worker_count",count:activeServiceWorkers.length});
-const semanticEveryFileReviewComplete = reviews.length === tracked.length && reviews.every((item)=>item.review === "reviewed") && violations.length === 0;
-const report = {schemaVersion:2,scope:"all-git-tracked-files",trackedFileCount:tracked.length,reviewedFileCount:reviews.length,semanticEveryFileReviewComplete,activeArchitecture:{sourceRoot:"clean-room/src",publicRoot:"clean-room/public",htmlEntrypoint:"clean-room/public/index.html",serviceWorker:"clean-room/public/sw.js",browserRuntime:"clean-room/src/runtime/browser.ts"},historicalRootRuntimeExcludedFromRelease:true,missingRequiredEntrypoints,secretFindings,violations,files:reviews};
-if (writeReport) writeFileSync(resolve(cleanRoom,"category15-repository-audit.json"),JSON.stringify(report,null,2)+"\n");
-console.log(JSON.stringify({trackedFileCount:report.trackedFileCount,reviewedFileCount:report.reviewedFileCount,semanticEveryFileReviewComplete,secretFindingCount:secretFindings.length,violationCount:violations.length}));
-if (!semanticEveryFileReviewComplete) process.exit(1);
+const missingRequiredEntrypoints = requiredEntrypoints.filter((path) => !trackedSet.has(path));
+for (const path of missingRequiredEntrypoints) violations.push({ path, code: "required_entrypoint_missing" });
+const activeHtmlEntrypoints = tracked.filter((p) => p === "clean-room/public/index.html");
+const activeServiceWorkers = tracked.filter((p) => p === "clean-room/public/sw.js");
+if (activeHtmlEntrypoints.length !== 1) violations.push({ code: "active_html_entrypoint_count", count: activeHtmlEntrypoints.length });
+if (activeServiceWorkers.length !== 1) violations.push({ code: "active_service_worker_count", count: activeServiceWorkers.length });
+
+const automatedEveryFileScanComplete = reviews.length === tracked.length && violations.length === 0;
+let semanticEveryFileReviewComplete = false;
+let semanticEvidence = null;
+if (trackedSet.has(semanticEvidencePath) && existsSync(resolve(repoRoot, semanticEvidencePath))) {
+  try {
+    semanticEvidence = JSON.parse(readFileSync(resolve(repoRoot, semanticEvidencePath), "utf8"));
+    semanticEveryFileReviewComplete =
+      semanticEvidence.status === "VERIFIED_COMPLETE" &&
+      semanticEvidence.gitSha === headSha &&
+      Number.isInteger(semanticEvidence.reviewedFileCount) &&
+      semanticEvidence.reviewedFileCount === tracked.length &&
+      Array.isArray(semanticEvidence.evidence) && semanticEvidence.evidence.length > 0;
+  } catch {
+    semanticEveryFileReviewComplete = false;
+  }
+}
+
+const report = {
+  schemaVersion: 3,
+  headSha,
+  scope: "all-git-tracked-files-automated-scan",
+  trackedFileCount: tracked.length,
+  scannedFileCount: reviews.length,
+  automatedEveryFileScanComplete,
+  semanticEveryFileReviewComplete,
+  semanticEvidencePath,
+  semanticEvidenceTracked: trackedSet.has(semanticEvidencePath),
+  semanticClaim: semanticEveryFileReviewComplete
+    ? "A separately evidenced semantic review is bound to this exact head."
+    : "Automated hashing/classification/pattern checks are not semantic every-file certification.",
+  activeArchitecture: {
+    sourceRoot: "clean-room/src",
+    publicRoot: "clean-room/public",
+    htmlEntrypoint: "clean-room/public/index.html",
+    serviceWorker: "clean-room/public/sw.js",
+    browserRuntime: "clean-room/src/runtime/browser.ts"
+  },
+  historicalRootRuntimeExcludedFromRelease: true,
+  missingRequiredEntrypoints,
+  secretFindings,
+  violations,
+  files: reviews
+};
+if (writeReport) writeFileSync(resolve(cleanRoom, "category15-repository-audit.json"), JSON.stringify(report, null, 2) + "\n");
+console.log(JSON.stringify({ trackedFileCount: report.trackedFileCount, scannedFileCount: report.scannedFileCount, automatedEveryFileScanComplete, semanticEveryFileReviewComplete, secretFindingCount: secretFindings.length, violationCount: violations.length }));
+if (!automatedEveryFileScanComplete) process.exit(1);

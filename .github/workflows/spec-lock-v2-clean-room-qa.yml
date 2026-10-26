@@ -6,10 +6,14 @@ on:
       - build/spec-lock-v2-clean-room
     paths:
       - 'clean-room/**'
+      - 'roadmap/**'
+      - 'supabase/**'
       - '.github/workflows/spec-lock-v2-clean-room-qa.yml'
   pull_request:
     paths:
       - 'clean-room/**'
+      - 'roadmap/**'
+      - 'supabase/**'
       - '.github/workflows/spec-lock-v2-clean-room-qa.yml'
   workflow_dispatch:
 
@@ -26,7 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          fetch-depth: 20
+          fetch-depth: 50
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
@@ -34,6 +38,8 @@ jobs:
           cache-dependency-path: clean-room/package.json
       - name: Install zero-cost build dependency
         run: npm install --no-audit --no-fund --ignore-scripts --no-save typescript@5.8.3
+      - name: Current authority / phase / Amendment-20 validation
+        run: npm run audit:authority
       - name: Typecheck
         run: npm run typecheck
       - name: Category 15 exact-head core QA and release gates
@@ -52,8 +58,9 @@ jobs:
         run: npm run audit:category15
       - name: P15.16 production live evidence gate
         run: npm run audit:production-live
-      - name: Publish Category 15 audit summaries
+      - name: Publish audit summaries
         if: always()
         run: |
-          test -f category15-repository-audit.json && cat category15-repository-audit.json | jq '{trackedFileCount,reviewedFileCount,semanticEveryFileReviewComplete,secretFindingCount:(.secretFindings|length),violationCount:(.violations|length)}' || true
-          test -f category15-phase-status.json && cat category15-phase-status.json | jq '{canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalLedgerPresent,phases}' || true
+          test -f current-authority-audit.json && cat current-authority-audit.json | jq '{headSha,ok,currentPhaseCount,amendment20SectionCount,amendment20AtomicRequirementCount,pifMappedCapabilityFamilyCount,errorCount:(.errors|length)}' || true
+          test -f category15-repository-audit.json && cat category15-repository-audit.json | jq '{headSha,trackedFileCount,scannedFileCount,automatedEveryFileScanComplete,semanticEveryFileReviewComplete,secretFindingCount:(.secretFindings|length),violationCount:(.violations|length)}' || true
+          test -f category15-phase-status.json && cat category15-phase-status.json | jq '{currentPhaseCount,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalRequirementAuthoritySatisfied,phases}' || true

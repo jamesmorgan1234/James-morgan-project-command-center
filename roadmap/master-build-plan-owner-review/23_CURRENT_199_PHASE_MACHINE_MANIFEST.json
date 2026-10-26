@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "owner": "James Morgan",
+  "status": "CURRENT_BUILD_AUTHORITY",
+  "sourceRoadmap": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+  "historicalBaseline": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+  "historicalBaselinePhaseCount": 188,
+  "currentPhaseCount": 199,
+  "additions": ["P0.11","PIF.1","PIF.2","PIF.3","PIF.4","PIF.5","PIF.6","PIF.7","PIF.8","PIF.9","PIF.10"],
+  "categories": [
+    {"id":"C0","count":11,"phaseSpec":{"prefix":"P0.","start":1,"end":11},"dependsOn":[]},
+    {"id":"C1","count":10,"phaseSpec":{"prefix":"P1.","start":1,"end":10},"dependsOn":["C0"]},
+    {"id":"C2","count":9,"phaseSpec":{"prefix":"P2.","start":1,"end":9},"dependsOn":["C1"]},
+    {"id":"C3","count":12,"phaseSpec":{"prefix":"P3.","start":1,"end":12},"dependsOn":["C1","C2"]},
+    {"id":"C4","count":8,"phaseSpec":{"prefix":"P4.","start":1,"end":8},"dependsOn":["C1","C2","C3"]},
+    {"id":"C5","count":14,"phaseSpec":{"prefix":"P5.","start":1,"end":14},"dependsOn":["C1","C2","C3","C4"]},
+    {"id":"C6","count":15,"phaseSpec":{"prefix":"P6.","start":1,"end":15},"dependsOn":["C1","C2","C3","C5"]},
+    {"id":"C7","count":24,"phaseSpec":{"prefix":"P7.","start":1,"end":24},"dependsOn":["C1","C2","C3","C5","C6"]},
+    {"id":"IF","count":10,"phaseSpec":{"prefix":"PIF.","start":1,"end":10},"dependsOn":["C1","C2","C3","C5","C6","C7"]},
+    {"id":"C8","count":11,"phaseSpec":{"prefix":"P8.","start":1,"end":11},"dependsOn":["C1","C2","C3","C4","C5","C6","C7","IF"]},
+    {"id":"C9","count":9,"phaseSpec":{"prefix":"P9.","start":1,"end":9},"dependsOn":["C1","C2","C3","C5","C6","C7","IF","C8"]},
+    {"id":"C10","count":8,"phaseSpec":{"prefix":"P10.","start":1,"end":8},"dependsOn":["C1","C2","C3","C4","C5","C6","C7","IF"]},
+    {"id":"C11","count":10,"phaseSpec":{"prefix":"P11.","start":1,"end":10},"dependsOn":["C1","C2","C3","C4","C5","C6","C7","IF"]},
+    {"id":"C12","count":8,"phaseSpec":{"prefix":"P12.","start":1,"end":8},"dependsOn":["C1","C2","C3","C4","C5","C6","C7","IF","C8","C9","C10","C11"]},
+    {"id":"C13","count":10,"phaseSpec":{"prefix":"P13.","start":1,"end":10},"dependsOn":["C1","C2","C3","C5","C6","C7","IF","C8","C12"]},
+    {"id":"C14","count":12,"phaseSpec":{"prefix":"P14.","start":1,"end":12},"dependsOn":["C1","C2","C3","C4","C5","C6","C7","IF","C8","C9","C10","C11","C12","C13"]},
+    {"id":"C15","count":18,"phaseSpec":{"prefix":"P15.","start":1,"end":18},"dependsOn":["C0","C1","C2","C3","C4","C5","C6","C7","IF","C8","C9","C10","C11","C12","C13","C14"]}
+  ],
+  "pif": {
+    "executionOrder": ["PIF.1","PIF.2","PIF.3","PIF.5","PIF.7","PIF.8","PIF.4","PIF.6","PIF.9","PIF.10"],
+    "edges": {
+      "PIF.1": [],
+      "PIF.2": ["PIF.1"],
+      "PIF.3": ["PIF.1","PIF.2"],
+      "PIF.5": ["PIF.1","PIF.2","PIF.3"],
+      "PIF.7": ["PIF.1","PIF.2","PIF.3","PIF.5"],
+      "PIF.8": ["PIF.2","PIF.3","PIF.5","PIF.7"],
+      "PIF.4": ["PIF.1","PIF.2","PIF.3","PIF.5","PIF.7","PIF.8"],
+      "PIF.6": ["PIF.4","PIF.5","PIF.7","PIF.8"],
+      "PIF.9": ["PIF.1","PIF.2","PIF.3","PIF.4","PIF.5","PIF.6","PIF.7","PIF.8"],
+      "PIF.10": ["PIF.1","PIF.2","PIF.3","PIF.4","PIF.5","PIF.6","PIF.7","PIF.8","PIF.9"]
+    },
+    "exitGate": "Integrated persisted two-specialist learning/transfer/routing/revocation/restore acceptance with no private-data promotion, authority amplification, paid fallback, duplicate effects, unsupported global generalization, lost eligible learning, or restored revoked authority."
+  },
+  "supersession": {
+    "phaseCount": "Roadmap 22 supersedes Reconciliation 21 provisional 189 count.",
+    "resumeState": "James Morgan explicitly resumed the build on 2026-10-25 after the post-integration audit.",
+    "historicalIds": "Historical IDs remain immutable; this manifest is the current machine-readable index, not a renumbering."
+  }
+}
