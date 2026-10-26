@@ -133,7 +133,10 @@ export class PlatformProfileRegistry {
     return profile;
   }
 
-  list(ownerId: string): readonly PlatformComplianceProfile[] { return Object.freeze([...this.#current.values()].filter((profile) => profile.ownerId === ownerId)); }
+  list(ownerId?: string): readonly PlatformComplianceProfile[] {
+    const profiles = [...this.#current.values()];
+    return Object.freeze(ownerId === undefined ? profiles : profiles.filter((profile) => profile.ownerId === ownerId));
+  }
 }
 
 export function transformForProfile(input: PlatformTransformInput, profile: PlatformComplianceProfile, adapters: PlatformAdapterRegistry): PlatformTransformResult {
