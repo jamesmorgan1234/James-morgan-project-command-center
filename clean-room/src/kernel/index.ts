@@ -17,3 +17,4 @@ export * from "./invariants.js";
 export * from "./architecture-contract.js";
 export * from "./resilience.js";
 export * from "./scheduling.js";
+export * from "./localization.js";
