@@ -4,3 +4,4 @@ export * from "./archetypes.js";
 export * from "./aro.js";
 export * from "./isolation.js";
 export * from "./framework.js";
+export * from "./shopping.js";
