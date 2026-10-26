@@ -1,0 +1,18 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { PublishingProviderAdapterRegistry, assertPublishingBoundaryTruth } from "../dist/books/index.js";
+
+const kdp={key:"kdp",ownerId:"owner-1",version:1,health:"available",capabilities:["metadata","upload","submit","status"],boundaryByCapability:{metadata:"normal_chat",upload:"work_required",submit:"work_required",status:"work_required"},implementationRef:"adapter:kdp:v1",evidenceRefs:["provider:kdp-contract"],observedAt:"2026-10-26T16:00:00Z"};
+
+test("P11.7 publishing providers are versioned adapters and can be replaced without Books core changes",()=>{const registry=new PublishingProviderAdapterRegistry();registry.register(kdp);registry.register({key:"future-distributor",ownerId:"owner-1",version:1,health:"available",capabilities:["upload"],boundaryByCapability:{upload:"owner_only"},implementationRef:"adapter:future:v1",evidenceRefs:["provider:future-contract"],observedAt:"2026-10-26T16:01:00Z"});assert.equal(registry.route("owner-1","metadata")?.providerKey,"kdp");assert.ok(["kdp","future-distributor"].includes(registry.route("owner-1","upload")?.providerKey));});
+
+test("P11.7 provider health is truthful and unavailable providers are never routed",()=>{const registry=new PublishingProviderAdapterRegistry();registry.register({...kdp,health:"unavailable"});assert.equal(registry.route("owner-1","upload"),null);});
+
+test("P11.7 every capability must declare exact execution boundary",()=>{const registry=new PublishingProviderAdapterRegistry();assert.throws(()=>registry.register({...kdp,boundaryByCapability:{upload:"work_required"}}),/lacks an execution boundary/i);assert.throws(()=>registry.register({...kdp,boundaryByCapability:{...kdp.boundaryByCapability,unknown:"normal_chat"}}),/unknown capability/i);});
+
+test("P11.7 account/browser boundaries are truthful and cannot be disguised as normal chat",()=>{const registry=new PublishingProviderAdapterRegistry();registry.register(kdp);const upload=registry.route("owner-1","upload");assert.ok(upload);assert.throws(()=>assertPublishingBoundaryTruth(upload,"normal_chat"),/requires Work\/account browser execution/i);assert.doesNotThrow(()=>assertPublishingBoundaryTruth(upload,"work"));const metadata=registry.route("owner-1","metadata");assert.ok(metadata);assert.doesNotThrow(()=>assertPublishingBoundaryTruth(metadata,"normal_chat"));assert.throws(()=>assertPublishingBoundaryTruth(metadata,"work"),/should not be escalated/i);});
+
+test("P11.7 exact historical provider adapter version remains addressable",()=>{const registry=new PublishingProviderAdapterRegistry();registry.register(kdp);registry.register({...kdp,version:2,implementationRef:"adapter:kdp:v2",observedAt:"2026-10-26T17:00:00Z"});assert.equal(registry.requireExact("owner-1","kdp",1).implementationRef,"adapter:kdp:v1");assert.equal(registry.requireExact("owner-1","kdp",2).implementationRef,"adapter:kdp:v2");});
+
+test("P11.7 durable provider adapter history is immutable owner-scoped and boundary-explicit",()=>{const sql=readFileSync(new URL("../../supabase/migrations/20261026122000_p11_7_book_providers.sql",import.meta.url),"utf8");assert.match(sql,/command_center_book_publishing_provider_history/i);assert.match(sql,/command_center_book_publishing_provider_boundary_history/i);assert.match(sql,/implementation_ref text not null/i);assert.match(sql,/health text not null check\(health in \('available','degraded','unavailable'\)\)/i);assert.match(sql,/boundary text not null check\(boundary in \('normal_chat','work_required','owner_only'\)\)/i);assert.match(sql,/book publishing provider evidence is immutable/i);assert.match(sql,/is_command_center_authorized/i);});
