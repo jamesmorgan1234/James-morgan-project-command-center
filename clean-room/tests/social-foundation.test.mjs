@@ -6,7 +6,9 @@ import {
   requiredOwnerConnectionAction,
   assertDraftPublishReady,
   cloneDraftForAccount,
+  PlatformAdapterRegistry,
   PlatformProfileRegistry,
+  createRuleDrivenPlatformAdapter,
   transformForProfile,
   PublishLedger,
   triageExternalMessage,
@@ -83,12 +85,14 @@ test("drafts require rights/provenance/approval and account changes invalidate a
 });
 
 test("platform rules are versioned profiles rather than core workflow constants", () => {
-  const registry = new PlatformProfileRegistry();
-  registry.register({ key: "youtube:shorts", platform: "youtube", version: 1, maxCaptionChars: 20, allowedMediaKinds: ["video"], requiredDisclosureTags: ["#ad"], sourceRef: "youtube-rules-v1" });
-  const transformed = transformForProfile({ caption: "1234567890123456789012345", mediaKind: "video", disclosures: [] }, registry.get("youtube:shorts"));
+  const adapters = new PlatformAdapterRegistry();
+  adapters.register(createRuleDrivenPlatformAdapter("youtube-adapter", "youtube", 1, "social/youtube-adapter-v1", ["youtube-rules-v1"]));
+  const registry = new PlatformProfileRegistry(adapters);
+  const profile = registry.register({ key: "youtube:shorts", ownerId: "james", platform: "youtube", version: 1, adapterId: "youtube-adapter", adapterVersion: 1, maxCaptionChars: 20, allowedMediaKinds: ["video"], requiredDisclosureTags: ["#ad"], providerConstraints: {}, sourceRefs: ["youtube-rules-v1"], observedAt: "2026-10-23T18:00:00Z" });
+  const transformed = transformForProfile({ caption: "1234567890123456789012345", mediaKind: "video", disclosures: [] }, registry.get("james", "youtube:shorts"), adapters);
   assert.equal(transformed.caption.length, 20);
   assert.deepEqual(transformed.disclosures, ["#ad"]);
-  assert.throws(() => registry.register({ key: "youtube:shorts", platform: "youtube", version: 1, maxCaptionChars: 30, allowedMediaKinds: ["video"], requiredDisclosureTags: [], sourceRef: "same-version" }));
+  assert.throws(() => registry.register({ ...profile, version: 1, maxCaptionChars: 30 }), /version must advance/i);
 });
 
 test("publishing binds exact account, explicit authorization, idempotency and provider receipt", () => {

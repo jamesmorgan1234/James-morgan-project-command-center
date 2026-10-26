@@ -1,39 +1,160 @@
 export interface PlatformComplianceProfile {
   readonly key: string;
+  readonly ownerId: string;
   readonly platform: string;
   readonly version: number;
+  readonly adapterId: string;
+  readonly adapterVersion: number;
   readonly maxCaptionChars: number;
   readonly allowedMediaKinds: readonly string[];
   readonly requiredDisclosureTags: readonly string[];
-  readonly sourceRef: string;
+  readonly providerConstraints: Readonly<Record<string, string | number | boolean>>;
+  readonly sourceRefs: readonly string[];
+  readonly observedAt: string;
 }
 
-export class PlatformProfileRegistry {
-  readonly #profiles = new Map<string, PlatformComplianceProfile>();
+export interface PlatformTransformInput {
+  readonly caption: string;
+  readonly mediaKind: string;
+  readonly disclosures: readonly string[];
+}
 
-  register(profile: PlatformComplianceProfile): PlatformComplianceProfile {
-    if (!profile.key.trim() || !profile.platform.trim() || !profile.sourceRef.trim()) throw new Error("profile identity and provenance are required");
-    if (profile.version < 1 || profile.maxCaptionChars < 1) throw new Error("invalid platform profile version or caption limit");
-    const current = this.#profiles.get(profile.key);
-    if (current && profile.version <= current.version) throw new Error("platform profile version must advance");
-    const frozen = Object.freeze({ ...profile, allowedMediaKinds: Object.freeze([...profile.allowedMediaKinds]), requiredDisclosureTags: Object.freeze([...profile.requiredDisclosureTags]) });
-    this.#profiles.set(profile.key, frozen);
+export interface PlatformTransformResult {
+  readonly caption: string;
+  readonly mediaKind: string;
+  readonly disclosures: readonly string[];
+  readonly profileKey: string;
+  readonly profileVersion: number;
+  readonly adapterId: string;
+  readonly adapterVersion: number;
+}
+
+export interface PlatformTransformAdapter {
+  readonly id: string;
+  readonly platform: string;
+  readonly version: number;
+  readonly implementationRef: string;
+  readonly sourceRefs: readonly string[];
+  readonly transform: (input: PlatformTransformInput, profile: PlatformComplianceProfile) => Readonly<{ caption: string; mediaKind: string; disclosures: readonly string[] }>;
+}
+
+function refs(values: readonly string[], label: string, requireOne = true): readonly string[] {
+  if (!Array.isArray(values) || (requireOne && values.length === 0) || values.some((value) => typeof value !== "string" || !value.trim())) throw new Error(`${label} must contain nonblank values`);
+  const normalized = values.map((value) => value.trim());
+  if (new Set(normalized).size !== normalized.length) throw new Error(`${label} cannot contain duplicates`);
+  return Object.freeze(normalized);
+}
+
+function positiveInteger(value: number, label: string): void {
+  if (!Number.isSafeInteger(value) || value < 1) throw new Error(`${label} must be a positive integer`);
+}
+
+function timestamp(value: string, label: string): void {
+  if (!Number.isFinite(Date.parse(value))) throw new Error(`${label} must be an ISO-compatible timestamp`);
+}
+
+function freezeConstraints(constraints: Readonly<Record<string, string | number | boolean>>): Readonly<Record<string, string | number | boolean>> {
+  if (!constraints || typeof constraints !== "object" || Array.isArray(constraints)) throw new Error("provider constraints must be a record");
+  const entries = Object.entries(constraints);
+  for (const [key, value] of entries) {
+    if (!key.trim()) throw new Error("provider constraint keys cannot be blank");
+    if (!(typeof value === "string" || typeof value === "number" || typeof value === "boolean") || (typeof value === "number" && !Number.isFinite(value))) throw new Error("provider constraint values must be finite scalar values");
+  }
+  return Object.freeze(Object.fromEntries(entries));
+}
+
+function adapterVersionKey(id: string, version: number): string { return `${id}@${version}`; }
+function profileCurrentKey(ownerId: string, key: string): string { return `${ownerId}:${key}`; }
+function profileVersionKey(ownerId: string, key: string, version: number): string { return `${ownerId}:${key}@${version}`; }
+
+export class PlatformAdapterRegistry {
+  readonly #current = new Map<string, PlatformTransformAdapter>();
+  readonly #versions = new Map<string, PlatformTransformAdapter>();
+
+  register(adapter: PlatformTransformAdapter): PlatformTransformAdapter {
+    if (!adapter.id.trim() || !adapter.platform.trim() || !adapter.implementationRef.trim() || typeof adapter.transform !== "function") throw new Error("platform adapter identity, implementation, and transform are required");
+    positiveInteger(adapter.version, "platform adapter version");
+    const sourceRefs = refs(adapter.sourceRefs, "platform adapter source refs");
+    const current = this.#current.get(adapter.id);
+    if (current) {
+      if (current.platform !== adapter.platform) throw new Error("platform adapter identity cannot switch platforms");
+      if (adapter.version <= current.version) throw new Error("platform adapter version must advance");
+    }
+    const frozen = Object.freeze({ ...adapter, sourceRefs });
+    this.#current.set(adapter.id, frozen);
+    this.#versions.set(adapterVersionKey(adapter.id, adapter.version), frozen);
     return frozen;
   }
 
-  get(key: string): PlatformComplianceProfile {
-    const profile = this.#profiles.get(key);
+  requireExact(id: string, platform: string, version: number): PlatformTransformAdapter {
+    const adapter = this.#versions.get(adapterVersionKey(id, version));
+    if (!adapter || adapter.platform !== platform) throw new Error("exact platform adapter version is unavailable");
+    return adapter;
+  }
+}
+
+export class PlatformProfileRegistry {
+  readonly #current = new Map<string, PlatformComplianceProfile>();
+  readonly #versions = new Map<string, PlatformComplianceProfile>();
+  constructor(private readonly adapters: PlatformAdapterRegistry) {}
+
+  register(profile: PlatformComplianceProfile): PlatformComplianceProfile {
+    if (!profile.key.trim() || !profile.ownerId.trim() || !profile.platform.trim() || !profile.adapterId.trim()) throw new Error("profile owner/identity/platform/adapter are required");
+    positiveInteger(profile.version, "platform profile version");
+    positiveInteger(profile.adapterVersion, "profile adapter version");
+    positiveInteger(profile.maxCaptionChars, "profile caption limit");
+    timestamp(profile.observedAt, "platform profile observedAt");
+    const allowedMediaKinds = refs(profile.allowedMediaKinds, "allowed media kinds");
+    const requiredDisclosureTags = refs(profile.requiredDisclosureTags, "required disclosure tags", false);
+    const sourceRefs = refs(profile.sourceRefs, "platform profile source refs");
+    const providerConstraints = freezeConstraints(profile.providerConstraints);
+    this.adapters.requireExact(profile.adapterId, profile.platform, profile.adapterVersion);
+    const currentKey = profileCurrentKey(profile.ownerId, profile.key);
+    const current = this.#current.get(currentKey);
+    if (current) {
+      if (current.platform !== profile.platform || current.adapterId !== profile.adapterId) throw new Error("platform profile lineage cannot silently change platform/adapter identity");
+      if (profile.version <= current.version) throw new Error("platform profile version must advance");
+    }
+    const frozen = Object.freeze({ ...profile, allowedMediaKinds, requiredDisclosureTags, sourceRefs, providerConstraints });
+    this.#current.set(currentKey, frozen);
+    this.#versions.set(profileVersionKey(profile.ownerId, profile.key, profile.version), frozen);
+    return frozen;
+  }
+
+  get(ownerId: string, key: string): PlatformComplianceProfile {
+    const profile = this.#current.get(profileCurrentKey(ownerId, key));
     if (!profile) throw new Error(`unknown platform profile: ${key}`);
     return profile;
   }
 
-  list(): readonly PlatformComplianceProfile[] { return Object.freeze([...this.#profiles.values()]); }
+  getExact(ownerId: string, key: string, version: number): PlatformComplianceProfile {
+    const profile = this.#versions.get(profileVersionKey(ownerId, key, version));
+    if (!profile) throw new Error("exact platform profile version is unavailable");
+    return profile;
+  }
+
+  list(ownerId: string): readonly PlatformComplianceProfile[] { return Object.freeze([...this.#current.values()].filter((profile) => profile.ownerId === ownerId)); }
 }
 
-export function transformForProfile(input: { caption: string; mediaKind: string; disclosures: readonly string[] }, profile: PlatformComplianceProfile): Readonly<{ caption: string; mediaKind: string; disclosures: readonly string[] }> {
+export function transformForProfile(input: PlatformTransformInput, profile: PlatformComplianceProfile, adapters: PlatformAdapterRegistry): PlatformTransformResult {
   if (!profile.allowedMediaKinds.includes(input.mediaKind)) throw new Error("media kind is not allowed by current platform profile");
-  const disclosureSet = new Set(input.disclosures);
-  for (const required of profile.requiredDisclosureTags) disclosureSet.add(required);
-  const caption = input.caption.length > profile.maxCaptionChars ? input.caption.slice(0, profile.maxCaptionChars) : input.caption;
-  return Object.freeze({ caption, mediaKind: input.mediaKind, disclosures: Object.freeze([...disclosureSet]) });
+  const adapter = adapters.requireExact(profile.adapterId, profile.platform, profile.adapterVersion);
+  const transformed = adapter.transform(Object.freeze({ ...input, disclosures: Object.freeze([...input.disclosures]) }), profile);
+  if (!transformed || typeof transformed.caption !== "string" || transformed.mediaKind !== input.mediaKind || !Array.isArray(transformed.disclosures)) throw new Error("platform adapter returned malformed transformation output");
+  if (transformed.caption.length > profile.maxCaptionChars) throw new Error("platform adapter output violates profile caption limit");
+  const disclosures = refs(transformed.disclosures, "transformed disclosures", false);
+  for (const required of profile.requiredDisclosureTags) if (!disclosures.includes(required)) throw new Error("platform adapter output is missing required disclosure");
+  return Object.freeze({ caption: transformed.caption, mediaKind: transformed.mediaKind, disclosures, profileKey: profile.key, profileVersion: profile.version, adapterId: adapter.id, adapterVersion: adapter.version });
+}
+
+export function createRuleDrivenPlatformAdapter(id: string, platform: string, version: number, implementationRef: string, sourceRefs: readonly string[]): PlatformTransformAdapter {
+  return Object.freeze({
+    id, platform, version, implementationRef, sourceRefs: Object.freeze([...sourceRefs]),
+    transform(input: PlatformTransformInput, profile: PlatformComplianceProfile) {
+      const disclosureSet = new Set<string>(input.disclosures);
+      for (const required of profile.requiredDisclosureTags) disclosureSet.add(required);
+      const caption = input.caption.length > profile.maxCaptionChars ? input.caption.slice(0, profile.maxCaptionChars) : input.caption;
+      return Object.freeze({ caption, mediaKind: input.mediaKind, disclosures: Object.freeze([...disclosureSet]) });
+    }
+  });
 }
