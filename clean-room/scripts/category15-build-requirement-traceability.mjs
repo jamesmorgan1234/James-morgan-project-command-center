@@ -57,12 +57,7 @@ const baseline = parsed.map((values, index) => {
     architectureOwner: source.architecture_owner,
     classification: source.classification,
     activationPrerequisites: source.activation_prerequisites,
-    applicableCompaniesOrCapabilities: [],
-    owningPhases: [],
-    dependencies: [],
-    implementationLocations: [],
-    tests: [],
-    evidence: [],
+    applicableCompaniesOrCapabilities: [], owningPhases: [], dependencies: [], implementationLocations: [], tests: [], evidence: [],
     truthState: "UNVERIFIED",
     blocker: "Requirement-level current implementation/test/evidence mapping has not yet been proven for this row."
   };
@@ -75,10 +70,8 @@ const additions = rev3.requirements.map((item, index) => {
   const expectedId = `CCR-${String(5826 + index).padStart(5, "0")}`;
   if (item.id !== expectedId) throw new Error(`REV3 ID continuity failure at ${expectedId}`);
   return {
-    id: item.id,
-    requirement: item.requirement,
-    authoritativeSource: `REV3:${rev3Path.split('/').pop()}#${item.id}`,
-    sourceVersion: "current-repository-rev3",
+    id: item.id, requirement: item.requirement,
+    authoritativeSource: `REV3:${rev3Path.split('/').pop()}#${item.id}`, sourceVersion: "current-repository-rev3",
     sourceIds: [item.id], sourceFiles: ["Command_Center_Canonical_Owner_Additions_REV3.json"], sourceKinds: ["owner_addition"],
     architectureBranch: `Category ${item.category}`, architectureOwner: "Current owner-review authority", classification: "OWNER ADDITION", activationPrerequisites: "",
     applicableCompaniesOrCapabilities: [], owningPhases: [], dependencies: [], implementationLocations: [], tests: [], evidence: [],
@@ -88,14 +81,12 @@ const additions = rev3.requirements.map((item, index) => {
 
 const requirements = [...baseline, ...additions];
 const output = {
-  schemaVersion: 1,
-  status: "TRACEABILITY_SCAFFOLD_UNVERIFIED",
-  canonicalRequirementCount: requirements.length,
-  historicalBaselineCount: baseline.length,
-  rev3Count: additions.length,
+  schemaVersion: 1, status: "TRACEABILITY_SCAFFOLD_UNVERIFIED",
+  canonicalRequirementCount: requirements.length, historicalBaselineCount: baseline.length, rev3Count: additions.length,
   recoveredOriginalCsvSha256: csvSha256,
-  warning: "This file preserves every canonical requirement and its recovered source provenance. UNVERIFIED rows are not completion claims. P15.1 closes only after each row has current implementation/test/evidence truth or justified non-applicability.",
+  warning: "This scaffold preserves every canonical requirement and recovered source provenance but is not the P15.1 closure authority. UNVERIFIED rows are not completion claims.",
   requirements
 };
-if (write) writeFileSync(resolve(cleanRoom, "evidence/category15-requirement-traceability.json"), JSON.stringify(output, null, 2) + "\n");
-console.log(JSON.stringify({ ok: true, status: output.status, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256 }));
+const outputPath = "evidence/category15-requirement-traceability-scaffold.json";
+if (write) writeFileSync(resolve(cleanRoom, outputPath), JSON.stringify(output, null, 2) + "\n");
+console.log(JSON.stringify({ ok: true, status: output.status, outputPath, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256 }));
