@@ -3,6 +3,7 @@ export * from "./foundation.js";
 export * from "./providers.js";
 export * from "./accounts.js";
 export * from "./transactions.js";
+export * from "./transaction-normalization.js";
 export * from "./cashflow.js";
 export * from "./spending.js";
 export * from "./recurring.js";
