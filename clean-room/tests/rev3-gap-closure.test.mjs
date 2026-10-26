@@ -59,7 +59,8 @@ test("CCR-05833 workload replay covers scheduler, dispatch, claim, retry, confli
   assert.equal(result.matchedRepresentativeClasses, true);
   assert.equal(result.protectedSideEffectsExecuted, false);
   assert.equal(result.transcript.length, 7);
-  assert.throws(() => replayAgencyWorkloadFixture(events.filter((event) => event.kind !== "claim")), /claim/);
+  const withoutClaim = events.filter((event) => event.kind !== "claim").map((event, index) => ({ ...event, sequence: index + 1 }));
+  assert.throws(() => replayAgencyWorkloadFixture(withoutClaim), /claim/);
 });
 
 test("CCR-05835 and CCR-05846 logical lead registry shape supports all scopes and preserves mission, authority, decisions, evidence, dependencies and next action across handoff/failover", () => {
