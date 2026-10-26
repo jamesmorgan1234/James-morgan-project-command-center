@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_COMPATIBILITY_MODULE_ISOLATION_POLICY_GOVERNANCE",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05124": {
+      "requirement": "compatibility windows",
+      "canonicalSourceIds": ["P2-0029"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "runtime configuration", "schema/API compatibility"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/config.ts#validateRuntimeConfig", "clean-room/src/kernel/config.ts#evaluateCompatibility"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-compatibility-window.test.mjs :: P1 compatibility windows accept supported schema/API boundaries and reject versions outside either window"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-compatibility-window.test.mjs :: P1 compatibility windows reject malformed ranges instead of widening them implicitly"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-compatibility-window.test.mjs :: P1 compatibility windows accept supported schema/API boundaries and reject versions outside either window"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40359580425 / job 121701087589: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1089/1089 module tests passed on exact head 22a788909a5f46971b8d2bd14a83b80e809e781f; final Category15 phase gate remained intentionally open", "P1.8 owns configuration, environment and compatibility contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:22a788909a5f46971b8d2bd14a83b80e809e781f; ci:40359580425",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 22a788909a5f46971b8d2bd14a83b80e809e781f",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Schema and API compatibility windows are explicit bounded ranges; boundary values are accepted while unsupported versions and malformed ranges fail closed."
+    },
+    "CCR-05132": {
+      "requirement": "module isolation",
+      "canonicalSourceIds": ["P2-0038"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "module registry", "canonical module ownership"],
+      "owningPhases": ["P1.3"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/module-contract.ts#ModuleRegistry", "clean-room/src/kernel/module-contract.ts#assertNoOwnershipOverlap", "clean-room/src/kernel/module-contract.ts#assertAcyclicRecords"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module isolation rejects duplicate canonical data and capability ownership without partial registration"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module isolation rejects duplicate canonical data and capability ownership without partial registration"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module registry contains failed cyclic replacement and preserves the last valid record"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40359580425 / job 121701087589: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1089/1089 module tests passed on exact head 22a788909a5f46971b8d2bd14a83b80e809e781f; final Category15 phase gate remained intentionally open", "P1.3 owns module contracts, ownership, dependencies and lifecycle", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:22a788909a5f46971b8d2bd14a83b80e809e781f; ci:40359580425",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 22a788909a5f46971b8d2bd14a83b80e809e781f",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Module registration and replacement reject overlapping canonical data/capability ownership and preflight dependency cycles before mutation, preserving the last valid registry state on failure."
+    },
+    "CCR-05240": {
+      "requirement": "no silent policy broadening",
+      "canonicalSourceIds": ["P2-0150"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "owner governance", "protected actions"],
+      "owningPhases": ["P1.5"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/governance.ts#PROTECTED_ACTIONS", "clean-room/src/kernel/governance.ts#NON_PROTECTED_ACTIONS", "clean-room/src/kernel/governance.ts#evaluateGovernance"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-governance-policy-broadening.test.mjs :: P1 governance permits only explicitly classified non-protected actions and fails closed on unknown action classes"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-governance-policy-broadening.test.mjs :: P1 protected policy cannot broaden silently through missing or mismatched authorization"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-governance-policy-broadening.test.mjs :: P1 governance permits only explicitly classified non-protected actions and fails closed on unknown action classes", "clean-room/tests/category15-adversarial-acceptance.test.mjs :: adversarial: policy downgrade and unknown protected actions are denied"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40359580425 / job 121701087589: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1089/1089 module tests passed on exact head 22a788909a5f46971b8d2bd14a83b80e809e781f; final Category15 phase gate remained intentionally open", "P1.5 owns owner authority and authorization-boundary hooks; governance now enumerates both protected and permitted non-protected action classes and denies unknown classes", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:22a788909a5f46971b8d2bd14a83b80e809e781f; ci:40359580425",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 22a788909a5f46971b8d2bd14a83b80e809e781f",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Policy cannot silently widen when a new action label appears: unknown action classes are conservatively protected and denied, while protected actions still require exact current authorization."
+    }
+  }
+}
