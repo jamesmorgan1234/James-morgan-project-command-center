@@ -44,7 +44,7 @@ export interface FinancialPrimitiveInput {
   readonly amountCents?: number;
   readonly currency?: string;
   readonly label?: string;
-  readonly assumptionRefs?: readonly string[];
+  readonly assumptionRefs?: readonly string[] | undefined;
   readonly scenarioRef?: string;
   readonly confidence: FinancialConfidencePrimitive;
   readonly source: FinancialPrimitiveSource;
