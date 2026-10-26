@@ -64,3 +64,4 @@ jobs:
           test -f current-authority-audit.json && cat current-authority-audit.json | jq '{headSha,ok,currentPhaseCount,amendment20SectionCount,amendment20AtomicRequirementCount,pifMappedCapabilityFamilyCount,errorCount:(.errors|length)}' || true
           test -f category15-repository-audit.json && cat category15-repository-audit.json | jq '{headSha,trackedFileCount,scannedFileCount,automatedEveryFileScanComplete,semanticEveryFileReviewComplete,secretFindingCount:(.secretFindings|length),violationCount:(.violations|length)}' || true
           test -f category15-phase-status.json && cat category15-phase-status.json | jq '{currentPhaseCount,canonicalTotalsValid,allCategory15DefinitionsPresent,canonicalRequirementAuthoritySatisfied,phases}' || true
+          node scripts/p15-1-a00-unresolved-progress-report.mjs --limit=15
