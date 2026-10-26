@@ -46,11 +46,16 @@ const draft = {
   ownerId: "james",
   brandId: "brand-aro",
   intendedAccountId: "acct-1",
+  version: 1,
+  observedAt: "2026-10-23T18:00:00Z",
   body: "Approved content",
+  contentHash: "sha256:draft-1-v1",
   sourceAssetRefs: ["asset-1"],
+  assetBindings: [{ assetRef: "asset-1", contentHash: "sha256:asset-1", provenanceRefs: ["asset-source-1"], rightsEvidenceRefs: ["rights-1"] }],
   rightsEvidenceRefs: ["rights-1"],
   provenanceRefs: ["source-1"],
   approvalRefs: ["approval-1"],
+  approvalBindings: [{ approvalRef: "approval-1", approverRef: "owner:james", draftVersion: 1, intendedAccountId: "acct-1", contentHash: "sha256:draft-1-v1", approvedAt: "2026-10-23T18:01:00Z", evidenceRefs: ["approval-evidence-1"] }],
   sensitivityRank: 1
 };
 
