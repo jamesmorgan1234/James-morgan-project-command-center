@@ -10,3 +10,4 @@ export * from "./public-fork.js";
 export * from "./interfaces.js";
 export * from "./chaos.js";
 export * from "./lifecycle.js";
+export * from "./acceptance.js";
