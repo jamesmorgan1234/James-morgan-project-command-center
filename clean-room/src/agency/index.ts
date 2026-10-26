@@ -19,3 +19,4 @@ export * from "./protected.js";
 export * from "./replay.js";
 export * from "./rollout.js";
 export * from "./recovery.js";
+export * from "./rev3-closure.js";
