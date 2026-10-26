@@ -54,10 +54,10 @@ const context = {
 };
 
 test("PIF.1 extends the canonical C1 identifier owner with explicit ecosystem applicability kinds", () => {
-  assert.equal(parseIdentifier(createIdentifier("company", "Morgan Commerce")).kind, "company");
-  assert.equal(parseIdentifier(createIdentifier("brain", "ARO")).kind, "brain");
-  assert.equal(parseIdentifier(createIdentifier("domain", "media intelligence")).kind, "domain");
-  assert.equal(parseIdentifier(createIdentifier("condition", "low cash today")).kind, "condition");
+  assert.equal(parseIdentifier(createIdentifier("company", "morgan-commerce")).kind, "company");
+  assert.equal(parseIdentifier(createIdentifier("brain", "aro")).kind, "brain");
+  assert.equal(parseIdentifier(createIdentifier("domain", "media-intelligence")).kind, "domain");
+  assert.equal(parseIdentifier(createIdentifier("condition", "low-cash-today")).kind, "condition");
 });
 
 test("PIF.1 validates one shared intelligence envelope without replacing the C3 knowledge claim", () => {
