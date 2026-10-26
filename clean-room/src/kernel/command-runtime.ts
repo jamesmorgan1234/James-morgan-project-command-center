@@ -27,25 +27,57 @@ function assertEnvelopeVersion(version: number, label: string): number {
   return version;
 }
 
+function assertNonBlank(value: string | undefined, label: string): string {
+  if (typeof value !== "string" || !value.trim()) throw new Error(`${label} is required`);
+  return value;
+}
+
+export function assertCommandEnvelope(command: CommandEnvelope): CommandEnvelope {
+  assertNonBlank(command.id, "command id");
+  assertNonBlank(command.type, "command type");
+  assertEnvelopeVersion(command.version, "command");
+  assertNonBlank(command.correlationId, "command correlationId");
+  assertNonBlank(command.actor, "command actor");
+  if (command.causationId !== undefined) assertNonBlank(command.causationId, "command causationId");
+  if (command.idempotencyKey !== undefined) assertNonBlank(command.idempotencyKey, "command idempotencyKey");
+  if (command.projectId !== undefined) assertNonBlank(command.projectId, "command projectId");
+  return command;
+}
+
+function assertEventEnvelope(event: Omit<EventEnvelope, "sequence">, command: CommandEnvelope): void {
+  assertNonBlank(event.id, "event id");
+  assertNonBlank(event.type, "event type");
+  assertEnvelopeVersion(event.version, "event");
+  assertNonBlank(event.correlationId, "event correlationId");
+  assertNonBlank(event.causationId, "event causationId");
+  if (event.correlationId !== command.correlationId) throw new Error("Event correlationId must match originating command correlationId");
+  if (event.causationId !== command.id) throw new Error("Event causationId must match originating command id");
+}
+
 export class CommandRuntime {
   readonly #handlers = new Map<string, CommandHandler>();
   readonly #idempotency = new Map<string, readonly EventEnvelope[]>();
   #sequence = 0;
 
   register(type: string, handler: CommandHandler): void {
-    if (!type.trim()) throw new Error("Command type is required");
+    assertNonBlank(type, "Command type");
     if (this.#handlers.has(type)) throw new Error(`Command handler already registered: ${type}`);
     this.#handlers.set(type, handler);
   }
 
+  registeredTypes(): readonly string[] {
+    return Object.freeze([...this.#handlers.keys()].sort());
+  }
+
   execute(command: CommandEnvelope): readonly EventEnvelope[] {
-    assertEnvelopeVersion(command.version, "command");
+    assertCommandEnvelope(command);
     const handler = this.#handlers.get(command.type);
     if (!handler) throw new Error(`No command handler registered for ${command.type}`);
     const dedupeKey = command.idempotencyKey ? `${command.type}:${command.idempotencyKey}` : undefined;
     if (dedupeKey && this.#idempotency.has(dedupeKey)) return this.#idempotency.get(dedupeKey)!;
-    const events = handler(command).map((event) => {
-      assertEnvelopeVersion(event.version, "event");
+    const drafts = handler(command);
+    const events = drafts.map((event) => {
+      assertEventEnvelope(event, command);
       return Object.freeze({ ...event, sequence: ++this.#sequence });
     });
     if (dedupeKey) this.#idempotency.set(dedupeKey, Object.freeze(events));
