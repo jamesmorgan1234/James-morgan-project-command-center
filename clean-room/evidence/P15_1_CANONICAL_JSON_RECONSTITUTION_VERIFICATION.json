@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "status": "RECOVERED_CANONICAL_JSON_HASH_VERIFIED",
+  "recordedAt": "2026-10-26T09:24:00Z",
+  "authorityRecord": "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json",
+  "source": {
+    "fileName": "04_MASTER_RECONCILED_REQUIREMENTS(1).json",
+    "recoverySurface": "ChatGPT Library-backed source content",
+    "rowCount": 5825,
+    "firstId": "CCR-00001",
+    "lastId": "CCR-05825"
+  },
+  "canonicalSerialization": {
+    "encoding": "UTF-8",
+    "jsonIndent": 2,
+    "ensureAscii": false,
+    "trailingNewline": false
+  },
+  "hashVerification": {
+    "algorithm": "SHA-256",
+    "expected": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+    "actual": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+    "matchesAuthority": true
+  },
+  "truth": {
+    "canonicalJsonContentRecoveredAndHashEqualToAuthority": true,
+    "sourceArtifactRecoveryBlockerResolved": true,
+    "fullRequirementToImplementationEvidenceClosureComplete": false,
+    "note": "This verification proves recovery of the 5,825-row canonical JSON authority by exact hash equality. It does not claim P15.1 requirement-to-implementation/test/evidence closure for the current 5,852-requirement authority."
+  }
+}
