@@ -10,3 +10,4 @@ export * from "./self-audit.js";
 export * from "./accuracy.js";
 export * from "./evaluators.js";
 export * from "./transferability.js";
+export * from "./measurement-schema.js";
