@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_RUNTIME_RESILIENCE_CONTRACTS",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05113": {
+      "requirement": "optimistic/pessimistic concurrency where appropriate",
+      "canonicalSourceIds": ["P2-0017"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel concurrency", "protected runtime state"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#PessimisticLockTable", "clean-room/src/kernel/resilience.ts#assertOptimisticVersion"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 concurrency contracts support optimistic version checks and exclusive pessimistic locks"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 concurrency contracts support optimistic version checks and exclusive pessimistic locks"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 concurrency contracts support optimistic version checks and exclusive pessimistic locks"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.4 owns command/event/workflow runtime concurrency and transaction safety", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The kernel exposes explicit optimistic version checks and token-bound exclusive pessimistic locks, with conflict and stale-release paths failing closed."
+    },
+    "CCR-05115": {
+      "requirement": "deterministic retries",
+      "canonicalSourceIds": ["P2-0020"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel retry policy", "workflow runtime"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#deterministicRetryDelay", "clean-room/src/kernel/command-runtime.ts"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deterministic retry delays are reproducible bounded and fail when retry budget is exhausted"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deterministic retry delays are reproducible bounded and fail when retry budget is exhausted"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deterministic retry delays are reproducible bounded and fail when retry budget is exhausted"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns retry behavior in the command/event/workflow runtime", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Retry delay is deterministic and bounded, validates policy input, and refuses attempts beyond the configured retry budget."
+    },
+    "CCR-05118": {
+      "requirement": "transactional boundaries",
+      "canonicalSourceIds": ["P2-0023"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel transaction boundary", "workflow runtime"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#CompensatingTransaction", "clean-room/src/kernel/operations.ts#OperationJournal"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary compensates completed steps in reverse order after failure"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary reports incomplete compensation rather than hiding partial rollback"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary reports incomplete compensation rather than hiding partial rollback"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns transaction boundaries and compensation hooks", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Transactional execution compensates completed steps in reverse order and surfaces incomplete rollback as an aggregate failure rather than false success."
+    },
+    "CCR-05119": {
+      "requirement": "compensating transactions",
+      "canonicalSourceIds": ["P2-0024"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "compensation hooks", "workflow runtime"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#CompensatingTransaction.execute", "clean-room/src/kernel/resilience.ts#CompensatingTransaction.add"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary compensates completed steps in reverse order after failure"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary reports incomplete compensation rather than hiding partial rollback"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 transaction boundary reports incomplete compensation rather than hiding partial rollback"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns compensation hooks", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The compensation engine records completed steps, runs compensators in reverse order after failure, and reports any failed compensator explicitly."
+    },
+    "CCR-05122": {
+      "requirement": "feature-flag safety",
+      "canonicalSourceIds": ["P2-0027"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "runtime configuration", "feature flags"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#SafeFeatureFlags", "clean-room/src/kernel/config.ts"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 feature flags default off and unsafe enablement or stale replacement fails closed"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 feature flags default off and unsafe enablement or stale replacement fails closed"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 feature flags default off and unsafe enablement or stale replacement fails closed"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.8 explicitly owns typed/versioned compatibility and feature-flag contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Unknown flags default disabled; unsafe enablement is rejected; replacement is expected-version guarded and versions must advance."
+    },
+    "CCR-05125": {
+      "requirement": "deprecation windows",
+      "canonicalSourceIds": ["P2-0030"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "compatibility contracts", "deprecation lifecycle"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#deprecationState", "clean-room/src/kernel/config.ts#RuntimeConfig.compatibleSchema"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.8 owns compatibility ranges and compatibility-state contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Deprecation windows produce explicit active, deprecated and retired states and reject invalid temporal ordering."
+    },
+    "CCR-05288": {
+      "requirement": "deprecation state",
+      "canonicalSourceIds": ["P2-0200"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "compatibility contracts", "deprecation lifecycle"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#deprecationState", "clean-room/src/kernel/resilience.ts#DeprecationWindow"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 deprecation windows preserve active deprecated and retired states with valid temporal ordering"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "P1.8 owns compatibility/deprecation state contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The deprecation-state contract is explicit, time-ordered and fail-closed for invalid lifecycle windows."
+    }
+  }
+}
