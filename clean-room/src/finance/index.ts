@@ -12,6 +12,7 @@ export * from "./budget.js";
 export * from "./credit.js";
 export * from "./goals.js";
 export * from "./scenarios.js";
+export * from "./decision-support.js";
 export * from "./tax.js";
 export * from "./actions.js";
 export * from "./isolation.js";
