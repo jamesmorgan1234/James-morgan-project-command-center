@@ -59,12 +59,12 @@ export interface PublicationStateSnapshot {
 }
 
 const ALLOWED_PUBLICATION_TRANSITIONS: Readonly<Record<PublicationState, readonly PublicationState[]>> = Object.freeze({
-  draft: Object.freeze(["uploaded", "blocked"]),
-  uploaded: Object.freeze(["submitted", "blocked"]),
-  submitted: Object.freeze(["review", "blocked"]),
-  review: Object.freeze(["live", "blocked"]),
-  live: Object.freeze([]),
-  blocked: Object.freeze(["uploaded", "submitted", "review"])
+  draft: ["uploaded", "blocked"] as PublicationState[],
+  uploaded: ["submitted", "blocked"] as PublicationState[],
+  submitted: ["review", "blocked"] as PublicationState[],
+  review: ["live", "blocked"] as PublicationState[],
+  live: [] as PublicationState[],
+  blocked: ["uploaded", "submitted", "review"] as PublicationState[]
 });
 
 function publicationTimestamp(value: string, label: string): number {
