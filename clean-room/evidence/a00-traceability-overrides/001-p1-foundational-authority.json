@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_FOUNDATIONAL_AUTHORITY",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-00002": {
+      "requirement": "**Single requirements authority** — every approved James requirement gets a stable requirement ID.",
+      "canonicalSourceIds": ["F-0002"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "canonical requirement identity", "kernel identifier contract"],
+      "owningPhases": ["P1.1"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/identifiers.ts#ID_PREFIXES.requirement",
+        "clean-room/src/kernel/identifiers.ts#createIdentifier",
+        "clean-room/src/kernel/identifiers.ts#parseIdentifier",
+        "clean-room/src/kernel/identifiers.ts#assertIdentifierKind"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": ["clean-room/tests/kernel-foundation.test.mjs :: canonical identifiers are deterministic and typed :: createIdentifier/parseIdentifier deterministic requirement-kind contract"],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": ["clean-room/tests/kernel-foundation.test.mjs :: canonical identifiers are deterministic and typed :: assertIdentifierKind rejects wrong identifier kind"],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": ["clean-room/tests/kernel-foundation.test.mjs :: canonical identifiers are deterministic and typed :: createIdentifier rejects malformed token"],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40340212006 / job 121632571218: typecheck and core QA passed; 1026/1026 module tests passed on exact head 6ab5765008a09e404b4375f70a45ee5e16c3dfca",
+        "P1.1 scope explicitly includes stable identifiers for requirements",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:6ab5765008a09e404b4375f70a45ee5e16c3dfca; ci:40340212006",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 6ab5765008a09e404b4375f70a45ee5e16c3dfca",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P1.1 owns stable requirement identifiers. The kernel exposes a dedicated requirement prefix and deterministic typed parse/assert behavior with malformed/wrong-kind rejection."
+    },
+    "CCR-00006": {
+      "requirement": "**Supersession tracking** — newer decisions explicitly supersede older ones.",
+      "canonicalSourceIds": ["F-0006"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "authority ledger", "supersession lineage"],
+      "owningPhases": ["P1.6"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/ledger.ts#LedgerEntry.supersedes",
+        "clean-room/src/kernel/ledger.ts#VersionedLedger.append",
+        "clean-room/src/kernel/ledger.ts#VersionedLedger.history"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": ["clean-room/tests/kernel-foundation.test.mjs :: ledger requires explicit supersession for a new current entry :: explicit supersedes advances current rule"],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": ["clean-room/tests/kernel-foundation.test.mjs :: ledger requires explicit supersession for a new current entry :: replacement without supersedes throws"],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-authority-ledger.test.mjs :: P1.6 conflict resolution is explicit, auditable, scoped, and cannot bypass current-rule supersession"],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40340212006 / job 121632571218: typecheck and core QA passed; 1026/1026 module tests passed on exact head 6ab5765008a09e404b4375f70a45ee5e16c3dfca",
+        "P1.6 scope explicitly requires correction/supersession history and prevents superseded rules from silently governing execution",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:6ab5765008a09e404b4375f70a45ee5e16c3dfca; ci:40340212006",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 6ab5765008a09e404b4375f70a45ee5e16c3dfca",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P1.6 requires explicit supersession. The ledger rejects silent current-rule replacement and preserves superseded history."
+    }
+  }
+}
