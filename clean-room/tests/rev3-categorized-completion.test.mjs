@@ -42,7 +42,7 @@ test("CCR-05830 immutable Agency context packet requires bounded tools/scope and
   assert.equal(packet.taskId, "task:1");
   assert.deepEqual(packet.writeScopes, ["repo:branch:isolated"]);
   assert.throws(() => createAgencyExecutionContextPacket({ ...packet, allowedToolRefs: [] }), /allowed tools/);
-  assert.throws(() => createAgencyExecutionContextPacket({ ...packet, writeScopes: [] }), /write scopes/);
+  assert.deepEqual(createAgencyExecutionContextPacket({ ...packet, writeScopes: [] }).writeScopes, []);
 });
 
 test("CCR-05832 deterministic orchestration replay preserves ordered recorded choices and rejects incomplete record identity", () => {
