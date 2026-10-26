@@ -84,6 +84,22 @@ test("P15.1 validator never treats an UNVERIFIED scaffold row as closure",()=>{
   assert.equal(result.unverifiedCount,1);
 });
 
+test("P15.1 validator requires every UNVERIFIED row to name its blocker",()=>{
+  const row=closedRow({
+    applicableCompaniesOrCapabilities:[], owningPhases:[], dependenciesVerified:false, implementationLocations:[],
+    tests:{
+      positive:{applicable:null,references:[],justification:null},
+      negative:{applicable:null,references:[],justification:null},
+      failurePath:{applicable:null,references:[],justification:null}
+    },
+    evidence:[], evidenceVersion:"", evidenceEnvironment:"", truthState:"UNVERIFIED", blocker:null
+  });
+  const result=validateRequirementTraceability(traceability(row),{expectedCount:1});
+  assert.equal(result.structureValid,false);
+  assert.equal(result.closureComplete,false);
+  assert.equal(result.structurallyInvalidRowCount,1);
+});
+
 test("P15.1 validator rejects VERIFIED rows with empty implementation/test/evidence closure",()=>{
   const row=closedRow({
     applicableCompaniesOrCapabilities:[], owningPhases:[], dependenciesVerified:false, implementationLocations:[],

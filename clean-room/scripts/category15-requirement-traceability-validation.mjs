@@ -8,9 +8,9 @@ function validateTestDimension(value, { allowUnknown = false } = {}) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return false;
   if (!Array.isArray(value.references) || !arrayOfNonEmptyStrings(value.references)) return false;
   if (!nullableString(value.justification)) return false;
-  if (allowUnknown && value.applicable === null) return value.references.length === 0;
+  if (allowUnknown && value.applicable === null) return value.references.length === 0 && !nonEmptyString(value.justification);
   if (typeof value.applicable !== "boolean") return false;
-  if (value.applicable) return value.references.length > 0;
+  if (value.applicable) return value.references.length > 0 && !nonEmptyString(value.justification);
   return value.references.length === 0 && nonEmptyString(value.justification);
 }
 
@@ -20,7 +20,7 @@ function validateTests(value, options) {
 }
 
 function validateStructureRow(row, expectedId) {
-  return row && typeof row === "object" && !Array.isArray(row)
+  if (!(row && typeof row === "object" && !Array.isArray(row)
     && row.id === expectedId
     && nonEmptyString(row.requirement)
     && nonEmptyString(row.authoritativeSource)
@@ -41,7 +41,11 @@ function validateStructureRow(row, expectedId) {
     && typeof row.evidenceEnvironment === "string"
     && ["UNVERIFIED", "VERIFIED", "NOT_APPLICABLE"].includes(row.truthState)
     && nullableString(row.blocker)
-    && nullableString(row.justification);
+    && nullableString(row.justification))) return false;
+
+  if (row.truthState === "UNVERIFIED") return nonEmptyString(row.blocker) && !nonEmptyString(row.justification);
+  if (row.truthState === "VERIFIED") return !nonEmptyString(row.blocker) && !nonEmptyString(row.justification);
+  return !nonEmptyString(row.blocker) && nonEmptyString(row.justification);
 }
 
 function validateClosedRow(row) {
@@ -55,12 +59,8 @@ function validateClosedRow(row) {
     && !nonEmptyString(row.blocker);
 
   if (!commonClosure) return false;
-  if (row.truthState === "VERIFIED") {
-    return row.implementationLocations.length > 0 && !nonEmptyString(row.justification);
-  }
-  if (row.truthState === "NOT_APPLICABLE") {
-    return nonEmptyString(row.justification);
-  }
+  if (row.truthState === "VERIFIED") return row.implementationLocations.length > 0 && !nonEmptyString(row.justification);
+  if (row.truthState === "NOT_APPLICABLE") return nonEmptyString(row.justification);
   return false;
 }
 
