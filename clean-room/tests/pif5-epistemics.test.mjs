@@ -13,7 +13,7 @@ const BASE = {
 test("PIF.5 newer low-authority evidence cannot erase higher-authority knowledge", () => {
   const lower = { ...BASE, id: "epa-lower", valueFingerprint: "B", state: "VERIFIED", authorityRank: 20, observedAt: "2026-10-26T01:55:00Z", evidence: [{ evidenceId: "evd_external", sourceRef: "source:new", independenceGroup: "external-1", sourceConfidence: 1, transformationConfidence: 1 }] };
   const result = resolveEpistemicAssessments([BASE, lower], { subjectId: "subject:1", applicabilityRefs: ["project:cc"], now: NOW, confidenceHalfLifeMs: 86_400_000, minimumConfidence: 0.5, highImpact: false });
-  assert.equal(result.status, "resolved"); assert.equal(result.selected.id, "epa-owner"); assert.deepEqual(result.visibleAssessmentIds.sort(), ["epa-lower", "epa-owner"]);
+  assert.equal(result.status, "resolved"); assert.equal(result.selected.id, "epa-owner"); assert.deepEqual([...result.visibleAssessmentIds].sort(), ["epa-lower", "epa-owner"]);
 });
 
 test("PIF.5 correlated agreement is discounted instead of counted as independent support", () => {
