@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "cc-p15.1-task14-a00-fragment-inspection-v1",
+  "task": 14,
+  "taskRequirement": "Inspect all current A00 override fragments before creating another fragment.",
+  "status": "VERIFIED_COMPLETE",
+  "inspectionHead": "37f9e2cd19adf790defd9221a8372fd42fbdf4ac",
+  "inspectionTree": "9155c2259fe1141b8a74d5e7cbc404dad122c751",
+  "branch": "build/spec-lock-v2-clean-room",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "fragmentDirectory": "clean-room/evidence/a00-traceability-overrides",
+  "fragmentCount": 13,
+  "fragmentNumberRange": "001-013",
+  "nextAvailableFragmentNumber": 14,
+  "newTraceabilityFragmentCreatedByTask14": false,
+  "allCurrentFragmentsInspected": true,
+  "schemaConsistent": true,
+  "scopeConsistent": true,
+  "sourceAuthorityConsistent": true,
+  "duplicateFragmentNumbers": [],
+  "duplicateRowOverrideIdsAcrossFragments": [],
+  "explicitFragmentRowOverrideCount": 45,
+  "fragments": [
+    {"number":1,"file":"001-p1-foundational-authority.json","blobSha":"42f1f1ff8681b3538fd65f4554d5307fc3466869","cluster":"P1_FOUNDATIONAL_AUTHORITY","rowCount":2,"rowIds":["CCR-00002","CCR-00006"]},
+    {"number":2,"file":"002-p1-command-runtime-idempotency.json","blobSha":"5c36375397a32614176af57583cb586026ba8c69","cluster":"P1_COMMAND_RUNTIME_IDEMPOTENCY","rowCount":2,"rowIds":["CCR-05111","CCR-05112"]},
+    {"number":3,"file":"003-p1-evidence-verification.json","blobSha":"b258fe55ac0dd9128f0d06f8a6bb893f86bdc645","cluster":"P1_EVIDENCE_VERIFICATION","rowCount":4,"rowIds":["CCR-00831","CCR-00843","CCR-01793","CCR-01847"]},
+    {"number":4,"file":"004-p1-controlled-side-effects.json","blobSha":"f063a1f293dfa777e217fec42868aa091ea0217b","cluster":"P1_CONTROLLED_SIDE_EFFECTS","rowCount":6,"rowIds":["CCR-00828","CCR-05293","CCR-05294","CCR-05477","CCR-05617","CCR-05621"]},
+    {"number":5,"file":"005-p1-architecture-contracts.json","blobSha":"7090e6c476a46a1751d6c67423d6b8b36ca80ec0","cluster":"P1_ARCHITECTURE_OWNERSHIP_AND_EXTENSION_CONTRACTS","rowCount":3,"rowIds":["CCR-00826","CCR-00827","CCR-00829"]},
+    {"number":6,"file":"006-p1-foundation-version-lifecycle.json","blobSha":"c21c4e028442917c9f234c595a56d2c025207a5e","cluster":"P1_FOUNDATION_VERSION_LIFECYCLE_CONTRACTS","rowCount":8,"rowIds":["CCR-05102","CCR-05103","CCR-05104","CCR-05105","CCR-05106","CCR-05107","CCR-05109","CCR-05110"]},
+    {"number":7,"file":"007-p1-runtime-resilience-contracts.json","blobSha":"911445b83247f6efa53b826a43ea542ab4b6b902","cluster":"P1_RUNTIME_RESILIENCE_CONTRACTS","rowCount":7,"rowIds":["CCR-05113","CCR-05115","CCR-05118","CCR-05119","CCR-05122","CCR-05125","CCR-05288"]},
+    {"number":8,"file":"008-p1-recovery-observability.json","blobSha":"5e088ee5bed8f2536c02db3bb2b529001568f3f0","cluster":"P1_RECOVERY_OBSERVABILITY","rowCount":3,"rowIds":["CCR-05117","CCR-05127","CCR-05128"]},
+    {"number":9,"file":"009-p1-runtime-scheduling-flow-production-governance.json","blobSha":"330399a86f74df8d24eaa72a8e0656675e0e6864","cluster":"P1_RUNTIME_SCHEDULING_FLOW_AND_PRODUCTION_GOVERNANCE","rowCount":3,"rowIds":["CCR-05114","CCR-05116","CCR-05471"]},
+    {"number":10,"file":"010-p1-compatibility-module-isolation-policy-governance.json","blobSha":"b564c5aeaa08e20d4ca3c3f1186fde1ea9cbf2c0","cluster":"P1_COMPATIBILITY_MODULE_ISOLATION_POLICY_GOVERNANCE","rowCount":3,"rowIds":["CCR-05124","CCR-05132","CCR-05240"]},
+    {"number":11,"file":"011-p1-secure-defaults-fault-containment.json","blobSha":"135da2c06c352970bb19dc792321187f5e85ac44","cluster":"P1_SECURE_DEFAULTS_FAULT_CONTAINMENT","rowCount":2,"rowIds":["CCR-05131","CCR-05133"]},
+    {"number":12,"file":"012-p1-universal-command-action-surface.json","blobSha":"dab63cb7c5c087fddfa448e3194ed0f9ba2fccf1","cluster":"P1_UNIVERSAL_COMMAND_ACTION_SURFACE","rowCount":1,"rowIds":["CCR-05140"]},
+    {"number":13,"file":"013-p1-localization-ready-structure.json","blobSha":"20ad623810c6d7d2d94d5229699d1ff9b2a61bcf","cluster":"P1_LOCALIZATION_READY_STRUCTURE","rowCount":1,"rowIds":["CCR-05135"]}
+  ],
+  "truthBoundary": {
+    "inspectionDoesNotPromoteRequirements": true,
+    "inspectionDoesNotCreateFragment014": true,
+    "inspectionDoesNotCloseP15_1": true,
+    "inspectionDoesNotModifyProduction": true
+  }
+}
