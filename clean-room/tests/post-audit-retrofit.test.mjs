@@ -218,17 +218,32 @@ test("credential rotation and encryption-key revocation are explicit", () => {
   assert.throws(() => keys.assertDecryptAllowed("key-1"));
 });
 
-test("webhook gate rejects forged replay cross-account and stale callbacks and prevents out-of-order regression", () => {
-  const gate = new WebhookAcceptanceGate((_keyRef, payload, signature) => signature === `sig:${payload}`);
-  const expected = { providerKey: "provider:test", accountId: "acct-1", companyId: "company-101", environment: "staging", activeKeyRefs: ["key-v1", "key-v2"], maxAgeMs: 60_000, maxFutureSkewMs: 5_000 };
-  const base = { providerKey: "provider:test", eventId: "e1", accountId: "acct-1", companyId: "company-101", environment: "staging", occurredAt: "2026-10-24T23:29:50Z", receivedAt: NOW, keyRef: "key-v1", signedPayload: "payload", signature: "sig:payload", sequence: 2 };
-  assert.equal(gate.accept(base, expected).accepted, true);
-  assert.equal(gate.accept(base, expected).duplicate, true);
+test("webhook gate rejects forged cross-account and stale callbacks and defers replay/order truth to durable persistence", () => {
+  const gate = new WebhookAcceptanceGate((_keyRef, _payload, signature) => signature === "valid");
+  const expected = {
+    providerKey: "provider:test",
+    accountId: "acct-1",
+    companyId: "company-101",
+    environment: "staging",
+    keyWindows: [
+      { keyRef: "key-v1", notBefore: "2026-10-24T23:00:00Z", notAfter: "2026-10-25T00:00:00Z" },
+      { keyRef: "key-v2", notBefore: "2026-10-24T23:15:00Z", notAfter: "2026-10-25T00:15:00Z" }
+    ],
+    maxAgeMs: 60_000,
+    maxFutureSkewMs: 5_000
+  };
+  const base = { providerKey: "provider:test", eventId: "e1", accountId: "acct-1", companyId: "company-101", environment: "staging", occurredAt: "2026-10-24T23:29:50Z", receivedAt: NOW, keyRef: "key-v1", signedPayload: "payload", signature: "valid", sequence: 2 };
+  const accepted = gate.accept(base, expected);
+  assert.equal(accepted.accepted, true);
+  assert.equal(accepted.duplicate, false);
+  assert.equal(accepted.durablePersistenceRequired, true);
+  assert.equal(accepted.advancesAuthoritativeCursor, false);
+  assert.equal(gate.accept(base, expected).duplicate, false);
   assert.equal(gate.accept({ ...base, eventId: "e2", accountId: "acct-2" }, expected).reason, "callback_binding_mismatch");
   assert.equal(gate.accept({ ...base, eventId: "e3", signature: "forged" }, expected).reason, "callback_signature_invalid");
   assert.equal(gate.accept({ ...base, eventId: "e4", occurredAt: "2026-10-24T23:20:00Z" }, expected).reason, "callback_expired");
   assert.equal(gate.accept({ ...base, eventId: "e5", sequence: 1 }, expected).advancesAuthoritativeCursor, false);
-  assert.equal(gate.accept({ ...base, eventId: "e6", keyRef: "key-v2", sequence: 3 }, expected).advancesAuthoritativeCursor, true);
+  assert.equal(gate.accept({ ...base, eventId: "e6", keyRef: "key-v2", sequence: 3 }, expected).durablePersistenceRequired, true);
 });
 
 test("owner-session broker has no hardcoded production project and uses server-only identity config", async () => {
