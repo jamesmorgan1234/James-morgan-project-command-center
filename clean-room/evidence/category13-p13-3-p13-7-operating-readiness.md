@@ -1,22 +1,9 @@
-# Category 13 / P13.3–P13.7 — Operating Readiness Evidence
+# SUPERSEDED PHASE LABEL — Supplementary Operating-Readiness Helpers
 
-Status: implemented and locally verified on the isolated clean-room branch. This work does not deploy, enable a production rollout, invite external beta users, or activate paid infrastructure.
+This artifact remains valid as implementation evidence for core-journey instrumentation, dashboards, rollout-control definitions, kill-switch evaluation, rollback playbooks, and rehearsal definitions, but its former `P13.3–P13.7` phase-label interpretation is superseded.
 
-## P13.3 Core journeys
-CoreJourneyInstrumentation emits schema-valid, privacy-governed start/success/failure events for all ten mandatory journeys. Focused tests prove all ten can emit start + terminal success evidence.
+Authoritative Category 13 P13.3–P13.7 are reliability/drift observability, portfolio analytics, Agency/routing analytics, recommendation/outcome/transfer measurement, and failure/procedure learning.
 
-## P13.4 Operating dashboard
-buildOperatingDashboard exposes onboarding funnel, Project-run success/failure/latency, connected-app failures, Import failures, dot activity, support volume, and confirmation frequency.
+Use `category13-authoritative-phase-receipts.md` as the current C13 phase receipt. Preserve this file only as lineage for reusable operating-readiness helpers introduced by commit `b7ac1e8a62dbf10837ee9b4cd29d9f6b25df5439`.
 
-## P13.5 Rollout ladder
-ROLLOUT_LADDER defines all six stages with owner, promotion gates, rollback thresholds, and explicit production-authorization marking for limited-invited and later stages.
-
-## P13.6 Kill switches / rollback
-Fail-closed kill-switch evaluation exists for automation, connectors, dots, and experts. Rollback playbooks cover feature regression, connector incidents, automation/dot incidents, expert incidents, and data-integrity incidents.
-
-## P13.7 Rehearsals
-Eight required launch scenarios are codified with expected containment, escalation, and pass criteria. rehearsalPasses requires evidence for all defined expectations.
-
-Focused local verification before repository mutation: TypeScript 5.8.3 strict compilation PASS; Category 13 focused suite 14/14 PASS.
-
-Real P13.8 beta evidence, P13.9 staged rollout evidence, and P13.10 launch/steady-state evidence remain external execution stages and must not be fabricated.
+No production action is represented by this artifact.

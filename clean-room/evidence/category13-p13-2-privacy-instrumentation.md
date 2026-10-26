@@ -1,9 +1,9 @@
-# Category 13 / P13.2 — Privacy-Conscious Analytics Instrumentation Evidence
+# SUPERSEDED PHASE LABEL — Supplementary Privacy Instrumentation
 
-Status: implemented on the isolated clean-room branch only. No production analytics provider, paid service, deployment, or external data collection is activated by this phase.
+This artifact remains valid as implementation evidence for privacy-conscious analytics emission, but its former `P13.2` phase-label interpretation is superseded.
 
-`src/analytics/privacy-instrumentation.ts` adds client/server emission routing, affirmative-consent behavior for product analytics, minimized essential-reliability telemetry, event-property allowlisting, unsafe-key/secret-like-value rejection, and bounded error/performance capture that never accepts raw error objects, message bodies, prompts, credentials, tokens, headers, or other free-form sensitive content.
+Authoritative Category 13 P13.2 is **Events, logs, traces, evidence, and learning-trace observability**.
 
-Focused local verification before repository mutation: TypeScript 5.8.3 strict compilation PASS; combined P13.1/P13.2 tests 9/9 PASS.
+Use `category13-authoritative-phase-receipts.md` as the current C13 phase receipt. Preserve this file only as lineage for the reusable privacy-instrumentation helper introduced by commit `fb7733e6ce045cd00098130f02e1086bcef82754`.
 
-Repository-wide gates remain authoritative after commit integration.
+No production action is represented by this artifact.
