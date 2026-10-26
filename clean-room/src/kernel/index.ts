@@ -14,3 +14,4 @@ export * from "./admission.js";
 export * from "./operations.js";
 export * from "./recovery.js";
 export * from "./invariants.js";
+export * from "./architecture-contract.js";
