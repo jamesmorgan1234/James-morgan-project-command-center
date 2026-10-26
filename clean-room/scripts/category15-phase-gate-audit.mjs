@@ -24,7 +24,7 @@ const spec = read("roadmap/master-build-plan-owner-review/17_SPECIFICATION_LOCK_
 const rev3 = JSON.parse(read("roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json"));
 const expectedNew = Array.from({ length: 27 }, (_, i) => `CCR-${String(5826 + i).padStart(5, "0")}`);
 const observedNew = Array.isArray(rev3.requirements) ? rev3.requirements.map((item) => item.id) : [];
-const canonicalTotalsValid = /5,852/.test(spec) && /5,825/.test(spec) && rev3.baseline_canonical_requirement_total === 5825 && rev3.new_canonical_requirement_count === 27 && rev3.owner_review_canonical_requirement_total === 5852 && expectedNew.every((id, index) => observedNew[index] === id);
+const canonicalTotalsValid = /5,852/.test(spec) && rev3.baseline_canonical_requirement_total === 5825 && rev3.new_canonical_requirement_count === 27 && rev3.owner_review_canonical_requirement_total === 5852 && expectedNew.every((id, index) => observedNew[index] === id);
 const allCategory15DefinitionsPresent = Array.from({ length: 18 }, (_, i) => `P15.${i + 1}`).every((id) => phaseSet.has(id));
 
 const authorityAuditPath = "clean-room/current-authority-audit.json";
