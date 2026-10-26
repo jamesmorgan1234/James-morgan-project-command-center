@@ -1,4 +1,4 @@
-export type FoundryStage = "idea" | "research" | "ultimate_spec" | "architecture" | "roadmap" | "owner_authorization" | "agency_execution" | "evidence" | "acceptance";
+export type FoundryStage = "idea" | "research" | "ultimate_spec" | "architecture" | "roadmap" | "owner_authorization" | "agency_execution" | "evidence" | "acceptance" | "post_launch";
 
 const NEXT = {
   idea: ["research"],
@@ -9,7 +9,8 @@ const NEXT = {
   owner_authorization: ["agency_execution"],
   agency_execution: ["evidence"],
   evidence: ["acceptance"],
-  acceptance: []
+  acceptance: ["post_launch"],
+  post_launch: []
 } as const satisfies Readonly<Record<FoundryStage, readonly FoundryStage[]>>;
 
 export interface FoundrySnapshot {
