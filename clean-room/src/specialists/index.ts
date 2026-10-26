@@ -7,3 +7,4 @@ export * from "./framework.js";
 export * from "./shopping.js";
 export * from "./media.js";
 export * from "./commerce.js";
+export * from "./digital-products.js";
