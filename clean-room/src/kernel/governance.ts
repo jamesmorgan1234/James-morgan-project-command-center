@@ -12,8 +12,11 @@ export const PROTECTED_ACTIONS = [
   "accept_legal_terms"
 ] as const;
 
+export const NON_PROTECTED_ACTIONS = ["read", "analyze", "draft", "local_reversible_write"] as const;
+
 export type ProtectedAction = (typeof PROTECTED_ACTIONS)[number];
-export type ActionClass = ProtectedAction | "read" | "analyze" | "draft" | "local_reversible_write";
+export type NonProtectedAction = (typeof NON_PROTECTED_ACTIONS)[number];
+export type ActionClass = ProtectedAction | NonProtectedAction;
 
 export interface AuthorizationSnapshot {
   readonly ownerId: string;
@@ -42,9 +45,11 @@ export interface GovernanceDecision {
 }
 
 export function evaluateGovernance(context: GovernanceContext): GovernanceDecision {
-  if (!context.newestInstructionAllows) return { allowed: false, reason: "newest_owner_instruction_blocks_action", protected: PROTECTED_ACTIONS.includes(context.action as ProtectedAction) };
-  if (context.freeFirst && context.introducesCost) return { allowed: false, reason: "free_first_blocks_cost", protected: true };
   const isProtected = PROTECTED_ACTIONS.includes(context.action as ProtectedAction);
+  const isKnownNonProtected = NON_PROTECTED_ACTIONS.includes(context.action as NonProtectedAction);
+  if (!context.newestInstructionAllows) return { allowed: false, reason: "newest_owner_instruction_blocks_action", protected: isProtected || !isKnownNonProtected };
+  if (context.freeFirst && context.introducesCost) return { allowed: false, reason: "free_first_blocks_cost", protected: true };
+  if (!isProtected && !isKnownNonProtected) return { allowed: false, reason: "unknown_action_class", protected: true };
   if (!isProtected) return { allowed: true, reason: "allowed_non_protected_action", protected: false };
   const auth = context.authorization;
   if (!auth) return { allowed: false, reason: "fresh_owner_authorization_required", protected: true };

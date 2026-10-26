@@ -41,6 +41,32 @@ export function validateModuleContract(contract: ModuleContract): void {
   assertUnique(contract.migrations, `${contract.key}.migrations`);
 }
 
+function assertNoOwnershipOverlap(candidate: ModuleContract, records: readonly ModuleContract[]): void {
+  for (const record of records) {
+    if (record.key === candidate.key) continue;
+    const dataOverlap = candidate.ownsData.find((item) => record.ownsData.includes(item));
+    if (dataOverlap) throw new Error(`Module data ownership conflict for ${dataOverlap}: ${candidate.key} vs ${record.key}`);
+    const capabilityOverlap = candidate.ownsCapabilities.find((item) => record.ownsCapabilities.includes(item));
+    if (capabilityOverlap) throw new Error(`Module capability ownership conflict for ${capabilityOverlap}: ${candidate.key} vs ${record.key}`);
+  }
+}
+
+function assertAcyclicRecords(records: readonly ModuleContract[]): void {
+  const byKey = new Map(records.map((record) => [record.key, record]));
+  const visiting = new Set<string>();
+  const visited = new Set<string>();
+  const visit = (key: string): void => {
+    if (visited.has(key)) return;
+    if (visiting.has(key)) throw new Error(`Module dependency cycle detected at ${key}`);
+    visiting.add(key);
+    const record = byKey.get(key);
+    for (const dependency of record?.dependencies ?? []) visit(dependency);
+    visiting.delete(key);
+    visited.add(key);
+  };
+  for (const key of byKey.keys()) visit(key);
+}
+
 export class ModuleRegistry {
   readonly #registry = new Registry<ModuleContract>();
 
@@ -48,11 +74,13 @@ export class ModuleRegistry {
 
   register(contract: ModuleContract): void {
     validateModuleContract(contract);
+    const currentRecords = this.#registry.list();
     for (const dependency of contract.dependencies) {
       if (!this.#registry.get(dependency)) throw new Error(`Unknown module dependency ${dependency} for ${contract.key}`);
     }
+    assertNoOwnershipOverlap(contract, currentRecords);
+    assertAcyclicRecords([...currentRecords, contract]);
     this.#registry.register(contract);
-    this.#assertAcyclic();
   }
 
   replace(contract: ModuleContract, expectedVersion: number): void {
@@ -62,8 +90,11 @@ export class ModuleRegistry {
     for (const dependency of contract.dependencies) {
       if (dependency !== contract.key && !this.#registry.get(dependency)) throw new Error(`Unknown module dependency ${dependency} for ${contract.key}`);
     }
+    const currentRecords = this.#registry.list();
+    assertNoOwnershipOverlap(contract, currentRecords);
+    const proposedRecords = currentRecords.map((record) => record.key === contract.key ? contract : record);
+    assertAcyclicRecords(proposedRecords);
     this.#registry.replace(contract, expectedVersion);
-    this.#assertAcyclic();
   }
 
   enable(key: string, expectedVersion: number, nextVersion: number): ModuleContract {
@@ -100,21 +131,5 @@ export class ModuleRegistry {
     const current = this.#registry.get(key);
     if (!current) throw new Error(`Unknown module: ${key}`);
     return current;
-  }
-
-  #assertAcyclic(): void {
-    const records = new Map(this.#registry.list().map((record) => [record.key, record]));
-    const visiting = new Set<string>();
-    const visited = new Set<string>();
-    const visit = (key: string): void => {
-      if (visited.has(key)) return;
-      if (visiting.has(key)) throw new Error(`Module dependency cycle detected at ${key}`);
-      visiting.add(key);
-      const record = records.get(key);
-      for (const dependency of record?.dependencies ?? []) visit(dependency);
-      visiting.delete(key);
-      visited.add(key);
-    };
-    for (const key of records.keys()) visit(key);
   }
 }
