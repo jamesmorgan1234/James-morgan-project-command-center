@@ -13,6 +13,16 @@ export interface PlatformComplianceProfile {
   readonly observedAt: string;
 }
 
+export interface LegacyPlatformComplianceProfile {
+  readonly key: string;
+  readonly platform: string;
+  readonly version: number;
+  readonly maxCaptionChars: number;
+  readonly allowedMediaKinds: readonly string[];
+  readonly requiredDisclosureTags: readonly string[];
+  readonly sourceRef: string;
+}
+
 export interface PlatformTransformInput {
   readonly caption: string;
   readonly mediaKind: string;
@@ -96,9 +106,14 @@ export class PlatformAdapterRegistry {
 export class PlatformProfileRegistry {
   readonly #current = new Map<string, PlatformComplianceProfile>();
   readonly #versions = new Map<string, PlatformComplianceProfile>();
-  constructor(private readonly adapters: PlatformAdapterRegistry) {}
+  readonly #adapters: PlatformAdapterRegistry;
 
-  register(profile: PlatformComplianceProfile): PlatformComplianceProfile {
+  constructor(adapters?: PlatformAdapterRegistry) {
+    this.#adapters = adapters ?? new PlatformAdapterRegistry();
+  }
+
+  register(input: PlatformComplianceProfile | LegacyPlatformComplianceProfile): PlatformComplianceProfile {
+    const profile = this.normalize(input);
     if (!profile.key.trim() || !profile.ownerId.trim() || !profile.platform.trim() || !profile.adapterId.trim()) throw new Error("profile owner/identity/platform/adapter are required");
     positiveInteger(profile.version, "platform profile version");
     positiveInteger(profile.adapterVersion, "profile adapter version");
@@ -108,7 +123,7 @@ export class PlatformProfileRegistry {
     const requiredDisclosureTags = refs(profile.requiredDisclosureTags, "required disclosure tags", false);
     const sourceRefs = refs(profile.sourceRefs, "platform profile source refs");
     const providerConstraints = freezeConstraints(profile.providerConstraints);
-    this.adapters.requireExact(profile.adapterId, profile.platform, profile.adapterVersion);
+    this.#adapters.requireExact(profile.adapterId, profile.platform, profile.adapterVersion);
     const currentKey = profileCurrentKey(profile.ownerId, profile.key);
     const current = this.#current.get(currentKey);
     if (current) {
@@ -136,6 +151,31 @@ export class PlatformProfileRegistry {
   list(ownerId?: string): readonly PlatformComplianceProfile[] {
     const profiles = [...this.#current.values()];
     return Object.freeze(ownerId === undefined ? profiles : profiles.filter((profile) => profile.ownerId === ownerId));
+  }
+
+  private normalize(input: PlatformComplianceProfile | LegacyPlatformComplianceProfile): PlatformComplianceProfile {
+    if ("ownerId" in input) return input;
+    if (!input.sourceRef.trim()) throw new Error("legacy platform profile requires provenance");
+    const adapterId = `legacy-rule-driven:${input.platform}`;
+    try {
+      this.#adapters.requireExact(adapterId, input.platform, input.version);
+    } catch {
+      this.#adapters.register(createRuleDrivenPlatformAdapter(adapterId, input.platform, input.version, `legacy-compatible:${input.platform}:v${input.version}`, [input.sourceRef]));
+    }
+    return Object.freeze({
+      key: input.key,
+      ownerId: "legacy-unscoped",
+      platform: input.platform,
+      version: input.version,
+      adapterId,
+      adapterVersion: input.version,
+      maxCaptionChars: input.maxCaptionChars,
+      allowedMediaKinds: Object.freeze([...input.allowedMediaKinds]),
+      requiredDisclosureTags: Object.freeze([...input.requiredDisclosureTags]),
+      providerConstraints: Object.freeze({}),
+      sourceRefs: Object.freeze([input.sourceRef]),
+      observedAt: "1970-01-01T00:00:00.000Z"
+    });
   }
 }
 
