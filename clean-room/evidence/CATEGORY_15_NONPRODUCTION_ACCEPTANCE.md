@@ -4,13 +4,15 @@ Status: execution evidence for the isolated `build/spec-lock-v2-clean-room` bran
 
 ## P15.1 — requirement-to-implementation-to-evidence closure
 
-**BLOCKED_SOURCE_ARTIFACT.**
+**SOURCE_RECOVERED_TRACEABILITY_OPEN.**
 
-The historical raw requirement sources have been recovered substantially and include Foundation 1–2236, Core Product, Planned Expansion, Future/Optional, and the specialized inventories. The locked roadmap also preserves the final canonical count of 5,852 and the exact REV3 range CCR-05826–CCR-05852.
+The original Master Reconciliation package has now been recovered and independently verified. The historical package is `Command_Center_FULL_SPEC_LOCK_COMPLETE.zip` with SHA-256 `fa9d8e57ba595f5ba507074c7eb0d2bc8840ad16b3750f47b6679ff146c6cc8a`.
 
-What is not present in the repository or currently searchable Project/Library sources is the final reconciled **individual** canonical ledger for CCR-00001–CCR-05825. The 5,825 baseline was produced by reconciliation/deduplication plus Pass 2/3/4 and standards obligations. Raw source registers cannot truthfully be substituted for that final canonical ledger.
+Its authoritative `04_MASTER_RECONCILED_REQUIREMENTS.csv` and `.json` each contain exactly 5,825 individual canonical requirements with unique continuous IDs from `CCR-00001` through `CCR-05825`, real canonical requirement text, source IDs/files/kinds, architecture branch/owner, classification, activation prerequisites, and reversible source lineage. The CSV SHA-256 is `1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2`; the JSON SHA-256 is `0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e`. The recovered corpus covers 5,961 unique source IDs reconciled into the 5,825 canonical baseline, a net reduction of 136 candidate obligations.
 
-Therefore P15.1 must remain incomplete until the original final ledger is recovered or another owner-authorized evidence source proves every canonical requirement individually. No requirement text is reconstructed or fabricated here.
+`clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json` binds those recovered hashes/counts/ranges and the 27 locked REV3 requirements `CCR-05826–CCR-05852`, producing the current canonical total of 5,852.
+
+This resolves the former `BLOCKED_SOURCE_ARTIFACT` condition. It does **not** by itself complete P15.1. P15.1 remains open until `clean-room/evidence/category15-requirement-traceability.json` contains all 5,852 requirements with authoritative source, owning phase/dependencies, implementation locations, applicable positive/negative/failure tests, exact evidence/version/environment, truth state, and blocker or justified non-applicability. File presence or phase-level tests cannot substitute for requirement-level closure.
 
 ## P15.2 — every-file repository audit
 
@@ -48,12 +50,10 @@ No redraw, regeneration, recoloring, substitution or "improvement" is permitted.
 
 ## P15.14–P15.18 — protected external gates
 
-These remain deliberately untouched by this branch-only execution:
-
-- P15.14 preview/staging exact-candidate verification — requires the external candidate environment/authorization.
-- P15.15 production authorization — explicit owner gate.
-- P15.16 production deployment/live verification — protected production action.
-- P15.17 owner acceptance — James must perform/confirm it.
-- P15.18 physical Samsung acceptance/final completion lock — requires real Samsung installation/update/biometric/navigation testing.
+- P15.14 preview/staging exact-candidate verification requires the external exact candidate environment and evidence.
+- P15.15 requires a current owner authorization bound to the exact release-candidate SHA, manifest hash, and production operation; historical or broad conversational authorization cannot be silently reused for a materially different candidate.
+- P15.16 production deployment/live verification depends on valid P15.15 authority.
+- P15.17 owner acceptance requires the resulting current live candidate.
+- P15.18 physical Samsung acceptance/final completion lock requires real Samsung installation/update/biometric/navigation testing.
 
 Passing branch CI does not bypass any of those gates.
