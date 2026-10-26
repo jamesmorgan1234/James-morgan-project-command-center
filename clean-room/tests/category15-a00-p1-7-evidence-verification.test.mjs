@@ -56,7 +56,10 @@ test("A00 P1.7 completion-truth cluster is strictly grounded to canonical author
   }
 });
 
-test("resolved A00 closure advances only by the four newly evidenced P1.7 rows", () => {
-  assert.deepEqual(report.closureSummary, { total: 489, verified: 20, unverified: 469, notApplicable: 0 });
+test("resolved A00 closure retains the four evidenced P1.7 rows as later clusters are added", () => {
+  assert.equal(report.closureSummary.total, 489);
+  assert.ok(report.closureSummary.verified >= 20);
+  assert.equal(report.closureSummary.unverified, 489 - report.closureSummary.verified - report.closureSummary.notApplicable);
+  assert.equal(report.closureSummary.notApplicable, 0);
   assert.equal(report.fullP15_1ClosureSatisfied, false);
 });
