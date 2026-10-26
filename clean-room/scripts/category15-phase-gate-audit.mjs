@@ -48,9 +48,32 @@ function loadReceipt(id) {
 const historicalLedgerCandidates = [
   "roadmap/master-build-plan-owner-review/02_MASTER_BUILD_PLAN_REQUIREMENT_LEDGER.md",
   "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Requirement_Registry.json",
+  "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json",
   "clean-room/evidence/category15-requirement-traceability.json"
 ];
-const originalHistoricalLedgerRecovered = false;
+
+const recoveredOriginalLedgerAuthorityPath = "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json";
+let originalHistoricalLedgerRecovered = false;
+let recoveredOriginalLedgerAuthority = null;
+if (tracked(recoveredOriginalLedgerAuthorityPath) && existsSync(resolve(repoRoot, recoveredOriginalLedgerAuthorityPath))) {
+  try {
+    recoveredOriginalLedgerAuthority = JSON.parse(read(recoveredOriginalLedgerAuthorityPath));
+    const csv = recoveredOriginalLedgerAuthority.canonicalCsv ?? {};
+    const json = recoveredOriginalLedgerAuthority.canonicalJson ?? {};
+    const current = recoveredOriginalLedgerAuthority.currentRequirementAuthority ?? {};
+    const truth = recoveredOriginalLedgerAuthority.truth ?? {};
+    originalHistoricalLedgerRecovered = recoveredOriginalLedgerAuthority.status === "RECOVERED_ORIGINAL_VERIFIED"
+      && recoveredOriginalLedgerAuthority.historicalPackage?.sha256 === "fa9d8e57ba595f5ba507074c7eb0d2bc8840ad16b3750f47b6679ff146c6cc8a"
+      && csv.sha256 === "1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2"
+      && json.sha256 === "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e"
+      && csv.rowCount === 5825 && json.rowCount === 5825
+      && csv.firstId === "CCR-00001" && csv.lastId === "CCR-05825" && csv.idContinuityVerified === true
+      && json.firstId === "CCR-00001" && json.lastId === "CCR-05825" && json.idContinuityVerified === true
+      && current.historicalBaselineCount === 5825 && current.rev3AdditionCount === 27 && current.currentCanonicalCount === 5852
+      && truth.originalSourceArtifactBlockerResolved === true && truth.fullRequirementToImplementationEvidenceClosureComplete === false;
+  } catch { originalHistoricalLedgerRecovered = false; recoveredOriginalLedgerAuthority = null; }
+}
+
 const ownerReconciledReplacementPath = "clean-room/evidence/P15_1_OWNER_RECONCILED_REQUIREMENT_AUTHORITY.json";
 let ownerReconciledReplacementValid = false;
 if (tracked(ownerReconciledReplacementPath) && existsSync(resolve(repoRoot, ownerReconciledReplacementPath))) {
@@ -61,10 +84,35 @@ if (tracked(ownerReconciledReplacementPath) && existsSync(resolve(repoRoot, owne
 }
 const canonicalRequirementAuthoritySatisfied = originalHistoricalLedgerRecovered || ownerReconciledReplacementValid;
 
+const requirementTraceabilityPath = "clean-room/evidence/category15-requirement-traceability.json";
+let requirementTraceabilityValid = false;
+if (tracked(requirementTraceabilityPath) && existsSync(resolve(repoRoot, requirementTraceabilityPath))) {
+  try {
+    const traceability = JSON.parse(read(requirementTraceabilityPath));
+    const rows = Array.isArray(traceability.requirements) ? traceability.requirements : [];
+    const expectedIds = Array.from({ length: 5852 }, (_, i) => `CCR-${String(i + 1).padStart(5, "0")}`);
+    requirementTraceabilityValid = traceability.schemaVersion >= 1
+      && traceability.canonicalRequirementCount === 5852
+      && rows.length === 5852
+      && rows.every((row, index) => row?.id === expectedIds[index]
+        && typeof row.authoritativeSource === "string" && row.authoritativeSource.length > 0
+        && Array.isArray(row.owningPhases)
+        && Array.isArray(row.dependencies)
+        && Array.isArray(row.implementationLocations)
+        && Array.isArray(row.tests)
+        && Array.isArray(row.evidence)
+        && typeof row.truthState === "string"
+        && (row.truthState !== "VERIFIED" || (row.implementationLocations.length > 0 && row.tests.length > 0 && row.evidence.length > 0))
+        && (row.truthState !== "NOT_APPLICABLE" || (typeof row.justification === "string" && row.justification.length > 0)));
+  } catch { requirementTraceabilityValid = false; }
+}
+
 const phases = {};
-phases["P15.1"] = canonicalRequirementAuthoritySatisfied
-  ? { status: "VERIFIED_COMPLETE", reason: "Original reconciled historical ledger or explicit owner-reconciled provenance-preserving replacement is bound to this exact head." }
-  : { status: "BLOCKED_SOURCE_ARTIFACT", reason: "Original CCR-00001–CCR-05825 ledger remains unavailable and no exact-head owner-reconciled replacement authority is present. Raw registers/file presence cannot substitute." };
+phases["P15.1"] = canonicalRequirementAuthoritySatisfied && requirementTraceabilityValid
+  ? { status: "VERIFIED_COMPLETE", reason: "The recovered original historical ledger authority and all 5,852 requirement-level implementation/test/evidence closure rows are present and structurally valid.", evidence: [recoveredOriginalLedgerAuthorityPath, requirementTraceabilityPath] }
+  : canonicalRequirementAuthoritySatisfied
+    ? { status: "SOURCE_RECOVERED_TRACEABILITY_OPEN", reason: "The authoritative original CCR-00001–CCR-05825 ledger has been recovered and verified, resolving the source-artifact blocker. P15.1 remains open until all 5,852 requirements have requirement-level implementation/test/evidence/status closure.", evidence: [recoveredOriginalLedgerAuthorityPath], requiredTraceability: requirementTraceabilityPath }
+    : { status: "BLOCKED_SOURCE_ARTIFACT", reason: "No verified original CCR-00001–CCR-05825 authority or exact-head owner-reconciled replacement is present. Raw registers/file presence cannot substitute." };
 
 const repositoryAuditPath = "clean-room/category15-repository-audit.json";
 let semanticReviewVerified = false;
@@ -136,7 +184,7 @@ const nonproductionFailures = Object.entries(phases)
   .filter(([, value]) => value.status !== "VERIFIED_COMPLETE");
 
 const report = {
-  schemaVersion: 8,
+  schemaVersion: 9,
   verification: { headSha, exactHeadCiVerified, authorityAuditVerified },
   currentPhaseCount: phaseIds.length,
   lockedCanonicalRequirementCount: 5852,
@@ -145,12 +193,16 @@ const report = {
   canonicalTotalsValid,
   allCategory15DefinitionsPresent,
   historicalLedgerCandidates,
+  recoveredOriginalLedgerAuthorityPath,
+  originalHistoricalLedgerRecovered,
   canonicalRequirementAuthoritySatisfied,
+  requirementTraceabilityPath,
+  requirementTraceabilityValid,
   historicalCandidate,
   currentCandidateManifestPath,
   currentOwnerDecisionPath,
   phases
 };
 if (writeReport) writeFileSync(resolve(cleanRoom, "category15-phase-status.json"), JSON.stringify(report, null, 2) + "\n");
-console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_3_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
+console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, originalHistoricalLedgerRecovered, requirementTraceabilityValid, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_3_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
 if (!canonicalTotalsValid || !allCategory15DefinitionsPresent || !authorityAuditVerified || (requireNonproduction && nonproductionFailures.length)) process.exit(1);
