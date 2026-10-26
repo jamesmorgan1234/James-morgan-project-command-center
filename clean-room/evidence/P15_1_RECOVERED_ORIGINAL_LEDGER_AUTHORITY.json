@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "status": "RECOVERED_ORIGINAL_VERIFIED",
+  "recoveredAt": "2026-10-26",
+  "historicalPackage": {
+    "fileName": "Command_Center_FULL_SPEC_LOCK_COMPLETE.zip",
+    "sha256": "fa9d8e57ba595f5ba507074c7eb0d2bc8840ad16b3750f47b6679ff146c6cc8a"
+  },
+  "canonicalCsv": {
+    "fileName": "04_MASTER_RECONCILED_REQUIREMENTS.csv",
+    "sha256": "1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2",
+    "rowCount": 5825,
+    "firstId": "CCR-00001",
+    "lastId": "CCR-05825",
+    "idContinuityVerified": true,
+    "columns": ["canonical_id","canonical_text","source_ids","source_files","source_kinds","architecture_branch","architecture_owner","classification","activation_prerequisites"]
+  },
+  "canonicalJson": {
+    "fileName": "04_MASTER_RECONCILED_REQUIREMENTS.json",
+    "sha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+    "rowCount": 5825,
+    "firstId": "CCR-00001",
+    "lastId": "CCR-05825",
+    "idContinuityVerified": true
+  },
+  "reconciliation": {
+    "preReconciliationCandidateCount": 5961,
+    "canonicalCount": 5825,
+    "netReduction": 136,
+    "uniqueSourceIdCount": 5961,
+    "reversibleSourceLineageVerified": true
+  },
+  "currentRequirementAuthority": {
+    "historicalBaselineCount": 5825,
+    "rev3AdditionCount": 27,
+    "currentCanonicalCount": 5852,
+    "rev3Range": "CCR-05826–CCR-05852",
+    "rev3Path": "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json"
+  },
+  "recoveryPackage": {
+    "name": "Command Center Master Roadmap.zip",
+    "sha256AtCreation": "b01b69bb00f93f5ea985dcc34941f993609e47bcb193639e51f021c3deb31765",
+    "containsOriginalCanonicalCsvAndJson": true
+  },
+  "truth": {
+    "originalSourceArtifactBlockerResolved": true,
+    "fullRequirementToImplementationEvidenceClosureComplete": false,
+    "note": "Recovery of the authoritative original ledger resolves the source-artifact blocker only. P15.1 remains open until all 5,852 requirements have requirement-level implementation/test/evidence/status closure."
+  }
+}
