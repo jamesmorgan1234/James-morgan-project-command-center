@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_FOUNDATION_VERSION_LIFECYCLE_CONTRACTS",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05102": {
+      "requirement": "stable typed identifiers",
+      "canonicalSourceIds": ["P2-0006"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "canonical identifiers", "kernel contracts"],
+      "owningPhases": ["P1.1"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/identifiers.ts#IDENTIFIER_SCHEMA_VERSION", "clean-room/src/kernel/identifiers.ts#createIdentifier", "clean-room/src/kernel/identifiers.ts#parseIdentifier"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 stable typed identifiers carry an explicit identifier schema version and reject invalid identity"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 stable typed identifiers carry an explicit identifier schema version and reject invalid identity"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: canonical identifiers are deterministic and typed"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.1 owns canonical identifiers and lifecycle vocabulary", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Identifier construction and parsing use a versioned canonical schema and reject malformed or wrong-kind identity."
+    },
+    "CCR-05103": {
+      "requirement": "schema versioning",
+      "canonicalSourceIds": ["P2-0007"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "runtime configuration", "schema compatibility"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/config.ts#RuntimeConfig.schemaVersion", "clean-room/src/kernel/config.ts#RuntimeConfig.compatibleSchema", "clean-room/src/kernel/config.ts#validateRuntimeConfig"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 schema compatibility is versioned and rejects unsupported runtime schema versions"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 schema compatibility is versioned and rejects unsupported runtime schema versions"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: runtime configuration fails closed on incompatible versions"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.8 owns configuration/environment/compatibility contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Runtime configuration carries explicit schema version and compatibility bounds and fails closed outside them."
+    },
+    "CCR-05104": {
+      "requirement": "registry versioning",
+      "canonicalSourceIds": ["P2-0008"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel registries", "optimistic version control"],
+      "owningPhases": ["P1.2"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/registry.ts#Registry.register", "clean-room/src/kernel/registry.ts#Registry.replace", "clean-room/src/kernel/registry.ts#Registry.remove"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 registry versioning uses optimistic expected-version control and strictly advancing versions"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 registry versioning uses optimistic expected-version control and strictly advancing versions"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: generic registry enforces uniqueness and optimistic version replacement"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.2 owns the registry/capability fabric", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Registry writes use expected-version concurrency and replacement versions must strictly advance."
+    },
+    "CCR-05105": {
+      "requirement": "command/event versioning",
+      "canonicalSourceIds": ["P2-0009"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "command runtime", "event runtime"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/command-runtime.ts#CommandEnvelope.version", "clean-room/src/kernel/command-runtime.ts#EventEnvelope.version", "clean-room/src/kernel/command-runtime.ts#CommandRuntime.execute"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 command and event envelopes require positive safe version numbers"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 command and event envelopes require positive safe version numbers"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command runtime fails closed for unknown command types without consuming event sequence or dedupe state"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.4 owns command/event/workflow runtime contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Command and emitted event envelopes carry validated positive safe integer versions before runtime sequencing."
+    },
+    "CCR-05106": {
+      "requirement": "capability lifecycle states",
+      "canonicalSourceIds": ["P2-0010"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "capability lifecycle vocabulary"],
+      "owningPhases": ["P1.1"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/lifecycle.ts#LIFECYCLE_VOCABULARY_VERSION", "clean-room/src/kernel/lifecycle.ts#CAPABILITY_STATES", "clean-room/src/kernel/lifecycle.ts#assertState"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.1 owns canonical lifecycle vocabulary", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Capability lifecycle vocabulary is versioned, explicit, and unknown states fail closed."
+    },
+    "CCR-05107": {
+      "requirement": "module lifecycle states",
+      "canonicalSourceIds": ["P2-0011"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "module lifecycle vocabulary"],
+      "owningPhases": ["P1.1"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/lifecycle.ts#LIFECYCLE_VOCABULARY_VERSION", "clean-room/src/kernel/lifecycle.ts#MODULE_STATES", "clean-room/src/kernel/lifecycle.ts#assertState"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 capability and module lifecycle vocabularies are versioned explicit and fail closed on unknown states"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.1 owns canonical lifecycle vocabulary", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Module lifecycle vocabulary is versioned, explicit, and unknown states fail closed."
+    },
+    "CCR-05109": {
+      "requirement": "dependency declaration",
+      "canonicalSourceIds": ["P2-0013"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "module registry", "dependency contracts"],
+      "owningPhases": ["P1.3"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/module-contract.ts#ModuleContract.dependencies", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.register", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.replace"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 module dependencies are explicit unique existing declarations and cycles fail closed"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 module dependencies are explicit unique existing declarations and cycles fail closed"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: module registry blocks unknown dependencies, cycles, and removal with dependents"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.3 owns module ownership/lifecycle contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Module dependencies are explicit, unique, existing declarations; invalid dependencies and cycles fail closed."
+    },
+    "CCR-05110": {
+      "requirement": "install/enable/disable/uninstall contracts",
+      "canonicalSourceIds": ["P2-0014"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "module registry", "module lifecycle control"],
+      "owningPhases": ["P1.3"],
+      "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/module-contract.ts#ModuleRegistry.install", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.enable", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.disable", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.uninstall"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 install enable disable uninstall contracts enforce module policy and version advancement"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-version-lifecycle-contracts.test.mjs :: P1 install enable disable uninstall contracts enforce module policy and version advancement"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: module registry blocks unknown dependencies, cycles, and removal with dependents"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40353251285 / job 121678736058: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1063/1063 module tests passed on exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7", "P1.3 owns module ownership/lifecycle contracts", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:5b22d22cef2e1581553ffd50881578f9cfc3a8e7; ci:40353251285",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 5b22d22cef2e1581553ffd50881578f9cfc3a8e7",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Module lifecycle exposes explicit install/enable/disable/uninstall contracts with optimistic version control and disable/uninstall policy enforcement."
+    }
+  }
+}
