@@ -44,6 +44,8 @@ export function validateModuleContract(contract: ModuleContract): void {
 export class ModuleRegistry {
   readonly #registry = new Registry<ModuleContract>();
 
+  install(contract: ModuleContract): void { this.register(contract); }
+
   register(contract: ModuleContract): void {
     validateModuleContract(contract);
     for (const dependency of contract.dependencies) {
@@ -55,6 +57,8 @@ export class ModuleRegistry {
 
   replace(contract: ModuleContract, expectedVersion: number): void {
     validateModuleContract(contract);
+    const current = this.#registry.get(contract.key);
+    if (current?.enabled && !contract.enabled && !current.canDisable) throw new Error(`Module cannot be disabled: ${contract.key}`);
     for (const dependency of contract.dependencies) {
       if (dependency !== contract.key && !this.#registry.get(dependency)) throw new Error(`Unknown module dependency ${dependency} for ${contract.key}`);
     }
@@ -62,13 +66,40 @@ export class ModuleRegistry {
     this.#assertAcyclic();
   }
 
+  enable(key: string, expectedVersion: number, nextVersion: number): ModuleContract {
+    const current = this.#required(key);
+    if (current.enabled) throw new Error(`Module is already enabled: ${key}`);
+    const next = Object.freeze({ ...current, version: nextVersion, enabled: true });
+    this.replace(next, expectedVersion);
+    return this.#required(key);
+  }
+
+  disable(key: string, expectedVersion: number, nextVersion: number): ModuleContract {
+    const current = this.#required(key);
+    if (!current.enabled) throw new Error(`Module is already disabled: ${key}`);
+    if (!current.canDisable) throw new Error(`Module cannot be disabled: ${key}`);
+    const next = Object.freeze({ ...current, version: nextVersion, enabled: false });
+    this.replace(next, expectedVersion);
+    return this.#required(key);
+  }
+
   get(key: string): ModuleContract | undefined { return this.#registry.get(key); }
   list(): readonly ModuleContract[] { return this.#registry.list(); }
 
+  uninstall(key: string, expectedVersion: number): ModuleContract { return this.remove(key, expectedVersion); }
+
   remove(key: string, expectedVersion: number): ModuleContract {
+    const current = this.#required(key);
+    if (!current.canUninstall) throw new Error(`Module cannot be uninstalled: ${key}`);
     const dependents = this.#registry.list().filter((entry) => entry.dependencies.includes(key));
     if (dependents.length > 0) throw new Error(`Cannot remove ${key}; dependents exist: ${dependents.map((d) => d.key).join(",")}`);
     return this.#registry.remove(key, expectedVersion);
+  }
+
+  #required(key: string): ModuleContract {
+    const current = this.#registry.get(key);
+    if (!current) throw new Error(`Unknown module: ${key}`);
+    return current;
   }
 
   #assertAcyclic(): void {

@@ -22,6 +22,11 @@ export interface EventEnvelope<T = unknown> {
 
 export type CommandHandler<T = unknown> = (command: CommandEnvelope<T>) => readonly Omit<EventEnvelope, "sequence">[];
 
+function assertEnvelopeVersion(version: number, label: string): number {
+  if (!Number.isSafeInteger(version) || version < 1) throw new Error(`Invalid ${label} version: ${version}`);
+  return version;
+}
+
 export class CommandRuntime {
   readonly #handlers = new Map<string, CommandHandler>();
   readonly #idempotency = new Map<string, readonly EventEnvelope[]>();
@@ -34,12 +39,15 @@ export class CommandRuntime {
   }
 
   execute(command: CommandEnvelope): readonly EventEnvelope[] {
-    if (command.version < 1) throw new Error(`Invalid command version for ${command.type}`);
+    assertEnvelopeVersion(command.version, "command");
     const handler = this.#handlers.get(command.type);
     if (!handler) throw new Error(`No command handler registered for ${command.type}`);
     const dedupeKey = command.idempotencyKey ? `${command.type}:${command.idempotencyKey}` : undefined;
     if (dedupeKey && this.#idempotency.has(dedupeKey)) return this.#idempotency.get(dedupeKey)!;
-    const events = handler(command).map((event) => Object.freeze({ ...event, sequence: ++this.#sequence }));
+    const events = handler(command).map((event) => {
+      assertEnvelopeVersion(event.version, "event");
+      return Object.freeze({ ...event, sequence: ++this.#sequence });
+    });
     if (dedupeKey) this.#idempotency.set(dedupeKey, Object.freeze(events));
     return Object.freeze(events);
   }
