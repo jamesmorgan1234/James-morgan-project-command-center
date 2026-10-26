@@ -1,0 +1,16 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { CommerceIsolationRegistry, validateCommerceEconomics, validateCommerceState, COMMERCE_TRUTH_OWNER } from "../dist/specialists/index.js";
+
+const binding={id:"bind-1",ownerId:"owner-1",projectId:"store-1",companyId:"company-1",storeAccountRef:"shop:1",supplierAccountRefs:["supplier:1"],providerRefs:["shop-provider","supplier-provider"],sourceRefs:["owner:binding"],observedAt:"2026-10-26T16:00:00Z"};
+
+test("P12.4 commerce truth stays specialist-owned",()=>{assert.equal(COMMERCE_TRUTH_OWNER,"specialist:commerce");});
+
+test("P12.4 store and supplier accounts are isolated per commerce project",()=>{const registry=new CommerceIsolationRegistry();registry.bind(binding);assert.throws(()=>registry.bind({...binding,id:"bind-2",projectId:"store-2",companyId:"company-2"}),/store account is isolated/i);assert.throws(()=>registry.bind({...binding,id:"bind-3",projectId:"store-2",companyId:"company-2",storeAccountRef:"shop:2"}),/supplier account is isolated/i);});
+
+test("P12.4 product economics must use supplier bound to exact project",()=>{const registry=new CommerceIsolationRegistry();const bound=registry.bind(binding);assert.doesNotThrow(()=>validateCommerceEconomics({id:"econ-1",ownerId:"owner-1",projectId:"store-1",productRef:"product-1",supplierRef:"supplier:1",landedCost:10,salePrice:15,currency:"USD",observedAt:"2026-10-26T16:05:00Z",sourceRefs:["supplier:cost"]},bound));assert.throws(()=>validateCommerceEconomics({id:"econ-2",ownerId:"owner-1",projectId:"store-1",productRef:"product-1",supplierRef:"supplier:other",landedCost:10,salePrice:15,currency:"USD",observedAt:"2026-10-26T16:05:00Z",sourceRefs:["supplier:cost"]},bound),/cannot cross project\/supplier boundary/i);});
+
+test("P12.4 catalog supplier pricing fulfillment marketing and revenue state cannot cross project boundary",()=>{const registry=new CommerceIsolationRegistry();const bound=registry.bind(binding);for(const domain of ["catalog","supplier","pricing","fulfillment","marketing","revenue"])assert.doesNotThrow(()=>validateCommerceState({id:`state-${domain}`,ownerId:"owner-1",projectId:"store-1",domain,canonicalRef:`ref:${domain}`,state:"ok",observedAt:"2026-10-26T16:10:00Z",sourceRefs:[`source:${domain}`]},bound));assert.throws(()=>validateCommerceState({id:"bad",ownerId:"owner-1",projectId:"other",domain:"catalog",canonicalRef:"ref",state:"ok",observedAt:"2026-10-26T16:10:00Z",sourceRefs:["source"]},bound),/cannot cross project boundary/i);});
+
+test("P12.4 durable commerce evidence preserves store supplier project isolation",()=>{const sql=readFileSync(new URL("../../supabase/migrations/20261026133000_p12_4_commerce_specialist.sql",import.meta.url),"utf8");assert.match(sql,/command_center_commerce_project_binding_history/i);assert.match(sql,/store_account_ref text not null/i);assert.match(sql,/supplier_account_refs text\[\]/i);assert.match(sql,/command_center_commerce_state_history/i);assert.match(sql,/commerce evidence is immutable/i);});
