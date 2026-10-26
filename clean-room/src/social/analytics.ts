@@ -143,7 +143,9 @@ export interface SocialPerformanceSnapshot {
 export function buildSocialPerformanceSnapshot(metrics: readonly EvidenceBackedSocialMetric[], attributions: readonly EvidenceBackedAttribution[], ownerId: string, brandId: string, accountId: string, now: string): SocialPerformanceSnapshot {
   timestamp(now, "snapshot generatedAt");
   const scopedMetrics = metrics.map(validateEvidenceBackedMetric).filter((metric) => metric.ownerId === ownerId && metric.brandId === brandId && metric.accountId === accountId);
-  const scopedAttributions = attributions.map((record) => validateEvidenceBackedAttribution(record, scopedMetrics)).filter((record) => record.ownerId === ownerId && record.brandId === brandId && record.accountId === accountId);
+  const scopedAttributions = attributions
+    .filter((record) => record.ownerId === ownerId && record.brandId === brandId && record.accountId === accountId)
+    .map((record) => validateEvidenceBackedAttribution(record, scopedMetrics));
   const confirmedRevenueAttributionIds = scopedAttributions.filter((record) => record.outcomeKind === "revenue" && record.confidence === "confirmed").map((record) => record.id);
   const estimatedOutcomeIds = scopedAttributions.filter((record) => record.confidence === "estimated").map((record) => record.id);
   return Object.freeze({ ownerId, brandId, accountId, generatedAt: now, metricIds: Object.freeze(scopedMetrics.map((metric) => metric.id)), confirmedRevenueAttributionIds: Object.freeze(confirmedRevenueAttributionIds), estimatedOutcomeIds: Object.freeze(estimatedOutcomeIds) });
