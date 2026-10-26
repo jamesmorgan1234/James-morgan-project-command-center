@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_ARCHITECTURE_OWNERSHIP_AND_EXTENSION_CONTRACTS",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-00826": {
+      "requirement": "**One source of truth.**",
+      "canonicalSourceIds": ["F-0831"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel architecture", "canonical subsystem ownership"],
+      "owningPhases": ["P1.10"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/architecture-contract.ts#ArchitectureResponsibilityContract.truthSource",
+        "clean-room/src/kernel/architecture-contract.ts#validateArchitectureResponsibility",
+        "clean-room/src/kernel/architecture-contract.ts#createCoreArchitectureResponsibilityRegistry"
+      ],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 architecture inventory assigns exactly one owner and one truth source to every core responsibility"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 architecture contracts reject missing truth ownership failure or verification semantics"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 core architecture coverage fails closed when even one responsibility is absent"], "justification": null}
+      },
+      "evidence": [
+        "GitHub Actions run 40352417191 / job 121675751646: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1054/1054 module tests passed on exact head 875c167b2c781d904155d000cb26da29580048d4",
+        "P1.10 kernel invariants/extensibility acceptance owns singular core architecture and extensibility constraints",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:875c167b2c781d904155d000cb26da29580048d4; ci:40352417191",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 875c167b2c781d904155d000cb26da29580048d4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Every registered core responsibility declares one explicit truth source and coverage fails closed if any core responsibility is missing."
+    },
+    "CCR-00827": {
+      "requirement": "**One architectural owner for every responsibility.**",
+      "canonicalSourceIds": ["F-0832"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel architecture", "canonical subsystem ownership"],
+      "owningPhases": ["P1.10"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/architecture-contract.ts#ArchitectureResponsibilityContract.owner",
+        "clean-room/src/kernel/architecture-contract.ts#ArchitectureResponsibilityRegistry.register",
+        "clean-room/src/kernel/architecture-contract.ts#createCoreArchitectureResponsibilityRegistry"
+      ],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 architecture inventory assigns exactly one owner and one truth source to every core responsibility"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 duplicate architectural ownership is rejected instead of becoming competing authority"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 core architecture coverage fails closed when even one responsibility is absent"], "justification": null}
+      },
+      "evidence": [
+        "GitHub Actions run 40352417191 / job 121675751646: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1054/1054 module tests passed on exact head 875c167b2c781d904155d000cb26da29580048d4",
+        "P1.10 kernel invariants/extensibility acceptance owns singular core architecture and extensibility constraints",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:875c167b2c781d904155d000cb26da29580048d4; ci:40352417191",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 875c167b2c781d904155d000cb26da29580048d4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The architecture registry admits exactly one owner for each responsibility and rejects competing ownership."
+    },
+    "CCR-00829": {
+      "requirement": "**One defined extension path for every expandable subsystem.**",
+      "canonicalSourceIds": ["F-0834"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel architecture", "extensible subsystems"],
+      "owningPhases": ["P1.10"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/architecture-contract.ts#ArchitectureResponsibilityContract.extensionPath",
+        "clean-room/src/kernel/architecture-contract.ts#validateArchitectureResponsibility",
+        "clean-room/src/kernel/architecture-contract.ts#createCoreArchitectureResponsibilityRegistry"
+      ],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 every declared expandable subsystem requires a defined extension path"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 architecture contracts reject missing truth ownership failure or verification semantics"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-architecture-contract.test.mjs :: P1 core architecture coverage fails closed when even one responsibility is absent"], "justification": null}
+      },
+      "evidence": [
+        "GitHub Actions run 40352417191 / job 121675751646: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1054/1054 module tests passed on exact head 875c167b2c781d904155d000cb26da29580048d4",
+        "P1.10 kernel invariants/extensibility acceptance owns singular core architecture and extensibility constraints",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:875c167b2c781d904155d000cb26da29580048d4; ci:40352417191",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 875c167b2c781d904155d000cb26da29580048d4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Every subsystem marked expandable must declare its one sanctioned extension path; missing extension paths are rejected."
+    }
+  }
+}
