@@ -1,0 +1,18 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { validateEvidenceBackedBookMetric, reconcileEvidenceBackedBookMetrics, summarizeBookPerformance } from "../dist/books/index.js";
+
+function metric(overrides={}){return {id:"m1",ownerId:"owner-1",projectId:"project-1",bookId:"book-1",format:"kindle",metric:"sales",value:10,truth:"confirmed",periodStart:"2026-10-01T00:00:00Z",periodEnd:"2026-10-25T23:59:59Z",observedAt:"2026-10-26T16:00:00Z",sourceRefs:["kdp:report"],providerRecordRef:"kdp:record:1",...overrides};}
+
+test("P11.8 performance metrics preserve source dates scope provider record and truth class",()=>{const valid=validateEvidenceBackedBookMetric(metric());assert.equal(valid.truth,"confirmed");assert.equal(valid.providerRecordRef,"kdp:record:1");assert.throws(()=>validateEvidenceBackedBookMetric(metric({observedAt:"2026-10-20T00:00:00Z"})),/before period end/i);});
+
+test("P11.8 settled royalties require settlement evidence and currency",()=>{assert.throws(()=>validateEvidenceBackedBookMetric(metric({metric:"royalties",value:20,truth:"settled"})),/currency/i);assert.throws(()=>validateEvidenceBackedBookMetric(metric({metric:"royalties",value:20,currency:"USD",truth:"settled"})),/settlement evidence/i);assert.doesNotThrow(()=>validateEvidenceBackedBookMetric(metric({metric:"royalties",value:20,currency:"USD",truth:"settled",settlementRef:"bank-settlement:1"})));});
+
+test("P11.8 projected confirmed and settled metrics reconcile separately",()=>{const metrics=[metric({id:"p",truth:"projected",value:5}),metric({id:"c",truth:"confirmed",value:7}),metric({id:"s",truth:"settled",value:3,settlementRef:"settled:s"})];const reconciliation=reconcileEvidenceBackedBookMetrics(metrics)[0];assert.equal(reconciliation.projected,5);assert.equal(reconciliation.confirmed,7);assert.equal(reconciliation.settled,3);});
+
+test("P11.8 conflicting duplicate metric ids fail closed instead of double counting",()=>{assert.throws(()=>reconcileEvidenceBackedBookMetrics([metric(),metric({value:11})]),/conflicting evidence/i);assert.equal(reconcileEvidenceBackedBookMetrics([metric(),metric()])[0].confirmed,10);});
+
+test("P11.8 performance summary never counts projected sales as confirmed and keeps projected royalties separate",()=>{const metrics=[metric({id:"sale-proj",truth:"projected",value:100}),metric({id:"sale-conf",truth:"confirmed",value:8}),metric({id:"return-conf",metric:"returns",truth:"confirmed",value:1}),metric({id:"roy-proj",metric:"royalties",truth:"projected",value:50,currency:"USD"}),metric({id:"roy-set",metric:"royalties",truth:"settled",value:30,currency:"USD",settlementRef:"settlement:1"})];const summary=summarizeBookPerformance(metrics,"owner-1","project-1","book-1");assert.equal(summary.confirmedSales,8);assert.equal(summary.confirmedReturns,1);assert.equal(summary.settledRoyalties,30);assert.deepEqual(summary.projectedRoyaltyMetricIds,["roy-proj"]);});
+
+test("P11.8 durable performance evidence is immutable owner-scoped and preserves projected confirmed settled truth",()=>{const sql=readFileSync(new URL("../../supabase/migrations/20261026123000_p11_8_book_performance.sql",import.meta.url),"utf8");assert.match(sql,/command_center_book_performance_metric_history/i);assert.match(sql,/truth text not null check\(truth in \('projected','confirmed','settled'\)\)/i);assert.match(sql,/period_start timestamptz not null/i);assert.match(sql,/period_end timestamptz not null/i);assert.match(sql,/provider_record_ref text not null/i);assert.match(sql,/settlement_ref text/i);assert.match(sql,/book performance evidence is immutable/i);assert.match(sql,/is_command_center_authorized/i);});
