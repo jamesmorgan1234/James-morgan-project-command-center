@@ -85,12 +85,14 @@ export class VersionedLedger<T> {
     const conflictIndex = this.#entries.findIndex((entry) => entry.id === conflictId);
     if (conflictIndex < 0) throw new Error(`Unknown conflict: ${conflictId}`);
     const conflict = this.#entries[conflictIndex];
+    if (!conflict) throw new Error(`Unknown conflict: ${conflictId}`);
     if (conflict.state !== "unresolved_conflict") throw new Error(`Ledger entry is not an unresolved conflict: ${conflictId}`);
     if (resolution.scope !== conflict.scope) throw new Error(`Conflict resolution scope mismatch for ${conflictId}`);
     if (!resolution.resolutionReason?.trim()) throw new Error(`Conflict resolution ${resolution.id} requires resolutionReason`);
 
     const appended = this.append(resolution);
-    this.#entries[conflictIndex] = Object.freeze({ ...conflict, state: "superseded" as const, resolvedBy: appended.id });
+    const resolvedConflict: LedgerRecord<T> = Object.freeze({ ...conflict, state: "superseded" as const, resolvedBy: appended.id });
+    this.#entries[conflictIndex] = resolvedConflict;
     return appended;
   }
 
