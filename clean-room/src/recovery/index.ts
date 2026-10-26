@@ -3,6 +3,7 @@ export * from "./restore.js";
 export * from "./migrations.js";
 export * from "./replacement.js";
 export * from "./historical-report.js";
+export * from "./lost-artifact.js";
 export * from "./scale.js";
 export * from "./dormant.js";
 export * from "./multi-user.js";
