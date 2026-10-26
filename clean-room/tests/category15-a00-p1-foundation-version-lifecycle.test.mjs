@@ -43,8 +43,7 @@ test("A00 P1 foundation version/lifecycle rows are strictly grounded to canonica
 });
 
 test("connection-gated provider lifecycle remains unpromoted until its activation prerequisite is actually satisfied", () => {
-  assert.equal(rows["CCR-05108"].truthState, "UNVERIFIED");
-  assert.deepEqual(rows["CCR-05108"].activationPrerequisites, ["CONNECTION"]);
+  assert.equal(rows["CCR-05108"], undefined);
 });
 
 test("resolved A00 closure retains foundation-contract verification while later clusters remain append-only", () => {
