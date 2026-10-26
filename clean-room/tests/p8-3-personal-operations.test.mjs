@@ -35,12 +35,17 @@ test("P8.3 privacy and specialist boundaries survive cross-domain views", () => 
   assert.deepEqual(view.map((item) => item.id).sort(), ["op-household", "op-shopping"]);
 });
 
-test("P8.3 refuses duplicate truth ownership inside one owner scope", () => {
+test("P8.3 refuses duplicate truth ownership inside one owner scope while optional specialist routing metadata remains compatible", () => {
   assert.throws(() => validatePersonalOperations([
     specialistShopping,
     { ...specialistShopping, id: "op-shadow-copy", truthOwnerKey: "personal-core", specialistProjectId: undefined, sourceRefs: ["personal-copy"] }
   ]), /Duplicate specialist truth ownership/i);
-  assert.throws(() => validatePersonalOperations([{ ...specialistShopping, specialistProjectId: undefined }]), /identify its specialist project/i);
+
+  const externalWithoutProject = { ...specialistShopping, id: "op-command-center", truthOwnerKey: "command-center", canonicalRef: "obligation:p15", kind: "obligation", specialistProjectId: undefined };
+  assert.doesNotThrow(() => validatePersonalOperations([externalWithoutProject]));
+  assert.equal(projectPersonalOperations({ ownerId: "owner-1", allowedKinds: ["obligation"], maxSensitivityRank: 1 }, [externalWithoutProject])[0]?.readOnlyProjection, true);
+  assert.equal(projectPersonalOperations({ ownerId: "owner-1", allowedKinds: ["obligation"], maxSensitivityRank: 1, allowedSpecialistProjectIds: ["coupon-autopilot"] }, [externalWithoutProject]).length, 0);
+  assert.throws(() => validatePersonalOperations([{ ...specialistShopping, specialistProjectId: " " }]), /nonblank/i);
 });
 
 test("P8.3 durable schema stores scoped projections without creating another specialist truth store", () => {
@@ -51,6 +56,7 @@ test("P8.3 durable schema stores scoped projections without creating another spe
   assert.match(sql, /specialist_project_id/i);
   assert.match(sql, /projection_only boolean generated always as \(truth_owner_key <> 'personal-core'\) stored/i);
   assert.match(sql, /unique\(owner_id, canonical_ref\)/i);
+  assert.match(sql, /specialist_project_id is null or btrim\(specialist_project_id\) <> ''/i);
   assert.match(sql, /sensitivity_rank integer not null/i);
   assert.match(sql, /is_command_center_authorized/i);
   assert.doesNotMatch(sql, /create table if not exists public\.coupon/i);

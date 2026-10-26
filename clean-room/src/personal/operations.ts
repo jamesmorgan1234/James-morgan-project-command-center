@@ -37,7 +37,7 @@ export function validatePersonalOperations(records: readonly PersonalOperationRe
     if (!record.id.trim() || !record.ownerId.trim() || !record.title.trim() || !record.truthOwnerKey.trim() || !record.canonicalRef.trim()) throw new Error("Personal operation identity/truth owner/canonical ref are required");
     if (record.sourceRefs.length === 0 || record.sourceRefs.some((ref) => !ref.trim())) throw new Error("Personal operation requires provenance");
     sensitivity(record);
-    if (record.truthOwnerKey !== "personal-core" && !record.specialistProjectId?.trim()) throw new Error("Specialist-owned personal operation must identify its specialist project");
+    if (record.specialistProjectId !== undefined && !record.specialistProjectId.trim()) throw new Error("Personal operation specialistProjectId must be nonblank when supplied");
     if (record.truthOwnerKey === "personal-core" && record.specialistProjectId !== undefined) throw new Error("Personal-core truth cannot masquerade as a specialist projection");
     const scopeKey = `${record.ownerId}:${record.canonicalRef}`;
     const existingOwner = identities.get(scopeKey);
@@ -48,7 +48,9 @@ export function validatePersonalOperations(records: readonly PersonalOperationRe
 
 /**
  * Builds a privacy-minimized cross-domain view. Specialist records remain read-only pointers;
- * Personal Ops never becomes the truth owner merely because it displays them.
+ * Personal Ops never becomes the truth owner merely because it displays them. A specialist
+ * project id is optional provenance/routing metadata; when a caller supplies an explicit
+ * specialist allowlist, an external projection without a matching specialist id fails closed.
  */
 export function projectPersonalOperations(request: PersonalOperationViewRequest, records: readonly PersonalOperationRecord[]): readonly PersonalOperationProjection[] {
   if (!request.ownerId.trim()) throw new Error("Personal operation view owner is required");
@@ -58,7 +60,7 @@ export function projectPersonalOperations(request: PersonalOperationViewRequest,
   const specialistIds = request.allowedSpecialistProjectIds ? new Set(request.allowedSpecialistProjectIds) : undefined;
   return Object.freeze(records.filter((record) => {
     if (record.ownerId !== request.ownerId || !kinds.has(record.kind) || sensitivity(record) > request.maxSensitivityRank) return false;
-    if (record.specialistProjectId !== undefined && specialistIds && !specialistIds.has(record.specialistProjectId)) return false;
+    if (record.truthOwnerKey !== "personal-core" && specialistIds && (record.specialistProjectId === undefined || !specialistIds.has(record.specialistProjectId))) return false;
     return true;
   }).map((record) => Object.freeze({ ...record, sensitivityRank: sensitivity(record), sourceRefs: Object.freeze([...record.sourceRefs]), readOnlyProjection: record.truthOwnerKey !== "personal-core" })));
 }

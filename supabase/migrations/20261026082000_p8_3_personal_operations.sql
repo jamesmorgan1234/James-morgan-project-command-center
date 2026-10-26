@@ -1,5 +1,5 @@
 -- C8 / P8.3 — personal operations projections.
--- Specialist-owned domain truth remains in the specialist; this table stores only owner-scoped references/projections.
+-- Specialist/domain-owned truth remains at its declared truth owner; specialist_project_id is optional routing metadata.
 
 create table if not exists public.command_center_personal_operations (
   owner_id uuid not null references auth.users(id) on delete cascade,
@@ -17,7 +17,8 @@ create table if not exists public.command_center_personal_operations (
   updated_at timestamptz not null default now(),
   primary key(owner_id, operation_id),
   unique(owner_id, canonical_ref),
-  check ((truth_owner_key = 'personal-core' and specialist_project_id is null) or (truth_owner_key <> 'personal-core' and btrim(coalesce(specialist_project_id,'')) <> ''))
+  check (specialist_project_id is null or btrim(specialist_project_id) <> ''),
+  check (truth_owner_key <> 'personal-core' or specialist_project_id is null)
 );
 
 create index if not exists command_center_personal_operations_view_idx
