@@ -103,7 +103,7 @@ export function validateCapabilityContract(contract: CapabilityContract, proofRe
 
 export class CapabilityRegistry {
   readonly #registry = new Registry<CapabilityContract>();
-  readonly #proofResolver?: CapabilityProofResolver;
+  readonly #proofResolver: CapabilityProofResolver | undefined;
 
   constructor(options: { readonly proofResolver?: CapabilityProofResolver } = {}) {
     this.#proofResolver = options.proofResolver;

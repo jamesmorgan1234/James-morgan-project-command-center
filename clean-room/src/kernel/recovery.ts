@@ -1,4 +1,4 @@
-import type { EvidenceReference } from "./evidence.js";
+import type { EvidenceRecord } from "./evidence.js";
 
 export type StartupMode = "normal" | "recovery";
 
@@ -91,7 +91,7 @@ export interface RecoveryIssuerVerification {
 }
 
 export type RecoveryIssuerVerifier = (input: RecoveryIssuerVerification) => boolean;
-export type RecoveryEvidenceSink = (evidence: EvidenceReference) => void;
+export type RecoveryEvidenceSink = (evidence: EvidenceRecord) => void;
 
 function requireText(value: string, label: string): string {
   const normalized = value.trim();
@@ -109,7 +109,7 @@ export class RecoveryAuthorizationStore {
   readonly #grants = new Map<string, RecoveryAuthorizationGrant>();
   readonly #consumed = new Set<string>();
   readonly #verifyIssuer: RecoveryIssuerVerifier;
-  readonly #evidenceSink?: RecoveryEvidenceSink;
+  readonly #evidenceSink: RecoveryEvidenceSink | undefined;
 
   constructor(input: { readonly verifyIssuer: RecoveryIssuerVerifier; readonly evidenceSink?: RecoveryEvidenceSink }) {
     this.#verifyIssuer = input.verifyIssuer;
@@ -189,21 +189,12 @@ export class RecoveryAuthorizationStore {
     this.#consumed.add(grant.id);
     this.#evidenceSink?.(Object.freeze({
       id: `evidence:recovery-consumption:${grant.id}`,
-      type: "test_result",
       subjectId: grant.operationId,
-      source: "kernel:recovery-authorization-store",
-      createdAt: input.now,
-      metadata: Object.freeze({
-        authorizationId: grant.id,
-        issuerId: grant.issuerId,
-        subjectId: grant.subjectId,
-        action: grant.action,
-        resourceId: grant.resourceId,
-        scope: grant.scope,
-        environment: grant.environment,
-        operationId: grant.operationId,
-        outcome: "consumed"
-      })
+      strength: "canonical_record",
+      sourceRef: `kernel:recovery-authorization-store:${grant.id}:${grant.action}:${grant.resourceId}:${grant.environment}`,
+      recordedAt: input.now,
+      verified: true,
+      scopeRef: grant.scope
     }));
     return grant;
   }
