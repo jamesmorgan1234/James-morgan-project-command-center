@@ -129,7 +129,7 @@ test("unknown external operation must reconcile before retry and deduplicates in
 
 test("requirement closure cannot claim verified without implementation tests and evidence", () => {
   assert.throws(() => validateRequirementClosure({ requirementId: "REQ-1", authoritativeSource: "spec", capabilityKey: "capability:x", owningPhase: "P1.7", dependencyIds: [], implementationRefs: [], positiveTestRefs: [], negativeTestRefs: [], failureTestRefs: [], evidenceIds: [], truthState: "verified" }));
-  assert.equal(validateRequirementClosure({ requirementId: "REQ-1", authoritativeSource: "spec", capabilityKey: "capability:x", owningPhase: "P1.7", dependencyIds: [], implementationRefs: ["src"], positiveTestRefs: ["test"], negativeTestRefs: [], failureTestRefs: [], evidenceIds: ["evidence"], truthState: "verified" }).truthState, "verified");
+  assert.equal(validateRequirementClosure({ requirementId: "REQ-1", authoritativeSource: "spec", capabilityKey: "capability:x", owningPhase: "P1.7", dependencyIds: [], implementationRefs: ["src"], positiveTestRefs: ["positive-test"], negativeTestRefs: ["negative-test"], failureTestRefs: ["failure-test"], evidenceIds: ["evidence"], truthState: "verified" }).truthState, "verified");
 });
 
 test("trusted environment rejects staging frontend bound to production backend identity", () => {
