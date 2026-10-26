@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_SECURE_DEFAULTS_FAULT_CONTAINMENT",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05131": {
+      "requirement": "secure defaults",
+      "canonicalSourceIds": ["P2-0037"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "runtime configuration", "feature flags", "owner governance"],
+      "owningPhases": ["P1.8"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#SafeFeatureFlags", "clean-room/src/kernel/governance.ts#evaluateGovernance", "clean-room/src/kernel/config.ts#validateRuntimeConfig"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 feature flags default off and unsafe enablement or stale replacement fails closed"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-governance-policy-broadening.test.mjs :: P1 governance permits only explicitly classified non-protected actions and fails closed on unknown action classes"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 feature flags default off and unsafe enablement or stale replacement fails closed", "clean-room/tests/category1-governance-policy-broadening.test.mjs :: P1 protected policy cannot broaden silently through missing or mismatched authorization"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40355769100 / job 121687689753: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1077/1077 module tests passed on exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee; final Category15 phase gate remained intentionally open", "Unknown feature flags resolve disabled and unsafe enablement is rejected; governance denies unknown action classes rather than widening policy implicitly", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:b2476481738d20f0bace99e3d172ac26ac7ba2ee; ci:40355769100",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head b2476481738d20f0bace99e3d172ac26ac7ba2ee",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Security-sensitive behavior defaults closed: unknown feature flags are disabled, unsafe enablement is rejected, and unknown governance actions are denied rather than silently permitted."
+    },
+    "CCR-05133": {
+      "requirement": "fault containment",
+      "canonicalSourceIds": ["P2-0039"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "module registry", "runtime isolation"],
+      "owningPhases": ["P1.3"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/module-contract.ts#ModuleRegistry.register", "clean-room/src/kernel/module-contract.ts#ModuleRegistry.replace", "clean-room/src/kernel/module-contract.ts#assertAcyclicRecords"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module isolation rejects duplicate canonical data and capability ownership without partial registration"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module registry contains failed cyclic replacement and preserves the last valid record"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-module-isolation-fault-containment.test.mjs :: P1 module registry contains failed cyclic replacement and preserves the last valid record"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40359580425 / job 121701087589: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1089/1089 module tests passed on exact head 22a788909a5f46971b8d2bd14a83b80e809e781f; final Category15 phase gate remained intentionally open", "Module registration/replacement preflight ownership and dependency-cycle invariants before mutation, preserving the last valid registry state when a proposed change fails", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:22a788909a5f46971b8d2bd14a83b80e809e781f; ci:40359580425",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 22a788909a5f46971b8d2bd14a83b80e809e781f",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Invalid module changes are contained before registry mutation; ownership conflicts and cyclic replacements fail without corrupting the previously valid module state."
+    }
+  }
+}
