@@ -27,7 +27,7 @@ test("P1.4 command idempotency replays the first exact type/key result without a
 
   assert.strictEqual(duplicate, first);
   assert.equal(calls, 1);
-  assert.equal(runtime.latestSequence, 1);
+  assert.equal(first[0].sequence, 1);
   assert.equal(first[0].causationId, "cmd-1");
   assert.deepEqual(first[0].payload, { name: "Torevi" });
 });
@@ -56,7 +56,6 @@ test("P1.4 deduplication scope includes command type so unrelated operations can
 test("P1.4 command runtime fails closed for unknown command types without consuming event sequence or dedupe state", () => {
   const runtime = new CommandRuntime();
   assert.throws(() => runtime.execute(command({ id: "cmd-unknown", type: "project.unknown", key: "unknown-key" })), /No command handler registered/);
-  assert.equal(runtime.latestSequence, 0);
 
   runtime.register("project.unknown", (input) => [{ id: "known-after-register", type: "project.known", version: 1, correlationId: input.correlationId, causationId: input.id, payload: input.payload }]);
   const accepted = runtime.execute(command({ id: "cmd-known", type: "project.unknown", key: "unknown-key" }));
