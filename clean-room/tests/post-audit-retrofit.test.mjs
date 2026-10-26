@@ -4,7 +4,9 @@ import { readFile } from "node:fs/promises";
 import {
   CapabilityRegistry,
   OperationJournal,
+  RecoveryAuthorizationStore,
   assertScopeContains,
+  authorizeProtectedRecovery,
   evaluateAdmission,
   evaluateProtectedRecovery,
   validateRequirementClosure,
@@ -25,10 +27,77 @@ import {
 const NOW = "2026-10-24T23:30:00Z";
 const SCOPE = { ownerId: "owner-1", companyId: "company-101", projectId: "project-101", accountId: "acct-1", environment: "staging" };
 
+function capabilityProof(id, companyId, independenceKey) {
+  return {
+    id,
+    evidenceId: `evidence:${id}`,
+    capabilityKey: "capability:shared",
+    capabilityVersion: 1,
+    methodVersion: "method-v1",
+    companyId,
+    independenceKey,
+    applicability: ["task:shared-foundation"],
+    result: "passed",
+    status: "verified"
+  };
+}
+
 test("capability maturity requires real independent-company proof", () => {
-  const registry = new CapabilityRegistry();
-  assert.throws(() => registry.register({ key: "capability:shared", version: 1, enabled: true, inputVersion: 1, outputVersion: 1, compatibleInputVersions: [1], compatibleOutputVersions: [1], maturity: "portfolio_proven", proofCompanyIds: ["c1", "c2"], criticalShared: false, securityClass: "internal", canPin: true, canFork: true }));
-  registry.register({ key: "capability:shared", version: 1, enabled: true, inputVersion: 1, outputVersion: 1, compatibleInputVersions: [1], compatibleOutputVersions: [1], maturity: "portfolio_proven", proofCompanyIds: ["c1", "c2", "c3"], criticalShared: false, securityClass: "internal", canPin: true, canFork: true });
+  const proofs = new Map([
+    ["proof:1", capabilityProof("proof:1", "c1", "independent:1")],
+    ["proof:2", capabilityProof("proof:2", "c2", "independent:2")],
+    ["proof:3", capabilityProof("proof:3", "c3", "independent:3")]
+  ]);
+  const registry = new CapabilityRegistry({ proofResolver: (id) => proofs.get(id) });
+
+  assert.throws(() => registry.register({
+    key: "capability:invented-labels",
+    version: 1,
+    enabled: true,
+    inputVersion: 1,
+    outputVersion: 1,
+    compatibleInputVersions: [1],
+    compatibleOutputVersions: [1],
+    maturity: "portfolio_proven",
+    proofCompanyIds: ["c1", "c2", "c3"],
+    criticalShared: false,
+    securityClass: "internal",
+    canPin: true,
+    canFork: true
+  }), /proof receipts/);
+
+  assert.throws(() => registry.register({
+    key: "capability:shared",
+    version: 1,
+    enabled: true,
+    inputVersion: 1,
+    outputVersion: 1,
+    compatibleInputVersions: [1],
+    compatibleOutputVersions: [1],
+    maturity: "portfolio_proven",
+    proofEvidenceIds: ["proof:1", "proof:2"],
+    criticalShared: false,
+    securityClass: "internal",
+    canPin: true,
+    canFork: true
+  }), /at least 3/);
+
+  registry.register({
+    key: "capability:shared",
+    version: 1,
+    enabled: true,
+    inputVersion: 1,
+    outputVersion: 1,
+    compatibleInputVersions: [1],
+    compatibleOutputVersions: [1],
+    maturity: "portfolio_proven",
+    proofEvidenceIds: ["proof:1", "proof:2", "proof:3"],
+    proofCompanyIds: ["c1", "c2", "c3"],
+    criticalShared: false,
+    securityClass: "internal",
+    canPin: true,
+    canFork: true
+  });
   assert.equal(registry.assertCompatible("capability:shared", 1, 1).maturity, "portfolio_proven");
   assert.throws(() => registry.assertCompatible("capability:shared", 2, 1));
 });
@@ -68,9 +137,51 @@ test("trusted environment rejects staging frontend bound to production backend i
   assert.equal(validateTrustedEnvironment({ environment: "staging", releaseId: "r", configurationDigest: "d", backend: { providerKey: "provider:supabase", environment: "staging", baseUrl: "https://stage.supabase.co", projectRef: "stage", authIssuer: "https://stage.supabase.co", authAudience: "authenticated" } }).environment, "staging");
 });
 
-test("protected recovery fails closed but permits constrained single-use recovery", () => {
-  assert.equal(evaluateProtectedRecovery({ policyState: "unavailable", revocationStateFresh: false, protectedEffectRequested: true, now: NOW }).allowed, false);
-  assert.equal(evaluateProtectedRecovery({ policyState: "unavailable", revocationStateFresh: false, protectedEffectRequested: true, recoveryAuthorization: { id: "ra1", scope: "restore:key", expiresAt: "2026-10-24T23:31:00Z", singleUse: true }, now: NOW }).allowed, true);
+test("caller-supplied recovery object cannot authorize a protected effect; trusted issued grant is single-use", () => {
+  const advisory = evaluateProtectedRecovery({
+    policyState: "unavailable",
+    revocationStateFresh: false,
+    protectedEffectRequested: true,
+    recoveryAuthorization: { id: "self-asserted", scope: "restore:key", expiresAt: "2026-10-24T23:31:00Z", singleUse: true },
+    now: NOW
+  });
+  assert.equal(advisory.allowed, false);
+  assert.equal(advisory.reason, "trusted_recovery_boundary_required");
+
+  const evidence = [];
+  const store = new RecoveryAuthorizationStore({
+    verifyIssuer: ({ issuerId, action, environment }) => issuerId === "policy:recovery" && action === "restore.key" && environment === "staging",
+    evidenceSink: (receipt) => evidence.push(receipt)
+  });
+  store.issue({
+    id: "ra1",
+    issuerId: "policy:recovery",
+    subjectId: "owner-1",
+    action: "restore.key",
+    resourceId: "key-1",
+    scope: "restore:key",
+    environment: "staging",
+    operationId: "op:restore-1",
+    issuedAt: "2026-10-24T23:29:00Z",
+    expiresAt: "2026-10-24T23:31:00Z"
+  });
+
+  const request = {
+    authorizationId: "ra1",
+    subjectId: "owner-1",
+    action: "restore.key",
+    resourceId: "key-1",
+    scope: "restore:key",
+    environment: "staging",
+    operationId: "op:restore-1",
+    now: NOW,
+    policyState: "unavailable",
+    revocationStateFresh: false,
+    protectedEffectRequested: true
+  };
+  assert.equal(authorizeProtectedRecovery(store, request).allowed, true);
+  assert.equal(authorizeProtectedRecovery(store, request).allowed, false);
+  assert.equal(evidence.length, 1);
 });
 
 test("protected action binds company account environment policy epoch and exact intent", () => {
