@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_COMMAND_RUNTIME_IDEMPOTENCY",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05111": {
+      "requirement": "idempotency",
+      "canonicalSourceIds": ["P2-0015"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "typed command runtime", "duplicate side-effect prevention"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/command-runtime.ts#CommandEnvelope.idempotencyKey",
+        "clean-room/src/kernel/command-runtime.ts#CommandRuntime.execute"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command idempotency replays the first exact type/key result without a second handler side effect"],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 commands without an idempotency key execute independently instead of being silently deduplicated"],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command runtime fails closed for unknown command types without consuming event sequence or dedupe state"],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40341930516 / job 121638624353: authority validation, typecheck, core QA and PWA lifecycle passed; 1031/1031 module tests passed on exact head f5f92dab5394b9f926ca6bcd062e631643d8a7e3",
+        "P1.4 scope explicitly requires idempotency and its exit gate prohibits duplicate protected side effects from duplicate/replayed commands",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:f5f92dab5394b9f926ca6bcd062e631643d8a7e3; ci:40341930516",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head f5f92dab5394b9f926ca6bcd062e631643d8a7e3",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P1.4 owns command idempotency. The runtime binds dedupe identity to command type plus idempotency key and returns the frozen original event result without invoking the handler twice."
+    },
+    "CCR-05112": {
+      "requirement": "deduplication",
+      "canonicalSourceIds": ["P2-0016"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "typed command runtime", "deduplication scope"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/kernel/command-runtime.ts#CommandRuntime.execute",
+        "clean-room/src/kernel/command-runtime.ts#idempotency"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 deduplication scope includes command type so unrelated operations cannot collide on one idempotency key"],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 commands without an idempotency key execute independently instead of being silently deduplicated"],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command runtime fails closed for unknown command types without consuming event sequence or dedupe state"],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40341930516 / job 121638624353: authority validation, typecheck, core QA and PWA lifecycle passed; 1031/1031 module tests passed on exact head f5f92dab5394b9f926ca6bcd062e631643d8a7e3",
+        "P1.4 scope explicitly requires a typed command/event runtime with duplicate/replay protection",
+        "current 199-phase manifest declares C1 depends on C0"
+      ],
+      "evidenceVersion": "git:f5f92dab5394b9f926ca6bcd062e631643d8a7e3; ci:40341930516",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head f5f92dab5394b9f926ca6bcd062e631643d8a7e3",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P1.4 deduplication is scoped by command type and key so true retries collapse while unrelated command types sharing a key remain independent."
+    }
+  }
+}
