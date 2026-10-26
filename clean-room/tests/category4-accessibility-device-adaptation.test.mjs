@@ -20,6 +20,25 @@ test("P4.7 canonical touch gate requires both 48px geometry and accessible namin
   assert.throws(() => assertAccessibleControl({ width: 48, height: 48 }), /accessible label/i);
 });
 
+test("P4.7 accessibility and reduced-motion contracts fail closed on invalid device or motion input", () => {
+  assert.throws(
+    () => classifyLayout({ width: 0, height: 915, pixelRatio: 3, reducedMotion: false, highContrast: false }),
+    /must be positive/
+  );
+  assert.throws(
+    () => classifyLayout({ width: 412, height: 915, pixelRatio: 0, reducedMotion: false, highContrast: false }),
+    /must be positive/
+  );
+  assert.throws(
+    () => motionDuration({ width: 412, height: 915, pixelRatio: 3, reducedMotion: false, highContrast: false }, -1),
+    /non-negative/
+  );
+  assert.equal(
+    motionDuration({ width: 1440, height: 900, pixelRatio: 1, reducedMotion: true, highContrast: false }, 250),
+    0
+  );
+});
+
 test("P4.7 shipped shell preserves browser zoom and safe-area adaptation", async () => {
   const html = await source("public/index.html");
   const css = await source("public/app.css");
