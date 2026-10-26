@@ -12,4 +12,5 @@ export * from "./steering.js";
 export * from "./precedent.js";
 export * from "./voice.js";
 export * from "./improvements.js";
+export * from "./improvement-governor.js";
 export * from "./local.js";
