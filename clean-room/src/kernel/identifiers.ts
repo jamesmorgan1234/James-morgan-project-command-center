@@ -7,6 +7,7 @@ export const ID_PREFIXES = {
   brain: "brn",
   domain: "dom",
   condition: "cnd",
+  method: "mth",
   module: "mod",
   capability: "cap",
   command: "cmd",

@@ -9,6 +9,7 @@ export * from "./evidence.js";
 export * from "./config.js";
 export * from "./scope.js";
 export * from "./capabilities.js";
+export * from "./method-portfolio.js";
 export * from "./admission.js";
 export * from "./operations.js";
 export * from "./recovery.js";
