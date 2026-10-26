@@ -6,7 +6,8 @@ const artifact = JSON.parse(
   fs.readFileSync(new URL("../evidence/P15_1_A00_REQUIREMENT_TRACEABILITY.json", import.meta.url), "utf8")
 );
 
-const verifiedIds = ["CCR-00734", "CCR-05237", "CCR-05608"];
+const verifiedIds = ["CCR-00734","CCR-05221","CCR-05222","CCR-05223","CCR-05224","CCR-05225","CCR-05226","CCR-05227","CCR-05228","CCR-05229","CCR-05237","CCR-05608"];
+const p16Ids = ["CCR-05221","CCR-05222","CCR-05223","CCR-05224","CCR-05225","CCR-05226","CCR-05227","CCR-05228","CCR-05229"];
 const overrides = artifact.effectiveRowModel.rowOverrides;
 
 test("A00 verified governance rows are explicit canonical requirements with strict traceability", () => {
@@ -33,7 +34,7 @@ test("A00 verified governance rows are explicit canonical requirements with stri
     assert.equal(row.blocker, null, id);
     assert.equal(row.justification, null, id);
   }
-  assert.deepEqual(artifact.closureSummary, { total: 489, verified: 3, unverified: 486, notApplicable: 0 });
+  assert.deepEqual(artifact.closureSummary, { total: 489, verified: 12, unverified: 477, notApplicable: 0 });
   assert.equal(artifact.fullP15_1ClosureSatisfied, false);
 });
 
@@ -43,6 +44,16 @@ test("A00 dependency-linting row is owned by P0.7 and does not invent C0 depende
   assert.deepEqual(row.owningPhases, ["P0.7"]);
   assert.deepEqual(row.dependencies, []);
   assert.ok(row.implementationLocations.some((ref) => ref.includes("current-authority-lib.mjs#assertAcyclic")));
+});
+
+test("A00 P1.6 ledger rows use the current C1 dependency authority", () => {
+  for (const id of p16Ids) {
+    const row = overrides[id];
+    assert.deepEqual(row.owningPhases, ["P1.6"], id);
+    assert.deepEqual(row.dependencies, ["C0"], id);
+    assert.ok(row.implementationLocations.some((ref) => ref.includes("kernel/ledger.ts")), id);
+    assert.ok(row.evidenceVersion.includes("ci:40321816166"), id);
+  }
 });
 
 test("A00 emergency-stop row is bound to P7.19 containment and current C7 dependency authority", () => {
