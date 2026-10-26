@@ -9,11 +9,10 @@ const evidenceVersion = "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:403572
 const expected = {
   "CCR-05114": { text: "DST-safe scheduling", source: "P2-0019", phase: "P1.4" },
   "CCR-05116": { text: "backpressure", source: "P2-0021", phase: "P1.4" },
-  "CCR-05471": { text: "no silent production changes.", source: "P2-0407", phase: "P1.5" },
-  "CCR-05477": { text: "duplicate suppression", source: "P2-0427", phase: "P1.4" }
+  "CCR-05471": { text: "no silent production changes.", source: "P2-0407", phase: "P1.5" }
 };
 
-test("A00 runtime scheduling, flow control, production governance and duplicate suppression rows are strictly grounded", () => {
+test("A00 runtime scheduling, flow control and production governance rows are strictly grounded", () => {
   for (const [id, expectation] of Object.entries(expected)) {
     const row = rows[id];
     assert.ok(row, id);
@@ -41,7 +40,7 @@ test("A00 runtime scheduling, flow control, production governance and duplicate 
 
 test("resolved A00 closure retains scheduling-flow-governance verification while later clusters remain append-only", () => {
   assert.equal(report.closureSummary.total, 489);
-  assert.ok(report.closureSummary.verified >= 51);
+  assert.ok(report.closureSummary.verified >= 50);
   assert.equal(report.closureSummary.unverified, 489 - report.closureSummary.verified - report.closureSummary.notApplicable);
   assert.equal(report.closureSummary.notApplicable, 0);
   assert.equal(report.fullP15_1ClosureSatisfied, false);

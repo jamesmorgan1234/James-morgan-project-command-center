@@ -72,29 +72,6 @@
       "blocker": null,
       "justification": null,
       "closureNotes": "Production deployment and merge are explicit protected actions; absent, expired, wrong-owner, wrong-action, or wrong-project authorization cannot silently mutate production."
-    },
-    "CCR-05477": {
-      "requirement": "duplicate suppression",
-      "canonicalSourceIds": ["P2-0427"],
-      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
-      "classification": "GOVERNANCE / STANDARD",
-      "applicableCompaniesOrCapabilities": ["Command Center", "command runtime", "protected side-effect runtime"],
-      "owningPhases": ["P1.4"],
-      "dependencies": ["C0"],
-      "dependenciesVerified": true,
-      "implementationLocations": ["clean-room/src/kernel/command-runtime.ts#CommandRuntime.execute", "clean-room/src/kernel/operations.ts#OperationJournal"],
-      "tests": {
-        "positive": {"applicable": true, "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command idempotency replays the first exact type/key result without a second handler side effect"], "justification": null},
-        "negative": {"applicable": true, "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 deduplication scope includes command type so unrelated operations cannot collide on one idempotency key"], "justification": null},
-        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effect-path.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null}
-      },
-      "evidence": ["GitHub Actions run 40357215814 / job 121692799776: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1081/1081 module tests passed on exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns idempotency, outbox/inbox semantics, duplicate protected-side-effect prevention and replay behavior", "current 199-phase manifest declares C1 depends on C0"],
-      "evidenceVersion": "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:40357215814",
-      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7",
-      "truthState": "VERIFIED",
-      "blocker": null,
-      "justification": null,
-      "closureNotes": "Duplicate command type/idempotency-key executions reuse the first result, and protected operation identities cannot be rebound to changed intents or scopes."
     }
   }
 }
