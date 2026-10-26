@@ -108,8 +108,9 @@ export class WebhookAcceptanceGate {
     if (age < -expected.maxFutureSkewMs) return rejected("callback_future_timestamp");
 
     const matchingWindows = expected.keyWindows.filter((window) => window.keyRef === envelope.keyRef);
-    if (matchingWindows.length !== 1) return rejected(matchingWindows.length === 0 ? "callback_key_not_active" : "callback_key_window_ambiguous");
     const keyWindow = matchingWindows[0];
+    if (keyWindow === undefined) return rejected("callback_key_not_active");
+    if (matchingWindows.length !== 1) return rejected("callback_key_window_ambiguous");
     const notBefore = parseTimestamp(keyWindow.notBefore, "keyWindow.notBefore");
     const notAfter = parseTimestamp(keyWindow.notAfter, "keyWindow.notAfter");
     if (notAfter <= notBefore) throw new Error("Webhook key validity window must be bounded and increasing");
