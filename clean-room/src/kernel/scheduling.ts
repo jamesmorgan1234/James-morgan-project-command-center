@@ -34,7 +34,7 @@ function zonedParts(epochMs: number, timeZone: string): Omit<ZonedCivilTime, "ti
     minute: "2-digit",
     hourCycle: "h23"
   }).formatToParts(new Date(epochMs));
-  const map = new Map(parts.filter((part) => part.type !== "literal").map((part) => [part.type, Number(part.value)]));
+  const map = new Map<string, number>(parts.filter((part) => part.type !== "literal").map((part) => [part.type, Number(part.value)]));
   const required = (key: string): number => {
     const value = map.get(key);
     if (value === undefined || !Number.isFinite(value)) throw new Error(`Intl formatter omitted ${key}`);
