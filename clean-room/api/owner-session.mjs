@@ -1,3 +1,10 @@
+import { createHash } from "node:crypto";
+import {
+  environmentIdentityPayload,
+  inferBackendClassification,
+  validateTrustedEnvironmentBinding
+} from "../src/kernel/trusted-environment.mjs";
+
 const COOKIE_NAME = "__Host-cc-owner-refresh";
 const COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 const MAX_BODY_BYTES = 16 * 1024;
@@ -51,12 +58,40 @@ function serverConfig() {
   const supabaseUrl = process.env.CC_SUPABASE_URL;
   const projectRef = process.env.CC_SUPABASE_PROJECT_REF;
   const publishableKey = process.env.CC_SUPABASE_PUBLISHABLE_KEY;
-  if (!["development", "test", "staging", "production"].includes(environment ?? "")) throw new Error("invalid_environment_configuration");
   if (!supabaseUrl || !projectRef || !publishableKey?.startsWith("sb_publishable_")) throw new Error("identity_provider_configuration_missing");
-  const url = new URL(supabaseUrl);
-  if (url.protocol !== "https:") throw new Error("identity_provider_https_required");
-  if (url.hostname.endsWith(".supabase.co") && url.hostname !== `${projectRef}.supabase.co`) throw new Error("identity_provider_project_mismatch");
-  return Object.freeze({ environment, supabaseUrl: url.origin, projectRef, publishableKey });
+
+  let url;
+  try { url = new URL(supabaseUrl); }
+  catch { throw new Error("identity_provider_configuration_invalid"); }
+
+  const backendClassification = process.env.CC_BACKEND_CLASSIFICATION || inferBackendClassification(projectRef);
+  const authIssuer = process.env.CC_AUTH_ISSUER || `${url.origin}/auth/v1`;
+  const authAudience = process.env.CC_AUTH_AUDIENCE || "authenticated";
+  const binding = validateTrustedEnvironmentBinding({
+    deploymentEnvironment: environment,
+    backendClassification,
+    providerKey: "supabase",
+    projectRef,
+    baseUrl: url.origin,
+    authIssuer,
+    authAudience
+  });
+  const configurationDigest = createHash("sha256")
+    .update(JSON.stringify(environmentIdentityPayload(binding)))
+    .digest("hex");
+  const pinnedDigest = process.env.CC_CONFIGURATION_DIGEST?.trim();
+  if (pinnedDigest && pinnedDigest !== configurationDigest) throw new Error("trusted_environment_descriptor_digest_mismatch");
+
+  return Object.freeze({
+    environment: binding.deploymentEnvironment,
+    backendClassification: binding.backendClassification,
+    supabaseUrl: binding.baseUrl,
+    projectRef: binding.projectRef,
+    publishableKey,
+    authIssuer: binding.authIssuer,
+    authAudience: binding.authAudience,
+    configurationDigest
+  });
 }
 
 async function readJson(req) {
@@ -81,15 +116,37 @@ async function readJson(req) {
   return JSON.parse(Buffer.concat(chunks).toString("utf8"));
 }
 
-function publicSession(payload) {
+function decodeJwtClaims(accessToken) {
+  if (typeof accessToken !== "string") return undefined;
+  const parts = accessToken.split(".");
+  if (parts.length !== 3) return undefined;
+  try {
+    return JSON.parse(Buffer.from(parts[1], "base64url").toString("utf8"));
+  } catch {
+    return undefined;
+  }
+}
+
+function audienceIncludes(actual, expected) {
+  if (typeof actual === "string") return actual === expected;
+  return Array.isArray(actual) && actual.includes(expected);
+}
+
+function publicSession(payload, config) {
   const accessToken = typeof payload?.access_token === "string" ? payload.access_token : undefined;
+  const claims = decodeJwtClaims(accessToken);
   const expiresAt = Number.isFinite(Number(payload?.expires_at))
     ? Number(payload.expires_at)
     : Number.isFinite(Number(payload?.expires_in))
       ? Math.floor(Date.now() / 1000) + Number(payload.expires_in)
       : undefined;
   const userId = typeof payload?.user?.id === "string" ? payload.user.id : undefined;
-  if (!accessToken || !expiresAt || !userId) return undefined;
+  const expectedIssuer = config.authIssuer.replace(/\/$/, "");
+  const actualIssuer = typeof claims?.iss === "string" ? claims.iss.replace(/\/$/, "") : "";
+  if (!accessToken || !claims || !expiresAt || !userId) return undefined;
+  if (actualIssuer !== expectedIssuer || !audienceIncludes(claims.aud, config.authAudience)) return undefined;
+  if (typeof claims.sub === "string" && claims.sub !== userId) return undefined;
+  if (Number.isFinite(Number(claims.exp)) && Number(claims.exp) <= Math.floor(Date.now() / 1000)) return undefined;
   return { access_token: accessToken, expires_at: expiresAt, user: { id: userId } };
 }
 
@@ -138,6 +195,7 @@ export default async function handler(req, res) {
     }
     return res.status(503).json({ error: "identity_provider_configuration_unavailable" });
   }
+  res.setHeader("X-Command-Center-Config-Digest", config.configurationDigest);
 
   if (action === "clear") {
     const refreshToken = cookieValue(req, COOKIE_NAME);
@@ -179,7 +237,7 @@ export default async function handler(req, res) {
 
   const payload = await upstream.json();
   const rotatedRefreshToken = typeof payload?.refresh_token === "string" ? payload.refresh_token : undefined;
-  const session = publicSession(payload);
+  const session = publicSession(payload, config);
   if (!rotatedRefreshToken || !session) {
     clearCookie(res);
     return res.status(502).json({ error: "invalid_identity_provider_session" });

@@ -1,4 +1,7 @@
-export type EnvironmentName = "development" | "test" | "staging" | "production";
+import { validateTrustedEnvironmentBinding } from "./trusted-environment.mjs";
+
+export type EnvironmentName = "development" | "test" | "preview" | "staging" | "production";
+export type BackendClassification = "isolated" | "shared-nonproduction" | "protected-production";
 
 export interface VersionRange { readonly min: number; readonly max: number; }
 export interface RuntimeConfig {
@@ -14,6 +17,7 @@ export interface RuntimeConfig {
 export interface TrustedBackendBinding {
   readonly providerKey: string;
   readonly environment: EnvironmentName;
+  readonly classification: BackendClassification;
   readonly baseUrl: string;
   readonly projectRef: string;
   readonly authIssuer: string;
@@ -43,12 +47,15 @@ export function validateRuntimeConfig(config: RuntimeConfig): RuntimeConfig {
 export function validateTrustedEnvironment(descriptor: TrustedEnvironmentDescriptor): TrustedEnvironmentDescriptor {
   if (!descriptor.releaseId.trim() || !descriptor.configurationDigest.trim()) throw new Error("Trusted environment releaseId/configurationDigest are required");
   if (descriptor.backend.environment !== descriptor.environment) throw new Error("Frontend/backend environment mismatch blocked");
-  if (!descriptor.backend.providerKey.trim() || !descriptor.backend.projectRef.trim() || !descriptor.backend.authAudience.trim()) throw new Error("Trusted backend provider/project/audience are required");
-  let baseUrl: URL;
-  let issuer: URL;
-  try { baseUrl = new URL(descriptor.backend.baseUrl); issuer = new URL(descriptor.backend.authIssuer); }
-  catch { throw new Error("Trusted backend URL/issuer must be valid URLs"); }
-  if (baseUrl.protocol !== "https:" || issuer.protocol !== "https:") throw new Error("Trusted backend URL/issuer must use HTTPS");
-  if (baseUrl.origin !== issuer.origin) throw new Error("Auth issuer must belong to the trusted backend origin");
+  validateTrustedEnvironmentBinding({
+    deploymentEnvironment: descriptor.environment,
+    backendClassification: descriptor.backend.classification,
+    providerKey: descriptor.backend.providerKey,
+    projectRef: descriptor.backend.projectRef,
+    baseUrl: descriptor.backend.baseUrl,
+    authIssuer: descriptor.backend.authIssuer,
+    authAudience: descriptor.backend.authAudience,
+    configDigest: descriptor.configurationDigest
+  });
   return Object.freeze({ ...descriptor, backend: Object.freeze({ ...descriptor.backend }) });
 }
