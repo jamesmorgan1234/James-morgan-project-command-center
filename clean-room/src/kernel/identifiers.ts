@@ -3,6 +3,10 @@ export const IDENTIFIER_SCHEMA_VERSION = 1 as const;
 export const ID_PREFIXES = {
   requirement: "req",
   project: "prj",
+  company: "cmp",
+  brain: "brn",
+  domain: "dom",
+  condition: "cnd",
   module: "mod",
   capability: "cap",
   command: "cmd",
