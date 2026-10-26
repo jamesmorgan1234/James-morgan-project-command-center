@@ -10,3 +10,4 @@ export * from "./commerce.js";
 export * from "./digital-products.js";
 export * from "./service-business.js";
 export * from "./software-platform.js";
+export * from "./lifecycle.js";
