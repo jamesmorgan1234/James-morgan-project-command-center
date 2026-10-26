@@ -34,8 +34,13 @@ function zonedParts(epochMs: number, timeZone: string): Omit<ZonedCivilTime, "ti
     minute: "2-digit",
     hourCycle: "h23"
   }).formatToParts(new Date(epochMs));
-  const map = Object.fromEntries(parts.filter((part) => part.type !== "literal").map((part) => [part.type, Number(part.value)]));
-  return { year: map.year, month: map.month, day: map.day, hour: map.hour, minute: map.minute };
+  const map = new Map(parts.filter((part) => part.type !== "literal").map((part) => [part.type, Number(part.value)]));
+  const required = (key: string): number => {
+    const value = map.get(key);
+    if (value === undefined || !Number.isFinite(value)) throw new Error(`Intl formatter omitted ${key}`);
+    return value;
+  };
+  return { year: required("year"), month: required("month"), day: required("day"), hour: required("hour"), minute: required("minute") };
 }
 
 function matches(epochMs: number, civil: ZonedCivilTime): boolean {
@@ -55,6 +60,10 @@ export function resolveZonedCivilTime(civil: ZonedCivilTime, disambiguation?: Ci
   const unique = [...new Set(candidates)].sort((a, b) => a - b);
   if (unique.length === 0) throw new Error("Civil time does not exist in this timezone (DST gap or invalid local date)");
   if (unique.length > 1 && !disambiguation) throw new Error("Civil time is ambiguous in this timezone; explicit earlier/later disambiguation is required");
-  const selected = unique.length === 1 ? unique[0] : disambiguation === "later" ? unique[unique.length - 1] : unique[0];
+  const selected = unique.length === 1
+    ? unique[0]!
+    : disambiguation === "later"
+      ? unique[unique.length - 1]!
+      : unique[0]!;
   return new Date(selected).toISOString();
 }
