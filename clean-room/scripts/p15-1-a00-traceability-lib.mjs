@@ -11,11 +11,35 @@ function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
+export function validateA00TraceabilityFragmentFiles(fileNames) {
+  const ordinals = new Map();
+  for (const file of fileNames) {
+    const match = /^(\d{3})-[a-z0-9][a-z0-9-]*\.json$/.exec(file);
+    if (!match) throw new Error(`Invalid A00 traceability fragment filename: ${file}`);
+    const ordinal = match[1];
+    if (ordinals.has(ordinal)) {
+      throw new Error(`Duplicate A00 traceability fragment ordinal ${ordinal}: ${ordinals.get(ordinal)} vs ${file}`);
+    }
+    ordinals.set(ordinal, file);
+  }
+  return true;
+}
+
+export function assertA00OverrideWritable(id, provenance, file) {
+  if (provenance.has(id)) {
+    throw new Error(`A00 traceability override collision for ${id}: ${provenance.get(id)} vs ${file}`);
+  }
+  return true;
+}
+
 export function loadA00TraceabilityFragments() {
-  return readdirSync(fragmentDirectory, { withFileTypes: true })
+  const entries = readdirSync(fragmentDirectory, { withFileTypes: true })
     .filter((entry) => entry.isFile() && extname(entry.name) === ".json")
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .map((entry) => ({ file: entry.name, document: readJson(resolve(fragmentDirectory, entry.name)) }));
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  validateA00TraceabilityFragmentFiles(entries.map((entry) => entry.name));
+
+  return entries.map((entry) => ({ file: entry.name, document: readJson(resolve(fragmentDirectory, entry.name)) }));
 }
 
 export function resolveA00Traceability() {
@@ -31,7 +55,7 @@ export function resolveA00Traceability() {
     if (document.scope !== "HISTORICAL_A00_ONLY") throw new Error(`A00 fragment scope mismatch: ${file}`);
     for (const [id, row] of Object.entries(document.rowOverrides ?? {})) {
       if (!base.canonicalIds.includes(id)) throw new Error(`A00 fragment contains non-canonical ID ${id}: ${file}`);
-      if (provenance.has(id)) throw new Error(`A00 traceability override collision for ${id}: ${provenance.get(id)} vs ${file}`);
+      assertA00OverrideWritable(id, provenance, file);
       rowOverrides[id] = row;
       provenance.set(id, file);
     }
