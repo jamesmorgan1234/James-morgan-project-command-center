@@ -5,6 +5,7 @@ export * from "./learning.js";
 export * from "./epistemics.js";
 export * from "./assets.js";
 export * from "./graph.js";
+export * from "./intelligence-trace.js";
 export * from "./sources.js";
 export * from "./provenance.js";
 export * from "./derived.js";
