@@ -38,7 +38,7 @@ export const MEDIA_SPECIALIST_PROFILE: MediaSpecialistProfile = Object.freeze({
     Object.freeze({stage:"analytics",capabilityKey:"content_analytics",providerAdapterKey:"social-platform",protectedAction:false}),
     Object.freeze({stage:"revenue",capabilityKey:"revenue_reconciliation",protectedAction:false})
   ]),
-  autonomousWorkerModes: Object.freeze(["manual","project_auto"]),
+  autonomousWorkerModes: Object.freeze(["manual","project_auto"] as MediaWorkerMode[]),
   sourceRefs: Object.freeze(["roadmap:P12.3"])
 });
 
