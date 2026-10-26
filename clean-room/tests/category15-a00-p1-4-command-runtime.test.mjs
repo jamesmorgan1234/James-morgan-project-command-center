@@ -26,7 +26,10 @@ test("A00 P1.4 command-runtime idempotency and deduplication rows are strictly g
   assert.ok(deduplication.evidenceVersion.includes("ci:40341930516"));
 });
 
-test("resolved A00 closure advances only by the two newly evidenced P1.4 rows", () => {
-  assert.deepEqual(report.closureSummary, { total: 489, verified: 16, unverified: 473, notApplicable: 0 });
+test("resolved A00 closure retains the two evidenced P1.4 rows as later clusters are added", () => {
+  assert.equal(report.closureSummary.total, 489);
+  assert.ok(report.closureSummary.verified >= 16);
+  assert.equal(report.closureSummary.unverified, 489 - report.closureSummary.verified - report.closureSummary.notApplicable);
+  assert.equal(report.closureSummary.notApplicable, 0);
   assert.equal(report.fullP15_1ClosureSatisfied, false);
 });
