@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_RUNTIME_SCHEDULING_FLOW_AND_PRODUCTION_GOVERNANCE",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05114": {
+      "requirement": "DST-safe scheduling",
+      "canonicalSourceIds": ["P2-0019"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "workflow scheduling", "kernel time semantics"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/scheduling.ts#resolveZonedCivilTime", "clean-room/src/kernel/scheduling.ts#CivilTimeDisambiguation"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 DST-safe scheduling rejects skipped civil time and requires explicit ambiguity resolution"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 DST-safe scheduling rejects skipped civil time and requires explicit ambiguity resolution"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 DST-safe scheduling rejects skipped civil time and requires explicit ambiguity resolution"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40357215814 / job 121692799776: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1081/1081 module tests passed on exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7; final Category15 phase gate remained intentionally open", "P1.4 owns the typed workflow runtime; kernel scheduling resolves workflow wall-clock time without silently inventing skipped or ambiguous DST instants", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:40357215814",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The kernel rejects nonexistent DST-gap civil times, requires explicit earlier/later choice for repeated civil times, validates IANA timezone identity, and returns a deterministic UTC instant."
+    },
+    "CCR-05116": {
+      "requirement": "backpressure",
+      "canonicalSourceIds": ["P2-0021"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "workflow runtime", "bounded work admission"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#BoundedWorkQueue", "clean-room/src/kernel/resilience.ts#BackpressureError"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 bounded work queue applies explicit backpressure without silently dropping work"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 bounded work queue applies explicit backpressure without silently dropping work"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 bounded work queue applies explicit backpressure without silently dropping work"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40357215814 / job 121692799776: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1081/1081 module tests passed on exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7; final Category15 phase gate remained intentionally open", "P1.4 owns workflow-runtime execution semantics; the bounded queue rejects over-capacity admission explicitly instead of dropping accepted work", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:40357215814",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Bounded work admission exposes saturation as BackpressureError and preserves already accepted queue contents without silent loss."
+    },
+    "CCR-05471": {
+      "requirement": "no silent production changes.",
+      "canonicalSourceIds": ["P2-0407"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "production deployment", "merge and protected-action governance"],
+      "owningPhases": ["P1.5"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/governance.ts#PROTECTED_ACTIONS", "clean-room/src/kernel/governance.ts#evaluateGovernance"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: governance enforces newest instruction, free-first, and protected authorization"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: governance enforces newest instruction, free-first, and protected authorization"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/kernel-foundation.test.mjs :: governance enforces newest instruction, free-first, and protected authorization"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40357215814 / job 121692799776: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1081/1081 module tests passed on exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7; final Category15 phase gate remained intentionally open", "P1.5 encodes owner authority and authorization-boundary hooks used everywhere; merge and deploy_production are protected actions and fail closed without exact owner authorization", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:40357215814",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Production deployment and merge are explicit protected actions; absent, expired, wrong-owner, wrong-action, or wrong-project authorization cannot silently mutate production."
+    },
+    "CCR-05477": {
+      "requirement": "duplicate suppression",
+      "canonicalSourceIds": ["P2-0427"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "command runtime", "protected side-effect runtime"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/command-runtime.ts#CommandRuntime.execute", "clean-room/src/kernel/operations.ts#OperationJournal"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 command idempotency replays the first exact type/key result without a second handler side effect"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-command-runtime-idempotency.test.mjs :: P1.4 deduplication scope includes command type so unrelated operations cannot collide on one idempotency key"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effect-path.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40357215814 / job 121692799776: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1081/1081 module tests passed on exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns idempotency, outbox/inbox semantics, duplicate protected-side-effect prevention and replay behavior", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:3cea3b3145460ec8c8d2d60d7e837d168f67afd7; ci:40357215814",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 3cea3b3145460ec8c8d2d60d7e837d168f67afd7",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Duplicate command type/idempotency-key executions reuse the first result, and protected operation identities cannot be rebound to changed intents or scopes."
+    }
+  }
+}
