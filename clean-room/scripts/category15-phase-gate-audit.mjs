@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import { expandPhaseManifest, validateEvidenceReceipt } from "./current-authority-lib.mjs";
+import { validateRequirementTraceability } from "./category15-requirement-traceability-validation.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -85,33 +86,37 @@ if (tracked(ownerReconciledReplacementPath) && existsSync(resolve(repoRoot, owne
 const canonicalRequirementAuthoritySatisfied = originalHistoricalLedgerRecovered || ownerReconciledReplacementValid;
 
 const requirementTraceabilityPath = "clean-room/evidence/category15-requirement-traceability.json";
-let requirementTraceabilityValid = false;
+let requirementTraceabilityStructureValid = false;
+let requirementTraceabilityClosureComplete = false;
+let requirementTraceabilitySummary = {
+  structureValid: false,
+  closureComplete: false,
+  metadataValid: false,
+  rowCount: 0,
+  verifiedCount: 0,
+  notApplicableCount: 0,
+  unverifiedCount: 0,
+  structurallyInvalidRowCount: 0,
+  closureInvalidRowCount: 0
+};
 if (tracked(requirementTraceabilityPath) && existsSync(resolve(repoRoot, requirementTraceabilityPath))) {
   try {
     const traceability = JSON.parse(read(requirementTraceabilityPath));
-    const rows = Array.isArray(traceability.requirements) ? traceability.requirements : [];
-    const expectedIds = Array.from({ length: 5852 }, (_, i) => `CCR-${String(i + 1).padStart(5, "0")}`);
-    requirementTraceabilityValid = traceability.schemaVersion >= 1
-      && traceability.canonicalRequirementCount === 5852
-      && rows.length === 5852
-      && rows.every((row, index) => row?.id === expectedIds[index]
-        && typeof row.authoritativeSource === "string" && row.authoritativeSource.length > 0
-        && Array.isArray(row.owningPhases)
-        && Array.isArray(row.dependencies)
-        && Array.isArray(row.implementationLocations)
-        && Array.isArray(row.tests)
-        && Array.isArray(row.evidence)
-        && typeof row.truthState === "string"
-        && (row.truthState !== "VERIFIED" || (row.implementationLocations.length > 0 && row.tests.length > 0 && row.evidence.length > 0))
-        && (row.truthState !== "NOT_APPLICABLE" || (typeof row.justification === "string" && row.justification.length > 0)));
-  } catch { requirementTraceabilityValid = false; }
+    requirementTraceabilitySummary = validateRequirementTraceability(traceability);
+    requirementTraceabilityStructureValid = requirementTraceabilitySummary.structureValid;
+    requirementTraceabilityClosureComplete = requirementTraceabilitySummary.closureComplete;
+  } catch {
+    requirementTraceabilityStructureValid = false;
+    requirementTraceabilityClosureComplete = false;
+  }
 }
+const requirementTraceabilityValid = requirementTraceabilityClosureComplete;
 
 const phases = {};
-phases["P15.1"] = canonicalRequirementAuthoritySatisfied && requirementTraceabilityValid
-  ? { status: "VERIFIED_COMPLETE", reason: "The recovered original historical ledger authority and all 5,852 requirement-level implementation/test/evidence closure rows are present and structurally valid.", evidence: [recoveredOriginalLedgerAuthorityPath, requirementTraceabilityPath] }
+phases["P15.1"] = canonicalRequirementAuthoritySatisfied && requirementTraceabilityClosureComplete
+  ? { status: "VERIFIED_COMPLETE", reason: "The recovered original historical ledger authority and all 5,852 requirement-level implementation/test/evidence closure rows satisfy the strict row-level closure validator.", evidence: [recoveredOriginalLedgerAuthorityPath, requirementTraceabilityPath] }
   : canonicalRequirementAuthoritySatisfied
-    ? { status: "SOURCE_RECOVERED_TRACEABILITY_OPEN", reason: "The authoritative original CCR-00001–CCR-05825 ledger has been recovered and verified, resolving the source-artifact blocker. P15.1 remains open until all 5,852 requirements have requirement-level implementation/test/evidence/status closure.", evidence: [recoveredOriginalLedgerAuthorityPath], requiredTraceability: requirementTraceabilityPath }
+    ? { status: "SOURCE_RECOVERED_TRACEABILITY_OPEN", reason: "The authoritative original CCR-00001–CCR-05825 ledger has been recovered and verified, resolving the source-artifact blocker. P15.1 remains open until all 5,852 requirements have strict requirement-level source/version, scope, phase, dependency, implementation, positive/negative/failure-path test, evidence-version/environment, truth-state, and blocker-or-justified-non-applicability closure.", evidence: [recoveredOriginalLedgerAuthorityPath], requiredTraceability: requirementTraceabilityPath, traceabilitySummary: requirementTraceabilitySummary }
     : { status: "BLOCKED_SOURCE_ARTIFACT", reason: "No verified original CCR-00001–CCR-05825 authority or exact-head owner-reconciled replacement is present. Raw registers/file presence cannot substitute." };
 
 const repositoryAuditPath = "clean-room/category15-repository-audit.json";
@@ -180,11 +185,11 @@ phases["P15.17"] = { status: "BLOCKED_DEPENDENCY", reason: "Owner acceptance req
 phases["P15.18"] = { status: "BLOCKED_DEPENDENCY", reason: "Physical Samsung acceptance requires current live verification, owner acceptance, and the real device." };
 
 const nonproductionFailures = Object.entries(phases)
-  .filter(([id]) => { const n = Number(id.split(".")[1]); return n >= 2 && n <= 14; })
+  .filter(([id]) => { const n = Number(id.split(".")[1]); return n >= 1 && n <= 14; })
   .filter(([, value]) => value.status !== "VERIFIED_COMPLETE");
 
 const report = {
-  schemaVersion: 9,
+  schemaVersion: 10,
   verification: { headSha, exactHeadCiVerified, authorityAuditVerified },
   currentPhaseCount: phaseIds.length,
   lockedCanonicalRequirementCount: 5852,
@@ -197,12 +202,15 @@ const report = {
   originalHistoricalLedgerRecovered,
   canonicalRequirementAuthoritySatisfied,
   requirementTraceabilityPath,
+  requirementTraceabilityStructureValid,
+  requirementTraceabilityClosureComplete,
   requirementTraceabilityValid,
+  requirementTraceabilitySummary,
   historicalCandidate,
   currentCandidateManifestPath,
   currentOwnerDecisionPath,
   phases
 };
 if (writeReport) writeFileSync(resolve(cleanRoom, "category15-phase-status.json"), JSON.stringify(report, null, 2) + "\n");
-console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, originalHistoricalLedgerRecovered, requirementTraceabilityValid, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_3_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
+console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, originalHistoricalLedgerRecovered, requirementTraceabilityStructureValid, requirementTraceabilityClosureComplete, requirementTraceabilityValid, traceabilityCounts: requirementTraceabilitySummary, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_1_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
 if (!canonicalTotalsValid || !allCategory15DefinitionsPresent || !authorityAuditVerified || (requireNonproduction && nonproductionFailures.length)) process.exit(1);

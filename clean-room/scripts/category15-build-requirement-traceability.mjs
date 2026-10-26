@@ -27,8 +27,29 @@ function parseCsv(text) {
   return rows;
 }
 
+function unverifiedMappingFields() {
+  return {
+    applicableCompaniesOrCapabilities: [],
+    owningPhases: [],
+    dependencies: [],
+    dependenciesVerified: false,
+    implementationLocations: [],
+    tests: {
+      positive: { applicable: null, references: [], justification: null },
+      negative: { applicable: null, references: [], justification: null },
+      failurePath: { applicable: null, references: [], justification: null }
+    },
+    evidence: [],
+    evidenceVersion: "",
+    evidenceEnvironment: "",
+    truthState: "UNVERIFIED",
+    blocker: "Requirement-level current implementation/test/evidence mapping has not yet been proven for this row.",
+    justification: null
+  };
+}
+
 if (!sourcePath || !existsSync(sourcePath)) {
-  console.error(JSON.stringify({ ok: false, code: "RECOVERED_LEDGER_CSV_REQUIRED", expectedSha256: expectedCsvSha256, hint: "Pass --source-csv=<path> or set COMMAND_CENTER_RECOVERED_LEDGER_CSV to the recovered original 04_MASTER_RECONCILED_REQUIREMENTS.csv." }));
+  console.error(JSON.stringify({ ok: false, code: "RECOVERED_LEDGER_CSV_REQUIRED", expectedSha256: expectedCsvSha256, hint: "Pass --source-csv=<path> or set COMMAND_CENTER_RECOVERED_LEDGER_CSV to the recovered original 04_MASTER_RECONCILED_REQUIREMENTS(1).csv." }));
   process.exit(2);
 }
 
@@ -48,7 +69,7 @@ const baseline = parsed.map((values, index) => {
   return {
     id: source.canonical_id,
     requirement: source.canonical_text,
-    authoritativeSource: `RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS.csv#${source.canonical_id}`,
+    authoritativeSource: `RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#${source.canonical_id}`,
     sourceVersion: expectedCsvSha256,
     sourceIds: source.source_ids ? source.source_ids.split(" | ").filter(Boolean) : [],
     sourceFiles: source.source_files ? source.source_files.split(" | ").filter(Boolean) : [],
@@ -57,36 +78,47 @@ const baseline = parsed.map((values, index) => {
     architectureOwner: source.architecture_owner,
     classification: source.classification,
     activationPrerequisites: source.activation_prerequisites,
-    applicableCompaniesOrCapabilities: [], owningPhases: [], dependencies: [], implementationLocations: [], tests: [], evidence: [],
-    truthState: "UNVERIFIED",
-    blocker: "Requirement-level current implementation/test/evidence mapping has not yet been proven for this row."
+    ...unverifiedMappingFields()
   };
 });
 
 const rev3Path = resolve(repoRoot, "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json");
-const rev3 = JSON.parse(readFileSync(rev3Path, "utf8"));
+const rev3Bytes = readFileSync(rev3Path);
+const rev3Sha256 = createHash("sha256").update(rev3Bytes).digest("hex");
+const rev3 = JSON.parse(rev3Bytes.toString("utf8"));
 if (rev3.baseline_canonical_requirement_total !== 5825 || rev3.new_canonical_requirement_count !== 27 || rev3.owner_review_canonical_requirement_total !== 5852) throw new Error("REV3 canonical totals are invalid");
 const additions = rev3.requirements.map((item, index) => {
   const expectedId = `CCR-${String(5826 + index).padStart(5, "0")}`;
   if (item.id !== expectedId) throw new Error(`REV3 ID continuity failure at ${expectedId}`);
   return {
-    id: item.id, requirement: item.requirement,
-    authoritativeSource: `REV3:${rev3Path.split('/').pop()}#${item.id}`, sourceVersion: "current-repository-rev3",
-    sourceIds: [item.id], sourceFiles: ["Command_Center_Canonical_Owner_Additions_REV3.json"], sourceKinds: ["owner_addition"],
-    architectureBranch: `Category ${item.category}`, architectureOwner: "Current owner-review authority", classification: "OWNER ADDITION", activationPrerequisites: "",
-    applicableCompaniesOrCapabilities: [], owningPhases: [], dependencies: [], implementationLocations: [], tests: [], evidence: [],
-    truthState: "UNVERIFIED", blocker: "Requirement-level current implementation/test/evidence mapping has not yet been proven for this row."
+    id: item.id,
+    requirement: item.requirement,
+    authoritativeSource: `REV3:${rev3Path.split('/').pop()}#${item.id}`,
+    sourceVersion: rev3Sha256,
+    sourceIds: [item.id],
+    sourceFiles: ["Command_Center_Canonical_Owner_Additions_REV3.json"],
+    sourceKinds: ["owner_addition"],
+    architectureBranch: `Category ${item.category}`,
+    architectureOwner: "Current owner-review authority",
+    classification: "OWNER ADDITION",
+    activationPrerequisites: "",
+    ...unverifiedMappingFields()
   };
 });
 
 const requirements = [...baseline, ...additions];
 const output = {
-  schemaVersion: 1, status: "TRACEABILITY_SCAFFOLD_UNVERIFIED",
-  canonicalRequirementCount: requirements.length, historicalBaselineCount: baseline.length, rev3Count: additions.length,
+  schemaVersion: 2,
+  status: "TRACEABILITY_SCAFFOLD_UNVERIFIED",
+  generatedFromAuthoritativeSource: true,
+  canonicalRequirementCount: requirements.length,
+  historicalBaselineCount: baseline.length,
+  rev3Count: additions.length,
   recoveredOriginalCsvSha256: csvSha256,
+  rev3Sha256,
   warning: "This scaffold preserves every canonical requirement and recovered source provenance but is not the P15.1 closure authority. UNVERIFIED rows are not completion claims.",
   requirements
 };
 const outputPath = "evidence/category15-requirement-traceability-scaffold.json";
 if (write) writeFileSync(resolve(cleanRoom, outputPath), JSON.stringify(output, null, 2) + "\n");
-console.log(JSON.stringify({ ok: true, status: output.status, outputPath, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256 }));
+console.log(JSON.stringify({ ok: true, status: output.status, schemaVersion: output.schemaVersion, outputPath, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256, rev3Sha256 }));
