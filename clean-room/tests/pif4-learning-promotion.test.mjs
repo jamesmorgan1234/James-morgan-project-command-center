@@ -21,7 +21,7 @@ test("PIF.4 accepts evidence-rich scoped learning and emits non-executable promo
 test("PIF.4 never lets private, stale, contradicted, or not-yet-validated learning become global operational truth", () => {
   assert.throws(() => validateLearningPacket(packet({ proposedScope: { scope: "global" }, proposedPromotionClass: "GLOBAL", privacy: { ownerId: "owner-1", classification: "project_private", scopeRef: "prj_book-one" } }), NOW), /Private learning/i);
   const contradicted = new LearningPromotionGovernor(); contradicted.submit(packet({ id: "lrn_contradicted", validationState: "contradicted" }), NOW); assert.equal(contradicted.decide("lrn_contradicted", "prm_contradicted", READY, ["validator:pif4"], NOW).classification, "QUARANTINED");
-  assert.throws(() => validateLearningPacket(packet({ id: "lrn_stale", freshUntil: "2026-10-25T01:00:00Z" }), NOW), /Stale learning/i);
+  assert.throws(() => validateLearningPacket(packet({ id: "lrn_stale", freshUntil: "2026-10-26T01:30:00Z" }), NOW), /Stale learning/i);
 });
 
 test("PIF.4 global promotion remains quarantined until downstream epistemic/evaluator/negative/trace/recovery gates are ready", () => {
