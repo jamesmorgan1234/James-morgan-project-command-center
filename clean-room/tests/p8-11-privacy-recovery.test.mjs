@@ -105,7 +105,7 @@ test("P8.11 notification sensitivity remains minimized after recovery", () => {
 });
 
 test("P8.11 durable schema stores immutable provenance/history with owner-scoped RLS and no action authority", () => {
-  const sql = readFileSync(new URL("../supabase/migrations/20261026094000_p8_11_personal_privacy_recovery.sql", import.meta.url), "utf8");
+  const sql = readFileSync(new URL("../../supabase/migrations/20261026094000_p8_11_personal_privacy_recovery.sql", import.meta.url), "utf8");
   assert.match(sql, /command_center_personal_recovery_snapshots/i);
   assert.match(sql, /integrity_hash text not null/i);
   assert.match(sql, /provenance_refs text\[\] not null/i);
