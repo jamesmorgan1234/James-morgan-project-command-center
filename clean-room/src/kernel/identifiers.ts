@@ -24,7 +24,9 @@ export const ID_PREFIXES = {
   rule: "rul",
   checkpoint: "chk",
   conversation: "cnv",
-  contextPacket: "ctx"
+  contextPacket: "ctx",
+  learning: "lrn",
+  promotion: "prm"
 } as const;
 
 export type IdentifierKind = keyof typeof ID_PREFIXES;
