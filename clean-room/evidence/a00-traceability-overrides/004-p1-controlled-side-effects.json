@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_CONTROLLED_SIDE_EFFECTS",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-00828": {
+      "requirement": "**One controlled path for every important side effect.**",
+      "canonicalSourceIds": ["F-0833"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute", "clean-room/src/kernel/operations.ts#OperationJournal.prepare"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 controlled side-effect path journals intent before dispatch and suppresses duplicate real-world execution"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "The kernel exposes one controlled executor that journals every important external effect before dispatch, requires a durable receipt for success, and fails uncertain outcomes closed."
+    },
+    "CCR-05293": {
+      "requirement": "retry rules",
+      "canonicalSourceIds": ["P2-0205"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"], "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#OperationJournal.assertRetrySafe", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute", "clean-room/src/kernel/operations.ts#DefinitiveSideEffectFailureError"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 only explicit definitive failures are retryable and a later successful retry remains idempotent"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 operation journal rejects invalid lifecycle and temporal regressions"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Retry is allowed only after an explicit definitive pre-commit failure; in-flight, unknown, succeeded and reconciled effects cannot be blindly repeated."
+    },
+    "CCR-05294": {
+      "requirement": "idempotency support",
+      "canonicalSourceIds": ["P2-0206"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"], "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#OperationJournal.prepare", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 controlled side-effect path journals intent before dispatch and suppresses duplicate real-world execution"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Owner/project/account/environment scoped idempotency keys suppress duplicate dispatch and preserve the original completed result."
+    },
+    "CCR-05477": {
+      "requirement": "duplicate suppression",
+      "canonicalSourceIds": ["P2-0427"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"], "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#OperationJournal.prepare", "clean-room/src/kernel/operations.ts#operationDedupeKey", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 controlled side-effect path journals intent before dispatch and suppresses duplicate real-world execution"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Duplicate effect intents collapse on scoped idempotency identity, while operation IDs cannot be rebound to different intent or key material."
+    },
+    "CCR-05617": {
+      "requirement": "transaction idempotency",
+      "canonicalSourceIds": ["P3-0047"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"], "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#OperationJournal", "clean-room/src/kernel/operations.ts#OperationJournal.prepare", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 controlled side-effect path journals intent before dispatch and suppresses duplicate real-world execution"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 side-effect deduplication is scope-bound and operation ids cannot be rebound to a different intent"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Transaction-like external effects are journaled with stable scoped idempotency and outcome state so retries cannot create duplicate real-world actions."
+    },
+    "CCR-05621": {
+      "requirement": "idempotency and retry policy",
+      "canonicalSourceIds": ["P3-0051"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "protected side effects", "idempotent external execution"],
+      "owningPhases": ["P1.4"], "dependencies": ["C0"], "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/operations.ts#OperationJournal.assertRetrySafe", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.execute", "clean-room/src/kernel/operations.ts#ControlledSideEffectExecutor.reconcile"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 only explicit definitive failures are retryable and a later successful retry remains idempotent"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 missing provider receipt is treated as unknown rather than falsely retryable failure"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-controlled-side-effects.test.mjs :: P1 uncertain side-effect outcomes fail closed and cannot be retried before reconciliation"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40351132976 / job 121671164052: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1047/1047 module tests passed on exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3", "P1.4 scope requires idempotency, retries, outbox/inbox semantics and transaction boundaries; its exit gate forbids duplicate protected side effects from duplicate/replayed commands", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3; ci:40351132976",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head e1710fcdc2b96349256c4a04d0cfb6ef3c9933d3",
+      "truthState": "VERIFIED", "blocker": null, "justification": null,
+      "closureNotes": "Idempotency and retry behavior share one fail-closed policy: duplicate success replays, uncertain outcome requires reconciliation, and only definitive failure may retry."
+    }
+  }
+}
