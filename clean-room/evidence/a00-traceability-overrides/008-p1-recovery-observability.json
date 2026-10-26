@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P1_RECOVERY_OBSERVABILITY",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05117": {
+      "requirement": "graceful degradation",
+      "canonicalSourceIds": ["P2-0022"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel recovery shell", "runtime resilience"],
+      "owningPhases": ["P1.9"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#gracefulDegradation", "clean-room/src/kernel/recovery.ts"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 graceful degradation distinguishes healthy degraded and unavailable outcomes"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 graceful degradation distinguishes healthy degraded and unavailable outcomes"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 graceful degradation distinguishes healthy degraded and unavailable outcomes"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40356744383 / job 121691135987: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1079/1079 module tests passed on exact head 60312a0bb71fb84304af622ed186e5521e4412c4; final Category15 phase gate remained intentionally open", "P1.9 owns fail-closed recovery state, safe retry, diagnostics, known-good fallback and compatibility/update recovery", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:60312a0bb71fb84304af622ed186e5521e4412c4; ci:40356744383",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 60312a0bb71fb84304af622ed186e5521e4412c4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Recovery-facing degradation explicitly separates healthy, degraded and unavailable truth instead of fabricating normal operation during dependency failure."
+    },
+    "CCR-05127": {
+      "requirement": "observability hooks",
+      "canonicalSourceIds": ["P2-0032"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "kernel diagnostics", "runtime observability"],
+      "owningPhases": ["P1.9"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#ObservabilityHooks", "clean-room/src/kernel/evidence.ts"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40356744383 / job 121691135987: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1079/1079 module tests passed on exact head 60312a0bb71fb84304af622ed186e5521e4412c4; final Category15 phase gate remained intentionally open", "P1.9 explicitly owns diagnostics in the kernel recovery shell", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:60312a0bb71fb84304af622ed186e5521e4412c4; ci:40356744383",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 60312a0bb71fb84304af622ed186e5521e4412c4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "The observability hook contract validates trace identity, hook identity and timestamps, then records immutable correlated evidence for diagnostics."
+    },
+    "CCR-05128": {
+      "requirement": "trace IDs",
+      "canonicalSourceIds": ["P2-0034"],
+      "canonicalSourceFiles": ["Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": ["Command Center", "command/event workflow runtime", "correlated diagnostics"],
+      "owningPhases": ["P1.4"],
+      "dependencies": ["C0"],
+      "dependenciesVerified": true,
+      "implementationLocations": ["clean-room/src/kernel/resilience.ts#ObservabilityHooks.emit", "clean-room/src/kernel/command-runtime.ts"],
+      "tests": {
+        "positive": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null},
+        "negative": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null},
+        "failurePath": {"applicable": true, "references": ["clean-room/tests/category1-runtime-resilience-contracts.test.mjs :: P1 observability hooks require trace IDs and preserve correlated event evidence"], "justification": null}
+      },
+      "evidence": ["GitHub Actions run 40356744383 / job 121691135987: authority validation, typecheck, core QA, release gates and PWA lifecycle passed; 1079/1079 module tests passed on exact head 60312a0bb71fb84304af622ed186e5521e4412c4; final Category15 phase gate remained intentionally open", "P1.4 explicitly owns correlation IDs across the typed command/event/workflow runtime", "current 199-phase manifest declares C1 depends on C0"],
+      "evidenceVersion": "git:60312a0bb71fb84304af622ed186e5521e4412c4; ci:40356744383",
+      "evidenceEnvironment": "GitHub Actions ubuntu-24.04 / Node 22.23.3; isolated branch build/spec-lock-v2-clean-room; exact head 60312a0bb71fb84304af622ed186e5521e4412c4",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Trace identity is mandatory for observability events and is preserved across correlated event evidence rather than inferred after execution."
+    }
+  }
+}
