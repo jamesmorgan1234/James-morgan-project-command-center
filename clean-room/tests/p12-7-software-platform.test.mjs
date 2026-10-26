@@ -1,0 +1,11 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { SoftwarePlatformRegistry, validateSoftwarePlatformState, validateSoftwareDeploymentEvidence, SOFTWARE_PLATFORM_TRUTH_OWNER } from "../dist/specialists/index.js";
+
+const binding={id:"soft-1",ownerId:"owner-1",projectId:"torevi",companyId:"company-torevi",repositoryRef:"repo:torevi",deploymentProviderRef:"deploy:torevi",analyticsProviderRefs:["analytics:torevi"],supportProviderRefs:["support:torevi"],sourceRefs:["owner:binding"]};
+
+test("P12.7 software-platform archetype registers future software projects without Torevi-specific core",()=>{const registry=new SoftwarePlatformRegistry();assert.equal(registry.register(binding).projectId,"torevi");const future=registry.register({...binding,id:"soft-2",projectId:"future-app",companyId:"company-future",repositoryRef:"repo:future",deploymentProviderRef:"deploy:future",analyticsProviderRefs:[],supportProviderRefs:[]});assert.equal(future.projectId,"future-app");assert.equal(SOFTWARE_PLATFORM_TRUTH_OWNER,"specialist:software_platform");});
+
+test("P12.7 repository and company/project state remain isolated",()=>{const registry=new SoftwarePlatformRegistry();const one=registry.register(binding);assert.throws(()=>registry.register({...binding,id:"soft-2",projectId:"other"}),/repository is isolated to another project/i);assert.throws(()=>validateSoftwarePlatformState({id:"state-1",ownerId:"owner-1",projectId:"other",companyId:"company-torevi",domain:"roadmap",canonicalRef:"roadmap:1",state:"active",sourceRefs:["roadmap"]},one),/cannot cross company\/project boundary/i);});
+
+test("P12.7 deployment evidence binds exact repository provider commit and environment",()=>{const registry=new SoftwarePlatformRegistry();const one=registry.register(binding);const deployment=validateSoftwareDeploymentEvidence({id:"dep-1",ownerId:"owner-1",projectId:"torevi",companyId:"company-torevi",repositoryRef:"repo:torevi",commitRef:"sha:abc",environmentRef:"preview",deploymentProviderRef:"deploy:torevi",deploymentRef:"deployment:1",sourceRefs:["provider:receipt"]},one);assert.equal(deployment.commitRef,"sha:abc");assert.throws(()=>validateSoftwareDeploymentEvidence({...deployment,id:"bad",repositoryRef:"repo:other"},one),/exact project repository and provider/i);});
