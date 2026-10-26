@@ -13,7 +13,7 @@ test("P14.2 restore enforces current revocation privacy policy", () => {
 });
 
 test("P14.3 migration rollback preserves erasure", () => {
-  const result = recovery.dryRunMigration([{ id: "a", sourceVersion: 1, targetVersion: 2, erased: false, historyRefs: ["h"], identityRef: "i" }, { id: "gone", sourceVersion: 1, targetVersion: 2, erased: true, historyRefs: ["h2"], identityRef: "i2" }, { id: "fail", sourceVersion: 1, targetVersion: 2, erased: false, historyRefs: ["h3"], identityRef: "i3" }], "fail");
+  const result = recovery.dryRunGovernedMigration([{ id: "a", sourceVersion: 1, targetVersion: 2, erased: false, historyRefs: ["h"], identityRef: "i" }, { id: "gone", sourceVersion: 1, targetVersion: 2, erased: true, historyRefs: ["h2"], identityRef: "i2" }, { id: "fail", sourceVersion: 1, targetVersion: 2, erased: false, historyRefs: ["h3"], identityRef: "i3" }], "fail");
   assert.equal(result.status, "rolled_back");
   assert.equal(result.erasurePreserved, true);
 });
@@ -62,7 +62,7 @@ test("P14.11 isolated chaos drill requires observed fencing recovery resume and 
 test("P14.12 long-horizon lifecycle leaves no orphan authority/data and never labels simulation as real", () => {
   const actions = ["create", "use", "fail", "recover", "migrate", "disable", "remove"];
   const events = actions.map((action, index) => ({ entityRef: "synthetic:e", action, synthetic: true, outcomeClass: "simulation", authorityRefs: index === 6 ? [] : ["a"], dataRefs: index === 6 ? [] : ["d"] }));
-  assert.equal(recovery.validateLongHorizonLifecycle(events), true);
+  assert.equal(recovery.validateLifecycleSequence(events), true);
   events[1] = { ...events[1], outcomeClass: "observed" };
-  assert.throws(() => recovery.validateLongHorizonLifecycle(events));
+  assert.throws(() => recovery.validateLifecycleSequence(events));
 });
