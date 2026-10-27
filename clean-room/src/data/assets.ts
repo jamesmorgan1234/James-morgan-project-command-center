@@ -28,10 +28,20 @@ function assertHash(hash: string): void {
   if (!/^[a-f0-9]{64}$/i.test(hash)) throw new Error("Asset sha256 must contain exactly 64 hexadecimal characters");
 }
 
+function validateAsset(record: AssetRecord): void {
+  if (!record.id.trim() || !record.ownerId.trim() || !record.name.trim() || !record.sourceRef.trim()) throw new Error("Asset identity/provenance fields are required");
+  if (!["internal", "sensitive", "protected", "secret"].includes(record.sensitivity) || !["available", "missing", "reconstruction"].includes(record.originalState) || !["unreviewed", "approved", "locked"].includes(record.approvalState)) throw new Error("Unsupported asset state");
+  if (record.sha256 !== undefined) assertHash(record.sha256);
+  if (record.originalState === "available" && !record.sha256) throw new Error("Available asset requires sha256 identity");
+  if (record.projectId !== undefined && !record.projectId.trim()) throw new Error("Asset project scope must be nonblank");
+  if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
+}
+
 export class AssetRegistry {
   readonly #assets = new Map<string, AssetRecord>();
 
   register(record: AssetRecord): void {
+    validateAsset(record);
     if (!record.id.trim() || !record.ownerId.trim() || !record.name.trim() || !record.sourceRef.trim()) throw new Error("Asset identity/provenance fields are required");
     if (record.sha256) assertHash(record.sha256);
     if (record.originalState === "available" && !record.sha256) throw new Error("Available asset requires sha256 identity");
@@ -43,7 +53,9 @@ export class AssetRegistry {
   }
 
   replace(record: AssetRecord, expectedVersion: number, authorization?: ProtectedAssetReplacementAuthorization): void {
+    validateAsset(record);
     const current = this.#required(record.id);
+    if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(current.updatedAt, "updatedAt")) throw new Error("Asset update time cannot move backwards");
     if (current.version !== expectedVersion || record.version !== current.version + 1) throw new Error(`Asset version conflict for ${record.id}`);
     if (current.ownerId !== record.ownerId || current.createdAt !== record.createdAt) throw new Error("Asset owner/creation identity cannot be rewritten");
     if ((current.projectId ?? null) !== (record.projectId ?? null)) throw new Error("Asset project ownership cannot be silently rewritten");
