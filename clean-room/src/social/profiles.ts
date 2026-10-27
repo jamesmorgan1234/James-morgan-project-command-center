@@ -11,6 +11,8 @@ export interface PlatformComplianceProfile {
   readonly providerConstraints: Readonly<Record<string, string | number | boolean>>;
   readonly sourceRefs: readonly string[];
   readonly observedAt: string;
+  readonly policyVersion?: string;
+  readonly deprecatedAt?: string;
 }
 
 export interface LegacyPlatformComplianceProfile {
@@ -27,6 +29,9 @@ export interface PlatformTransformInput {
   readonly caption: string;
   readonly mediaKind: string;
   readonly disclosures: readonly string[];
+  readonly metadata?: Readonly<Record<string, number | string | boolean>>;
+  readonly rightsEvidenceRefs?: readonly string[];
+  readonly now?: string;
 }
 
 export interface PlatformTransformResult {
@@ -73,9 +78,9 @@ function freezeConstraints(constraints: Readonly<Record<string, string | number 
   return Object.freeze(Object.fromEntries(entries));
 }
 
-function adapterVersionKey(id: string, version: number): string { return `${id}@${version}`; }
-function profileCurrentKey(ownerId: string, key: string): string { return `${ownerId}:${key}`; }
-function profileVersionKey(ownerId: string, key: string, version: number): string { return `${ownerId}:${key}@${version}`; }
+function adapterVersionKey(id: string, version: number): string { return JSON.stringify([id,version]); }
+function profileCurrentKey(ownerId: string, key: string): string { return JSON.stringify([ownerId,key]); }
+function profileVersionKey(ownerId: string, key: string, version: number): string { return JSON.stringify([ownerId,key,version]); }
 
 export class PlatformAdapterRegistry {
   readonly #current = new Map<string, PlatformTransformAdapter>();
@@ -119,6 +124,8 @@ export class PlatformProfileRegistry {
     positiveInteger(profile.adapterVersion, "profile adapter version");
     positiveInteger(profile.maxCaptionChars, "profile caption limit");
     timestamp(profile.observedAt, "platform profile observedAt");
+    if (profile.deprecatedAt) timestamp(profile.deprecatedAt,"profile deprecation");
+    if (profile.policyVersion !== undefined && !profile.policyVersion.trim()) throw new Error("Profile policy version cannot be blank");
     const allowedMediaKinds = refs(profile.allowedMediaKinds, "allowed media kinds");
     const requiredDisclosureTags = refs(profile.requiredDisclosureTags, "required disclosure tags", false);
     const sourceRefs = refs(profile.sourceRefs, "platform profile source refs");
@@ -180,6 +187,7 @@ export class PlatformProfileRegistry {
 }
 
 export function transformForProfile(input: PlatformTransformInput, profile: PlatformComplianceProfile, adapters: PlatformAdapterRegistry): PlatformTransformResult {
+  if (profile.deprecatedAt && (input.now === undefined || !Number.isFinite(Date.parse(input.now)) || Date.parse(input.now)>=Date.parse(profile.deprecatedAt))) throw new Error("Platform profile is deprecated or current policy time unverified");
   if (!profile.allowedMediaKinds.includes(input.mediaKind)) throw new Error("media kind is not allowed by current platform profile");
   const adapter = adapters.requireExact(profile.adapterId, profile.platform, profile.adapterVersion);
   const transformed = adapter.transform(Object.freeze({ ...input, disclosures: Object.freeze([...input.disclosures]) }), profile);
@@ -194,6 +202,24 @@ export function createRuleDrivenPlatformAdapter(id: string, platform: string, ve
   return Object.freeze({
     id, platform, version, implementationRef, sourceRefs: Object.freeze([...sourceRefs]),
     transform(input: PlatformTransformInput, profile: PlatformComplianceProfile) {
+      const supported = new Set(["maxMediaCount","minWidth","maxWidth","minHeight","maxHeight","minAspectRatio","maxAspectRatio","maxDurationSeconds","maxLinks","maxHashtags","schedulingSupported","publishingSupported","maxScheduleAheadSeconds","requiresRightsEvidence"]);
+      for (const key of Object.keys(profile.providerConstraints)) if (!supported.has(key)) throw new Error(`Unsupported provider constraint requires a capable versioned adapter: ${key}`);
+      const c=profile.providerConstraints,m=input.metadata??{};
+      for (const key of ["schedulingSupported","publishingSupported","requiresRightsEvidence"]) if (c[key]!==undefined && typeof c[key]!=="boolean") throw new Error("Provider capability rule must be boolean");
+      if (c.publishingSupported===false) throw new Error("Profile does not permit publishing");
+      if (c.requiresRightsEvidence===true && (!input.rightsEvidenceRefs?.length || input.rightsEvidenceRefs.some(r=>!r.trim()))) throw new Error("Profile requires rights evidence");
+      const measurements:Record<string,unknown>={mediaCount:m.mediaCount??1,width:m.width,height:m.height,durationSeconds:m.durationSeconds,links:(input.caption.match(/https?:\/\//g)??[]).length,hashtags:(input.caption.match(/#[\p{L}\p{N}_]+/gu)??[]).length};
+      if(typeof m.width==="number" && typeof m.height==="number" && m.height>0) measurements.aspectRatio=m.width/m.height;
+      for (const [key,field,minimum] of [["maxMediaCount","mediaCount",false],["minWidth","width",true],["maxWidth","width",false],["minHeight","height",true],["maxHeight","height",false],["minAspectRatio","aspectRatio",true],["maxAspectRatio","aspectRatio",false],["maxDurationSeconds","durationSeconds",false],["maxLinks","links",false],["maxHashtags","hashtags",false]] as const) {
+       const limit=c[key]; if(limit===undefined)continue;
+       const value=measurements[field];
+       if(typeof limit!=="number" || !Number.isFinite(limit) || limit<0 || typeof value!=="number" || !Number.isFinite(value) || value<0 || (minimum?value<limit:value>limit)) throw new Error(`Platform constraint failed or measurement missing: ${key}`);
+      }
+      if(m.scheduledAt!==undefined){
+       if(c.schedulingSupported!==true || typeof m.scheduledAt!=="string" || !input.now) throw new Error("Scheduling unsupported or clock missing");
+       const delay=Date.parse(m.scheduledAt)-Date.parse(input.now);
+       if(!Number.isFinite(delay)||delay<0 || (c.maxScheduleAheadSeconds!==undefined && (typeof c.maxScheduleAheadSeconds!=="number" || !Number.isFinite(c.maxScheduleAheadSeconds) || c.maxScheduleAheadSeconds<0 || delay>c.maxScheduleAheadSeconds*1000)))throw new Error("Schedule violates platform policy");
+      }
       const disclosureSet = new Set<string>(input.disclosures);
       for (const required of profile.requiredDisclosureTags) disclosureSet.add(required);
       const caption = input.caption.length > profile.maxCaptionChars ? input.caption.slice(0, profile.maxCaptionChars) : input.caption;
