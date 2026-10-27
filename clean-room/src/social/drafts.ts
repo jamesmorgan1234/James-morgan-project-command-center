@@ -1,3 +1,5 @@
+import { assertSecretChannelSafe } from "../security/secret-channels.js";
+import type { SocialIdentityMapRecord } from "./identity.js";
 export interface SocialAssetBinding {
   readonly assetRef: string;
   readonly contentHash: string;
@@ -16,6 +18,11 @@ export interface SocialDraftApprovalBinding {
 }
 
 export interface SocialDraft {
+  readonly companyId?: string;
+  readonly projectId?: string;
+  readonly platform?: string;
+  readonly variantOfDraftId?: string;
+  readonly disclosures?: readonly string[];
   readonly id: string;
   readonly ownerId: string;
   readonly brandId: string;
@@ -76,6 +83,9 @@ function freezeApprovalBinding(binding: SocialDraftApprovalBinding): SocialDraft
 function validateDraftRevision(draft: SocialDraft, requireApproval: boolean): void {
   if (!draft.id.trim() || !draft.ownerId.trim() || !draft.brandId.trim() || !draft.intendedAccountId.trim()) throw new Error("draft identity and exact intended account are required");
   if (!Number.isSafeInteger(draft.version) || draft.version < 1) throw new Error("draft version must be positive");
+  assertSecretChannelSafe("brain_memory",draft);
+  for (const value of [draft.companyId,draft.projectId,draft.platform,draft.variantOfDraftId]) if (value !== undefined && !value.trim()) throw new Error("Optional draft scope/variant cannot be blank");
+  if (draft.disclosures) refs(draft.disclosures,"draft disclosures",false);
   const observedAt = timestamp(draft.observedAt, "draft observedAt");
   if (!draft.body.trim() || !draft.contentHash.trim()) throw new Error("draft body and content hash are required");
   if (!Number.isSafeInteger(draft.sensitivityRank) || draft.sensitivityRank < 0) throw new Error("draft sensitivity rank must be a nonnegative integer");
@@ -110,6 +120,7 @@ export function freezeSocialDraft(draft: SocialDraft): SocialDraft {
   validateDraftRevision(draft, false);
   return Object.freeze({
     ...draft,
+    ...(draft.disclosures ? {disclosures:Object.freeze([...draft.disclosures])} : {}),
     sourceAssetRefs: Object.freeze([...draft.sourceAssetRefs]),
     assetBindings: Object.freeze(draft.assetBindings.map(freezeAssetBinding)),
     rightsEvidenceRefs: Object.freeze([...draft.rightsEvidenceRefs]),
@@ -121,18 +132,22 @@ export function freezeSocialDraft(draft: SocialDraft): SocialDraft {
 
 export class SocialDraftRegistry {
   readonly #current = new Map<string, SocialDraft>();
+  readonly #history = new Map<string, readonly SocialDraft[]>();
 
   register(draft: SocialDraft): SocialDraft {
     const current = this.#current.get(draft.id);
     if (current) {
-      if (current.ownerId !== draft.ownerId || current.brandId !== draft.brandId) throw new Error("draft owner/brand lineage cannot be substituted");
-      if (draft.version <= current.version) throw new Error("draft version must advance");
+      if (current.ownerId !== draft.ownerId || current.brandId !== draft.brandId || current.companyId !== draft.companyId || current.projectId !== draft.projectId) throw new Error("draft owner/brand lineage cannot be substituted");
+      if (Date.parse(draft.observedAt)<Date.parse(current.observedAt)) throw new Error("Draft observation time cannot regress");
+      if (draft.version !== current.version + 1) throw new Error("draft version must advance");
     }
     const frozen = freezeSocialDraft(draft);
     this.#current.set(draft.id, frozen);
+    this.#history.set(draft.id,Object.freeze([...(this.#history.get(draft.id) ?? []),frozen]));
     return frozen;
   }
 
+  history(id:string, ownerId:string):readonly SocialDraft[]{if(this.#current.get(id)?.ownerId!==ownerId)throw new Error("Draft history owner mismatch");return this.#history.get(id)!;}
   requireExact(id: string, ownerId: string, brandId: string, intendedAccountId: string, version: number, contentHash: string): SocialDraft {
     const draft = this.#current.get(id);
     if (!draft || draft.ownerId !== ownerId || draft.brandId !== brandId || draft.intendedAccountId !== intendedAccountId || draft.version !== version || draft.contentHash !== contentHash) throw new Error("exact approved social draft revision mismatch");
@@ -165,4 +180,19 @@ export function reviseDraftContent(draft: SocialDraft, revision: SocialDraftCont
     approvalBindings: Object.freeze([])
   };
   return freezeSocialDraft(revised);
+}
+
+/** Exact trusted canonical target, required by protected dispatch independently of readiness. */
+export function assertSocialDraftTarget(draft: SocialDraft, identity: SocialIdentityMapRecord): void {
+ if(draft.ownerId!==identity.ownerId || draft.brandId!==identity.brandId || draft.intendedAccountId!==identity.accountIdentityId || draft.companyId!==identity.companyId || draft.projectId!==identity.projectId || draft.platform!==identity.platform) throw new Error("Draft canonical company/project/platform/account target mismatch");
+}
+/** Seal actual content; declared hashes and approval references are not integrity verification. */
+export async function socialDraftContentHash(draft: SocialDraft): Promise<string> {
+ const content=JSON.stringify([draft.body,draft.sourceAssetRefs,draft.assetBindings,draft.rightsEvidenceRefs,draft.provenanceRefs,draft.disclosures??[],draft.sensitivityRank,draft.companyId??null,draft.projectId??null,draft.platform??null,draft.intendedAccountId]);
+ const digest=await globalThis.crypto.subtle.digest("SHA-256",new TextEncoder().encode(content));
+ return "sha256:"+[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+export async function assertSocialDraftIntegrity(draft: SocialDraft): Promise<void> {
+ assertDraftPublishReady(draft);
+ if(draft.contentHash!==await socialDraftContentHash(draft)) throw new Error("Social draft content integrity mismatch");
 }
