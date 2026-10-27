@@ -13,13 +13,29 @@ const APPROVED_ICON_SHA256 = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79
 const releaseId = (process.env.COMMAND_CENTER_RELEASE_ID || process.env.GITHUB_SHA || "local-unverified").trim();
 const schemaCompatibility = "cc-runtime-snapshot-v1";
 const previewAcceptance = process.env.COMMAND_CENTER_PREVIEW_ACCEPTANCE === "1";
+const VALID_ENVIRONMENTS = new Set(["development", "test", "preview", "staging", "production"]);
+const requestedEnvironment = (process.env.COMMAND_CENTER_ENVIRONMENT || "").trim();
+const vercelEnvironment = (process.env.VERCEL_ENV || "").trim();
+const environment = requestedEnvironment || (vercelEnvironment === "production" ? "production" : vercelEnvironment === "preview" ? "preview" : "development");
+if (!VALID_ENVIRONMENTS.has(environment)) throw new Error(`Invalid Command Center build environment: ${environment}`);
 if (previewAcceptance && process.env.VERCEL_ENV !== "preview") {
   throw new Error("Synthetic acceptance data is restricted to Vercel Preview builds");
 }
 
-
 async function exists(path) { try { await stat(path); return true; } catch { return false; } }
 function sha256(content) { return createHash("sha256").update(content).digest("hex"); }
+
+const runtimeConfigurationIdentity = Object.freeze({
+  configVersion: 1,
+  environment,
+  schemaVersion: 1,
+  apiVersion: 1,
+  compatibleSchema: Object.freeze({ min: 1, max: 1 }),
+  compatibleApi: Object.freeze({ min: 1, max: 1 }),
+  features: Object.freeze({}),
+  backendEnvironment: "production"
+});
+const configurationDigest = sha256(JSON.stringify(runtimeConfigurationIdentity));
 
 async function walk(dir) {
   const result = [];
@@ -38,7 +54,10 @@ await cp(PUBLIC, OUT, { recursive: true });
 
 for (const file of [join(OUT, "index.html"), join(OUT, "sw.js")]) {
   const text = await readFile(file, "utf8");
-  await writeFile(file, text.replaceAll("__COMMAND_CENTER_RELEASE_ID__", releaseId));
+  await writeFile(file, text
+    .replaceAll("__COMMAND_CENTER_RELEASE_ID__", releaseId)
+    .replaceAll("__COMMAND_CENTER_ENVIRONMENT__", environment)
+    .replaceAll("__COMMAND_CENTER_CONFIG_DIGEST__", configurationDigest));
 }
 
 const manifestPath = join(OUT, "manifest.webmanifest");
@@ -54,7 +73,6 @@ if (await exists(APPROVED_ICON)) {
   manifest.icons = [];
 }
 await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
-
 
 if (previewAcceptance) {
   const { ProjectRegistry, ProjectTypeRegistry } = await import("../dist/projects/registry.js");
@@ -92,7 +110,7 @@ const files = (await walk(OUT)).filter((path) => !path.endsWith("release.json") 
 const assetManifest = [];
 for (const path of files) {
   const bytes = await readFile(path);
-  assetManifest.push({ path: `/${relative(OUT, path).replaceAll("\\\\", "/")}`, sha256: sha256(bytes), bytes: bytes.length });
+  assetManifest.push({ path: `/${relative(OUT, path).replaceAll("\\", "/")}`, sha256: sha256(bytes), bytes: bytes.length });
 }
 const assetManifestHash = sha256(JSON.stringify(assetManifest));
 const buildHash = sha256(`${releaseId}:${schemaCompatibility}:${assetManifestHash}`);

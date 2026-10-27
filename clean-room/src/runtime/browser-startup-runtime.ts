@@ -1,7 +1,9 @@
+import { assertBrowserStartupConfiguration } from "./startup-config.js";
 import { BrowserStartupCoordinator } from "./browser-startup.js";
 
 interface StartupWindow extends Window {
   __commandCenterStartupInstalled?: boolean;
+  __commandCenterStartupConfigurationValid?: boolean;
 }
 
 const runtimeWindow = window as StartupWindow;
@@ -25,13 +27,23 @@ function renderSafeBootstrap(state: "loading" | "degraded" | "failed", message: 
   node.append(kicker, status);
 }
 
-export function installBrowserStartupBoundary(): void {
-  if (runtimeWindow.__commandCenterStartupInstalled) return;
+export function installBrowserStartupBoundary(): boolean {
+  if (runtimeWindow.__commandCenterStartupInstalled) return runtimeWindow.__commandCenterStartupConfigurationValid === true;
   runtimeWindow.__commandCenterStartupInstalled = true;
 
   const coordinator = new BrowserStartupCoordinator();
   const generation = coordinator.begin().generation;
   renderSafeBootstrap("loading", coordinator.current.message);
+
+  try {
+    assertBrowserStartupConfiguration(document);
+    runtimeWindow.__commandCenterStartupConfigurationValid = true;
+  } catch {
+    runtimeWindow.__commandCenterStartupConfigurationValid = false;
+    const next = coordinator.fail(generation);
+    renderSafeBootstrap("failed", next.message);
+    return false;
+  }
 
   window.addEventListener("offline", () => {
     if (!bootstrapNode()) return;
@@ -60,6 +72,7 @@ export function installBrowserStartupBoundary(): void {
     observer.disconnect();
   });
   observer.observe(root, { childList: true, subtree: true });
+  return true;
 }
 
 installBrowserStartupBoundary();
