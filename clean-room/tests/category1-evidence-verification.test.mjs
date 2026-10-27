@@ -4,6 +4,7 @@ import {
   assertCompletionEvidence,
   createCheckpoint,
   evidenceMeets,
+  selectLastVerifiedCheckpoint,
   validateEvidenceRecord,
   validateRequirementClosure
 } from "../dist/kernel/index.js";
@@ -34,6 +35,18 @@ function closure(overrides = {}) {
     failureTestRefs: ["failure"],
     evidenceIds: ["ev-1"],
     truthState: "verified",
+    ...overrides
+  };
+}
+
+function checkpoint(overrides = {}) {
+  return {
+    id: "cp-1",
+    subjectId: "phase:P1.7",
+    summary: "Verification state captured",
+    exactNextAction: "Run the next strict traceability cluster",
+    evidenceIds: ["ev-1"],
+    createdAt: "2026-10-26T15:00:00.000Z",
     ...overrides
   };
 }
@@ -103,22 +116,81 @@ test("P1.7 requirement closure rejects blank and duplicate traceability referenc
 });
 
 test("P1.7 checkpoints are deterministic verified resume pointers with valid identity timestamp and evidence references", () => {
-  const checkpoint = createCheckpoint({
-    id: "cp-1",
-    subjectId: "phase:P1.7",
-    summary: "Verification state captured",
-    exactNextAction: "Run the next strict traceability cluster",
-    evidenceIds: ["ev-1"],
-    createdAt: "2026-10-26T15:00:00.000Z"
-  });
-  assert.ok(Object.isFrozen(checkpoint));
-  assert.ok(Object.isFrozen(checkpoint.evidenceIds));
-  assert.throws(() => createCheckpoint({ ...checkpoint, id: " " }), /Checkpoint id is required/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, subjectId: " " }), /Checkpoint subjectId is required/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, summary: " " }), /Checkpoint summary is required/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, exactNextAction: " " }), /Checkpoint exactNextAction is required/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, createdAt: "bad" }), /valid timestamp/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, evidenceIds: [] }), /must reference evidence/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, evidenceIds: ["ev-1", "ev-1"] }), /duplicate references/);
-  assert.throws(() => createCheckpoint({ ...checkpoint, evidenceIds: [" "] }), /blank references/);
+  const created = createCheckpoint(checkpoint());
+  assert.ok(Object.isFrozen(created));
+  assert.ok(Object.isFrozen(created.evidenceIds));
+  assert.throws(() => createCheckpoint({ ...created, id: " " }), /Checkpoint id is required/);
+  assert.throws(() => createCheckpoint({ ...created, subjectId: " " }), /Checkpoint subjectId is required/);
+  assert.throws(() => createCheckpoint({ ...created, summary: " " }), /Checkpoint summary is required/);
+  assert.throws(() => createCheckpoint({ ...created, exactNextAction: " " }), /Checkpoint exactNextAction is required/);
+  assert.throws(() => createCheckpoint({ ...created, createdAt: "bad" }), /valid timestamp/);
+  assert.throws(() => createCheckpoint({ ...created, evidenceIds: [] }), /must reference evidence/);
+  assert.throws(() => createCheckpoint({ ...created, evidenceIds: ["ev-1", "ev-1"] }), /duplicate references/);
+  assert.throws(() => createCheckpoint({ ...created, evidenceIds: [" "] }), /blank references/);
+});
+
+test("P1.7 resume selects the newest fully verified checkpoint regardless of input order", () => {
+  const records = [
+    evidence({ id: "ev-old" }),
+    evidence({ id: "ev-new", recordedAt: "2026-10-26T16:00:00.000Z" })
+  ];
+  const checkpoints = [
+    checkpoint({ id: "cp-new", evidenceIds: ["ev-new"], createdAt: "2026-10-26T16:00:00.000Z" }),
+    checkpoint({ id: "cp-old", evidenceIds: ["ev-old"], createdAt: "2026-10-26T14:00:00.000Z" })
+  ].reverse();
+
+  assert.equal(selectLastVerifiedCheckpoint(checkpoints, records, "phase:P1.7", "tool_result")?.id, "cp-new");
+});
+
+test("P1.7 resume skips newer checkpoints with missing unverified weak or cross-subject evidence and falls back to the last verified checkpoint", () => {
+  const records = [
+    evidence({ id: "ev-good" }),
+    evidence({ id: "ev-unverified", verified: false }),
+    evidence({ id: "ev-weak", strength: "recorded" }),
+    evidence({ id: "ev-other", subjectId: "phase:other" })
+  ];
+  const checkpoints = [
+    checkpoint({ id: "cp-good", evidenceIds: ["ev-good"], createdAt: "2026-10-26T12:00:00.000Z" }),
+    checkpoint({ id: "cp-missing", evidenceIds: ["ev-missing"], createdAt: "2026-10-26T13:00:00.000Z" }),
+    checkpoint({ id: "cp-unverified", evidenceIds: ["ev-unverified"], createdAt: "2026-10-26T14:00:00.000Z" }),
+    checkpoint({ id: "cp-weak", evidenceIds: ["ev-weak"], createdAt: "2026-10-26T15:00:00.000Z" }),
+    checkpoint({ id: "cp-other", evidenceIds: ["ev-other"], createdAt: "2026-10-26T16:00:00.000Z" })
+  ];
+
+  assert.equal(selectLastVerifiedCheckpoint(checkpoints, records, "phase:P1.7", "tool_result")?.id, "cp-good");
+});
+
+test("P1.7 resume requires every checkpoint evidence reference to qualify", () => {
+  const records = [
+    evidence({ id: "ev-good" }),
+    evidence({ id: "ev-unverified", verified: false })
+  ];
+  const checkpoints = [checkpoint({ id: "cp-mixed", evidenceIds: ["ev-good", "ev-unverified"] })];
+
+  assert.equal(selectLastVerifiedCheckpoint(checkpoints, records, "phase:P1.7", "tool_result"), undefined);
+});
+
+test("P1.7 resume has deterministic same-timestamp ordering and rejects ambiguous evidence identity", () => {
+  const records = [evidence({ id: "ev-good" })];
+  const checkpoints = [
+    checkpoint({ id: "cp-a", evidenceIds: ["ev-good"] }),
+    checkpoint({ id: "cp-b", evidenceIds: ["ev-good"] })
+  ];
+
+  assert.equal(selectLastVerifiedCheckpoint(checkpoints, records, "phase:P1.7", "tool_result")?.id, "cp-b");
+  assert.throws(
+    () => selectLastVerifiedCheckpoint(checkpoints, [...records, evidence({ id: "ev-good", sourceRef: "ci:run-2" })], "phase:P1.7", "tool_result"),
+    /Duplicate evidence id/
+  );
+  assert.throws(() => selectLastVerifiedCheckpoint(checkpoints, records, " ", "tool_result"), /Checkpoint resume subjectId is required/);
+});
+
+test("P1.7 resume returns no pointer when no checkpoint is both valid and fully evidenced", () => {
+  const records = [evidence({ id: "ev-good" })];
+  const checkpoints = [
+    checkpoint({ id: "cp-wrong-subject", subjectId: "phase:other", evidenceIds: ["ev-good"] }),
+    checkpoint({ id: "cp-malformed", exactNextAction: " ", evidenceIds: ["ev-good"] })
+  ];
+
+  assert.equal(selectLastVerifiedCheckpoint(checkpoints, records, "phase:P1.7", "tool_result"), undefined);
 });
