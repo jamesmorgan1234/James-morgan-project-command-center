@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import {
   AuthSessionStore,
   PasskeyRegistry,
+  DeviceRegistry,
   PolicyEngine,
   ProtectedActionGate,
   SecretReferenceRegistry,
@@ -44,10 +45,16 @@ function liveSession(overrides = {}) {
     state: "active",
     createdAt: "2026-10-24T13:00:00Z",
     expiresAt: "2026-10-24T14:00:00Z",
-    lastValidatedAt: "2026-10-24T13:20:00Z",
+    lastValidatedAt: "2026-10-24T13:29:30Z",
     lastVerifiedAt: "2026-10-24T13:29:30Z",
     ...overrides
   };
+}
+
+function trustedDevices() {
+  const devices = new DeviceRegistry();
+  devices.register({ id: "device-a", ownerId: "owner-a", label: "Adversarial test device", platform: "test", trustState: "trusted", createdAt: "2026-10-24T13:00:00Z" });
+  return devices;
 }
 
 test("adversarial: authorization replay and stolen-session reuse fail closed", () => {
@@ -111,14 +118,15 @@ test("adversarial: policy downgrade and unknown protected actions are denied", (
   policy.register({ action: "security.critical", version: 1, enabled: true, riskClass: "critical", requiredScopes: ["security:protected"], minimumAssurance: "passkey_uv", freshVerificationMaxAgeMs: 60_000, ownerOnly: true, allowProjectWildcard: false });
   const sessions = new AuthSessionStore();
   sessions.register(liveSession());
-  const gate = new ProtectedActionGate(sessions, policy);
+  const devices = trustedDevices();
+  const gate = new ProtectedActionGate(sessions, policy, devices);
 
   assert.equal(gate.authorize({ sessionId: "session-a", action: "security.critical", resourceOwnerId: "owner-a", resourceProjectId: "command-center", now: NOW }).allowed, true);
   assert.equal(policy.evaluate({ action: "security.unknown", subject: { ownerId: "owner-a", sessionId: "session-a", deviceId: "device-a", projectId: "command-center", assurance: "passkey_uv", scopes: ["security:protected"], lastVerifiedAt: "2026-10-24T13:29:30Z" }, resourceOwnerId: "owner-a", resourceProjectId: "command-center", now: NOW }).allowed, false);
 
   const downgraded = new AuthSessionStore();
   downgraded.register(liveSession({ id: "session-low", assurance: "authenticated" }));
-  const downgradedGate = new ProtectedActionGate(downgraded, policy);
+  const downgradedGate = new ProtectedActionGate(downgraded, policy, devices);
   assert.throws(
     () => downgradedGate.authorize({ sessionId: "session-low", action: "security.critical", resourceOwnerId: "owner-a", resourceProjectId: "command-center", now: NOW }),
     /insufficient_assurance/i
