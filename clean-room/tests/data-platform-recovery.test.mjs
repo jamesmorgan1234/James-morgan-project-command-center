@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 1895)
-Total output lines: 110
-
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -60,7 +57,14 @@ test("portability dry run detects duplicates/conflicts and export redacts secret
   assert.equal(dry.results[1].disposition, "create");
   const exported = center.export([...existing, { id: "two", entityType: "project", version: 1, contentHash: "b", sensitivity: "secret", provenanceRefs: ["src"], data: { hidden: true } }]);
   assert.equal(exported.recordCount, 1);
-…95 tokens truncated…t: "root", children: [], message: { id: "msg-a", author: { role: "user" }, content: { parts: ["branch A"] } } },
+  assert.equal(exported.redactedCount, 1);
+});
+
+test("historical export staging preserves every mapping node, branch point, and project-container identity", () => {
+  const raw = [
+    { id: "conv-1", title: "Project chat", conversation_template_id: "template-a", mapping: {
+      root: { id: "root", parent: null, children: ["a", "b"], message: null },
+      a: { id: "a", parent: "root", children: [], message: { id: "msg-a", author: { role: "user" }, content: { parts: ["branch A"] } } },
       b: { id: "b", parent: "root", children: [], message: { id: "msg-b", author: { role: "assistant" }, content: { parts: ["branch B"] } } }
     } },
     { id: "conv-2", title: "Standalone", mapping: { only: { id: "only", parent: null, children: [], message: { id: "msg-only", author: { role: "user" }, content: { parts: ["standalone project evidence"] } } } } }
