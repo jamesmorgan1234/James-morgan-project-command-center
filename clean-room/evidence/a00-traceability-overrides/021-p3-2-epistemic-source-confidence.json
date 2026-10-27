@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P3_2_EPISTEMIC_SOURCE_CONFIDENCE",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05250": {
+      "requirement": "source confidence",
+      "canonicalSourceIds": [
+        "P2-0161"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "P3.2 knowledge/provenance/confidence model",
+        "epistemic evidence source-confidence scoring"
+      ],
+      "owningPhases": [
+        "P3.2"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/data/epistemics.ts#validateEpistemicAssessment",
+        "clean-room/src/data/epistemics.ts#correlatedEvidenceConfidence",
+        "supabase/migrations/20261026023000_pif5_epistemics.sql#source_confidence"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/pif5-epistemics.test.mjs :: PIF.5 correlated agreement is discounted instead of counted as independent support"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/pif5-epistemics.test.mjs :: PIF.5 source confidence is bounded and invalid evidence confidence fails closed"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/pif5-epistemics.test.mjs :: PIF.5 source confidence is bounded and invalid evidence confidence fails closed"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40430173857 on exact head 50c6928efe746562100ed3c841228b2df9da42a3: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate epistemic confidence implementation and tests",
+        "Source confidence and transformation confidence are bounded in [0,1] and contribute to calibrated evidence confidence while correlated sources are discounted",
+        "Claim is limited to source-confidence input validation and scoring in the epistemic evidence model; this does not claim PIF-wide phase completion"
+      ],
+      "evidenceVersion": "git:50c6928efe746562100ed3c841228b2df9da42a3; ci:40430173857",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 50c6928efe746562100ed3c841228b2df9da42a3",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P3.2 stores and validates source confidence on each evidence contribution and incorporates it into the source-confidence score. Correlated evidence does not count as fully independent support. PIF-wide phase completion is not claimed."
+    }
+  }
+}
