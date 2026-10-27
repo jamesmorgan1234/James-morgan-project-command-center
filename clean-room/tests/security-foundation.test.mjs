@@ -140,7 +140,7 @@ test("central policy is deny-by-default and enforces fresh verification", () => 
 
 test("protected action gate binds live session and device state to the central policy decision", () => {
   const sessions = new AuthSessionStore();
-  sessions.register(activeSession({ assurance: "passkey_uv", lastVerifiedAt: "2026-10-23T18:29:30Z" }));
+  sessions.register(activeSession({ assurance: "passkey_uv", lastValidatedAt: "2026-10-23T18:29:30Z", lastVerifiedAt: "2026-10-23T18:29:30Z" }));
   const devices = new DeviceRegistry();
   devices.register({ id: "dev_samsung", ownerId: "owner-1", label: "Samsung phone", platform: "android", trustState: "trusted", createdAt: "2026-10-23T18:00:00Z" });
   const policy = new PolicyEngine();
