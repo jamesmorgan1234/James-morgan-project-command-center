@@ -8,7 +8,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build:modules": "tsc -p tsconfig.build.json",
     "build:browser": "node scripts/build-browser.mjs",
-    "build": "npm run build:modules && npm run test:modules && npm run build:browser",
+    "build": "npm run build:modules && npm run build:browser && npm run test:modules",
     "check:legacy": "node scripts/check-no-legacy-imports.mjs",
     "check:architecture": "node scripts/check-architecture-contracts.mjs",
     "audit:authority": "node scripts/current-authority-audit.mjs --write",
