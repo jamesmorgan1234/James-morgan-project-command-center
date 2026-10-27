@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P3_6_STALE_RECORD_DETECTION_AND_RECONCILIATION",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05204": {
+      "requirement": "stale-record detection",
+      "canonicalSourceIds": [
+        "P2-0111"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "data synchronization",
+        "versioned stale-record reconciliation"
+      ],
+      "owningPhases": [
+        "P3.6"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/data/sync.ts#reconcileSync",
+        "supabase/migrations/20261024113000_category3_sync_reconciliation.sql#command_center_sync_apply_entity"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 stale-record detection preserves current truth and ignores an exact replay"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 stale-record detection preserves current truth and ignores an exact replay"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 version gaps fail to reconciliation instead of overwriting canonical state",
+            "clean-room/tests/category3-sync-reconciliation.test.mjs :: reconciliation never lets stale or ambiguous state silently overwrite newer truth"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40429324224 on exact head e6c9d301b4d48f5280ab3e601bc2b50837a968ab: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate implementation and regression tests",
+        "Reconciliation rejects older versions while retaining the current canonical envelope, ignores exact same-version/hash replay, accepts only the next version, and routes gaps/conflicts to reconciliation instead of applying them",
+        "Database migration policy and module behavior are covered by repository tests; no live database migration/deployment is claimed"
+      ],
+      "evidenceVersion": "git:e6c9d301b4d48f5280ab3e601bc2b50837a968ab; ci:40429324224",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head e6c9d301b4d48f5280ab3e601bc2b50837a968ab",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P3.6 detects and rejects stale synchronization records without replacing newer canonical state. Version gaps and same-version content conflicts fail to explicit reconciliation. Live database deployment is outside this claim."
+    }
+  }
+}
