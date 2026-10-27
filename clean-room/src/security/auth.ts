@@ -9,6 +9,8 @@ export interface AuthSessionRecord {
   readonly companyId?: string;
   readonly accountId?: string;
   readonly environment?: EnvironmentName;
+  readonly authProviderId?: string;
+  readonly providerSessionRef?: string;
   readonly scopes: readonly string[];
   readonly assurance: AssuranceLevel;
   readonly state: SessionState;
@@ -20,6 +22,32 @@ export interface AuthSessionRecord {
   readonly lockedAt?: string;
   readonly revokedAt?: string;
   readonly revocationReason?: string;
+}
+
+export interface AuthProviderSignInRequest {
+  readonly sessionId: string;
+  readonly ownerId: string;
+  readonly now: string;
+  readonly expiresAt: string;
+  readonly deviceId?: string;
+  readonly projectId?: string;
+  readonly companyId?: string;
+  readonly accountId?: string;
+  readonly environment?: EnvironmentName;
+}
+
+export interface AuthProviderAssertion {
+  readonly ownerId: string;
+  readonly assurance: AssuranceLevel;
+  readonly scopes: readonly string[];
+  readonly providerSessionRef: string;
+  readonly authenticatedAt: string;
+}
+
+export interface AuthProvider {
+  readonly id: string;
+  authenticate(request: Readonly<AuthProviderSignInRequest>): AuthProviderAssertion;
+  signOut(providerSessionRef: string): void;
 }
 
 function assertOptionalId(value: string | undefined, label: string): void {
@@ -48,6 +76,11 @@ function assertSessionShape(session: AuthSessionRecord): void {
   assertOptionalId(session.projectId, "projectId");
   assertOptionalId(session.companyId, "companyId");
   assertOptionalId(session.accountId, "accountId");
+  assertOptionalId(session.authProviderId, "authProviderId");
+  assertOptionalId(session.providerSessionRef, "providerSessionRef");
+  if ((session.authProviderId === undefined) !== (session.providerSessionRef === undefined)) {
+    throw new Error("authProviderId and providerSessionRef must be provided together");
+  }
   const created = parseTimestamp(session.createdAt, "createdAt");
   const expires = parseTimestamp(session.expiresAt, "expiresAt");
   const lastValidated = parseTimestamp(session.lastValidatedAt, "lastValidatedAt");
@@ -143,5 +176,73 @@ export class AuthSessionStore {
     const session = this.#sessions.get(id);
     if (!session) throw new Error(`Unknown session: ${id}`);
     return session;
+  }
+}
+
+export class AuthenticationService {
+  readonly #providers = new Map<string, AuthProvider>();
+
+  constructor(readonly sessions: AuthSessionStore) {}
+
+  registerProvider(provider: AuthProvider): void {
+    if (!provider.id.trim()) throw new Error("Auth provider id is required");
+    if (typeof provider.authenticate !== "function" || typeof provider.signOut !== "function") throw new Error("Auth provider must implement authenticate and signOut");
+    if (this.#providers.has(provider.id)) throw new Error(`Auth provider already registered: ${provider.id}`);
+    this.#providers.set(provider.id, provider);
+  }
+
+  signIn(providerId: string, request: AuthProviderSignInRequest): AuthSessionRecord {
+    const provider = this.#requiredProvider(providerId);
+    if (!request.sessionId.trim() || !request.ownerId.trim()) throw new Error("sessionId and ownerId are required");
+    const nowMs = parseTimestamp(request.now, "now");
+    const expiresMs = parseTimestamp(request.expiresAt, "expiresAt");
+    if (expiresMs <= nowMs) throw new Error("Sign-in expiresAt must be after now");
+
+    const assertion = provider.authenticate(Object.freeze({ ...request }));
+    if (assertion.ownerId !== request.ownerId) throw new Error("Auth provider owner mismatch");
+    if (assertion.assurance === "anonymous") throw new Error("Auth provider must return authenticated assurance");
+    if (!assertion.providerSessionRef.trim()) throw new Error("Auth provider session reference is required");
+    const authenticatedMs = parseTimestamp(assertion.authenticatedAt, "authenticatedAt");
+    if (authenticatedMs > nowMs) throw new Error("Auth provider assertion cannot be from the future");
+    if (authenticatedMs >= expiresMs) throw new Error("Auth provider assertion must predate session expiry");
+
+    const session: AuthSessionRecord = {
+      id: request.sessionId,
+      ownerId: request.ownerId,
+      ...(request.deviceId !== undefined ? { deviceId: request.deviceId } : {}),
+      ...(request.projectId !== undefined ? { projectId: request.projectId } : {}),
+      ...(request.companyId !== undefined ? { companyId: request.companyId } : {}),
+      ...(request.accountId !== undefined ? { accountId: request.accountId } : {}),
+      ...(request.environment !== undefined ? { environment: request.environment } : {}),
+      authProviderId: provider.id,
+      providerSessionRef: assertion.providerSessionRef,
+      scopes: assertion.scopes,
+      assurance: assertion.assurance,
+      state: "active",
+      createdAt: assertion.authenticatedAt,
+      expiresAt: request.expiresAt,
+      lastValidatedAt: request.now,
+      lastVerifiedAt: assertion.authenticatedAt
+    };
+    this.sessions.register(session);
+    return this.sessions.get(request.sessionId)!;
+  }
+
+  signOut(sessionId: string, at: string): AuthSessionRecord {
+    const current = this.sessions.get(sessionId);
+    if (!current) throw new Error(`Unknown session: ${sessionId}`);
+    if (current.state === "revoked") return current;
+
+    const revoked = this.sessions.revoke(sessionId, at, "sign_out");
+    if (current.authProviderId && current.providerSessionRef) {
+      this.#requiredProvider(current.authProviderId).signOut(current.providerSessionRef);
+    }
+    return revoked;
+  }
+
+  #requiredProvider(id: string): AuthProvider {
+    const provider = this.#providers.get(id);
+    if (!provider) throw new Error(`Unknown auth provider: ${id}`);
+    return provider;
   }
 }

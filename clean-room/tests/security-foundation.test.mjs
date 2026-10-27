@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   AuthSessionStore,
+  AuthenticationService,
   PasskeyRegistry,
   DeviceRegistry,
   PolicyEngine,
@@ -61,6 +62,50 @@ test("session lifecycle rejects pre-creation and backward timestamps", () => {
   assert.throws(() => sessions.unlock("ses_time", "passkey_uv", "2026-10-23T18:10:59Z"), /cannot move session time backward/);
   sessions.unlock("ses_time", "passkey_uv", "2026-10-23T18:12:00Z");
   assert.throws(() => sessions.revoke("ses_time", "2026-10-23T18:11:59Z", "owner_request"), /cannot move session time backward/);
+});
+
+test("provider-backed sign-in/sign-out binds normalized sessions and fails closed on provider logout failure", () => {
+  const sessions = new AuthSessionStore();
+  const auth = new AuthenticationService(sessions);
+  let signedOutRef = null;
+  auth.registerProvider({
+    id: "test_provider",
+    authenticate(request) {
+      assert.equal(request.ownerId, "owner-1");
+      return { ownerId: "owner-1", assurance: "authenticated", scopes: ["project:write"], providerSessionRef: "provider-session-1", authenticatedAt: "2026-10-23T18:00:00Z" };
+    },
+    signOut(providerSessionRef) { signedOutRef = providerSessionRef; }
+  });
+
+  const signedIn = auth.signIn("test_provider", { sessionId: "ses_provider", ownerId: "owner-1", projectId: "command-center", now: "2026-10-23T18:01:00Z", expiresAt: "2026-10-23T20:00:00Z" });
+  assert.equal(signedIn.state, "active");
+  assert.equal(signedIn.authProviderId, "test_provider");
+  assert.equal(signedIn.providerSessionRef, "provider-session-1");
+  assert.equal(sessions.validateLive("ses_provider", "2026-10-23T18:01:30Z").state, "active");
+  assert.equal(auth.signOut("ses_provider", "2026-10-23T18:02:00Z").state, "revoked");
+  assert.equal(signedOutRef, "provider-session-1");
+  assert.throws(() => sessions.validateLive("ses_provider", "2026-10-23T18:03:00Z"), /revoked/);
+
+  const mismatchSessions = new AuthSessionStore();
+  const mismatchAuth = new AuthenticationService(mismatchSessions);
+  mismatchAuth.registerProvider({
+    id: "mismatch_provider",
+    authenticate() { return { ownerId: "owner-2", assurance: "authenticated", scopes: [], providerSessionRef: "provider-session-2", authenticatedAt: "2026-10-23T18:00:00Z" }; },
+    signOut() {}
+  });
+  assert.throws(() => mismatchAuth.signIn("mismatch_provider", { sessionId: "ses_mismatch", ownerId: "owner-1", now: "2026-10-23T18:01:00Z", expiresAt: "2026-10-23T20:00:00Z" }), /owner mismatch/);
+  assert.equal(mismatchSessions.get("ses_mismatch"), undefined);
+
+  const failingSessions = new AuthSessionStore();
+  const failingAuth = new AuthenticationService(failingSessions);
+  failingAuth.registerProvider({
+    id: "failing_provider",
+    authenticate() { return { ownerId: "owner-1", assurance: "authenticated", scopes: [], providerSessionRef: "provider-session-3", authenticatedAt: "2026-10-23T18:00:00Z" }; },
+    signOut() { throw new Error("provider unavailable"); }
+  });
+  failingAuth.signIn("failing_provider", { sessionId: "ses_fail", ownerId: "owner-1", now: "2026-10-23T18:01:00Z", expiresAt: "2026-10-23T20:00:00Z" });
+  assert.throws(() => failingAuth.signOut("ses_fail", "2026-10-23T18:02:00Z"), /provider unavailable/);
+  assert.equal(failingSessions.get("ses_fail").state, "revoked");
 });
 
 test("passkeys require platform authenticator and user verification and never accept biometric templates", () => {
