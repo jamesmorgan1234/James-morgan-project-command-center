@@ -37,12 +37,17 @@ test("P4.2 degraded and failed startup states never authorize private data", () 
   assert.equal(failed.commitReady(recovery.generation).state, "ready");
 });
 
-test("P4.2 shipped HTML contains only fixed non-private bootstrap state before runtime", async () => {
+test("P4.2 shipped HTML contains only fixed non-private bootstrap state before the gated runtime entrypoint", async () => {
   const html = await source("public/index.html");
   assert.match(html, /data-command-center-bootstrap/);
   assert.match(html, /Starting Command Center…/);
-  assert.ok(html.indexOf("browser-startup-runtime.js") < html.indexOf("browser-navigation-runtime.js"));
-  assert.ok(html.indexOf("browser-navigation-runtime.js") < html.indexOf("browser.js"));
+  assert.match(html, /\/app\/runtime\/browser-entrypoint\.js/);
+  assert.doesNotMatch(html, /<script type="module" src="\/app\/runtime\/browser-startup-runtime\.js"><\/script>/);
+  assert.doesNotMatch(html, /<script type="module" src="\/app\/runtime\/browser-navigation-runtime\.js"><\/script>/);
+  assert.doesNotMatch(html, /<script type="module" src="\/app\/runtime\/browser\.js"><\/script>/);
+  const entrypoint = await source("src/runtime/browser-entrypoint.ts");
+  assert.ok(entrypoint.indexOf("installBrowserStartupBoundary()") < entrypoint.indexOf('import("./browser-navigation-runtime.js")'));
+  assert.ok(entrypoint.indexOf('import("./browser-navigation-runtime.js")') < entrypoint.indexOf('import("./browser.js")'));
 });
 
 test("P4.2 shipped startup runtime handles failures without rendering exception content", async () => {
@@ -63,8 +68,10 @@ test("P4.2 runtime root replacement keeps one rendered application tree", async 
   assert.doesNotMatch(browser, /root\.innerHTML\s*\+=/);
 });
 
-test("P4.2 startup boundary is included in the offline shell", async () => {
+test("P4.2 startup boundary and gated entrypoint are included in the offline shell", async () => {
   const sw = await source("public/sw.js");
+  assert.match(sw, /\/app\/runtime\/browser-entrypoint\.js/);
+  assert.match(sw, /\/app\/runtime\/startup-config\.js/);
   assert.match(sw, /\/app\/runtime\/browser-startup-runtime\.js/);
   assert.match(sw, /\/app\/runtime\/browser-startup\.js/);
 });
