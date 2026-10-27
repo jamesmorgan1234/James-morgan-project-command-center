@@ -15,5 +15,6 @@ export * from "./keyring.js";
 export * from "./intent.js";
 export * from "./webhooks.js";
 export * from "./protected-gate.js";
+export * from "./protected-authorizations.js";
 export * from "./protected-actions.js";
 export * from "./events.js";

@@ -8,10 +8,22 @@ import {
   ProtectedActionCatalog,
   ProtectedActionExecutor,
   ProtectedActionGate,
+  ProtectedAuthorizationRegistry,
   PROTECTED_ACTION_CLASSES
 } from "../dist/security/index.js";
 
-function buildHarness(lastVerifiedAt = "2026-10-23T18:04:30Z") {
+function protectedIntent() {
+  return {
+    action: "deploy.production",
+    ownerId: "owner-1",
+    scope: { ownerId: "owner-1", projectId: "command-center", environment: "production" },
+    targetResourceId: "release:rc-1",
+    parameters: { releaseId: "rc-1" },
+    maximumCostCents: 0
+  };
+}
+
+function buildHarness(lastVerifiedAt = "2026-10-23T18:04:30Z", authorizationExpiresAt = "2026-10-23T18:06:00Z") {
   const sessions = new AuthSessionStore();
   sessions.register({
     id: "ses_protected",
@@ -33,83 +45,96 @@ function buildHarness(lastVerifiedAt = "2026-10-23T18:04:30Z") {
   catalog.register({ action: "deploy.production", actionClass: "merge_deploy", riskClass: "critical", requiredScopes: ["protected:execute"], minimumAssurance: "passkey_uv", freshVerificationMaxAgeMs: 60_000 });
   catalog.installPolicy(policy, "deploy.production");
   const gate = new ProtectedActionGate(sessions, policy, devices);
-  return { sessions, catalog, executor: new ProtectedActionExecutor(catalog, gate) };
+  const authorizations = new ProtectedAuthorizationRegistry();
+  const intent = protectedIntent();
+  const binding = createIntentBinding(intent);
+  authorizations.register({
+    id: "authz_deploy",
+    ownerId: "owner-1",
+    sessionId: "ses_protected",
+    action: "deploy.production",
+    authorizationIntentBinding: binding,
+    state: "authorized",
+    issuedAt: "2026-10-23T18:04:30Z",
+    expiresAt: authorizationExpiresAt
+  });
+  return { sessions, catalog, authorizations, intent, binding, executor: new ProtectedActionExecutor(catalog, gate, authorizations) };
 }
 
-function intent() {
+function executeRequest(harness, overrides = {}) {
   return {
+    authorizationId: "authz_deploy",
     action: "deploy.production",
-    ownerId: "owner-1",
-    scope: { ownerId: "owner-1", projectId: "command-center", environment: "production" },
-    targetResourceId: "release:rc-1",
-    parameters: { releaseId: "rc-1" },
-    maximumCostCents: 0
+    sessionId: "ses_protected",
+    resourceOwnerId: "owner-1",
+    resourceProjectId: "command-center",
+    resourceEnvironment: "production",
+    now: "2026-10-23T18:05:00Z",
+    intent: harness.intent,
+    authorizationIntentBinding: harness.binding,
+    effect() {},
+    ...overrides
   };
 }
 
-test("P2.7 protected side effect executes only after a fresh intent-bound authorization", () => {
-  const { executor } = buildHarness();
+test("P2.7 protected side effect executes only after fresh, live, intent-bound authorization and consumes it", () => {
+  const harness = buildHarness();
   let effects = 0;
-  const protectedIntent = intent();
-  const result = executor.execute({
-    action: "deploy.production",
-    sessionId: "ses_protected",
-    resourceOwnerId: "owner-1",
-    resourceProjectId: "command-center",
-    resourceEnvironment: "production",
-    now: "2026-10-23T18:05:00Z",
-    intent: protectedIntent,
-    authorizationIntentBinding: createIntentBinding(protectedIntent),
-    effect() { effects += 1; return "executed"; }
-  });
+  const result = harness.executor.execute(executeRequest(harness, { effect() { effects += 1; return "executed"; } }));
   assert.equal(result, "executed");
+  assert.equal(effects, 1);
+  assert.equal(harness.authorizations.get("authz_deploy").state, "consumed");
+  assert.throws(() => harness.executor.execute(executeRequest(harness, { effect() { effects += 1; } })), /already consumed/);
   assert.equal(effects, 1);
 });
 
-test("P2.7 stale verification blocks the protected side effect before execution", () => {
-  const { executor } = buildHarness("2026-10-23T18:00:00Z");
+test("P2.7 stale verification blocks the protected side effect before authorization consumption", () => {
+  const harness = buildHarness("2026-10-23T18:00:00Z");
   let effects = 0;
-  const protectedIntent = intent();
-  assert.throws(() => executor.execute({
-    action: "deploy.production",
-    sessionId: "ses_protected",
-    resourceOwnerId: "owner-1",
-    resourceProjectId: "command-center",
-    resourceEnvironment: "production",
-    now: "2026-10-23T18:05:00Z",
-    intent: protectedIntent,
-    authorizationIntentBinding: createIntentBinding(protectedIntent),
-    effect() { effects += 1; }
-  }), /fresh_verification_expired/);
+  assert.throws(() => harness.executor.execute(executeRequest(harness, { effect() { effects += 1; } })), /fresh_verification_expired/);
+  assert.equal(effects, 0);
+  assert.equal(harness.authorizations.get("authz_deploy").state, "authorized");
+});
+
+test("P2.7 expired, revoked, or absent authorization blocks execution", () => {
+  const expired = buildHarness("2026-10-23T18:04:30Z", "2026-10-23T18:04:59Z");
+  let effects = 0;
+  assert.throws(() => expired.executor.execute(executeRequest(expired, { effect() { effects += 1; } })), /authorization expired/);
+  assert.equal(effects, 0);
+
+  const revoked = buildHarness();
+  revoked.authorizations.revoke("authz_deploy", "2026-10-23T18:04:45Z", "owner_cancelled");
+  assert.throws(() => revoked.executor.execute(executeRequest(revoked, { effect() { effects += 1; } })), /authorization revoked/);
+  assert.equal(effects, 0);
+
+  const absent = buildHarness();
+  assert.throws(() => absent.executor.execute(executeRequest(absent, { authorizationId: "missing", effect() { effects += 1; } })), /Unknown protected authorization/);
   assert.equal(effects, 0);
 });
 
-test("P2.7 absent action registration or changed intent blocks the side effect", () => {
-  const { executor } = buildHarness();
+test("P2.7 changed intent or authorization session mismatch blocks execution", () => {
+  const harness = buildHarness();
   let effects = 0;
-  const protectedIntent = intent();
-  assert.throws(() => executor.execute({
-    action: "purchase.external",
-    sessionId: "ses_protected",
-    resourceOwnerId: "owner-1",
-    now: "2026-10-23T18:05:00Z",
-    intent: { ...protectedIntent, action: "purchase.external" },
-    authorizationIntentBinding: createIntentBinding({ ...protectedIntent, action: "purchase.external" }),
+  assert.throws(() => harness.executor.execute(executeRequest(harness, {
+    intent: { ...harness.intent, parameters: { releaseId: "tampered" } },
     effect() { effects += 1; }
-  }), /Unregistered protected action/);
+  })), /authorization binding mismatch/);
   assert.equal(effects, 0);
 
-  assert.throws(() => executor.execute({
-    action: "deploy.production",
-    sessionId: "ses_protected",
-    resourceOwnerId: "owner-1",
-    resourceProjectId: "command-center",
-    resourceEnvironment: "production",
-    now: "2026-10-23T18:05:00Z",
-    intent: { ...protectedIntent, parameters: { releaseId: "tampered" } },
-    authorizationIntentBinding: createIntentBinding(protectedIntent),
+  assert.throws(() => harness.executor.execute(executeRequest(harness, { sessionId: "ses_other", effect() { effects += 1; } })), /authorization session mismatch/);
+  assert.equal(effects, 0);
+});
+
+test("P2.7 absent action registration blocks the side effect", () => {
+  const harness = buildHarness();
+  let effects = 0;
+  const purchaseIntent = { ...harness.intent, action: "purchase.external" };
+  assert.throws(() => harness.executor.execute(executeRequest(harness, {
+    action: "purchase.external",
+    intent: purchaseIntent,
+    authorizationIntentBinding: createIntentBinding(purchaseIntent),
     effect() { effects += 1; }
-  }), /authorization binding mismatch/);
+  })), /Unregistered protected action/);
   assert.equal(effects, 0);
 });
 

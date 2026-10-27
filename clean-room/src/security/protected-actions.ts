@@ -3,6 +3,7 @@ import type { ProtectedIntent } from "./intent.js";
 import { createIntentBinding } from "./intent.js";
 import type { PolicyRule } from "./policy.js";
 import { PolicyEngine } from "./policy.js";
+import { ProtectedAuthorizationRegistry, type ProtectedAuthorizationUse } from "./protected-authorizations.js";
 import type { ProtectedActionRequest } from "./protected-gate.js";
 import { ProtectedActionGate } from "./protected-gate.js";
 import type { AssuranceLevel, RiskClass } from "./types.js";
@@ -32,6 +33,7 @@ export interface ProtectedActionDefinition {
 }
 
 export interface ProtectedSideEffectRequest<T> {
+  readonly authorizationId: string;
   readonly action: string;
   readonly sessionId: string;
   readonly resourceOwnerId: string;
@@ -98,7 +100,8 @@ export class ProtectedActionCatalog {
 export class ProtectedActionExecutor {
   constructor(
     private readonly catalog: ProtectedActionCatalog,
-    private readonly gate: ProtectedActionGate
+    private readonly gate: ProtectedActionGate,
+    private readonly authorizations: ProtectedAuthorizationRegistry
   ) {}
 
   execute<T>(request: ProtectedSideEffectRequest<T>): T {
@@ -106,6 +109,14 @@ export class ProtectedActionExecutor {
     if (request.intent.action !== request.action) throw new Error("Protected side-effect intent action mismatch");
     if (request.intent.ownerId !== request.resourceOwnerId) throw new Error("Protected side-effect intent owner mismatch");
     if (createIntentBinding(request.intent) !== request.authorizationIntentBinding) throw new Error("Protected side-effect authorization binding mismatch");
+
+    const authorizationUse: ProtectedAuthorizationUse = {
+      ownerId: request.resourceOwnerId,
+      sessionId: request.sessionId,
+      action: request.action,
+      authorizationIntentBinding: request.authorizationIntentBinding
+    };
+    this.authorizations.assertUsable(request.authorizationId, authorizationUse, request.now);
 
     const gateRequest: ProtectedActionRequest = {
       sessionId: request.sessionId,
@@ -121,6 +132,7 @@ export class ProtectedActionExecutor {
       ...(request.expectedPolicyEpoch !== undefined ? { expectedPolicyEpoch: request.expectedPolicyEpoch } : {})
     };
     this.gate.authorize(gateRequest);
+    this.authorizations.consume(request.authorizationId, authorizationUse, request.now);
     return request.effect();
   }
 }
