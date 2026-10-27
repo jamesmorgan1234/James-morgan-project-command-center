@@ -1,6 +1,8 @@
 import { parseTimestamp } from "./types.js";
 
 export type ProtectedAuthorizationState = "authorized" | "consumed" | "revoked" | "expired";
+export const TRUSTED_PROTECTED_AUTHORITY_SOURCES = ["owner_verified", "trusted_security_policy"] as const;
+export type ProtectedAuthorizationAuthoritySource = (typeof TRUSTED_PROTECTED_AUTHORITY_SOURCES)[number];
 
 export interface ProtectedAuthorizationRecord {
   readonly id: string;
@@ -8,6 +10,8 @@ export interface ProtectedAuthorizationRecord {
   readonly sessionId: string;
   readonly action: string;
   readonly authorizationIntentBinding: string;
+  readonly authoritySource: ProtectedAuthorizationAuthoritySource;
+  readonly sourceRef: string;
   readonly state: ProtectedAuthorizationState;
   readonly issuedAt: string;
   readonly expiresAt: string;
@@ -35,8 +39,11 @@ export class ProtectedAuthorizationRegistry {
   readonly #records = new Map<string, ProtectedAuthorizationRecord>();
 
   register(record: ProtectedAuthorizationRecord): void {
-    if (!record.id.trim() || !record.ownerId.trim() || !record.sessionId.trim() || !record.action.trim() || !record.authorizationIntentBinding.trim()) {
-      throw new Error("Protected authorization identity and intent binding are required");
+    if (!record.id.trim() || !record.ownerId.trim() || !record.sessionId.trim() || !record.action.trim() || !record.authorizationIntentBinding.trim() || !record.sourceRef.trim()) {
+      throw new Error("Protected authorization identity, source, and intent binding are required");
+    }
+    if (!(TRUSTED_PROTECTED_AUTHORITY_SOURCES as readonly string[]).includes(record.authoritySource)) {
+      throw new Error("Protected authorization authority source is untrusted");
     }
     if (record.state !== "authorized") throw new Error("New protected authorization must start authorized");
     const issued = parseTimestamp(record.issuedAt, "issuedAt");

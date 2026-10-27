@@ -54,6 +54,8 @@ function buildHarness(lastVerifiedAt = "2026-10-23T18:04:30Z", authorizationExpi
     sessionId: "ses_protected",
     action: "deploy.production",
     authorizationIntentBinding: binding,
+    authoritySource: "owner_verified",
+    sourceRef: "owner-decision:deploy-rc-1",
     state: "authorized",
     issuedAt: "2026-10-23T18:04:30Z",
     expiresAt: authorizationExpiresAt
