@@ -36,7 +36,7 @@ export interface CanonicalEntity<T> {
   readonly payload: Readonly<T>;
 }
 
-function immutableJson(value: unknown, ancestors = new Set<object>()): unknown {
+export function immutableJson(value: unknown, ancestors = new Set<object>()): unknown {
   if (value === null || typeof value === "string" || typeof value === "boolean") return value;
   if (typeof value === "number" && Number.isFinite(value)) return value;
   if (typeof value !== "object" || !value || ancestors.has(value)) throw new Error("Canonical payload requires finite acyclic JSON values");
