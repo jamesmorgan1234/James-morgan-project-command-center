@@ -10,6 +10,7 @@ export * from "./policy.js";
 export * from "./policy-audit.js";
 export * from "./boundaries.js";
 export * from "./secrets.js";
+export * from "./secret-channels.js";
 export * from "./keyring.js";
 export * from "./intent.js";
 export * from "./webhooks.js";
