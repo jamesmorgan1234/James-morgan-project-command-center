@@ -1,5 +1,35 @@
 import { parseTimestamp } from "../security/types.js";
 import type { MoneyValue } from "./money.js";
+import type { FinancialProviderAdapter } from "./providers.js";
+import { assertSecretChannelSafe } from "../security/secret-channels.js";
+
+export interface FinancialProviderBinding {
+  readonly providerKey: string;
+  readonly externalAccountId: string;
+  readonly accountVersion: number;
+  readonly sourceRef: string;
+}
+
+export interface FinancialProviderRebind {
+  readonly operationId: string;
+  readonly accountId: string;
+  readonly ownerId: string;
+  readonly expectedVersion: number;
+  readonly provider: FinancialProviderAdapter;
+  readonly externalAccountId: string;
+  readonly requiredReadScope: string;
+  readonly consentRef: string;
+  readonly sourceRef: string;
+}
+
+export interface FinancialProviderRebindReceipt {
+  readonly accountId: string;
+  readonly accountVersion: number;
+  readonly operationId: string;
+  readonly protectedActionAuthorized: false;
+}
+
+function bindingKey(provider: string, externalId: string): string { return JSON.stringify([provider, externalId]); }
 
 export type FinancialAccountType = "checking" | "savings" | "cash" | "credit_card" | "loan" | "mortgage" | "investment" | "retirement" | "other";
 
@@ -87,15 +117,18 @@ export function reconcileFinancialAccountPosition(current: FinancialAccountPosit
 export class FinancialAccountRegistry {
   readonly #accounts = new Map<string, FinancialAccount>();
   readonly #providerExternal = new Map<string, string>();
+  readonly #bindings = new Map<string, readonly FinancialProviderBinding[]>();
+  readonly #rebinds = new Map<string, Readonly<{ fingerprint: string; receipt: FinancialProviderRebindReceipt }>>();
 
   register(account: FinancialAccount): void {
     if (!account.id.trim() || !account.ownerId.trim() || !account.providerKey.trim() || !account.externalAccountId.trim() || !account.displayName.trim() || !account.sourceRef.trim()) throw new Error("Financial account identity/provider/provenance fields are required");
     if (!Number.isSafeInteger(account.version) || account.version !== 1) throw new Error("New financial account must start at version 1");
     parseTimestamp(account.balanceAsOf, "balanceAsOf");
-    const providerKey = `${account.providerKey}:${account.externalAccountId}`;
+    const providerKey = bindingKey(account.providerKey, account.externalAccountId);
     if (this.#accounts.has(account.id) || this.#providerExternal.has(providerKey)) throw new Error("Duplicate financial account identity");
     this.#accounts.set(account.id, Object.freeze({ ...account }));
     this.#providerExternal.set(providerKey, account.id);
+    this.#bindings.set(account.id, Object.freeze([Object.freeze({ providerKey: account.providerKey, externalAccountId: account.externalAccountId, accountVersion: 1, sourceRef: account.sourceRef })]));
   }
 
   replace(account: FinancialAccount, expectedVersion: number): void {
@@ -108,5 +141,37 @@ export class FinancialAccountRegistry {
   }
 
   get(id: string): FinancialAccount | undefined { return this.#accounts.get(id); }
+  /** Metadata-only identity repair. It neither changes provider consent/scopes nor authorizes effects. */
+  rebindProvider(input: FinancialProviderRebind): FinancialProviderRebindReceipt {
+    const current = this.#accounts.get(input.accountId);
+    if (!current || current.ownerId !== input.ownerId) throw new Error("Financial rebind account/owner mismatch");
+    const metadata = { operationId: input.operationId, accountId: input.accountId, ownerId: input.ownerId, providerKey: input.provider.key, externalAccountId: input.externalAccountId, requiredReadScope: input.requiredReadScope, consentRef: input.consentRef, sourceRef: input.sourceRef };
+    if (Object.values(metadata).some((value) => typeof value !== "string" || !value.trim())) throw new Error("Financial rebind requires explicit identity, consent, scope and provenance");
+    assertSecretChannelSafe("note", metadata);
+    const fingerprint = JSON.stringify([metadata, input.expectedVersion]);
+    const operationKey = JSON.stringify([input.ownerId, input.operationId]);
+    const prior = this.#rebinds.get(operationKey);
+    if (prior) {
+      if (prior.fingerprint !== fingerprint) throw new Error("Financial rebind operation identity collision");
+      return prior.receipt;
+    }
+    if (current.version !== input.expectedVersion || !Number.isSafeInteger(current.version + 1)) throw new Error("Financial rebind version conflict");
+    const provider = input.provider;
+    if (!provider.key.startsWith("finance-provider:") || !provider.enabled || provider.connectionState !== "connected" || provider.consentState !== "granted" || provider.health !== "available" || !provider.capabilities.includes("accounts.read") || !provider.dataScopes.includes(input.requiredReadScope)) throw new Error("Financial rebind requires an available explicitly consented read connection and scope");
+    const targetKey = bindingKey(provider.key, input.externalAccountId);
+    const bound = this.#providerExternal.get(targetKey);
+    if (bound !== undefined && bound !== current.id) throw new Error("Financial provider identity collision");
+    const version = current.version + 1;
+    const next = Object.freeze({ ...current, providerKey: provider.key, externalAccountId: input.externalAccountId, version });
+    const binding = Object.freeze({ providerKey: provider.key, externalAccountId: input.externalAccountId, accountVersion: version, sourceRef: input.sourceRef });
+    const receipt = Object.freeze({ accountId: current.id, accountVersion: version, operationId: input.operationId, protectedActionAuthorized: false as const });
+    // Retain historical aliases so neither an old nor a new binding can create a second account.
+    this.#providerExternal.set(targetKey, current.id);
+    this.#accounts.set(current.id, next);
+    this.#bindings.set(current.id, Object.freeze([...(this.#bindings.get(current.id) ?? []), binding]));
+    this.#rebinds.set(operationKey, Object.freeze({ fingerprint, receipt }));
+    return receipt;
+  }
+  providerLineage(id: string): readonly FinancialProviderBinding[] { return this.#bindings.get(id) ?? Object.freeze([]); }
   list(ownerId: string): readonly FinancialAccount[] { return Object.freeze([...this.#accounts.values()].filter((account) => account.ownerId === ownerId)); }
 }
