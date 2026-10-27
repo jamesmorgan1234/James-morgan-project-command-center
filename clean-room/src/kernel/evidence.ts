@@ -154,3 +154,46 @@ export function createCheckpoint(checkpoint: Checkpoint): Checkpoint {
   assertReferenceCollection(checkpoint.evidenceIds, "Checkpoint evidenceIds", checkpoint.id);
   return Object.freeze({ ...checkpoint, evidenceIds: Object.freeze([...checkpoint.evidenceIds]) });
 }
+
+export function selectLastVerifiedCheckpoint(
+  checkpoints: readonly Checkpoint[],
+  evidenceRecords: readonly EvidenceRecord[],
+  subjectId: string,
+  minimum: EvidenceStrength
+): Checkpoint | undefined {
+  assertNonBlank(subjectId, "Checkpoint resume subjectId");
+  if (!(minimum in STRENGTH_RANK)) throw new Error(`Unknown evidence strength: ${String(minimum)}`);
+
+  const evidenceById = new Map<string, EvidenceRecord>();
+  for (const record of evidenceRecords) {
+    assertNonBlank(record.id, "Evidence id");
+    if (evidenceById.has(record.id)) throw new Error(`Duplicate evidence id: ${record.id}`);
+    evidenceById.set(record.id, record);
+  }
+
+  const candidates: Checkpoint[] = [];
+  for (const checkpoint of checkpoints) {
+    if (checkpoint.subjectId !== subjectId) continue;
+
+    let validated: Checkpoint;
+    try {
+      validated = createCheckpoint(checkpoint);
+    } catch {
+      continue;
+    }
+
+    const fullyVerified = validated.evidenceIds.every((evidenceId) => {
+      const record = evidenceById.get(evidenceId);
+      return record !== undefined && record.subjectId === subjectId && evidenceMeets(record, minimum);
+    });
+    if (fullyVerified) candidates.push(validated);
+  }
+
+  candidates.sort((left, right) => {
+    const timeDifference = Date.parse(right.createdAt) - Date.parse(left.createdAt);
+    if (timeDifference !== 0) return timeDifference;
+    return right.id.localeCompare(left.id);
+  });
+
+  return candidates[0];
+}
