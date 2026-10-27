@@ -9,9 +9,19 @@ export interface ConversationGraphValidation {
 export function validateConversationGraph(conversation: StagedConversation): ConversationGraphValidation {
   const byId = new Map(conversation.nodes.map((node) => [node.id, node]));
   const errors: string[] = [];
+  if (byId.size !== conversation.nodes.length) errors.push("duplicate_node_identity");
   const branchPoints: string[] = [];
   for (const node of conversation.nodes) {
+    if (new Set(node.children).size !== node.children.length) errors.push(`duplicate_children:${node.id}`);
     if (node.parent && !byId.has(node.parent)) errors.push(`missing_parent:${node.id}:${node.parent}`);
+    if (node.parent && byId.has(node.parent) && !byId.get(node.parent)!.children.includes(node.id)) errors.push(`child_parent_mismatch:${node.id}:${node.parent}`);
+    const ancestors = new Set<string>([node.id]);
+    let parent = node.parent;
+    while (parent && byId.has(parent)) {
+      if (ancestors.has(parent)) { errors.push(`cycle:${node.id}`); break; }
+      ancestors.add(parent);
+      parent = byId.get(parent)?.parent;
+    }
     if (node.children.length > 1) branchPoints.push(node.id);
     for (const child of node.children) {
       const childNode = byId.get(child);
