@@ -31,6 +31,12 @@ test("Task 3 invariant: P15.2 is PARTIAL unless exact-head semantic every-file e
 test("Task 3 current state: P15.2 stays PARTIAL while the semantic review evidence is absent", () => {
   if (existsSync(semanticEvidencePath)) return;
 
+  const authority = spawnSync(process.execPath, ["scripts/current-authority-audit.mjs", "--write"], {
+    cwd: process.cwd(),
+    encoding: "utf8"
+  });
+  assert.equal(authority.status, 0, `authority audit failed unexpectedly: ${authority.stderr || authority.stdout}`);
+
   const audit = spawnSync(process.execPath, ["scripts/category15-repository-audit.mjs", "--write"], {
     cwd: process.cwd(),
     encoding: "utf8"
