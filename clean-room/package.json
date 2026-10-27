@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
-  "engines": {"node": ">=22"},
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build:modules": "tsc -p tsconfig.build.json",
@@ -20,5 +22,8 @@
     "test:modules": "node --test --test-reporter=spec tests/*.test.mjs",
     "test": "npm run check:legacy && npm run check:architecture && npm run audit:authority && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15 && npm run audit:production-live"
   },
-  "devDependencies": {"typescript": "5.8.3"}
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.12",
+    "typescript": "5.8.3"
+  }
 }
