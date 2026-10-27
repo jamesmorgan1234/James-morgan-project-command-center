@@ -22,12 +22,32 @@ export const ID_PREFIXES = {
   release: "rel",
   decision: "dec",
   rule: "rul",
+  lineage: "lin",
   checkpoint: "chk",
   conversation: "cnv",
   contextPacket: "ctx",
   learning: "lrn",
   promotion: "prm"
 } as const;
+
+export const P1_1_REQUIRED_IDENTIFIER_KINDS = [
+  "requirement",
+  "project",
+  "module",
+  "capability",
+  "command",
+  "event",
+  "workflow",
+  "agencyRun",
+  "agencyJob",
+  "evidence",
+  "asset",
+  "provider",
+  "release",
+  "decision",
+  "rule",
+  "lineage"
+] as const;
 
 export type IdentifierKind = keyof typeof ID_PREFIXES;
 export type IdentifierPrefix = (typeof ID_PREFIXES)[IdentifierKind];
@@ -45,10 +65,25 @@ export interface ParsedIdentifier {
   readonly value: string;
 }
 
+export function validateIdentifierSchema(): true {
+  if (!Number.isSafeInteger(IDENTIFIER_SCHEMA_VERSION) || IDENTIFIER_SCHEMA_VERSION < 1) throw new Error("Identifier schema version must be a positive safe integer");
+  const prefixes = Object.values(ID_PREFIXES);
+  if (new Set(prefixes).size !== prefixes.length) throw new Error("Identifier prefixes must be unique");
+  for (const [kind, prefix] of Object.entries(ID_PREFIXES)) {
+    if (!/^[a-z]{3}$/.test(prefix)) throw new Error(`Invalid identifier prefix for ${kind}: ${prefix}`);
+  }
+  for (const kind of P1_1_REQUIRED_IDENTIFIER_KINDS) {
+    if (!ID_PREFIXES[kind]) throw new Error(`P1.1 required identifier kind is missing: ${kind}`);
+  }
+  return true;
+}
+
 export function createIdentifier(kind: IdentifierKind, token: string): string {
+  const prefix = ID_PREFIXES[kind];
+  if (!prefix) throw new Error(`Unknown identifier kind: ${String(kind)}`);
   const normalized = token.trim().toLowerCase();
   if (!TOKEN_PATTERN.test(normalized)) throw new Error(`Invalid identifier token: ${token}`);
-  return `${ID_PREFIXES[kind]}_${normalized}`;
+  return `${prefix}_${normalized}`;
 }
 
 export function parseIdentifier(value: string): ParsedIdentifier {
@@ -66,3 +101,5 @@ export function assertIdentifierKind(value: string, expected: IdentifierKind): s
   if (parsed.kind !== expected) throw new Error(`Identifier ${value} is ${parsed.kind}, expected ${expected}`);
   return value;
 }
+
+validateIdentifierSchema();

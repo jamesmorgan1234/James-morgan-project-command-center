@@ -16,8 +16,28 @@ export const PROVIDER_STATES = ["unknown","available","degraded","unavailable","
 export const RELEASE_STATES = ["draft","candidate","staged","authorized","deployed_unverified","live_verified","rolled_back","retired"] as const;
 export const DECISION_STATES = ["proposed","current","superseded","revoked"] as const;
 export const RULE_STATES = ["draft","current","superseded","revoked"] as const;
+export const LINEAGE_STATES = ["recorded","verified","superseded","invalidated"] as const;
 export const CHECKPOINT_STATES = ["recorded","verified","superseded","invalidated"] as const;
 export const CONVERSATION_STATES = ["active","archived","superseded","merged"] as const;
+
+export const P1_1_REQUIRED_LIFECYCLE_VOCABULARIES = Object.freeze({
+  requirement: REQUIREMENT_STATES,
+  project: PROJECT_STATES,
+  module: MODULE_STATES,
+  capability: CAPABILITY_STATES,
+  command: COMMAND_STATES,
+  event: EVENT_STATES,
+  workflow: WORKFLOW_STATES,
+  agencyRun: AGENCY_RUN_STATES,
+  agencyJob: AGENCY_JOB_STATES,
+  evidence: EVIDENCE_STATES,
+  asset: ASSET_STATES,
+  provider: PROVIDER_STATES,
+  release: RELEASE_STATES,
+  decision: DECISION_STATES,
+  rule: RULE_STATES,
+  lineage: LINEAGE_STATES
+});
 
 export type RequirementState = (typeof REQUIREMENT_STATES)[number];
 export type ProjectState = (typeof PROJECT_STATES)[number];
@@ -35,6 +55,7 @@ export type ProviderState = (typeof PROVIDER_STATES)[number];
 export type ReleaseState = (typeof RELEASE_STATES)[number];
 export type DecisionState = (typeof DECISION_STATES)[number];
 export type RuleState = (typeof RULE_STATES)[number];
+export type LineageState = (typeof LINEAGE_STATES)[number];
 export type CheckpointState = (typeof CHECKPOINT_STATES)[number];
 export type ConversationState = (typeof CONVERSATION_STATES)[number];
 
@@ -46,3 +67,15 @@ export function assertState<T extends string>(value: string, vocabulary: readonl
   if (!isState(value, vocabulary)) throw new Error(`Invalid ${label} state: ${value}`);
   return value;
 }
+
+export function validateLifecycleVocabularySchema(): true {
+  if (!Number.isSafeInteger(LIFECYCLE_VOCABULARY_VERSION) || LIFECYCLE_VOCABULARY_VERSION < 1) throw new Error("Lifecycle vocabulary version must be a positive safe integer");
+  for (const [label, vocabulary] of Object.entries(P1_1_REQUIRED_LIFECYCLE_VOCABULARIES)) {
+    if (vocabulary.length === 0) throw new Error(`P1.1 lifecycle vocabulary is empty: ${label}`);
+    if (new Set(vocabulary).size !== vocabulary.length) throw new Error(`P1.1 lifecycle vocabulary contains duplicates: ${label}`);
+    if (vocabulary.some((state) => !state.trim())) throw new Error(`P1.1 lifecycle vocabulary contains a blank state: ${label}`);
+  }
+  return true;
+}
+
+validateLifecycleVocabularySchema();
