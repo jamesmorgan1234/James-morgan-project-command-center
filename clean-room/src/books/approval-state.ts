@@ -39,16 +39,16 @@ export interface ProtectedBookApprovalStateEvent {
   readonly observedAt: string;
 }
 
-const TRANSITIONS: Readonly<Record<ProtectedBookApprovalState, readonly ProtectedBookApprovalState[]>> = Object.freeze({
-  proposed: Object.freeze(["draft", "reviewed", "rejected"]),
-  draft: Object.freeze(["reviewed", "rejected"]),
-  reviewed: Object.freeze(["draft", "approved", "rejected"]),
-  approved: Object.freeze(["locked", "reopened", "superseded", "rejected"]),
-  locked: Object.freeze(["reopened", "superseded"]),
-  reopened: Object.freeze(["draft", "reviewed", "rejected", "superseded"]),
-  superseded: Object.freeze([]),
-  rejected: Object.freeze(["proposed", "draft"])
-});
+const TRANSITIONS = {
+  proposed: ["draft", "reviewed", "rejected"],
+  draft: ["reviewed", "rejected"],
+  reviewed: ["draft", "approved", "rejected"],
+  approved: ["locked", "reopened", "superseded", "rejected"],
+  locked: ["reopened", "superseded"],
+  reopened: ["draft", "reviewed", "rejected", "superseded"],
+  superseded: [],
+  rejected: ["proposed", "draft"]
+} as const satisfies Readonly<Record<ProtectedBookApprovalState, readonly ProtectedBookApprovalState[]>>;
 
 const OWNER_GOVERNED_STATES = new Set<ProtectedBookApprovalState>(["approved", "locked", "reopened", "superseded", "rejected"]);
 const OWNER_GOVERNED_PRIOR_STATES = new Set<ProtectedBookApprovalState>(["approved", "locked"]);
