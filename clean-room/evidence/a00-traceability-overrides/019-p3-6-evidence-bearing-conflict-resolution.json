@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P3_6_EVIDENCE_BEARING_SYNC_CONFLICT_RESOLUTION",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05258": {
+      "requirement": "conflict resolution",
+      "canonicalSourceIds": [
+        "P2-0170"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "P3.6 synchronization reconciliation",
+        "evidence-bearing conflict resolution"
+      ],
+      "owningPhases": [
+        "P3.6"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "supabase/migrations/20261024113000_category3_sync_reconciliation.sql#command_center_resolve_sync_conflict",
+        "clean-room/src/data/sync.ts#ReconciliationQueue.resolve"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-sync-reconciliation.test.mjs :: conflict resolution records evidence without mutating canonical truth"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-sync-reconciliation.test.mjs :: conflict resolution records evidence without mutating canonical truth"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-sync-reconciliation.test.mjs :: P3.6 conflict resolution rejects missing or already-resolved conflicts"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40429650575 on exact head fbc6121f0c5151c84e84a713ebf4f3d69e5b4508: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate synchronization conflict checks",
+        "Conflict resolution accepts only keep-local or rebuild-required decisions with a non-empty evidence reference, rejects missing/already-resolved conflicts, and records the decision without mutating canonical data",
+        "The migration contract and reconciliation policy are regression-tested; no live database deployment or runtime invocation is claimed"
+      ],
+      "evidenceVersion": "git:fbc6121f0c5151c84e84a713ebf4f3d69e5b4508; ci:40429650575",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head fbc6121f0c5151c84e84a713ebf4f3d69e5b4508",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P3.6 resolution is an evidence-bearing state transition limited to keep-local/rebuild-required; canonical data remains unchanged by the conflict-resolution action. Live database deployment is outside this claim."
+    }
+  }
+}
