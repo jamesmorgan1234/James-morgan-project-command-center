@@ -7,8 +7,11 @@ function moduleContract(overrides = {}) {
     key: "mod:alpha",
     version: 1,
     enabled: true,
+    owner: "test-owner",
     ownsData: ["alpha-data"],
     ownsCapabilities: ["alpha-capability"],
+    usesData: [],
+    usesCapabilities: [],
     dependencies: [],
     permissions: [],
     routes: [],
@@ -16,8 +19,11 @@ function moduleContract(overrides = {}) {
     migrations: [],
     healthCheckKey: "alpha-health",
     securityClass: "internal",
+    activation: "on-demand",
+    failureBehavior: "isolate",
     canDisable: true,
     canUninstall: true,
+    tests: ["category1-module-isolation-fault-containment.test.mjs"],
     ...overrides
   };
 }
