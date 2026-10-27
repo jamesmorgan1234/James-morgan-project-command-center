@@ -34,6 +34,7 @@ export function reconcileSync<T>(local: SyncEnvelope<T> | undefined, incoming: S
     return Object.freeze({ action: "conflict", reason: "same_version_different_hash" });
   }
   if (incoming.version > local.version + 1) return Object.freeze({ action: "reconcile_gap", reason: "version_gap_requires_rebuild" });
+  if (parseTimestamp(incoming.updatedAt, "updatedAt") < parseTimestamp(local.updatedAt, "updatedAt")) return Object.freeze({ action: "conflict", reason: "temporal_regression" });
   return Object.freeze({ action: "accept", reason: "next_version", chosen: incoming });
 }
 
