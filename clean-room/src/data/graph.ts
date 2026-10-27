@@ -32,11 +32,15 @@ export class CommandGraph {
   }
 
   addEdge(edge: GraphEdge): void {
+    if (!edge.id.trim()) throw new Error("Graph edge identity is required");
     if (!this.#nodes.has(edge.from) || !this.#nodes.has(edge.to)) throw new Error(`Graph edge references unknown node: ${edge.id}`);
+    if (this.#nodes.get(edge.from)?.ownerId !== this.#nodes.get(edge.to)?.ownerId) throw new Error("Graph edge cannot cross owner boundaries");
     if (edge.from === edge.to) throw new Error(`Graph self-edge is forbidden: ${edge.id}`);
     if (!Number.isSafeInteger(edge.version) || edge.version < 1) throw new Error("Graph edge version must be positive");
     if (!edge.sourceRef.trim()) throw new Error("Graph edge requires provenance sourceRef");
     parseTimestamp(edge.effectiveAt, "effectiveAt");
+    if (edge.supersededAt !== undefined && parseTimestamp(edge.supersededAt, "supersededAt") < parseTimestamp(edge.effectiveAt, "effectiveAt")) throw new Error("Graph supersession cannot predate effective time");
+    if (edge.relation === "aliases" && [...this.#edges.values()].some((item) => item.from === edge.from && item.relation === "aliases" && !item.supersededAt) && !edge.supersededAt) throw new Error("Alias already has a current canonical target");
     if (this.#edges.has(edge.id)) throw new Error(`Graph edge already exists: ${edge.id}`);
     this.#edges.set(edge.id, Object.freeze({ ...edge }));
   }
@@ -45,7 +49,7 @@ export class CommandGraph {
     const current = this.#edges.get(id);
     if (!current) throw new Error(`Unknown graph edge: ${id}`);
     if (current.supersededAt) throw new Error(`Graph edge already superseded: ${id}`);
-    parseTimestamp(at, "at");
+    if (parseTimestamp(at, "at") < parseTimestamp(current.effectiveAt, "effectiveAt")) throw new Error("Graph supersession cannot predate effective time");
     const updated = Object.freeze({ ...current, version: current.version + 1, supersededAt: at });
     this.#edges.set(id, updated);
     return updated;
