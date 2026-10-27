@@ -135,6 +135,27 @@ export class CapabilityRegistry {
 
   get(key: string): CapabilityContract | undefined { return this.#registry.get(key); }
   list(): readonly CapabilityContract[] { return this.#registry.list(); }
+  has(key: string): boolean { return this.#registry.get(key) !== undefined; }
+
+  enable(key: string, expectedVersion: number, nextVersion: number): CapabilityContract {
+    const current = this.#registry.get(key);
+    if (!current) throw new Error(`Capability does not exist: ${key}`);
+    if (current.enabled) throw new Error(`Capability already enabled: ${key}`);
+    this.replace({ ...current, version: nextVersion, enabled: true }, expectedVersion);
+    return this.#registry.get(key)!;
+  }
+
+  disable(key: string, expectedVersion: number, nextVersion: number): CapabilityContract {
+    const current = this.#registry.get(key);
+    if (!current) throw new Error(`Capability does not exist: ${key}`);
+    if (!current.enabled) throw new Error(`Capability already disabled: ${key}`);
+    this.replace({ ...current, version: nextVersion, enabled: false }, expectedVersion);
+    return this.#registry.get(key)!;
+  }
+
+  unregister(key: string, expectedVersion: number): CapabilityContract {
+    return this.#registry.remove(key, expectedVersion);
+  }
 
   assertCompatible(key: string, inputVersion: number, outputVersion: number): CapabilityContract {
     const contract = this.#registry.get(key);
