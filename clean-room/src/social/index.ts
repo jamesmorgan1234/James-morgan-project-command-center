@@ -6,3 +6,4 @@ export * from "./publishing.js";
 export * from "./inbox.js";
 export * from "./analytics.js";
 export * from "./recovery.js";
+export * from "./protected-publishing.js";

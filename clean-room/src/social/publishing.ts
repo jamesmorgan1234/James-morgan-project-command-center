@@ -1,7 +1,7 @@
 import { connectionIsLive, assessSocialConnection, type SocialConnection, type SocialConnectionEvidence } from "./connections.js";
 import { assertDraftPublishReady, type SocialDraft } from "./drafts.js";
 
-export type PublishState = "prepared" | "scheduled" | "submitting" | "uncertain" | "published" | "failed";
+export type PublishState = "prepared" | "scheduled" | "submitting" | "uncertain" | "published" | "failed" | "cancelled";
 
 export interface PublishIntent {
   readonly id: string;
@@ -26,10 +26,14 @@ export interface PublishReceipt {
 
 export class PublishLedger {
   readonly #intents = new Map<string, PublishIntent>();
+  readonly #fingerprints = new Map<string,string>();
   readonly #byIdempotency = new Map<string, string>();
   readonly #receipts = new Map<string, PublishReceipt>();
 
   prepare(intent: PublishIntent, draft: SocialDraft, connection: SocialConnection, now?: string): PublishIntent {
+    if(intent.state!=="prepared")throw new Error("New publish intent must start prepared");
+    const fingerprint=JSON.stringify(intent);
+    if(this.#intents.has(intent.id)){if(this.#fingerprints.get(intent.id)!==fingerprint)throw new Error("Publish intent identity collision");return this.#intents.get(intent.id)!;}
     assertDraftPublishReady(draft);
     if (!intent.authorizationRef.trim()) throw new Error("publishing requires explicit protected-action authorization evidence");
     if (intent.ownerId !== draft.ownerId || intent.brandId !== draft.brandId || intent.accountId !== draft.intendedAccountId || intent.draftId !== draft.id) {
@@ -39,7 +43,7 @@ export class PublishLedger {
     const existing = this.#byIdempotency.get(intent.idempotencyKey);
     if (existing && existing !== intent.id) throw new Error("duplicate publish idempotency key");
     const frozen = Object.freeze({ ...intent, requiredScopes: Object.freeze([...intent.requiredScopes]) });
-    this.#intents.set(intent.id, frozen);
+    this.#intents.set(intent.id, frozen); this.#fingerprints.set(intent.id,fingerprint);
     this.#byIdempotency.set(intent.idempotencyKey, intent.id);
     return frozen;
   }
@@ -48,11 +52,12 @@ export class PublishLedger {
     const current = this.#intents.get(intentId);
     if (!current || current.state !== expected) throw new Error("publish state mismatch");
     const allowed: Readonly<Record<PublishState, readonly PublishState[]>> = {
-      prepared: ["scheduled", "submitting", "failed"],
-      scheduled: ["submitting", "failed"],
+      prepared: ["scheduled", "submitting", "failed", "cancelled"],
+      scheduled: ["submitting", "failed", "cancelled"],
       submitting: ["published", "uncertain", "failed"],
       uncertain: ["published", "failed"],
       published: [],
+      cancelled: [],
       failed: []
     };
     if (!allowed[current.state].includes(next)) throw new Error(`invalid publish transition ${current.state} -> ${next}`);
@@ -133,12 +138,16 @@ function publishRefs(values: readonly string[], label: string): readonly string[
 
 export class EvidenceBackedPublishLedger {
   readonly #intents = new Map<string, EvidenceBackedPublishIntent>();
+  readonly #fingerprints = new Map<string,string>();
   readonly #idempotency = new Map<string, string>();
   readonly #attempts = new Map<string, PublishAttemptEvidence>();
   readonly #receipts = new Map<string, EvidenceBackedPublishReceipt>();
   readonly #publicEffects = new Map<string, string>();
 
   prepare(intent: EvidenceBackedPublishIntent, draft: SocialDraft, connection: SocialConnectionEvidence, now: string, maxVerificationAgeMs: number): EvidenceBackedPublishIntent {
+    if(intent.state!=="prepared")throw new Error("New publish intent must start prepared");
+    const fingerprint=JSON.stringify(intent);
+    if(this.#intents.has(intent.id)){if(this.#fingerprints.get(intent.id)!==fingerprint)throw new Error("Publish intent identity collision");return this.#intents.get(intent.id)!;}
     assertDraftPublishReady(draft);
     const nowMs = publishTimestamp(now, "publish preparation now");
     const authAt = publishTimestamp(intent.authorizationObservedAt, "publish authorization observedAt");
@@ -154,7 +163,7 @@ export class EvidenceBackedPublishLedger {
     const existing = this.#idempotency.get(intent.idempotencyKey);
     if (existing && existing !== intent.id) throw new Error("publish idempotency key is already bound to another intent");
     const frozen = Object.freeze({ ...intent, requiredScopes: publishRefs(intent.requiredScopes, "publish required scopes") });
-    this.#intents.set(intent.id, frozen);
+    this.#intents.set(intent.id, frozen); this.#fingerprints.set(intent.id,fingerprint);
     this.#idempotency.set(intent.idempotencyKey, intent.id);
     return frozen;
   }
@@ -173,6 +182,9 @@ export class EvidenceBackedPublishLedger {
     if (!attempt.attemptId.trim() || !attempt.providerRequestRef.trim()) throw new Error("publish attempt requires stable provider request evidence");
     publishTimestamp(attempt.observedAt, "publish attempt observedAt");
     if (this.#attempts.has(attempt.attemptId)) throw new Error("duplicate publish attempt id");
+    const attemptedAt=publishTimestamp(attempt.observedAt,"attempt time");
+    if(attempt.state!=="submitted" || attemptedAt<publishTimestamp(intent.authorizationObservedAt,"authorization time") || attemptedAt>=publishTimestamp(intent.authorizationExpiresAt,"authorization expiry"))throw new Error("Publish authorization stale or attempt state invalid");
+    if(intent.scheduledAt && attemptedAt<publishTimestamp(intent.scheduledAt,"scheduledAt"))throw new Error("Publish schedule not due");
     const frozen = Object.freeze({ ...attempt });
     this.#attempts.set(attempt.attemptId, frozen);
     this.replace(intent, { ...intent, state: "submitting" });
@@ -202,7 +214,7 @@ export class EvidenceBackedPublishLedger {
       if (prior.externalPublicationId !== receipt.externalPublicationId || prior.accountId !== receipt.accountId) throw new Error("conflicting publication receipts indicate more than one possible public effect");
       return prior;
     }
-    const effectKey = `${receipt.accountId}:${receipt.externalPublicationId}`;
+    const effectKey = JSON.stringify([receipt.accountId,receipt.externalPublicationId]);
     const boundIntent = this.#publicEffects.get(effectKey);
     if (boundIntent && boundIntent !== receipt.intentId) throw new Error("public effect is already attributed to another publish intent");
     if (intent.state !== "submitting" && intent.state !== "uncertain" && intent.state !== "published") throw new Error("publication receipt is inconsistent with current publish state");
@@ -221,6 +233,8 @@ export class EvidenceBackedPublishLedger {
     return this.replace(intent, { ...intent, state: "failed" });
   }
 
+  cancel(id:string):EvidenceBackedPublishIntent {const i=this.requireIntent(id);if(i.state!=="prepared"&&i.state!=="scheduled")throw new Error("Dispatched publication requires reconciliation, not cancellation");return this.replace(i,{...i,state:"cancelled"});}
+  reschedule(id:string,scheduledAt:string,now:string):EvidenceBackedPublishIntent {const i=this.requireIntent(id);if(i.state!=="scheduled"||publishTimestamp(scheduledAt,"schedule")<publishTimestamp(now,"now"))throw new Error("Invalid reschedule");return this.replace(i,{...i,scheduledAt});}
   intent(id: string): EvidenceBackedPublishIntent | undefined { return this.#intents.get(id); }
   receipt(id: string): EvidenceBackedPublishReceipt | undefined { return this.#receipts.get(id); }
 

@@ -11,6 +11,7 @@ export interface PlatformComplianceProfile {
   readonly providerConstraints: Readonly<Record<string, string | number | boolean>>;
   readonly sourceRefs: readonly string[];
   readonly observedAt: string;
+  readonly publishScope?: string;
   readonly policyVersion?: string;
   readonly deprecatedAt?: string;
 }
@@ -125,6 +126,7 @@ export class PlatformProfileRegistry {
     positiveInteger(profile.maxCaptionChars, "profile caption limit");
     timestamp(profile.observedAt, "platform profile observedAt");
     if (profile.deprecatedAt) timestamp(profile.deprecatedAt,"profile deprecation");
+    if (profile.publishScope !== undefined && !profile.publishScope.trim()) throw new Error("Profile publishing scope cannot be blank");
     if (profile.policyVersion !== undefined && !profile.policyVersion.trim()) throw new Error("Profile policy version cannot be blank");
     const allowedMediaKinds = refs(profile.allowedMediaKinds, "allowed media kinds");
     const requiredDisclosureTags = refs(profile.requiredDisclosureTags, "required disclosure tags", false);

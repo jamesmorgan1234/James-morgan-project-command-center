@@ -1,6 +1,9 @@
 import { assertSecretChannelSafe } from "../security/secret-channels.js";
 import type { SocialIdentityMapRecord } from "./identity.js";
 export interface SocialAssetBinding {
+  readonly mediaKind?: string;
+  readonly width?: number;
+  readonly height?: number;
   readonly assetRef: string;
   readonly contentHash: string;
   readonly provenanceRefs: readonly string[];
