@@ -1,6 +1,6 @@
 import { parseTimestamp } from "../security/types.js";
 
-export interface RetryPolicy {
+export interface BackoffRetryPolicy {
   readonly maxAttempts: number;
   readonly baseDelayMs: number;
   readonly multiplier: number;
@@ -12,7 +12,7 @@ function positiveSafeInteger(value: number, label: string): number {
   return value;
 }
 
-export function deterministicRetryDelay(policy: RetryPolicy, attempt: number): number {
+export function deterministicRetryDelay(policy: BackoffRetryPolicy, attempt: number): number {
   positiveSafeInteger(policy.maxAttempts, "maxAttempts");
   positiveSafeInteger(policy.baseDelayMs, "baseDelayMs");
   positiveSafeInteger(policy.multiplier, "multiplier");
