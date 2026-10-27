@@ -1,5 +1,7 @@
+import { classifyRecoveryFailure, type RecoveryFailureCode } from "../kernel/recovery.js";
 import { assertBrowserStartupConfiguration } from "./startup-config.js";
 import { BrowserStartupCoordinator } from "./browser-startup.js";
+import { installBrowserRecoveryShell, markCurrentReleaseKnownGood } from "./browser-recovery.js";
 
 interface StartupWindow extends Window {
   __commandCenterStartupInstalled?: boolean;
@@ -27,6 +29,12 @@ function renderSafeBootstrap(state: "loading" | "degraded" | "failed", message: 
   node.append(kicker, status);
 }
 
+function renderRecovery(reason: RecoveryFailureCode): void {
+  const node = bootstrapNode();
+  if (!node) return;
+  installBrowserRecoveryShell(node, reason);
+}
+
 export function installBrowserStartupBoundary(): boolean {
   if (runtimeWindow.__commandCenterStartupInstalled) return runtimeWindow.__commandCenterStartupConfigurationValid === true;
   runtimeWindow.__commandCenterStartupInstalled = true;
@@ -38,10 +46,10 @@ export function installBrowserStartupBoundary(): boolean {
   try {
     assertBrowserStartupConfiguration(document);
     runtimeWindow.__commandCenterStartupConfigurationValid = true;
-  } catch {
+  } catch (error) {
     runtimeWindow.__commandCenterStartupConfigurationValid = false;
-    const next = coordinator.fail(generation);
-    renderSafeBootstrap("failed", next.message);
+    coordinator.fail(generation);
+    renderRecovery(classifyRecoveryFailure(error));
     return false;
   }
 
@@ -53,15 +61,15 @@ export function installBrowserStartupBoundary(): boolean {
 
   window.addEventListener("error", () => {
     if (!bootstrapNode()) return;
-    const next = coordinator.fail(generation);
-    renderSafeBootstrap("failed", next.message);
+    coordinator.fail(generation);
+    renderRecovery("startup_failed");
   });
 
   window.addEventListener("unhandledrejection", (event) => {
     if (!bootstrapNode()) return;
     event.preventDefault();
-    const next = coordinator.fail(generation);
-    renderSafeBootstrap("failed", next.message);
+    coordinator.fail(generation);
+    renderRecovery("startup_failed");
   });
 
   const root = document.querySelector<HTMLElement>("#app");
@@ -69,6 +77,7 @@ export function installBrowserStartupBoundary(): boolean {
   const observer = new MutationObserver(() => {
     if (!root.querySelector(".app-shell")) return;
     coordinator.commitReady(generation);
+    void markCurrentReleaseKnownGood(document);
     observer.disconnect();
   });
   observer.observe(root, { childList: true, subtree: true });

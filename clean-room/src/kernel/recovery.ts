@@ -235,3 +235,68 @@ export function authorizeProtectedRecovery(
     return Object.freeze({ allowed: false, reason: error instanceof Error ? error.message : "recovery_denied", recoveryOnly: true });
   }
 }
+
+export type RecoveryFailureCode = "invalid_configuration" | "schema_incompatible" | "release_incompatible" | "startup_failed";
+
+export interface RecoveryDiagnostic {
+  readonly code: RecoveryFailureCode;
+  readonly privacySafe: true;
+  readonly ownerStateMutationAllowed: false;
+}
+
+export interface RecoveryShellPlan {
+  readonly mode: "recovery";
+  readonly reason: RecoveryFailureCode;
+  readonly message: string;
+  readonly retryAllowed: true;
+  readonly knownGoodFallbackAvailable: boolean;
+  readonly privateDataAllowed: false;
+  readonly diagnostic: RecoveryDiagnostic;
+}
+
+const RECOVERY_MESSAGES: Readonly<Record<RecoveryFailureCode, string>> = Object.freeze({
+  invalid_configuration: "Command Center configuration could not be verified. Recovery mode is active.",
+  schema_incompatible: "Command Center data compatibility could not be verified. Recovery mode is active.",
+  release_incompatible: "Command Center release compatibility could not be verified. Recovery mode is active.",
+  startup_failed: "Command Center could not start safely. Recovery mode is active."
+});
+
+export function classifyRecoveryFailure(error: unknown): RecoveryFailureCode {
+  if (!(error instanceof Error)) return "startup_failed";
+  const message = error.message.toLowerCase();
+  if (message.includes("schema")) return "schema_incompatible";
+  if (message.includes("release") || message.includes("build placeholder")) return "release_incompatible";
+  if (message.includes("config") || message.includes("environment") || message.includes("version") || message.includes("feature flag")) return "invalid_configuration";
+  return "startup_failed";
+}
+
+export function createRecoveryShellPlan(reason: RecoveryFailureCode, knownGoodFallbackAvailable: boolean): RecoveryShellPlan {
+  return Object.freeze({
+    mode: "recovery",
+    reason,
+    message: RECOVERY_MESSAGES[reason],
+    retryAllowed: true,
+    knownGoodFallbackAvailable,
+    privateDataAllowed: false,
+    diagnostic: Object.freeze({ code: reason, privacySafe: true as const, ownerStateMutationAllowed: false as const })
+  });
+}
+
+export class RecoveryRetryBudget {
+  readonly #maximumAttempts: number;
+  #attempts = 0;
+
+  constructor(maximumAttempts = 3) {
+    if (!Number.isSafeInteger(maximumAttempts) || maximumAttempts < 1) throw new Error("Recovery retry maximumAttempts must be a positive safe integer");
+    this.#maximumAttempts = maximumAttempts;
+  }
+
+  get attempts(): number { return this.#attempts; }
+  get remaining(): number { return Math.max(0, this.#maximumAttempts - this.#attempts); }
+
+  consume(): number {
+    if (this.#attempts >= this.#maximumAttempts) throw new Error("Recovery retry budget exhausted");
+    this.#attempts += 1;
+    return this.#attempts;
+  }
+}
