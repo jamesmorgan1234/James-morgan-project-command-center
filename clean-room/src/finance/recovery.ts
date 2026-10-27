@@ -12,18 +12,29 @@ export type FinancialReconciliationDecision = "accept_newer" | "duplicate" | "re
 
 export function reconcileFinancialSnapshot(current: FinancialProviderSnapshot | undefined, incoming: FinancialProviderSnapshot): FinancialReconciliationDecision {
   if (!incoming.providerKey.trim() || !incoming.ownerId.trim() || !incoming.contentHash.trim()) throw new Error("Financial provider snapshot identity/hash are required");
+  refs(incoming.accountIds, "Financial snapshot account ids", false);
+  if (new Set(incoming.accountIds).size !== incoming.accountIds.length) throw new Error("Duplicate financial snapshot account identity");
   const incomingAt = parseTimestamp(incoming.capturedAt, "incoming.capturedAt");
   if (!current) return "accept_newer";
   if (current.providerKey !== incoming.providerKey || current.ownerId !== incoming.ownerId) throw new Error("Financial provider snapshot scope mismatch");
   const currentAt = parseTimestamp(current.capturedAt, "current.capturedAt");
   if (incomingAt < currentAt) return "reject_stale";
-  if (incomingAt === currentAt && incoming.contentHash === current.contentHash) return "duplicate";
+  if (incomingAt === currentAt && incoming.contentHash === current.contentHash) return sameSet(current.accountIds, incoming.accountIds) ? "duplicate" : "manual_conflict";
   if (incomingAt === currentAt && incoming.contentHash !== current.contentHash) return "manual_conflict";
   return "accept_newer";
 }
 
 export type FinancialRecoveryIncidentKind = "provider_error" | "stale_balance" | "partial_sync" | "duplicate" | "account_relink" | "compromised_provider" | "restore" | "protected_action_uncertain" | "protected_action_rollback";
 export type FinancialRecoveryDisposition = "accept" | "defer" | "reject" | "manual_review";
+
+export interface FinancialRestoreValidation {
+  readonly knownGoodSnapshotRef: string;
+  readonly backupHashVerified: boolean;
+  readonly currentAuthorizationRevalidated: boolean;
+  readonly currentRevocationsRevalidated: boolean;
+  readonly immutableHistoryPreserved: boolean;
+  readonly missingAccountRefs: readonly string[];
+}
 
 export interface FinancialRecoveryEvidenceInput {
   readonly id: string;
@@ -38,6 +49,7 @@ export interface FinancialRecoveryEvidenceInput {
   readonly providerHealth: "available" | "degraded" | "unavailable" | "compromised";
   readonly canonicalAccountRefs: readonly string[];
   readonly relinkedAccountRefs?: readonly string[] | undefined;
+  readonly restoreValidation?: FinancialRestoreValidation;
   readonly priorExecutionRefs: readonly string[];
   readonly receiptRefs: readonly string[];
 }
@@ -78,12 +90,14 @@ export function assessFinancialRecovery(input: FinancialRecoveryEvidenceInput): 
   let reason = "manual_reconciliation_required";
   let canonicalIdentityPreserved = true;
 
-  if (!input.integrityVerified || !input.provenanceVerified) { disposition = "reject"; reason = "integrity_or_provenance_unverified"; }
+  if (input.integrityVerified !== true || input.provenanceVerified !== true) { disposition = "reject"; reason = "integrity_or_provenance_unverified"; }
   else if (input.providerHealth === "compromised" || input.incidentKind === "compromised_provider") { disposition = "reject"; reason = "provider_compromised"; }
   else if (input.incidentKind === "provider_error") { disposition = "defer"; reason = "provider_error"; }
   else if (input.incidentKind === "stale_balance") { disposition = "reject"; reason = "stale_balance"; }
   else if (input.incidentKind === "partial_sync") { disposition = "defer"; reason = "partial_sync"; }
   else if (input.incidentKind === "duplicate") { disposition = "reject"; reason = "duplicate_evidence"; }
+  else if (!["available", "degraded", "unavailable", "compromised"].includes(input.providerHealth)) { disposition = "reject"; reason = "unknown_provider_health"; }
+  else if (input.incidentKind === "account_relink" && input.providerHealth !== "available") { disposition = "defer"; reason = "relink_provider_not_available"; }
   else if (input.incidentKind === "account_relink") {
     const relinked = refs(input.relinkedAccountRefs ?? [], "Finance relinked account refs");
     canonicalIdentityPreserved = sameSet(canonical, relinked);
@@ -91,7 +105,12 @@ export function assessFinancialRecovery(input: FinancialRecoveryEvidenceInput): 
     reason = canonicalIdentityPreserved ? "canonical_identity_preserved" : "relink_identity_conflict";
   } else if (input.incidentKind === "restore") {
     if (input.providerHealth !== "available") { disposition = "defer"; reason = "restore_provider_not_available"; }
-    else { disposition = "accept"; reason = "restore_evidence_verified"; }
+    else {
+      const validation = input.restoreValidation;
+      if (!validation || !validation.knownGoodSnapshotRef?.trim() || validation.backupHashVerified !== true || validation.currentAuthorizationRevalidated !== true || validation.currentRevocationsRevalidated !== true || validation.immutableHistoryPreserved !== true || !Array.isArray(validation.missingAccountRefs) || validation.missingAccountRefs.length > 0) {
+        disposition = "reject"; reason = "restore_current_security_or_snapshot_unverified";
+      } else { disposition = "accept"; reason = "restore_evidence_verified"; }
+    }
   } else if (input.incidentKind === "protected_action_uncertain") {
     disposition = "manual_review";
     reason = priorExecutionRefs.length > 0 || receiptRefs.length > 0 ? "uncertain_outcome_requires_receipt_reconciliation" : "uncertain_outcome_requires_provider_reconciliation";
@@ -100,5 +119,19 @@ export function assessFinancialRecovery(input: FinancialRecoveryEvidenceInput): 
     reason = "rollback_requires_new_exact_owner_authorization";
   }
 
+  if (disposition !== "accept") canonicalIdentityPreserved = false;
   return Object.freeze({ id: input.id, incidentKind: input.incidentKind, disposition, reason, evidenceRefs, auditRef: input.auditRef, canonicalIdentityPreserved, actionReplayAllowed: false as const, rollbackAuthorized: false as const, failClosed: true as const, protectedActionAuthorized: false as const });
+}
+
+/** Trusted server restore preflight: historical authorization is never authoritative. */
+export function assessFinancialRestoreWithLiveAccess(
+  boundary: import("./access.js").FinancialAccessBoundary,
+  sessionId: string,
+  resource: import("./access.js").FinancialResourceScope,
+  now: string,
+  input: FinancialRecoveryEvidenceInput
+): FinancialRecoveryAssessment {
+  if (input.incidentKind !== "restore" || input.ownerId !== resource.ownerId) throw new Error("Restore owner/incident scope mismatch");
+  boundary.authorize(sessionId, resource, now, {requestedDataClasses: ["recovery"], auditRef: input.auditRef, incidentState: "normal"}, true);
+  return assessFinancialRecovery(input);
 }

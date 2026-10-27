@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { assessFinancialRecovery } from "../dist/finance/index.js";
 
-function evidence(overrides={}){return {id:"recovery-1",ownerId:"owner-1",providerKey:"finance-provider:test-bank",incidentKind:"restore",observedAt:"2026-10-26T15:00:00Z",evidenceRefs:["audit:evidence:1"],auditRef:"audit:1",integrityVerified:true,provenanceVerified:true,providerHealth:"available",canonicalAccountRefs:["account-1"],priorExecutionRefs:[],receiptRefs:[],...overrides};}
+function evidence(overrides={}){return {id:"recovery-1",ownerId:"owner-1",providerKey:"finance-provider:test-bank",incidentKind:"restore",observedAt:"2026-10-26T15:00:00Z",evidenceRefs:["audit:evidence:1"],auditRef:"audit:1",integrityVerified:true,provenanceVerified:true,providerHealth:"available",canonicalAccountRefs:["account-1"],priorExecutionRefs:[],receiptRefs:[],restoreValidation:{knownGoodSnapshotRef:"snapshot:known-good",backupHashVerified:true,currentAuthorizationRevalidated:true,currentRevocationsRevalidated:true,immutableHistoryPreserved:true,missingAccountRefs:[]},...overrides};}
 
 test("P9.9 provider error stale balance partial sync duplicate and compromise fail closed",()=>{
  const cases=[["provider_error","defer"],["stale_balance","reject"],["partial_sync","defer"],["duplicate","reject"],["compromised_provider","reject"]];
