@@ -19,8 +19,11 @@ function moduleContract(overrides = {}) {
     key: "mod:feature",
     version: 1,
     enabled: true,
+    owner: "test-owner",
     ownsData: ["feature-data"],
     ownsCapabilities: ["feature-capability"],
+    usesData: [],
+    usesCapabilities: [],
     dependencies: [],
     permissions: [],
     routes: [],
@@ -28,8 +31,11 @@ function moduleContract(overrides = {}) {
     migrations: [],
     healthCheckKey: "feature-health",
     securityClass: "internal",
+    activation: "on-demand",
+    failureBehavior: "isolate",
     canDisable: true,
     canUninstall: true,
+    tests: ["category1-version-lifecycle-contracts.test.mjs"],
     ...overrides
   };
 }
