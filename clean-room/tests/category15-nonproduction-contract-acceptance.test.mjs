@@ -17,7 +17,7 @@ import { NeedsMeQueue } from "../dist/personal/needs-me.js";
 import { ProjectTypeRegistry, ProjectRegistry, advanceFoundry } from "../dist/projects/index.js";
 import { ProjectCheckpointStore } from "../dist/projects/checkpoints.js";
 import { dryRunMigration } from "../dist/recovery/index.js";
-import { AuthSessionStore, PolicyEngine, ProtectedActionGate } from "../dist/security/index.js";
+import { AuthSessionStore, DeviceRegistry, PolicyEngine, ProtectedActionGate } from "../dist/security/index.js";
 import { createStandardSurfaceReaders } from "../dist/runtime/surface-readers.js";
 import { assembleCanonicalRuntimeSnapshot } from "../dist/runtime/assembly.js";
 
@@ -92,9 +92,11 @@ test("P15.14 composes real clean-room contracts in isolated nonproduction state 
 
   const sessions = new AuthSessionStore();
   sessions.register({ id: "session:p15", ownerId: "owner:p15", deviceId: "device:isolated", projectId: "command-center", scopes: ["security:protected"], assurance: "passkey_uv", state: "active", createdAt: "2026-10-23T23:40:00.000Z", expiresAt: "2026-10-24T00:40:00.000Z", lastValidatedAt: "2026-10-23T23:49:30.000Z", lastVerifiedAt: "2026-10-23T23:49:30.000Z" });
+  const devices = new DeviceRegistry();
+  devices.register({ id: "device:isolated", ownerId: "owner:p15", label: "Isolated acceptance device", platform: "test", trustState: "trusted", createdAt: "2026-10-23T23:40:00.000Z" });
   const policy = new PolicyEngine();
   policy.register({ action: "project.protected_write", version: 1, enabled: true, riskClass: "high", requiredScopes: ["security:protected"], minimumAssurance: "passkey_uv", freshVerificationMaxAgeMs: 60000, ownerOnly: true, allowProjectWildcard: false });
-  const gate = new ProtectedActionGate(sessions, policy);
+  const gate = new ProtectedActionGate(sessions, policy, devices);
   assert.equal(gate.authorize({ sessionId: "session:p15", action: "project.protected_write", resourceOwnerId: "owner:p15", resourceProjectId: "command-center", now: NOW }).allowed, true);
   assert.equal(policy.evaluate({ action: "deploy.production", subject: { ownerId: "owner:p15", sessionId: "session:p15", deviceId: "device:isolated", projectId: "command-center", assurance: "fresh_passkey_uv", scopes: ["security:protected"], lastVerifiedAt: "2026-10-23T23:49:30.000Z" }, resourceOwnerId: "owner:p15", resourceProjectId: "command-center", now: NOW }).allowed, false);
 
