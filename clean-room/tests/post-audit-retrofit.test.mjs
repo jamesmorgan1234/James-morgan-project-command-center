@@ -186,7 +186,7 @@ test("caller-supplied recovery object cannot authorize a protected effect; trust
 
 test("protected action binds company account environment policy epoch and exact intent", () => {
   const sessions = new AuthSessionStore();
-  sessions.register({ id: "s1", ownerId: "owner-1", projectId: "project-101", companyId: "company-101", accountId: "acct-1", environment: "staging", scopes: ["security:protected"], assurance: "fresh_passkey_uv", state: "active", createdAt: "2026-10-24T23:00:00Z", expiresAt: "2026-10-25T00:00:00Z", lastValidatedAt: "2026-10-24T23:00:00Z", lastVerifiedAt: "2026-10-24T23:29:30Z", policyEpoch: 7 });
+  sessions.register({ id: "s1", ownerId: "owner-1", projectId: "project-101", companyId: "company-101", accountId: "acct-1", environment: "staging", scopes: ["security:protected"], assurance: "fresh_passkey_uv", state: "active", createdAt: "2026-10-24T23:00:00Z", expiresAt: "2026-10-25T00:00:00Z", lastValidatedAt: "2026-10-24T23:29:30Z", lastVerifiedAt: "2026-10-24T23:29:30Z", policyEpoch: 7 });
   const policy = new PolicyEngine();
   policy.register({ action: "company.protected", version: 1, enabled: true, riskClass: "high", requiredScopes: ["security:protected"], minimumAssurance: "fresh_passkey_uv", freshVerificationMaxAgeMs: 60_000, ownerOnly: true, allowProjectWildcard: false, policyEpoch: 7 });
   const gate = new ProtectedActionGate(sessions, policy);
