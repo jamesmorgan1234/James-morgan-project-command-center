@@ -8,6 +8,7 @@ export * from "./approval-state.js";
 export * from "./publication.js";
 export * from "./publication-lifecycle.js";
 export * from "./providers.js";
+export * from "./provider-connection.js";
 export * from "./performance.js";
 export * from "./boundaries.js";
 export * from "./recovery.js";
