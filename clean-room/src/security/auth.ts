@@ -44,10 +44,31 @@ export interface AuthProviderAssertion {
   readonly authenticatedAt: string;
 }
 
+export interface AuthProviderRecoveryRequest {
+  readonly ownerId: string;
+  readonly now: string;
+}
+
+export interface AuthProviderRecoveryAssertion {
+  readonly ownerId: string;
+  readonly recoveryRef: string;
+  readonly recoveredAt: string;
+}
+
+export interface AuthRecoveryResult {
+  readonly state: "verified_requires_sign_in";
+  readonly ownerId: string;
+  readonly authProviderId: string;
+  readonly recoveryRef: string;
+  readonly recoveredAt: string;
+  readonly revokedSessionIds: readonly string[];
+}
+
 export interface AuthProvider {
   readonly id: string;
   authenticate(request: Readonly<AuthProviderSignInRequest>): AuthProviderAssertion;
   signOut(providerSessionRef: string): void;
+  recover?(request: Readonly<AuthProviderRecoveryRequest>): AuthProviderRecoveryAssertion;
 }
 
 function assertOptionalId(value: string | undefined, label: string): void {
@@ -238,6 +259,37 @@ export class AuthenticationService {
       this.#requiredProvider(current.authProviderId).signOut(current.providerSessionRef);
     }
     return revoked;
+  }
+
+  recover(providerId: string, request: AuthProviderRecoveryRequest): AuthRecoveryResult {
+    const provider = this.#requiredProvider(providerId);
+    if (!provider.recover) throw new Error(`Auth provider does not support recovery: ${providerId}`);
+    if (!request.ownerId.trim()) throw new Error("Recovery ownerId is required");
+    const nowMs = parseTimestamp(request.now, "now");
+    const assertion = provider.recover(Object.freeze({ ...request }));
+    if (assertion.ownerId !== request.ownerId) throw new Error("Auth recovery owner mismatch");
+    if (!assertion.recoveryRef.trim()) throw new Error("Auth recovery reference is required");
+    const recoveredMs = parseTimestamp(assertion.recoveredAt, "recoveredAt");
+    if (recoveredMs > nowMs) throw new Error("Auth recovery assertion cannot be from the future");
+
+    const revocable = this.sessions.listByOwner(request.ownerId).filter((session) => session.state === "active" || session.state === "locked");
+    for (const session of revocable) {
+      if (nowMs < latestSessionEventMs(session)) throw new Error(`Recovery time cannot precede session state: ${session.id}`);
+    }
+    const revokedSessionIds: string[] = [];
+    for (const session of revocable) {
+      this.sessions.revoke(session.id, request.now, "secure_recovery");
+      revokedSessionIds.push(session.id);
+    }
+
+    return Object.freeze({
+      state: "verified_requires_sign_in" as const,
+      ownerId: request.ownerId,
+      authProviderId: provider.id,
+      recoveryRef: assertion.recoveryRef,
+      recoveredAt: assertion.recoveredAt,
+      revokedSessionIds: Object.freeze(revokedSessionIds)
+    });
   }
 
   #requiredProvider(id: string): AuthProvider {
