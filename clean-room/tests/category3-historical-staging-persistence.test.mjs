@@ -44,3 +44,9 @@ test("historical staging evidence is owner-readable and immutable to browser rol
   assert.match(sql, /grant select on table public\.%I to authenticated/i);
   assert.match(sql, /owner_id=\(select auth\.uid\(\)\).*is_command_center_authorized/i);
 });
+
+test("P3.8 replayed batches and duplicate conversation IDs fail before inventory is accepted", () => {
+  assert.match(sql, /Import batch already exists/i);
+  assert.match(sql, /Duplicate conversation id inside historical batch/i);
+  assert.match(sql, /primary key\(owner_id,batch_id,conversation_id\)/i);
+});
