@@ -36,14 +36,14 @@ test("HTTP provider fails closed to a disconnected snapshot", async () => {
   assert.equal(snapshot.projects.length, 0);
 });
 
-test("browser build contains a standalone shell, runtime entry, release identity and two-phase update gate", async () => {
-  for (const path of ["dist-web/index.html", "dist-web/app.css", "dist-web/manifest.webmanifest", "dist-web/sw.js", "dist-web/release.json", "dist-web/app/runtime/browser.js"]) {
+test("browser build contains a standalone shell, startup-bound runtime entry, release identity and two-phase update gate", async () => {
+  for (const path of ["dist-web/index.html", "dist-web/app.css", "dist-web/manifest.webmanifest", "dist-web/sw.js", "dist-web/release.json", "dist-web/app/runtime/browser-entrypoint.js", "dist-web/app/runtime/browser.js"]) {
     assert.equal(existsSync(new URL(path, ROOT)), true, `missing ${path}`);
   }
   const html = await readFile(new URL("dist-web/index.html", ROOT), "utf8");
   const sw = await readFile(new URL("dist-web/sw.js", ROOT), "utf8");
   const release = JSON.parse(await readFile(new URL("dist-web/release.json", ROOT), "utf8"));
-  assert.match(html, /\/app\/runtime\/browser\.js/);
+  assert.match(html, /\/app\/runtime\/browser-entrypoint\.js/);
   assert.match(html, /manifest\.webmanifest/);
   assert.doesNotMatch(html, /__COMMAND_CENTER_RELEASE_ID__/);
   assert.doesNotMatch(sw, /__COMMAND_CENTER_RELEASE_ID__/);
