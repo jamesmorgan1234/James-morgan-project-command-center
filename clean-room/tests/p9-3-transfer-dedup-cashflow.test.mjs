@@ -2,6 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   createNormalizedFinancialTransaction,
+  dedupeNormalizedFinancialTransactions,
+  selectCurrentNormalizedFinancialTransactions,
   summarizeNormalizedCashflow
 } from "../dist/finance/index.js";
 
@@ -102,4 +104,51 @@ test("P9.3 cashflow avoids duplicate, pending-posted, and internal-transfer doub
     pendingExternalOutflowCents: 0,
     excludedInternalTransferCount: 2
   });
+});
+
+test("P9.3 dedup and pending-posted reconciliation preserve raw-source lineage", () => {
+  const first = transaction({
+    id: "lineage-a",
+    canonicalTransactionRef: "canonical-lineage",
+    externalTransactionId: "external-lineage",
+    accountId: "checking",
+    amountCents: -500,
+    rawSourceRefs: ["raw-provider-a"]
+  });
+  const duplicate = transaction({
+    id: "lineage-b",
+    canonicalTransactionRef: "canonical-lineage",
+    externalTransactionId: "external-lineage",
+    accountId: "checking",
+    amountCents: -500,
+    rawSourceRefs: ["raw-provider-b"]
+  });
+
+  const deduped = dedupeNormalizedFinancialTransactions([first, duplicate]);
+  assert.equal(deduped.length, 1);
+  assert.deepEqual(deduped[0].rawSourceRefs, ["raw-provider-a", "raw-provider-b"]);
+
+  const pending = transaction({
+    id: "state-pending",
+    canonicalTransactionRef: "canonical-state-transition",
+    externalTransactionId: "external-state-pending",
+    accountId: "checking",
+    amountCents: -900,
+    postingState: "pending",
+    rawSourceRefs: ["raw-pending"]
+  });
+  const posted = transaction({
+    id: "state-posted",
+    canonicalTransactionRef: "canonical-state-transition",
+    externalTransactionId: "external-state-posted",
+    accountId: "checking",
+    amountCents: -900,
+    postingState: "posted",
+    rawSourceRefs: ["raw-posted"]
+  });
+
+  const current = selectCurrentNormalizedFinancialTransactions([pending, posted], "owner-p9-3");
+  assert.equal(current.length, 1);
+  assert.equal(current[0].postingState, "posted");
+  assert.deepEqual(current[0].rawSourceRefs, ["raw-posted", "raw-pending"]);
 });
