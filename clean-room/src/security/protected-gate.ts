@@ -1,5 +1,6 @@
 import type { EnvironmentName } from "../kernel/config.js";
 import { AuthSessionStore } from "./auth.js";
+import { DeviceRegistry } from "./devices.js";
 import { assertIntentBinding, type ProtectedIntent } from "./intent.js";
 import { PolicyEngine, type PolicyDecision } from "./policy.js";
 import type { SecuritySubject } from "./types.js";
@@ -21,10 +22,15 @@ export interface ProtectedActionRequest {
 }
 
 export class ProtectedActionGate {
-  constructor(private readonly sessions: AuthSessionStore, private readonly policies: PolicyEngine) {}
+  constructor(
+    private readonly sessions: AuthSessionStore,
+    private readonly policies: PolicyEngine,
+    private readonly devices: DeviceRegistry
+  ) {}
 
   authorize(request: ProtectedActionRequest): PolicyDecision {
     const session = this.sessions.validateLive(request.sessionId, request.now);
+    if (session.deviceId) this.devices.assertUsable(session.deviceId, session.ownerId);
     if ((request.intent === undefined) !== (request.authorizationIntentBinding === undefined)) throw new Error("Protected intent and authorization binding must be supplied together");
     if (request.intent && request.authorizationIntentBinding) {
       if (request.intent.action !== request.action || request.intent.ownerId !== request.resourceOwnerId) throw new Error("Protected intent action/owner mismatch");

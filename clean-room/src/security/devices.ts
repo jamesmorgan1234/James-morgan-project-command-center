@@ -25,6 +25,13 @@ export class DeviceRegistry {
   get(id: string): DeviceRecord | undefined { return this.#devices.get(id); }
   listByOwner(ownerId: string): readonly DeviceRecord[] { return Object.freeze([...this.#devices.values()].filter((d) => d.ownerId === ownerId)); }
 
+  assertUsable(id: string, ownerId: string): DeviceRecord {
+    const current = this.#required(id);
+    if (current.ownerId !== ownerId) throw new Error("Device owner mismatch");
+    if (current.trustState === "revoked") throw new Error(`Device revoked: ${id}`);
+    return current;
+  }
+
   markSeen(id: string, seenAt: string): DeviceRecord {
     const current = this.#required(id);
     if (current.trustState === "revoked") throw new Error(`Device revoked: ${id}`);

@@ -138,12 +138,14 @@ test("central policy is deny-by-default and enforces fresh verification", () => 
   assert.equal(policy.evaluate({ action: "project.protected_write", subject: { ...subject, lastVerifiedAt: "2026-10-23T18:20:00Z" }, resourceOwnerId: "owner-1", resourceProjectId: "command-center", now: NOW }).reason, "fresh_verification_expired");
 });
 
-test("protected action gate binds live session state to the central policy decision", () => {
+test("protected action gate binds live session and device state to the central policy decision", () => {
   const sessions = new AuthSessionStore();
   sessions.register(activeSession({ assurance: "passkey_uv", lastVerifiedAt: "2026-10-23T18:29:30Z" }));
+  const devices = new DeviceRegistry();
+  devices.register({ id: "dev_samsung", ownerId: "owner-1", label: "Samsung phone", platform: "android", trustState: "trusted", createdAt: "2026-10-23T18:00:00Z" });
   const policy = new PolicyEngine();
   policy.register({ action: "project.protected_write", version: 1, enabled: true, riskClass: "high", requiredScopes: ["security:protected"], minimumAssurance: "passkey_uv", freshVerificationMaxAgeMs: 60_000, ownerOnly: true, allowProjectWildcard: false });
-  const gate = new ProtectedActionGate(sessions, policy);
+  const gate = new ProtectedActionGate(sessions, policy, devices);
   assert.equal(gate.authorize({ sessionId: "ses_owner-1", action: "project.protected_write", resourceOwnerId: "owner-1", resourceProjectId: "command-center", now: NOW }).allowed, true);
   sessions.lock("ses_owner-1", "2026-10-23T18:30:10Z");
   assert.throws(() => gate.authorize({ sessionId: "ses_owner-1", action: "project.protected_write", resourceOwnerId: "owner-1", resourceProjectId: "command-center", now: "2026-10-23T18:30:20Z" }));
