@@ -1,3 +1,5 @@
+import { assertSecretChannelSafe } from "../security/secret-channels.js";
+
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return typeof value === "object" && value !== null && !Array.isArray(value) ? value as Record<string, unknown> : undefined;
 }
@@ -48,12 +50,15 @@ export function stageChatExport(raw: unknown, batchId: string, contentPolicy: Hi
   const conversations: StagedConversation[] = [];
   let nodeCount = 0;
   let redactedNodeCount = 0;
+  const seenConversations = new Set<string>();
 
   for (const item of raw) {
     const conversation = asRecord(item);
     if (!conversation) throw new Error("Conversation entry must be an object");
     const conversationId = typeof conversation.id === "string" ? conversation.id : undefined;
     if (!conversationId) throw new Error("Conversation id is required");
+    if (seenConversations.has(conversationId)) throw new Error("Duplicate historical conversation id");
+    seenConversations.add(conversationId);
     const title = typeof conversation.title === "string" ? conversation.title : "Untitled";
     const templateId = typeof conversation.conversation_template_id === "string" ? conversation.conversation_template_id : undefined;
     const mapping = asRecord(conversation.mapping);
@@ -69,7 +74,9 @@ export function stageChatExport(raw: unknown, batchId: string, contentPolicy: Hi
       if (!message.text) {
         nodes.push(Object.freeze({ id, ...(parent ? { parent } : {}), children: Object.freeze(children), ...(message.role ? { role: message.role } : {}), ...(message.messageId ? { messageId: message.messageId } : {}), contentState: "none" as const }));
       } else {
-        const decision = contentPolicy(message.text, conversationId, id);
+        let decision = contentPolicy(message.text, conversationId, id);
+        if (decision !== "keep" && decision !== "redact") throw new Error("Unsupported historical content decision");
+        try { assertSecretChannelSafe("brain_memory", message.text); } catch { decision = "redact"; }
         if (decision === "redact") redactedNodeCount += 1;
         nodes.push(Object.freeze({ id, ...(parent ? { parent } : {}), children: Object.freeze(children), ...(message.role ? { role: message.role } : {}), ...(message.messageId ? { messageId: message.messageId } : {}), contentState: decision, ...(decision === "keep" ? { text: message.text } : {}) }));
       }
