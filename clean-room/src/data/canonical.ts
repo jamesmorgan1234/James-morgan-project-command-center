@@ -43,6 +43,9 @@ export class CanonicalStore<T> {
   replace(entity: CanonicalEntity<T>, expectedVersion: number): void {
     assertEntity(entity);
     const current = this.#required(entity.id);
+    if (current.deletedAt !== undefined) throw new Error("Tombstoned canonical entity cannot be silently revived");
+    if (entity.deletedAt !== undefined) throw new Error("Use tombstone for canonical deletion");
+    if (parseTimestamp(entity.updatedAt, "updatedAt") < parseTimestamp(current.updatedAt, "updatedAt")) throw new Error("Canonical update time cannot move backwards");
     if (current.version !== expectedVersion) throw new Error(`Canonical version conflict for ${entity.id}`);
     if (entity.version !== current.version + 1) throw new Error(`Canonical replacement must advance exactly one version for ${entity.id}`);
     if (entity.entityType !== current.entityType || entity.ownerId !== current.ownerId || entity.createdAt !== current.createdAt) throw new Error("Canonical identity fields cannot be rewritten");
@@ -52,8 +55,9 @@ export class CanonicalStore<T> {
 
   tombstone(id: string, expectedVersion: number, deletedAt: string): CanonicalEntity<T> {
     const current = this.#required(id);
+    if (current.deletedAt !== undefined) throw new Error("Canonical entity is already tombstoned");
     if (current.version !== expectedVersion) throw new Error(`Canonical version conflict for ${id}`);
-    parseTimestamp(deletedAt, "deletedAt");
+    if (parseTimestamp(deletedAt, "deletedAt") < parseTimestamp(current.updatedAt, "updatedAt")) throw new Error("Canonical deletion time cannot predate latest update");
     const next = Object.freeze({ ...current, version: current.version + 1, updatedAt: deletedAt, deletedAt });
     this.#records.set(id, next);
     return next;
