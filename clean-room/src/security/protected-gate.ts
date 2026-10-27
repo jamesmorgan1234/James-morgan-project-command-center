@@ -2,7 +2,8 @@ import type { EnvironmentName } from "../kernel/config.js";
 import { AuthSessionStore } from "./auth.js";
 import { DeviceRegistry } from "./devices.js";
 import { assertIntentBinding, type ProtectedIntent } from "./intent.js";
-import { PolicyEngine, type PolicyDecision } from "./policy.js";
+import { PolicyDecisionAuditLedger } from "./policy-audit.js";
+import { PolicyEngine, type PolicyDecision, type PolicyRequest } from "./policy.js";
 import type { SecuritySubject } from "./types.js";
 
 export interface ProtectedActionRequest {
@@ -25,7 +26,8 @@ export class ProtectedActionGate {
   constructor(
     private readonly sessions: AuthSessionStore,
     private readonly policies: PolicyEngine,
-    private readonly devices: DeviceRegistry
+    private readonly devices: DeviceRegistry,
+    private readonly decisions: PolicyDecisionAuditLedger = new PolicyDecisionAuditLedger()
   ) {}
 
   authorize(request: ProtectedActionRequest): PolicyDecision {
@@ -53,7 +55,7 @@ export class ProtectedActionGate {
       ...(session.lastVerifiedAt ? { lastVerifiedAt: session.lastVerifiedAt } : {}),
       ...(session.policyEpoch !== undefined ? { policyEpoch: session.policyEpoch } : {})
     };
-    return this.policies.assertAllowed({
+    const policyRequest: PolicyRequest = {
       action: request.action,
       subject,
       resourceOwnerId: request.resourceOwnerId,
@@ -65,6 +67,21 @@ export class ProtectedActionGate {
       ...(request.policyAvailable !== undefined ? { policyAvailable: request.policyAvailable } : {}),
       ...(request.revocationStateFresh !== undefined ? { revocationStateFresh: request.revocationStateFresh } : {}),
       ...(request.expectedPolicyEpoch !== undefined ? { expectedPolicyEpoch: request.expectedPolicyEpoch } : {})
+    };
+    const decision = this.policies.evaluate(policyRequest);
+    this.decisions.append({
+      ownerId: session.ownerId,
+      sessionId: session.id,
+      occurredAt: request.now,
+      action: request.action,
+      resourceOwnerId: request.resourceOwnerId,
+      ...(request.resourceProjectId ? { resourceProjectId: request.resourceProjectId } : {}),
+      ...(request.resourceCompanyId ? { resourceCompanyId: request.resourceCompanyId } : {}),
+      ...(request.resourceAccountId ? { resourceAccountId: request.resourceAccountId } : {}),
+      ...(request.resourceEnvironment ? { resourceEnvironment: request.resourceEnvironment } : {}),
+      decision
     });
+    if (!decision.allowed) throw new Error(`Policy denied ${request.action}: ${decision.reason}`);
+    return decision;
   }
 }

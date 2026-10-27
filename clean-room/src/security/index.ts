@@ -7,6 +7,7 @@ export * from "./inventory.js";
 export * from "./device-response.js";
 export * from "./settings.js";
 export * from "./policy.js";
+export * from "./policy-audit.js";
 export * from "./boundaries.js";
 export * from "./secrets.js";
 export * from "./keyring.js";
