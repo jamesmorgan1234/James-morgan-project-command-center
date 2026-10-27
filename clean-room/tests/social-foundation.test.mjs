@@ -116,7 +116,7 @@ test("analytics preserves freshness/provenance and estimated revenue cannot masq
   const metric = validateMetric({ id: "metric-1", accountId: "acct-1", contentRef: "post-1", metric: "views", value: 120, observedAt: "2026-10-23T18:10:00Z", sourceRef: "provider-analytics", confidence: "confirmed" });
   assert.equal(metric.value, 120);
   assert.throws(() => validateAttribution({ id: "attr-1", sourceMetricIds: ["metric-1"], outcomeKind: "revenue", amount: 100, currency: "USD", confidence: "estimated", sourceRefs: ["estimate"] }, [metric]));
-  assert.doesNotThrow(() => validateAttribution({ id: "attr-2", sourceMetricIds: ["metric-1"], outcomeKind: "revenue", amount: 100, currency: "USD", confidence: "confirmed", sourceRefs: ["settled-provider-record"] }, [metric]));
+  assert.doesNotThrow(() => validateAttribution({ id: "attr-2", sourceMetricIds: ["metric-1"], outcomeKind: "revenue", amount: 100, currency: "USD", confidence: "confirmed", sourceRefs: ["settled-provider-record"] }, [metric],["settled-provider-record"]));
 });
 
 test("cross-company isolation and paid actions fail closed while recovery stays explicit", () => {
