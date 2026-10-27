@@ -28,6 +28,12 @@ test("PIF.5 correlated agreement is discounted instead of counted as independent
   assert.ok(decayedEpistemicConfidence(independent, NOW, 86_400_000) > decayedEpistemicConfidence(correlated, NOW, 86_400_000));
 });
 
+test("PIF.5 source confidence is bounded and invalid evidence confidence fails closed", () => {
+  assert.doesNotThrow(() => validateEpistemicAssessment({ ...BASE, evidence: [{ ...BASE.evidence[0], sourceConfidence: 0.7 }] }));
+  assert.throws(() => validateEpistemicAssessment({ ...BASE, evidence: [{ ...BASE.evidence[0], sourceConfidence: 1.01 }] }), /Source confidence must be between 0 and 1/);
+  assert.throws(() => validateEpistemicAssessment({ ...BASE, evidence: [{ ...BASE.evidence[0], sourceConfidence: -0.01 }] }), /Source confidence must be between 0 and 1/);
+});
+
 test("PIF.5 material same-authority disagreement abstains and preserves conflicting evidence", () => {
   const a = { ...BASE, id: "epa-a", state: "VERIFIED", authorityRank: 50, confidence: 0.95 };
   const b = { ...BASE, id: "epa-b", valueFingerprint: "B", state: "CONFLICTING", authorityRank: 50, confidence: 0.9, evidence: [{ evidenceId: "evd_conflict", sourceRef: "source:b", independenceGroup: "b", sourceConfidence: 1, transformationConfidence: 1 }] };
