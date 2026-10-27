@@ -21,6 +21,7 @@ export function rebuildProjection(events: readonly ProjectionEvent[]): Projectio
   const ids = new Set<string>();
   const chain: string[] = [];
   for (const event of events) {
+    if (!event.eventId.trim()) throw new Error("Projection event identity is required");
     if (event.sequence !== expected) throw new Error(`Projection sequence gap: expected ${expected}, received ${event.sequence}`);
     if (ids.has(event.eventId)) throw new Error(`Duplicate projection event: ${event.eventId}`);
     if (!event.payloadHash.trim()) throw new Error(`Projection event requires payload hash: ${event.eventId}`);
@@ -34,7 +35,7 @@ export function rebuildProjection(events: readonly ProjectionEvent[]): Projectio
 export function assertProviderReplacement(oldProvider: ProviderContract, replacement: ProviderContract, requiredCapabilities: readonly string[], freeFirst: boolean): void {
   for (const capability of requiredCapabilities) if (!replacement.capabilities.includes(capability)) throw new Error(`Replacement provider missing capability: ${capability}`);
   if (!replacement.enabled || replacement.health === "unavailable" || replacement.health === "unconfigured") throw new Error("Replacement provider is not operationally eligible");
-  if (freeFirst && replacement.cost === "paid") throw new Error("Paid replacement violates free-first without owner authorization");
+  if (freeFirst && replacement.cost !== "free") throw new Error("Paid or unknown-cost replacement violates free-first without owner authorization");
   if (replacement.key === oldProvider.key && replacement.version <= oldProvider.version) throw new Error("Same provider replacement must advance version");
 }
 
