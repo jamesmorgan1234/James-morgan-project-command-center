@@ -4,6 +4,7 @@ import { readFileSync } from "node:fs";
 import { AiRouteRegistry } from "../dist/brain/index.js";
 
 const migration = readFileSync(new URL("../../supabase/migrations/20261024141500_category6_ai_provider_routing.sql", import.meta.url), "utf8");
+const fallbackMigration = readFileSync(new URL("../../supabase/migrations/20261024152200_category6_ai_routing_deterministic_fallbacks.sql", import.meta.url), "utf8");
 
 test("P6.2 durable AI routes extend the canonical provider registry instead of creating a second provider authority", () => {
   assert.match(migration, /foreign key\(owner_id,provider_key\) references public\.command_center_provider_registry/);
@@ -59,4 +60,20 @@ test("P6.2 rejects unsupported execution modes and reports unavailable when loca
   assert.throws(() => routes.register({ key: "ai-route:invalid-mode", providerKey: "provider:test", modelId: "model", versionRef: "v1", executionMode: "cloud" , enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 1, latencyRank: 1, quotaAvailable: true }), /execution mode is invalid/);
   routes.register({ key: "ai-route:self-hosted-offline", providerKey: "provider:self-hosted", modelId: "private-model", versionRef: "v1", executionMode: "self_hosted", enabled: false, capabilities: ["reason"], cost: "free", privacy: "private_remote", health: "unavailable", qualityRank: 1, latencyRank: 1, quotaAvailable: true });
   assert.equal(routes.route({ capability: "reason", allowPaid: false, maxPrivacy: "remote", preferQuality: true }), undefined);
+});
+
+test("P6.2 fallback models use the same eligibility filters and deterministic policy order", () => {
+  assert.match(fallbackMigration, /m\.route_key<>chosen\.route_key/);
+  assert.match(fallbackMigration, /limit 5/);
+  assert.match(fallbackMigration, /case m\.cost when 'free' then 0 when 'unknown' then 1 else 2 end asc/);
+  assert.match(fallbackMigration, /m\.health<>'unavailable'/);
+  assert.match(fallbackMigration, /m\.quota_state<>'exhausted'/);
+  assert.match(fallbackMigration, /p\.health not in \('unavailable','unconfigured'\)/);
+  assert.match(fallbackMigration, /and \(p_allow_paid or m\.cost<>'paid'\)/);
+  assert.match(fallbackMigration, /selected_registry_version,fallback_route_keys,result,reason/);
+});
+
+test("P6.2 leaves fallback models empty when no eligible primary route exists", () => {
+  assert.match(fallbackMigration, /if chosen\.route_key is null then[\s\S]*?v_result:='unavailable'; v_reason:='no_eligible_route';[\s\S]*?return jsonb_build_object\('result',v_result,'reason',v_reason,'route',null,'fallback_route_keys','\[\]'::jsonb\)/);
+  assert.match(fallbackMigration, /and m\.route_key<>chosen\.route_key[\s\S]*?and m\.enabled and m\.retired_at is null/);
 });
