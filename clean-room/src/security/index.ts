@@ -18,3 +18,4 @@ export * from "./protected-gate.js";
 export * from "./protected-authorizations.js";
 export * from "./protected-actions.js";
 export * from "./events.js";
+export * from "./alerts.js";
