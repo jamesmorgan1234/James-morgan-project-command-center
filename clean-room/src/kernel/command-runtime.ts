@@ -20,7 +20,48 @@ export interface EventEnvelope<T = unknown> {
   readonly payload: T;
 }
 
-export type CommandHandler<T = unknown> = (command: CommandEnvelope<T>) => readonly Omit<EventEnvelope, "sequence">[];
+export interface CancellationSignal {
+  readonly cancelled: boolean;
+  readonly reason?: string;
+}
+
+export interface RetryPolicy {
+  readonly maxAttempts: number;
+  readonly shouldRetry?: (error: unknown, attempt: number) => boolean;
+}
+
+export interface CommandExecutionContext {
+  readonly attempt: number;
+  readonly transactionId: string;
+  readonly cancellation?: CancellationSignal;
+}
+
+export interface CommandExecutionOptions {
+  readonly transactionId?: string;
+  readonly cancellation?: CancellationSignal;
+  readonly retry?: RetryPolicy;
+  readonly compensate?: (command: CommandEnvelope, error: unknown, attempts: number) => void;
+}
+
+export interface OutboxRecord {
+  readonly event: EventEnvelope;
+  readonly transactionId: string;
+  readonly published: boolean;
+}
+
+export type CommandHandler<T = unknown> = (
+  command: CommandEnvelope<T>,
+  context: CommandExecutionContext
+) => readonly Omit<EventEnvelope, "sequence">[];
+
+export class CommandCancelledError extends Error {
+  readonly reason: string | undefined;
+  constructor(reason?: string) {
+    super(reason ? `Command cancelled: ${reason}` : "Command cancelled");
+    this.name = "CommandCancelledError";
+    this.reason = reason;
+  }
+}
 
 function assertEnvelopeVersion(version: number, label: string): number {
   if (!Number.isSafeInteger(version) || version < 1) throw new Error(`Invalid ${label} version: ${version}`);
@@ -30,6 +71,16 @@ function assertEnvelopeVersion(version: number, label: string): number {
 function assertNonBlank(value: string | undefined, label: string): string {
   if (typeof value !== "string" || !value.trim()) throw new Error(`${label} is required`);
   return value;
+}
+
+function assertRetryPolicy(policy: RetryPolicy | undefined): number {
+  const maxAttempts = policy?.maxAttempts ?? 1;
+  if (!Number.isSafeInteger(maxAttempts) || maxAttempts < 1) throw new Error(`Retry maxAttempts must be a positive safe integer: ${maxAttempts}`);
+  return maxAttempts;
+}
+
+function throwIfCancelled(signal: CancellationSignal | undefined): void {
+  if (signal?.cancelled) throw new CommandCancelledError(signal.reason);
 }
 
 export function assertCommandEnvelope(command: CommandEnvelope): CommandEnvelope {
@@ -57,6 +108,8 @@ function assertEventEnvelope(event: Omit<EventEnvelope, "sequence">, command: Co
 export class CommandRuntime {
   readonly #handlers = new Map<string, CommandHandler>();
   readonly #idempotency = new Map<string, readonly EventEnvelope[]>();
+  readonly #inbox = new Map<string, readonly EventEnvelope[]>();
+  #outbox: OutboxRecord[] = [];
   #sequence = 0;
 
   register(type: string, handler: CommandHandler): void {
@@ -69,19 +122,89 @@ export class CommandRuntime {
     return Object.freeze([...this.#handlers.keys()].sort());
   }
 
-  execute(command: CommandEnvelope): readonly EventEnvelope[] {
+  execute(command: CommandEnvelope, options: CommandExecutionOptions = {}): readonly EventEnvelope[] {
     assertCommandEnvelope(command);
     const handler = this.#handlers.get(command.type);
     if (!handler) throw new Error(`No command handler registered for ${command.type}`);
+
+    const inboxReplay = this.#inbox.get(command.id);
+    if (inboxReplay) return inboxReplay;
+
     const dedupeKey = command.idempotencyKey ? `${command.type}:${command.idempotencyKey}` : undefined;
-    if (dedupeKey && this.#idempotency.has(dedupeKey)) return this.#idempotency.get(dedupeKey)!;
-    const drafts = handler(command);
-    const events = drafts.map((event) => {
-      assertEventEnvelope(event, command);
-      return Object.freeze({ ...event, sequence: ++this.#sequence });
-    });
-    if (dedupeKey) this.#idempotency.set(dedupeKey, Object.freeze(events));
-    return Object.freeze(events);
+    if (dedupeKey) {
+      const replay = this.#idempotency.get(dedupeKey);
+      if (replay) {
+        this.#inbox.set(command.id, replay);
+        return replay;
+      }
+    }
+
+    const maxAttempts = assertRetryPolicy(options.retry);
+    const transactionId = options.transactionId === undefined
+      ? `tx:${command.id}`
+      : assertNonBlank(options.transactionId, "transactionId");
+
+    let lastError: unknown;
+    for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+      try {
+        throwIfCancelled(options.cancellation);
+        const context: CommandExecutionContext = options.cancellation
+          ? Object.freeze({ attempt, transactionId, cancellation: options.cancellation })
+          : Object.freeze({ attempt, transactionId });
+        const drafts = handler(command, context);
+        throwIfCancelled(options.cancellation);
+
+        for (const event of drafts) assertEventEnvelope(event, command);
+        const eventIds = new Set<string>();
+        const existingOutboxIds = new Set(this.#outbox.map((record) => record.event.id));
+        for (const event of drafts) {
+          if (eventIds.has(event.id) || existingOutboxIds.has(event.id)) throw new Error(`Duplicate event id: ${event.id}`);
+          eventIds.add(event.id);
+        }
+
+        const startingSequence = this.#sequence;
+        const events = Object.freeze(drafts.map((event, index) => Object.freeze({
+          ...event,
+          sequence: startingSequence + index + 1
+        })));
+        const outboxRecords = events.map((event) => Object.freeze({ event, transactionId, published: false }));
+
+        // Transaction boundary: sequence, inbox, idempotency, and outbox become visible together only after validation succeeds.
+        this.#sequence = startingSequence + events.length;
+        this.#inbox.set(command.id, events);
+        if (dedupeKey) this.#idempotency.set(dedupeKey, events);
+        this.#outbox.push(...outboxRecords);
+        return events;
+      } catch (error) {
+        lastError = error;
+        if (error instanceof CommandCancelledError) break;
+        const retryAllowed = options.retry?.shouldRetry?.(error, attempt) ?? true;
+        if (attempt >= maxAttempts || !retryAllowed) break;
+      }
+    }
+
+    if (options.compensate) options.compensate(command, lastError, maxAttempts);
+    throw lastError;
+  }
+
+  inboxHas(commandId: string): boolean {
+    assertNonBlank(commandId, "command id");
+    return this.#inbox.has(commandId);
+  }
+
+  pendingOutbox(): readonly OutboxRecord[] {
+    return Object.freeze(this.#outbox.filter((record) => !record.published));
+  }
+
+  acknowledgeOutbox(eventId: string): OutboxRecord {
+    assertNonBlank(eventId, "event id");
+    const index = this.#outbox.findIndex((record) => record.event.id === eventId);
+    if (index < 0) throw new Error(`Unknown outbox event: ${eventId}`);
+    const current = this.#outbox[index]!;
+    if (current.published) return current;
+    const next = Object.freeze({ ...current, published: true });
+    this.#outbox[index] = next;
+    return next;
   }
 }
 
@@ -98,5 +221,78 @@ export class StateMachine<S extends string> {
     const match = this.#transitions.find((transition) => transition.from === current && transition.event === event);
     if (!match) throw new Error(`Invalid state transition: ${current} --${event}--> ?`);
     return match.to;
+  }
+}
+
+export interface WorkflowStep<TContext> {
+  readonly key: string;
+  readonly run: (context: TContext, attempt: number) => void;
+  readonly retry?: RetryPolicy;
+  readonly compensate?: (context: TContext, cause: unknown) => void;
+}
+
+export interface WorkflowDefinition<TContext> {
+  readonly id: string;
+  readonly correlationId: string;
+  readonly steps: readonly WorkflowStep<TContext>[];
+}
+
+export interface WorkflowExecutionResult {
+  readonly workflowId: string;
+  readonly correlationId: string;
+  readonly completedSteps: readonly string[];
+}
+
+export class WorkflowRuntime {
+  execute<TContext>(
+    workflow: WorkflowDefinition<TContext>,
+    context: TContext,
+    cancellation?: CancellationSignal
+  ): WorkflowExecutionResult {
+    assertNonBlank(workflow.id, "workflow id");
+    assertNonBlank(workflow.correlationId, "workflow correlationId");
+    if (workflow.steps.length === 0) throw new Error(`Workflow requires at least one step: ${workflow.id}`);
+
+    const seen = new Set<string>();
+    for (const step of workflow.steps) {
+      assertNonBlank(step.key, "workflow step key");
+      if (seen.has(step.key)) throw new Error(`Duplicate workflow step key: ${step.key}`);
+      seen.add(step.key);
+      assertRetryPolicy(step.retry);
+    }
+
+    const completed: WorkflowStep<TContext>[] = [];
+    try {
+      for (const step of workflow.steps) {
+        const maxAttempts = assertRetryPolicy(step.retry);
+        let stepCompleted = false;
+        let lastError: unknown;
+        for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+          try {
+            throwIfCancelled(cancellation);
+            step.run(context, attempt);
+            throwIfCancelled(cancellation);
+            stepCompleted = true;
+            break;
+          } catch (error) {
+            lastError = error;
+            if (error instanceof CommandCancelledError) break;
+            const retryAllowed = step.retry?.shouldRetry?.(error, attempt) ?? true;
+            if (attempt >= maxAttempts || !retryAllowed) break;
+          }
+        }
+        if (!stepCompleted) throw lastError;
+        completed.push(step);
+      }
+    } catch (error) {
+      for (const step of [...completed].reverse()) step.compensate?.(context, error);
+      throw error;
+    }
+
+    return Object.freeze({
+      workflowId: workflow.id,
+      correlationId: workflow.correlationId,
+      completedSteps: Object.freeze(completed.map((step) => step.key))
+    });
   }
 }
