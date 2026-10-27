@@ -1,0 +1,144 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P6_2_LOCAL_AND_SELF_HOSTED_AI_ROUTING",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05160": {
+      "requirement": "local AI",
+      "canonicalSourceIds": [
+        "P2-0066"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "Brain",
+        "AI provider/model routing",
+        "local AI routes"
+      ],
+      "owningPhases": [
+        "P6.2"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/brain/providers.ts#AiExecutionMode",
+        "clean-room/src/brain/providers.ts#AiModelRoute.executionMode",
+        "clean-room/src/brain/providers.ts#AiRouteRegistry.register",
+        "clean-room/src/brain/providers.ts#AiRouteRegistry.route",
+        "supabase/migrations/20261024141500_category6_ai_provider_routing.sql#command_center_ai_models.execution_mode",
+        "supabase/migrations/20261024141500_category6_ai_provider_routing.sql#command_center_brain_select_ai_route"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 preserves local and self-hosted execution modes through route selection"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 rejects unsupported execution modes and reports unavailable when local/self-hosted routes are ineligible"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 rejects unsupported execution modes and reports unavailable when local/self-hosted routes are ineligible"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40427603306 / job 121937169400 on exact head cf61a4b213264f62cda678c02f4f0137e262b8a1: current-authority validation, typecheck, Category 15 exact-head core QA/release gates passed; 1,146/1,146 module tests passed",
+        "P6.2 persists and returns the execution mode distinctly while applying capability, cost, privacy, health, quota, and enabled-state route eligibility",
+        "The route registry proves routing support only and does not claim that an inference engine/server is provisioned or invoked"
+      ],
+      "evidenceVersion": "git:cf61a4b213264f62cda678c02f4f0137e262b8a1; ci:40427603306",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head cf61a4b213264f62cda678c02f4f0137e262b8a1",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "local execution-mode route with privacy eligibility and tested selection/failure behavior; no claim that a local inference engine has been installed or invoked"
+    },
+    "CCR-05161": {
+      "requirement": "self-hosted AI",
+      "canonicalSourceIds": [
+        "P2-0067"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "Brain",
+        "AI provider/model routing",
+        "self-hosted AI routes"
+      ],
+      "owningPhases": [
+        "P6.2"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/brain/providers.ts#AiExecutionMode",
+        "clean-room/src/brain/providers.ts#AiModelRoute.executionMode",
+        "clean-room/src/brain/providers.ts#AiRouteRegistry.register",
+        "clean-room/src/brain/providers.ts#AiRouteRegistry.route",
+        "supabase/migrations/20261024141500_category6_ai_provider_routing.sql#command_center_ai_models.execution_mode",
+        "supabase/migrations/20261024141500_category6_ai_provider_routing.sql#command_center_brain_select_ai_route"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 preserves local and self-hosted execution modes through route selection"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 rejects unsupported execution modes and reports unavailable when local/self-hosted routes are ineligible"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 rejects unsupported execution modes and reports unavailable when local/self-hosted routes are ineligible"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40427603306 / job 121937169400 on exact head cf61a4b213264f62cda678c02f4f0137e262b8a1: current-authority validation, typecheck, Category 15 exact-head core QA/release gates passed; 1,146/1,146 module tests passed",
+        "P6.2 persists and returns the execution mode distinctly while applying capability, cost, privacy, health, quota, and enabled-state route eligibility",
+        "The route registry proves routing support only and does not claim that an inference engine/server is provisioned or invoked"
+      ],
+      "evidenceVersion": "git:cf61a4b213264f62cda678c02f4f0137e262b8a1; ci:40427603306",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head cf61a4b213264f62cda678c02f4f0137e262b8a1",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "self_hosted execution-mode route with policy eligibility and tested selection/failure behavior; no claim that a self-hosted inference server has been provisioned or invoked"
+    }
+  }
+}
