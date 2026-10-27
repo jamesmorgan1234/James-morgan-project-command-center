@@ -47,6 +47,17 @@ test("P9.7 authorization is exact across owner kind provider accounts amount has
  for(const changed of changes) assert.throws(()=>authorizeFinancialActionExecution(intent,changed,context),/(scope does not exactly match|reference does not match)/i);
 });
 
+
+test("P9.7 money-moving actions require explicit positive amount scope",()=>{
+ for(const kind of ["transfer","payment","trade","purchase"]) {
+  assert.throws(()=>authorizeFinancialActionExecution({...intent,kind,amountCents:undefined},{...grant,actionKind:kind,amountCents:undefined},context),/requires exact amount scope/i);
+ }
+});
+
+test("P9.7 fresh authorization cannot predate its exact action intent",()=>{
+ assert.throws(()=>authorizeFinancialActionExecution(intent,{...grant,authorizedAt:"2026-10-26T13:59:00Z"},context),/cannot predate its exact action intent/i);
+});
+
 test("P9.7 durable protected action records are immutable owner-scoped one-time and receipt-backed",()=>{
  const sql=readFileSync(new URL("../../supabase/migrations/20261026105000_p9_7_protected_financial_actions.sql",import.meta.url),"utf8");
  assert.match(sql,/command_center_finance_action_intent_history/i); assert.match(sql,/command_center_finance_action_authorization_history/i); assert.match(sql,/command_center_finance_action_execution_history/i);

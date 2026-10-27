@@ -1,5 +1,7 @@
 export type FinancialActionKind = "transfer" | "payment" | "trade" | "open_account" | "close_account" | "change_autopay" | "cancel_subscription" | "purchase" | "account_change";
 
+const AMOUNT_SCOPED_FINANCIAL_ACTIONS: readonly FinancialActionKind[] = ["transfer", "payment", "trade", "purchase"];
+
 export interface FinancialActionIntent {
   readonly id: string;
   readonly ownerId: string;
@@ -16,6 +18,7 @@ export function assertFinancialActionAuthorized(intent: FinancialActionIntent): 
   if (intent.accountRefs.length === 0) throw new Error("Financial action requires scoped account references");
   if (!intent.providerHealthVerified) throw new Error("Financial provider health must be verified immediately before action");
   if (!intent.duplicateSideEffectChecked) throw new Error("Financial duplicate-side-effect reconciliation is required");
+  if (AMOUNT_SCOPED_FINANCIAL_ACTIONS.includes(intent.kind) && intent.amountCents === undefined) throw new Error("Money-moving financial action requires exact amount scope");
   if (intent.amountCents !== undefined && (!Number.isSafeInteger(intent.amountCents) || intent.amountCents <= 0)) throw new Error("Financial action amount must be positive safe cents");
 }
 
@@ -85,6 +88,7 @@ export function authorizeFinancialActionExecution(intent: ScopedFinancialActionI
   const healthAt = time(context.providerHealthObservedAt, "Financial provider health observedAt");
   if (!Number.isSafeInteger(context.maxProviderHealthAgeMs) || context.maxProviderHealthAgeMs < 0) throw new Error("Financial provider health age policy is invalid");
   if (createdAt > now || authorizedAt > now) throw new Error("Financial action/authorization cannot originate in the future");
+  if (authorizedAt < createdAt) throw new Error("Financial authorization cannot predate its exact action intent");
   if (expiresAt <= now) throw new Error("Financial authorization is stale or expired");
   if (authorizedAt > expiresAt) throw new Error("Financial authorization lifetime is invalid");
   if (grant.consumed) throw new Error("Financial one-time authorization has already been consumed");
