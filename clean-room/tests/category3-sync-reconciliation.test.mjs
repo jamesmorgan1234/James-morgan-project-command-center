@@ -48,6 +48,12 @@ test("conflict resolution records evidence without mutating canonical truth", ()
   assert.match(sql, /'canonical_mutated',false/i);
 });
 
+test("P3.6 conflict resolution rejects missing or already-resolved conflicts", () => {
+  assert.match(sql, /if not found then raise exception 'Sync conflict not found'/i);
+  assert.match(sql, /if c\.state<>'pending' then raise exception 'Sync conflict is already resolved'/i);
+  assert.match(sql, /p_resolution not in \('keep_local','rebuild_required'\) or coalesce\(btrim\(p_resolution_ref\),''\)=''/i);
+});
+
 test("sync evidence is owner-readable but directly immutable to browser roles", () => {
   assert.match(sql, /revoke all on table public\.%I from public, anon, authenticated/i);
   assert.match(sql, /grant select on table public\.%I to authenticated/i);
