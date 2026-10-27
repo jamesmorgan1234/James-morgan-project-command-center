@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P3_8_HISTORICAL_STATE_INVENTORY_AND_REPLAY_SAFE_IMPORT",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05191": {
+      "requirement": "historical-state inventory",
+      "canonicalSourceIds": [
+        "P2-0097"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "historical conversation export",
+        "complete historical conversation and message-node inventory"
+      ],
+      "owningPhases": [
+        "P3.8"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/data/historical-export.ts#stageChatExport",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_historical_conversations",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_historical_message_nodes",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_stage_historical_export"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: historical export staging preserves every mapping node, branch point, and project-container identity"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/rev3-categorized-gap-closure.test.mjs :: CCR-05847 historical export adapter stages supported exports, redacts by policy, and rejects malformed batches"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-historical-staging-persistence.test.mjs :: P3.8 replayed batches and duplicate conversation IDs fail before inventory is accepted"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40428910861 on exact head 80e6613c1c69a1a6672d5334099108ea57fa2a68: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate implementation and tests",
+        "P3.8 staging retains every mapping node, branch point, and project-container identity with counts, provenance, batch identity, and read-only owner scope.",
+        "Historical material is inventoried in staging only; no canonical project creation or activation is claimed"
+      ],
+      "evidenceVersion": "git:80e6613c1c69a1a6672d5334099108ea57fa2a68; ci:40428910861",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 80e6613c1c69a1a6672d5334099108ea57fa2a68",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P3.8 inventories exported historical conversation state and preserves graph/container boundaries in staging; it does not assert that all other historical data domains are inventoried."
+    },
+    "CCR-05206": {
+      "requirement": "replay-safe import",
+      "canonicalSourceIds": [
+        "P2-0113"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "historical conversation export",
+        "replay-safe historical import batches"
+      ],
+      "owningPhases": [
+        "P3.8"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/data/historical-export.ts#stageChatExport",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_historical_conversations",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_historical_message_nodes",
+        "supabase/migrations/20261024120000_category3_historical_export_staging.sql#command_center_stage_historical_export"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-historical-staging-persistence.test.mjs :: P3.8 historical export staging persists inventory without canonical activation"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/rev3-categorized-gap-closure.test.mjs :: CCR-05847 historical export adapter stages supported exports, redacts by policy, and rejects malformed batches"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category3-historical-staging-persistence.test.mjs :: P3.8 replayed batches and duplicate conversation IDs fail before inventory is accepted"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40428910861 on exact head 80e6613c1c69a1a6672d5334099108ea57fa2a68: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate implementation and tests",
+        "A duplicate batch is rejected and duplicate conversation identities cannot be inserted into the same historical batch, preventing replay from silently duplicating the inventory.",
+        "Historical material is inventoried in staging only; no canonical project creation or activation is claimed"
+      ],
+      "evidenceVersion": "git:80e6613c1c69a1a6672d5334099108ea57fa2a68; ci:40428910861",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 80e6613c1c69a1a6672d5334099108ea57fa2a68",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Duplicate historical batches fail closed before inventory mutation; duplicate conversation IDs are rejected. This is staging-level replay protection, not end-to-end activation/reconciliation proof."
+    }
+  }
+}
