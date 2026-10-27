@@ -1,5 +1,5 @@
 import { parseTimestamp } from "../security/types.js";
-import type { TruthValue } from "./canonical.js";
+import { parseTruthValue, type TruthValue } from "./canonical.js";
 
 export type KnowledgeKind = "owner_stated" | "verified" | "calculated" | "inferred" | "generated" | "historical";
 export type KnowledgeState = "current" | "conflicting" | "superseded";
@@ -26,7 +26,11 @@ export class KnowledgeLedger<T> {
     if (!claim.id.trim() || !claim.subjectId.trim()) throw new Error("Knowledge claim identity fields are required");
     if (!Number.isSafeInteger(claim.version) || claim.version < 1) throw new Error("Knowledge claim version must be positive");
     if (claim.confidence < 0 || claim.confidence > 1 || !Number.isFinite(claim.confidence)) throw new Error("Knowledge confidence must be between 0 and 1");
-    if (claim.sourceRefs.length === 0 || new Set(claim.sourceRefs).size !== claim.sourceRefs.length) throw new Error("Knowledge claim requires unique provenance sourceRefs");
+    if (claim.sourceRefs.length === 0 || claim.sourceRefs.some((ref) => !ref.trim()) || new Set(claim.sourceRefs).size !== claim.sourceRefs.length) throw new Error("Knowledge claim requires unique nonblank provenance sourceRefs");
+    if (!["owner_stated", "verified", "calculated", "inferred", "generated", "historical"].includes(claim.kind)) throw new Error("Unsupported knowledge kind");
+    if (!["current", "conflicting", "superseded"].includes(claim.state)) throw new Error("Unsupported knowledge state");
+    const value = parseTruthValue(claim.value, (item) => item as T);
+    if (claim.kind === "inferred" && claim.confidence === 1) throw new Error("Inferred knowledge cannot claim certainty");
     parseTimestamp(claim.observedAt, "observedAt");
     parseTimestamp(claim.recordedAt, "recordedAt");
     if (claim.staleAfter) parseTimestamp(claim.staleAfter, "staleAfter");
@@ -40,8 +44,7 @@ export class KnowledgeLedger<T> {
       this.#claims[currentIndex] = Object.freeze({ ...current, state: "superseded" as const });
     }
 
-    if (claim.kind === "inferred" && claim.confidence === 1) throw new Error("Inferred knowledge cannot claim certainty");
-    this.#claims.push(Object.freeze({ ...claim, sourceRefs: Object.freeze([...claim.sourceRefs]) }));
+    this.#claims.push(Object.freeze({ ...claim, value, sourceRefs: Object.freeze([...claim.sourceRefs]) }));
   }
 
   current(subjectId: string): KnowledgeClaim<T> | undefined { return this.#claims.find((claim) => claim.subjectId === subjectId && claim.state === "current"); }
