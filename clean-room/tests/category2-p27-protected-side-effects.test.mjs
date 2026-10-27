@@ -30,6 +30,7 @@ function buildHarness(lastVerifiedAt = "2026-10-23T18:04:30Z", authorizationExpi
     ownerId: "owner-1",
     deviceId: "dev_owner",
     projectId: "command-center",
+    environment: "production",
     scopes: ["protected:execute"],
     assurance: "passkey_uv",
     state: "active",
