@@ -142,7 +142,7 @@ export function validateSharedIntelligenceEnvelope<T>(
   if (!envelope.claim.id.trim()) throw new Error("Shared intelligence claim identity is required");
   parseIdentifier(envelope.claim.subjectId);
   if (!Number.isInteger(envelope.claim.version) || envelope.claim.version < 1) throw new Error("Invalid shared intelligence claim version");
-  if (envelope.claim.confidence < 0 || envelope.claim.confidence > 1) throw new Error("Invalid shared intelligence confidence");
+  if (!Number.isFinite(envelope.claim.confidence) || envelope.claim.confidence < 0 || envelope.claim.confidence > 1) throw new Error("Invalid shared intelligence confidence");
   assertNonBlankUnique(envelope.claim.sourceRefs, "Knowledge provenance");
   assertNonBlankUnique(envelope.evidenceIds, "Canonical evidence");
   for (const evidenceId of envelope.evidenceIds) assertIdentifierKind(evidenceId, "evidence");

@@ -45,6 +45,7 @@ export function createContextSnapshot(input: {
   readonly sources: readonly ContextSource[];
 }): ContextSnapshot {
   const now = Date.parse(input.createdAt);
+  if (!["internal", "sensitive", "protected"].includes(input.maxSensitivity)) throw new Error("Context exchange forbids secret or unsupported sensitivity ceilings");
   if (!Number.isFinite(now) || !input.id.trim() || !input.ownerId.trim() || !input.projectId.trim()) throw new Error("Context identity and creation timestamp are required");
   if (new Set(input.sources.map((source) => source.id)).size !== input.sources.length) throw new Error("Context source identities must be unique");
   const allowed = input.sources.filter((source) => {

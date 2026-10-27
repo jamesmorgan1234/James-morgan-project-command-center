@@ -43,6 +43,8 @@ function nonEmptyOptional(value: string | undefined, label: string): void {
 }
 
 export function validateSourceIdentity(source: SourceIdentity): SourceIdentity {
+  if (!["owner_authoritative", "verified_provider", "historical_evidence", "untrusted_external"].includes(source.trust) || !["data_only", "owner_statement_candidate"].includes(source.instructionPolicy) || !["active", "degraded", "unavailable", "tombstoned"].includes(source.lifecycle) || !["internal", "sensitive", "protected", "secret"].includes(source.sensitivity)) throw new Error("Unsupported source contract state");
+  if (source.scope.environment !== undefined && !["development", "test", "staging", "production"].includes(source.scope.environment)) throw new Error("Unsupported source environment");
   if (!source.id.startsWith("source:")) throw new Error(`Source id must start with source:: ${source.id}`);
   if (!source.providerKey.startsWith("provider:")) throw new Error(`Source providerKey must start with provider:: ${source.providerKey}`);
   if (!source.sourceType.trim() || !source.externalStableId.trim() || !source.scope.ownerId.trim() || !source.retentionClass.trim()) throw new Error("Source type/stable-id/owner/retention are required");
@@ -60,7 +62,7 @@ export function validateSourceIdentity(source: SourceIdentity): SourceIdentity {
 }
 
 function sourceUniqueKey(source: SourceIdentity): string {
-  return [source.providerKey, source.sourceType, source.externalStableId, source.scope.ownerId, source.scope.companyId ?? "-", source.scope.projectId ?? "-", source.scope.accountId ?? "-", source.scope.environment ?? "-"].join("|");
+  return JSON.stringify([source.providerKey, source.sourceType, source.externalStableId, source.scope.ownerId, source.scope.companyId ?? null, source.scope.projectId ?? null, source.scope.accountId ?? null, source.scope.environment ?? null]);
 }
 
 export class SourceRegistry {

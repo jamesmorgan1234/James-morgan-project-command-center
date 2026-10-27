@@ -5,7 +5,10 @@ export type TruthValue<T> =
   | Readonly<{ state: "unknown" }>
   | Readonly<{ state: "not_applicable" }>;
 
-export function known<T>(value: T): TruthValue<T> { return Object.freeze({ state: "known", value }); }
+export function known<T>(value: T): TruthValue<T> {
+  if (value == null) throw new Error("Known truth requires an explicit concrete value");
+  return Object.freeze({ state: "known", value: immutableJson(value) as T });
+}
 export function unknown<T>(): TruthValue<T> { return Object.freeze({ state: "unknown" }); }
 export function notApplicable<T>(): TruthValue<T> { return Object.freeze({ state: "not_applicable" }); }
 

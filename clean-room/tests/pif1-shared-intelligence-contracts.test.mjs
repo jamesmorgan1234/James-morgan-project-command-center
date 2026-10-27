@@ -101,3 +101,7 @@ test("PIF.1 storage extends command_center_knowledge_claims instead of creating 
   assert.match(sql, /command_center_append_shared_intelligence_claim/i);
   assert.match(sql, /command_center_append_knowledge_claim/i);
 });
+
+test('canonical shared knowledge rejects non-finite confidence at exchange boundary',()=>{
+ for(const confidence of [NaN,Infinity,-Infinity]) assert.throws(()=>validateSharedIntelligenceEnvelope(envelope({claim:{...envelope().claim,confidence}}),context), /confidence/);
+});

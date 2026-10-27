@@ -11,3 +11,6 @@ test('context cannot broaden company account environment or purpose scope by omi
  assert.throws(()=>{result.sources[0].value.nested.zero=2;},TypeError);
  assert.equal(createContextSnapshot({...input,companyId:'company',sources:[{...source,companyId:'company'}]}).sources.length,1);
 });
+test('context exchange ceiling cannot permit secret material',()=>{
+ assert.throws(()=>createContextSnapshot({id:'snapshot',ownerId:'owner',projectId:'project',createdAt:'2026-10-27T00:00:00Z',maxSensitivity:'secret',sources:[]}), /forbids secret/);
+});

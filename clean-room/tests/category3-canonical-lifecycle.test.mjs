@@ -56,3 +56,10 @@ test('canonical records own immutable JSON snapshots and failed serialization le
     assert.equal(store.get(entity.id).version,1);
   }
 });
+
+test('known truth owns immutable concrete values without collapsing false or zero', async()=>{
+ const {known}=await import('../dist/data/index.js');const value={nested:{amount:0}};const truth=known(value);value.nested.amount=10;
+ assert.equal(truth.value.nested.amount,0);assert.throws(()=>{truth.value.nested.amount=20;},TypeError);
+ assert.deepEqual(known(false),{state:'known',value:false});
+ for(const value of [undefined,null,NaN,Infinity]) assert.throws(()=>known(value));
+});
