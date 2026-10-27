@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P6_2_DETERMINISTIC_AI_FALLBACK_MODELS",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05447": {
+      "requirement": "fallback models",
+      "canonicalSourceIds": [
+        "P2-0379"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "Brain",
+        "AI provider/model routing",
+        "deterministic fallback routes"
+      ],
+      "owningPhases": [
+        "P6.2"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3",
+        "C5"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "supabase/migrations/20261024141500_category6_ai_provider_routing.sql#command_center_brain_select_ai_route",
+        "supabase/migrations/20261024152200_category6_ai_routing_deterministic_fallbacks.sql#command_center_brain_select_ai_route"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 fallback models use the same eligibility filters and deterministic policy order"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 fallback models use the same eligibility filters and deterministic policy order"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category6-ai-provider-routing.test.mjs :: P6.2 leaves fallback models empty when no eligible primary route exists"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40428177057 on exact head 6c5f0c0b77270aa1f8a9a284f6ad15fcc67e3524: Category 15 exact-head core QA/release gates validate the changed fallback-policy tests",
+        "The migration ranks up to five distinct fallback routes using the same capability, payment, privacy, provider-health, model-health, quota, and deterministic ordering constraints as primary selection",
+        "Tests inspect the migration contract and no-eligible-route behavior; no claim is made that the database migration was deployed or executed against a live database"
+      ],
+      "evidenceVersion": "git:6c5f0c0b77270aa1f8a9a284f6ad15fcc67e3524; ci:40428177057",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 6c5f0c0b77270aa1f8a9a284f6ad15fcc67e3524",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "Deterministic fallback route selection is implemented in the P6.2 SQL function with policy parity and a bounded five-route list. Test coverage validates source contracts, including no fallback output when no eligible primary exists; live database deployment/execution is outside this claim."
+    }
+  }
+}
