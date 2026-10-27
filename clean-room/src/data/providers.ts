@@ -50,6 +50,8 @@ export class ProviderRegistry {
   get(key: string): ProviderContract | undefined { return this.#providers.get(key); }
 
   #validate(provider: ProviderContract): void {
+    if (typeof provider.enabled !== "boolean" || !["none", "oauth", "api_key_ref", "session", "passkey", "custom_ref"].includes(provider.authMode) || !["free", "paid", "unknown"].includes(provider.cost) || !["available", "degraded", "unavailable", "unconfigured"].includes(provider.health) || !["none", "source", "tool_result", "live_verified"].includes(provider.verification) || !["fail_closed", "read_only", "degraded"].includes(provider.failureMode)) throw new Error("Unsupported provider contract state");
+    if (!provider.key.slice("provider:".length).trim() || provider.capabilities.some((item) => !item.trim()) || provider.scopes.some((item) => !item.trim())) throw new Error("Provider identity capabilities and scopes must be nonblank");
     if (!provider.key.startsWith("provider:")) throw new Error(`Provider key must start with provider:: ${provider.key}`);
     if (!Number.isSafeInteger(provider.version) || provider.version < 1) throw new Error("Provider version must be positive");
     if (!Number.isFinite(provider.freshnessSeconds) || provider.freshnessSeconds < 0) throw new Error("Provider freshnessSeconds must be non-negative");
