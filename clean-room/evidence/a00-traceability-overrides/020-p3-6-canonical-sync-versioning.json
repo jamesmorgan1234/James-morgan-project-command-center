@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "cc-p15.1-a00-traceability-override-fragment-v1",
+  "scope": "HISTORICAL_A00_ONLY",
+  "cluster": "P3_6_CANONICAL_SYNC_VERSION_TRACKING",
+  "sourceAuthoritySha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+  "rowOverrides": {
+    "CCR-05249": {
+      "requirement": "version",
+      "canonicalSourceIds": [
+        "P2-0160"
+      ],
+      "canonicalSourceFiles": [
+        "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md"
+      ],
+      "classification": "GOVERNANCE / STANDARD",
+      "applicableCompaniesOrCapabilities": [
+        "Command Center",
+        "P3.6 synchronization reconciliation",
+        "canonical data version tracking"
+      ],
+      "owningPhases": [
+        "P3.6"
+      ],
+      "dependencies": [
+        "C1",
+        "C2",
+        "C3"
+      ],
+      "dependenciesVerified": true,
+      "implementationLocations": [
+        "clean-room/src/data/sync.ts#reconcileSync",
+        "supabase/migrations/20261024113000_category3_sync_reconciliation.sql#command_center_sync_apply_entity",
+        "supabase/migrations/20261024113000_category3_sync_reconciliation.sql#command_center_canonical_entity_versions"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 stale-record detection preserves current truth and ignores an exact replay",
+            "clean-room/tests/category3-sync-reconciliation.test.mjs :: only the exact next version is applied transactionally after the row lock"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 stale-record detection preserves current truth and ignores an exact replay"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/data-platform-recovery.test.mjs :: P3.6 version gaps fail to reconciliation instead of overwriting canonical state"
+          ],
+          "justification": null
+        }
+      },
+      "evidence": [
+        "GitHub Actions run 40429765814 on exact head 1fd8654af8f2d2d3cadd5254b5c1bc7b522049f3: current-authority validation, typecheck, and Category 15 exact-head core QA/release gates validate the version and reconciliation tests",
+        "Synchronization versions are positive/monotonic: exact duplicates are ignored, only the next version is accepted, stale versions are rejected, and gaps require reconciliation",
+        "The claim is limited to the P3.6 canonical synchronization version contract; unrelated version domains and live database deployment are not claimed"
+      ],
+      "evidenceVersion": "git:1fd8654af8f2d2d3cadd5254b5c1bc7b522049f3; ci:40429765814",
+      "evidenceEnvironment": "GitHub Actions ubuntu-latest / Node 22; isolated branch build/spec-lock-v2-clean-room; exact head 1fd8654af8f2d2d3cadd5254b5c1bc7b522049f3",
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "justification": null,
+      "closureNotes": "P3.6 synchronization uses monotonic canonical versions and preserves current truth on stale/replay/gap inputs. This does not claim completion of version semantics in other domains or deployment to a live database."
+    }
+  }
+}
