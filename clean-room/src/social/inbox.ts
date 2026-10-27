@@ -1,3 +1,4 @@
+import {assertSecretChannelSafe,redactSecretText} from "../security/secret-channels.js";
 export interface ExternalMessage {
   readonly id: string;
   readonly accountId: string;
@@ -99,7 +100,7 @@ export interface CommunicationSendIntent {
   readonly replyContentHash: string;
   readonly authorizationRef: string;
   readonly idempotencyKey: string;
-  readonly sendAuthorized: true;
+  readonly sendAuthorized: false;
   readonly externalTextInstructionAuthority: "none";
 }
 
@@ -128,14 +129,15 @@ export class InboxMessageRegistry {
     if (receivedAt > observedAt) throw new Error("inbound message cannot be observed before it was received");
     const sourceRefs = refs(message.sourceRefs, "inbound message source refs");
     for (const sourceRef of sourceRefs) {
-      const existing = this.#bySource.get(`${message.ownerId}:${message.accountId}:${sourceRef}`);
+      const existing = this.#bySource.get(JSON.stringify([message.ownerId,message.accountId,sourceRef]));
       if (existing && existing !== message.id) throw new Error("provider message source is already bound to another canonical inbound message");
     }
     const current = this.#byId.get(message.id);
-    if (current && (current.ownerId !== message.ownerId || current.brandId !== message.brandId || current.accountId !== message.accountId || current.threadId !== message.threadId || current.contentHash !== message.contentHash)) throw new Error("canonical inbound message identity/content cannot be substituted");
-    const frozen = Object.freeze({ ...message, sourceRefs });
+    if (current && (current.ownerId !== message.ownerId || current.brandId !== message.brandId || current.accountId !== message.accountId || current.threadId !== message.threadId || current.contentHash !== message.contentHash || current.body !== message.body || current.platform !== message.platform || current.externalAuthorRef !== message.externalAuthorRef || current.receivedAt !== message.receivedAt)) throw new Error("canonical inbound message identity/content cannot be substituted");
+    if(current && Date.parse(message.observedAt)<Date.parse(current.observedAt))throw new Error("Inbound observation time cannot regress");
+    const frozen = Object.freeze({id:message.id,ownerId:message.ownerId,brandId:message.brandId,accountId:message.accountId,threadId:message.threadId,platform:message.platform,externalAuthorRef:message.externalAuthorRef,body:message.body,contentHash:message.contentHash,receivedAt:message.receivedAt,observedAt:message.observedAt,sourceRefs:Object.freeze([...new Set([...(current?.sourceRefs??[]),...sourceRefs])])});
     this.#byId.set(message.id, frozen);
-    for (const sourceRef of sourceRefs) this.#bySource.set(`${message.ownerId}:${message.accountId}:${sourceRef}`, message.id);
+    for (const sourceRef of sourceRefs) this.#bySource.set(JSON.stringify([message.ownerId,message.accountId,sourceRef]), message.id);
     return frozen;
   }
 }
@@ -150,7 +152,9 @@ export function assessInboundMessage(message: EvidenceBackedExternalMessage): Ev
 
 export function createEvidenceBackedReplyDraft(message: EvidenceBackedExternalMessage, input: Omit<EvidenceBackedReplyDraft, "ownerId" | "brandId" | "accountId" | "messageId" | "threadId" | "sendAuthorized">): EvidenceBackedReplyDraft {
   if (!input.id.trim() || !input.body.trim() || !input.contentHash.trim() || !Number.isSafeInteger(input.version) || input.version < 1) throw new Error("reply draft identity/version/body/content hash are required");
+  assertSecretChannelSafe("brain_memory",input);
   timestamp(input.createdAt, "reply draft createdAt");
+  if(Date.parse(input.createdAt)<Date.parse(message.receivedAt))throw new Error("Reply cannot predate inbound message");
   const provenanceRefs = refs(input.provenanceRefs, "reply draft provenance");
   return Object.freeze({ ...input, ownerId: message.ownerId, brandId: message.brandId, accountId: message.accountId, messageId: message.id, threadId: message.threadId, provenanceRefs, sendAuthorized: false as const });
 }
@@ -162,5 +166,8 @@ export function prepareCommunicationSendIntent(id: string, idempotencyKey: strin
   if (!id.trim() || !idempotencyKey.trim() || !authorization.authorizationRef.trim()) throw new Error("communication send intent/idempotency/authorization evidence is required");
   if (observedAt > nowMs || expiresAt <= nowMs || expiresAt <= observedAt) throw new Error("communication send authorization must be current and unexpired");
   if (authorization.ownerId !== draft.ownerId || authorization.accountId !== draft.accountId || authorization.replyDraftId !== draft.id || authorization.replyDraftVersion !== draft.version || authorization.replyContentHash !== draft.contentHash) throw new Error("communication authorization must bind the exact reply revision/content/account");
-  return Object.freeze({ id, ownerId: draft.ownerId, brandId: draft.brandId, accountId: draft.accountId, threadId: draft.threadId, replyDraftId: draft.id, replyDraftVersion: draft.version, replyContentHash: draft.contentHash, authorizationRef: authorization.authorizationRef, idempotencyKey, sendAuthorized: true as const, externalTextInstructionAuthority: "none" as const });
+  return Object.freeze({ id, ownerId: draft.ownerId, brandId: draft.brandId, accountId: draft.accountId, threadId: draft.threadId, replyDraftId: draft.id, replyDraftVersion: draft.version, replyContentHash: draft.contentHash, authorizationRef: authorization.authorizationRef, idempotencyKey, sendAuthorized: false as const, externalTextInstructionAuthority: "none" as const });
 }
+
+export function inboundCommunicationContext(message:EvidenceBackedExternalMessage){return Object.freeze({messageId:message.id,accountId:message.accountId,threadId:message.threadId,untrustedContent:redactSecretText(message.body),trust:"untrusted_external" as const,instructionAuthority:"none" as const,toolExecutionAllowed:false as const});}
+export async function socialReplyContentHash(d:EvidenceBackedReplyDraft):Promise<string>{const bytes=new TextEncoder().encode(JSON.stringify([d.ownerId,d.brandId,d.accountId,d.messageId,d.threadId,d.id,d.version,d.body,d.provenanceRefs]));const hash=await globalThis.crypto.subtle.digest("SHA-256",bytes);return "sha256:"+[...new Uint8Array(hash)].map(x=>x.toString(16).padStart(2,"0")).join("");}

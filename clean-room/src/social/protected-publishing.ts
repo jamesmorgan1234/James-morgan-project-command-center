@@ -34,8 +34,9 @@ export class SocialPublishGate {
   const profile=profiles.get(i.ownerId,i.profileKey);
   if(!profile.publishScope || !i.requiredScopes.includes(profile.publishScope))throw new Error("Exact provider publishing scope missing from current profile/intent");
   if(profile.version!==i.profileVersion || profile.platform!==identity.platform)throw new Error("Publish profile stale or wrong platform");
+  if(i.scheduledAt && profile.providerConstraints.schedulingSupported!==true)throw new Error("Current profile does not support scheduling");
   // Transformation approval must cover the exact bytes: changing content/disclosures requires a newly sealed approved draft.
-  const transformed=transformForProfile({caption:draft.body,mediaKind:draft.assetBindings.length ? draft.assetBindings[0]!.mediaKind??"unknown" : "text",disclosures:draft.disclosures??[],rightsEvidenceRefs:draft.rightsEvidenceRefs,metadata:{mediaCount:draft.assetBindings.length,...(draft.assetBindings[0]?.width!==undefined?{width:draft.assetBindings[0].width}:{}),...(draft.assetBindings[0]?.height!==undefined?{height:draft.assetBindings[0].height}:{}),...(i.scheduledAt?{scheduledAt:i.scheduledAt}:{})},now},profile,adapters);
+  const transformed=transformForProfile({caption:draft.body,mediaKind:draft.assetBindings.length ? draft.assetBindings[0]!.mediaKind??"unknown" : "text",disclosures:draft.disclosures??[],rightsEvidenceRefs:draft.rightsEvidenceRefs,metadata:{mediaCount:draft.assetBindings.length,...(draft.assetBindings[0]?.width!==undefined?{width:draft.assetBindings[0].width}:{}),...(draft.assetBindings[0]?.height!==undefined?{height:draft.assetBindings[0].height}:{}),},now},profile,adapters);
   if(transformed.caption!==draft.body || transformed.disclosures.some(d=>!draft.disclosures?.includes(d)))throw new Error("Transformed content requires new exact draft approval");
   if(!assessSocialConnectionForIdentity(connection,identity,i.requiredScopes,now,300_000).live)throw new Error("Publish connection not currently live");
   const binding=socialPublishAuthorizationBinding(i,identity),use={ownerId:i.ownerId,sessionId,action:"social.publish",authorizationIntentBinding:binding};
@@ -51,6 +52,7 @@ export class SocialPublishGate {
   if(result!=="reserved")return Object.freeze({dispatchAllowed:false as const,state:"reconciliation_required" as const});
   const finalNow=this.clock(); check(finalNow);
   if(!assessSocialConnectionForIdentity(this.liveConnection(i.accountId),identity,i.requiredScopes,finalNow,300_000).live)throw new Error("Publish connection lost before dispatch");
+  if(Date.parse(finalNow)-Date.parse(this.authorizations.assertUsable(i.authorizationRef,use,finalNow).issuedAt)>=300_000)throw new Error("Publish authorization became stale during persistence");
   this.authorizations.consume(i.authorizationRef,use,finalNow);
   this.ledger.startAttempt({attemptId:providerRequestRef,intentId:i.id,accountId:i.accountId,idempotencyKey:i.idempotencyKey,state:"submitted",providerRequestRef,observedAt:finalNow});
   return Object.freeze({dispatchAllowed:true as const,state:"reserved" as const,providerRequestRef});
