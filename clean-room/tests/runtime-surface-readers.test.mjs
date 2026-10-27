@@ -13,7 +13,7 @@ const observedAt = "2026-10-23T19:30:00.000Z";
 
 test("standard surface readers report registry facts without fabricating activity or balances", () => {
   const brainRoutes = new AiRouteRegistry();
-  brainRoutes.register({ key: "ai-route:free", providerKey: "provider:test", modelId: "model", versionRef: "v1", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 1, latencyRank: 1, quotaAvailable: true });
+  brainRoutes.register({ key: "ai-route:free", providerKey: "provider:test", modelId: "model", versionRef: "v1", executionMode: "local", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 1, latencyRank: 1, quotaAvailable: true });
 
   const agencyExecutors = new AgencyExecutorRegistry();
   agencyExecutors.register({ key: "executor:normal", version: 1, enabled: true, environments: ["normal_chat"], capabilities: ["build"], projectTypeKeys: [], permissionScopes: [], costClass: "free", health: "available", verificationStrategy: "independent", maxRisk: "high" });

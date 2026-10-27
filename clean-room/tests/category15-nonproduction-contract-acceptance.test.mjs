@@ -25,7 +25,7 @@ const NOW = "2026-10-23T23:50:00.000Z";
 
 test("P15.14 composes real clean-room contracts in isolated nonproduction state without production providers", () => {
   const brainRoutes = new AiRouteRegistry();
-  brainRoutes.register({ key: "ai-route:p15", providerKey: "provider:isolated", modelId: "isolated", versionRef: "v1", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 1, latencyRank: 1, quotaAvailable: true });
+  brainRoutes.register({ key: "ai-route:p15", providerKey: "provider:isolated", modelId: "isolated", versionRef: "v1", executionMode: "local", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 1, latencyRank: 1, quotaAvailable: true });
 
   const agencyExecutors = new AgencyExecutorRegistry();
   agencyExecutors.register({ key: "executor:p15", version: 1, enabled: true, environments: ["deterministic"], capabilities: ["verify"], projectTypeKeys: ["project-type:software"], permissionScopes: ["read:test"], costClass: "free", health: "available", verificationStrategy: "independent", maxRisk: "low" });

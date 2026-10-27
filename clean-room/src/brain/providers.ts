@@ -1,12 +1,14 @@
 export type AiCostClass = "free" | "paid" | "unknown";
 export type AiPrivacyClass = "local" | "private_remote" | "remote";
 export type AiHealth = "available" | "degraded" | "unavailable";
+export type AiExecutionMode = "local" | "self_hosted" | "remote" | "hybrid";
 
 export interface AiModelRoute {
   readonly key: string;
   readonly providerKey: string;
   readonly modelId: string;
   readonly versionRef: string;
+  readonly executionMode: AiExecutionMode;
   readonly enabled: boolean;
   readonly capabilities: readonly string[];
   readonly cost: AiCostClass;
@@ -31,6 +33,7 @@ export class AiRouteRegistry {
 
   register(route: AiModelRoute): void {
     if (!route.key.startsWith("ai-route:") || !route.providerKey.trim() || !route.modelId.trim() || !route.versionRef.trim()) throw new Error("AI route identity/provider/model/version are required");
+    if (!["local", "self_hosted", "remote", "hybrid"].includes(route.executionMode)) throw new Error("AI route execution mode is invalid");
     if (!Number.isFinite(route.qualityRank) || !Number.isFinite(route.latencyRank)) throw new Error("AI route ranks must be finite");
     if (this.#routes.has(route.key)) throw new Error(`AI route already exists: ${route.key}`);
     this.#routes.set(route.key, Object.freeze({ ...route, capabilities: Object.freeze([...route.capabilities]) }));

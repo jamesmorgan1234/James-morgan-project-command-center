@@ -30,8 +30,8 @@ test("Brain core separates intelligence output from canonical write authority", 
 
 test("AI routing preserves free-first/privacy/health and can replace providers", () => {
   const routes = new AiRouteRegistry();
-  routes.register({ key: "ai-route:local", providerKey: "local", modelId: "local-model", versionRef: "v1", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 5, latencyRank: 1, quotaAvailable: true });
-  routes.register({ key: "ai-route:paid", providerKey: "remote", modelId: "paid-model", versionRef: "v2", enabled: true, capabilities: ["reason"], cost: "paid", privacy: "remote", health: "available", qualityRank: 10, latencyRank: 2, quotaAvailable: true });
+  routes.register({ key: "ai-route:local", providerKey: "local", modelId: "local-model", versionRef: "v1", executionMode: "local", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "available", qualityRank: 5, latencyRank: 1, quotaAvailable: true });
+  routes.register({ key: "ai-route:paid", providerKey: "remote", modelId: "paid-model", versionRef: "v2", executionMode: "remote", enabled: true, capabilities: ["reason"], cost: "paid", privacy: "remote", health: "available", qualityRank: 10, latencyRank: 2, quotaAvailable: true });
   assert.equal(routes.route({ capability: "reason", allowPaid: false, maxPrivacy: "remote", preferQuality: true }).key, "ai-route:local");
   routes.remove("ai-route:local");
   assert.equal(routes.route({ capability: "reason", allowPaid: false, maxPrivacy: "remote", preferQuality: true }), undefined);

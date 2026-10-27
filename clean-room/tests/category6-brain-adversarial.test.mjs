@@ -49,8 +49,8 @@ test("P6.15 prompt-like protected instructions remain classified as requests, no
 
 test("P6.15 provider disagreement/outage degrades truthfully with privacy/free-first boundaries", () => {
   const routes = new AiRouteRegistry();
-  routes.register({ key: "ai-route:local", providerKey: "local", modelId: "m1", versionRef: "v1", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "degraded", qualityRank: 4, latencyRank: 1, quotaAvailable: true });
-  routes.register({ key: "ai-route:paid", providerKey: "remote", modelId: "m2", versionRef: "v1", enabled: true, capabilities: ["reason"], cost: "paid", privacy: "remote", health: "available", qualityRank: 10, latencyRank: 1, quotaAvailable: true });
+  routes.register({ key: "ai-route:local", providerKey: "local", modelId: "m1", versionRef: "v1", executionMode: "local", enabled: true, capabilities: ["reason"], cost: "free", privacy: "local", health: "degraded", qualityRank: 4, latencyRank: 1, quotaAvailable: true });
+  routes.register({ key: "ai-route:paid", providerKey: "remote", modelId: "m2", versionRef: "v1", executionMode: "remote", enabled: true, capabilities: ["reason"], cost: "paid", privacy: "remote", health: "available", qualityRank: 10, latencyRank: 1, quotaAvailable: true });
   assert.equal(routes.route({ capability: "reason", allowPaid: false, maxPrivacy: "remote", preferQuality: true }).key, "ai-route:local");
   routes.remove("ai-route:local");
   assert.equal(routes.route({ capability: "reason", allowPaid: false, maxPrivacy: "remote", preferQuality: true }), undefined);
