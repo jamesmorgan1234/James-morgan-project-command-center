@@ -2,6 +2,7 @@ export * from "./registry.js";
 export * from "./assets.js";
 export * from "./qa.js";
 export * from "./metadata.js";
+export * from "./publication-metadata.js";
 export * from "./approvals.js";
 export * from "./publication.js";
 export * from "./providers.js";
