@@ -10,5 +10,6 @@ export * from "./publication-lifecycle.js";
 export * from "./providers.js";
 export * from "./provider-connection.js";
 export * from "./performance.js";
+export * from "./performance-truth.js";
 export * from "./boundaries.js";
 export * from "./recovery.js";

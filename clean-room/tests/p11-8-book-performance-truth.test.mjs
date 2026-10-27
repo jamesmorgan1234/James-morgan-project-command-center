@@ -1,0 +1,10 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {metricValueOrUnknown,reconcileBookPerformanceRecords,verifiedMetricZero} from "../dist/books/index.js";
+const r=(o={})=>({id:"m1",ownerId:"o1",projectId:"p1",bookId:"b1",edition:"first",format:"kindle",providerKey:"kdp",marketplace:"US",metric:"royalties",value:12.5,currency:"USD",truth:"confirmed",periodStart:"2026-10-01T00:00:00Z",periodEnd:"2026-10-02T00:00:00Z",source:"provider report",sourceDate:"2026-10-02T01:00:00Z",observedAt:"2026-10-02T02:00:00Z",freshness:"fresh",reconciliation:"reconciled",providerRecordRef:"row:1",sourceRefs:["report:1"],...o});
+test("P11.8 unknown remains unknown and verified zero remains zero",()=>{assert.equal(metricValueOrUnknown(r({value:null})),null);assert.equal(verifiedMetricZero(r({value:0})),true);});
+test("P11.8 dedupe prevents double counting imported provider rows",()=>{assert.throws(()=>reconcileBookPerformanceRecords([r(),r({id:"m2"})]),/double count/i);assert.equal(reconcileBookPerformanceRecords([r(),r()]).length,1);});
+test("P11.8 estimated/disputed/adjusted truth and exact edition/provider/marketplace scope validate",()=>{for(const truth of ["projected","estimated","confirmed","disputed","adjusted"])assert.doesNotThrow(()=>reconcileBookPerformanceRecords([r({truth,id:`m:${truth}`,providerRecordRef:`row:${truth}`})]));});
+test("P11.8 settled values require settlement evidence",()=>{assert.throws(()=>reconcileBookPerformanceRecords([r({truth:"settled"})]),/settlement evidence/i);});
+test("P11.8 durable metrics preserve source date reconciliation and truth",()=>{const sql=readFileSync(new URL("../../supabase/migrations/20261027235000_p11_8_book_performance_truth.sql",import.meta.url),"utf8");assert.match(sql,/estimated/);assert.match(sql,/disputed/);assert.match(sql,/marketplace text/i);assert.match(sql,/source_date timestamptz/i);assert.match(sql,/reconciliation text/i);assert.match(sql,/book performance evidence is immutable/i);});
