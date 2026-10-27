@@ -72,9 +72,10 @@ export function validateLifecycleVocabularySchema(): true {
   const vocabularyVersion: number = LIFECYCLE_VOCABULARY_VERSION;
   if (!Number.isSafeInteger(vocabularyVersion) || vocabularyVersion < 1) throw new Error("Lifecycle vocabulary version must be a positive safe integer");
   for (const [label, vocabulary] of Object.entries(P1_1_REQUIRED_LIFECYCLE_VOCABULARIES)) {
-    if (vocabulary.length === 0) throw new Error(`P1.1 lifecycle vocabulary is empty: ${label}`);
-    if (new Set(vocabulary).size !== vocabulary.length) throw new Error(`P1.1 lifecycle vocabulary contains duplicates: ${label}`);
-    if (vocabulary.some((state) => !state.trim())) throw new Error(`P1.1 lifecycle vocabulary contains a blank state: ${label}`);
+    const states = vocabulary as readonly string[];
+    if (states.length === 0) throw new Error(`P1.1 lifecycle vocabulary is empty: ${label}`);
+    if (new Set(states).size !== states.length) throw new Error(`P1.1 lifecycle vocabulary contains duplicates: ${label}`);
+    if (states.some((state) => !state.trim())) throw new Error(`P1.1 lifecycle vocabulary contains a blank state: ${label}`);
   }
   return true;
 }
