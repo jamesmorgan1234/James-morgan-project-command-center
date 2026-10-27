@@ -22,6 +22,7 @@ export interface AuthSessionRecord {
   readonly lockedAt?: string;
   readonly revokedAt?: string;
   readonly revocationReason?: string;
+  readonly riskDetectedAt?: string;
 }
 
 export interface AuthProviderSignInRequest {
@@ -81,7 +82,8 @@ function latestSessionEventMs(session: AuthSessionRecord): number {
     parseTimestamp(session.lastValidatedAt, "lastValidatedAt"),
     session.lastVerifiedAt ? parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt") : Number.NEGATIVE_INFINITY,
     session.lockedAt ? parseTimestamp(session.lockedAt, "lockedAt") : Number.NEGATIVE_INFINITY,
-    session.revokedAt ? parseTimestamp(session.revokedAt, "revokedAt") : Number.NEGATIVE_INFINITY
+    session.revokedAt ? parseTimestamp(session.revokedAt, "revokedAt") : Number.NEGATIVE_INFINITY,
+    session.riskDetectedAt ? parseTimestamp(session.riskDetectedAt, "riskDetectedAt") : Number.NEGATIVE_INFINITY
   );
 }
 
@@ -106,10 +108,12 @@ function assertSessionShape(session: AuthSessionRecord): void {
   const expires = parseTimestamp(session.expiresAt, "expiresAt");
   const lastValidated = parseTimestamp(session.lastValidatedAt, "lastValidatedAt");
   const lastVerified = session.lastVerifiedAt ? parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt") : undefined;
+  const riskDetected = session.riskDetectedAt ? parseTimestamp(session.riskDetectedAt, "riskDetectedAt") : undefined;
   if (expires <= created) throw new Error("Session expiresAt must be after createdAt");
   if (lastValidated < created) throw new Error("Session lastValidatedAt cannot be before createdAt");
   if (lastValidated >= expires) throw new Error("Session lastValidatedAt must be before expiresAt");
   if (lastVerified !== undefined && (lastVerified < created || lastVerified > lastValidated)) throw new Error("Session lastVerifiedAt must be between createdAt and lastValidatedAt");
+  if (riskDetected !== undefined && riskDetected < created) throw new Error("Session riskDetectedAt cannot be before createdAt");
   if (new Set(session.scopes).size !== session.scopes.length) throw new Error("Session scopes must be unique");
   if (session.policyEpoch !== undefined && (!Number.isSafeInteger(session.policyEpoch) || session.policyEpoch < 1)) throw new Error("policyEpoch must be a positive safe integer");
 }
@@ -134,6 +138,7 @@ export class AuthSessionStore {
     if (nowMs < parseTimestamp(current.lastValidatedAt, "lastValidatedAt")) throw new Error(`Session validation time cannot move backward: ${id}`);
     if (current.state === "revoked") throw new Error(`Session revoked: ${id}`);
     if (current.state === "locked") throw new Error(`Session locked: ${id}`);
+    if (current.riskDetectedAt) throw new Error(`Session risky: ${id}`);
     if (current.state === "expired" || nowMs >= parseTimestamp(current.expiresAt, "expiresAt")) {
       const expired = Object.freeze({ ...current, state: "expired" as const, lastValidatedAt: now });
       this.#sessions.set(id, expired);
@@ -147,9 +152,31 @@ export class AuthSessionStore {
   recordVerification(id: string, assurance: AssuranceLevel, verifiedAt: string): AuthSessionRecord {
     const current = this.#required(id);
     if (current.state !== "active") throw new Error(`Cannot verify non-active session: ${id}`);
+    if (current.riskDetectedAt) throw new Error(`Cannot verify risky session without risk clearance: ${id}`);
     assertForwardLifecycleTimestamp(current, verifiedAt, "verifiedAt");
     if (!assuranceAtLeast(assurance, current.assurance)) throw new Error("Verification cannot lower session assurance");
     const updated = Object.freeze({ ...current, assurance, lastVerifiedAt: verifiedAt, lastValidatedAt: verifiedAt });
+    this.#sessions.set(id, updated);
+    return updated;
+  }
+
+  markRisky(id: string, detectedAt: string): AuthSessionRecord {
+    const current = this.#required(id);
+    if (current.state === "revoked" || current.state === "expired") throw new Error(`Cannot mark terminal session risky: ${id}`);
+    assertForwardLifecycleTimestamp(current, detectedAt, "detectedAt");
+    const updated = Object.freeze({ ...current, riskDetectedAt: detectedAt });
+    this.#sessions.set(id, updated);
+    return updated;
+  }
+
+  clearRisk(id: string, assurance: AssuranceLevel, verifiedAt: string): AuthSessionRecord {
+    const current = this.#required(id);
+    if (current.state !== "active") throw new Error(`Cannot clear risk on non-active session: ${id}`);
+    if (!current.riskDetectedAt) throw new Error(`Session is not risky: ${id}`);
+    if (!assuranceAtLeast(assurance, "passkey_uv")) throw new Error("Risk clearance requires passkey user verification or stronger");
+    assertForwardLifecycleTimestamp(current, verifiedAt, "verifiedAt");
+    const { riskDetectedAt: _riskDetectedAt, ...rest } = current;
+    const updated = Object.freeze({ ...rest, assurance, lastVerifiedAt: verifiedAt, lastValidatedAt: verifiedAt });
     this.#sessions.set(id, updated);
     return updated;
   }
