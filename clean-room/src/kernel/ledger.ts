@@ -1,5 +1,7 @@
 export type LedgerEntryState = "current" | "superseded" | "revoked" | "unresolved_conflict";
 
+const LEDGER_ENTRY_STATES = new Set<LedgerEntryState>(["current", "superseded", "revoked", "unresolved_conflict"]);
+
 export interface LedgerEntry<T> {
   readonly id: string;
   readonly version: number;
@@ -18,6 +20,7 @@ export type LedgerRecord<T> = Omit<LedgerEntry<T>, "precedence" | "conflictsWith
   readonly precedence: number;
   readonly conflictsWith: readonly string[];
   readonly resolvedBy?: string;
+  readonly revokedBy?: string;
 };
 
 function assertNonEmpty(value: string, label: string): void {
@@ -32,6 +35,7 @@ function normalizeEntry<T>(entry: LedgerEntry<T>): LedgerRecord<T> {
   assertNonEmpty(entry.id, "Ledger id");
   assertNonEmpty(entry.scope, "Ledger scope");
   assertNonEmpty(entry.sourceRef, "Ledger sourceRef");
+  if (!LEDGER_ENTRY_STATES.has(entry.state)) throw new Error(`Invalid ledger state for ${entry.id}: ${String(entry.state)}`);
   if (!Number.isSafeInteger(entry.version) || entry.version < 1) throw new Error(`Invalid ledger version for ${entry.id}`);
   assertTimestamp(entry.effectiveAt, "Ledger effectiveAt");
   const precedence = entry.precedence ?? 0;
@@ -67,6 +71,7 @@ export class VersionedLedger<T> {
       if (current && normalized.supersedes !== current.id) throw new Error(`New current entry ${normalized.id} must explicitly supersede ${current.id}`);
       if (current && normalized.version <= current.version) throw new Error(`New current ledger version must advance for scope ${normalized.scope}`);
       if (current && normalized.precedence < current.precedence) throw new Error(`New current ledger precedence cannot decrease for scope ${normalized.scope}`);
+      if (current && Date.parse(normalized.effectiveAt) < Date.parse(current.effectiveAt)) throw new Error(`New current ledger effectiveAt cannot move backward for scope ${normalized.scope}`);
       if (current) {
         const index = this.#entries.findIndex((existing) => existing.id === current.id);
         this.#entries[index] = Object.freeze({ ...current, state: "superseded" as const });
@@ -96,8 +101,31 @@ export class VersionedLedger<T> {
     return appended;
   }
 
+  revokeCurrent(entry: Omit<LedgerEntry<T>, "state"> & { readonly resolutionReason: string }): LedgerRecord<T> {
+    const current = this.current(entry.scope);
+    if (!current) throw new Error(`No current ledger entry to revoke for scope ${entry.scope}`);
+    if (entry.supersedes !== current.id) throw new Error(`Revocation ${entry.id} must explicitly supersede ${current.id}`);
+    if (!entry.resolutionReason.trim()) throw new Error(`Revocation ${entry.id} requires resolutionReason`);
+    if (entry.version <= current.version) throw new Error(`Revocation ledger version must advance for scope ${entry.scope}`);
+    if ((entry.precedence ?? 0) < current.precedence) throw new Error(`Revocation ledger precedence cannot decrease for scope ${entry.scope}`);
+    if (Date.parse(entry.effectiveAt) < Date.parse(current.effectiveAt)) throw new Error(`Revocation ledger effectiveAt cannot move backward for scope ${entry.scope}`);
+
+    const normalized = normalizeEntry({ ...entry, state: "revoked" });
+    if (this.#entries.some((existing) => existing.id === normalized.id)) throw new Error(`Ledger entry already exists: ${normalized.id}`);
+    const currentIndex = this.#entries.findIndex((existing) => existing.id === current.id);
+    this.#entries[currentIndex] = Object.freeze({ ...current, state: "revoked" as const, revokedBy: normalized.id });
+    this.#entries.push(normalized);
+    return normalized;
+  }
+
   current(scope: string): LedgerRecord<T> | undefined {
     return [...this.#entries].reverse().find((entry) => entry.scope === scope && entry.state === "current");
+  }
+
+  governing(scope: string): LedgerRecord<T> | undefined {
+    const conflicts = this.unresolvedConflicts(scope);
+    if (conflicts.length > 0) throw new Error(`Unresolved authority conflict blocks governing rule for ${scope}: ${conflicts.map((entry) => entry.id).join(",")}`);
+    return this.current(scope);
   }
 
   unresolvedConflicts(scope?: string): readonly LedgerRecord<T>[] {
