@@ -9,3 +9,4 @@ export * from "./notifications.js";
 export * from "./automations.js";
 export * from "./watches.js";
 export * from "./recovery.js";
+export * from "./runtime-integration.js";
