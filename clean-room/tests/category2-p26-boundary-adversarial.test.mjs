@@ -8,7 +8,8 @@ const grant = Object.freeze({
   companyIds: Object.freeze(["company-a"]),
   businessIds: Object.freeze(["business-a"]),
   accountIds: Object.freeze(["account-a"]),
-  environments: Object.freeze(["preview"])
+  environments: Object.freeze(["preview"]),
+  operations: Object.freeze(["read", "write"])
 });
 
 const allowedBoundary = Object.freeze({
@@ -22,8 +23,10 @@ const allowedBoundary = Object.freeze({
 });
 
 test("P2.6 canonical boundary allows the exact authorized owner/project/company/business/account/environment scope", () => {
-  assert.deepEqual(evaluateDataBoundary(grant, allowedBoundary), { allowed: true, reason: "allowed" });
-  assert.doesNotThrow(() => assertDataBoundary(grant, allowedBoundary));
+  assert.deepEqual(evaluateDataBoundary(grant, allowedBoundary, "read"), { allowed: true, reason: "allowed" });
+  assert.deepEqual(evaluateDataBoundary(grant, allowedBoundary, "write"), { allowed: true, reason: "allowed" });
+  assert.doesNotThrow(() => assertDataBoundary(grant, allowedBoundary, "read"));
+  assert.doesNotThrow(() => assertDataBoundary(grant, allowedBoundary, "write"));
 });
 
 for (const [field, value, reason] of [
@@ -36,17 +39,28 @@ for (const [field, value, reason] of [
 ]) {
   test(`P2.6 adversarial read/write scope rejects cross-boundary ${field}`, () => {
     const attemptedBoundary = { ...allowedBoundary, [field]: value };
-    const decision = evaluateDataBoundary(grant, attemptedBoundary);
-    assert.equal(decision.allowed, false);
-    assert.equal(decision.reason, reason);
     for (const operation of ["read", "write"]) {
-      assert.throws(() => {
-        assertDataBoundary(grant, attemptedBoundary);
-        throw new Error(`unexpected ${operation} authorization`);
-      }, new RegExp(reason));
+      const decision = evaluateDataBoundary(grant, attemptedBoundary, operation);
+      assert.equal(decision.allowed, false);
+      assert.equal(decision.reason, reason);
+      assert.throws(() => assertDataBoundary(grant, attemptedBoundary, operation), new RegExp(reason));
     }
   });
 }
+
+test("P2.6 grants default to read-only and require explicit write authority", () => {
+  const readOnly = {
+    ownerId: "owner-1",
+    projectIds: ["project-a"],
+    companyIds: ["company-a"],
+    businessIds: ["business-a"],
+    accountIds: ["account-a"],
+    environments: ["preview"]
+  };
+  assert.equal(evaluateDataBoundary(readOnly, allowedBoundary, "read").allowed, true);
+  assert.deepEqual(evaluateDataBoundary(readOnly, allowedBoundary, "write"), { allowed: false, reason: "operation_not_granted" });
+  assert.throws(() => assertDataBoundary(readOnly, allowedBoundary, "write"), /operation_not_granted/);
+});
 
 test("P2.6 omitted optional grant dimensions fail closed when the resource carries those dimensions", () => {
   const narrowGrant = { ownerId: "owner-1", projectIds: ["project-a"], businessIds: ["business-a"] };
