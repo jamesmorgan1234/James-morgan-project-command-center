@@ -39,7 +39,7 @@ export interface ProtectedBookApprovalStateEvent {
   readonly observedAt: string;
 }
 
-const TRANSITIONS = {
+const TRANSITIONS: Readonly<Record<ProtectedBookApprovalState, readonly ProtectedBookApprovalState[]>> = {
   proposed: ["draft", "reviewed", "rejected"],
   draft: ["reviewed", "rejected"],
   reviewed: ["draft", "approved", "rejected"],
@@ -48,7 +48,7 @@ const TRANSITIONS = {
   reopened: ["draft", "reviewed", "rejected", "superseded"],
   superseded: [],
   rejected: ["proposed", "draft"]
-} as const satisfies Readonly<Record<ProtectedBookApprovalState, readonly ProtectedBookApprovalState[]>>;
+};
 
 const OWNER_GOVERNED_STATES = new Set<ProtectedBookApprovalState>(["approved", "locked", "reopened", "superseded", "rejected"]);
 const OWNER_GOVERNED_PRIOR_STATES = new Set<ProtectedBookApprovalState>(["approved", "locked"]);
