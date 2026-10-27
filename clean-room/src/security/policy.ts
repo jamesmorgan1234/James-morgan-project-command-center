@@ -94,6 +94,13 @@ export class PolicyEngine {
     return Object.freeze({ allowed: true, action: rule.action, riskClass: rule.riskClass, reason: "allowed", ruleVersion: rule.version, ...(rule.policyEpoch !== undefined ? { policyEpoch: rule.policyEpoch } : {}) });
   }
 
+  failClosed(action: string, reason: string): PolicyDecision {
+    if (!action.trim() || !reason.trim()) throw new Error("Fail-closed policy action and reason are required");
+    const rule = this.#rules.get(action);
+    if (!rule || !rule.enabled) return Object.freeze({ allowed: false, action, riskClass: "critical", reason });
+    return this.#deny(rule, reason);
+  }
+
   assertAllowed(request: PolicyRequest): PolicyDecision {
     const decision = this.evaluate(request);
     if (!decision.allowed) throw new Error(`Policy denied ${request.action}: ${decision.reason}`);

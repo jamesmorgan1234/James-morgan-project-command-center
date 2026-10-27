@@ -1,5 +1,5 @@
 import type { EnvironmentName } from "../kernel/config.js";
-import { AuthSessionStore } from "./auth.js";
+import { AuthSessionStore, type AuthSessionRecord } from "./auth.js";
 import { DeviceRegistry } from "./devices.js";
 import { assertIntentBinding, type ProtectedIntent } from "./intent.js";
 import { PolicyDecisionAuditLedger } from "./policy-audit.js";
@@ -31,17 +31,27 @@ export class ProtectedActionGate {
   ) {}
 
   authorize(request: ProtectedActionRequest): PolicyDecision {
-    const session = this.sessions.validateLive(request.sessionId, request.now);
-    if (session.deviceId) this.devices.assertUsable(session.deviceId, session.ownerId);
-    if ((request.intent === undefined) !== (request.authorizationIntentBinding === undefined)) throw new Error("Protected intent and authorization binding must be supplied together");
-    if (request.intent && request.authorizationIntentBinding) {
-      if (request.intent.action !== request.action || request.intent.ownerId !== request.resourceOwnerId) throw new Error("Protected intent action/owner mismatch");
-      if (request.resourceProjectId && request.intent.scope.projectId !== request.resourceProjectId) throw new Error("Protected intent project mismatch");
-      if (request.resourceCompanyId && request.intent.scope.companyId !== request.resourceCompanyId) throw new Error("Protected intent company mismatch");
-      if (request.resourceAccountId && request.intent.scope.accountId !== request.resourceAccountId) throw new Error("Protected intent account mismatch");
-      if (request.resourceEnvironment && request.intent.scope.environment !== request.resourceEnvironment) throw new Error("Protected intent environment mismatch");
-      assertIntentBinding(request.intent, request.authorizationIntentBinding);
+    const knownSession = this.sessions.get(request.sessionId);
+    let session: AuthSessionRecord;
+    try {
+      session = this.sessions.validateLive(request.sessionId, request.now);
+      if (session.deviceId) this.devices.assertUsable(session.deviceId, session.ownerId);
+      if ((request.intent === undefined) !== (request.authorizationIntentBinding === undefined)) throw new Error("Protected intent and authorization binding must be supplied together");
+      if (request.intent && request.authorizationIntentBinding) {
+        if (request.intent.action !== request.action || request.intent.ownerId !== request.resourceOwnerId) throw new Error("Protected intent action/owner mismatch");
+        if (request.resourceProjectId && request.intent.scope.projectId !== request.resourceProjectId) throw new Error("Protected intent project mismatch");
+        if (request.resourceCompanyId && request.intent.scope.companyId !== request.resourceCompanyId) throw new Error("Protected intent company mismatch");
+        if (request.resourceAccountId && request.intent.scope.accountId !== request.resourceAccountId) throw new Error("Protected intent account mismatch");
+        if (request.resourceEnvironment && request.intent.scope.environment !== request.resourceEnvironment) throw new Error("Protected intent environment mismatch");
+        assertIntentBinding(request.intent, request.authorizationIntentBinding);
+      }
+    } catch (error) {
+      const ownerId = knownSession?.ownerId ?? request.resourceOwnerId;
+      const decision = this.policies.failClosed(request.action, "protected_precondition_failed");
+      this.#appendDecision(ownerId, request, decision);
+      throw error;
     }
+
     const subject: SecuritySubject = {
       ownerId: session.ownerId,
       sessionId: session.id,
@@ -69,9 +79,15 @@ export class ProtectedActionGate {
       ...(request.expectedPolicyEpoch !== undefined ? { expectedPolicyEpoch: request.expectedPolicyEpoch } : {})
     };
     const decision = this.policies.evaluate(policyRequest);
+    this.#appendDecision(session.ownerId, request, decision);
+    if (!decision.allowed) throw new Error(`Policy denied ${request.action}: ${decision.reason}`);
+    return decision;
+  }
+
+  #appendDecision(ownerId: string, request: ProtectedActionRequest, decision: PolicyDecision): void {
     this.decisions.append({
-      ownerId: session.ownerId,
-      sessionId: session.id,
+      ownerId,
+      sessionId: request.sessionId,
       occurredAt: request.now,
       action: request.action,
       resourceOwnerId: request.resourceOwnerId,
@@ -81,7 +97,5 @@ export class ProtectedActionGate {
       ...(request.resourceEnvironment ? { resourceEnvironment: request.resourceEnvironment } : {}),
       decision
     });
-    if (!decision.allowed) throw new Error(`Policy denied ${request.action}: ${decision.reason}`);
-    return decision;
   }
 }
