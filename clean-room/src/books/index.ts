@@ -13,3 +13,4 @@ export * from "./performance.js";
 export * from "./performance-truth.js";
 export * from "./boundaries.js";
 export * from "./recovery.js";
+export * from "./recovery-restore.js";
