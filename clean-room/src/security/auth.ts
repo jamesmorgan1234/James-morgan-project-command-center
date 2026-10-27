@@ -26,6 +26,22 @@ function assertOptionalId(value: string | undefined, label: string): void {
   if (value !== undefined && !value.trim()) throw new Error(`${label} cannot be empty`);
 }
 
+function latestSessionEventMs(session: AuthSessionRecord): number {
+  return Math.max(
+    parseTimestamp(session.createdAt, "createdAt"),
+    parseTimestamp(session.lastValidatedAt, "lastValidatedAt"),
+    session.lastVerifiedAt ? parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt") : Number.NEGATIVE_INFINITY,
+    session.lockedAt ? parseTimestamp(session.lockedAt, "lockedAt") : Number.NEGATIVE_INFINITY,
+    session.revokedAt ? parseTimestamp(session.revokedAt, "revokedAt") : Number.NEGATIVE_INFINITY
+  );
+}
+
+function assertForwardLifecycleTimestamp(session: AuthSessionRecord, value: string, label: string): number {
+  const timestamp = parseTimestamp(value, label);
+  if (timestamp < latestSessionEventMs(session)) throw new Error(`${label} cannot move session time backward`);
+  return timestamp;
+}
+
 function assertSessionShape(session: AuthSessionRecord): void {
   if (!session.id.trim() || !session.ownerId.trim()) throw new Error("Session id and ownerId are required");
   assertOptionalId(session.deviceId, "deviceId");
@@ -34,9 +50,12 @@ function assertSessionShape(session: AuthSessionRecord): void {
   assertOptionalId(session.accountId, "accountId");
   const created = parseTimestamp(session.createdAt, "createdAt");
   const expires = parseTimestamp(session.expiresAt, "expiresAt");
-  parseTimestamp(session.lastValidatedAt, "lastValidatedAt");
-  if (session.lastVerifiedAt) parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt");
+  const lastValidated = parseTimestamp(session.lastValidatedAt, "lastValidatedAt");
+  const lastVerified = session.lastVerifiedAt ? parseTimestamp(session.lastVerifiedAt, "lastVerifiedAt") : undefined;
   if (expires <= created) throw new Error("Session expiresAt must be after createdAt");
+  if (lastValidated < created) throw new Error("Session lastValidatedAt cannot be before createdAt");
+  if (lastValidated >= expires) throw new Error("Session lastValidatedAt must be before expiresAt");
+  if (lastVerified !== undefined && (lastVerified < created || lastVerified > lastValidated)) throw new Error("Session lastVerifiedAt must be between createdAt and lastValidatedAt");
   if (new Set(session.scopes).size !== session.scopes.length) throw new Error("Session scopes must be unique");
   if (session.policyEpoch !== undefined && (!Number.isSafeInteger(session.policyEpoch) || session.policyEpoch < 1)) throw new Error("policyEpoch must be a positive safe integer");
 }
@@ -57,6 +76,8 @@ export class AuthSessionStore {
   validateLive(id: string, now: string): AuthSessionRecord {
     const current = this.#required(id);
     const nowMs = parseTimestamp(now, "now");
+    if (nowMs < parseTimestamp(current.createdAt, "createdAt")) throw new Error(`Session not yet valid: ${id}`);
+    if (nowMs < parseTimestamp(current.lastValidatedAt, "lastValidatedAt")) throw new Error(`Session validation time cannot move backward: ${id}`);
     if (current.state === "revoked") throw new Error(`Session revoked: ${id}`);
     if (current.state === "locked") throw new Error(`Session locked: ${id}`);
     if (current.state === "expired" || nowMs >= parseTimestamp(current.expiresAt, "expiresAt")) {
@@ -72,7 +93,7 @@ export class AuthSessionStore {
   recordVerification(id: string, assurance: AssuranceLevel, verifiedAt: string): AuthSessionRecord {
     const current = this.#required(id);
     if (current.state !== "active") throw new Error(`Cannot verify non-active session: ${id}`);
-    parseTimestamp(verifiedAt, "verifiedAt");
+    assertForwardLifecycleTimestamp(current, verifiedAt, "verifiedAt");
     if (!assuranceAtLeast(assurance, current.assurance)) throw new Error("Verification cannot lower session assurance");
     const updated = Object.freeze({ ...current, assurance, lastVerifiedAt: verifiedAt, lastValidatedAt: verifiedAt });
     this.#sessions.set(id, updated);
@@ -81,9 +102,9 @@ export class AuthSessionStore {
 
   setPolicyEpoch(id: string, policyEpoch: number, at: string): AuthSessionRecord {
     if (!Number.isSafeInteger(policyEpoch) || policyEpoch < 1) throw new Error("policyEpoch must be a positive safe integer");
-    parseTimestamp(at, "at");
     const current = this.#required(id);
     if (current.state !== "active") throw new Error(`Cannot update policy epoch on non-active session: ${id}`);
+    assertForwardLifecycleTimestamp(current, at, "at");
     const updated = Object.freeze({ ...current, policyEpoch, lastValidatedAt: at });
     this.#sessions.set(id, updated);
     return updated;
@@ -91,8 +112,8 @@ export class AuthSessionStore {
 
   lock(id: string, lockedAt: string): AuthSessionRecord {
     const current = this.#required(id);
-    parseTimestamp(lockedAt, "lockedAt");
     if (current.state === "revoked" || current.state === "expired") throw new Error(`Cannot lock terminal session: ${id}`);
+    assertForwardLifecycleTimestamp(current, lockedAt, "lockedAt");
     const updated = Object.freeze({ ...current, state: "locked" as const, lockedAt });
     this.#sessions.set(id, updated);
     return updated;
@@ -102,7 +123,7 @@ export class AuthSessionStore {
     const current = this.#required(id);
     if (current.state !== "locked") throw new Error(`Session is not locked: ${id}`);
     if (!assuranceAtLeast(assurance, "passkey_uv")) throw new Error("Unlock requires passkey user verification or stronger");
-    parseTimestamp(verifiedAt, "verifiedAt");
+    assertForwardLifecycleTimestamp(current, verifiedAt, "verifiedAt");
     const { lockedAt: _lockedAt, ...rest } = current;
     const updated = Object.freeze({ ...rest, state: "active" as const, assurance, lastVerifiedAt: verifiedAt, lastValidatedAt: verifiedAt });
     this.#sessions.set(id, updated);
@@ -111,8 +132,8 @@ export class AuthSessionStore {
 
   revoke(id: string, revokedAt: string, reason: string): AuthSessionRecord {
     const current = this.#required(id);
-    parseTimestamp(revokedAt, "revokedAt");
     if (!reason.trim()) throw new Error("Revocation reason is required");
+    assertForwardLifecycleTimestamp(current, revokedAt, "revokedAt");
     const updated = Object.freeze({ ...current, state: "revoked" as const, revokedAt, revocationReason: reason });
     this.#sessions.set(id, updated);
     return updated;
