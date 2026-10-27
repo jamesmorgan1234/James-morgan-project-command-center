@@ -5,13 +5,17 @@ import { readFile } from "node:fs/promises";
 const ROOT = new URL("../", import.meta.url);
 async function source(path) { return readFile(new URL(path, ROOT), "utf8"); }
 
-test("P4.3 shipped shell installs navigation ownership before the browser renderer", async () => {
+test("P4.3 shipped shell enters through the startup boundary and installs navigation before the browser renderer", async () => {
   const html = await source("public/index.html");
-  const navigationEntry = '/app/runtime/browser-navigation-runtime.js';
-  const browserEntry = '/app/runtime/browser.js';
-  assert.match(html, new RegExp(navigationEntry.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-  assert.match(html, new RegExp(browserEntry.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
-  assert.ok(html.indexOf(navigationEntry) < html.indexOf(browserEntry));
+  const entrypoint = "/app/runtime/browser-entrypoint.js";
+  assert.match(html, new RegExp(entrypoint.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+
+  const runtime = await source("src/runtime/browser-entrypoint.ts");
+  const navigationImport = './browser-navigation-runtime.js';
+  const browserImport = './browser.js';
+  assert.match(runtime, new RegExp(navigationImport.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.match(runtime, new RegExp(browserImport.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  assert.ok(runtime.indexOf(navigationImport) < runtime.indexOf(browserImport));
 });
 
 test("P4.3 shipped navigation owner controls history pushes and post-render restoration", async () => {
