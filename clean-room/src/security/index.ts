@@ -4,6 +4,7 @@ export * from "./passkeys.js";
 export * from "./supabase-passkeys.js";
 export * from "./devices.js";
 export * from "./inventory.js";
+export * from "./device-response.js";
 export * from "./policy.js";
 export * from "./boundaries.js";
 export * from "./secrets.js";
