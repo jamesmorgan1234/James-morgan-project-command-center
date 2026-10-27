@@ -1,3 +1,4 @@
+import { assertSecretChannelSafe } from "../security/secret-channels.js";
 export type SocialPlatform = "youtube" | "tiktok" | "instagram" | "facebook" | "pinterest" | "x" | "other";
 
 export interface BrandAccountIdentity {
@@ -19,6 +20,9 @@ export class BrandAccountRegistry {
   readonly #byId = new Map<string, BrandAccountIdentity>();
   readonly #byExternal = new Map<string, string>();
   register(account: BrandAccountIdentity): BrandAccountIdentity {
+    assertSecretChannelSafe("brain_memory", account);
+    if (!Number.isSafeInteger(account.version) || account.version < 1 || !["youtube","tiktok","instagram","facebook","pinterest","x","other"].includes(account.platform)) throw new Error("Invalid social account platform/version");
+    refs(account.aliases,"Social account aliases",false); refs(account.authorizationScopeRefs,"Social account authorization scopes");
     if (!account.id.trim() || !account.ownerId.trim() || !account.entityId.trim() || !account.brandId.trim() || !account.externalAccountId.trim()) throw new Error("brand account identity requires stable owner/entity/brand/platform identifiers");
     if (account.authorizationScopeRefs.length === 0) throw new Error("brand account identity requires authorization scope evidence");
     const existingId = this.#byExternal.get(key(account));
@@ -57,12 +61,16 @@ function refs(values: readonly string[], label: string, requireOne = true): read
   if (!Array.isArray(values) || (requireOne && values.length === 0) || values.some((value) => typeof value !== "string" || !value.trim())) throw new Error(`${label} must contain nonblank references`);
   return Object.freeze([...new Set(values.map((value) => value.trim()))]);
 }
-function platformKey(record: SocialIdentityMapRecord): string { return `${record.ownerId}:${record.platform}:${record.platformIdentityId}`; }
+function platformKey(record: SocialIdentityMapRecord): string { return JSON.stringify([record.ownerId,record.platform,record.platformIdentityId]); }
 
 export class SocialIdentityMapRegistry {
   readonly #records = new Map<string, SocialIdentityMapRecord>();
+  readonly #history = new Map<string, readonly SocialIdentityMapRecord[]>();
+  readonly #accountIdentity = new Map<string, string>();
   readonly #platformIdentity = new Map<string, string>();
   register(record: SocialIdentityMapRecord): SocialIdentityMapRecord {
+    assertSecretChannelSafe("brain_memory", record);
+    if (!["youtube","tiktok","instagram","facebook","pinterest","x","other"].includes(record.platform)) throw new Error("Unknown social platform");
     if (!record.id.trim() || !record.ownerId.trim() || !record.entityId.trim() || !record.brandId.trim() || !record.accountIdentityId.trim() || !record.platformIdentityId.trim() || !record.displayName.trim()) throw new Error("Social identity map requires explicit owner/entity/brand/account/platform identity");
     if (record.companyId !== undefined && !record.companyId.trim()) throw new Error("Social identity companyId cannot be blank");
     if (record.projectId !== undefined && !record.projectId.trim()) throw new Error("Social identity projectId cannot be blank");
@@ -75,17 +83,35 @@ export class SocialIdentityMapRegistry {
     const externalKey = platformKey(record);
     const bound = this.#platformIdentity.get(externalKey);
     if (bound && bound !== record.id) throw new Error("Platform identity is already bound to another canonical brand/account identity");
+    const accountKey = JSON.stringify([record.ownerId,record.accountIdentityId]);
+    if (this.#accountIdentity.has(accountKey) && this.#accountIdentity.get(accountKey) !== record.id) throw new Error("Canonical account is already bound to another identity map");
     const current = this.#records.get(record.id);
     if (current) {
-      if (record.version <= current.version) throw new Error("Social identity map version must advance");
+      if (Date.parse(record.observedAt) < Date.parse(current.observedAt)) throw new Error("Identity observation time cannot move backward");
+      if (record.version !== current.version + 1) throw new Error("Social identity map version must advance");
       if (current.ownerId !== record.ownerId || current.entityId !== record.entityId || current.companyId !== record.companyId || current.brandId !== record.brandId || current.projectId !== record.projectId || current.accountIdentityId !== record.accountIdentityId || current.platform !== record.platform || current.platformIdentityId !== record.platformIdentityId) throw new Error("Canonical social identity lineage cannot be substituted");
     }
-    const frozen = Object.freeze({ ...record, aliases, ownershipRefs, authorizationScopeRefs, lineageRefs });
-    this.#records.set(record.id, frozen); this.#platformIdentity.set(externalKey, record.id); return frozen;
+    if (!current && record.version !== 1) throw new Error("Initial social identity version must be one");
+    const frozen = Object.freeze({ ...record,
+      aliases: Object.freeze([...new Set([...(current?.aliases ?? []), ...(current && current.displayName !== record.displayName ? [current.displayName] : []), ...aliases])]),
+      ownershipRefs, authorizationScopeRefs,
+      lineageRefs: Object.freeze([...new Set([...(current?.lineageRefs ?? []), ...lineageRefs])]) });
+    this.#records.set(record.id, frozen); this.#platformIdentity.set(externalKey, record.id); this.#accountIdentity.set(accountKey,record.id);
+    this.#history.set(record.id,Object.freeze([...(this.#history.get(record.id) ?? []),frozen])); return frozen;
   }
-  requireExact(id: string, ownerId: string, brandId: string, accountIdentityId: string, platform: SocialPlatform, platformIdentityId: string): SocialIdentityMapRecord {
+  supersede(previousId: string, replacement: SocialIdentityMapRecord): SocialIdentityMapRecord {
+    const previous = this.#records.get(previousId);
+    if (!previous || replacement.id === previous.id || previous.ownerId !== replacement.ownerId || previous.entityId !== replacement.entityId || previous.companyId !== replacement.companyId || previous.brandId !== replacement.brandId || previous.projectId !== replacement.projectId) throw new Error("Explicit account replacement scope mismatch");
+    return this.register({...replacement,lineageRefs:[...replacement.lineageRefs,`supersedes:${previousId}`]});
+  }
+  history(id: string, ownerId: string): readonly SocialIdentityMapRecord[] {
+    if (this.#records.get(id)?.ownerId !== ownerId) throw new Error("Identity history owner mismatch");
+    return this.#history.get(id)!;
+  }
+  requireExact(id: string, ownerId: string, brandId: string, accountIdentityId: string, platform: SocialPlatform, platformIdentityId: string, scope?: {readonly companyId?: string; readonly projectId?: string; readonly entityId: string}): SocialIdentityMapRecord {
     const record = this.#records.get(id);
     if (!record || record.ownerId !== ownerId || record.brandId !== brandId || record.accountIdentityId !== accountIdentityId || record.platform !== platform || record.platformIdentityId !== platformIdentityId) throw new Error("Exact social identity lineage mismatch");
+    if (scope && (scope.companyId !== record.companyId || scope.projectId !== record.projectId || scope.entityId !== record.entityId)) throw new Error("Exact company/project/entity scope mismatch");
     return record;
   }
 }
