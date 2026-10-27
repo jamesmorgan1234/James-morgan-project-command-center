@@ -6,6 +6,7 @@ export * from "./publication-metadata.js";
 export * from "./approvals.js";
 export * from "./approval-state.js";
 export * from "./publication.js";
+export * from "./publication-lifecycle.js";
 export * from "./providers.js";
 export * from "./performance.js";
 export * from "./boundaries.js";
