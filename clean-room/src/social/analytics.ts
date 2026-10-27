@@ -49,7 +49,7 @@ export interface EvidenceBackedSocialMetric {
   readonly metric: string;
   readonly value?: number;
   readonly truthState?: "known"|"unknown"|"unavailable"|"partial"|"conflicting";
-  readonly sourceKind?: "observed"|"provider_reported"|"calculated"|"inferred";
+  readonly sourceKind?: "unknown"|"observed"|"provider_reported"|"calculated"|"inferred";
   readonly reportingWindowStart?: string;
   readonly reportingWindowEnd?: string;
   readonly unit: string;
@@ -105,7 +105,7 @@ export function validateEvidenceBackedMetric(metric: EvidenceBackedSocialMetric)
   if(!["known","unknown","unavailable","partial","conflicting"].includes(state)||!["confirmed","estimated"].includes(metric.confidence))throw new Error("Unknown metric truth/confidence state");
   if(state==="known"||state==="partial"){if(metric.value===undefined||!Number.isFinite(metric.value)||metric.value<0)throw new Error("Invalid known metric value");}
   else if(metric.value!==undefined)throw new Error("Unknown/unavailable/conflicting metric cannot carry fabricated numeric value");
-  if(metric.sourceKind!==undefined && !["observed","provider_reported","calculated","inferred"].includes(metric.sourceKind))throw new Error("Unknown metric source kind");
+  if(metric.sourceKind!==undefined && !["unknown","observed","provider_reported","calculated","inferred"].includes(metric.sourceKind))throw new Error("Unknown metric source kind");
   if(metric.sourceKind==="inferred"&&metric.confidence!=="estimated")throw new Error("Inferred metric must remain estimated");
   if((metric.reportingWindowStart===undefined)!==(metric.reportingWindowEnd===undefined))throw new Error("Metric reporting window must be complete");
   if(metric.reportingWindowStart && (timestamp(metric.reportingWindowStart,"window start")>timestamp(metric.reportingWindowEnd!,"window end") || timestamp(metric.reportingWindowEnd!,"window end")>timestamp(metric.observedAt,"observation")))throw new Error("Invalid metric reporting window");
@@ -166,7 +166,7 @@ export interface SocialPerformanceSnapshot {
   readonly accountId: string;
   readonly generatedAt: string;
   readonly metricIds: readonly string[];
-  readonly metricEvidence:readonly Readonly<{metricId:string;state:string;fresh:boolean;confidence:MetricConfidence;observedAt:string;sourceRefs:readonly string[]}>[];
+  readonly metricEvidence:readonly Readonly<{metricId:string;state:string;sourceKind:string;fresh:boolean;confidence:MetricConfidence;observedAt:string;sourceRefs:readonly string[]}>[];
   readonly confirmedRevenueAttributionIds: readonly string[];
   readonly estimatedOutcomeIds: readonly string[];
   readonly estimatedAttributionIds:readonly string[];
@@ -182,7 +182,7 @@ export function buildSocialPerformanceSnapshot(metrics: readonly EvidenceBackedS
     .map((record) => {if(Date.parse(record.observedAt)>Date.parse(now))throw new Error("Future attribution cannot be current truth");return validateEvidenceBackedAttribution(record, scopedMetrics,outcomes);});
   const confirmedRevenueAttributionIds = scopedAttributions.filter((record) => record.outcomeKind === "revenue" && record.confidence === "confirmed").map((record) => record.id);
   const estimatedOutcomeIds = scopedAttributions.filter((record) => record.confidence === "estimated").map((record) => record.id);
-  const metricEvidence=Object.freeze(scopedMetrics.map(m=>Object.freeze({metricId:m.id,state:m.truthState??"known",fresh:assessMetricFreshness(m,now).fresh,confidence:m.confidence,observedAt:m.observedAt,sourceRefs:m.sourceRefs})));
+  const metricEvidence=Object.freeze(scopedMetrics.map(m=>Object.freeze({metricId:m.id,state:m.truthState??"known",sourceKind:m.sourceKind??"unknown",fresh:assessMetricFreshness(m,now).fresh,confidence:m.confidence,observedAt:m.observedAt,sourceRefs:m.sourceRefs})));
   const estimatedAttributionIds=Object.freeze(scopedAttributions.filter(r=>r.attributionConfidence!=="confirmed").map(r=>r.id));
   return Object.freeze({ ownerId, brandId, accountId, estimatedAttributionIds, metricEvidence, generatedAt: now, metricIds: Object.freeze(scopedMetrics.map((metric) => metric.id)), confirmedRevenueAttributionIds: Object.freeze(confirmedRevenueAttributionIds), estimatedOutcomeIds: Object.freeze(estimatedOutcomeIds) });
 }

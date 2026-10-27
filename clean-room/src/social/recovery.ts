@@ -1,3 +1,8 @@
+import type {AuthSessionStore} from "../security/auth.js";
+import type {PolicyEngine} from "../security/policy.js";
+import type {ProtectedAuthorizationRegistry} from "../security/protected-authorizations.js";
+import type {SocialIdentityMapRecord} from "./identity.js";
+import {assertSecretChannelSafe} from "../security/secret-channels.js";
 export interface SocialRecoveryRecord {
   readonly ownerId: string;
   readonly brandId: string;
@@ -20,8 +25,7 @@ export function assertSocialIsolation(records: readonly SocialRecoveryRecord[]):
 }
 
 export function assertPaidActionAllowed(record: SocialRecoveryRecord, exactAuthorizationRef?: string): void {
-  if (!record.paidActionAuthorized || !exactAuthorizationRef?.trim()) throw new Error("paid social action is blocked without exact owner authorization");
-  if (record.providerState !== "connected") throw new Error("paid action requires verified connected provider state");
+  throw new Error("paid social action is blocked: metadata/references cannot grant exact owner authorization");
 }
 
 export function recoveryAction(record: SocialRecoveryRecord): "none" | "reconnect" | "reauthorize" {
@@ -97,6 +101,7 @@ export interface PaidSocialActionAuthorization {
 
 export interface PaidSocialActionAssessment {
   readonly actionId: string;
+  readonly protectedActionAuthorized:false;
   readonly allowed: boolean;
   readonly reason: "authorized" | "missing_exact_authorization" | "authorization_mismatch" | "authorization_expired" | "provider_not_connected" | "amount_exceeds_authorization";
   readonly authorizationRef?: string | undefined;
@@ -127,7 +132,8 @@ export class SocialIsolationRegistry {
     const evidenceRefs = refs(binding.evidenceRefs, "social isolation evidence");
     const current = this.#accounts.get(binding.accountId);
     if (current && (current.ownerId !== binding.ownerId || current.entityId !== binding.entityId || current.companyId !== binding.companyId || current.brandId !== binding.brandId || current.projectId !== binding.projectId || current.platformIdentityId !== binding.platformIdentityId)) throw new Error("social account crosses owner/company/project/brand isolation boundary");
-    const identityKey = `${binding.ownerId}:${binding.platformIdentityId}`;
+    assertSecretChannelSafe("brain_memory",binding);
+    const identityKey = JSON.stringify([binding.ownerId,binding.platformIdentityId]);
     const boundAccount = this.#platformIdentities.get(identityKey);
     if (boundAccount && boundAccount !== binding.accountId) throw new Error("platform identity is already isolated to another account");
     const frozen = Object.freeze({ ...binding, evidenceRefs });
@@ -139,6 +145,7 @@ export class SocialIsolationRegistry {
 
 export function assessSocialRecovery(recovery: SocialRecoveryCase): SocialRecoveryAssessment {
   if (!recovery.id.trim() || !recovery.ownerId.trim() || !recovery.brandId.trim() || !recovery.accountId.trim()) throw new Error("social recovery case identity is required");
+  if(!["connection_loss","credential_rotation","provider_outage","identity_conflict","scope_loss"].includes(recovery.kind)||!["open","needs_owner","reconciling","recovered","blocked"].includes(recovery.status)||!["connected","disconnected","expired","revoked","unavailable"].includes(recovery.providerState))throw new Error("Unknown social recovery state");
   timestamp(recovery.observedAt, "social recovery observedAt");
   refs(recovery.evidenceRefs, "social recovery evidence");
   const missingScopes = refs(recovery.missingScopes, "social recovery missing scopes", false);
@@ -154,16 +161,28 @@ export function assessSocialRecovery(recovery: SocialRecoveryCase): SocialRecove
   return Object.freeze({ caseId: recovery.id, action, ownerActionRequired, recoverable: action !== "reconcile_identity" || Boolean(recovery.ownerActionRef?.trim()), secretsExposed: false as const, protectedActionAuthorized: false as const });
 }
 
-export function assessPaidSocialAction(request: PaidSocialActionRequest, authorization: PaidSocialActionAuthorization | undefined, now: string): PaidSocialActionAssessment {
-  if (!request.id.trim() || !request.ownerId.trim() || !request.brandId.trim() || !request.accountId.trim() || !request.actionKind.trim() || !request.currency.trim()) throw new Error("paid social action identity/account/action/currency are required");
+export interface PaidSocialAuthority {
+ readonly sessions:AuthSessionStore;readonly policies:PolicyEngine;readonly authorizations:ProtectedAuthorizationRegistry;
+ readonly sessionId:string;readonly identity:SocialIdentityMapRecord;
+}
+export function paidSocialAuthorizationBinding(r:PaidSocialActionRequest,identity:SocialIdentityMapRecord):string{return JSON.stringify([r.ownerId,identity.entityId,identity.companyId??null,r.brandId,identity.projectId??null,r.accountId,identity.platform,identity.platformIdentityId,r.id,r.actionKind,r.amount,r.currency]);}
+export function assessPaidSocialAction(request: PaidSocialActionRequest, authorization: PaidSocialActionAuthorization | undefined, now: string, authority?:PaidSocialAuthority): PaidSocialActionAssessment {
+  if (!request.id.trim() || !request.ownerId.trim() || !request.brandId.trim() || !request.accountId.trim() || !request.actionKind.trim() || !/^[A-Z]{3}$/.test(request.currency)) throw new Error("paid social action identity/account/action/currency are required");
   if (!Number.isFinite(request.amount) || request.amount < 0) throw new Error("paid social action amount must be nonnegative");
   const nowMs = timestamp(now, "paid social action assessment now");
-  if (request.providerState !== "connected") return Object.freeze({ actionId: request.id, allowed: false, reason: "provider_not_connected" as const });
-  if (!authorization) return Object.freeze({ actionId: request.id, allowed: false, reason: "missing_exact_authorization" as const });
-  if (!authorization.authorizationRef.trim() || authorization.ownerId !== request.ownerId || authorization.accountId !== request.accountId || authorization.actionId !== request.id || authorization.actionKind !== request.actionKind || authorization.currency !== request.currency) return Object.freeze({ actionId: request.id, allowed: false, reason: "authorization_mismatch" as const });
+  if (request.providerState !== "connected") return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: false, reason: "provider_not_connected" as const });
+  if (!authorization) return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: false, reason: "missing_exact_authorization" as const });
+  if (!authorization.authorizationRef.trim() || authorization.ownerId !== request.ownerId || authorization.accountId !== request.accountId || authorization.actionId !== request.id || authorization.actionKind !== request.actionKind || authorization.currency !== request.currency) return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: false, reason: "authorization_mismatch" as const });
   const observedAt = timestamp(authorization.observedAt, "paid social authorization observedAt");
   const expiresAt = timestamp(authorization.expiresAt, "paid social authorization expiresAt");
-  if (observedAt > nowMs || expiresAt <= nowMs || expiresAt <= observedAt) return Object.freeze({ actionId: request.id, allowed: false, reason: "authorization_expired" as const, authorizationRef: authorization.authorizationRef });
-  if (!Number.isFinite(authorization.maxAmount) || authorization.maxAmount < request.amount) return Object.freeze({ actionId: request.id, allowed: false, reason: "amount_exceeds_authorization" as const, authorizationRef: authorization.authorizationRef });
-  return Object.freeze({ actionId: request.id, allowed: true, reason: "authorized" as const, authorizationRef: authorization.authorizationRef });
+  if (observedAt > nowMs || expiresAt <= nowMs || expiresAt <= observedAt) return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: false, reason: "authorization_expired" as const, authorizationRef: authorization.authorizationRef });
+  if (!Number.isFinite(authorization.maxAmount) || authorization.maxAmount < request.amount) return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: false, reason: "amount_exceeds_authorization" as const, authorizationRef: authorization.authorizationRef });
+  if(!authority)return Object.freeze({actionId:request.id,protectedActionAuthorized:false as const,allowed:false,reason:"missing_exact_authorization" as const});
+  const {identity,sessions,policies,authorizations,sessionId}=authority,s=sessions.validateLive(sessionId,now);
+  if(s.ownerId!==request.ownerId||s.companyId!==identity.companyId||s.projectId!==identity.projectId||s.accountId!==request.accountId||s.assurance!=="fresh_passkey_uv"||identity.ownerId!==request.ownerId||identity.brandId!==request.brandId||identity.accountIdentityId!==request.accountId)throw new Error("Paid action live canonical identity mismatch");
+  const decision=policies.evaluate({action:"social.paid",subject:{...s,sessionId:s.id},resourceOwnerId:request.ownerId,...(identity.companyId?{resourceCompanyId:identity.companyId}:{}),...(identity.projectId?{resourceProjectId:identity.projectId}:{}),resourceAccountId:request.accountId,now,revocationStateFresh:true});
+  if(!decision.allowed)throw new Error("Paid action policy denied");
+  const grant=authorizations.assertUsable(authorization.authorizationRef,{ownerId:request.ownerId,sessionId,action:"social.paid",authorizationIntentBinding:paidSocialAuthorizationBinding(request,identity)},now);
+  if(grant.authoritySource!=="owner_verified"||nowMs-Date.parse(grant.issuedAt)>=300_000||grant.issuedAt!==authorization.observedAt||grant.expiresAt!==authorization.expiresAt)throw new Error("Paid action requires fresh exact owner approval");
+  return Object.freeze({ actionId: request.id, protectedActionAuthorized:false as const, allowed: true, reason: "authorized" as const, authorizationRef: authorization.authorizationRef });
 }

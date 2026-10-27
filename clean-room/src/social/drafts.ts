@@ -2,6 +2,7 @@ import { assertSecretChannelSafe } from "../security/secret-channels.js";
 import type { SocialIdentityMapRecord } from "./identity.js";
 export interface SocialAssetBinding {
   readonly mediaKind?: string;
+  readonly durationSeconds?: number;
   readonly width?: number;
   readonly height?: number;
   readonly assetRef: string;
@@ -72,6 +73,9 @@ function timestamp(value: string, label: string): number {
 }
 
 function freezeAssetBinding(binding: SocialAssetBinding): SocialAssetBinding {
+  if(binding.mediaKind!==undefined&&!binding.mediaKind.trim())throw new Error("Asset media kind cannot be blank");
+  for(const size of [binding.width,binding.height])if(size!==undefined&&(!Number.isSafeInteger(size)||size<=0))throw new Error("Asset dimensions must be positive integers");
+  if(binding.durationSeconds!==undefined&&(!Number.isFinite(binding.durationSeconds)||binding.durationSeconds<0))throw new Error("Asset duration must be finite and nonnegative");
   if (!binding.assetRef.trim() || !binding.contentHash.trim()) throw new Error("asset binding requires asset reference and content hash");
   return Object.freeze({ ...binding, assetRef: binding.assetRef.trim(), contentHash: binding.contentHash.trim(), provenanceRefs: refs(binding.provenanceRefs, "asset provenance"), rightsEvidenceRefs: refs(binding.rightsEvidenceRefs, "asset rights evidence") });
 }

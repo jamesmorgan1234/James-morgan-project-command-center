@@ -8,3 +8,4 @@ export * from "./analytics.js";
 export * from "./recovery.js";
 export * from "./protected-publishing.js";
 export * from "./protected-communications.js";
+export * from "./access.js";

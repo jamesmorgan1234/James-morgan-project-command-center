@@ -36,8 +36,11 @@ export class SocialPublishGate {
   if(profile.version!==i.profileVersion || profile.platform!==identity.platform)throw new Error("Publish profile stale or wrong platform");
   if(i.scheduledAt && profile.providerConstraints.schedulingSupported!==true)throw new Error("Current profile does not support scheduling");
   // Transformation approval must cover the exact bytes: changing content/disclosures requires a newly sealed approved draft.
-  const transformed=transformForProfile({caption:draft.body,mediaKind:draft.assetBindings.length ? draft.assetBindings[0]!.mediaKind??"unknown" : "text",disclosures:draft.disclosures??[],rightsEvidenceRefs:draft.rightsEvidenceRefs,metadata:{mediaCount:draft.assetBindings.length,...(draft.assetBindings[0]?.width!==undefined?{width:draft.assetBindings[0].width}:{}),...(draft.assetBindings[0]?.height!==undefined?{height:draft.assetBindings[0].height}:{}),},now},profile,adapters);
-  if(transformed.caption!==draft.body || transformed.disclosures.some(d=>!draft.disclosures?.includes(d)))throw new Error("Transformed content requires new exact draft approval");
+  const media=draft.assetBindings.length?draft.assetBindings:[undefined];
+  for(const asset of media){
+   const transformed=transformForProfile({caption:draft.body,mediaKind:asset?asset.mediaKind??"unknown":"text",disclosures:draft.disclosures??[],rightsEvidenceRefs:draft.rightsEvidenceRefs,metadata:{mediaCount:draft.assetBindings.length,...(asset?.width!==undefined?{width:asset.width}:{}),...(asset?.height!==undefined?{height:asset.height}:{}),...(asset?.durationSeconds!==undefined?{durationSeconds:asset.durationSeconds}:{})},now},profile,adapters);
+   if(transformed.caption!==draft.body || transformed.disclosures.some(d=>!draft.disclosures?.includes(d)))throw new Error("Transformed content requires new exact draft approval");
+  }
   if(!assessSocialConnectionForIdentity(connection,identity,i.requiredScopes,now,300_000).live)throw new Error("Publish connection not currently live");
   const binding=socialPublishAuthorizationBinding(i,identity),use={ownerId:i.ownerId,sessionId,action:"social.publish",authorizationIntentBinding:binding};
   const grant=this.authorizations.assertUsable(i.authorizationRef,use,now);

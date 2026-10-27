@@ -1,6 +1,6 @@
 alter table public.command_center_social_metric_history alter column value drop not null,
  add column truth_state text not null default 'known' check(truth_state in ('known','unknown','unavailable','partial','conflicting')),
- add column source_kind text not null default 'provider_reported' check(source_kind in ('observed','provider_reported','calculated','inferred')),
+ add column source_kind text not null default 'unknown' check(source_kind in ('unknown','observed','provider_reported','calculated','inferred')),
  add column reporting_window_start timestamptz,add column reporting_window_end timestamptz,
  add constraint social_metric_truth_value check((truth_state in ('known','partial') and value is not null and value::text not in ('NaN','Infinity','-Infinity') and value>=0) or (truth_state in ('unknown','unavailable','conflicting') and value is null)),
  add constraint social_metric_window check((reporting_window_start is null and reporting_window_end is null) or (reporting_window_start is not null and reporting_window_end is not null and reporting_window_start<=reporting_window_end and reporting_window_end<=observed_at)),

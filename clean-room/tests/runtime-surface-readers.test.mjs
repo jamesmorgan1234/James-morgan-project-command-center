@@ -28,9 +28,9 @@ test("standard surface readers report registry facts without fabricating activit
 
   const socialProfiles = new PlatformProfileRegistry();
   socialProfiles.register({ key: "platform:test", platform: "test", version: 1, maxCaptionChars: 100, allowedMediaKinds: ["text"], requiredDisclosureTags: [], sourceRef: "policy:test" });
-  const socialConnections = [{ accountId: "account:test", state: "connected", credentialRef: "credential:test", grantedScopes: [], providerHealth: "available", verifiedAt: observedAt, tokenPresent: true }];
+  const socialConnections = [{ accountId: "account:test", state: "connected", credentialRef: "credential:test", credentialState:"healthy", grantedScopes: ["read"], providerHealth: "available", verifiedAt: observedAt, tokenPresent: true }];
 
-  const readers = createStandardSurfaceReaders({ sourceRef: "canonical:test", observedAt, brainRoutes, agencyExecutors, agencyScheduler, financeProviders, analyticsMetrics, socialProfiles, socialConnections });
+  const readers = createStandardSurfaceReaders({ sourceRef: "canonical:test", observedAt, now:()=>observedAt,socialRequiredScopes:["read"], brainRoutes, agencyExecutors, agencyScheduler, financeProviders, analyticsMetrics, socialProfiles, socialConnections });
   const values = new Map(readers.map((reader) => [reader.key, reader.read()]));
 
   assert.equal(values.get("brain")?.availability, "available");
@@ -49,3 +49,5 @@ test("configured-but-disconnected providers remain disconnected instead of looki
   const reader = createStandardSurfaceReaders({ sourceRef: "canonical:test", observedAt, financeProviders }).find((candidate) => candidate.key === "finance");
   assert.equal(reader?.read().availability, "disconnected");
 });
+
+test("social surface rechecks real read-time freshness and never infers live from token/reference alone",()=>{let at=observedAt;const connection={accountId:"account",state:"connected",credentialRef:"secret-ref:test",credentialState:"healthy",grantedScopes:["read"],providerHealth:"available",verifiedAt:observedAt,tokenPresent:true};const reader=createStandardSurfaceReaders({sourceRef:"test",observedAt,now:()=>at,socialRequiredScopes:["read"],socialConnections:[connection]}).find(r=>r.key==="social");assert.equal(reader.read().availability,"available");at="2026-10-23T19:36:00Z";assert.equal(reader.read().availability,"disconnected");const unconfigured=createStandardSurfaceReaders({sourceRef:"test",observedAt,now:()=>observedAt,socialConnections:[connection]}).find(r=>r.key==="social");assert.equal(unconfigured.read().availability,"disconnected");});

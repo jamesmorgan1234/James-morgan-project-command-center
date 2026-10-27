@@ -14,6 +14,8 @@ import type { RuntimeSurfaceReader } from "./assembly.js";
 export interface StandardSurfaceReaderOptions {
   readonly sourceRef: string;
   readonly observedAt: string;
+  readonly now?: () => string;
+  readonly socialRequiredScopes?: readonly string[];
   readonly brainRoutes?: AiRouteRegistry;
   readonly agencyExecutors?: AgencyExecutorRegistry;
   readonly agencyScheduler?: SchedulerControlPlane;
@@ -78,7 +80,8 @@ export function createStandardSurfaceReaders(options: StandardSurfaceReaderOptio
   if (options.socialProfiles || options.socialConnections) readers.push(reader("social", "Social & Communications", () => {
     const profiles = options.socialProfiles?.list() ?? [];
     const connections = options.socialConnections ?? [];
-    const liveConnections = connections.filter((connection) => connectionIsLive(connection, []));
+    const now=(options.now??(()=>new Date().toISOString()))();
+    const liveConnections = options.socialRequiredScopes?.length ? connections.filter((connection) => connectionIsLive(connection, options.socialRequiredScopes!, now)) : [];
     const availability = liveConnections.length > 0 ? "available" as const : connections.length > 0 || profiles.length > 0 ? "disconnected" as const : "unavailable" as const;
     return Object.freeze({ availability, summary: known(`${profiles.length} platform compliance profile${profiles.length === 1 ? "" : "s"} registered; ${connections.length} account connection record${connections.length === 1 ? "" : "s"}; ${liveConnections.length} currently live by connection evidence.`), evidence: refs });
   }));
