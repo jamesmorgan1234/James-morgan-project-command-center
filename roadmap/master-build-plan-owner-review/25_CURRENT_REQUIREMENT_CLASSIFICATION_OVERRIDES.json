@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "status": "CURRENT_REQUIREMENT_CLASSIFICATION_OVERLAY",
+  "purpose": "Preserve immutable historical requirement provenance while allowing newer owner-approved architecture authority to define the effective current classification used by current consumers.",
+  "sourceAuthority": {
+    "canonicalJsonSha256": "0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e",
+    "canonicalCsvSha256": "1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2",
+    "historicalBaselineCount": 5825
+  },
+  "currentAuthority": {
+    "roadmap": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+    "manifest": "roadmap/master-build-plan-owner-review/23_CURRENT_199_PHASE_MACHINE_MANIFEST.json"
+  },
+  "rules": {
+    "historicalSourceIsImmutable": true,
+    "canonicalIdsAreImmutable": true,
+    "sourceIdsAreImmutable": true,
+    "effectiveClassificationOverridesHistoricalForCurrentConsumers": true,
+    "historicalClassificationRemainsAuditable": true
+  },
+  "overrides": [
+    {
+      "id": "CCR-00001",
+      "requirement": "**Single architecture authority** — one approved architecture document controls the implementation.",
+      "canonicalSourceIds": ["F-0001"],
+      "canonicalSourceFiles": ["Pasted markdown(2).md"],
+      "historicalArchitectureBranch": "A06",
+      "historicalArchitectureOwner": "Data / Knowledge / Provenance / Assets",
+      "effectiveArchitectureBranch": "A00",
+      "effectiveArchitectureOwner": "Owner Authority / Governance",
+      "rationale": "The recovered historical ledger predates the current integrated authority framework. The historical A06 assignment remains immutable provenance, while the current 199-phase authority treats the single-architecture-authority rule as owner/governance authority. This overlay changes current classification only; it does not rewrite historical source data."
+    }
+  ]
+}

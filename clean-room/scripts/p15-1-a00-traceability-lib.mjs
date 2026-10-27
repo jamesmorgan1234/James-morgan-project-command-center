@@ -1,11 +1,15 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { dirname, extname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { effectiveRequirementIdsForBranch, validateCurrentRequirementClassificationOverlay } from "./current-requirement-classification.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const cleanRoom = resolve(here, "..");
+const repoRoot = resolve(cleanRoom, "..");
 const basePath = resolve(cleanRoom, "evidence/P15_1_A00_REQUIREMENT_TRACEABILITY.json");
 const fragmentDirectory = resolve(cleanRoom, "evidence/a00-traceability-overrides");
+const currentClassificationPath = resolve(repoRoot, "roadmap/master-build-plan-owner-review/25_CURRENT_REQUIREMENT_CLASSIFICATION_OVERRIDES.json");
+const recoveredAuthorityPath = resolve(cleanRoom, "evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json");
 
 function readJson(path) {
   return JSON.parse(readFileSync(path, "utf8"));
@@ -44,6 +48,14 @@ export function loadA00TraceabilityFragments() {
 
 export function resolveA00Traceability() {
   const base = readJson(basePath);
+  const recoveredAuthority = readJson(recoveredAuthorityPath);
+  const currentClassificationOverlay = readJson(currentClassificationPath);
+  validateCurrentRequirementClassificationOverlay(currentClassificationOverlay, {
+    canonicalJsonSha256: recoveredAuthority.canonicalJson.sha256,
+    canonicalCsvSha256: recoveredAuthority.canonicalCsv.sha256,
+    historicalBaselineCount: recoveredAuthority.canonicalJson.rowCount
+  });
+  const currentEffectiveCanonicalIds = effectiveRequirementIdsForBranch(base.canonicalIds, "A00", currentClassificationOverlay);
   const rowOverrides = { ...base.effectiveRowModel.rowOverrides };
   const provenance = new Map(Object.keys(rowOverrides).map((id) => [id, "P15_1_A00_REQUIREMENT_TRACEABILITY.json"]));
   const fragments = loadA00TraceabilityFragments();
@@ -76,7 +88,15 @@ export function resolveA00Traceability() {
     closureSummary: { total: resolvedRows.length, verified, unverified, notApplicable },
     resolvedRows,
     overrideProvenance: Object.fromEntries(provenance),
-    traceabilityFragments: fragments.map(({ file }) => `clean-room/evidence/a00-traceability-overrides/${file}`)
+    traceabilityFragments: fragments.map(({ file }) => `clean-room/evidence/a00-traceability-overrides/${file}`),
+    currentEffectiveClassification: {
+      authority: "roadmap/master-build-plan-owner-review/25_CURRENT_REQUIREMENT_CLASSIFICATION_OVERRIDES.json",
+      branch: "A00",
+      canonicalIdCount: currentEffectiveCanonicalIds.length,
+      canonicalIds: currentEffectiveCanonicalIds,
+      historicalCanonicalIdCount: base.canonicalIds.length,
+      historicalScopePreserved: true
+    }
   };
 }
 

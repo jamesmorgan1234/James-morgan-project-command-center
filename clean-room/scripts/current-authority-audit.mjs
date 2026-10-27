@@ -11,6 +11,7 @@ import {
   extractRoadmapPhaseIds,
   validateSectionCoverage
 } from "./current-authority-lib.mjs";
+import { validateCurrentRequirementClassificationOverlay } from "./current-requirement-classification.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -21,6 +22,8 @@ const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).to
 
 const manifestPath = "roadmap/master-build-plan-owner-review/23_CURRENT_199_PHASE_MACHINE_MANIFEST.json";
 const ownershipPath = "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json";
+const classificationOverlayPath = "roadmap/master-build-plan-owner-review/25_CURRENT_REQUIREMENT_CLASSIFICATION_OVERRIDES.json";
+const recoveredAuthorityPath = "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json";
 const roadmap22Path = "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md";
 const roadmap14Path = "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md";
 const amendment20Path = "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md";
@@ -35,6 +38,20 @@ const check = (label, fn) => {
 
 const manifest = readJson(manifestPath);
 const ownership = readJson(ownershipPath);
+const recoveredAuthority = readJson(recoveredAuthorityPath);
+const classificationOverlay = readJson(classificationOverlayPath);
+const classificationOverlayValid = check("current-requirement-classification-overlay", () => validateCurrentRequirementClassificationOverlay(classificationOverlay, {
+  canonicalJsonSha256: recoveredAuthority.canonicalJson.sha256,
+  canonicalCsvSha256: recoveredAuthority.canonicalCsv.sha256,
+  historicalBaselineCount: recoveredAuthority.canonicalJson.rowCount
+}));
+if (classificationOverlayValid) {
+  const ccr1 = classificationOverlay.overrides.find((entry) => entry.id === "CCR-00001");
+  if (!ccr1) errors.push({ label: "current-requirement-classification-overlay", message: "CCR-00001 current classification correction is missing" });
+  else if (ccr1.historicalArchitectureBranch !== "A06" || ccr1.effectiveArchitectureBranch !== "A00" || ccr1.canonicalSourceIds?.[0] !== "F-0001") {
+    errors.push({ label: "current-requirement-classification-overlay", message: "CCR-00001 classification correction does not preserve the historical A06/F-0001 anchor and effective A00 authority" });
+  }
+}
 const expanded = check("phase-manifest", () => expandPhaseManifest(manifest));
 
 if (expanded) {
@@ -99,9 +116,10 @@ const report = {
   amendment20AtomicRequirementCount: atomicRequirements.length,
   amendment20AtomicRequirements: atomicRequirements,
   pifMappedCapabilityFamilyCount: uniqueFamilyNumbers.size,
+  currentRequirementClassificationOverrideCount: classificationOverlay.overrides?.length ?? 0,
   errors
 };
 
 if (writeReport) writeFileSync(resolve(cleanRoom, "current-authority-audit.json"), JSON.stringify(report, null, 2) + "\n");
-console.log(JSON.stringify({ headSha, ok: report.ok, currentPhaseCount: report.currentPhaseCount, amendment20SectionCount: report.amendment20SectionCount, amendment20AtomicRequirementCount: report.amendment20AtomicRequirementCount, pifMappedCapabilityFamilyCount: report.pifMappedCapabilityFamilyCount, errorCount: errors.length }));
+console.log(JSON.stringify({ headSha, ok: report.ok, currentPhaseCount: report.currentPhaseCount, amendment20SectionCount: report.amendment20SectionCount, amendment20AtomicRequirementCount: report.amendment20AtomicRequirementCount, pifMappedCapabilityFamilyCount: report.pifMappedCapabilityFamilyCount, currentRequirementClassificationOverrideCount: report.currentRequirementClassificationOverrideCount, errorCount: errors.length }));
 if (!report.ok) process.exit(1);
