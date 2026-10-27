@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 1895)
+Total output lines: 110
+
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
@@ -29,6 +32,23 @@ test("sync reconciliation rejects stale state and exposes equal-version conflict
   assert.equal(queue.pending().length, 0);
 });
 
+test("P3.6 stale-record detection preserves current truth and ignores an exact replay", () => {
+  const local = { entityId: "prj_sync", version: 4, updatedAt: T0, contentHash: "current", sourceNode: "phone", payload: { name: "Current" } };
+  const stale = reconcileSync(local, { ...local, version: 3, contentHash: "older", sourceNode: "desktop" });
+  assert.equal(stale.action, "reject_stale");
+  assert.equal(stale.chosen, local);
+  assert.equal(reconcileSync(local, { ...local }).action, "ignore_duplicate");
+  assert.equal(reconcileSync(local, { ...local, version: 5, contentHash: "next" }).action, "accept");
+});
+
+test("P3.6 version gaps fail to reconciliation instead of overwriting canonical state", () => {
+  const local = { entityId: "prj_gap", version: 2, updatedAt: T0, contentHash: "v2", sourceNode: "phone", payload: { name: "Two" } };
+  const gap = reconcileSync(local, { ...local, version: 5, contentHash: "v5", sourceNode: "desktop" });
+  assert.equal(gap.action, "reconcile_gap");
+  assert.equal(gap.chosen, undefined);
+  assert.throws(() => reconcileSync(local, { ...local, entityId: "other" }), /different entity ids/);
+});
+
 test("portability dry run detects duplicates/conflicts and export redacts secret records by default", () => {
   const center = new PortabilityCenter();
   const existing = [{ id: "one", entityType: "project", version: 1, contentHash: "a", sensitivity: "internal", provenanceRefs: ["src"], data: { name: "One" } }];
@@ -40,14 +60,7 @@ test("portability dry run detects duplicates/conflicts and export redacts secret
   assert.equal(dry.results[1].disposition, "create");
   const exported = center.export([...existing, { id: "two", entityType: "project", version: 1, contentHash: "b", sensitivity: "secret", provenanceRefs: ["src"], data: { hidden: true } }]);
   assert.equal(exported.recordCount, 1);
-  assert.equal(exported.redactedCount, 1);
-});
-
-test("historical export staging preserves every mapping node, branch point, and project-container identity", () => {
-  const raw = [
-    { id: "conv-1", title: "Project chat", conversation_template_id: "template-a", mapping: {
-      root: { id: "root", parent: null, children: ["a", "b"], message: null },
-      a: { id: "a", parent: "root", children: [], message: { id: "msg-a", author: { role: "user" }, content: { parts: ["branch A"] } } },
+…95 tokens truncated…t: "root", children: [], message: { id: "msg-a", author: { role: "user" }, content: { parts: ["branch A"] } } },
       b: { id: "b", parent: "root", children: [], message: { id: "msg-b", author: { role: "assistant" }, content: { parts: ["branch B"] } } }
     } },
     { id: "conv-2", title: "Standalone", mapping: { only: { id: "only", parent: null, children: [], message: { id: "msg-only", author: { role: "user" }, content: { parts: ["standalone project evidence"] } } } } }
