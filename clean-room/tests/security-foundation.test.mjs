@@ -48,6 +48,21 @@ test("session lifecycle fails closed for lock, expiry, and revocation", () => {
   assert.equal(expiring.get("ses_expiring").state, "expired");
 });
 
+test("session lifecycle rejects pre-creation and backward timestamps", () => {
+  const invalid = new AuthSessionStore();
+  assert.throws(() => invalid.register(activeSession({ id: "ses_invalid_time", lastValidatedAt: "2026-10-23T17:59:59Z" })), /cannot be before createdAt/);
+
+  const sessions = new AuthSessionStore();
+  sessions.register(activeSession({ id: "ses_time" }));
+  assert.throws(() => sessions.validateLive("ses_time", "2026-10-23T17:59:59Z"), /not yet valid/);
+  assert.equal(sessions.validateLive("ses_time", "2026-10-23T18:10:00Z").lastValidatedAt, "2026-10-23T18:10:00Z");
+  assert.throws(() => sessions.lock("ses_time", "2026-10-23T18:09:59Z"), /cannot move session time backward/);
+  sessions.lock("ses_time", "2026-10-23T18:11:00Z");
+  assert.throws(() => sessions.unlock("ses_time", "passkey_uv", "2026-10-23T18:10:59Z"), /cannot move session time backward/);
+  sessions.unlock("ses_time", "passkey_uv", "2026-10-23T18:12:00Z");
+  assert.throws(() => sessions.revoke("ses_time", "2026-10-23T18:11:59Z", "owner_request"), /cannot move session time backward/);
+});
+
 test("passkeys require platform authenticator and user verification and never accept biometric templates", () => {
   const passkeys = new PasskeyRegistry();
   passkeys.register({ id: "pk_one", ownerId: "owner-1", deviceId: "dev_samsung", publicKeyRef: "webauthn-public-key-ref-1", authenticatorAttachment: "platform", userVerification: "required", transports: ["internal"], createdAt: NOW });
