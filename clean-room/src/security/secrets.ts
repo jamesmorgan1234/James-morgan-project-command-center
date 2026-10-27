@@ -53,6 +53,15 @@ export function assertReferenceOnly(value: Record<string, unknown>): void {
   inspectReferenceOnly(value, "metadata", new WeakSet<object>());
 }
 
+function latestReferenceEventMs(record: SecretReferenceMetadata): number {
+  return Math.max(
+    parseTimestamp(record.createdAt, "createdAt"),
+    record.rotatedAt ? parseTimestamp(record.rotatedAt, "rotatedAt") : Number.NEGATIVE_INFINITY,
+    record.revokedAt ? parseTimestamp(record.revokedAt, "revokedAt") : Number.NEGATIVE_INFINITY,
+    record.lastHealthCheckAt ? parseTimestamp(record.lastHealthCheckAt, "lastHealthCheckAt") : Number.NEGATIVE_INFINITY
+  );
+}
+
 export class SecretReferenceRegistry {
   readonly #references = new Map<string, SecretReferenceMetadata>();
 
@@ -88,6 +97,19 @@ export class SecretReferenceRegistry {
     if (rotationOverlapUntil && parseTimestamp(rotationOverlapUntil, "rotationOverlapUntil") <= parseTimestamp(rotatedAt, "rotatedAt")) throw new Error("Rotation overlap must end after rotation time");
     this.register(replacement);
     const updated = Object.freeze({ ...current, state: "degraded" as const, rotatedAt, replacedBy: replacement.id, ...(rotationOverlapUntil ? { rotationOverlapUntil } : {}) });
+    this.#references.set(id, updated);
+    return Object.freeze([updated, this.#required(replacement.id)]);
+  }
+
+  replaceProvider(id: string, replacement: SecretReferenceMetadata, replacedAt: string): readonly [SecretReferenceMetadata, SecretReferenceMetadata] {
+    const current = this.#required(id);
+    const replacementTime = parseTimestamp(replacedAt, "replacedAt");
+    if (replacement.provider === current.provider) throw new Error("Provider replacement must use a different provider");
+    if (replacement.purpose !== current.purpose) throw new Error("Provider replacement must preserve credential purpose");
+    if (replacementTime < latestReferenceEventMs(current)) throw new Error("Provider replacement cannot move credential time backward");
+    if (parseTimestamp(replacement.createdAt, "replacement.createdAt") > replacementTime) throw new Error("Replacement credential cannot be created after provider replacement");
+    this.register(replacement);
+    const updated = Object.freeze({ ...current, state: "revoked" as const, revokedAt: replacedAt, replacedBy: replacement.id });
     this.#references.set(id, updated);
     return Object.freeze([updated, this.#required(replacement.id)]);
   }
