@@ -12,6 +12,7 @@ import {
 } from "../dist/kernel/index.js";
 import {
   AuthSessionStore,
+  DeviceRegistry,
   PolicyEngine,
   ProtectedActionGate,
   createIntentBinding
@@ -43,7 +44,7 @@ function session(overrides = {}) {
     state: "active",
     createdAt: "2026-10-25T01:00:00Z",
     expiresAt: "2026-10-25T02:00:00Z",
-    lastValidatedAt: "2026-10-25T01:00:00Z",
+    lastValidatedAt: "2026-10-25T01:39:30Z",
     lastVerifiedAt: "2026-10-25T01:39:30Z",
     policyEpoch: 7,
     ...overrides
@@ -66,7 +67,7 @@ function protectedHarness(sessionOverrides = {}) {
     allowProjectWildcard: false,
     policyEpoch: 7
   });
-  return { sessions, policy, gate: new ProtectedActionGate(sessions, policy) };
+  return { sessions, policy, gate: new ProtectedActionGate(sessions, policy, new DeviceRegistry()) };
 }
 
 function intent(overrides = {}) {
@@ -221,7 +222,12 @@ test("protected path fails closed for cross-company scope, stale session, unavai
   assert.throws(() => authorize(gate, protectedIntent, binding, { revocationStateFresh: false }));
   assert.throws(() => authorize(gate, { ...protectedIntent, parameters: { operation: "verify_vertical_path", amount: 1 } }, binding));
 
-  const stale = protectedHarness({ id: "session:vertical", expiresAt: "2026-10-25T01:30:00Z" });
+  const stale = protectedHarness({
+    id: "session:vertical",
+    expiresAt: "2026-10-25T01:30:00Z",
+    lastValidatedAt: "2026-10-25T01:29:30Z",
+    lastVerifiedAt: "2026-10-25T01:29:30Z"
+  });
   assert.throws(() => authorize(stale.gate, protectedIntent, binding));
   assert.equal(stale.sessions.get("session:vertical").state, "expired");
 });
