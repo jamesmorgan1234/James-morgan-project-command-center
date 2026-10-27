@@ -15,7 +15,7 @@ function draft(overrides={}) {
   };
 }
 
-const connection={accountId:"account-1",state:"connected",credentialRef:"secret-ref:social:1",grantedScopes:["publish"],providerHealth:"available",verifiedAt:"2026-10-26T16:00:00Z",tokenPresent:true};
+const connection={accountId:"account-1",state:"connected",credentialRef:"secret-ref:social:1",grantedScopes:["publish"],credentialState:"healthy",providerHealth:"available",verifiedAt:"2026-10-26T16:00:00Z",tokenPresent:true};
 
 test("P10.3 publish readiness binds approval to exact revision content and account",()=>{
   assert.doesNotThrow(()=>assertDraftPublishReady(draft()));
@@ -57,8 +57,8 @@ test("P10.3 approvals cannot predate revision and malformed evidence fails close
 test("P10.3 publishing seam refuses stale approval after content/account drift",()=>{
   const ledger=new PublishLedger();
   const intent={id:"pub-1",ownerId:"owner-1",brandId:"brand-1",accountId:"account-1",draftId:"draft-1",idempotencyKey:"idem-1",state:"prepared",authorizationRef:"owner-auth:1",requiredScopes:["publish"]};
-  assert.doesNotThrow(()=>ledger.prepare(intent,draft(),connection));
-  assert.throws(()=>new PublishLedger().prepare({...intent,id:"pub-2",idempotencyKey:"idem-2"},draft({contentHash:"sha256:changed"}),connection),/exact draft revision\/content\/account/i);
+  assert.doesNotThrow(()=>ledger.prepare(intent,draft(),connection,"2026-10-26T16:03:00Z"));
+  assert.throws(()=>new PublishLedger().prepare({...intent,id:"pub-2",idempotencyKey:"idem-2"},draft({contentHash:"sha256:changed"}),connection,"2026-10-26T16:03:00Z"),/exact draft revision\/content\/account/i);
 });
 
 test("P10.3 durable schema preserves immutable owner-scoped draft asset rights provenance and approval bindings",()=>{

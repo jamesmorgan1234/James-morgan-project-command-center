@@ -3,13 +3,13 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { assessSocialConnection } from "../dist/social/index.js";
 
-const base={id:"conn-1",ownerId:"owner-1",canonicalAccountId:"account-1",platformIdentityId:"yt-channel-1",state:"connected",credentialRef:"secret-ref:social:1",grantedScopes:["publish","analytics"],providerHealth:"available",tokenPresent:true,verifiedAt:"2026-10-26T16:00:00Z",observedAt:"2026-10-26T16:00:10Z",evidenceRefs:["provider:connection:1"]};
+const base={id:"conn-1",ownerId:"owner-1",canonicalAccountId:"account-1",platformIdentityId:"yt-channel-1",state:"connected",credentialRef:"secret-ref:social:1",grantedScopes:["publish","analytics"],credentialState:"healthy",providerHealth:"available",tokenPresent:true,verifiedAt:"2026-10-26T16:00:00Z",observedAt:"2026-10-26T16:00:10Z",evidenceRefs:["provider:connection:1"]};
 
 test("P10.2 live status requires connected state available provider credential reference token fresh verification and scopes",()=>{
  const result=assessSocialConnection(base,["publish"],"2026-10-26T16:01:00Z",120000);assert.equal(result.live,true);assert.equal(result.secretsExposed,false);assert.equal(result.protectedActionAuthorized,false);
  assert.equal(assessSocialConnection({...base,tokenPresent:false},["publish"],"2026-10-26T16:01:00Z",120000).live,false);
  assert.equal(assessSocialConnection({...base,credentialRef:undefined},["publish"],"2026-10-26T16:01:00Z",120000).live,false);
- assert.equal(assessSocialConnection({...base,providerHealth:"degraded"},["publish"],"2026-10-26T16:01:00Z",120000).live,false);
+ assert.equal(assessSocialConnection({...base,credentialState:"healthy",providerHealth:"degraded"},["publish"],"2026-10-26T16:01:00Z",120000).live,false);
  assert.equal(assessSocialConnection(base,["publish"],"2026-10-26T17:00:00Z",120000).live,false);
 });
 

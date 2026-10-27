@@ -29,13 +29,13 @@ export class PublishLedger {
   readonly #byIdempotency = new Map<string, string>();
   readonly #receipts = new Map<string, PublishReceipt>();
 
-  prepare(intent: PublishIntent, draft: SocialDraft, connection: SocialConnection): PublishIntent {
+  prepare(intent: PublishIntent, draft: SocialDraft, connection: SocialConnection, now?: string): PublishIntent {
     assertDraftPublishReady(draft);
     if (!intent.authorizationRef.trim()) throw new Error("publishing requires explicit protected-action authorization evidence");
     if (intent.ownerId !== draft.ownerId || intent.brandId !== draft.brandId || intent.accountId !== draft.intendedAccountId || intent.draftId !== draft.id) {
       throw new Error("publish intent must target the exact approved draft/account identity");
     }
-    if (connection.accountId !== intent.accountId || !connectionIsLive(connection, intent.requiredScopes)) throw new Error("intended social account is not verified live with required scopes");
+    if (connection.accountId !== intent.accountId || !connectionIsLive(connection, intent.requiredScopes, now)) throw new Error("intended social account is not verified live with required scopes");
     const existing = this.#byIdempotency.get(intent.idempotencyKey);
     if (existing && existing !== intent.id) throw new Error("duplicate publish idempotency key");
     const frozen = Object.freeze({ ...intent, requiredScopes: Object.freeze([...intent.requiredScopes]) });
