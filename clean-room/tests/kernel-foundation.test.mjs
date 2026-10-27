@@ -19,6 +19,30 @@ import {
   assertSingleOwners
 } from "../dist/kernel/index.js";
 
+const moduleContract = (overrides = {}) => ({
+  key: "mod:test",
+  version: 1,
+  enabled: true,
+  owner: "test-owner",
+  ownsData: [],
+  ownsCapabilities: [],
+  usesData: [],
+  usesCapabilities: [],
+  dependencies: [],
+  permissions: [],
+  routes: [],
+  events: [],
+  migrations: [],
+  healthCheckKey: "test-health",
+  securityClass: "internal",
+  activation: "on-demand",
+  failureBehavior: "isolate",
+  canDisable: true,
+  canUninstall: true,
+  tests: ["kernel-foundation.test.mjs"],
+  ...overrides
+});
+
 test("canonical identifiers are deterministic and typed", () => {
   const id = createIdentifier("project", "Edge-Finder");
   assert.equal(id, "prj_edge-finder");
@@ -43,10 +67,10 @@ test("generic registry enforces uniqueness and optimistic version replacement", 
 
 test("module registry blocks unknown dependencies, cycles, and removal with dependents", () => {
   const modules = new ModuleRegistry();
-  modules.register({ key: "mod:core", version: 1, enabled: true, ownsData: ["core"], ownsCapabilities: ["kernel"], dependencies: [], permissions: [], routes: [], events: [], migrations: [], healthCheckKey: "core", securityClass: "internal", canDisable: false, canUninstall: false });
-  modules.register({ key: "mod:projects", version: 1, enabled: true, ownsData: ["projects"], ownsCapabilities: ["project-registry"], dependencies: ["mod:core"], permissions: [], routes: ["/projects"], events: [], migrations: [], healthCheckKey: "projects", securityClass: "sensitive", canDisable: true, canUninstall: true });
+  modules.register(moduleContract({ key: "mod:core", ownsData: ["core"], ownsCapabilities: ["kernel"], healthCheckKey: "core", canDisable: false, canUninstall: false }));
+  modules.register(moduleContract({ key: "mod:projects", ownsData: ["projects"], ownsCapabilities: ["project-registry"], dependencies: ["mod:core"], routes: ["/projects"], healthCheckKey: "projects", securityClass: "sensitive" }));
   assert.throws(() => modules.remove("mod:core", 1));
-  assert.throws(() => modules.register({ key: "mod:bad", version: 1, enabled: true, ownsData: [], ownsCapabilities: [], dependencies: ["mod:missing"], permissions: [], routes: [], events: [], migrations: [], healthCheckKey: "bad", securityClass: "internal", canDisable: true, canUninstall: true }));
+  assert.throws(() => modules.register(moduleContract({ key: "mod:bad", dependencies: ["mod:missing"], healthCheckKey: "bad" })));
   modules.remove("mod:projects", 1);
   assert.equal(modules.list().length, 1);
 });
