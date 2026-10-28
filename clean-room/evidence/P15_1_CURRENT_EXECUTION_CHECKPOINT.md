@@ -1,3 +1,51 @@
+# Latest active Category 15 checkpoint — P15.1 remains open
+
+Live starting source: `4226643182cdbe1fd1164c30a4da31ae6a70dbfe`, tree
+`92554ae16b1674068287b1b1e3d81cacf2da4c22`. Its exact-head GitHub Actions run
+`40683528636`, job `122799996700` completed: two 1571-test runs PASS, no failures/skips;
+authority/type/core/release/PWA PASS, final C15 gate FAIL, production SKIPPED.
+
+The former stale registry source binding has now been refreshed using that actual
+observed CI and an exact-source repository audit. The native ledger retains all
+5852 source identities and now has **154 VERIFIED / 0 N/A / 5698 UNVERIFIED**,
+zero structurally invalid rows and valid repository proof with zero errors.
+The 136 prior mappings are preserved. Eighteen explicit semantic mappings were added:
+CCR-00001, CCR-00003, CCR-00004, CCR-00016, CCR-00017, CCR-00018, CCR-00061,
+CCR-00063, CCR-00064, CCR-00071, CCR-00072, CCR-00074, CCR-01885, CCR-01893,
+CCR-01894, CCR-01895, CCR-01896, CCR-01897. Each has exact implementation,
+positive/negative/failure test references and source-bound evidence.
+
+The traceability and no-orphan rows certify enforcement mechanisms, never closure
+of the remaining inventory. The existing gate exits 1 correctly: advancementAllowed=false.
+No later P15 phase is newly certified. No runtime/schema/SQL change in this batch.
+
+Current focused execution: 41 PASS / 0 FAIL / 0 SKIP across native proof, architecture,
+module ownership/version/lifecycle, authority ledger and evidence primitives.
+Typecheck and authority audit PASS; `git diff --check` PASS. Local initial tooling
+attempts encountered a rejected junction, wrong working-directory/PowerShell quoting,
+and automatic approval review blocking a suspected telemetry action. Those attempts
+are not passes. Existing dependencies were copied then exact declared free packages
+installed (TypeScript 5.8.3, PGlite 0.5.12), without package/source changes or billing.
+Verification subsequently ran with telemetry disabled and a scratch-only Node preloader
+denying network I/O; that guarded run is the 41-test PASS. No guard was added to product
+code or used to relax assertions. An earlier 9-test source-proof run also passed.
+
+New reviewed mapping module: scripts/p15-1-reviewed-authority-kernel-mappings.mjs.
+Current assembler/resolver/native format remain canonical. Do not create another ledger.
+Exact-source proof still uses commit 4226643 and unchanged runtime/test bytes; new
+metadata/tooling publication must receive its own observed exact-head CI verification.
+
+Next: inspect this mapping commit's exact-head CI, resolve real failures, and continue
+remaining P15.1 semantic clusters. CCR-00005/00007/00008 and subsequent original rows
+remain unresolved. An earlier shallow-freeze observation was not yet reproduced;
+verify it before making an immutability claim. Continue without voluntary handoff.
+The old checkpoint stop reasons below are historical only. Owner/device/production
+boundaries remain protected; there is no percentage-reserve stop rule.
+
+Main/production/Supabase/auth/protected assets untouched; no financial operation,
+merge, force-push, deployment/promotion, paid activation or spending.
+
+---
 # Current continuation checkpoint — owner-requested handoff, Category 15 remains INCOMPLETE
 
 This section supersedes the prior session's stop reason below. The owner requested
