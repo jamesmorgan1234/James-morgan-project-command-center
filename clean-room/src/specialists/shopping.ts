@@ -20,6 +20,7 @@ export interface ShoppingTripOption {
   readonly merchantRef: string;
   readonly baseCost: number;
   readonly travelCost: number;
+  readonly travelMinutes?: number;
   readonly offers: readonly ShoppingOfferEvidence[];
 }
 
@@ -28,6 +29,7 @@ export interface ShoppingTripAssessment {
   readonly outOfPocketToday: number;
   readonly delayedSavings: number;
   readonly effectiveFinalCost: number;
+  readonly travelMinutes?: number;
   readonly priority: TripPriority;
   readonly evidenceRefs: readonly string[];
 }
@@ -70,18 +72,20 @@ export function validateShoppingOffer(offer: ShoppingOfferEvidence, now?: string
 
 export function assessShoppingTrip(option: ShoppingTripOption, priority: TripPriority, now: string): ShoppingTripAssessment {
   if (!option.merchantRef.trim() || !Number.isFinite(option.baseCost) || option.baseCost < 0 || !Number.isFinite(option.travelCost) || option.travelCost < 0) throw new Error("shopping trip option invalid");
+  if (option.travelMinutes !== undefined && (!Number.isFinite(option.travelMinutes) || option.travelMinutes < 0)) throw new Error("shopping trip travel minutes invalid");
   const offers=option.offers.map((offer)=>validateShoppingOffer(offer,now)).filter((offer)=>offer.truth === "verified");
   const immediate=offers.filter((offer)=>offer.timing === "immediate").reduce((sum,offer)=>sum+offer.amount,0);
   const delayed=offers.filter((offer)=>offer.timing !== "immediate").reduce((sum,offer)=>sum+offer.amount,0);
   const outOfPocketToday=Math.max(0,option.baseCost+option.travelCost-immediate);
   const effectiveFinalCost=Math.max(0,outOfPocketToday-delayed);
-  return Object.freeze({ merchantRef:option.merchantRef,outOfPocketToday,delayedSavings:delayed,effectiveFinalCost,priority,evidenceRefs:Object.freeze(offers.flatMap((offer)=>offer.sourceRefs)) });
+  return Object.freeze({ merchantRef:option.merchantRef,outOfPocketToday,delayedSavings:delayed,effectiveFinalCost,...(option.travelMinutes === undefined ? {} : { travelMinutes: option.travelMinutes }),priority,evidenceRefs:Object.freeze(offers.flatMap((offer)=>offer.sourceRefs)) });
 }
 
 export function rankShoppingTrips(options: readonly ShoppingTripOption[], priority: TripPriority, now: string): readonly ShoppingTripAssessment[] {
   const assessed=options.map((option)=>assessShoppingTrip(option,priority,now));
-  const score=(item:ShoppingTripAssessment)=>priority === "preserve_cash_today" ? item.outOfPocketToday : priority === "lowest_final_cost" ? item.effectiveFinalCost : item.outOfPocketToday + item.delayedSavings;
-  return Object.freeze([...assessed].sort((a,b)=>score(a)-score(b) || a.merchantRef.localeCompare(b.merchantRef)));
+  if (priority === "closest_practical" && assessed.some((item)=>item.travelMinutes === undefined)) throw new Error("closest practical priority requires travel minutes for every trip option");
+  const score=(item:ShoppingTripAssessment)=>priority === "preserve_cash_today" ? item.outOfPocketToday : priority === "lowest_final_cost" ? item.effectiveFinalCost : item.travelMinutes as number;
+  return Object.freeze([...assessed].sort((a,b)=>score(a)-score(b) || a.outOfPocketToday-b.outOfPocketToday || a.merchantRef.localeCompare(b.merchantRef)));
 }
 
 export function assertShoppingTruthOwnership(truthOwner: string): void {

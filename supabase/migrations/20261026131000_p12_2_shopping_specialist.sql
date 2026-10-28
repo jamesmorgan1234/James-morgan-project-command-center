@@ -6,8 +6,9 @@ create table if not exists public.command_center_shopping_offer_history (
 );
 create table if not exists public.command_center_shopping_trip_assessment_history (
  owner_id uuid not null references auth.users(id) on delete cascade,
- assessment_event_id text not null check(btrim(assessment_event_id)<>''), merchant_ref text not null check(btrim(merchant_ref)<>''), priority text not null check(priority in ('preserve_cash_today','lowest_final_cost','closest_practical')), out_of_pocket_today numeric not null check(out_of_pocket_today>=0), delayed_savings numeric not null check(delayed_savings>=0), effective_final_cost numeric not null check(effective_final_cost>=0), evidence_refs text[] not null default '{}'::text[], observed_at timestamptz not null,
- primary key(owner_id,assessment_event_id)
+ assessment_event_id text not null check(btrim(assessment_event_id)<>''), merchant_ref text not null check(btrim(merchant_ref)<>''), priority text not null check(priority in ('preserve_cash_today','lowest_final_cost','closest_practical')), out_of_pocket_today numeric not null check(out_of_pocket_today>=0), delayed_savings numeric not null check(delayed_savings>=0), effective_final_cost numeric not null check(effective_final_cost>=0), travel_minutes numeric check(travel_minutes is null or travel_minutes>=0), evidence_refs text[] not null default '{}'::text[], observed_at timestamptz not null,
+ primary key(owner_id,assessment_event_id),
+ check(priority<>'closest_practical' or travel_minutes is not null)
 );
 create or replace function public.command_center_reject_shopping_evidence_mutation() returns trigger language plpgsql set search_path to 'public' as $$ begin raise exception 'Shopping evidence is immutable'; end $$;
 drop trigger if exists command_center_shopping_offer_immutable on public.command_center_shopping_offer_history; create trigger command_center_shopping_offer_immutable before update or delete on public.command_center_shopping_offer_history for each row execute function public.command_center_reject_shopping_evidence_mutation();
