@@ -103,12 +103,14 @@ export class AuthoritySourceRegistry {
     const id = required(record.id, "Authority source id");
     if (!this.#types.has(record.type)) throw new Error(`Authority source type is not registered: ${record.type}`);
     if (this.#sources.has(id)) throw new Error(`Authority source already exists: ${id}`);
+    const observedAt = validTime(record.observedAt, "Authority source observedAt");
     const source = Object.freeze({
-      ...record,
       id,
+      type: record.type,
       version: validVersion(record.version, "Authority source version"),
+      active: record.active,
       locator: required(record.locator, "Authority source locator"),
-      observedAt: validTime(record.observedAt, "Authority source observedAt")
+      ...(observedAt === undefined ? {} : { observedAt })
     });
     this.#sources.set(id, source);
     this.#sourceHistory.set(id, [source]);
@@ -118,13 +120,14 @@ export class AuthoritySourceRegistry {
   reviseSource(id: string, next: Omit<AuthoritySourceRecord, "id" | "type">): Readonly<AuthoritySourceRecord> {
     const current = this.requireSource(id);
     if (next.version <= current.version) throw new Error(`Authority source revision must advance version for ${id}`);
+    const observedAt = validTime(next.observedAt, "Authority source observedAt");
     const revised = Object.freeze({
       id: current.id,
       type: current.type,
       version: validVersion(next.version, "Authority source version"),
       active: next.active,
       locator: required(next.locator, "Authority source locator"),
-      observedAt: validTime(next.observedAt, "Authority source observedAt")
+      ...(observedAt === undefined ? {} : { observedAt })
     });
     this.#sources.set(id, revised);
     this.#sourceHistory.get(id)?.push(revised);
