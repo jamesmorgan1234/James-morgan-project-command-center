@@ -7,6 +7,7 @@ import {reviewedDataFoundationMappings} from './p15-1-reviewed-data-foundation-m
 import {reviewedEntityRelationshipMappings} from './p15-1-reviewed-entity-relationship-mappings.mjs';
 import {reviewedAssetContractMappings} from './p15-1-reviewed-asset-contract-mappings.mjs';
 import {reviewedDesignSystemMappings} from './p15-1-reviewed-design-system-mappings.mjs';
+import {reviewedDeviceAdaptationMappings} from './p15-1-reviewed-device-adaptation-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -29,7 +30,8 @@ export function currentReviewedMappings(root){
   ...reviewedDataFoundationMappings(),
   ...reviewedEntityRelationshipMappings(),
   ...reviewedAssetContractMappings(),
-  ...reviewedDesignSystemMappings()
+  ...reviewedDesignSystemMappings(),
+  ...reviewedDeviceAdaptationMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
