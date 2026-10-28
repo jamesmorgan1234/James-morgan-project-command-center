@@ -1,4 +1,4 @@
-name: P15.1 CCR-00386-00425 Exact Inspection
+name: P15.1 Agency Hardening Core Tranche Qualification
 
 on:
   push:
@@ -11,32 +11,53 @@ permissions:
   contents: write
 
 jobs:
-  inspect:
+  qualify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 2
-      - name: Persist exact canonical wording and current truth state
+      - name: Guarded assemble and qualify Agency hardening core tranche
         shell: bash
         run: |
           set -euo pipefail
           cd clean-room
+          node scripts/p15-1-assemble-current-traceability.mjs --write | tee /tmp/p151-assemble.json
           node <<'NODE'
           const fs=require('fs');
           const d=JSON.parse(fs.readFileSync('evidence/category15-requirement-traceability.json','utf8'));
-          const rows=d.requirements.filter(r=>{
-            const n=Number(r.id.replace('CCR-',''));
-            return n>=386&&n<=425;
-          });
-          if(rows.length!==40) throw new Error('Expected 40 rows, found '+rows.length);
-          const lines=['# P15.1 exact inspection — CCR-00386..CCR-00425','',`Ledger checkpoint: ${d.closureSummary.verifiedCount} VERIFIED / ${d.closureSummary.unverifiedCount} UNVERIFIED.`,''];
-          for(const r of rows) lines.push(`- \`${r.id}\` — **${r.truthState}** — ${String(r.requirement).replace(/\s+/g,' ').trim()}`);
-          fs.writeFileSync('evidence/P15_1_BATCH_00386_00425_EXACT_INSPECTION.md',lines.join('\n')+'\n');
+          const rows=new Map(d.requirements.map(r=>[r.id,r]));
+          const expected=['CCR-00386','CCR-00387','CCR-00389','CCR-00390','CCR-00391','CCR-00393','CCR-00397'];
+          const s=d.closureSummary;
+          if(s.verifiedCount!==358||s.unverifiedCount!==5494||s.notApplicableCount!==0||s.structurallyInvalidRowCount!==0) throw new Error('Unexpected ledger totals '+JSON.stringify(s));
+          if(!d.repositoryEvidence?.valid||d.repositoryEvidence.errors?.length) throw new Error('Repository evidence invalid '+JSON.stringify(d.repositoryEvidence?.errors));
+          if(d.assembly?.qualificationErrors?.length) throw new Error('Qualification errors '+JSON.stringify(d.assembly.qualificationErrors));
+          for(const id of expected) if(rows.get(id)?.truthState!=='VERIFIED') throw new Error(id+' did not qualify');
+          for(const id of ['CCR-01875','CCR-01908']) if(rows.get(id)?.truthState!=='UNVERIFIED') throw new Error(id+' exclusion changed');
+          console.log('QUALIFIED_AGENCY_HARDENING_CORE_ROWS='+expected.join(','));
+          console.log('VERIFIED='+s.verifiedCount+' UNVERIFIED='+s.unverifiedCount);
           NODE
+          set +e
+          node scripts/category15-traceability-gate.mjs | tee /tmp/p151-gate.json
+          gate=$?
+          set -e
+          if [ "$gate" -ne 1 ]; then echo "Expected open P15.1 gate exit 1, got $gate"; exit 1; fi
+          cat > evidence/P15_1_AGENCY_HARDENING_CORE_TRANCHE_QUALIFICATION.md <<EOF
+          # P15.1 Agency hardening core tranche qualification
+
+          Trigger source commit: ${GITHUB_SHA}
+
+          Guarded assembly qualified exactly seven additional existing-proof rows: CCR-00386, CCR-00387, CCR-00389, CCR-00390, CCR-00391, CCR-00393, CCR-00397.
+
+          Ledger totals: 5,852 canonical / 358 VERIFIED / 5,494 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors=0; qualification errors=0.
+
+          P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. CCR-01875 and CCR-01908 remain UNVERIFIED. No later phase advanced.
+
+          This tranche changes evidence mappings/generated traceability only; no runtime, schema, provider, protected asset, production, deployment, merge, paid service or spending action is claimed.
+          EOF
           git diff --check
           git config user.name jamesmorgan1234
           git config user.email JAMESMORGAN1234@YAHOO.COM
-          git add evidence/P15_1_BATCH_00386_00425_EXACT_INSPECTION.md
-          git commit -m "evidence: inspect P15.1 CCR-00386 through CCR-00425"
+          git add evidence/category15-requirement-traceability.json evidence/P15_1_AGENCY_HARDENING_CORE_TRANCHE_QUALIFICATION.md
+          git commit -m "evidence: qualify 358 P15.1 requirements with Agency hardening core proofs"
           git push origin HEAD:build/spec-lock-v2-clean-room
