@@ -1,3 +1,15 @@
+# P15.1 session and generator repair — exact-source qualification pending
+
+Remote parent 01556395b6ae41473e392cbf65b7467ef97eee06 / tree 17751a713ec2270554e7908335305eaeec1cea07 was refetched. Its metadata CI 40750066972 / 123034097765 failed 1609/1610 tests because Windows-generated REV3 authoritativeSource fields contained absolute checkout paths. Do not treat that saved ledger as portable certification. Generator fixed with node:path basename; focused regression reproduced then passed. Regenerated via guarded assembler in matching c29897c audit/CI environment: 5852 / 202 VERIFIED / 5650 UNVERIFIED / 0 N/A / 0 invalid; repositoryEvidence true / 0 errors; qualification errors 0. Corrected generated native document is included here, without direct generated-row editing.
+
+Session continuation: CCR-01947, CCR-01948, CCR-01949, CCR-01951 individually supported candidates. New source changes require fresh CI and requalification; do not count 206 certified yet. Shared auth flight prevents duplicate prompts/establishment and clears rejected retries. Zero expiry restore marker refreshes through existing broker and canonical authorization. JSON deadlines cover hung fetch/body and late results cannot install sessions. Strict module compilation PASS; focused auth/broker/privacy/provider 24 PASS / 0 FAIL before final late-result test, final session+portability suites 10 PASS / 0 FAIL / 0 SKIP. Baseline duplicate tests failed twice; broker zero-expiry test failed; hung refresh cancelled on deadline before repair. Fixture scheduled-document lifetime corrected (initial after-test errors not passes). Architecture/legacy/scoped diff checks PASS.
+
+Next: inspect this commit full CI, preserve overall intentional Category15 failure, generate matching immutable-source audit, refresh via existing guarded assembler, ensure zero qualification/repository errors and exact new row delta; then continue the eight remaining auth/privacy rows and further coherent P15.1 batches. P15.1 stays SOURCE_RECOVERED_TRACEABILITY_OPEN; no P15.2+. Read evidence/P15_1_AUTH_SESSION_BATCH_REVIEW.md for exact unresolved reasons and prior auth-shell review for all 30 canonical wordings.
+
+No main/production/Supabase/auth-policy/protected release asset/deployment changes, no paid service or cost.
+
+---
+
 # P15.1 auth/privacy batch — 202 certified; continuation active
 
 Qualifying source HEAD c29897cc2f7c396f3de2fd3d6d2b0732259fce63 / tree 8515b45a1851153799395ef5ead644edadd8e165. Runtime repair commit e2f17f26e86572d51cb28b7043c04af5ae2d3e9e preserved; source-format correction c29897c fixed existing source-inspection regression without weakening tests.

@@ -1,6 +1,6 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { resolve, basename } from "node:path";
 import {loadRecoveredLedgerCsv} from "./p15-1-recovered-source.mjs";
 
 const cleanRoom = process.cwd();
@@ -94,7 +94,7 @@ const additions = rev3.requirements.map((item, index) => {
   return {
     id: item.id,
     requirement: item.requirement,
-    authoritativeSource: `REV3:${rev3Path.split('/').pop()}#${item.id}`,
+    authoritativeSource: `REV3:${basename(rev3Path)}#${item.id}`,
     sourceVersion: rev3Sha256,
     sourceIds: [item.id],
     sourceFiles: ["Command_Center_Canonical_Owner_Additions_REV3.json"],

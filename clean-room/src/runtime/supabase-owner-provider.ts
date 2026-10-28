@@ -31,6 +31,7 @@ export interface SupabaseOwnerRuntimeProviderOptions {
   readonly storage?: SessionStorageLike;
   readonly promptForCredentials?: OwnerCredentialPrompt;
   readonly onAuthenticated?: OwnerAuthenticatedCallback;
+  readonly requestTimeoutMs?: number;
 }
 
 interface StoredSession {
@@ -79,6 +80,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
   readonly #storage: SessionStorageLike | undefined;
   readonly #promptForCredentials: OwnerCredentialPrompt | undefined;
   readonly #onAuthenticated: OwnerAuthenticatedCallback | undefined;
+  readonly #requestTimeoutMs: number;
+  #sessionFlight: Promise<StoredSession | undefined> | undefined;
 
   constructor(options: SupabaseOwnerRuntimeProviderOptions) {
     this.#supabaseUrl = options.supabaseUrl.trim().replace(/\/$/, "");
@@ -90,19 +93,21 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     this.#storage = options.storage ?? defaultStorage();
     this.#promptForCredentials = options.promptForCredentials;
     this.#onAuthenticated = options.onAuthenticated;
+    this.#requestTimeoutMs = options.requestTimeoutMs ?? 8000;
+    if (!Number.isSafeInteger(this.#requestTimeoutMs) || this.#requestTimeoutMs < 1) throw new Error("Owner runtime request timeout must be a positive safe integer");
   }
 
   async signIn(email: string, password: string): Promise<void> {
     const normalizedEmail = email.trim();
     if (!normalizedEmail || !password) throw new Error("Email and password are required");
-    const response = await this.#fetcher(`${this.#supabaseUrl}/auth/v1/token?grant_type=password`, {
+    const response = await this.#requestJson(`${this.#supabaseUrl}/auth/v1/token?grant_type=password`, {
       method: "POST",
       headers: { apikey: this.#publishableKey, "content-type": "application/json", accept: "application/json" },
       body: JSON.stringify({ email: normalizedEmail, password }),
       cache: "no-store"
     });
     if (!response.ok) throw new Error("Sign-in failed. Check the owner email and password.");
-    const session = this.#sessionFromPayload(await response.json());
+    const session = this.#sessionFromPayload(response.payload);
     if (!session) throw new Error("Supabase returned an invalid owner session");
     this.#saveSession(session);
     if (!await this.#isAuthorized(session)) {
@@ -218,6 +223,16 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
   }
 
   async #ensureSession(interactive: boolean): Promise<StoredSession | undefined> {
+    // Navigation/connectivity events may load concurrently while sign-in is pending.
+    // Share only session establishment; clear both successful and rejected flights.
+    if (this.#sessionFlight) return this.#sessionFlight;
+    const flight = Promise.resolve().then(() => this.#establishSession(interactive));
+    this.#sessionFlight = flight;
+    try { return await flight; }
+    finally { if (this.#sessionFlight === flight) this.#sessionFlight = undefined; }
+  }
+
+  async #establishSession(interactive: boolean): Promise<StoredSession | undefined> {
     let session = this.#readSession();
     if (session && session.expiresAt <= Math.floor(Date.now() / 1000) + 90) session = await this.#refreshSession(session);
     if (session || !interactive || !this.#promptForCredentials) return session;
@@ -228,14 +243,14 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
 
   async #refreshSession(current: StoredSession): Promise<StoredSession | undefined> {
     try {
-      const response = await this.#fetcher(`${this.#supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
+      const response = await this.#requestJson(`${this.#supabaseUrl}/auth/v1/token?grant_type=refresh_token`, {
         method: "POST",
         headers: { apikey: this.#publishableKey, "content-type": "application/json", accept: "application/json" },
         body: JSON.stringify({ refresh_token: current.refreshToken }),
         cache: "no-store"
       });
       if (!response.ok) { this.#clearSession(); return undefined; }
-      const refreshed = this.#sessionFromPayload(await response.json(), current.userId);
+      const refreshed = this.#sessionFromPayload(response.payload, current.userId);
       if (!refreshed) { this.#clearSession(); return undefined; }
       this.#saveSession(refreshed);
       return refreshed;
@@ -267,7 +282,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       const refreshToken = text(parsed.refreshToken);
       const userId = text(parsed.userId);
       const expiresAt = numeric(parsed.expiresAt);
-      if (!accessToken || !refreshToken || !userId || !expiresAt) return undefined;
+      // Zero is the broker's expired restore marker, not an absent timestamp.
+      // It must reach refresh/authorization and must never authorize data itself.
+      if (!accessToken || !refreshToken || !userId || expiresAt === undefined) return undefined;
       return Object.freeze({ accessToken, refreshToken, userId, expiresAt });
     } catch { return undefined; }
   }
@@ -285,15 +302,34 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     url.searchParams.set("select", select);
     url.searchParams.set("owner_id", `eq.${session.userId}`);
     for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
-    const response = await this.#fetcher(url, {
+    const response = await this.#requestJson(url, {
       method: "GET",
       headers: { apikey: this.#publishableKey, authorization: `Bearer ${session.accessToken}`, accept: "application/json" },
       cache: "no-store"
     });
     if (!response.ok) throw new Error(`Canonical source ${table} is unavailable`);
-    const payload: unknown = await response.json();
+    const payload: unknown = response.payload;
     if (!Array.isArray(payload)) throw new Error(`Canonical source ${table} returned an invalid payload`);
     return Object.freeze(payload.filter(isRecord));
+  }
+
+  async #requestJson(input: string | URL, init: RequestInit): Promise<Readonly<{ ok: boolean; payload: unknown }>> {
+    const controller = new AbortController();
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    try {
+      return await Promise.race([
+        Promise.resolve().then(async () => {
+          const response = await this.#fetcher(input, { ...init, signal: controller.signal });
+          return { ok: response.ok, payload: response.ok ? await response.json() : undefined };
+        }),
+        new Promise<never>((_resolve, reject) => {
+          timer = setTimeout(() => {
+            controller.abort();
+            reject(new Error("Owner runtime request timed out"));
+          }, this.#requestTimeoutMs);
+        })
+      ]);
+    } finally { if (timer !== undefined) clearTimeout(timer); }
   }
 
   #projectSnapshots(
