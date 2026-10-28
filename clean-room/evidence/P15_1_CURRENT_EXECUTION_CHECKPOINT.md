@@ -1,3 +1,30 @@
+# P15.1 SECTION 2 — EXISTING BATCH PERSISTED AND QUALIFIED
+
+This checkpoint supersedes earlier session instructions below. Scope: persistence/certification only of the already-reviewed Section 2 authority/governance batch; no new review, mappings, implementation, tests or later-phase promotion.
+
+Pre-work verified live HEAD: `78253dae6fc70c85eba4c9388e289db5b9321c9a`; tree: `fba040d2c761d3365037ed23d6321783d30ba18a`.
+Relevant reviewed-mapping commits: `cbff1b2cd3b3b0d2f790797a35b534c4b7736a91` (review first Section 2 authority batch), `78253dae6fc70c85eba4c9388e289db5b9321c9a` (include Section 2 authority review).
+
+Exact 20 newly certified IDs: `CCR-01876`, `CCR-01877`, `CCR-01878`, `CCR-01879`, `CCR-01880`, `CCR-01886`, `CCR-01887`, `CCR-01888`, `CCR-01889`, `CCR-01890`, `CCR-01891`, `CCR-01892`, `CCR-01901`, `CCR-01902`, `CCR-01905`, `CCR-01907`, `CCR-01909`, `CCR-01910`, `CCR-01911`, `CCR-01912`.
+`CCR-01875` and `CCR-01908` remain UNVERIFIED and unclaimed.
+
+Generated ledger: total 5,852; VERIFIED 184; UNVERIFIED 5,668; NOT_APPLICABLE 0; structurally invalid 0. repositoryEvidence.valid=true; repository-evidence errors=0; assembly qualification errors=0. Existing repository validator confirms referenced implementation/test locations and source bindings. Delta assertions confirmed exactly the selected 20 rows changed from unverified to verified; no additional rows promoted.
+
+Qualification source: exact pre-work HEAD above. Independently observed GitHub Actions run `40735174132`, job `122981660977`, completed overall FAILURE: two complete 1,604-test executions, each 1,604 PASS / 0 FAIL / 0 SKIP. Authority/typecheck/core QA/release/PWA succeeded; final Category 15 gate failed; production verification skipped. Existing stale ledger diagnostics in that source CI were not represented as valid; this generation repairs those bindings using its matching source audit. No new full suite was run in Work.
+
+Commands actually executed from clean-room:
+- `node scripts/category15-repository-audit.mjs --write`: exit 0; 1,647 tracked/scanned; automated scan complete; zero secrets/violations; semantic every-file review FALSE.
+- `node scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=category15-repository-audit.json --qualification=/tmp/p151-s2-qualification.json --write`: exit 0; 184/5668/0/0; repository evidence valid; zero qualification/repository errors. The scratch qualification JSON records only the observed source/run/job/results above.
+- `npm run gate:category15-traceability`: reports SOURCE_RECOVERED_TRACEABILITY_OPEN, advancementAllowed=false, repository proof valid and zero repository errors. Direct `node scripts/category15-traceability-gate.mjs` rerun confirmed exit 1, intentionally blocking advancement for 5,668 unresolved requirements.
+- Inline deterministic Node assertions (no test file added): PASS; exactly 20 selected additions, both excluded IDs UNVERIFIED, repository validity true and both error arrays empty.
+- Scoped `git diff --check` on the two saved files: PASS.
+
+P15.1 remains `SOURCE_RECOVERED_TRACEABILITY_OPEN`; closureComplete=false. No later P15 phase is promoted or certified. No main/production/Supabase/auth/protected release asset, deployment/merge/promotion, paid service or spending changes.
+
+NEXT SESSION BOUNDARY: STOP. Owner chooses the next Section 2 batch in a new session. Do not start another batch or Section 3 from this checkpoint. Refetch before any next write; preserve concurrent newer valid work.
+
+---
+
 # P15.1 SECTION 1 — QUALIFICATION REPAIR COMPLETE (NORMAL CHAT)
 
 This section supersedes the stale qualification warning immediately below while preserving the prior handoff as historical provenance. James's locked Category 15 workflow applies: one numbered section per session, frequent durable saves, and STOP after this section until James sends `C`.
