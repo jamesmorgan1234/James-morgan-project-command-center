@@ -18,9 +18,8 @@ function authHeader(): HTMLElement {
 
 function authFailureMessage(reason: unknown): string {
   const message = reason instanceof Error ? reason.message : "";
-  if (message.toLowerCase().includes("passkey") || message.toLowerCase().includes("webauthn")) return message || "Passkey sign-in failed. Use your password or try the passkey again.";
+  if (message.toLowerCase().includes("passkey") || message.toLowerCase().includes("webauthn")) return "Passkey sign-in failed. Use your password or try the passkey again.";
   if (message.includes("required")) return "Enter both the owner email and password, or use your saved sign-in, then try again.";
-  if (message.includes("not authorized")) return "This account signed in successfully but is not authorized for Command Center.";
   if (message.includes("Failed to fetch") || message.includes("NetworkError") || message.includes("network")) return "Command Center could not reach the secure sign-in service. Check the connection and try again.";
   return "Sign-in failed. Check the owner email and password, then try again.";
 }
@@ -150,7 +149,11 @@ export function installOwnerSignOutControl(signOut: () => Promise<void>): void {
       if (button.disabled) return;
       button.disabled = true;
       button.textContent = "Signing out…";
-      void signOut().finally(() => window.location.assign("/"));
+      // Hide private projections before remote logout, including network failure.
+      document.querySelector<HTMLElement>("#app")?.replaceChildren();
+      document.title = "Command Center";
+      window.dispatchEvent(new Event("command-center-owner-signout"));
+      void Promise.resolve().then(signOut).catch(() => undefined).finally(() => window.location.assign("/"));
     });
     grid.append(button);
   }, 0);

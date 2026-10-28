@@ -9,6 +9,7 @@ import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
 import { renderBrainView } from "./brain-view.js";
 import { renderAgencyView } from "./agency-view.js";
+import { createDisconnectedRuntimeSnapshot } from "./snapshot.js";
 
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
@@ -591,6 +592,14 @@ function renderUnknownHeader(path: string): HTMLElement {
 }
 
 let activeProvider: RuntimeSnapshotProvider | undefined;
+let renderGeneration = 0;
+let signedOut = false;
+window.addEventListener("command-center-owner-signout", () => {
+  signedOut = true;
+  renderGeneration += 1;
+  document.querySelector<HTMLElement>("#app")?.replaceChildren();
+  document.title = "Command Center";
+});
 const PWA_UPDATES = new BrowserPwaUpdateClient();
 let pwaView: PwaUpdateView = PWA_UPDATES.view;
 let pwaSubscribed = false;
@@ -619,9 +628,22 @@ function startPwaUpdates(): void {
 export async function renderApplication(provider?: RuntimeSnapshotProvider): Promise<void> {
   const root = document.querySelector<HTMLElement>("#app");
   if (!root) throw new Error("Missing #app root");
+  if (signedOut) return;
+  const generation = ++renderGeneration;
+  root.replaceChildren(el("p", "boot-state__message", "Starting Command Center."));
   activeProvider ??= provider ?? providerFromDocument(document);
-  const snapshot = await activeProvider.load();
+  let snapshot: CommandCenterRuntimeSnapshot;
+  try { snapshot = await activeProvider.load(); }
+  catch { snapshot = createDisconnectedRuntimeSnapshot(); }
+  if (signedOut || generation !== renderGeneration) return;
   syncShell(snapshot);
+  if (snapshot.connection.state === "disconnected") {
+    document.title = "Command Center";
+    const shell = el("div", "app-shell owner-auth-shell");
+    shell.append(el("h1", "screen-title", "Command Center"), emptyState("Private owner system", "Owner authentication and a secure connection are required before private data can be shown.", "disconnected"));
+    root.replaceChildren(shell);
+    return;
+  }
   const resolution = resolveBrowserRoute(ROUTES, window.location.pathname);
   document.title = resolution.state === "known" ? `${resolution.resolved.route.title} · Command Center` : "Route unavailable · Command Center";
   root.replaceChildren();

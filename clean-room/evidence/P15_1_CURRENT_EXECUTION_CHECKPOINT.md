@@ -1,3 +1,13 @@
+# P15.1 auth/privacy batch — repairs and reviewed mappings saved; certification pending
+
+Pre-work HEAD ebc4216a47462d9046401204b94a7f688318edee / tree 55052349db31d5c56a7ccc768d4d4539d7f1c785. Read evidence/P15_1_AUTH_PRIVACY_BATCH_REVIEW.md for all 30 exact row dispositions. Eighteen candidate mappings; twelve explicitly unverified. Existing certified ledger remains 5852 / 184 VERIFIED / 5668 UNVERIFIED / 0 N/A / 0 invalid until new exact-source CI and guarded assembly. P15.1 stays SOURCE_RECOVERED_TRACEABILITY_OPEN.
+
+Reproduced auth exception leakage and retained private DOM during logout (1 PASS / 2 FAIL baseline). Fixed public messages, synchronous DOM invalidation, signed-out page fence, render generation, and disconnected brand shell. Guarded module compile and strict noEmit passed. Six focused privacy regressions passed (0 failures/skips). Existing focused auth/startup/cache tests also run; final batch result below in next qualification checkpoint. No production/Supabase/auth policies/assets touched, no spend.
+
+Next: observe this source commit CI, generate committed-byte audit matching source, assemble via existing guarded script with actual completed CI metadata, verify native evidence and expected intentional open gate, save ledger/checkpoint. Then continue unresolved P15.1 work; do not begin P15.2.
+
+---
+
 # P15.1 SECTION 2 — EXISTING BATCH PERSISTED AND QUALIFIED
 
 This checkpoint supersedes earlier session instructions below. Scope: persistence/certification only of the already-reviewed Section 2 authority/governance batch; no new review, mappings, implementation, tests or later-phase promotion.
