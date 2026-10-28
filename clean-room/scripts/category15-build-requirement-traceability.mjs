@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
+import {loadRecoveredLedgerCsv} from "./p15-1-recovered-source.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -48,12 +49,12 @@ function unverifiedMappingFields() {
   };
 }
 
-if (!sourcePath || !existsSync(sourcePath)) {
-  console.error(JSON.stringify({ ok: false, code: "RECOVERED_LEDGER_CSV_REQUIRED", expectedSha256: expectedCsvSha256, hint: "Pass --source-csv=<path> or set COMMAND_CENTER_RECOVERED_LEDGER_CSV to the recovered original 04_MASTER_RECONCILED_REQUIREMENTS(1).csv." }));
+if (sourcePath && !existsSync(sourcePath)) {
+  console.error(JSON.stringify({ ok: false, code: "RECOVERED_LEDGER_CSV_REQUIRED", expectedSha256: expectedCsvSha256, hint: "Explicit recovered CSV path does not exist; no fallback from an invalid explicit source." }));
   process.exit(2);
 }
 
-const csvBytes = readFileSync(sourcePath);
+const csvBytes = sourcePath ? readFileSync(sourcePath) : loadRecoveredLedgerCsv(resolve(cleanRoom,"evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json"));
 const csvSha256 = createHash("sha256").update(csvBytes).digest("hex");
 if (csvSha256 !== expectedCsvSha256) throw new Error(`Recovered canonical CSV hash mismatch: ${csvSha256}`);
 const parsed = parseCsv(csvBytes.toString("utf8").replace(/^\uFEFF/, ""));
