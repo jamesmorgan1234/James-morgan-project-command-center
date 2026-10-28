@@ -1,0 +1,44 @@
+# P15.1 exact inspection — CCR-00306 through CCR-00345
+
+Source ledger at trigger commit: `a96e20d615ec44f935da2408289cf4eaaafc83e2`
+
+- **CCR-00306** — **Service-worker versioning.** — current: **UNVERIFIED**
+- **CCR-00307** — **Cache schema/version.** — current: **UNVERIFIED**
+- **CCR-00308** — **Navigation network-first.** — current: **UNVERIFIED**
+- **CCR-00309** — **Safe cached fallback.** — current: **UNVERIFIED**
+- **CCR-00310** — **Stale-data indicator.** — current: **UNVERIFIED**
+- **CCR-00311** — **Offline state separated from live state.** — current: **UNVERIFIED**
+- **CCR-00312** — **Update-ready state.** — current: **UNVERIFIED**
+- **CCR-00313** — **Update failure handling.** — current: **UNVERIFIED**
+- **CCR-00314** — **Stale-client compatibility detection.** — current: **UNVERIFIED**
+- **CCR-00315** — **PWA health diagnostics.** — current: **UNVERIFIED**
+- **CCR-00316** — **Install/update identity tests.** — current: **UNVERIFIED**
+- **CCR-00317** — **Black Android system surfaces.** — current: **UNVERIFIED**
+- **CCR-00318** — **No forced immersive mode.** — current: **UNVERIFIED**
+- **CCR-00319** — **Recovery from corrupt cache.** — current: **UNVERIFIED**
+- **CCR-00320** — **Physical installed-device acceptance.** — current: **UNVERIFIED**
+- **CCR-00321** — **Brain as a platform, not one screen.** — current: **UNVERIFIED**
+- **CCR-00322** — **AI Provider Adapter.** — current: **UNVERIFIED**
+- **CCR-00323** — **Model Capability Registry.** — current: **UNVERIFIED**
+- **CCR-00324** — **Prompt/policy versioning.** — current: **UNVERIFIED**
+- **CCR-00325** — **Project-scoped context builder.** — current: **UNVERIFIED**
+- **CCR-00326** — **Portfolio-scoped context builder.** — current: **UNVERIFIED**
+- **CCR-00327** — **Strict separation between project context and portfolio context.** — current: **UNVERIFIED**
+- **CCR-00328** — **Facts separated from ideas.** — current: **UNVERIFIED**
+- **CCR-00329** — **Rules separated from facts.** — current: **UNVERIFIED**
+- **CCR-00330** — **Decisions separated from suggestions.** — current: **UNVERIFIED**
+- **CCR-00331** — **Historical context separated from current truth.** — current: **UNVERIFIED**
+- **CCR-00332** — **Brain citations/provenance.** — current: **UNVERIFIED**
+- **CCR-00333** — **Brain confidence levels.** — current: **UNVERIFIED**
+- **CCR-00334** — **Knowledge-gap detection.** — current: **UNVERIFIED**
+- **CCR-00335** — **Contradiction detection.** — current: **UNVERIFIED**
+- **CCR-00336** — **Stale-context detection.** — current: **UNVERIFIED**
+- **CCR-00337** — **Recommendation engine.** — current: **UNVERIFIED**
+- **CCR-00338** — **Recommendation deduplication.** — current: **UNVERIFIED**
+- **CCR-00339** — **Recommendation lifecycle.** — current: **UNVERIFIED**
+- **CCR-00340** — **Recommendation evidence.** — current: **UNVERIFIED**
+- **CCR-00341** — **Recommendation impact analysis.** — current: **UNVERIFIED**
+- **CCR-00342** — **Recommendation cost classification.** — current: **UNVERIFIED**
+- **CCR-00343** — **Recommendation risk classification.** — current: **UNVERIFIED**
+- **CCR-00344** — **Recommendation architecture placement.** — current: **UNVERIFIED**
+- **CCR-00345** — **Recommendation success measurement.** — current: **UNVERIFIED**
