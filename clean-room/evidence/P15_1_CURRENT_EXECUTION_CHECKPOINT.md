@@ -1,3 +1,50 @@
+# Active P15.1 checkpoint — 164 reviewed rows, current repair batch requalified
+
+Current qualifying runtime/test source: dc21814f7cd8814c08e5366d0ae4593faf207c07,
+tree 6184516f6fd06fc7274120fff8961713cfb0b351. Exact-source CI run 40709809156 /
+job 122891688423 completed: two 1595-test executions PASS (0 FAIL/SKIP), authority/
+type/core/release/PWA PASS, final C15 FAIL, production SKIPPED. That source run still
+reported 50 stale native-proof input errors before this evidence refresh; those were
+not presented as current successful qualification.
+
+The complete committed-source audit (896 qualified input paths) has now requalified the
+preserved mappings against actual CI above. Native result: **5852 total / 164 VERIFIED /
+0 N/A / 5688 UNVERIFIED**, zero structural errors, repositoryEvidence.valid=true,
+zero qualification/repository errors. Added only CCR-00095 feature registry and
+CCR-00076 route registry after reviewing exact authoritative P1.2/P1.8/P4.3 ownership,
+implementation, positive/negative/failure tests. No source wording or provenance changed.
+
+Actual current-batch verification: module compilation PASS; seven focused flag/route
+tests PASS (0 FAIL/SKIP); assembler source-byte and full inventory checks PASS; strict
+traceability gate reports valid repository proof but exits 1 correctly because 5688
+requirements remain unresolved. Scoped diff check PASS. All earlier repairs remain
+preserved; no further runtime implementation changed in this metadata batch.
+
+README now points to the existing integrated 199-phase authority and Amendments 19/20,
+retains the immutable 188-phase baseline as historical, and removes an obsolete claim
+that only an unresolved icon blocks release. It points to this checkpoint and the
+native ledger; structural artifact tests do not imply production/device/owner acceptance.
+No protected asset bytes or approval were changed.
+
+After publication inspect its exact-head CI, including the now-explicit repository-proof
+validity/error-count diagnostics. Expected distinction: repository proof valid does not
+mean full closure. P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; later phases have
+not advanced. Do not call any complete phase from the 164-row count.
+
+Latest owner direction: work at the fastest truthful pace, use larger related batches
+when helpful, save along the way, and keep going. No percentage reserve or voluntary
+normal-chat handoff. Next: finish this batch's exact-head CI observation, then review
+coherent canonical-data/truth-state or remaining registry requirement clusters using
+existing implementation/tests and current tooling. Reuse proven equivalent patterns;
+never promote from similarity, counts or broad test success alone. Missing template/
+SDK/storage-specific proof remains unresolved until actually established.
+
+All source work is on build/spec-lock-v2-clean-room. Main/production/Supabase/auth/
+protected assets untouched, no messages, financial action, merge, force-push, manual
+production deploy/promotion, paid activation or spending. James remains final human
+authority; Command Center remains the permanent top Brain/control plane.
+
+---
 # Active P15.1 seam — explicit protected-asset model authorization, synthetic tests only
 
 Parent live HEAD 0b0fd5ade8cddccb268c5eaa7ac4a5bbd6533d56, tree

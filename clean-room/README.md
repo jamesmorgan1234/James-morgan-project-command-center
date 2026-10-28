@@ -6,10 +6,11 @@ Rules:
 
 - No imports from historical Command Center runtime/application code.
 - Historical code may be read only as evidence of prior requirements, failures, data shape, or migration needs.
-- The locked authority is `roadmap/master-build-plan-owner-review/15_SPECIFICATION_LOCK_V2.md` and the 188-phase plan it references.
+- Current integrated build authority is `roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md`, extended by Amendments 19 and 20 and newer explicit owner instructions. James Morgan retains final human authority; Command Center remains the permanent top Brain/control plane.
+- `14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md` and `15_SPECIFICATION_LOCK_V2.md` remain the immutable historical baseline. `23_CURRENT_199_PHASE_MACHINE_MANIFEST.json` is the current 199-phase machine index; older counts or pause statements do not silently supersede current authority.
 - Framework/provider choices remain replaceable behind contracts and registries.
 - Completion claims require test/evidence gates; implemented-but-unverified is not complete.
 - Production `main` remains protected until the applicable Category 15 authorization gate.
 - Protected assets must retain exact identity; unresolved protected assets stay unresolved rather than being substituted.
 
-Current implementation state spans the clean-room foundations through Category 14 plus active Category 15 integration/release-safety work. Evidence is not uniform across every category yet: dedicated Markdown evidence currently exists for Categories 1–9, while later categories are represented by implementation/tests and remain subject to requirement-level P15.1 closure. The strict release-candidate gate remains blocked by the unresolved exact protected Command Center icon until its bytes match the locked SHA-256.
+Implementation and tests span Categories 1–14 with active Category 15 work; this does not certify uniform requirement-level closure. Current status and next action are recorded in `evidence/P15_1_CURRENT_EXECUTION_CHECKPOINT.md`, and the canonical requirement map is `evidence/category15-requirement-traceability.json`. Structural build/artifact checks alone do not prove P15.1 closure, semantic every-file review, production authorization, owner acceptance or physical Samsung acceptance.
