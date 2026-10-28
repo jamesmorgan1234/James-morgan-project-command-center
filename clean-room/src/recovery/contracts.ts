@@ -4,7 +4,7 @@ import type {ExecutionScope} from '../kernel/scope.js';
 // Reuse the existing canonical JSON/digest implementation; no competing record owner.
 export {canonicalAnalyticsJson as recoveryJson,analyticsDigest as recoveryDigest,immutable as recoveryImmutable} from '../analytics/contracts.js';
 export interface RecoveryScope extends ExecutionScope {readonly companyId:string;readonly projectId:string}
-export type RecoveryOperation='backup'|'restore'|'migrate'|'rollback'|'replace'|'reactivate'|'record'|'read';
+export type RecoveryOperation='backup'|'restore'|'migrate'|'rollback'|'replace'|'reactivate'|'record'|'read'|'expire';
 export interface RecoveryAccess {
  readonly now:()=>string;
  readonly authorize:(operation:RecoveryOperation,scope:RecoveryScope,reference:string)=>boolean;

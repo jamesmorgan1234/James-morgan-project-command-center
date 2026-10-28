@@ -1,105 +1,208 @@
 # Category 14 — Recovery / Migration / Scale / Dormant Future
 
-Status: IMPLEMENTED FOR ISOLATED BRANCH VERIFICATION
+Status: **PASS_ISOLATED_RECOVERY** — P14.1–P14.12.
 
-## P14.1–P14.3 — backup, restore, migration, rollback
+Certification boundary: repository implementation, synthetic/copied isolated runtime,
+and isolated PGlite migration/database enforcement. This is not production backup,
+restore, migration, scale, provider, owner, release, or physical-device acceptance.
+Category 15 was not implemented, repaired, waived or certified.
 
-Recovery artifacts preserve version/checksum/storage identity plus policy and revocation snapshots. Intelligence-state artifacts are first-class recovery material. Restore, migration and rollback exercises bind source/target versions, results and evidence; historical authority is never restored as broader current authority.
+## Authority and executable closure
 
-## P14.4 — dependency replacement
+`category14-acceptance-matrix.json` enumerates all twelve exact Roadmap 22 phase
+names, retained Roadmap 14 scopes/exits, 61 execution requirements, and all 115
+unique Amendment 20 atoms assigned to C14 by ownership file 24 (169 phase mappings).
+Each row identifies implementation, phase-specific tests, shared security/database
+proof, migration chain, executable command and later-category boundaries.
+Reconciliation 21 assigns intelligence recovery, dependency/version recovery, drift,
+shadow/simulation/counterfactual infrastructure, revalidation/migration and scale/soak
+to this category. Existing PIF, C2, data, Agency and specialist canonical owners remain
+in control; these modules add neither competing canonical registries nor grants.
 
-Replacement records cover provider, model, method, specialist, evaluator, ontology, library and service dependencies. Each replacement retains old/new identity, compatibility state, rollback reference, evidence and any required authorization. Replacement is not silently treated as equivalent.
+The historical 506-requirement category count is not a claim that Category 15's full
+canonical-ledger-to-every-file traceability is closed. That downstream obligation
+remains separate. Exact roadmap and amended C14 acceptance is exercised here.
 
-## P14.5 — historical recovery completeness
+`npm run gate:category14` compiles modules, validates phase/scope/exit/citation/atomic
+coverage and required implementation/test/migration presence, then actually executes
+all mandatory tests. Missing phases/requirements/evidence, failed/skipped/cancelled
+tests fail the gate. `--validate-only` explicitly cannot certify execution.
 
-Historical recovery is an explicit exercise/evidence class and composes with the existing recovery completeness/reporting implementation. Missing or reconstructed artifacts remain distinguishable from originals.
+## P14.1 — Backup architecture and policy, including intelligence-state artifacts
 
-## P14.6 — 10× / 100× scale
+Extends `backup.ts` rather than replacing its legacy advisory contract. AES-256-GCM
+with independent SHA-256 policy/content/envelope identities protects fifteen explicit
+classes: canonical data, assets, methods, routing, calibration, promotions, evaluators,
+procedures, specialists, negative knowledge, revalidation, canary state, configuration,
+capabilities and shadow state. Policy pins scope, identity/version, cadence, maximum
+age, retention, count budget, protected/excluded refs and compatibility identity.
 
-Scale exercises explicitly distinguish 10× and 100× scenarios. Existing recovery/scale runtime suites remain responsible for queue, learning packet, evaluation, method-history, trace-volume and cross-Brain routing behavior; the durable record retains the exact exercised version/result/evidence.
+Nonextractable 256-bit keys are caller-held; only key references persist. Credentials,
+sessions, grants and private-key/token material are rejected even inside encrypted
+payloads. IVs are generated cryptographically and header metadata is authenticated.
+Independent verification decrypts and checks counts/classes/dependencies/content,
+wrong keys, tampering, stale/superseded policy and incomplete/protected-asset omissions.
+The scoped retention RPC deletes expired encrypted payloads exactly once and keeps
+immutable nonsecret source-digest/header audit evidence; active/legacy evidence is
+not mutable. No production backup or key service was configured.
 
-## P14.7 — dormant aging/reactivation
+## P14.2 — Disaster restore and known-good recovery, including governed intelligence state
 
-Capabilities, specialists, procedures and promotions retain prior version, current policy/revocation snapshots and an explicit revalidation state. Dormant state cannot reactivate solely because it was valid historically.
+Actual decryption stages every record in `IsolatedRecoveryWorkspace`. Existing
+`data/recovery.ts` remains the current authorization/privacy/key/application/source/
+purpose/retention revalidation owner. Invalid/unknown/expired/revoked/superseded/
+invalidated/deleted states remain historical. Dependency rejection propagates;
+missing/cyclic dependencies and changing current authority reject before commit.
+Workspace scope is immutable and commits use expected revision.
 
-## P14.8–P14.10 — future boundaries
+Only currently revalidated data/config/assets become usable isolated data. Restored
+intelligence always requires its existing canonical owner to revalidate; backup
+state never reissues permissions or activates PIF/specialist/evaluator/procedure
+registries. RTO/RPO measurements are isolated candidates, not production SLOs.
 
-Multi-user, commercial/public fork, device and interface seams remain explicit dormant/design boundaries until separately authorized. Durable boundary state enforces that future forks/interfaces do not inherit private state by default.
+## P14.3 — Schema/data/intelligence-state migration and rollback framework
 
-## P14.11 — chaos, shadow ecosystem, simulation, failover
+Versioned plans bind compatibility directions, source digest, backup/rollback refs,
+precondition evidence and scope. Full transforms stage before one revision-fenced
+commit, preserving ID/kind/scope/evidence/dependencies/epochs/truth and tombstones.
+Failure at a late item leaves state unchanged. Competing migrations have one winner.
+Recorded receipts resume idempotently without reapplying a transform. Migration
+results remain historical pending fresh canonical revalidation. Rollback checks the
+recorded original plan/source/target, preserves erasure and cannot restore current
+authority. Superseded destinations reject rollback. Durable SQL partial-failure
+transactions and reopened-store retries are exercised separately.
 
-Chaos/shadow/control-plane-failover exercises support deterministic replay references and enforce `production_side_effects = false` in the evidence contract. Simulation evidence cannot masquerade as a production side effect or current authority.
+## P14.4 — Provider, model, method, evaluator, ontology, and dependency replacement
 
-## P14.12 — long-horizon lifecycle and drift
+Reuses `ProviderRegistry`, `assertProviderReplacement` and PIF.9's dependency fabric.
+AI/provider/storage/hosting/integration/model adapter/config replacement preserves
+canonical provider key, requires expected advancing versions, capability compatibility,
+free/available eligibility, explicit rollback refs and no permission-scope expansion.
+Unavailable/retired/compromised/degraded/unknown-cost candidates fail closed or remain
+local-degradation assessments. Method/specialist/evaluator/ontology/dependency plans
+report stale dependents and return to their canonical owners; provider replacement
+cannot activate these owners or grant execution. No live connector was called.
 
-Architecture drift, configuration drift, external-reality change, memory/dependency aging, replacement audit and causal validation are durable revalidation findings. Counterfactual exercises are separately identified so simulated alternatives cannot be confused with observed reality.
+## P14.5 — Historical recovery completeness and migration audit
 
-## Durable isolation
+CCR-05852 report validation uses actual existing historical staging, message-graph
+validation and lineage indexing. It checks exact fixture manifest digest and
+conversation set, all nodes/branches/containers, privacy exclusions and source refs.
+Candidates, conflicts, missing artifacts, unknowns and rename/merge/supersession
+lineage remain explicit. Processed scope differs from all-artifacts-recovered.
+An empty coverage object previously passed validation; all ten keys are now required.
+Original-first recovery/reconstruction contracts remain unchanged. No owner's actual
+historical import was performed or falsely claimed complete.
 
-`supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql` supplies immutable, owner-isolated RLS evidence for recovery artifacts, exercises, dependency replacement, dormant reactivation, future boundaries and drift/revalidation. Every authenticated access path additionally requires `public.is_command_center_authorized()`.
+## P14.6 — 10× / 100× scale and capacity planning, including learning/evaluation infrastructure
 
-## Verification inventory
+Actual deterministic synthetic workloads exercise 10,000 and 100,000 units across
+100 companies/1,000 projects and twelve classes: projects, businesses, books, accounts,
+social channels, Agency jobs, knowledge records, learning packets, evaluations,
+method histories, traces and cross-Brain routes. Existing capacity policy governs
+admission; byte/count/per-scope budgets apply explicit backpressure with zero silent
+loss. Reversed-input replay produces identical checkpoints. Degraded providers
+backpressure all work. A 1,000-record failed migration preserves source before retry.
+These are local bounded exercises; no production throughput/availability is claimed.
 
-- `clean-room/src/recovery/*`
-- existing `clean-room/tests/recovery-scale-foundation.test.mjs`
-- existing data-platform/recovery and Category 15 recovery tests
-- `clean-room/tests/category14-durable-recovery-lifecycle.test.mjs`
-- `supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql`
+## P14.7 — Dormant capability/specialist/procedure aging and reactivation
 
-Full verification requires the exact commit containing these artifacts to pass the repository build/typecheck/test/audit workflow. This evidence does not authorize production, paid provider capacity, multi-user release, public commercialization, or physical-device acceptance.
+Contract/data/provider changes require current policy/privacy/revocation/evidence/
+cost/version revalidation. Ordered CONFIGURE → CONNECT → AUTHORIZE → ENABLE staging
+hands off to the canonical owner. Revoked/archived/obsolete/stale/incompatible/paid
+state stays inert. No module automatically enables a capability or issues a grant.
 
-## Current executable retrofit — checkpoint 1 (not Category 14 certification)
+## P14.8 — Dormant future multi-user boundary
 
-The earlier implemented-for-verification receipt is not a completed gate. The new
-P14.1–P14.3 slice adds AES-256-GCM authenticated encrypted backups with SHA-256
-content/policy/envelope identities, all fifteen explicit data/intelligence classes,
-protected/excluded scope, cadence/age/retention, key references only, and credential
-payload rejection. Independent decrypt/verify detects corruption/incomplete state.
+Pure synthetic tenant/principal/household/role/project contracts filter future views.
+Owner-private and other-tenant data never appear. Unknown/admin/owner/wildcard
+inheritance is rejected. No user is enrolled and no multi-user product is activated.
 
-Isolated restore stages every record with current canonical data restore revalidation;
-intelligence is never activated by a restored snapshot. Historical/unknown/revoked/
-invalidated/superseded/erased/expired state is not present-day authority. Dependencies
-propagate rejection. Production workspaces are prohibited. Measured RTO/RPO are
-isolated candidates only. No production claim is made.
+## P14.9 — Commercial/public fork boundary
 
-Migration stages a full deterministic transform before expected-revision commit,
-preserves identities/scope/history/epochs/tombstones, supports recorded-receipt resume,
-and rejects stale/concurrent updates. Rollback preserves erasure and requires current
-projection decisions. The C2 adapter reuses existing sessions, policy and owner-verified
-grants; it cannot issue authority.
+An inert synthetic bundle selects public code/default configuration with source and
+content identity. Private data/credentials/owner policy are excluded; mislabeled
+public data, source mutation and duplicate identities reject. Nothing is published.
 
-Executed: module compilation PASS; P14.1/P14.2/P14.3 focused tests 9 PASS, 0 FAIL,
-0 SKIP. SQL persistence proof and the remaining nine phases are still pending.
+## P14.10 — Future device and interface seams
 
-## Checkpoint 2 — portable replacement, historical audit, scale and dormant seams
+Extends existing `InterfaceRegistry`: desktop/mobile/voice/wearable/ambient/future
+adapters must use exact canonical command/policy/data runtime keys. Intent previews
+retain existing C2 intent binding, authorize no execution and produce no side effects.
+Removing an adapter prevents subsequent use; competing runtimes/nonremovable
+interfaces/ambiguous intents reject. No physical device was activated or certified.
 
-P14.4 reuses ProviderRegistry, assertProviderReplacement and the PIF.9 dependency
-fabric: explicit adapter/config identity, free/available/compatible replacement,
-unchanged scopes, pinned versions, rollback references and stale-dependent reports.
-Methods/specialists/evaluators/ontology remain owned by their canonical registries.
-P14.5 CCR-05852 audits the actual historical staging/branch graph against exact
-manifest scope/count/digest/privacy exclusions. Missing/conflicting artifacts stay
-explicit; processed fixture scope is separate from complete artifact recovery.
-An empty coverage object previously passed; the validator now requires all ten keys.
+## P14.11 — Distributed chaos, shadow ecosystem/digital twin, simulation, and control-plane failover
 
-P14.6 executes 10,000 and 100,000 synthetic units across twelve workload classes,
-100 companies and 1,000 projects. Deterministic bounded admission applies explicit
-backpressure, preserves every offered unit, and claims no production capacity.
-A 1,000-record migration failure leaves its source unchanged before successful retry.
-P14.7 stages ordered reactivation only after current policy/privacy/version/provider/
-free-cost revalidation and returns to the canonical owner without issuing authority.
-P14.8 filters synthetic tenant/user/household/role/project projections; P14.9 creates
-an inert synthetic public code/default-config bundle with no private/credential/policy
-copy; P14.10 reuses exact canonical intent/policy/data runtime bindings and removes
-interfaces cleanly. No enrollment, publication, production interface or automatic
-activation occurs.
+Closed local interpreter exercises DB/network/provider/cache/worker/scheduler/lead/
+partition/stale-lease/duplicate-delivery/disk/resource failure scenarios. It invokes
+existing Agency scheduler/claim/recovery/lead-failover owners, observes stale-worker
+and stale-leader rejection, serializes/hash-verifies a checkpoint, recreates the
+workspace and resumes to a baseline replay digest. Duplicate events are suppressed;
+cache projections rebuild from the event stream. Source/version/privacy/budgets
+are pinned. Synthetic and copied classifications differ; copied data requires
+privacy approval. No production transport/effect callback exists. Controlled injected
+failure confidence is not a claim about real-world root cause. PIF/compiler/governor
+canonical owners remain subordinate and unchanged.
 
-The new scoped migration extends the six existing C14 tables, preserves legacy rows
-as non-contract historical evidence, revokes raw client/service table access, and
-exposes service-only private append/read functions. Current C2 and canonical source
-receipts bind the exact runtime record digest; reads relabel invalidated receipts
-historical. Transactions/locks enforce scoped idempotency; old immutable evidence
-is not rewritten. PGlite executes the base+extension chain and tests all six owners,
-30 representative classes, collision/missing/invalid/production/client-role denials.
-Three durable tests PASS after correcting an inspection-role fixture error; permissions
-were not weakened. P14.11/P14.12 and final certification remain pending.
+## P14.12 — Long-horizon lifecycle, external revalidation, architecture/config drift, counterfactual/causal support, and replacement audit
+
+Actual isolated module/data/project/provider/Agency-role exercises traverse birth,
+configure, use, failure, recovery, migration, disable, removal and replacement. Exact
+source-bound evidence receipts cover observations, and final live probes reject
+orphan data/claims. Existing historical validators remain advisory, not sole proof.
+
+Revalidation distinguishes all nine AM20 architecture/config drift classes plus
+external reality, memory/dependency aging and replacement audit. Missing/expired
+source truth stays noncurrent; findings generate scoped documentation, not automatic
+repair authority. Counterfactual support keeps observed facts, correlations,
+assumptions, interventions, model identity, simulated outcome, unproven causal
+hypothesis, unestimated confidence and sensitivity separate. No simulation becomes
+an observed counterfactual or proven causal claim. Continuous revalidation and real
+production scale/external validation mature under their existing governed owners.
+
+## Durable ownership, migration and rollback safety
+
+Existing six C14 tables remain owners. New migrations:
+
+- `20261028081500_p14_scoped_recovery_contracts.sql`: scoped immutable record contracts,
+  private service-only append/read, source-digest binding at runtime, exact scoped
+  idempotency and metadata-only nonartifact evidence. Legacy rows stay historical.
+- `20261028081600_p14_expired_backup_retention.sql`: tightly bounded expired-payload
+  erasure preserving immutable metadata audit; ordinary immutable evidence unchanged.
+
+The original `20261026144000_p14_recovery_migration_scale_lifecycle.sql` is unchanged.
+PGlite executes the complete base → extension → retention chain. No production
+Supabase/data/auth changes occurred. Server keys never enter clients. C2 access
+reuses current sessions, policies and exact owner-verified grants, and denies
+production operations. It never issues authority.
+
+## Executed verification
+
+- P14 focused suites: **37 PASS, 0 FAIL, 0 SKIP** (including five database tests).
+- Category 14 gate: **120 PASS, 0 FAIL, 0 SKIP/CANCEL**.
+- Category 13 gate: **85 PASS, 0 FAIL**.
+- Category 12 gate: **123 PASS, 0 FAIL**.
+- `npm run build`: module/browser builds PASS; **1,558 PASS, 0 FAIL, 0 SKIP**.
+- Typecheck, architecture, legacy, authority audit, repository automated scan PASS.
+  The repository semantic-every-file review flag remains false; no C15 claim.
+- Artifact structural audit PASS. An unstamped local build initially failed the
+  release-candidate immutable-identity check; rebuilding with `GITHUB_SHA` resolved
+  that check. Exact published-commit browser/artifact/release checks are rerun after
+  publication and their exact state is recorded in the normal-chat handoff/CI.
+- `git diff --check` PASS before publication.
+
+Development failures were fixed before advancing: readonly local projection typing;
+restricted-service-role inspection fixture; an incorrectly named required regression
+file; and the expected unstamped-local release-identity blocker. Tests/security
+thresholds were not weakened, valid tests were not deleted/skipped, and no CI result
+was invented. Final exact-head CI is reported separately from these local results.
+
+## Protected boundaries
+
+James Morgan retains final human authority. Command Center is the permanent top
+Brain/control plane. ARO, specialists, backup, recovery, migration, simulation and
+optimization remain subordinate. Main, production, production Supabase/data/auth,
+protected release assets and unrelated projects were untouched. No merge, force push,
+manual deployment/promotion/publication, financial operation, procurement, payment,
+paid trial/service/API activation occurred. $0-first remains enforced.

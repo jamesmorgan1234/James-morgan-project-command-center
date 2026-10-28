@@ -1,0 +1,2151 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_ISOLATED_RECOVERY",
+  "authorityRule": "Roadmap22 + retained14 scopes/exits + ownership24 Amendment20 atomic items + reconciliation21. No Category15 traceability closure claim.",
+  "phases": [
+    {
+      "id": "P14.1",
+      "name": "Backup architecture and policy, including intelligence-state artifacts",
+      "status": "PASS",
+      "scope": "Define encrypted backup scope, cadence, retention, integrity, version identity, protected assets, secrets strategy, and evidence.",
+      "exitGate": "Backups are independently verifiable and exclude/secure sensitive material appropriately.",
+      "requirements": [
+        {
+          "id": "P14.1-R01",
+          "text": "Encrypted scope and all data/config/assets/capabilities/intelligence artifact classes",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.1-R02",
+          "text": "Cadence, retention, current policy identity and supersession",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.1-R03",
+          "text": "Independent authenticated integrity/content/version/compatibility verification",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.1-R04",
+          "text": "Protected/excluded assets and secret/key-reference strategy",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.1-R05",
+          "text": "Provenance and canonical evidence references; immutable audit history",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.1-R06",
+          "text": "Scoped expired encrypted-payload cleanup retaining nonsecret immutable metadata",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S36-R001",
+          "text": "Recovery must include not only data and code but also intelligence-control state:",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R002",
+          "text": "active capability/method versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R003",
+          "text": "routing policies;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R004",
+          "text": "calibration state;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R005",
+          "text": "promotion records;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R006",
+          "text": "evaluator versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R007",
+          "text": "specialist registrations;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R008",
+          "text": "learned procedures;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R009",
+          "text": "negative knowledge;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R010",
+          "text": "revalidation schedules;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R011",
+          "text": "shadow/canary state.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R012",
+          "text": "Recovery must never resurrect revoked permissions, forbidden data access, superseded policies, or invalidated learning.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 318,
+          "text": "- `P14.1` — Backup architecture and policy, including intelligence-state artifacts"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 803,
+          "text": "### P14.1 — Backup architecture and policy"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 804,
+          "text": "**Scope:** Define encrypted backup scope, cadence, retention, integrity, version identity, protected assets, secrets strategy, and evidence."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 805,
+          "text": "**Exit gate:** Backups are independently verifiable and exclude/secure sensitive material appropriately."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/backup.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-1-encrypted-backup.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.2",
+      "name": "Disaster restore and known-good recovery, including governed intelligence state",
+      "status": "PASS",
+      "scope": "Restore canonical data/config/assets from backups into isolated recovery environment, verify integrity, and document RTO/RPO candidates.",
+      "exitGate": "Representative disaster restore produces usable consistent system without silently skipping data.",
+      "requirements": [
+        {
+          "id": "P14.2-R01",
+          "text": "Actual isolated decrypt and complete restore without silent record loss",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.2-R02",
+          "text": "Current authorization/privacy/policy/key/application/source/purpose/retention/evidence revalidation",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.2-R03",
+          "text": "Revoked/expired/superseded/invalidated/unknown/deleted states cannot regain current authority",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.2-R04",
+          "text": "Canonical intelligence owners revalidate before activation",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.2-R05",
+          "text": "Dependency closure and current-authority race rejection before atomic commit",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.2-R06",
+          "text": "Measured isolated RTO/RPO candidates",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S36-R001",
+          "text": "Recovery must include not only data and code but also intelligence-control state:",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R002",
+          "text": "active capability/method versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R003",
+          "text": "routing policies;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R004",
+          "text": "calibration state;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R005",
+          "text": "promotion records;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R006",
+          "text": "evaluator versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R007",
+          "text": "specialist registrations;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R008",
+          "text": "learned procedures;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R009",
+          "text": "negative knowledge;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R010",
+          "text": "revalidation schedules;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R011",
+          "text": "shadow/canary state.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R012",
+          "text": "Recovery must never resurrect revoked permissions, forbidden data access, superseded policies, or invalidated learning.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R001",
+          "text": "The mature architecture must support four permanent loops:",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R002",
+          "text": "INTENT → CONTEXT → POLICY → PLAN → ROUTE → EXECUTE → VERIFY → RECORD OUTCOME",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R003",
+          "text": "OUTCOME → LEARNING PACKET → VALIDATE → APPLICABILITY → PROMOTE/QUARANTINE/REJECT → REVALIDATE",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R004",
+          "text": "EVIDENCE → PROPOSAL → EVALUATE → SHADOW/SIMULATE → CANARY → VERIFY → PROMOTE/ROLLBACK",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R005",
+          "text": "SPECIALIST EVIDENCE → COMMAND CENTER SYNTHESIS → SCOPED SHARED INTELLIGENCE → SPECIALIST INHERITANCE/ROUTING → NEW OUTCOMES",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S42-R006",
+          "text": "These loops must remain bounded by James's authority, Command Center governance, privacy, security, evidence, and protected-action policy.",
+          "section": 42,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 319,
+          "text": "- `P14.2` — Disaster restore and known-good recovery, including governed intelligence state"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 807,
+          "text": "### P14.2 — Disaster restore and known-good recovery"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 808,
+          "text": "**Scope:** Restore canonical data/config/assets from backups into isolated recovery environment, verify integrity, and document RTO/RPO candidates."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 809,
+          "text": "**Exit gate:** Representative disaster restore produces usable consistent system without silently skipping data."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/restore.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-2-isolated-restore.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.3",
+      "name": "Schema/data/intelligence-state migration and rollback framework",
+      "status": "PASS",
+      "scope": "Version migrations, preconditions, backups, dry runs, forward/backward compatibility, rollback/compensation, and evidence.",
+      "exitGate": "Failed migration can be recovered without corrupting canonical state.",
+      "requirements": [
+        {
+          "id": "P14.3-R01",
+          "text": "Versioned preconditions, backup/rollback references and exact source digest",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.3-R02",
+          "text": "Forward/backward compatibility and deterministic staged transforms",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.3-R03",
+          "text": "Atomic partial-failure rollback, stale destination rejection and concurrent expected revisions",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.3-R04",
+          "text": "Recorded-receipt restart/idempotency and mutation-after-rejection prevention",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.3-R05",
+          "text": "Identity/scope/history/epoch/deletion preservation; rollback cannot bypass current canonical restore",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.3-R06",
+          "text": "Intelligence migration remains historical pending canonical revalidation",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S34-R001",
+          "text": "Capabilities, methods, specialists, ontology versions, policies, models, providers, procedures, evaluators, and learning artifacts must participate in a dependency/version graph.",
+          "section": 34,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S34-R002",
+          "text": "Changes must support impact analysis, compatibility checks, rollback targets, and stale-dependent detection.",
+          "section": 34,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R001",
+          "text": "Recovery must include not only data and code but also intelligence-control state:",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R002",
+          "text": "active capability/method versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R003",
+          "text": "routing policies;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R004",
+          "text": "calibration state;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R005",
+          "text": "promotion records;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R006",
+          "text": "evaluator versions;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R007",
+          "text": "specialist registrations;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R008",
+          "text": "learned procedures;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R009",
+          "text": "negative knowledge;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R010",
+          "text": "revalidation schedules;",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R011",
+          "text": "shadow/canary state.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S36-R012",
+          "text": "Recovery must never resurrect revoked permissions, forbidden data access, superseded policies, or invalidated learning.",
+          "section": 36,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 320,
+          "text": "- `P14.3` — Schema/data/intelligence-state migration and rollback framework"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 811,
+          "text": "### P14.3 — Schema/data migration and rollback framework"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 812,
+          "text": "**Scope:** Version migrations, preconditions, backups, dry runs, forward/backward compatibility, rollback/compensation, and evidence."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 813,
+          "text": "**Exit gate:** Failed migration can be recovered without corrupting canonical state."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/migrations.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-3-transactional-migration.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.4",
+      "name": "Provider, model, method, evaluator, ontology, and dependency replacement",
+      "status": "PASS",
+      "scope": "Exercise AI/provider/storage/hosting/integration/model replacement, paid/unavailable/retired/compromised transitions, and adapter portability.",
+      "exitGate": "Provider loss degrades locally; replacement requires adapter/config changes, not core rewrite.",
+      "requirements": [
+        {
+          "id": "P14.4-R01",
+          "text": "AI/provider/storage/hosting/integration/model adapter replacement without core rewrite",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.4-R02",
+          "text": "Paid/unavailable/retired/compromised/unknown-cost transitions fail closed or degrade locally",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.4-R03",
+          "text": "Canonical provider identity and permission scopes preserved; expected versions",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.4-R04",
+          "text": "Method/specialist/evaluator/ontology/dependency compatibility and PIF stale-dependent reporting",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.4-R05",
+          "text": "Explicit rollback/provenance and canonical-owner handoff without promotion authority",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S34-R001",
+          "text": "Capabilities, methods, specialists, ontology versions, policies, models, providers, procedures, evaluators, and learning artifacts must participate in a dependency/version graph.",
+          "section": 34,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S34-R002",
+          "text": "Changes must support impact analysis, compatibility checks, rollback targets, and stale-dependent detection.",
+          "section": 34,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R001",
+          "text": "Any ecosystem claim about external state must preserve freshness and source evidence.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R002",
+          "text": "When live external/provider truth matters, Command Center must revalidate rather than rely on stale learned memory.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R003",
+          "text": "External changes may invalidate methods, benchmarks, permissions, providers, costs, laws/rules, product capabilities, or workflow assumptions.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 321,
+          "text": "- `P14.4` — Provider, model, method, evaluator, ontology, and dependency replacement"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 815,
+          "text": "### P14.4 — Provider and dependency replacement"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 816,
+          "text": "**Scope:** Exercise AI/provider/storage/hosting/integration/model replacement, paid/unavailable/retired/compromised transitions, and adapter portability."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 817,
+          "text": "**Exit gate:** Provider loss degrades locally; replacement requires adapter/config changes, not core rewrite."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/replacement.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-4-portable-replacement.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.5",
+      "name": "Historical recovery completeness and migration audit",
+      "status": "PASS",
+      "scope": "Implement CCR-05852 machine-readable recovery report and end-to-end audit for historical imports, candidates, conflicts, privacy exclusions, missing artifacts, lineage, and unknowns.",
+      "exitGate": "Import cannot be called complete without report matching processed fixture scope and unresolved items.",
+      "requirements": [
+        {
+          "id": "P14.5-R01",
+          "text": "CCR-05852 machine-readable report matches processed fixture manifest scope/digest",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.5-R02",
+          "text": "Actual complete message graph and branch/count/container reconciliation",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.5-R03",
+          "text": "Candidates/conflicts/privacy exclusions/missing artifacts/unknowns remain explicit",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.5-R04",
+          "text": "Rename/merge/supersession lineage and source/evidence references",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.5-R05",
+          "text": "Processed-scope completeness differs from full artifact recovery; original-first reconstruction rules retained",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 322,
+          "text": "- `P14.5` — Historical recovery completeness and migration audit"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 819,
+          "text": "### P14.5 — Historical recovery completeness and migration audit"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 820,
+          "text": "**Scope:** Implement CCR-05852 machine-readable recovery report and end-to-end audit for historical imports, candidates, conflicts, privacy exclusions, missing artifacts, lineage, and unknowns."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 821,
+          "text": "**Exit gate:** Import cannot be called complete without report matching processed fixture scope and unresolved items."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/historical-report.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-5-historical-completeness.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.6",
+      "name": "10× / 100× scale and capacity planning, including learning/evaluation infrastructure",
+      "status": "PASS",
+      "scope": "Test many projects/businesses/books/accounts/social channels/Agency jobs/knowledge records with resource budgets and degraded-provider conditions.",
+      "exitGate": "System remains truthful/responsive or applies explicit backpressure instead of data loss.",
+      "requirements": [
+        {
+          "id": "P14.6-R01",
+          "text": "Actual synthetic 10x/100x workloads across projects/businesses/books/accounts/social/Agency/knowledge",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.6-R02",
+          "text": "Learning packets/evaluations/method history/trace volume/cross-Brain routing",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.6-R03",
+          "text": "Resource/memory/admission budgets and degraded-provider backpressure with no silent loss",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.6-R04",
+          "text": "Deterministic replay, company/project separation, concurrent expected revisions",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.6-R05",
+          "text": "Failure/recovery/migration under load and scoped retention cleanup; no production throughput claim",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 323,
+          "text": "- `P14.6` — 10× / 100× scale and capacity planning, including learning/evaluation infrastructure"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 823,
+          "text": "### P14.6 — 10× / 100× scale and capacity planning"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 824,
+          "text": "**Scope:** Test many projects/businesses/books/accounts/social channels/Agency jobs/knowledge records with resource budgets and degraded-provider conditions."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 825,
+          "text": "**Exit gate:** System remains truthful/responsive or applies explicit backpressure instead of data loss."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/scale.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-6-capacity-under-load.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.7",
+      "name": "Dormant capability/specialist/procedure aging and reactivation",
+      "status": "PASS",
+      "scope": "Maintain dormant modules/contracts/data/migrations over long periods; test reactivation after versions/provider changes.",
+      "exitGate": "Dormant feature can re-enter CONFIGURE→CONNECT→AUTHORIZE→ENABLE without kernel rewrite.",
+      "requirements": [
+        {
+          "id": "P14.7-R01",
+          "text": "Aged dormant capabilities/specialists/procedures/promotions retain canonical owner/version",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.7-R02",
+          "text": "Revalidation after provider/contract/data/policy/privacy/revocation changes",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.7-R03",
+          "text": "Ordered CONFIGURE CONNECT AUTHORIZE ENABLE entry with current C2 authority",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.7-R04",
+          "text": "Archived/revoked/obsolete/stale/incompatible/paid state remains inert",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.7-R05",
+          "text": "Activation handed to existing canonical owner; no automatic grants or kernel rewrite",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S24-R001",
+          "text": "Command Center may support creation, registration, evolution, merger, split, suspension, and retirement of specialist Brains when evidence justifies it.",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R002",
+          "text": "Dynamic specialist creation must require:",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R003",
+          "text": "unmet capability/domain need;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R004",
+          "text": "non-duplication check;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R005",
+          "text": "defined scope;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R006",
+          "text": "ontology compatibility;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R007",
+          "text": "permissions;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R008",
+          "text": "resource budget;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R009",
+          "text": "evaluation plan;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R010",
+          "text": "fallback/retirement plan;",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R011",
+          "text": "Command Center registration.",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S24-R012",
+          "text": "Specialists may never self-promote to peer control-plane status.",
+          "section": 24,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 324,
+          "text": "- `P14.7` — Dormant capability/specialist/procedure aging and reactivation"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 827,
+          "text": "### P14.7 — Dormant capability aging and reactivation"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 828,
+          "text": "**Scope:** Maintain dormant modules/contracts/data/migrations over long periods; test reactivation after versions/provider changes."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 829,
+          "text": "**Exit gate:** Dormant feature can re-enter CONFIGURE→CONNECT→AUTHORIZE→ENABLE without kernel rewrite."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/dormant.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-7-dormant-revalidation.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.8",
+      "name": "Dormant future multi-user boundary",
+      "status": "PASS",
+      "scope": "Preserve role/tenant/household/user isolation seams without turning James’s private system multi-user prematurely.",
+      "exitGate": "Future user can be added through isolated contracts without weakening current owner privacy.",
+      "requirements": [
+        {
+          "id": "P14.8-R01",
+          "text": "Dormant role/tenant/household/user/project isolation contracts",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.8-R02",
+          "text": "Synthetic future-user projections exclude owner-private and other tenant state",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.8-R03",
+          "text": "No enrollment or multi-user product activation; no wildcard/owner/admin authority inheritance",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 325,
+          "text": "- `P14.8` — Dormant future multi-user boundary"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 831,
+          "text": "### P14.8 — Dormant future multi-user boundary"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 832,
+          "text": "**Scope:** Preserve role/tenant/household/user isolation seams without turning James’s private system multi-user prematurely."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 833,
+          "text": "**Exit gate:** Future user can be added through isolated contracts without weakening current owner privacy."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/multi-user.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-8-future-tenant.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.9",
+      "name": "Commercial/public fork boundary",
+      "status": "PASS",
+      "scope": "Preserve ability to fork a public/commercial product from private Command Center without exposing James’s data/secrets/owner-specific policies.",
+      "exitGate": "Synthetic fork proves data/config separation and no private-state cloning.",
+      "requirements": [
+        {
+          "id": "P14.9-R01",
+          "text": "Synthetic public code/default configuration bundle with source/content identity",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.9-R02",
+          "text": "No private data, credentials or owner-specific policy cloning",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.9-R03",
+          "text": "Ambiguous classifications/source mutation rejected; no publication/activation",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 326,
+          "text": "- `P14.9` — Commercial/public fork boundary"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 835,
+          "text": "### P14.9 — Commercial/public fork boundary"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 836,
+          "text": "**Scope:** Preserve ability to fork a public/commercial product from private Command Center without exposing James’s data/secrets/owner-specific policies."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 837,
+          "text": "**Exit gate:** Synthetic fork proves data/config separation and no private-state cloning."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/public-fork.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-9-synthetic-fork.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.10",
+      "name": "Future device and interface seams",
+      "status": "PASS",
+      "scope": "Preserve device-capability registry and adapters for desktop/mobile/voice/wearable/ambient/future interfaces without parallel command architectures.",
+      "exitGate": "New interface uses same intents/policies/canonical data and can be removed cleanly.",
+      "requirements": [
+        {
+          "id": "P14.10-R01",
+          "text": "Desktop/mobile/voice/wearable/ambient/future capability adapters",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.10-R02",
+          "text": "Exact shared canonical command/policy/data runtime bindings and unchanged intent identity",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.10-R03",
+          "text": "Clean registration/removal and denial after removal",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.10-R04",
+          "text": "No parallel execution architecture or interface-derived execution permission",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 327,
+          "text": "- `P14.10` — Future device and interface seams"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 839,
+          "text": "### P14.10 — Future device and interface seams"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 840,
+          "text": "**Scope:** Preserve device-capability registry and adapters for desktop/mobile/voice/wearable/ambient/future interfaces without parallel command architectures."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 841,
+          "text": "**Exit gate:** New interface uses same intents/policies/canonical data and can be removed cleanly."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/interfaces.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-10-canonical-interface.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.11",
+      "name": "Distributed chaos, shadow ecosystem/digital twin, simulation, and control-plane failover",
+      "status": "PASS",
+      "scope": "Inject DB/network/provider/cache/worker/scheduler/lead failures, partitions, stale leases, duplicate delivery, disk/resource exhaustion, and recovery races.",
+      "exitGate": "System contains failures, fencing prevents stale corruption, and durable work resumes from verified checkpoints.",
+      "requirements": [
+        {
+          "id": "P14.11-R01",
+          "text": "DB/network/provider/cache/worker/scheduler/lead/partition/stale lease/duplicate/disk/resource fault injection",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.11-R02",
+          "text": "Real canonical scheduler and claim fencing, checkpoint integrity and restart",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.11-R03",
+          "text": "Shadow/digital-twin provenance, version identity, synthetic/copied privacy classification",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.11-R04",
+          "text": "Deterministic baseline/outcome comparison, event/checkpoint resource budgets",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.11-R05",
+          "text": "No production egress/side effects or authority; controlled failure/root-cause/learning revalidation labels",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.11-R06",
+          "text": "Durable transactional failure/retry evidence and subordinate compiler/governor/PIF ownership",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S22-R001",
+          "text": "Command Center must be able to synthesize validated ecosystem evidence into reusable intelligence artifacts without flattening context.",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R002",
+          "text": "Compiler outputs may include:",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R003",
+          "text": "distilled procedures;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R004",
+          "text": "routing rules;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R005",
+          "text": "reusable capability patterns;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R006",
+          "text": "domain playbooks;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R007",
+          "text": "specialist onboarding packs;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R008",
+          "text": "benchmark suites;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R009",
+          "text": "risk controls;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R010",
+          "text": "negative-knowledge rules;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R011",
+          "text": "recommended architecture changes;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R012",
+          "text": "simulation scenarios;",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R013",
+          "text": "revalidation schedules.",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S22-R014",
+          "text": "All outputs remain versioned, evidence-linked, scoped, testable, and reversible.",
+          "section": 22,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R001",
+          "text": "No self-improvement may silently rewrite production behavior.",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R002",
+          "text": "Material improvements must follow a governed lifecycle:",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R003",
+          "text": "proposal;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R004",
+          "text": "evidence package;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R005",
+          "text": "applicability analysis;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R006",
+          "text": "impact/risk analysis;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R007",
+          "text": "offline evaluation/replay;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R008",
+          "text": "simulation or shadow evaluation where applicable;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R009",
+          "text": "baseline comparison;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R010",
+          "text": "owner/policy authorization when required;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R011",
+          "text": "canary/limited rollout where permitted;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R012",
+          "text": "verification;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R013",
+          "text": "promotion;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R014",
+          "text": "monitoring;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R015",
+          "text": "rollback on regression;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R016",
+          "text": "lesson capture.",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R001",
+          "text": "Build toward a non-authoritative shadow/simulation environment capable of testing proposed changes against representative ecosystem state without mutating protected production truth.",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R002",
+          "text": "The shadow environment must preserve:",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R003",
+          "text": "version identity;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R004",
+          "text": "representative state provenance;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R005",
+          "text": "synthetic vs copied-data classification;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R006",
+          "text": "privacy isolation;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R007",
+          "text": "deterministic replay where possible;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R008",
+          "text": "resource assumptions;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R009",
+          "text": "failure injection;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R010",
+          "text": "outcome comparison;",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S28-R011",
+          "text": "no accidental production side effects.",
+          "section": 28,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R001",
+          "text": "Advanced decision support may model scenarios and counterfactuals but must distinguish:",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R002",
+          "text": "observed facts;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R003",
+          "text": "correlations;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R004",
+          "text": "assumptions;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R005",
+          "text": "interventions;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R006",
+          "text": "simulated outcomes;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R007",
+          "text": "causal claims;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R008",
+          "text": "confidence and sensitivity.",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R009",
+          "text": "Counterfactual simulation is decision support, not evidence that an unexecuted outcome actually occurred.",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R001",
+          "text": "Failures must be treated as structured learning opportunities.",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R002",
+          "text": "Capture:",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R003",
+          "text": "failure class;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R004",
+          "text": "precursor signals;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R005",
+          "text": "involved versions/capabilities;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R006",
+          "text": "scope/impact;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R007",
+          "text": "root-cause confidence;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R008",
+          "text": "recovery path;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R009",
+          "text": "time-to-detect/recover;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R010",
+          "text": "recurrence;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R011",
+          "text": "prevention/control proposals;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R012",
+          "text": "negative-knowledge output;",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S30-R013",
+          "text": "affected learning/promotions that may require rollback.",
+          "section": 30,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 328,
+          "text": "- `P14.11` — Distributed chaos, shadow ecosystem/digital twin, simulation, and control-plane failover"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 843,
+          "text": "### P14.11 — Distributed chaos and control-plane failover"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 844,
+          "text": "**Scope:** Inject DB/network/provider/cache/worker/scheduler/lead failures, partitions, stale leases, duplicate delivery, disk/resource exhaustion, and recovery races."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 845,
+          "text": "**Exit gate:** System contains failures, fencing prevents stale corruption, and durable work resumes from verified checkpoints."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/chaos.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-11-shadow-chaos.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    },
+    {
+      "id": "P14.12",
+      "name": "Long-horizon lifecycle, external revalidation, architecture/config drift, counterfactual/causal support, and replacement audit",
+      "status": "PASS",
+      "scope": "Exercise birth→configure→use→failure→recovery→migration→disable→removal/replacement across representative modules/providers/projects/Agency roles.",
+      "exitGate": "No lifecycle stage requires undocumented manual surgery or leaves orphan authority/data.",
+      "requirements": [
+        {
+          "id": "P14.12-R01",
+          "text": "Birth/configure/use/failure/recovery/migration/disable/removal/replacement actual isolated exercises",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R02",
+          "text": "Representative module/provider/project/Agency-role lifecycle with source-bound observations",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R03",
+          "text": "No undocumented manual surgery or orphan authority/data after removal",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R04",
+          "text": "External-reality/memory/dependency aging and current evidence freshness",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R05",
+          "text": "Architecture/config drift distinguishes all nine AM20 states and replacement audit",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R06",
+          "text": "Counterfactual infrastructure distinguishes observed facts/correlations/assumptions/interventions/simulation/causal hypothesis/confidence/sensitivity",
+          "status": "PASS"
+        },
+        {
+          "id": "P14.12-R07",
+          "text": "Documentation derived from scoped findings; no autonomous repair/promotion/causality claims",
+          "status": "PASS"
+        }
+      ],
+      "atomicRequirements": [
+        {
+          "id": "A20-S14-R001",
+          "text": "Memory entries must support freshness, decay, expiry, event-triggered invalidation, and revalidation.",
+          "section": 14,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S14-R002",
+          "text": "High-volatility claims may require rapid revalidation. Stable historical facts may retain long validity. Expiration must not erase provenance/history.",
+          "section": 14,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R001",
+          "text": "No self-improvement may silently rewrite production behavior.",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R002",
+          "text": "Material improvements must follow a governed lifecycle:",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R003",
+          "text": "proposal;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R004",
+          "text": "evidence package;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R005",
+          "text": "applicability analysis;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R006",
+          "text": "impact/risk analysis;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R007",
+          "text": "offline evaluation/replay;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R008",
+          "text": "simulation or shadow evaluation where applicable;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R009",
+          "text": "baseline comparison;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R010",
+          "text": "owner/policy authorization when required;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R011",
+          "text": "canary/limited rollout where permitted;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R012",
+          "text": "verification;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R013",
+          "text": "promotion;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R014",
+          "text": "monitoring;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R015",
+          "text": "rollback on regression;",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S27-R016",
+          "text": "lesson capture.",
+          "section": 27,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R001",
+          "text": "Advanced decision support may model scenarios and counterfactuals but must distinguish:",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R002",
+          "text": "observed facts;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R003",
+          "text": "correlations;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R004",
+          "text": "assumptions;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R005",
+          "text": "interventions;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R006",
+          "text": "simulated outcomes;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R007",
+          "text": "causal claims;",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R008",
+          "text": "confidence and sensitivity.",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S29-R009",
+          "text": "Counterfactual simulation is decision support, not evidence that an unexecuted outcome actually occurred.",
+          "section": 29,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R001",
+          "text": "Command Center must continuously compare intended architecture/configuration/policy against observed implementation/runtime state.",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R002",
+          "text": "Drift findings must distinguish:",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R003",
+          "text": "authorized divergence;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R004",
+          "text": "stale configuration;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R005",
+          "text": "incompatible version;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R006",
+          "text": "missing dependency;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R007",
+          "text": "shadow/experimental state;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R008",
+          "text": "security drift;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R009",
+          "text": "undocumented behavior;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R010",
+          "text": "orphaned component;",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S35-R011",
+          "text": "undeclared side effect.",
+          "section": 35,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R001",
+          "text": "Any ecosystem claim about external state must preserve freshness and source evidence.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R002",
+          "text": "When live external/provider truth matters, Command Center must revalidate rather than rely on stale learned memory.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S37-R003",
+          "text": "External changes may invalidate methods, benchmarks, permissions, providers, costs, laws/rules, product capabilities, or workflow assumptions.",
+          "section": 37,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S39-R001",
+          "text": "Command Center should maintain a governed Architecture Critic that evaluates architecture quality against canonical requirements, dependency health, duplication, coupling, extension difficulty, recovery, security, cost, observability, testability, and evidence.",
+          "section": 39,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S39-R002",
+          "text": "The Architecture Critic proposes findings; it does not mutate architecture by itself.",
+          "section": 39,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S41-R001",
+          "text": "Canonical architecture, specialist profiles, capability/method records, learning promotions, procedures, dependency graphs, evaluations, and changes should be able to generate owner-readable documentation from source-of-truth records.",
+          "section": 41,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        },
+        {
+          "id": "A20-S41-R002",
+          "text": "Documentation generation must not invent state that is not present in canonical records.",
+          "section": 41,
+          "source": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "ownership": "roadmap/master-build-plan-owner-review/24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json"
+        }
+      ],
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 329,
+          "text": "- `P14.12` — Long-horizon lifecycle, external revalidation, architecture/config drift, counterfactual/causal support, and replacement audit"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 847,
+          "text": "### P14.12 — Long-horizon lifecycle and replacement audit"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 848,
+          "text": "**Scope:** Exercise birth→configure→use→failure→recovery→migration→disable→removal/replacement across representative modules/providers/projects/Agency roles."
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 849,
+          "text": "**Exit gate:** No lifecycle stage requires undocumented manual surgery or leaves orphan authority/data."
+        }
+      ],
+      "implementation": [
+        "clean-room/src/recovery/lifecycle.ts",
+        "clean-room/src/recovery/contracts.ts",
+        "clean-room/src/recovery/access.ts",
+        "clean-room/src/recovery/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p14-12-long-horizon-revalidation.test.mjs",
+        "clean-room/tests/p14-security-boundaries.test.mjs",
+        "clean-room/tests/p14-durable-recovery.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+        "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+        "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+      ],
+      "verification": "npm run gate:category14",
+      "deferredLaterOwnership": [
+        "Category 15 final every-file/requirement traceability and production/live/owner/physical-device acceptance"
+      ],
+      "certificationBoundary": "repository_and_isolated_runtime_database"
+    }
+  ],
+  "sharedInvariants": [
+    "James Morgan final reserved human authority",
+    "Command Center permanent top Brain/control plane",
+    "Subordinate ARO and domain brains",
+    "No revoked authority or invalid learning resurrection",
+    "Deny by default, company/project privacy isolation, current C2",
+    "No money/paid API/production effects"
+  ],
+  "database": [
+    "supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql",
+    "supabase/migrations/20261028081500_p14_scoped_recovery_contracts.sql",
+    "supabase/migrations/20261028081600_p14_expired_backup_retention.sql"
+  ]
+}

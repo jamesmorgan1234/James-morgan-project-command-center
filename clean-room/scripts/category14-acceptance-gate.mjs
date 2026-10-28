@@ -1,0 +1,40 @@
+import {readFileSync,existsSync,readdirSync} from 'node:fs';
+import {resolve,dirname} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {spawnSync} from 'node:child_process';
+import {extractAmendmentSections,deriveAtomicRequirements} from './current-authority-lib.mjs';
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..'),clean=resolve(root,'clean-room');
+const args=process.argv.slice(2),matrixArg=args.indexOf('--matrix'),matrixPath=matrixArg<0?resolve(clean,'evidence/category14-acceptance-matrix.json'):args[matrixArg+1];
+const read=p=>readFileSync(resolve(root,p),'utf8'),assert=(v,m)=>{if(!v)throw new Error(m);};
+const prefix='roadmap/master-build-plan-owner-review/';
+const roadmap=read(prefix+'22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md');
+const sections=extractAmendmentSections(read(prefix+'20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md'));
+const ownership=JSON.parse(read(prefix+'24_AMENDMENT20_REQUIREMENT_OWNERSHIP.json'));
+const matrix=JSON.parse(readFileSync(matrixPath,'utf8'));
+assert(matrix.schemaVersion===1&&matrix.status==='PASS_ISOLATED_RECOVERY','Invalid Category 14 matrix');
+assert(JSON.stringify(matrix.phases.map(p=>p.id))===JSON.stringify(Array.from({length:12},(_,i)=>'P14.'+(i+1))),'All twelve Category 14 phases are mandatory');
+const counts=[6,6,6,5,5,5,5,3,3,4,6,7];
+for(const [i,row] of matrix.phases.entries()){
+ const actual=roadmap.split(/\r?\n/).find(line=>line.startsWith('- `'+row.id+'` — '))?.split(' — ')[1];
+ assert(row.name===actual,'Authority phase name mismatch: '+row.id);
+ assert(row.status==='PASS'&&row.requirements.length===counts[i]&&row.implementation.length>=4&&row.tests.length>=3&&row.database.length>=3&&row.verification==='npm run gate:category14','Missing acceptance evidence: '+row.id);
+ assert(row.certificationBoundary==='repository_and_isolated_runtime_database','Category 14 boundary exceeded');
+ assert(row.requirements.every((r,j)=>r.id===row.id+'-R'+String(j+1).padStart(2,'0')&&r.text?.trim()&&r.status==='PASS'),'Missing/failed atomic phase requirement');
+ for(const c of row.authority)assert(read(c.path).split(/\r?\n/)[c.line-1]===c.text,'Authority citation drift: '+row.id);
+ assert(row.authority.some(c=>c.text==='**Scope:** '+row.scope)&&row.authority.some(c=>c.text==='**Exit gate:** '+row.exitGate),'Retained scope/exit gate mismatch');
+ const atoms=sections.filter(s=>ownership.sections[s.number].owners.includes(row.id)).flatMap(s=>deriveAtomicRequirements(s));
+ assert(JSON.stringify(row.atomicRequirements.map(a=>({id:a.id,text:a.text})))===JSON.stringify(atoms),'Amendment 20 atomic coverage mismatch: '+row.id);
+ for(const f of [...row.implementation,...row.tests,...row.database])assert(existsSync(resolve(root,f))&&read(f).trim(),'Missing implementation/test/schema: '+f);
+ assert(row.tests.some(t=>t.startsWith('clean-room/tests/p14-'+(i+1)+'-')),'Phase executable tests missing');
+}
+if(args.includes('--validate-only')){console.log(JSON.stringify({status:'STRUCTURE_ONLY_NOT_CERTIFICATION',testsExecuted:false}));process.exit(0);}
+const generated=readdirSync(resolve(clean,'tests')).filter(f=>/^p14-.*\.test\.mjs$|^category14-.*\.test\.mjs$/.test(f));
+const shared=['recovery-scale-foundation.test.mjs','pif10-improvement-recovery.test.mjs','pif9-trace-dependency.test.mjs','pif8-negative-knowledge-transfer.test.mjs','data-platform-recovery.test.mjs','category3-recovery-boundaries.test.mjs','category3-recovery-persistence.test.mjs','category7-recovery-failover.test.mjs','category2-adversarial-recovery.test.mjs','category2-p26-boundary-adversarial.test.mjs'];
+const tests=[...new Set([...generated,...shared])].map(f=>'tests/'+f);
+for(const t of tests)assert(existsSync(resolve(clean,t)),'Required regression suite absent: '+t);
+assert(matrix.phases.every(row=>row.tests.every(t=>tests.includes(t.replace('clean-room/','')))),'Matrix tests omitted from execution');
+const r=spawnSync(process.execPath,['--test','--test-concurrency=2','--test-reporter=tap',...tests],{cwd:clean,encoding:'utf8',maxBuffer:24*1024*1024});
+process.stdout.write(r.stdout??'');process.stderr.write(r.stderr??'');assert(r.status===0&&!r.error,'Category 14 executable gate failed');
+const n=key=>Number(r.stdout.match(new RegExp('^# '+key+' (\\d+)$','m'))?.[1]);
+assert(n('tests')>0&&n('tests')===n('pass')&&n('fail')===0&&n('skipped')===0&&n('cancelled')===0,'Mandatory recovery tests absent/failed/skipped/cancelled');
+console.log(JSON.stringify({category:14,status:'PASS_ISOLATED_RECOVERY',phases:12,requirements:61,amendmentAtomicRequirements:new Set(matrix.phases.flatMap(p=>p.atomicRequirements.map(a=>a.id))).size,tests:n('tests'),pass:n('pass'),fail:0,productionCertified:false,category15Certified:false}));

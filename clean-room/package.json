@@ -22,7 +22,8 @@
     "test:modules": "node --test --test-reporter=spec tests/*.test.mjs",
     "test": "npm run check:legacy && npm run check:architecture && npm run audit:authority && npm run audit:repository && npm run build && npm run audit:artifact && npm run test:modules && npm run audit:release-candidate && npm run audit:category15 && npm run audit:production-live",
     "gate:category12": "npm run build:modules && node scripts/category12-acceptance-gate.mjs",
-    "gate:category13": "npm run build:modules && node scripts/category13-acceptance-gate.mjs"
+    "gate:category13": "npm run build:modules && node scripts/category13-acceptance-gate.mjs",
+    "gate:category14": "npm run build:modules && node scripts/category14-acceptance-gate.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.12",
