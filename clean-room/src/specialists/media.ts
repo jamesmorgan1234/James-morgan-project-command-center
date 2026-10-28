@@ -66,5 +66,5 @@ export function assertMediaWorkerModeAllowed(profile: MediaSpecialistProfile, mo
 
 export function assertMediaPublishReady(source: MediaSourceEvidence, authorizationRef?: string): void {
   validateMediaSourceEvidence(source);
-  if (!authorizationRef?.trim()) throw new Error("media publishing requires protected-action authorization");
+  if (!authorizationRef || !/^evd_[a-z0-9]+(?:-[a-z0-9]+)*$/.test(authorizationRef)) throw new Error("media publishing requires canonical protected-action authorization evidence");
 }
