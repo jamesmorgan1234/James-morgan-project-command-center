@@ -1,4 +1,4 @@
-name: P15.1 Brain Context Tranche Qualification
+name: P15.1 Recommendation Evidence Tranche Qualification
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 2
-      - name: Guarded assemble and qualify Brain context tranche
+      - name: Guarded assemble and qualify recommendation evidence tranche
         shell: bash
         run: |
           set -euo pipefail
@@ -27,14 +27,14 @@ jobs:
           const fs=require('fs');
           const d=JSON.parse(fs.readFileSync('evidence/category15-requirement-traceability.json','utf8'));
           const rows=new Map(d.requirements.map(r=>[r.id,r]));
-          const expected=['CCR-00322','CCR-00325','CCR-00327','CCR-00330','CCR-00333','CCR-00336'];
+          const expected=['CCR-00340','CCR-00345'];
           const s=d.closureSummary;
-          if(s.verifiedCount!==315||s.unverifiedCount!==5537||s.notApplicableCount!==0||s.structurallyInvalidRowCount!==0) throw new Error('Unexpected ledger totals '+JSON.stringify(s));
+          if(s.verifiedCount!==317||s.unverifiedCount!==5535||s.notApplicableCount!==0||s.structurallyInvalidRowCount!==0) throw new Error('Unexpected ledger totals '+JSON.stringify(s));
           if(!d.repositoryEvidence?.valid||d.repositoryEvidence.errors?.length) throw new Error('Repository evidence invalid '+JSON.stringify(d.repositoryEvidence?.errors));
           if(d.assembly?.qualificationErrors?.length) throw new Error('Qualification errors '+JSON.stringify(d.assembly.qualificationErrors));
           for(const id of expected) if(rows.get(id)?.truthState!=='VERIFIED') throw new Error(id+' did not qualify');
           for(const id of ['CCR-01875','CCR-01908']) if(rows.get(id)?.truthState!=='UNVERIFIED') throw new Error(id+' exclusion changed');
-          console.log('QUALIFIED_BRAIN_ROWS='+expected.join(','));
+          console.log('QUALIFIED_RECOMMENDATION_ROWS='+expected.join(','));
           console.log('VERIFIED='+s.verifiedCount+' UNVERIFIED='+s.unverifiedCount);
           NODE
           set +e
@@ -42,22 +42,22 @@ jobs:
           gate=$?
           set -e
           if [ "$gate" -ne 1 ]; then echo "Expected open P15.1 gate exit 1, got $gate"; exit 1; fi
-          cat > evidence/P15_1_BRAIN_CONTEXT_TRANCHE_QUALIFICATION.md <<EOF
-          # P15.1 Brain context tranche qualification
+          cat > evidence/P15_1_RECOMMENDATION_EVIDENCE_TRANCHE_QUALIFICATION.md <<EOF
+          # P15.1 recommendation evidence tranche qualification
 
           Trigger source commit: ${GITHUB_SHA}
 
-          Guarded assembly qualified exactly six additional existing-proof rows: CCR-00322, CCR-00325, CCR-00327, CCR-00330, CCR-00333, CCR-00336.
+          Guarded assembly qualified exactly two additional existing-proof rows: CCR-00340 and CCR-00345.
 
-          Ledger totals: 5,852 canonical / 315 VERIFIED / 5,537 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors=0; qualification errors=0.
+          Ledger totals: 5,852 canonical / 317 VERIFIED / 5,535 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors=0; qualification errors=0.
 
           P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. CCR-01875 and CCR-01908 remain UNVERIFIED. No later phase advanced.
 
-          This tranche changes evidence mappings/generated traceability only; no runtime, schema, provider, protected asset, production, deployment, merge, paid service or spending action is claimed.
+          This tranche changes evidence mappings/generated traceability only; no runtime, analytics schema, protected asset, production, deployment, merge, paid service or spending action is claimed.
           EOF
           git diff --check
           git config user.name jamesmorgan1234
           git config user.email JAMESMORGAN1234@YAHOO.COM
-          git add evidence/category15-requirement-traceability.json evidence/P15_1_BRAIN_CONTEXT_TRANCHE_QUALIFICATION.md
-          git commit -m "evidence: qualify 315 P15.1 requirements with Brain context proofs"
+          git add evidence/category15-requirement-traceability.json evidence/P15_1_RECOMMENDATION_EVIDENCE_TRANCHE_QUALIFICATION.md
+          git commit -m "evidence: qualify 317 P15.1 requirements with recommendation proofs"
           git push origin HEAD:build/spec-lock-v2-clean-room
