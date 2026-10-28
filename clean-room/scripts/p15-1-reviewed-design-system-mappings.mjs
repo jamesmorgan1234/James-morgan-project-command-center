@@ -10,6 +10,9 @@ export function reviewedDesignSystemMappings(){
  const distinctRows=t('runtime-visual-structure','browser runtime keeps approved Projects, Active / Live, Next Up and Project Detail as distinct structures');
  const wholeCard=t('runtime-visual-structure','owner-facing project navigation uses the whole card and no decorative chevron markup');
  const homeHierarchy=t('category4-home-registry','P4.4 core Home catalog is registry-driven and preserves approved one-column hierarchy');
+ const sharedContract=t('category4-shared-primitives','P4.5 exposes one canonical contract for every locked shared primitive');
+ const sharedCss=t('category4-shared-primitives','P4.5 shared visual primitive classes are shipped once with reduced-motion and forced-colors support');
+ const safeArea=t('category4-accessibility-device-adaptation','P4.7 shipped shell preserves browser zoom and safe-area adaptation');
  const g=(ids,loc,pos,neg,notes,phase='P4.8')=>ids.map(id=>({
   id,
   owningPhases:[phase],
@@ -37,6 +40,10 @@ export function reviewedDesignSystemMappings(){
   ...g(['CCR-00243'],['clean-room/src/ui/fixtures.ts#APPROVED_SCREEN_FIXTURES','clean-room/src/runtime/browser.ts#renderProjects'],fixture,distinctRows,'The Projects structure is explicitly fixture-defined and rendered by its own runtime function; executable tests prevent it from collapsing into another screen structure.'),
   ...g(['CCR-00244'],['clean-room/src/ui/fixtures.ts#APPROVED_SCREEN_FIXTURES','clean-room/src/runtime/browser.ts#renderActive'],fixture,distinctRows,'The Active / Live row structure is explicitly fixture-defined and rendered by its own runtime function; executable tests preserve that distinct template and whole-card interaction contract.'),
   ...g(['CCR-00245'],['clean-room/src/ui/fixtures.ts#APPROVED_SCREEN_FIXTURES','clean-room/src/runtime/browser.ts#renderNextUp'],fixture,wholeCard,'The Next Up row structure is explicitly fixture-defined and rendered by its own runtime function; executable tests preserve the priority-queue template and reject decorative-chevron navigation.'),
+  ...g(['CCR-00248'],['clean-room/src/ui/primitives.ts#COMMAND_CENTER_PRIMITIVES'],sharedContract,sharedCss,'The canonical primitive registry includes a loader template and the shipped primitive stylesheet is explicitly regression-tested as a single shared visual system.','P4.5'),
+  ...g(['CCR-00249'],['clean-room/src/ui/primitives.ts#COMMAND_CENTER_PRIMITIVES'],sharedContract,sharedCss,'The canonical primitive registry includes an empty-state template with truthful loaded-empty semantics and the shared stylesheet is regression-tested as the canonical state system.','P4.5'),
+  ...g(['CCR-00250'],['clean-room/src/ui/primitives.ts#COMMAND_CENTER_PRIMITIVES'],sharedContract,sharedCss,'The canonical primitive registry includes an error-state template with safe fixed-copy/private-payload rules and the shared stylesheet is regression-tested as the canonical state system.','P4.5'),
   ...g(['CCR-00260'],['clean-room/tests/category4-visual-regression.test.mjs'],fingerprint,exactAsset,'A dedicated executable visual-regression suite protects exact approved asset bytes/dimensions, a deliberate shared visual-contract fingerprint, and the registered approved screenshot authorities.'),
+  ...g(['CCR-00263'],['clean-room/public/index.html','clean-room/public/app.css'],safeArea,safeArea,'The shipped viewport enables viewport-fit=cover without disabling zoom and app CSS explicitly consumes all four safe-area inset environment values; the executable device-adaptation test asserts the complete contract.','P4.7'),
  ];
 }
