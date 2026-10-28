@@ -1,3 +1,19 @@
+# P15.1 session continuation — portable 206-row qualification saved
+
+Qualifying source 73005f745c31e7028c1422b76b5c34159f3b3d19 / tree 802cdef1049aca6ce7b8a25e7a1a8268684e737f. CI 40751637885 / job 123039585615 completed overall FAILURE: two 1620 PASS / 0 FAIL / 0 SKIP executions; authority/type/core QA/release/PWA PASS; final Category15 FAIL; production SKIPPED. The previous Windows-path ledger defect is repaired; actual canonical REV3 source references now contain only the authoritative filename on both platforms.
+
+Audit: 1655/1655 files, 0 secrets/violations, semantic every-file review FALSE. All 906 qualifying input bytes match source Git exactly. Commands from clean-room: node scripts/category15-repository-audit.mjs --write (exit 0); node scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=category15-repository-audit.json --qualification=session-qualification.json --write (exit 0); node scripts/category15-traceability-gate.mjs (exit 1 correctly for unresolved rows).
+
+5852 total / 206 VERIFIED / 5646 UNVERIFIED / 0 NOT_APPLICABLE / 0 structural invalid. repositoryEvidence.valid=true; repository errors 0; qualification errors 0. Exact new IDs: CCR-01947, CCR-01948, CCR-01949, CCR-01951. Delta assertion PASS. CCR-01875 and CCR-01908 remain UNVERIFIED. No canonical requirement text, digest or IDs changed. No physical, owner or live acceptance claimed. All required implementation/test references checked by native validator.
+
+The original 30-row privacy batch now has 22 individually qualified rows. Eight remain UNVERIFIED: CCR-01938 full in-memory clearing; CCR-01940 account-switch fencing; CCR-01943 authenticated protected local reads; CCR-01944 sensitive offline classification; CCR-01945 stronger offline storage controls; CCR-01946 future vault boundary; CCR-01950 auth-provider degraded-state semantics; CCR-01952 safe draft preservation. See both auth review documents for exact reasons. Do not treat these as deferred acceptance or N/A.
+
+P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN, closureComplete=false, advancementAllowed=false. NEXT coherent batch: startup/recovery CCR-01954..CCR-01985 (32 rows), while preserving unresolved privacy gaps. Read exact wording, repair only real gaps, qualify only direct proof. Continuous P15.1 authorization remains active; do not begin P15.2+.
+
+No main/production/Supabase/auth-policy/protected assets/deployments/paid services/external communications changed. No spending. James remains final human authority; Command Center remains top Brain.
+
+---
+
 # P15.1 session and generator repair — exact-source qualification pending
 
 Remote parent 01556395b6ae41473e392cbf65b7467ef97eee06 / tree 17751a713ec2270554e7908335305eaeec1cea07 was refetched. Its metadata CI 40750066972 / 123034097765 failed 1609/1610 tests because Windows-generated REV3 authoritativeSource fields contained absolute checkout paths. Do not treat that saved ledger as portable certification. Generator fixed with node:path basename; focused regression reproduced then passed. Regenerated via guarded assembler in matching c29897c audit/CI environment: 5852 / 202 VERIFIED / 5650 UNVERIFIED / 0 N/A / 0 invalid; repositoryEvidence true / 0 errors; qualification errors 0. Corrected generated native document is included here, without direct generated-row editing.
