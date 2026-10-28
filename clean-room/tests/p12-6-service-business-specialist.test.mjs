@@ -46,11 +46,11 @@ test("P12.6 lead-to-job state and linked records stay company/project scoped",()
   assert.throws(()=>validateServiceBusinessState({id:"cross",ownerId:"owner-1",projectId:"other",companyId:"company-1",domain:"job",canonicalRef:"job:cross",state:"open",sourceRefs:["cross:source"]},bound),/cannot cross company\/project boundary/i);
 });
 
-test("P12.6 durable service-business evidence is isolated append-only and recovery-capable",()=>{
+test("P12.6 durable service-business evidence preserves company scope sources immutability and recovery",()=>{
   const sql=readFileSync(new URL("../../supabase/migrations/20261026140000_p12_6_service_business_specialist.sql",import.meta.url),"utf8");
   assert.match(sql,/command_center_service_business_history/i);
-  assert.match(sql,/command_center_service_business_state_history/i);
-  assert.match(sql,/command_center_service_business_job_link_history/i);
+  assert.match(sql,/command_center_service_business_state_history[\s\S]*company_ref text not null[\s\S]*source_refs jsonb not null/i);
+  assert.match(sql,/command_center_service_business_job_link_history[\s\S]*company_ref text not null[\s\S]*source_refs jsonb not null/i);
   assert.match(sql,/Service-business evidence is immutable/i);
   assert.match(sql,/is_command_center_authorized/i);
   assert.match(sql,/recovery_ref text not null/i);
