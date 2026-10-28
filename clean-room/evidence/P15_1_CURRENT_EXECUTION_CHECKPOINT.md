@@ -1,3 +1,19 @@
+# P15.1 auth/privacy batch — 202 certified; continuation active
+
+Qualifying source HEAD c29897cc2f7c396f3de2fd3d6d2b0732259fce63 / tree 8515b45a1851153799395ef5ead644edadd8e165. Runtime repair commit e2f17f26e86572d51cb28b7043c04af5ae2d3e9e preserved; source-format correction c29897c fixed existing source-inspection regression without weakening tests.
+
+Actual CI run 40749030259, job 123030415298: completed overall FAILURE; two full executions of 1610 PASS / 0 FAIL / 0 SKIP; authority, typecheck, core QA, release and PWA PASS; final Category 15 gate FAIL; production verification SKIPPED. Initial e2f source CI had 1609 PASS / 1 FAIL due CRLF source discovery. Local first attempt in a fresh qualification checkout lacked dist and failed module resolution; guarded module compile then 11 focused tests PASS / 0 FAIL / 0 SKIP. Earlier focused cross-seam suite 25 PASS / 0 FAIL / 0 SKIP, strict noEmit, architecture/legacy checks PASS.
+
+Source audit generated from exact Git bytes: 1651 tracked/scanned, 0 secrets/violations, semantic every-file review FALSE. 903 qualifying paths matched immutable source (only EOL normalization locally). Commands from clean-room: node scripts/category15-repository-audit.mjs --write (exit 0); node scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=category15-repository-audit.json --qualification=auth-qualification.json --write (exit 0); node scripts/category15-traceability-gate.mjs (exit 1 correctly for unresolved rows).
+
+Ledger: 5852 total / 202 VERIFIED / 5650 UNVERIFIED / 0 NOT_APPLICABLE / 0 structural invalid. repositoryEvidence.valid=true; repository errors 0; qualification errors 0. New certified IDs: CCR-01924 through CCR-01937 inclusive, CCR-01939, CCR-01941, CCR-01942, CCR-01953 (18 exactly). Delta assertions PASS; CCR-01875 and CCR-01908 remain UNVERIFIED. All implementation/test references checked by native repository validator. Existing certified rows preserved.
+
+P15.1 stays SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. No later phase promoted. Twelve selected rows remain UNVERIFIED with exact reasons in evidence/P15_1_AUTH_PRIVACY_BATCH_REVIEW.md. NEXT: continue these session/offline/recovery gaps, beginning direct tests of restore, expiry, outage and simultaneous auth retry; do not restart the completed public-shell batch and do not advance P15.2. New work is not certified until its own proof is qualified.
+
+No main, production, Supabase/auth-policy, protected release asset, deployment/merge/promotion, external communication or paid-service changes. No spend. James retains final authority; Command Center remains top Brain.
+
+---
+
 # P15.1 source-format repair before qualification
 
 Source e2f17f26e86572d51cb28b7043c04af5ae2d3e9e CI 40748478582 / job 123028487864 failed core QA: 1609 PASS / 1 FAIL / 0 SKIP. Existing category5-project-room-shell source regex could not find renderProjectDetail because Windows checkout CRLF bytes were uploaded. Normalize edited source files to LF; no implementation/test assertion changes for this failure. Candidate mappings remain uncertified until corrected exact-head CI.
