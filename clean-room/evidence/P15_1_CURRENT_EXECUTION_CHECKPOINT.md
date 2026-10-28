@@ -1,3 +1,21 @@
+# P15.1 evidence-first checkpoint — 251 qualified requirements
+
+Qualifying source HEAD 4fd130ef299e4d4f5da0b1ec0756a9d78e3068ff / tree bf90ecd48f7eee03af3c8393e771810343c72090. Exact-source CI 40756163744 / job 123055523038 completed overall FAILURE: two complete 1627 PASS / 0 FAIL / 0 SKIP executions; authority/type/core QA/release/PWA PASS; final Category15 gate FAIL; production verification SKIPPED. No global green claim.
+
+Source audit: 1658 files tracked/scanned, zero secrets/violations, semantic every-file review FALSE; 908 qualified source paths match committed Git bytes (zero EOL corrections). Guarded assembly first requalified the startup batch to 224 VERIFIED. The next 40-row existing-data review supports 27 more rows with no data-model implementation, schema, migration or test change. Referenced runtime/test inputs still match the same actual source CI; metadata-only mapping does not require a fresh runtime success claim.
+
+Final generated ledger: 5852 total / 251 VERIFIED / 5601 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors 0; qualification errors 0. Commands from clean-room: node scripts/category15-repository-audit.mjs --write (exit 0); node scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=category15-repository-audit.json --qualification=startup-qualification.json --write (exit 0, 224); node scripts/p15-1-assemble-current-traceability.mjs --write (exit 0, 251, unchanged-runtime qualification reuse); node scripts/category15-traceability-gate.mjs (exit 1 correctly while unresolved requirements remain). Native reference/digest checks and exact 45-row delta assertions PASS; CCR-01875 and CCR-01908 remain UNVERIFIED.
+
+Exact new IDs since previous saved 206 ledger: CCR-00116, CCR-00117, CCR-00118, CCR-00119, CCR-00120, CCR-00123, CCR-00125, CCR-00126, CCR-00128, CCR-00129, CCR-00131, CCR-00132, CCR-00133, CCR-00136, CCR-00137, CCR-00138, CCR-00139, CCR-00140, CCR-00141, CCR-00142, CCR-00143, CCR-00146, CCR-00147, CCR-00148, CCR-00149, CCR-00150, CCR-00155, CCR-01954, CCR-01955, CCR-01956, CCR-01957, CCR-01959, CCR-01960, CCR-01961, CCR-01966, CCR-01970, CCR-01971, CCR-01972, CCR-01973, CCR-01974, CCR-01975, CCR-01981, CCR-01983, CCR-01984, CCR-01985.
+
+Review records: evidence/P15_1_STARTUP_RECOVERY_BATCH_REVIEW.md (32 reviewed / 18 supported / 14 explicit gaps); evidence/P15_1_DATA_FOUNDATION_EXISTING_PROOF_REVIEW.md (40 reviewed / 27 supported / 13 explicit gaps). All gaps remain UNVERIFIED, never N/A. Current data batch changed only reviewed-mapping metadata, generated evidence and checkpoints. Tests were reused from observed CI, not claimed newly rerun. Startup repair local strict module build, 25 focused tests, architecture/legacy/scoped diff checks passed as previously recorded.
+
+P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. No P15.2+ promotion. James instructed evidence-first throughput: map already proven rows, park gaps with exact reasons, avoid repair detours and repeated expensive verification for unchanged source, save throughout, keep going. NEXT existing-proof batch: CCR-00156..CCR-00195 canonical entities/relationships/contracts, inspect exact wording and existing named proof; no automatic implementation churn. Preserve all earlier unresolved row reasons.
+
+Remote parent was refetched before work. No main, production, production Supabase/authentication, protected assets, release/deployment/promotion, external communication or paid-resource action. No spending. James final authority; Command Center top Brain.
+
+---
+
 # P15.1 startup/recovery repairs saved — qualification pending; evidence-first throughput
 
 Parent acf1100b5eec02889c436c9d0f7d4c2d3396ff33 / ed759614cca3cec1c6c4dd8689e07da3fdad390b. That saved 206-row ledger CI 40752614648 / job 123043025974 passes type/authority/core/release/PWA and fails only the still-open Category15 gate; production skipped. Current startup/recovery review covers CCR-01954..01985: 18 individually supported candidates, 14 explicit gaps, recorded in evidence/P15_1_STARTUP_RECOVERY_BATCH_REVIEW.md. Do not count 224 certified before exact-source qualification.
