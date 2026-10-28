@@ -47,3 +47,26 @@ Architecture drift, configuration drift, external-reality change, memory/depende
 - `supabase/migrations/20261026144000_p14_recovery_migration_scale_lifecycle.sql`
 
 Full verification requires the exact commit containing these artifacts to pass the repository build/typecheck/test/audit workflow. This evidence does not authorize production, paid provider capacity, multi-user release, public commercialization, or physical-device acceptance.
+
+## Current executable retrofit — checkpoint 1 (not Category 14 certification)
+
+The earlier implemented-for-verification receipt is not a completed gate. The new
+P14.1–P14.3 slice adds AES-256-GCM authenticated encrypted backups with SHA-256
+content/policy/envelope identities, all fifteen explicit data/intelligence classes,
+protected/excluded scope, cadence/age/retention, key references only, and credential
+payload rejection. Independent decrypt/verify detects corruption/incomplete state.
+
+Isolated restore stages every record with current canonical data restore revalidation;
+intelligence is never activated by a restored snapshot. Historical/unknown/revoked/
+invalidated/superseded/erased/expired state is not present-day authority. Dependencies
+propagate rejection. Production workspaces are prohibited. Measured RTO/RPO are
+isolated candidates only. No production claim is made.
+
+Migration stages a full deterministic transform before expected-revision commit,
+preserves identities/scope/history/epochs/tombstones, supports recorded-receipt resume,
+and rejects stale/concurrent updates. Rollback preserves erasure and requires current
+projection decisions. The C2 adapter reuses existing sessions, policy and owner-verified
+grants; it cannot issue authority.
+
+Executed: module compilation PASS; P14.1/P14.2/P14.3 focused tests 9 PASS, 0 FAIL,
+0 SKIP. SQL persistence proof and the remaining nine phases are still pending.

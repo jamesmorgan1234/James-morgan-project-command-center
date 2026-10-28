@@ -43,3 +43,5 @@ export type {
   ChaosObservation,
   LifecycleEvent
 } from "./acceptance.js";
+export * from './contracts.js';
+export * from './access.js';
