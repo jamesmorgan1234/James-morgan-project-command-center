@@ -1,0 +1,44 @@
+# P15.1 exact inspection — CCR-00386..CCR-00425
+
+Ledger checkpoint: 351 VERIFIED / 5501 UNVERIFIED.
+
+- `CCR-00386` — **UNVERIFIED** — **Durable task dependencies.**
+- `CCR-00387` — **UNVERIFIED** — **Run state machine.**
+- `CCR-00388` — **UNVERIFIED** — **Task state machine.**
+- `CCR-00389` — **UNVERIFIED** — **Executor claim/lease model.**
+- `CCR-00390` — **UNVERIFIED** — **Lease expiration.**
+- `CCR-00391` — **UNVERIFIED** — **Stale-claim recovery.**
+- `CCR-00392` — **UNVERIFIED** — **Heartbeat contract.**
+- `CCR-00393` — **UNVERIFIED** — **Executor availability contract.**
+- `CCR-00394` — **UNVERIFIED** — **Executor wake contract.**
+- `CCR-00395` — **UNVERIFIED** — **Executor result contract.**
+- `CCR-00396` — **UNVERIFIED** — **Capability Registry.**
+- `CCR-00397` — **UNVERIFIED** — **Executor Registry.**
+- `CCR-00398` — **UNVERIFIED** — **Tool-health Registry.**
+- `CCR-00399` — **UNVERIFIED** — **Permission envelope per run.**
+- `CCR-00400` — **UNVERIFIED** — **Project hard lock.**
+- `CCR-00401` — **UNVERIFIED** — **Objective hard lock.**
+- `CCR-00402` — **UNVERIFIED** — **Control-mode hard lock.**
+- `CCR-00403` — **UNVERIFIED** — **Books-target lock.**
+- `CCR-00404` — **UNVERIFIED** — **Risk classification.**
+- `CCR-00405` — **UNVERIFIED** — **Impact-radius classification.**
+- `CCR-00406` — **UNVERIFIED** — **Cost classification.**
+- `CCR-00407` — **UNVERIFIED** — **Required-environment classification.**
+- `CCR-00408` — **UNVERIFIED** — **Task verification requirements.**
+- `CCR-00409` — **UNVERIFIED** — **Task evidence requirements.**
+- `CCR-00410` — **UNVERIFIED** — **Immediate status after dispatch attempt.**
+- `CCR-00411` — **UNVERIFIED** — **Queued cannot masquerade as execution.**
+- `CCR-00412` — **UNVERIFIED** — **Working requires real executor claim.**
+- `CCR-00413` — **UNVERIFIED** — **Completion requires evidence.**
+- `CCR-00414` — **UNVERIFIED** — **Executor self-report alone insufficient when external verification exists.**
+- `CCR-00415` — **UNVERIFIED** — **Duplicate-side-effect prevention.**
+- `CCR-00416` — **UNVERIFIED** — **Idempotency keys.**
+- `CCR-00417` — **UNVERIFIED** — **Reconcile before retry.**
+- `CCR-00418` — **UNVERIFIED** — **Exactly bounded retries.**
+- `CCR-00419` — **UNVERIFIED** — **Retry classification.**
+- `CCR-00420` — **UNVERIFIED** — **Capability failure distinguished from connectivity failure.**
+- `CCR-00421` — **UNVERIFIED** — **Quota failure distinguished from capability failure.**
+- `CCR-00422` — **UNVERIFIED** — **Circuit breaker.**
+- `CCR-00423` — **UNVERIFIED** — **Portfolio circuit breaker.**
+- `CCR-00424` — **UNVERIFIED** — **Dead-letter/blocked-task handling.**
+- `CCR-00425` — **UNVERIFIED** — **Interrupted-action reconciliation.**
