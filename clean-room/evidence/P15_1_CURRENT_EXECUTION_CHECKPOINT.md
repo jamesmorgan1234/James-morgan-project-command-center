@@ -1,3 +1,46 @@
+# Active P15.1 integrity fix — REV3/manifest source bytes and checkpoint-safe writer
+
+Current parent live HEAD 258120e938623413a91cb071e490db3019376ec6, tree
+001e1b1c8d80b88aa974a5776959ccf794b40456. Its CI run 40711772559 / job
+122898646409 completed: two 1595-test runs PASS, core/type/authority/release/PWA PASS;
+final C15 FAIL, production SKIPPED. Direct diagnostics exposed 29 remaining proof
+errors despite clean local checks. These are not accepted as current qualification.
+
+Exact cause identified: the Windows checkout's REV3 JSON hash (6c0350d4...) differed
+from committed bytes (b24b1cd5...), producing 27 canonical source-version mismatches.
+The current machine manifest 23 similarly used checkout hash aed31179... instead of
+committed hash 3aee5bd4..., causing one global and one mapped-reference mismatch.
+A guarded browser build produced zero source changes; build mutation was ruled out.
+No requirement text, IDs or actual owner authority changed.
+
+The source-audit guard and assembler qualification inputs now explicitly include
+REV3 authority and manifest 23. A matching SHA header with altered or omitted authority
+bytes must reject. Before repair the focused REV3/manifest regression failed (0 PASS /
+1 FAIL). Current source-audit/inventory/authority tests pass 5/5, 0 FAIL/SKIP.
+
+The native writer also refuses invalid repository proof before overwriting a saved
+checkpoint. An isolated temporary-copy CLI regression reaches that refusal and verifies
+the previous native bytes remain unchanged. It uses copied repository metadata only,
+no production data; owned temporary paths are verified before cleanup. No real native
+checkpoint was overwritten for this failure test. Scoped diff checks pass.
+
+Native inventory remains 5852 / 164 recorded VERIFIED / 0 N/A / 5688 UNVERIFIED.
+Its current CI qualification is still invalid until this code fix's CI is observed and
+fresh metadata is generated. Preserve historical mappings; do not call them freshly
+qualified or advance P15.1. No native rewrite is included in this code-integrity seam.
+
+Next: inspect this exact-head CI; canonicalize both authority JSON inputs (plus qualified
+runtime/test inputs) to their immutable Git bytes; create the matching source audit;
+refresh native evidence using actual observed CI. The updated guard must reject any
+checkout-specific authority hash. Confirm the next metadata CI directly reports
+repositoryEvidenceValid=true and errorCount=0 while still blocking unresolved rows.
+Then continue larger coherent requirement clusters, reusing inspected code/test patterns.
+Save at meaningful verified batch boundaries; no percentage reserve or routine handoff.
+Main/production/Supabase/auth/protected assets untouched, no messages, financial action,
+merge, force-push, manual deploy/promotion, paid activation or spending. James remains
+final human authority; Command Center remains the permanent top Brain/control plane.
+
+---
 # Active P15.1 checkpoint — 164 reviewed rows, current repair batch requalified
 
 Current qualifying runtime/test source: dc21814f7cd8814c08e5366d0ae4593faf207c07,
