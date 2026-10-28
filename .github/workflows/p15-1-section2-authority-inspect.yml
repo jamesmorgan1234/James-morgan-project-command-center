@@ -43,6 +43,11 @@ jobs:
               requirement: row.requirement,
               truthState: row.truthState,
               classification: row.classification ?? null,
+              canonicalSourceIds: row.canonicalSourceIds ?? null,
+              canonicalSourceFiles: row.canonicalSourceFiles ?? null,
+              owningPhases: row.owningPhases ?? null,
+              dependencies: row.dependencies ?? null,
+              dependenciesVerified: row.dependenciesVerified ?? null,
               blocker: row.blocker ?? null,
               implementationLocations: row.implementationLocations ?? null,
               tests: row.tests ?? null
