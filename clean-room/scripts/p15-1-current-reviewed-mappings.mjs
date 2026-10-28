@@ -13,6 +13,7 @@ import {reviewedBrainContextMappings} from './p15-1-reviewed-brain-context-mappi
 import {reviewedRecommendationMappings} from './p15-1-reviewed-recommendation-mappings.mjs';
 import {reviewedBrainMemoryRecommendationMappings} from './p15-1-reviewed-brain-memory-recommendation-mappings.mjs';
 import {reviewedBrainTruthImpactMappings} from './p15-1-reviewed-brain-truth-impact-mappings.mjs';
+import {reviewedBrainGapRecommendationMappings} from './p15-1-reviewed-brain-gap-recommendation-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -41,7 +42,8 @@ export function currentReviewedMappings(root){
   ...reviewedBrainContextMappings(),
   ...reviewedRecommendationMappings(),
   ...reviewedBrainMemoryRecommendationMappings(),
-  ...reviewedBrainTruthImpactMappings()
+  ...reviewedBrainTruthImpactMappings(),
+  ...reviewedBrainGapRecommendationMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
