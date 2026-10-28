@@ -34,7 +34,7 @@ jobs:
             else for (const child of Object.values(value)) visit(child);
           }
           visit(doc);
-          const rows = [...found.entries()].filter(([id]) => id >= 'CCR-01875' && id <= 'CCR-01915').sort(([a],[b])=>a.localeCompare(b));
+          const rows = [...found.entries()].filter(([id]) => id >= 'CCR-01916' && id <= 'CCR-01955').sort(([a],[b])=>a.localeCompare(b));
           console.log(`RANGE_ROWS=${rows.length}`);
           for (const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
 
@@ -58,7 +58,7 @@ jobs:
           }
           const parsed=parseCsv(text); const header=parsed[0];
           const records=parsed.slice(1).map(values=>Object.fromEntries(header.map((h,i)=>[h,values[i]??''])));
-          const canonical=records.filter(r=>r.canonical_id>='CCR-01875'&&r.canonical_id<='CCR-01915').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
+          const canonical=records.filter(r=>r.canonical_id>='CCR-01916'&&r.canonical_id<='CCR-01955').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
           console.log(`RECOVERED_ROWS=${canonical.length}`);
           for(const row of canonical) console.log('---CANONICAL---\n'+JSON.stringify(row));
           NODE
