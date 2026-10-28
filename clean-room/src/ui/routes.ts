@@ -43,19 +43,29 @@ function matchRoute(pattern: string, input: string): Readonly<Record<string, str
   return Object.freeze(params);
 }
 
+function routePatternIdentity(path: string): string {
+  return path.split("/").map((part) => part.startsWith(":") ? ":" : part).join("/");
+}
+
 export class RouteRegistry {
   readonly #byKey = new Map<string, RouteDefinition>();
   readonly #byPath = new Map<string, RouteDefinition>();
 
   register(route: RouteDefinition): void {
-    if (!route.key.startsWith("route:")) throw new Error(`Route key must start with route:: ${route.key}`);
+    if (!route.key.startsWith("route:") || !route.key.slice("route:".length).trim()) throw new Error(`Route key must start with route:: ${route.key}`);
     if (!route.path.startsWith("/")) throw new Error(`Route path must start with /: ${route.path}`);
     if (!route.title.trim() || !route.moduleKey.trim()) throw new Error("Route title and moduleKey are required");
+    if (route.scrollOwner !== "shell" || !["history", "home", "none"].includes(route.backBehavior)) throw new Error("Invalid route scroll owner or back behavior");
+    if (/[?#\s]/.test(route.path) || route.path.includes("//")) throw new Error("Route declarations require canonical local path patterns");
+    const canonicalPath = normalizePath(route.path);
+    const parameters = canonicalPath.split("/").filter((part) => part.startsWith(":")).map((part) => part.slice(1));
+    if (parameters.some((name) => !name || ["__proto__", "constructor", "prototype"].includes(name)) || new Set(parameters).size !== parameters.length) throw new Error("Route parameters must be nonempty unique safe names");
     if (this.#byKey.has(route.key)) throw new Error(`Duplicate route key: ${route.key}`);
-    if (this.#byPath.has(route.path)) throw new Error(`Duplicate route path: ${route.path}`);
-    const frozen = Object.freeze({ ...route });
+    if (this.#byPath.has(canonicalPath)) throw new Error(`Duplicate route path: ${canonicalPath}`);
+    if ([...this.#byKey.values()].some((existing) => routePatternIdentity(existing.path) === routePatternIdentity(canonicalPath))) throw new Error(`Duplicate route pattern: ${canonicalPath}`);
+    const frozen = Object.freeze({ ...route, path: canonicalPath });
     this.#byKey.set(route.key, frozen);
-    this.#byPath.set(route.path, frozen);
+    this.#byPath.set(canonicalPath, frozen);
   }
 
   remove(key: string): RouteDefinition {

@@ -1,3 +1,38 @@
+# Active P15.1 seam — canonical route ownership and registration boundaries
+
+Parent live HEAD d852ae1c54a0d2ceebf4d069a5c4fa09b44372f0, tree
+669a1766ad60d4ca9eb404dec0c4f3791799d26b. Feature repair CI run 40706372359 /
+job 122879495060 completed: two 1588-test runs PASS, authority/type/core/release/PWA
+PASS; final C15 FAIL, production SKIPPED. Its new diagnostics truthfully reported
+repositoryEvidenceValid=false / 48 errors because resilience/audit-tool changes had
+not yet been requalified. Do not describe that stale binding as current verified proof.
+
+Route regressions reproduced 1 PASS / 3 FAIL: invalid scroll/back states, trailing-slash
+aliases and equivalent parameter patterns could register competing route owners.
+RouteRegistry now validates declared states and local pattern shape, normalizes its
+stored path, rejects duplicate normalized paths/equivalent parameter patterns and
+rejects repeated/unsafe parameter names. Registered canonical identity/key and owner
+remain unchanged; invalid additions leave the registry intact. Exact static routes
+retain priority over parameter patterns; decoded parameters, malformed escape rejection,
+unknown-route behavior, removal and core route order remain supported.
+
+Actual guarded verification: module compile PASS; 18 route/browser-state/UI-shell tests
+PASS, 0 FAIL/SKIP. Strict noEmit typecheck, architecture, legacy and scoped diff checks
+PASS. This is local contract evidence, not browser/device/production acceptance.
+No schema, migration, security permission, protected asset or UI visual design changed.
+
+Native inventory stays 5852 / 162 recorded VERIFIED / 0 N/A / 5690 UNVERIFIED.
+Current changed inputs require qualification refresh after this repair's exact-head CI.
+No row/phase is promoted by the code repair alone. Next: inspect its CI and resolve real
+failures; review the isolated AssetRegistry authorization boolean concern found while
+tracing storage-provider ownership (not yet reproduced/certified), then refresh native
+proof from clean committed source and actual CI. Correct the README's stale authority
+pointer during that metadata correction. Continue remaining A02/source clusters.
+No later P15 phase advanced. No reserve/routine handoff; preserve concurrent work.
+Main/production/Supabase/auth/protected assets untouched; no messages, financial
+operation, merge, force-push, manual deploy/promotion, paid activation or spending.
+
+---
 # Active P15.1 seam — feature safety booleans and explicit CI proof diagnostics
 
 Parent live HEAD 8acf050e48db1d1ee3c44a69b34f2b08ac988db5, tree
