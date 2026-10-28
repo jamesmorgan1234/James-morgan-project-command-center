@@ -1,4 +1,16 @@
-# P15.1 entity/relationship checkpoint - 270 qualified requirements
+# P15.1 asset-contract checkpoint - 282 qualified requirements
+
+Pre-work remote HEAD 34d31e04661314d06300b3e2b3fb96a6eb5b819e / tree 2de8421ba77e4998a2dfef9efa1ea4069bf39978, refetched before mutation. CCR-00196..00225 reviewed: 12 supported, 16 unresolved with exact proof gaps, 2 already certified preserved (00196/00200). New VERIFIED IDs: CCR-00206, CCR-00207, CCR-00209, CCR-00210, CCR-00211, CCR-00212, CCR-00213, CCR-00218, CCR-00219, CCR-00220, CCR-00224, CCR-00225. Named proofs and bounded claims: p15-1-reviewed-asset-contract-mappings.mjs; review P15_1_ASSET_CONTRACT_EXISTING_PROOF_REVIEW.md.
+
+Actual generated totals: 5852 total / 282 VERIFIED / 5570 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid true, repository-evidence errors 0, qualification errors 0. P15.1 SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete false, advancementAllowed false. CCR-01875/CCR-01908 remain UNVERIFIED. No later phase promoted.
+
+Commands actually executed from clean-room: node scripts/p15-1-assemble-current-traceability.mjs --write (exit 0, zero errors); node scripts/category15-traceability-gate.mjs (expected exit 1, unresolved inventory, zero repository errors). Additional exact-12-promotion, unchanged canonical wording, preserved prior certification, excluded-row and zero-qualification-error assertions PASS. git diff --check PASS. No fresh runtime tests claimed: runtime/test bytes unchanged and native qualification reuses observed source-bound CI 40756163744 / job 123055523038 on source 4fd130ef299e4d4f5da0b1ec0756a9d78e3068ff: 1627 pass/0 fail/0 skip twice; final Category15 gate fails; production skipped.
+
+No implementation/test/schema/migration or actual protected-asset changes. No main, production, production Supabase/auth, release, deployment, merge, force push, communications or spending. Next coherent unresolved batch begins CCR-00226 design-system requirements: inspect exact wording, existing code and named tests, map only sufficient proof. Do not begin P15.2. James's stop instruction overrides continuation: stop new investigation immediately, save known verified/unverified state and provide one complete normal-chat handoff.
+
+---
+
+# Earlier P15.1 entity/relationship checkpoint - 270 qualified requirements
 
 Pre-work live HEAD d33f38a4eafd6900dc12a433d42cfd7caa03f154 / tree 3437dfce72a9cce799a4396b27b70364ff557d3d, refetched and preserved. Current batch CCR-00156..00195: 19 newly qualified, 20 precise proof gaps remain UNVERIFIED, existing CCR-00194 VERIFIED preserved. New IDs: CCR-00158, CCR-00159, CCR-00164, CCR-00165, CCR-00167, CCR-00173, CCR-00175, CCR-00176, CCR-00177, CCR-00178, CCR-00179, CCR-00186, CCR-00187, CCR-00188, CCR-00189, CCR-00191, CCR-00192, CCR-00193, CCR-00195. Review record: P15_1_ENTITY_RELATIONSHIP_EXISTING_PROOF_REVIEW.md; exact source and named test references in p15-1-reviewed-entity-relationship-mappings.mjs.
 
