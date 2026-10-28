@@ -1,4 +1,4 @@
-name: P15.1 Exact Next-Batch Inspection Report
+name: P15.1 PWA Proof Index
 
 on:
   push:
@@ -17,23 +17,26 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 2
-      - name: Persist exact CCR-00306 through CCR-00345 wording
+      - name: Persist exact existing PWA test proof names
         shell: bash
         run: |
           set -euo pipefail
           node <<'NODE'
-          const fs=require('fs');
-          const doc=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));
-          const rows=doc.requirements.filter(r=>r.id>='CCR-00306'&&r.id<='CCR-00345').sort((a,b)=>a.id.localeCompare(b.id));
-          if(rows.length!==40) throw new Error('Expected 40 rows, got '+rows.length);
-          let out='# P15.1 exact inspection — CCR-00306 through CCR-00345\n\n';
-          out+='Source ledger at trigger commit: `'+process.env.GITHUB_SHA+'`\n\n';
-          for(const row of rows) out+=`- **${row.id}** — ${row.requirement} — current: **${row.truthState}**\n`;
-          fs.writeFileSync('clean-room/evidence/P15_1_BATCH_00306_00345_EXACT_INSPECTION.md',out);
+          const fs=require('fs'),path=require('path');
+          const root='clean-room/tests';
+          const terms=/(pwa|service worker|service-worker|offline|cache|update|rollback|release identity|stale|install|manifest)/i;
+          const lines=['# P15.1 existing PWA proof index',''];
+          for(const name of fs.readdirSync(root).sort()){
+            if(!name.endsWith('.mjs')) continue;
+            const p=path.join(root,name), text=fs.readFileSync(p,'utf8');
+            const found=[...text.matchAll(/test\(["'`]([^"'`]+)["'`]/g)].map(m=>m[1]).filter(t=>terms.test(t));
+            if(found.length){lines.push(`## ${name}`); for(const t of found)lines.push(`- ${t}`); lines.push('');}
+          }
+          fs.writeFileSync('clean-room/evidence/P15_1_PWA_EXISTING_PROOF_INDEX.md',lines.join('\n')+'\n');
           NODE
           git diff --check
           git config user.name jamesmorgan1234
           git config user.email JAMESMORGAN1234@YAHOO.COM
-          git add clean-room/evidence/P15_1_BATCH_00306_00345_EXACT_INSPECTION.md
-          git commit -m "evidence: save exact P15.1 CCR-00306-00345 inspection"
+          git add clean-room/evidence/P15_1_PWA_EXISTING_PROOF_INDEX.md
+          git commit -m "evidence: index existing P15.1 PWA proofs"
           git push origin HEAD:build/spec-lock-v2-clean-room
