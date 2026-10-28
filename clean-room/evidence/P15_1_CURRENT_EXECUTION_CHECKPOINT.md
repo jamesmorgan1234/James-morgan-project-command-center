@@ -1,3 +1,41 @@
+# Active P15.1 seam — explicit protected-asset model authorization, synthetic tests only
+
+Parent live HEAD 0b0fd5ade8cddccb268c5eaa7ac4a5bbd6533d56, tree
+72a4f3a2cc92bb298944334f53829f9cf4963bf1. Route repair CI run 40707928089 /
+job 122884980736 completed: two 1592-test runs PASS, core/type/authority/release/PWA
+PASS; final C15 FAIL, production SKIPPED. Repository-proof diagnostics reported false /
+49 stale-input errors; current runtime/audit changes still require fresh qualification.
+
+Isolated AssetRegistry regressions reproduced 1 PASS / 2 FAIL. Truthy non-boolean
+replacement authority could pass a locked record's guard; malformed decision-reference
+types also lacked the intended explicit-owner-decision rejection. The existing guard
+now requires authorized === true and a nonblank string ownerDecisionRef. Valid explicit
+snapshots retain existing behavior. Owner/project/creation identity, expected version,
+time monotonicity and canonical hash rules remain unchanged.
+
+All tests use newly constructed synthetic in-memory asset records with dummy hashes.
+No approved/locked/protected file, real asset record, production data or external
+system was replaced or accessed. These tests do not create real owner approval or
+certify complete protected-action/production/owner acceptance. No new evidence-ID
+standard or schema was invented, and no migration was required for the existing
+literal-true authorization interface.
+
+Actual guarded verification: module compile PASS; 10 isolated asset/existing data tests
+PASS, 0 FAIL/SKIP. Strict noEmit typecheck, architecture, legacy and scoped diff checks
+PASS. The only implementation change is the existing AssetRegistry guard.
+
+Native rows stay 5852 / 162 recorded VERIFIED / 0 N/A / 5690 UNVERIFIED. No requirement
+or later phase is promoted by this repair alone. Next: inspect this exact-head CI,
+refresh native source bindings from the matching committed-byte audit and observed CI,
+map the reviewed route/feature mechanisms only with complete proof, and correct the
+README authority pointer to current integrated authority while retaining history.
+Then continue remaining A02/requirement clusters. SDK/templates/storage registry
+requirements still need exact semantic proof or implementation; no mass promotion.
+No percentage reserve/routine handoff. Main/production/Supabase/auth/protected binary
+assets untouched, no messages, financial operation, merge, force-push, manual deploy/
+promotion, paid activation or spending. James remains final human authority.
+
+---
 # Active P15.1 seam — canonical route ownership and registration boundaries
 
 Parent live HEAD d852ae1c54a0d2ceebf4d069a5c4fa09b44372f0, tree

@@ -60,7 +60,7 @@ export class AssetRegistry {
     if (current.ownerId !== record.ownerId || current.createdAt !== record.createdAt) throw new Error("Asset owner/creation identity cannot be rewritten");
     if ((current.projectId ?? null) !== (record.projectId ?? null)) throw new Error("Asset project ownership cannot be silently rewritten");
     if (record.sha256) assertHash(record.sha256);
-    if (current.approvalState === "locked" && (!authorization?.authorized || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
+    if (current.approvalState === "locked" && (authorization?.authorized !== true || typeof authorization?.ownerDecisionRef !== "string" || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
     this.#assets.set(record.id, Object.freeze({ ...record }));
   }
 
