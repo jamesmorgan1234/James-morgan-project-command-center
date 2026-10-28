@@ -1,0 +1,183 @@
+{
+  "repositoryEvidenceValid": false,
+  "repositoryEvidenceErrors": [
+    {
+      "id": "CCR-00306",
+      "message": "Unknown owning phase"
+    },
+    {
+      "id": "CCR-00307",
+      "message": "Unknown owning phase"
+    },
+    {
+      "id": "CCR-00309",
+      "message": "Unknown owning phase"
+    },
+    {
+      "id": "CCR-00312",
+      "message": "Unknown owning phase"
+    }
+  ],
+  "qualificationErrors": [
+    {
+      "id": "CCR-00316",
+      "error": "Changed/unqualified evidence input: clean-room/scripts/category15-pwa-lifecycle.mjs"
+    }
+  ],
+  "closureSummary": {
+    "structureValid": true,
+    "closureComplete": false,
+    "metadataValid": true,
+    "rowCount": 5852,
+    "verifiedCount": 308,
+    "notApplicableCount": 0,
+    "unverifiedCount": 5544,
+    "structurallyInvalidRowCount": 0,
+    "closureInvalidRowCount": 5544
+  },
+  "state": {
+    "CCR-00306": {
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "implementationLocations": [
+        "clean-room/public/sw.js#RELEASE_ID",
+        "clean-room/public/sw.js#CURRENT_CACHE"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/runtime-integration.test.mjs :: browser build contains a standalone shell, startup-bound runtime entry, release identity and two-phase update gate"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        }
+      }
+    },
+    "CCR-00307": {
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "implementationLocations": [
+        "clean-room/public/sw.js#CACHE_PREFIX",
+        "clean-room/public/sw.js#RECOVERY_CONTROL_CACHE",
+        "clean-room/public/sw.js#CURRENT_CACHE"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        }
+      }
+    },
+    "CCR-00309": {
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "implementationLocations": [
+        "clean-room/public/sw.js#fallbackShell",
+        "clean-room/public/sw.js#restoreKnownGoodFallback"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 service worker exposes known-good query/restore without routing protected owner traffic through fallback"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/category1-p1-9-kernel-recovery-shell.test.mjs :: P1.9 known-good service-worker contract freezes the good cache and keeps explicit update recovery"
+          ],
+          "justification": null
+        }
+      }
+    },
+    "CCR-00312": {
+      "truthState": "VERIFIED",
+      "blocker": null,
+      "implementationLocations": [
+        "clean-room/src/ui/pwa.ts#UpdateState",
+        "clean-room/src/ui/pwa.ts#PwaUpdateCoordinator"
+      ],
+      "tests": {
+        "positive": {
+          "applicable": true,
+          "references": [
+            "clean-room/tests/ui-shell-foundation.test.mjs :: PWA update lifecycle requires immutable candidate identity and preserves known-good rollback"
+          ],
+          "justification": null
+        },
+        "negative": {
+          "applicable": false,
+          "references": [],
+          "justification": "This row requires an explicit update-ready state; rejection/failure behavior is governed by separate update-failure requirements."
+        },
+        "failurePath": {
+          "applicable": false,
+          "references": [],
+          "justification": "Failure handling is separately specified by CCR-00313 and is not inferred here."
+        }
+      }
+    },
+    "CCR-00316": {
+      "truthState": "UNVERIFIED",
+      "blocker": "Existing fragment requires repair before current qualification: Changed/unqualified evidence input: clean-room/scripts/category15-pwa-lifecycle.mjs",
+      "implementationLocations": [],
+      "tests": {
+        "positive": {
+          "applicable": null,
+          "references": [],
+          "justification": null
+        },
+        "negative": {
+          "applicable": null,
+          "references": [],
+          "justification": null
+        },
+        "failurePath": {
+          "applicable": null,
+          "references": [],
+          "justification": null
+        }
+      }
+    }
+  }
+}
