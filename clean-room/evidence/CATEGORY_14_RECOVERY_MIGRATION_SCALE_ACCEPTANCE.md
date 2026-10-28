@@ -70,3 +70,36 @@ grants; it cannot issue authority.
 
 Executed: module compilation PASS; P14.1/P14.2/P14.3 focused tests 9 PASS, 0 FAIL,
 0 SKIP. SQL persistence proof and the remaining nine phases are still pending.
+
+## Checkpoint 2 — portable replacement, historical audit, scale and dormant seams
+
+P14.4 reuses ProviderRegistry, assertProviderReplacement and the PIF.9 dependency
+fabric: explicit adapter/config identity, free/available/compatible replacement,
+unchanged scopes, pinned versions, rollback references and stale-dependent reports.
+Methods/specialists/evaluators/ontology remain owned by their canonical registries.
+P14.5 CCR-05852 audits the actual historical staging/branch graph against exact
+manifest scope/count/digest/privacy exclusions. Missing/conflicting artifacts stay
+explicit; processed fixture scope is separate from complete artifact recovery.
+An empty coverage object previously passed; the validator now requires all ten keys.
+
+P14.6 executes 10,000 and 100,000 synthetic units across twelve workload classes,
+100 companies and 1,000 projects. Deterministic bounded admission applies explicit
+backpressure, preserves every offered unit, and claims no production capacity.
+A 1,000-record migration failure leaves its source unchanged before successful retry.
+P14.7 stages ordered reactivation only after current policy/privacy/version/provider/
+free-cost revalidation and returns to the canonical owner without issuing authority.
+P14.8 filters synthetic tenant/user/household/role/project projections; P14.9 creates
+an inert synthetic public code/default-config bundle with no private/credential/policy
+copy; P14.10 reuses exact canonical intent/policy/data runtime bindings and removes
+interfaces cleanly. No enrollment, publication, production interface or automatic
+activation occurs.
+
+The new scoped migration extends the six existing C14 tables, preserves legacy rows
+as non-contract historical evidence, revokes raw client/service table access, and
+exposes service-only private append/read functions. Current C2 and canonical source
+receipts bind the exact runtime record digest; reads relabel invalidated receipts
+historical. Transactions/locks enforce scoped idempotency; old immutable evidence
+is not rewritten. PGlite executes the base+extension chain and tests all six owners,
+30 representative classes, collision/missing/invalid/production/client-role denials.
+Three durable tests PASS after correcting an inspection-role fixture error; permissions
+were not weakened. P14.11/P14.12 and final certification remain pending.
