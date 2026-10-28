@@ -78,7 +78,10 @@ never be given to browsers or subordinate specialists.
 Telemetry retention is explicit and bounded. Expired records are hidden from
 reads/exports and can be purged only through the private exact-scope retention
 path. Active evidence and canonical evaluator history remain immutable. Historic
-metric facts are explicitly labelled and cannot render as current numbers.
+metric facts are explicitly labelled and cannot render as current numbers. Read
+views also recheck source-receipt validity/digest: revoked, expired or changed
+evidence remains auditable as historical/unverified, while current metric values
+become null. Read-only history never restores current truth or authorization.
 Rollback is code/schema-compatible: retain immutable history and use prior
 readers or a corrective migration; do not reopen unscoped raw reads or delete
 active evidence to undo a release. No production migration was attempted.
