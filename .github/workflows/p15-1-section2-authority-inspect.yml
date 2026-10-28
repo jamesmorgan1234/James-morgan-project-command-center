@@ -34,36 +34,31 @@ jobs:
             else for (const child of Object.values(value)) visit(child);
           }
           visit(doc);
-          const rows = [...found.entries()]
-            .filter(([id]) => id >= 'CCR-01875' && id <= 'CCR-01915')
-            .sort(([a], [b]) => a.localeCompare(b));
+          const rows = [...found.entries()].filter(([id]) => id >= 'CCR-01875' && id <= 'CCR-01915').sort(([a],[b])=>a.localeCompare(b));
           console.log(`RANGE_ROWS=${rows.length}`);
-          for (const [id, row] of rows) {
-            console.log('---ROW---');
-            console.log(JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,canonicalSourceIds:row.canonicalSourceIds??null,canonicalSourceFiles:row.canonicalSourceFiles??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,dependenciesVerified:row.dependenciesVerified??null,blocker:row.blocker??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
-          }
-          console.log('---RECOVERED-CANONICAL-METADATA---');
-          for (const key of ['canonicalJson','canonicalCsv']) {
-            const meta = recovered[key];
-            console.log(key, JSON.stringify(Object.fromEntries(Object.entries(meta ?? {}).filter(([k]) => k !== 'payload'))));
-          }
-          const payload = recovered.canonicalJson?.payload;
-          if (!payload?.base64) throw new Error('Recovered canonical JSON payload unavailable');
+          for (const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
+
+          const payload = recovered.canonicalCsv?.payload;
+          if (!payload?.base64) throw new Error('Recovered canonical CSV payload unavailable');
           let raw = Buffer.from(payload.base64, 'base64');
           if (String(payload.encoding).includes('gzip')) raw = zlib.gunzipSync(raw);
-          const canonical = JSON.parse(raw.toString('utf8'));
-          const canonicalRows = [];
-          function collect(value) {
-            if (!value || typeof value !== 'object') return;
-            if (!Array.isArray(value)) {
-              const id = value.canonical_id ?? value.canonicalId ?? value.id;
-              if (typeof id === 'string' && id >= 'CCR-01875' && id <= 'CCR-01915') canonicalRows.push(value);
+          const text = raw.toString('utf8');
+          function parseCsv(s) {
+            const out=[]; let row=[],field='',quoted=false;
+            for(let i=0;i<s.length;i++){
+              const c=s[i];
+              if(quoted){if(c==='"'&&s[i+1]==='"'){field+='"';i++;}else if(c==='"') quoted=false;else field+=c;}
+              else if(c==='"') quoted=true;
+              else if(c===','){row.push(field);field='';}
+              else if(c==='\n'){row.push(field.replace(/\r$/,''));out.push(row);row=[];field='';}
+              else field+=c;
             }
-            if (Array.isArray(value)) for (const item of value) collect(item);
-            else for (const child of Object.values(value)) collect(child);
+            if(field.length||row.length){row.push(field.replace(/\r$/,''));out.push(row);}
+            return out;
           }
-          collect(canonical);
-          canonicalRows.sort((a,b)=>String(a.canonical_id??a.canonicalId??a.id).localeCompare(String(b.canonical_id??b.canonicalId??b.id)));
-          console.log(`RECOVERED_ROWS=${canonicalRows.length}`);
-          for (const row of canonicalRows) console.log('---CANONICAL---\n'+JSON.stringify(row));
+          const parsed=parseCsv(text); const header=parsed[0];
+          const records=parsed.slice(1).map(values=>Object.fromEntries(header.map((h,i)=>[h,values[i]??''])));
+          const canonical=records.filter(r=>r.canonical_id>='CCR-01875'&&r.canonical_id<='CCR-01915').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
+          console.log(`RECOVERED_ROWS=${canonical.length}`);
+          for(const row of canonical) console.log('---CANONICAL---\n'+JSON.stringify(row));
           NODE
