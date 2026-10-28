@@ -15,46 +15,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Inspect unresolved authority governance control rows
+      - name: Inspect authority source model rows
         shell: bash
         run: |
           node <<'NODE'
           const fs = require('fs');
-          const path = 'clean-room/evidence/category15-requirement-traceability.json';
-          const doc = JSON.parse(fs.readFileSync(path, 'utf8'));
+          const doc = JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json', 'utf8'));
           const found = new Map();
           function visit(value) {
             if (!value || typeof value !== 'object') return;
             if (!Array.isArray(value)) {
               const id = value.id ?? value.requirementId ?? value.requirement_id ?? value.rowId ?? value.row_id;
-              if (id && typeof value.requirement === 'string' && typeof value.truthState === 'string') {
-                found.set(String(id), value);
-              }
+              if (id && typeof value.requirement === 'string' && typeof value.truthState === 'string') found.set(String(id), value);
             }
-            if (Array.isArray(value)) {
-              for (const item of value) visit(item);
-            } else {
-              for (const child of Object.values(value)) visit(child);
-            }
+            if (Array.isArray(value)) for (const item of value) visit(item);
+            else for (const child of Object.values(value)) visit(child);
           }
           visit(doc);
-          const terms = /\b(owner|authority|authoritative|governance|govern|control|approval|approve|authorization|authorize|protected|stop|pause|permission|fail[- ]?closed|policy|operator|admin|override|gate|command center|orchestrat|decision right|precedence|scope lock|scope boundary)\b/i;
           const rows = [...found.entries()]
-            .filter(([, row]) => row.truthState === 'UNVERIFIED' && terms.test(row.requirement))
+            .filter(([id]) => id >= 'CCR-01875' && id <= 'CCR-01915')
             .sort(([a], [b]) => a.localeCompare(b));
-          console.log(`TRACEABILITY_ROWS=${found.size}`);
-          console.log(`MATCHING_UNVERIFIED=${rows.length}`);
-          for (const [id, row] of rows.slice(0, 220)) {
+          console.log(`RANGE_ROWS=${rows.length}`);
+          for (const [id, row] of rows) {
             console.log('---ROW---');
             console.log(JSON.stringify({
               id,
               requirement: row.requirement,
               truthState: row.truthState,
               classification: row.classification ?? null,
-              canonicalSourceIds: row.canonicalSourceIds ?? null,
-              canonicalSourceFiles: row.canonicalSourceFiles ?? null,
-              owningPhases: row.owningPhases ?? null,
-              dependencies: row.dependencies ?? null,
               blocker: row.blocker ?? null,
               implementationLocations: row.implementationLocations ?? null,
               tests: row.tests ?? null
