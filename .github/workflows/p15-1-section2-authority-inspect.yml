@@ -1,4 +1,4 @@
-name: P15.1 PWA Qualification Diagnostic
+name: P15.1 PWA Lifecycle Tranche Qualification
 
 on:
   push:
@@ -11,30 +11,53 @@ permissions:
   contents: write
 
 jobs:
-  diagnose:
+  qualify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 2
-      - name: Persist exact PWA qualification errors without mutating ledger
+      - name: Guarded assemble and qualify corrected PWA lifecycle tranche
         shell: bash
         run: |
           set -euo pipefail
           cd clean-room
-          node --input-type=module <<'NODE'
-          import {writeFileSync} from 'node:fs';
-          import {assembleCurrentTraceability} from './scripts/p15-1-assemble-current-traceability.mjs';
-          const d=assembleCurrentTraceability();
-          const wanted=['CCR-00306','CCR-00307','CCR-00309','CCR-00312','CCR-00316'];
-          const state=Object.fromEntries(d.requirements.filter(r=>wanted.includes(r.id)).map(r=>[r.id,{truthState:r.truthState,blocker:r.blocker,implementationLocations:r.implementationLocations,tests:r.tests}]));
-          const payload={repositoryEvidenceValid:d.repositoryEvidence.valid,repositoryEvidenceErrors:d.repositoryEvidence.errors,qualificationErrors:d.assembly.qualificationErrors,closureSummary:d.closureSummary,state};
-          console.log(JSON.stringify(payload,null,2));
-          writeFileSync('evidence/P15_1_PWA_QUALIFICATION_DIAGNOSTIC.json',JSON.stringify(payload,null,2)+'\n');
+          node scripts/p15-1-assemble-current-traceability.mjs --write | tee /tmp/p151-assemble.json
+          node <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('evidence/category15-requirement-traceability.json','utf8'));
+          const rows=new Map(d.requirements.map(r=>[r.id,r]));
+          const expected=['CCR-00306','CCR-00307','CCR-00309','CCR-00312','CCR-00316'];
+          const s=d.closureSummary;
+          if(s.verifiedCount!==309||s.unverifiedCount!==5543||s.notApplicableCount!==0||s.structurallyInvalidRowCount!==0) throw new Error('Unexpected ledger totals '+JSON.stringify(s));
+          if(!d.repositoryEvidence?.valid||d.repositoryEvidence.errors?.length) throw new Error('Repository evidence invalid '+JSON.stringify(d.repositoryEvidence?.errors));
+          if(d.assembly?.qualificationErrors?.length) throw new Error('Qualification errors '+JSON.stringify(d.assembly.qualificationErrors));
+          for(const id of expected) if(rows.get(id)?.truthState!=='VERIFIED') throw new Error(id+' did not qualify');
+          for(const id of ['CCR-01875','CCR-01908']) if(rows.get(id)?.truthState!=='UNVERIFIED') throw new Error(id+' exclusion changed');
+          console.log('QUALIFIED_PWA_ROWS='+expected.join(','));
+          console.log('VERIFIED='+s.verifiedCount+' UNVERIFIED='+s.unverifiedCount);
           NODE
+          set +e
+          node scripts/category15-traceability-gate.mjs | tee /tmp/p151-gate.json
+          gate=$?
+          set -e
+          if [ "$gate" -ne 1 ]; then echo "Expected open P15.1 gate exit 1, got $gate"; exit 1; fi
+          cat > evidence/P15_1_PWA_LIFECYCLE_TRANCHE_QUALIFICATION.md <<EOF
+          # P15.1 PWA lifecycle tranche qualification
+
+          Trigger source commit: ${GITHUB_SHA}
+
+          Guarded assembly qualified exactly five additional existing-proof rows: CCR-00306, CCR-00307, CCR-00309, CCR-00312, CCR-00316.
+
+          Ledger totals: 5,852 canonical / 309 VERIFIED / 5,543 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors=0; qualification errors=0.
+
+          P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. CCR-01875 and CCR-01908 remain UNVERIFIED. No later phase advanced.
+
+          This tranche changes evidence mappings/generated traceability only; no runtime, service-worker, schema, protected asset, production, deployment, merge, paid service or spending action is claimed.
+          EOF
           git diff --check
           git config user.name jamesmorgan1234
           git config user.email JAMESMORGAN1234@YAHOO.COM
-          git add evidence/P15_1_PWA_QUALIFICATION_DIAGNOSTIC.json
-          git commit -m "evidence: save P15.1 PWA qualification diagnostic"
+          git add evidence/category15-requirement-traceability.json evidence/P15_1_PWA_LIFECYCLE_TRANCHE_QUALIFICATION.md
+          git commit -m "evidence: qualify 309 P15.1 requirements with PWA lifecycle proofs"
           git push origin HEAD:build/spec-lock-v2-clean-room
