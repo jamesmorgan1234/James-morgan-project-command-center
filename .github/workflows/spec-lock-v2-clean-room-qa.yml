@@ -42,14 +42,18 @@ jobs:
         run: npm run audit:authority
       - name: Typecheck
         run: npm run typecheck
-      - name: Category 15 exact-head core QA and release gates
-        run: |
-          npm run check:legacy
-          npm run audit:repository
-          npm run build
-          npm run audit:artifact
-          npm run test:modules
-          npm run audit:release-candidate
+      - name: Legacy exclusion gate
+        run: npm run check:legacy
+      - name: Repository audit gate
+        run: npm run audit:repository
+      - name: Build and embedded module tests
+        run: npm run build
+      - name: Artifact audit gate
+        run: npm run audit:artifact
+      - name: Exact-head module test gate
+        run: npm run test:modules
+      - name: Release-candidate audit gate
+        run: npm run audit:release-candidate
       - name: P15.14 observed PWA lifecycle
         run: bash scripts/category15-pwa-lifecycle.sh
       - name: Final Category 15 nonproduction phase gate
