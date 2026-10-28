@@ -48,8 +48,12 @@ jobs:
         run: npm run audit:repository
       - name: P15.1 owner blocker proof test
         run: node --test --test-reporter=spec tests/p15-1-agent-owner-device-blocker-contract.test.mjs
-      - name: Build and embedded module tests
-        run: npm run build
+      - name: Build modules
+        run: npm run build:modules
+      - name: Build browser
+        run: npm run build:browser
+      - name: Embedded module tests
+        run: npm run test:modules
       - name: Artifact audit gate
         run: npm run audit:artifact
       - name: Exact-head module test gate
