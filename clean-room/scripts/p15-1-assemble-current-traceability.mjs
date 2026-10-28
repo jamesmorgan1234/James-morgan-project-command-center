@@ -1,3 +1,4 @@
+import {assertSourceAuditMatchesGit} from './p15-1-source-audit-binding.mjs';
 import {readFileSync,writeFileSync,readdirSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -16,6 +17,7 @@ export function assembleCurrentTraceability({baselineAuditPath,qualificationPath
  const audit=baselineAuditPath?JSON.parse(readFileSync(baselineAuditPath,'utf8')):null;
  const qualification=qualificationPath?JSON.parse(readFileSync(qualificationPath,'utf8')):null;
  if(audit&&(!qualification||audit.headSha!==qualification.sourceCommit))throw Error('Baseline audit and independently observed exact-head CI must match');
+ if(audit)assertSourceAuditMatchesGit(audit,{repoRoot:root,sourceCommit:qualification.sourceCommit});
  const baselineBindings=audit?Object.fromEntries(audit.files.map(f=>[f.path,f.sha256])):previous.fileBindings;
  const proof=previous??{scope:'ISOLATED_REPOSITORY_REQUALIFICATION',sourceCommit:qualification.sourceCommit,ci:qualification.ci,fileBindings:{}};
  const initialPaths=Object.keys(baselineBindings).filter(p=>/^clean-room\/(src|public|tests)\//.test(p)||p.startsWith('supabase/migrations/')||/^roadmap\/master-build-plan-owner-review\/(20_|22_|24_|25_)/.test(p));

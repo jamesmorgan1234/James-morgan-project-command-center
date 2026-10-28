@@ -1,3 +1,51 @@
+# Active P15.1 checkpoint — 162 reviewed rows; committed-source qualification enforced
+
+Qualification source HEAD 0403b2cc5774def2b29e52f0db721256b94eb31a, tree
+6473214f7da3c644e6e1ab253af3ca2f343c2d06. Exact-head CI run 40702846452 /
+job 122866995009 completed: two 1582-test runs PASS (0 FAIL/SKIP), authority/type/core/
+release/PWA PASS, final C15 FAIL on unresolved closure, production SKIPPED.
+
+Current native closure: 5852 total / 162 VERIFIED / 0 N/A / 5690 UNVERIFIED,
+zero structural errors, repositoryEvidence.valid=true with no errors. All 154 prior
+reviewed mappings remain; eight added exact rows are CCR-00005, CCR-00062, CCR-00065,
+CCR-00066, CCR-00067, CCR-00068, CCR-00069 and CCR-00070. These cover protected
+production-change enforcement and existing module manifest/declaration contracts,
+not production approval, deployment, migration execution or inferred permissions.
+
+Ledger/governance/module qualification is refreshed from the actual CI source above.
+A Windows checkout line-ending issue was found during refresh: an audit SHA header
+could match the CI commit even when its checked-out file bytes differed from committed
+objects. Earlier locally valid Windows qualification must not be called portable CI
+qualification. The strict repository gate failed closed on those mismatches; no phase
+was advanced. 891 qualified inputs were compared with immutable source objects;
+665 checkout-only CRLF files were normalized to exact Git blob bytes with zero semantic
+changes and without changing protected binary assets or committing line-ending churn.
+
+New assembler source audit check uses git cat-file against the declared independently
+observed source commit, requires the complete committed qualified input inventory,
+rejects wrong/missing/duplicate/unsafe inputs and rejects changed bytes (including CRLF).
+No required tests, validation or gates were skipped/weakened. The helper operates only
+on local Git objects, with no network fetch or external disclosure.
+
+Actual focused verification: 18 source/native/ledger/module/governance tests PASS,
+0 FAIL/SKIP. Final immutable-source audit tests PASS 3/3 after complete-inventory
+hardening. Assembler reports all 162 current rows and zero qualification/repository
+errors; P15.1 remains incomplete. Module compile PASS. Diff check PASS. Local tests
+use the untracked verification-only network denial and telemetry suppression guard.
+Publication must receive its own observed exact-head CI; the 1582 count above is the
+actual qualifying prior runtime/test source, not an invented new-publication count.
+
+Next: inspect this metadata/tooling commit's exact-head CI and especially repository
+proof validity, not just core test success. Continue P15.1 using current canonical
+assembler/reviewed mapping modules. Remaining 5690 IDs/text/blockers stay in the native
+file. No later P15 phase has been certified. Source templates, SDK, route/storage/flag
+registries and original unresolved rows still require semantic review before promotion.
+No reserve or voluntary handoff; preserve newer concurrent work before each write.
+Main/production/Supabase/auth/protected binary assets untouched, no financial action,
+external messages, merge, force-push, manual deployment/promotion, paid activation or
+spending. James remains final owner; Command Center remains the permanent top Brain.
+
+---
 # Active P15.1 seam — immutable module declarations and explicit lifecycle flags
 
 Parent live HEAD ee3d72d0d5720140f81ea495bcd5e449f0d29dfa, tree
