@@ -127,9 +127,14 @@ export class CoherentCache<T> {
 }
 
 export interface FeatureFlagRecord { readonly key: string; readonly version: number; readonly enabled: boolean; readonly safeToEnable: boolean; }
+function assertFeatureFlagBooleans(record: FeatureFlagRecord): void {
+  if (typeof record.enabled !== "boolean" || typeof record.safeToEnable !== "boolean") throw new Error("Feature enabled and safeToEnable must be explicit booleans");
+}
+
 export class SafeFeatureFlags {
   readonly #flags = new Map<string, FeatureFlagRecord>();
   register(record: FeatureFlagRecord): void {
+    assertFeatureFlagBooleans(record);
     if (!record.key.trim()) throw new Error("Feature flag key is required");
     positiveSafeInteger(record.version, "feature flag version");
     if (record.enabled && !record.safeToEnable) throw new Error(`Unsafe feature flag cannot be enabled: ${record.key}`);
@@ -137,6 +142,7 @@ export class SafeFeatureFlags {
     this.#flags.set(record.key, Object.freeze({ ...record }));
   }
   replace(record: FeatureFlagRecord, expectedVersion: number): void {
+    assertFeatureFlagBooleans(record);
     const current = this.#flags.get(record.key);
     if (!current) throw new Error(`Unknown feature flag: ${record.key}`);
     assertOptimisticVersion(current.version, expectedVersion, record.version);

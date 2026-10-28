@@ -1,3 +1,42 @@
+# Active P15.1 seam — feature safety booleans and explicit CI proof diagnostics
+
+Parent live HEAD 8acf050e48db1d1ee3c44a69b34f2b08ac988db5, tree
+a8fe5fd27a7835c7ff3fe267011c5263327ae2b5. Its CI run 40704760683 / job
+122873767017 completed: two 1585-test runs PASS, authority/type/core/release/PWA PASS;
+final C15 FAIL on unresolved closure, production SKIPPED. That workflow version did
+not print the repository-proof validity boolean directly; core success alone must not
+be substituted for observing that exact value.
+
+Current feature-flag regression reproduced 1 PASS / 2 FAIL: a truthy string safety
+value could enable an unsafe feature, and ambiguous enabled/safety values entered the
+registry. SafeFeatureFlags now requires explicit boolean enabled and safeToEnable
+before registration/replacement. Existing safe-enable, unknown-off, optimistic version
+and unsafe-enable rules remain. Rejected replacement preserves the prior state/version.
+
+Actual guarded verification: module compile PASS; strict noEmit typecheck PASS;
+25 feature/resilience/retained-A00/traceability-builder tests PASS (0 FAIL/SKIP), including
+all three new tests. Architecture and legacy checks PASS. Correctly scoped diff check
+PASS. An earlier broad Windows raw-line-ending diff generated unrelated checkout
+whitespace noise and was not used as proof; no such unrelated file is published.
+
+The phase-audit JSON stdout now additionally prints repository-proof validity and error
+count, without changing its evaluator or acceptance criteria. This permits direct
+exact-head CI inspection after requalification instead of inferring proof validity
+from a broad test pass. No migration/schema or provider operation changed.
+
+Native inventory remains 5852 / 162 recorded VERIFIED / 0 N/A / 5690 UNVERIFIED.
+Changed resilience/audit-tool bytes require a fresh source-bound proof after actual CI;
+prior mappings/history remain preserved and must not be called freshly qualified yet.
+Next: inspect this repair's exact-head CI, refresh native qualification from its matching
+canonical Git byte audit and observed CI, then map CCR-00095 feature registry and other
+reviewed A02 mechanisms. Correct the clean-room README's stale 188-phase-only authority
+pointer to the existing integrated 199-phase authority (historical baseline retained).
+Remaining route/storage/SDK/template requirements still need exact proof or repair.
+No later phase advanced, no percentage reserve, no routine voluntary handoff.
+Main/production/Supabase/auth/protected assets untouched; no messages, financial action,
+merge, force-push, manual deploy/promotion, paid service or spending.
+
+---
 # Active P15.1 checkpoint — 162 reviewed rows; committed-source qualification enforced
 
 Qualification source HEAD 0403b2cc5774def2b29e52f0db721256b94eb31a, tree
