@@ -1,0 +1,119 @@
+name: P15.1 Qualification Refresh
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - '.github/workflows/p15-1-qualification-refresh.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    if: github.ref == 'refs/heads/build/spec-lock-v2-clean-room'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Regenerate exact source audit from committed Git bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_commit='dfa203cfa1f9aaa3c3e29c51829667f9023734a5'
+          git cat-file -e "${source_commit}^{commit}"
+          rm -rf /tmp/p15-source
+          git worktree add --detach /tmp/p15-source "$source_commit"
+          (
+            cd /tmp/p15-source/clean-room
+            node scripts/category15-repository-audit.mjs --write
+          )
+          node - <<'NODE'
+          const fs=require('fs');
+          const p='/tmp/p15-source/clean-room/category15-repository-audit.json';
+          const d=JSON.parse(fs.readFileSync(p,'utf8'));
+          if(d.headSha!=='dfa203cfa1f9aaa3c3e29c51829667f9023734a5') throw Error('wrong audit head');
+          if(d.trackedFileCount!==1643||d.scannedFileCount!==1643) throw Error(`unexpected audit counts ${d.trackedFileCount}/${d.scannedFileCount}`);
+          if(!d.automatedEveryFileScanComplete||d.semanticEveryFileReviewComplete!==false) throw Error('unexpected audit completion state');
+          if((d.secretFindings??[]).length!==0||(d.violations??[]).length!==0) throw Error('audit has findings');
+          const byPath=new Map(d.files.map(x=>[x.path,x.sha256]));
+          if(byPath.get('roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json')!=='b24b1cd5b9a7b3c875aa4c9d9095a50c753906b7da3812b8ce0bcad66c63b5b0') throw Error('REV3 Git-byte digest mismatch');
+          if(byPath.get('roadmap/master-build-plan-owner-review/23_CURRENT_199_PHASE_MACHINE_MANIFEST.json')!=='3aee5bd4ee94c1561fb0b13b13d3360fc27007343c943fa15e501eeb7e21cd4b') throw Error('manifest Git-byte digest mismatch');
+          NODE
+      - name: Assemble truthful current native traceability
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat >/tmp/p15-qualification.json <<'JSON'
+          {
+            "sourceCommit": "dfa203cfa1f9aaa3c3e29c51829667f9023734a5",
+            "ci": {
+              "provider": "github-actions",
+              "runId": 40716109152,
+              "jobId": 122914120327,
+              "status": "completed",
+              "conclusion": "failure",
+              "coreQaConclusion": "success",
+              "authorityConclusion": "success",
+              "typecheckConclusion": "success",
+              "releaseConclusion": "success",
+              "pwaConclusion": "success",
+              "category15GateConclusion": "failure",
+              "productionVerificationConclusion": "skipped",
+              "testPass": 1597,
+              "testFail": 0,
+              "testSkipped": 0
+            }
+          }
+          JSON
+          cd clean-room
+          node scripts/p15-1-assemble-current-traceability.mjs \
+            --baseline-audit=/tmp/p15-source/clean-room/category15-repository-audit.json \
+            --qualification=/tmp/p15-qualification.json \
+            --write | tee /tmp/p15-assembler.json
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('/tmp/p15-assembler.json','utf8').trim());
+          if(d.repositoryEvidenceValid!==true) throw Error('repository proof is not valid');
+          if((d.repositoryEvidenceErrors??[]).length!==0) throw Error('repository proof errors remain');
+          if((d.qualificationErrors??[]).length!==0) throw Error('qualification errors remain');
+          NODE
+      - name: Confirm P15.1 still blocks only as incomplete
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd clean-room
+          set +e
+          node scripts/category15-traceability-gate.mjs >/tmp/p15-gate.json
+          rc=$?
+          set -e
+          cat /tmp/p15-gate.json
+          test "$rc" -eq 1
+          node - <<'NODE'
+          const fs=require('fs');
+          const d=JSON.parse(fs.readFileSync('/tmp/p15-gate.json','utf8').trim());
+          if(d.status!=='SOURCE_RECOVERED_TRACEABILITY_OPEN') throw Error('unexpected gate status');
+          if(d.repositoryEvidenceValid!==true) throw Error('repository evidence invalid after refresh');
+          if((d.repositoryErrors??[]).length!==0) throw Error('repository errors remain');
+          if(d.advancementAllowed!==false) throw Error('P15.1 unexpectedly advanced');
+          NODE
+          git diff --check
+          test "$(git diff --name-only | tr '\n' ' ')" = "clean-room/evidence/category15-requirement-traceability.json "
+      - name: Save refreshed qualification with branch lease
+        shell: bash
+        run: |
+          set -euo pipefail
+          branch='build/spec-lock-v2-clean-room'
+          git fetch origin "$branch"
+          test "$(git rev-parse "origin/$branch")" = "$GITHUB_SHA"
+          git config user.name 'jamesmorgan1234'
+          git config user.email 'JAMESMORGAN1234@YAHOO.COM'
+          git add clean-room/evidence/category15-requirement-traceability.json
+          git commit -m 'evidence: refresh P15.1 source qualification'
+          git push origin "HEAD:$branch"
