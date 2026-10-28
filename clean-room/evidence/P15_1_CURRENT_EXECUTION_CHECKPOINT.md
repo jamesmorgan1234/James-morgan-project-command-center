@@ -1,3 +1,9 @@
+# P15.1 source-format repair before qualification
+
+Source e2f17f26e86572d51cb28b7043c04af5ae2d3e9e CI 40748478582 / job 123028487864 failed core QA: 1609 PASS / 1 FAIL / 0 SKIP. Existing category5-project-room-shell source regex could not find renderProjectDetail because Windows checkout CRLF bytes were uploaded. Normalize edited source files to LF; no implementation/test assertion changes for this failure. Candidate mappings remain uncertified until corrected exact-head CI.
+
+---
+
 # P15.1 auth/privacy batch — repairs and reviewed mappings saved; certification pending
 
 Pre-work HEAD ebc4216a47462d9046401204b94a7f688318edee / tree 55052349db31d5c56a7ccc768d4d4539d7f1c785. Read evidence/P15_1_AUTH_PRIVACY_BATCH_REVIEW.md for all 30 exact row dispositions. Eighteen candidate mappings; twelve explicitly unverified. Existing certified ledger remains 5852 / 184 VERIFIED / 5668 UNVERIFIED / 0 N/A / 0 invalid until new exact-source CI and guarded assembly. P15.1 stays SOURCE_RECOVERED_TRACEABILITY_OPEN.
