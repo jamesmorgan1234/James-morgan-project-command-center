@@ -1,4 +1,4 @@
-export const PROTECTED_ACTIONS = [
+export const PROTECTED_ACTIONS = Object.freeze([
   "spend_money",
   "purchase",
   "publish",
@@ -10,9 +10,9 @@ export const PROTECTED_ACTIONS = [
   "manage_credentials",
   "change_protected_asset",
   "accept_legal_terms"
-] as const;
+] as const);
 
-export const NON_PROTECTED_ACTIONS = ["read", "analyze", "draft", "local_reversible_write"] as const;
+export const NON_PROTECTED_ACTIONS = Object.freeze(["read", "analyze", "draft", "local_reversible_write"] as const);
 
 export type ProtectedAction = (typeof PROTECTED_ACTIONS)[number];
 export type NonProtectedAction = (typeof NON_PROTECTED_ACTIONS)[number];
@@ -62,13 +62,23 @@ function allowed(reason: string, protectedAction: boolean): GovernanceDecision {
 }
 
 function parseTimestamp(value: string, label: string): number | undefined {
-  if (!value.trim()) return undefined;
+  if (typeof value !== "string" || !value.trim()) return undefined;
   const parsed = Date.parse(value);
   if (!Number.isFinite(parsed)) return undefined;
   return parsed;
 }
 
 export function evaluateGovernance(context: GovernanceContext): GovernanceDecision {
+  if (!context || typeof context !== "object"
+    || typeof context.ownerId !== "string" || !context.ownerId.trim()
+    || typeof context.newestInstructionAllows !== "boolean"
+    || typeof context.freeFirst !== "boolean" || typeof context.introducesCost !== "boolean"
+    || (context.authorityOwnerId !== undefined && (typeof context.authorityOwnerId !== "string" || !context.authorityOwnerId.trim()))
+    || (context.instructionState !== undefined && !["current", "stale", "conflicting"].includes(context.instructionState))
+    || (context.executionSurface !== undefined && !["normal_chat", "work"].includes(context.executionSurface))
+    || (context.normalChatAvailable !== undefined && typeof context.normalChatAvailable !== "boolean")) {
+    return denied("invalid_governance_context", true);
+  }
   const isProtected = PROTECTED_ACTIONS.includes(context.action as ProtectedAction);
   const isKnownNonProtected = NON_PROTECTED_ACTIONS.includes(context.action as NonProtectedAction);
   const protectedByDefault = isProtected || !isKnownNonProtected;

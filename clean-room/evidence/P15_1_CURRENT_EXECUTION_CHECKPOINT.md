@@ -1,3 +1,43 @@
+# Active P15.1 seam — fail-closed runtime governance repaired
+
+Parent live HEAD 04fedb931ca036a635fdfd3694978d03cd9278a4, tree
+ed6e465f940ba6cadb7c59c5afeaff732b4b386e. Ledger repair CI run 40700589162 /
+job 122859010989 completed: two 1574-test runs PASS, authority/type/core/release/PWA
+PASS, final C15 FAIL on incomplete closure, production SKIPPED.
+
+Current governance regressions first reproduced two permissive-context defects
+(0 PASS / 2 FAIL): truthy non-boolean owner flags and unknown instruction/surface
+values could authorize execution. A separate regression reproduced a real classification
+bypass (0 PASS / 1 FAIL): exported mutable protected/nonprotected lists could reclassify
+production deployment as unprotected. No deployment or external action was performed;
+all reproductions called isolated local decision functions only.
+
+Repair: validate required owner/boolean/enumerated runtime context before admission;
+freeze both existing action lists; reject non-string authorization timestamps as denied
+decisions. Preserve valid typed inputs, optional undefined defaults, current denial
+reasons for well-shaped unauthorized/stale/conflicting inputs, and exact owner/project/
+account/resource/expiry rules. No new authority, permissions, schema or migration.
+
+Actual guarded verification: module compilation PASS; strict noEmit typecheck PASS;
+47 focused security/adversarial/kernel/ledger/native tests PASS, 0 FAIL, 0 SKIP.
+After adding malformed timestamp regression, the final governance/owner/policy subset
+passed 12/12 (0 FAIL/SKIP), including all four new boundary tests. Architecture and legacy
+checks PASS, diff check PASS. Telemetry and Node network I/O remain disabled for local
+verification only, with no product guard/assertion changes.
+
+Native rows remain 5852 total, 154 recorded VERIFIED, 0 N/A, 5698 UNVERIFIED. Prior
+source qualification is stale for changed ledger/governance bytes and must be refreshed
+using this repair's actual successful core CI and matching clean-source repository audit.
+Preserved historical claims are not described as freshly requalified. No later phase
+advanced. Inspect exact-head CI, repair genuine failures, refresh native proof, then
+continue P15.1 requirement review and existing canonical mapping tooling.
+
+A module-contract array/flag isolation concern is a next review candidate, not yet a
+reproduced finding or repaired/certified result. No reserve stop rule. All main/production/
+Supabase/auth/protected assets remain untouched; no external communication, spending,
+paid activation, financial operation, merge, force-push or manual deployment/promotion.
+
+---
 # Active P15.1 seam — authority ledger value isolation repaired; qualification refresh pending
 
 Parent live source: 01615bb28262aa5923e7726a9d2298c207e0c805, tree
