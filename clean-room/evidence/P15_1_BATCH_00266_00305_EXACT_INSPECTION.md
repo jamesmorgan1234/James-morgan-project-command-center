@@ -1,0 +1,44 @@
+# P15.1 exact inspection — CCR-00266 through CCR-00305
+
+Source ledger at trigger commit: `8f3b4f8843f7a963a8fb1b71bb7f7b46d4836394`
+
+- **CCR-00266** — **Stable touch targets.** — current: **UNVERIFIED**
+- **CCR-00267** — **No controls underneath Android system UI.** — current: **UNVERIFIED**
+- **CCR-00268** — **Content-length stress testing.** — current: **UNVERIFIED**
+- **CCR-00269** — **Long project names.** — current: **UNVERIFIED**
+- **CCR-00270** — **Long book titles.** — current: **UNVERIFIED**
+- **CCR-00271** — **Long blocker text.** — current: **UNVERIFIED**
+- **CCR-00272** — **Large project counts.** — current: **UNVERIFIED**
+- **CCR-00273** — **Large book counts.** — current: **UNVERIFIED**
+- **CCR-00274** — **Accessibility contrast.** — current: **UNVERIFIED**
+- **CCR-00275** — **Minimum touch dimensions.** — current: **UNVERIFIED**
+- **CCR-00276** — **Reduced-motion support.** — current: **UNVERIFIED**
+- **CCR-00277** — **Future tablet layout seam.** — current: **UNVERIFIED**
+- **CCR-00278** — **Future desktop layout seam.** — current: **UNVERIFIED**
+- **CCR-00279** — **No separate mobile and desktop truth systems.** — current: **UNVERIFIED**
+- **CCR-00280** — **Same data/contracts regardless of presentation size.** — current: **UNVERIFIED**
+- **CCR-00281** — **Startup performance budget.** — current: **UNVERIFIED**
+- **CCR-00282** — **Navigation performance budget.** — current: **UNVERIFIED**
+- **CCR-00283** — **Screen-render performance budget.** — current: **UNVERIFIED**
+- **CCR-00284** — **Data-query budget.** — current: **UNVERIFIED**
+- **CCR-00285** — **Maximum unnecessary network requests.** — current: **UNVERIFIED**
+- **CCR-00286** — **Code splitting.** — current: **UNVERIFIED**
+- **CCR-00287** — **Lazy optional-module loading.** — current: **UNVERIFIED**
+- **CCR-00288** — **Lazy artwork loading.** — current: **UNVERIFIED**
+- **CCR-00289** — **Image optimization.** — current: **UNVERIFIED**
+- **CCR-00290** — **Large-list virtualization.** — current: **UNVERIFIED**
+- **CCR-00291** — **Pagination.** — current: **UNVERIFIED**
+- **CCR-00292** — **Incremental loading.** — current: **UNVERIFIED**
+- **CCR-00293** — **Avoid N+1 data queries.** — current: **UNVERIFIED**
+- **CCR-00294** — **Database indexes based on actual query paths.** — current: **UNVERIFIED**
+- **CCR-00295** — **Cache invalidation rules.** — current: **UNVERIFIED**
+- **CCR-00296** — **Prefetch only when beneficial.** — current: **UNVERIFIED**
+- **CCR-00297** — **Backpressure for high-volume events.** — current: **UNVERIFIED**
+- **CCR-00298** — **Rate limiting for expensive actions.** — current: **UNVERIFIED**
+- **CCR-00299** — **Mobile battery/CPU awareness.** — current: **UNVERIFIED**
+- **CCR-00300** — **Memory-leak testing.** — current: **UNVERIFIED**
+- **CCR-00301** — **Stable application identity.** — current: **UNVERIFIED**
+- **CCR-00302** — **Stable manifest ID.** — current: **UNVERIFIED**
+- **CCR-00303** — **Stable scope/start URL strategy.** — current: **UNVERIFIED**
+- **CCR-00304** — **Exact approved launcher art.** — current: **UNVERIFIED**
+- **CCR-00305** — **Asset versioning.** — current: **UNVERIFIED**
