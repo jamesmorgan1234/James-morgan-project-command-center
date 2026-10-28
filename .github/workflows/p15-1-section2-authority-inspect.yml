@@ -1,4 +1,4 @@
-name: P15.1 Section 2 Authority Candidate Inspection
+name: P15.1 Design-System Candidate Inspection
 
 on:
   push:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Inspect authority source model rows and recovered canonical ownership
+      - name: Inspect exact canonical design-system rows and likely existing proofs
         shell: bash
         run: |
           node <<'NODE'
@@ -34,7 +34,7 @@ jobs:
             else for (const child of Object.values(value)) visit(child);
           }
           visit(doc);
-          const rows = [...found.entries()].filter(([id]) => id >= 'CCR-01916' && id <= 'CCR-01955').sort(([a],[b])=>a.localeCompare(b));
+          const rows = [...found.entries()].filter(([id]) => id >= 'CCR-00226' && id <= 'CCR-00265').sort(([a],[b])=>a.localeCompare(b));
           console.log(`RANGE_ROWS=${rows.length}`);
           for (const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
 
@@ -58,7 +58,11 @@ jobs:
           }
           const parsed=parseCsv(text); const header=parsed[0];
           const records=parsed.slice(1).map(values=>Object.fromEntries(header.map((h,i)=>[h,values[i]??''])));
-          const canonical=records.filter(r=>r.canonical_id>='CCR-01916'&&r.canonical_id<='CCR-01955').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
+          const canonical=records.filter(r=>r.canonical_id>='CCR-00226'&&r.canonical_id<='CCR-00265').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
           console.log(`RECOVERED_ROWS=${canonical.length}`);
           for(const row of canonical) console.log('---CANONICAL---\n'+JSON.stringify(row));
           NODE
+          echo '---LIKELY DESIGN-SYSTEM FILES---'
+          find clean-room -type f \( -iname '*design*' -o -iname '*token*' -o -iname '*theme*' -o -iname '*typograph*' -o -iname '*icon*' -o -iname '*component*' -o -iname '*style*' \) | sort | head -n 400
+          echo '---LIKELY DESIGN-SYSTEM TEST HITS---'
+          grep -RniE --include='*.mjs' --include='*.js' --include='*.ts' --include='*.tsx' --include='*.css' --include='*.json' '(design system|design-system|design token|token set|theme|typograph|spacing|color token|icon registry|component registry|component contract|visual token)' clean-room/tests clean-room/src clean-room/scripts 2>/dev/null | head -n 800 || true
