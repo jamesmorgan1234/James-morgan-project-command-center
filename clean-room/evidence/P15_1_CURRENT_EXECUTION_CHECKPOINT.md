@@ -1,3 +1,21 @@
+# OWNER-REQUESTED STOP — saved Normal Chat handoff
+
+James explicitly requested stopping Work and handing back to Normal Chat. This supersedes earlier continuous-Work/no-handoff directions. No additional implementation is authorized by this checkpoint.
+
+Latest implementation HEAD: dfa203cfa1f9aaa3c3e29c51829667f9023734a5; tree d9ec165981cc17669d90484ffdf5a6ef6c043a9c. Its exact-head Actions run 40716109152, job 122914120327 COMPLETED: two 1597-test runs PASS, zero failures/skips; authority/type/core/release/PWA PASS; final Category 15 FAIL; production SKIPPED. Overall workflow FAILURE. Native proof diagnostics remain false with 30 errors because the saved native document has not yet been regenerated after the authority-byte fix.
+
+P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN. Native totals: 5852 / 164 recorded VERIFIED / 0 N/A / 5688 UNVERIFIED. Recorded verification is not current successful requalification. No later phase certified. P15.2 PARTIAL; P15.3–P15.14 IMPLEMENTED_BUT_UNVERIFIED; P15.15 BLOCKED_OWNER_AUTHORIZATION; P15.16–P15.18 BLOCKED_DEPENDENCY.
+
+Exact next Normal Chat action: refetch authorized branch, preserve newer work, read this checkpoint. Regenerate native qualification using the actual completed source CI above and a matching source audit. The two previously omitted authority inputs must use committed Git bytes: roadmap/master-build-plan-owner-review/Command_Center_Canonical_Owner_Additions_REV3.json and 23_CURRENT_199_PHASE_MACHINE_MANIFEST.json. All 898 qualified inputs were canonicalized locally and a fresh source audit at dfa203cfa1f9aaa3c3e29c51829667f9023734a5 was generated, but no native rewrite was attempted afterward. The local audit is clean: 1643 files scanned, zero secrets/violations; semantic every-file review FALSE. Recreate it from the named immutable commit if this Work filesystem is unavailable.
+
+Use existing scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=<matching audit> --qualification=<actual observed CI JSON> --write. Its new guard rejects noncanonical authority hashes and invalid proof before overwriting the last native checkpoint. The qualifying CI JSON must record sourceCommit dfa203cfa1f9aaa3c3e29c51829667f9023734a5, runId 40716109152, jobId 122914120327, completed/failure overall, coreQaConclusion success, testPass 1597, testFail 0, testSkipped 0. Do not fabricate global success. Then run the traceability gate and inspect next exact-head CI for repository proof true / errorCount 0; unresolved rows must continue blocking advancement.
+
+All implementation and tests are published. No new canonical-data implementation or mapping was made after the 164-row checkpoint; only initial read-only review began. Current Windows checkout: C:/Users/shmok/.codex/.chatgpt-projects/g-p-6ad4f70701f481919e4117968a9645cc/c15-current-proof. Scratch audit/logs are reproducible; no unsaved source repair remains. Earlier worktrees remain preserved. Git working-tree status can show Windows line-ending/filter noise; do not mass-stage or reset. Compare raw bytes against Git before writing.
+
+After qualification refresh, continue larger coherent semantic requirement batches in Normal Chat using existing canonical models/tests and native tooling. Preserve exact IDs/text, all valid mappings, owner authority, scoped isolation and protected boundaries. Do not auto-launch Work. No main/production/Supabase/auth/protected asset changes, deployment/promotion, external messages, financial operations, paid activation or spending occurred.
+
+---
+
 # Active P15.1 integrity fix — REV3/manifest source bytes and checkpoint-safe writer
 
 Current parent live HEAD 258120e938623413a91cb071e490db3019376ec6, tree
