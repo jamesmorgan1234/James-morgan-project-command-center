@@ -1,4 +1,16 @@
-# P15.1 evidence-first checkpoint — 251 qualified requirements
+# P15.1 entity/relationship checkpoint - 270 qualified requirements
+
+Pre-work live HEAD d33f38a4eafd6900dc12a433d42cfd7caa03f154 / tree 3437dfce72a9cce799a4396b27b70364ff557d3d, refetched and preserved. Current batch CCR-00156..00195: 19 newly qualified, 20 precise proof gaps remain UNVERIFIED, existing CCR-00194 VERIFIED preserved. New IDs: CCR-00158, CCR-00159, CCR-00164, CCR-00165, CCR-00167, CCR-00173, CCR-00175, CCR-00176, CCR-00177, CCR-00178, CCR-00179, CCR-00186, CCR-00187, CCR-00188, CCR-00189, CCR-00191, CCR-00192, CCR-00193, CCR-00195. Review record: P15_1_ENTITY_RELATIONSHIP_EXISTING_PROOF_REVIEW.md; exact source and named test references in p15-1-reviewed-entity-relationship-mappings.mjs.
+
+Generated totals: 5852 canonical / 270 VERIFIED / 5582 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true, repository-evidence errors 0, qualification errors 0. P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false, advancementAllowed=false. CCR-01875 and CCR-01908 remain UNVERIFIED. No later phase promoted.
+
+Executed: node scripts/p15-1-assemble-current-traceability.mjs --write: initial exit 0 reported 268 with two qualification errors for an inaccurate existing migration test name, therefore not accepted as final qualification. Corrected only the mapping reference to the actual named test, then reran: exit 0, 270, zero errors. node scripts/category15-traceability-gate.mjs: expected exit 1, unresolved inventory blocks closure, repository errors zero. Exact 19-promotion/canonical-wording/preserved-certification/excluded-row assertions PASS; git diff --check PASS. Existing runtime/tests unchanged: reuse exact-source CI 40756163744 / 123055523038 at 4fd130ef299e4d4f5da0b1ec0756a9d78e3068ff, 1627 PASS/0 FAIL/0 SKIP twice; final Category15 gate fails, production skipped. No fresh runtime tests claimed or required for this metadata-only mapping.
+
+Next boundary: inspect the next coherent unresolved requirements after CCR-00195 using existing owning modules and named positive/negative tests. Park precise gaps rather than detouring into unrelated repairs. On James saying stop: immediately stop investigation, checkpoint completed and unverified actions, save and provide one self-contained normal-chat handoff. No main, production, Supabase/auth, protected release assets, deployment, merge, force push, external communications or spending.
+
+---
+
+# Earlier P15.1 evidence-first checkpoint - 251 qualified requirements
 
 Qualifying source HEAD 4fd130ef299e4d4f5da0b1ec0756a9d78e3068ff / tree bf90ecd48f7eee03af3c8393e771810343c72090. Exact-source CI 40756163744 / job 123055523038 completed overall FAILURE: two complete 1627 PASS / 0 FAIL / 0 SKIP executions; authority/type/core QA/release/PWA PASS; final Category15 gate FAIL; production verification SKIPPED. No global green claim.
 

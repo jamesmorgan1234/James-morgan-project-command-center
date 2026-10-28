@@ -4,6 +4,7 @@ import {reviewedAuthShellMappings} from './p15-1-reviewed-auth-shell-mappings.mj
 import {reviewedAuthSessionMappings} from './p15-1-reviewed-auth-session-mappings.mjs';
 import {reviewedStartupRecoveryMappings} from './p15-1-reviewed-startup-recovery-mappings.mjs';
 import {reviewedDataFoundationMappings} from './p15-1-reviewed-data-foundation-mappings.mjs';
+import {reviewedEntityRelationshipMappings} from './p15-1-reviewed-entity-relationship-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -23,7 +24,8 @@ export function currentReviewedMappings(root){
   ...reviewedAuthShellMappings(),
   ...reviewedAuthSessionMappings(),
   ...reviewedStartupRecoveryMappings(),
-  ...reviewedDataFoundationMappings()
+  ...reviewedDataFoundationMappings(),
+  ...reviewedEntityRelationshipMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
