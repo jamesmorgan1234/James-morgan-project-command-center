@@ -122,4 +122,4 @@ const output = {
 };
 const outputPath = "evidence/category15-requirement-traceability-scaffold.json";
 if (write) writeFileSync(resolve(cleanRoom, outputPath), JSON.stringify(output, null, 2) + "\n");
-console.log(JSON.stringify({ ok: true, status: output.status, schemaVersion: output.schemaVersion, outputPath, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256, rev3Sha256 }));
+console.log(JSON.stringify(process.argv.includes("--emit-document") ? output : { ok: true, status: output.status, schemaVersion: output.schemaVersion, outputPath, canonicalRequirementCount: requirements.length, firstId: requirements[0]?.id, lastId: requirements.at(-1)?.id, recoveredOriginalCsvSha256: csvSha256, rev3Sha256 }));

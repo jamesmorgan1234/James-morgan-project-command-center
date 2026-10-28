@@ -1,0 +1,124 @@
+# P15.1 current execution checkpoint — PARTIAL, NOT CATEGORY 15 COMPLETION
+
+Scope: authorized isolated branch `build/spec-lock-v2-clean-room` only.
+
+## Exact source and native inventory
+
+The existing recovered-ledger authority now archives the exact original CSV bytes
+as deterministic gzip/base64, not a replacement ledger. Decoded SHA-256 remains
+`1437d1f88b514008f418c720118786c9ff1b5f3bd1cf8e9ee2b1aca3879169d2`.
+The original JSON was independently recovered and matched its recorded
+`0df16348d2117b86f8cbe050dc7263e1f965009034c9715cd45f5f2e72b61a2e` hash.
+Generator defaults remain UNVERIFIED, including when no external source path is needed.
+Invalid explicitly supplied source paths never fall back silently.
+
+`category15-requirement-traceability.json` is the existing native schema-v2 full
+inventory: 5,825 original rows plus 27 REV3 rows, IDs CCR-00001–CCR-05852, exact original
+text/source metadata, current classification overlay, and source-bound reviewed proof.
+It contains **136 VERIFIED, 0 NOT_APPLICABLE, 5,716 UNVERIFIED**. This is not complete
+P15.1 closure, and no later Category 15 phase was advanced or certified.
+
+69 existing A00 rows and 27 REV3 rows were reused and requalified, plus 26 reviewed
+recovery requirements and 14 security/financial-boundary requirements. Similarity
+search cannot promote a requirement. Three stale historical references were corrected
+in current assembled mappings while original historical fragments remain unchanged:
+CompensatingTransaction.add → constructor; evaluateCompatibility → validateRuntimeConfig;
+missing category15-adversarial-acceptance test → current exact policy-broadening test.
+
+The native repository validator checks all source identities and metadata, current
+classification, individually reviewed mapping equality, actual implementation/test
+anchors, mandatory test-glob membership, observed CI version and byte bindings for
+runtime/public/migration/test dependencies. Arbitrary copied VERIFIED or generic N/A
+claims fail. Source and metadata changes invalidate qualification instead of receiving
+an optimistic copied PASS. Current source qualification is the observed exact-head
+CI on `887f92a529e70910f34ec62dec4279007abeb627`, run `40677661789`, job `122780076683`:
+two complete 1,562-test executions passed, core QA/release/PWA passed, final C15 gate
+failed, production gate skipped. The current native mappings preserve that distinction.
+
+## Implementation defect repaired during requirement review
+
+`finance/actions.ts` accepted unknown runtime action kinds and ambiguous consumed
+state; truthy non-boolean verification flags and malformed identity/evidence lists
+could also pass. Two deterministic regressions first failed (0 PASS / 2 FAIL).
+The repair enforces the existing nine-kind contract at runtime, explicit true/false
+verification/consumption, nonblank unique accounts/evidence and nonempty provider
+identity. The existing consumed-authorization error remains backward compatible.
+The original SQL already declares the same action-kind list, nonnull booleans and
+consumed=false authorization check; no migration change was required. No real
+financial operation, connector, account or production data was accessed.
+Focused financial/recovery tests then passed 17/17. The isolated repair is committed
+as `887f92a529e70910f34ec62dec4279007abeb627`.
+
+## Executable checks and truthful blocking
+
+`npm run assemble:category15-traceability` deterministically rebuilds the native document
+from the archived original source, retained fragments and explicit reviewed mappings.
+A new independent qualification needs its actual source audit and observed CI metadata;
+changed runtime inputs cannot automatically borrow the previous run's success.
+
+`npm run gate:category15-traceability` exits 1 while any requirement remains unresolved.
+The governing `npm run audit:category15` additionally requires repository proof before
+P15.1 can close. Its result remains SOURCE_RECOVERED_TRACEABILITY_OPEN. P15.2 is PARTIAL;
+P15.3–P15.14 IMPLEMENTED_BUT_UNVERIFIED; P15.15 BLOCKED_OWNER_AUTHORIZATION;
+P15.16–P15.18 BLOCKED_DEPENDENCY. No receipt fabricates owner/live/device acceptance.
+
+Executed before publication: source/archive+existing builder tests 11 PASS; native
+source/evidence/gate tests 22 PASS; reviewed security/finance focused set 53 PASS;
+financial repair/recovery set 17 PASS. Full candidate verification is rerun after the
+last edits/publication and reported in the final handoff; these targeted counts do
+not certify Category 15. Automated repository scan found no secrets/violations;
+semantic every-file review remains incomplete. No migration was changed.
+
+## Remaining unverified inventory
+
+All exact unresolved IDs, source text and blockers remain in the native file.
+Counts below are derived from it, using current effective architecture classification.
+They indicate unproven requirement-level mapping/implementation/test/evidence, not
+an assertion that every underlying feature is absent. No mass N/A exclusion is used.
+
+| Current source cluster | Unverified | First unresolved IDs |
+| --- | ---: | --- |
+| A00 | 418 | CCR-00001, CCR-00005, CCR-00007 |
+| A01 | 195 | CCR-00026, CCR-00028, CCR-00029 |
+| A02 | 18 | CCR-00061, CCR-00062, CCR-00063 |
+| A03 | 45 | CCR-00027, CCR-00320, CCR-00450 |
+| A04 | 117 | CCR-00065, CCR-00211, CCR-00343 |
+| A05 | 28 | CCR-00561, CCR-00601, CCR-00950 |
+| A06 | 266 | CCR-00054, CCR-00082, CCR-00117 |
+| A07 | 90 | CCR-00016, CCR-00017, CCR-00151 |
+| A08 | 156 | CCR-00101, CCR-00102, CCR-00103 |
+| A09 | 115 | CCR-00087, CCR-00115, CCR-00524 |
+| A10 | 518 | CCR-00083, CCR-00092, CCR-00093 |
+| A11 | 405 | CCR-00010, CCR-00084, CCR-00085 |
+| A12 | 459 | CCR-00003, CCR-00009, CCR-00079 |
+| A13 | 172 | CCR-02283, CCR-02648, CCR-02649 |
+| A14 | 371 | CCR-00011, CCR-00012, CCR-00013 |
+| A15 | 106 | CCR-00799, CCR-03167, CCR-03168 |
+| A16 | 329 | CCR-00042, CCR-00081, CCR-00177 |
+| A17 | 34 | CCR-02031, CCR-02658, CCR-02665 |
+| A18 | 8 | CCR-03655, CCR-04551, CCR-04552 |
+| A19 | 129 | CCR-00803, CCR-01071, CCR-01241 |
+| A20 | 74 | CCR-00089, CCR-00383, CCR-00543 |
+| A21 | 407 | CCR-00018, CCR-00070, CCR-00088 |
+| A22 | 283 | CCR-00090, CCR-00358, CCR-00360 |
+| A23 | 134 | CCR-00044, CCR-00069, CCR-00193 |
+| A24 | 336 | CCR-00030, CCR-00047, CCR-00048 |
+| A25 | 122 | CCR-00004, CCR-00091, CCR-00592 |
+| A26 | 29 | CCR-00618, CCR-00710, CCR-00711 |
+| A27 | 352 | CCR-00788, CCR-01052, CCR-01053 |
+
+Next P15.1 action: inspect CCR-00001 (single current architecture authority), then
+CCR-00003/CCR-00004 traceability/release blocking, against current authority and actual
+implementation/tests. Continue semantic clusters using the native assembler; do not
+promote based on lexical candidates. Requalify changed code through real tests/CI and
+refresh exact source bindings. The unverified rows block sequential advancement;
+remaining work is not merely owner authorization or physical acceptance.
+
+## Boundaries and stop reason
+
+Work preserves this partial verified slice during the mandated context-reserve closure.
+Category 15 remains INCOMPLETE. Source/native inventory is not called completion.
+Main/production/Supabase/auth/protected release assets were untouched; no merge,
+force push, manual deployment/promotion/publication, paid activation or spending.
+James retains final human authority; Command Center remains the permanent top Brain.
+Normal chat must refetch before any next write and preserve newer concurrent work.

@@ -3,6 +3,7 @@ import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 import { expandPhaseManifest, validateEvidenceReceipt } from "./current-authority-lib.mjs";
 import { validateRequirementTraceability } from "./category15-requirement-traceability-validation.mjs";
+import {validateTraceabilityRepositoryEvidence} from "./p15-1-repository-evidence.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -88,6 +89,7 @@ const canonicalRequirementAuthoritySatisfied = originalHistoricalLedgerRecovered
 const requirementTraceabilityPath = "clean-room/evidence/category15-requirement-traceability.json";
 let requirementTraceabilityStructureValid = false;
 let requirementTraceabilityClosureComplete = false;
+let requirementTraceabilityRepositoryEvidence = {valid:false,errors:[]};
 let requirementTraceabilitySummary = {
   structureValid: false,
   closureComplete: false,
@@ -104,7 +106,8 @@ if (tracked(requirementTraceabilityPath) && existsSync(resolve(repoRoot, require
     const traceability = JSON.parse(read(requirementTraceabilityPath));
     requirementTraceabilitySummary = validateRequirementTraceability(traceability);
     requirementTraceabilityStructureValid = requirementTraceabilitySummary.structureValid;
-    requirementTraceabilityClosureComplete = requirementTraceabilitySummary.closureComplete;
+    requirementTraceabilityRepositoryEvidence = validateTraceabilityRepositoryEvidence(traceability,{repoRoot});
+    requirementTraceabilityClosureComplete = requirementTraceabilitySummary.closureComplete && requirementTraceabilityRepositoryEvidence.valid;
   } catch {
     requirementTraceabilityStructureValid = false;
     requirementTraceabilityClosureComplete = false;
@@ -206,6 +209,7 @@ const report = {
   requirementTraceabilityClosureComplete,
   requirementTraceabilityValid,
   requirementTraceabilitySummary,
+  requirementTraceabilityRepositoryEvidence,
   historicalCandidate,
   currentCandidateManifestPath,
   currentOwnerDecisionPath,
