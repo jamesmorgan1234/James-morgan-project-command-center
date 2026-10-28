@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Inspect exact canonical design-system rows and likely existing proofs
+      - name: Inspect exact canonical design-system rows and existing named proofs
         shell: bash
         run: |
           node <<'NODE'
@@ -36,8 +36,7 @@ jobs:
           visit(doc);
           const rows = [...found.entries()].filter(([id]) => id >= 'CCR-00226' && id <= 'CCR-00265').sort(([a],[b])=>a.localeCompare(b));
           console.log(`RANGE_ROWS=${rows.length}`);
-          for (const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
-
+          for (const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState}));
           const payload = recovered.canonicalCsv?.payload;
           if (!payload?.base64) throw new Error('Recovered canonical CSV payload unavailable');
           let raw = Buffer.from(payload.base64, 'base64');
@@ -59,10 +58,7 @@ jobs:
           const parsed=parseCsv(text); const header=parsed[0];
           const records=parsed.slice(1).map(values=>Object.fromEntries(header.map((h,i)=>[h,values[i]??''])));
           const canonical=records.filter(r=>r.canonical_id>='CCR-00226'&&r.canonical_id<='CCR-00265').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id));
-          console.log(`RECOVERED_ROWS=${canonical.length}`);
           for(const row of canonical) console.log('---CANONICAL---\n'+JSON.stringify(row));
           NODE
-          echo '---LIKELY DESIGN-SYSTEM FILES---'
-          find clean-room -type f \( -iname '*design*' -o -iname '*token*' -o -iname '*theme*' -o -iname '*typograph*' -o -iname '*icon*' -o -iname '*component*' -o -iname '*style*' \) | sort | head -n 400
-          echo '---LIKELY DESIGN-SYSTEM TEST HITS---'
-          grep -RniE --include='*.mjs' --include='*.js' --include='*.ts' --include='*.tsx' --include='*.css' --include='*.json' '(design system|design-system|design token|token set|theme|typograph|spacing|color token|icon registry|component registry|component contract|visual token)' clean-room/tests clean-room/src clean-room/scripts 2>/dev/null | head -n 800 || true
+          echo '---EXACT DESIGN TOKEN / PRIMITIVE / FIXTURE PROOF HITS---'
+          grep -RniE --include='*.mjs' --include='*.ts' --include='*.tsx' --include='*.js' '(COMMAND_CENTER_GEOMETRY|COMMAND_CENTER_TYPE|COMMAND_CENTER_EFFECTS|APPROVED_REFERENCE_VIEWPORT|scaleReferencePx|APPROVED_VISUAL_REFERENCES|APPROVED_SCREEN_FIXTURES|createHomeGrid|equalCardHeight|PrimitiveKind|COMMAND_CENTER_PRIMITIVES|sharedPrimitiveClass|assertPhoneFirstViewport|classifyLayout|safe-area|safe area|overflow|vertical scroll|scroll owner|offline_state|loading-state|empty-state|error-state|blocked-state|progress-ring|status pill|icon frame)' clean-room/src clean-room/tests 2>/dev/null | head -n 1200 || true
