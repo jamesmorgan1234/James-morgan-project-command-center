@@ -15,12 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Inspect authority source model rows
+      - name: Inspect authority source model rows and recovered canonical ownership
         shell: bash
         run: |
           node <<'NODE'
           const fs = require('fs');
+          const zlib = require('zlib');
           const doc = JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json', 'utf8'));
+          const recovered = JSON.parse(fs.readFileSync('clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json', 'utf8'));
           const found = new Map();
           function visit(value) {
             if (!value || typeof value !== 'object') return;
@@ -38,19 +40,30 @@ jobs:
           console.log(`RANGE_ROWS=${rows.length}`);
           for (const [id, row] of rows) {
             console.log('---ROW---');
-            console.log(JSON.stringify({
-              id,
-              requirement: row.requirement,
-              truthState: row.truthState,
-              classification: row.classification ?? null,
-              canonicalSourceIds: row.canonicalSourceIds ?? null,
-              canonicalSourceFiles: row.canonicalSourceFiles ?? null,
-              owningPhases: row.owningPhases ?? null,
-              dependencies: row.dependencies ?? null,
-              dependenciesVerified: row.dependenciesVerified ?? null,
-              blocker: row.blocker ?? null,
-              implementationLocations: row.implementationLocations ?? null,
-              tests: row.tests ?? null
-            }));
+            console.log(JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,classification:row.classification??null,canonicalSourceIds:row.canonicalSourceIds??null,canonicalSourceFiles:row.canonicalSourceFiles??null,owningPhases:row.owningPhases??null,dependencies:row.dependencies??null,dependenciesVerified:row.dependenciesVerified??null,blocker:row.blocker??null,implementationLocations:row.implementationLocations??null,tests:row.tests??null}));
           }
+          console.log('---RECOVERED-CANONICAL-METADATA---');
+          for (const key of ['canonicalJson','canonicalCsv']) {
+            const meta = recovered[key];
+            console.log(key, JSON.stringify(Object.fromEntries(Object.entries(meta ?? {}).filter(([k]) => k !== 'payload'))));
+          }
+          const payload = recovered.canonicalJson?.payload;
+          if (!payload?.base64) throw new Error('Recovered canonical JSON payload unavailable');
+          let raw = Buffer.from(payload.base64, 'base64');
+          if (String(payload.encoding).includes('gzip')) raw = zlib.gunzipSync(raw);
+          const canonical = JSON.parse(raw.toString('utf8'));
+          const canonicalRows = [];
+          function collect(value) {
+            if (!value || typeof value !== 'object') return;
+            if (!Array.isArray(value)) {
+              const id = value.canonical_id ?? value.canonicalId ?? value.id;
+              if (typeof id === 'string' && id >= 'CCR-01875' && id <= 'CCR-01915') canonicalRows.push(value);
+            }
+            if (Array.isArray(value)) for (const item of value) collect(item);
+            else for (const child of Object.values(value)) collect(child);
+          }
+          collect(canonical);
+          canonicalRows.sort((a,b)=>String(a.canonical_id??a.canonicalId??a.id).localeCompare(String(b.canonical_id??b.canonicalId??b.id)));
+          console.log(`RECOVERED_ROWS=${canonicalRows.length}`);
+          for (const row of canonicalRows) console.log('---CANONICAL---\n'+JSON.stringify(row));
           NODE
