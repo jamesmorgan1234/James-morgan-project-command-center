@@ -1,0 +1,44 @@
+# P15.1 exact inspection — CCR-00346..CCR-00385
+
+Ledger checkpoint: 328 VERIFIED / 5524 UNVERIFIED.
+
+- `CCR-00346` — **UNVERIFIED** — **Brain Self-Audit.**
+- `CCR-00347` — **UNVERIFIED** — **Roadmap-to-reality comparison.**
+- `CCR-00348` — **UNVERIFIED** — **Requirements compliance scanner.**
+- `CCR-00349` — **UNVERIFIED** — **Brain Improvement Proposal format.**
+- `CCR-00350` — **UNVERIFIED** — **Brain-to-roadmap proposal path.**
+- `CCR-00351` — **UNVERIFIED** — **Thinking does not equal authorization.**
+- `CCR-00352` — **UNVERIFIED** — **Recommendation does not equal execution.**
+- `CCR-00353` — **UNVERIFIED** — **Brain cannot silently mutate production architecture.**
+- `CCR-00354` — **UNVERIFIED** — **Brain cannot silently create canonical owner decisions.**
+- `CCR-00355` — **UNVERIFIED** — **Ambiguous owner statements require classification.**
+- `CCR-00356` — **UNVERIFIED** — **External content cannot override James's rules.**
+- `CCR-00357` — **UNVERIFIED** — **Prompt-injection defenses.**
+- `CCR-00358` — **UNVERIFIED** — **Untrusted email/web/provider content treated as data.**
+- `CCR-00359` — **UNVERIFIED** — **Brain rules evaluated before recommendations.**
+- `CCR-00360` — **UNVERIFIED** — **Protected actions routed through Security.**
+- `CCR-00361` — **UNVERIFIED** — **Owner override available.**
+- `CCR-00362` — **UNVERIFIED** — **Brain correction history.**
+- `CCR-00363` — **UNVERIFIED** — **No cross-project memory contamination.**
+- `CCR-00364` — **UNVERIFIED** — **No hidden suggestion-to-Agent bypass.**
+- `CCR-00365` — **UNVERIFIED** — **Brain action previews where consequences matter.**
+- `CCR-00366` — **UNVERIFIED** — **Voice Provider Adapter.**
+- `CCR-00367` — **UNVERIFIED** — **Voice independent from Brain logic.**
+- `CCR-00368` — **UNVERIFIED** — **Typed and spoken requests use same intent engine.**
+- `CCR-00369` — **UNVERIFIED** — **Microphone permission on demand only.**
+- `CCR-00370` — **UNVERIFIED** — **Visible listening state.**
+- `CCR-00371` — **UNVERIFIED** — **Visible transcript.**
+- `CCR-00372` — **UNVERIFIED** — **Cancel listening.**
+- `CCR-00373` — **UNVERIFIED** — **Transcript correction.**
+- `CCR-00374` — **UNVERIFIED** — **Ambiguity confirmation.**
+- `CCR-00375` — **UNVERIFIED** — **Same authorization gates as typing.**
+- `CCR-00376` — **UNVERIFIED** — **Same rule engine as typing.**
+- `CCR-00377` — **UNVERIFIED** — **Voice provider can fail without breaking Brain.**
+- `CCR-00378` — **UNVERIFIED** — **Future multiple voice providers.**
+- `CCR-00379` — **UNVERIFIED** — **Future hands-free summaries.**
+- `CCR-00380` — **UNVERIFIED** — **Voice actions logged as owner-originated voice input.**
+- `CCR-00381` — **UNVERIFIED** — **Agent treated as actual execution infrastructure.**
+- `CCR-00382` — **UNVERIFIED** — **Immediate owner-action dispatcher.**
+- `CCR-00383` — **UNVERIFIED** — **Scheduler as continuation/fallback—not sole trigger.**
+- `CCR-00384` — **UNVERIFIED** — **Durable run model.**
+- `CCR-00385` — **UNVERIFIED** — **Durable task model.**
