@@ -1,3 +1,41 @@
+# Active P15.1 seam — immutable module declarations and explicit lifecycle flags
+
+Parent live HEAD ee3d72d0d5720140f81ea495bcd5e449f0d29dfa, tree
+33d00532b4597c65f77b45d0dffb86ec6a4a7d08. Governance repair CI run 40702021275 /
+job 122864059248 completed: two 1578-test runs PASS, core/type/authority/release/PWA
+PASS, final C15 FAIL on unresolved closure, production SKIPPED.
+
+Four module regressions were reproduced (0 PASS / 4 FAIL): caller arrays could mutate
+registered ownership/permissions; public arrays remained mutable; enabled/disable/
+uninstall flags accepted ambiguous values; reference collections could be strings.
+Existing ModuleRegistry now snapshots/freezes all ten declared reference arrays during
+registration/replacement. validateModuleContract requires explicit boolean lifecycle
+flags and arrays of unique nonblank string references. Existing keys, owners, versions,
+scopes, ownership exclusivity, declared reach-in, DAG, removal and dependency gates remain.
+No competing module model, schema, migration or permission grant was introduced.
+
+Actual guarded verification: module compile PASS; strict noEmit typecheck PASS;
+36 focused module/ownership/lifecycle/version/extension/kernel/native tests PASS,
+0 FAIL/SKIP. Final four new tests including blank owner/health declaration checks PASS
+4/4. Architecture, legacy and diff checks PASS. Local verification-only network-denial
+and telemetry suppression remain outside product code and tracked artifacts.
+
+Native inventory remains 5852 / 154 recorded VERIFIED / 0 N/A / 5698 UNVERIFIED.
+Changed ledger/governance/module inputs need actual current-source CI qualification
+refresh; preserved historical row claims must not be called current requalification.
+No additional rows or later P15 phase have been certified by this repair.
+
+Next: inspect this commit's exact-head CI, fix real failures, create matching clean-source
+repository audit, refresh native proof using observed CI, then record reviewed module
+manifest/route/event/data/permission/migration/health declarations and CCR-00005 only
+where exact tests establish the requirement. Continue unresolved semantic clusters.
+A02 remaining rows were inspected: 00062/00066/00067/00068/00073/00075/00076/00094/
+00095/00096/00097/00099; these remain unverified pending individual proof/repair.
+No percentage reserve or routine handoff. Main/production/Supabase/auth/protected assets
+untouched; no messages, financial action, merge, force-push, deployment/promotion,
+paid activation or spending.
+
+---
 # Active P15.1 seam — fail-closed runtime governance repaired
 
 Parent live HEAD 04fedb931ca036a635fdfd3694978d03cd9278a4, tree

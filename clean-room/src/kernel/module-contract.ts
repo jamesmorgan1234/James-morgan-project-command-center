@@ -32,15 +32,19 @@ const ACTIVATION_POLICIES = new Set<ModuleActivation>(["startup", "on-demand", "
 const FAILURE_BEHAVIORS = new Set<ModuleFailureBehavior>(["fail-closed", "isolate", "degrade"]);
 
 function assertUnique(values: readonly string[], label: string): void {
+  if (!Array.isArray(values)) throw new Error(`${label} must be an array of references`);
   const seen = new Set<string>();
   for (const value of values) {
-    if (!value.trim()) throw new Error(`${label} cannot contain an empty value`);
+    if (typeof value !== "string" || !value.trim()) throw new Error(`${label} cannot contain an empty value`);
     if (seen.has(value)) throw new Error(`${label} contains duplicate value: ${value}`);
     seen.add(value);
   }
 }
 
 export function validateModuleContract(contract: ModuleContract): void {
+  for (const field of ["enabled", "canDisable", "canUninstall"] as const) {
+    if (typeof contract[field] !== "boolean") throw new Error(`Module ${field} must be a boolean: ${contract.key}`);
+  }
   if (!contract.key.startsWith("mod:")) throw new Error(`Module key must start with mod:: ${contract.key}`);
   if (!contract.owner.trim()) throw new Error(`Module owner is required: ${contract.key}`);
   if (contract.dependencies.includes(contract.key)) throw new Error(`Module cannot depend on itself: ${contract.key}`);
@@ -59,6 +63,17 @@ export function validateModuleContract(contract: ModuleContract): void {
   assertUnique(contract.migrations, `${contract.key}.migrations`);
   assertUnique(contract.tests, `${contract.key}.tests`);
   if (contract.tests.length === 0) throw new Error(`Module tests are required: ${contract.key}`);
+}
+
+/** Own the declared reference collections; caller arrays must never mutate registered authority. */
+function snapshotModuleContract(contract: ModuleContract): ModuleContract {
+  return Object.freeze({ ...contract,
+    ownsData: Object.freeze([...contract.ownsData]), ownsCapabilities: Object.freeze([...contract.ownsCapabilities]),
+    usesData: Object.freeze([...contract.usesData]), usesCapabilities: Object.freeze([...contract.usesCapabilities]),
+    dependencies: Object.freeze([...contract.dependencies]), permissions: Object.freeze([...contract.permissions]),
+    routes: Object.freeze([...contract.routes]), events: Object.freeze([...contract.events]),
+    migrations: Object.freeze([...contract.migrations]), tests: Object.freeze([...contract.tests])
+  });
 }
 
 function assertNoOwnershipOverlap(candidate: ModuleContract, records: readonly ModuleContract[]): void {
@@ -138,6 +153,7 @@ export class ModuleRegistry {
 
   register(contract: ModuleContract): void {
     validateModuleContract(contract);
+    contract = snapshotModuleContract(contract);
     const currentRecords = this.#registry.list();
     for (const dependency of contract.dependencies) {
       if (!this.#registry.get(dependency)) throw new Error(`Unknown module dependency ${dependency} for ${contract.key}`);
@@ -149,6 +165,7 @@ export class ModuleRegistry {
 
   replace(contract: ModuleContract, expectedVersion: number): void {
     validateModuleContract(contract);
+    contract = snapshotModuleContract(contract);
     const current = this.#registry.get(contract.key);
     if (current?.enabled && !contract.enabled && !current.canDisable) throw new Error(`Module cannot be disabled: ${contract.key}`);
     for (const dependency of contract.dependencies) {
