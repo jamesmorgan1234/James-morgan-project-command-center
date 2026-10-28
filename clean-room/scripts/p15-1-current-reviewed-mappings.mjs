@@ -9,6 +9,7 @@ import {reviewedAssetContractMappings} from './p15-1-reviewed-asset-contract-map
 import {reviewedDesignSystemMappings} from './p15-1-reviewed-design-system-mappings.mjs';
 import {reviewedDeviceAdaptationMappings} from './p15-1-reviewed-device-adaptation-mappings.mjs';
 import {reviewedPwaLifecycleMappings} from './p15-1-reviewed-pwa-lifecycle-mappings.mjs';
+import {reviewedBrainContextMappings} from './p15-1-reviewed-brain-context-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -33,7 +34,8 @@ export function currentReviewedMappings(root){
   ...reviewedAssetContractMappings(),
   ...reviewedDesignSystemMappings(),
   ...reviewedDeviceAdaptationMappings(),
-  ...reviewedPwaLifecycleMappings()
+  ...reviewedPwaLifecycleMappings(),
+  ...reviewedBrainContextMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
