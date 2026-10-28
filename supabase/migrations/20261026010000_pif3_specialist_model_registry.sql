@@ -153,7 +153,7 @@ begin
   return jsonb_build_object('specialist_id',p_specialist_id,'version',next_version,'lifecycle',p_lifecycle);
 end $$;
 
-revoke all on function public.command_center_register_specialist_model(text,text,text,text,text,text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],jsonb,text[],numeric,text[],numeric,numeric,bigint,text,text,text[],text[],text[],text[],text,text,text,text,text[],text,text,timestamptz,timestamptz,text[],text[]) from public,anon;
-grant execute on function public.command_center_register_specialist_model(text,text,text,text,text,text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],jsonb,text[],numeric,text[],numeric,numeric,bigint,text,text,text[],text[],text[],text[],text,text,text,text,text[],text,text,timestamptz,timestamptz,text[],text[]) to authenticated;
+revoke all on function public.command_center_register_specialist_model(text,text,text,text,text,text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],jsonb,text[],numeric,text[],numeric,numeric,bigint,text,text,text[],text[],text[],text[],text,text,text,text,text[],text,timestamptz,timestamptz,text[],text[]) from public,anon;
+grant execute on function public.command_center_register_specialist_model(text,text,text,text,text,text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],text[],jsonb,text[],numeric,text[],numeric,numeric,bigint,text,text,text[],text[],text[],text[],text,text,text,text,text[],text,timestamptz,timestamptz,text[],text[]) to authenticated;
 revoke all on function public.command_center_set_specialist_lifecycle(text,bigint,text,text[]) from public,anon;
 grant execute on function public.command_center_set_specialist_lifecycle(text,bigint,text,text[]) to authenticated;

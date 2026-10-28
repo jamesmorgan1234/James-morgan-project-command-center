@@ -11,3 +11,6 @@ export * from "./digital-products.js";
 export * from "./service-business.js";
 export * from "./software-platform.js";
 export * from "./lifecycle.js";
+
+export * from "./interoperability.js";
+export * from "./evolution.js";

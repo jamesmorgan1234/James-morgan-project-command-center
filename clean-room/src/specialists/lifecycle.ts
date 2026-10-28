@@ -53,6 +53,7 @@ export class SpecialistLifecycleRegistry {
   readonly #canonicalOwners = new Map<string, string>();
 
   registerType(input: SpecialistTypeRegistration): SpecialistTypeRegistration {
+    if (input.truthOwner !== `specialist:${input.typeKey}` || input.isolationClass !== `specialist:${input.typeKey}`) throw new Error("specialist registration cannot override canonical truth ownership or isolation class");
     if (!input.typeKey.trim() || !input.truthOwner.trim() || !input.isolationClass.trim()) throw new Error("specialist type identity/truth owner/isolation class required");
     const requiredProviderCapabilities = refs(input.requiredProviderCapabilities, "specialist required provider capabilities", false);
     const sourceRefs = refs(input.sourceRefs, "specialist type source refs");
@@ -65,13 +66,14 @@ export class SpecialistLifecycleRegistry {
 
   registerProject(input: SpecialistLifecycleProject): SpecialistLifecycleProject {
     if (!input.id.trim() || !input.ownerId.trim() || !input.projectId.trim() || !input.typeKey.trim() || !input.displayName.trim() || !input.canonicalRef.trim()) throw new Error("specialist lifecycle project identity/type/display/canonical ref required");
+    if (!["active", "dormant"].includes(input.status) || input.replacedByProjectId !== undefined) throw new Error("new specialist project must start active or dormant without forged replacement lineage");
     if (!this.#types.has(input.typeKey)) throw new Error("unregistered specialist type");
     const providerCapabilities = refs(input.providerCapabilities, "specialist provider capabilities", false);
     const sourceRefs = refs(input.sourceRefs, "specialist lifecycle source refs");
-    const key = `${input.ownerId}:${input.projectId}`;
+    const key = JSON.stringify([input.ownerId, input.projectId]);
     const prior = this.#projects.get(key);
     if (prior) throw new Error("specialist lifecycle project already exists");
-    const canonicalKey = `${input.ownerId}:${input.canonicalRef}`;
+    const canonicalKey = JSON.stringify([input.ownerId, input.canonicalRef]);
     const canonicalOwner = this.#canonicalOwners.get(canonicalKey);
     if (canonicalOwner && canonicalOwner !== input.projectId) throw new Error("specialist canonical truth is isolated to another project");
     const frozen = Object.freeze({ ...input, providerCapabilities, sourceRefs });
@@ -81,7 +83,7 @@ export class SpecialistLifecycleRegistry {
   }
 
   get(ownerId: string, projectId: string): SpecialistLifecycleProject {
-    const project = this.#projects.get(`${ownerId}:${projectId}`);
+    const project = this.#projects.get(JSON.stringify([ownerId, projectId]));
     if (!project) throw new Error("unknown specialist lifecycle project");
     return project;
   }
@@ -89,6 +91,7 @@ export class SpecialistLifecycleRegistry {
   rename(ownerId: string, projectId: string, displayName: string, authorization: SpecialistLifecycleAuthorization): SpecialistLifecycleProject {
     const current = this.get(ownerId, projectId);
     this.assertAuthorization(authorization, current, "rename");
+    if (current.status === "archived" || current.status === "replaced") throw new Error("inactive specialist cannot be renamed");
     if (!displayName.trim()) throw new Error("specialist display name required");
     return this.replace(current, Object.freeze({ ...current, displayName: displayName.trim() }));
   }
@@ -119,6 +122,7 @@ export class SpecialistLifecycleRegistry {
     const source = this.get(ownerId, sourceProjectId);
     const target = this.get(ownerId, targetProjectId);
     this.assertAuthorization(authorization, source, "merge", targetProjectId);
+    if (sourceProjectId === targetProjectId || target.status === "archived" || target.status === "replaced") throw new Error("specialist merge requires distinct live target");
     if (source.typeKey !== target.typeKey) throw new Error("specialist merge cannot cross specialist types");
     if (source.status === "archived" || source.status === "replaced") throw new Error("inactive source specialist cannot be merged");
     const replaced = this.replace(source, Object.freeze({ ...source, status: "replaced" as const, replacedByProjectId: targetProjectId }));
@@ -128,6 +132,7 @@ export class SpecialistLifecycleRegistry {
   replaceProject(ownerId: string, projectId: string, replacement: SpecialistLifecycleProject, authorization: SpecialistLifecycleAuthorization): readonly [SpecialistLifecycleProject, SpecialistLifecycleProject] {
     const current = this.get(ownerId, projectId);
     this.assertAuthorization(authorization, current, "replace", replacement.projectId);
+    if (current.status === "archived" || current.status === "replaced") throw new Error("inactive specialist cannot be replaced");
     if (replacement.ownerId !== ownerId || replacement.typeKey !== current.typeKey) throw new Error("specialist replacement must preserve owner and specialist type");
     const next = this.registerProject(replacement);
     const replaced = this.replace(current, Object.freeze({ ...current, status: "replaced" as const, replacedByProjectId: next.projectId }));
@@ -156,7 +161,7 @@ export class SpecialistLifecycleRegistry {
   }
 
   private replace(current: SpecialistLifecycleProject, next: SpecialistLifecycleProject): SpecialistLifecycleProject {
-    this.#projects.set(`${current.ownerId}:${current.projectId}`, next);
+    this.#projects.set(JSON.stringify([current.ownerId, current.projectId]), next);
     return next;
   }
 }

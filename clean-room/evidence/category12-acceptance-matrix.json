@@ -1,0 +1,439 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_ISOLATED_FOUNDATION",
+  "phases": [
+    {
+      "id": "P12.1",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.1",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.1"
+      ],
+      "requirements": [
+        "capability ownership",
+        "data contracts",
+        "Brain/Agency hooks",
+        "detail surfaces",
+        "metrics declarations",
+        "provider adapters",
+        "isolation",
+        "generic registration",
+        "canonical PIF.3 binding"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/framework.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-1-specialist-framework.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026130000_p12_1_specialist_framework.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.2",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.2",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.2"
+      ],
+      "requirements": [
+        "shopping truth ownership",
+        "offers and delayed rebates",
+        "list/trip priorities",
+        "provider/privacy boundary"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/shopping.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-2-shopping-specialist.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026131000_p12_2_shopping_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.3",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.3",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.3"
+      ],
+      "requirements": [
+        "media truth ownership",
+        "rights/provenance",
+        "production/publishing routes",
+        "worker/adapter boundaries"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/media.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-3-media-specialist.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026132000_p12_3_media_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.4",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.4",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.4"
+      ],
+      "requirements": [
+        "commerce catalog/supplier/pricing/fulfillment/marketing/revenue contracts",
+        "supplier/store/account isolation",
+        "no-loss economics"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/commerce.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-4-commerce-specialist.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026133000_p12_4_commerce_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.5",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.5",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.5"
+      ],
+      "requirements": [
+        "generic product files/delivery/storefront/pricing/promotion/analytics/support/provider contracts",
+        "artifact evidence"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/digital-products.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-5-digital-products-specialist.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026134000_p12_5_digital_products_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.6",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.6",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.6"
+      ],
+      "requirements": [
+        "generic service pipeline",
+        "company isolation",
+        "lead/estimate/contract/job/schedule/payment lineage"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/service-business.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-6-service-business-specialist.test.mjs",
+        "clean-room/tests/p12-6-service-business.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026126000_p12_6_service_business_specialist.sql",
+        "supabase/migrations/20261026140000_p12_6_service_business_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.7",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.7",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.7"
+      ],
+      "requirements": [
+        "generic software domains",
+        "repository/provider isolation",
+        "deployment evidence and history scope"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/software-platform.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-7-software-platform-specialist.test.mjs",
+        "clean-room/tests/p12-7-software-platform.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026127000_p12_7_software_platform_specialist.sql",
+        "supabase/migrations/20261026141000_p12_7_software_platform_specialist.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    },
+    {
+      "id": "P12.8",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8",
+        "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md#P12.8"
+      ],
+      "requirements": [
+        "cross-specialist isolation",
+        "provider loss containment",
+        "rename/merge/dormant/reactivation/replacement/archive",
+        "recovery and immutable evidence",
+        "future registration",
+        "expanded AM20 sections 19\u201326"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/lifecycle.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-canonical-authorization-postgres.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs",
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-specialist-lifecycle-isolation.test.mjs",
+        "clean-room/tests/p12-8-specialist-lifecycle.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026128000_p12_8_specialist_lifecycle.sql",
+        "supabase/migrations/20261026142000_p12_8_specialist_lifecycle_isolation.sql",
+        "supabase/migrations/20261028010000_p12_8_canonical_authorization_evidence.sql",
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql",
+        "supabase/migrations/20261028021000_p12_8_canonical_specialist_evolution.sql",
+        "supabase/migrations/20261028022000_p12_8_lifecycle_transition_guards.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": []
+    }
+  ],
+  "expanded": [
+    {
+      "id": "cross-brain-learning",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-20",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "source/recipient identity and pinned versions",
+        "PIF.4 promoted/current validated packet",
+        "privacy and scope review",
+        "canonical evidence-strength threshold",
+        "ontology/capability/method/dependency compatibility",
+        "risk-triggered shadow evaluation",
+        "acceptance criteria",
+        "rollback/revocation",
+        "durable decision and monitoring handoff"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "transferability",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-19",
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-20",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "specialist/company/project/task/domain/environment/provider-model/data/resource filters",
+        "negative knowledge and contraindications",
+        "recipient local alternatives",
+        "no mutation after rejection"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "inheritance",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-23",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "validated applicable metadata only",
+        "source/recipient/version lineage",
+        "domain/company-type/sensitivity/operating constraints/policy/resource filters",
+        "no source payload/private data or permission copying"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "dynamic-lifecycle",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-24",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "unmet need and nonduplication",
+        "create/evolve/split/merge/suspend/retire",
+        "scope/ontology/permissions/budget/evaluation/fallback/retirement",
+        "canonical atomic expected-version batches",
+        "immutable PIF.3 history",
+        "recovery cannot resurrect authority"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts",
+        "clean-room/src/specialists/evolution.ts",
+        "clean-room/src/brain/specialists.ts",
+        "clean-room/src/specialists/lifecycle.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql",
+        "supabase/migrations/20261028021000_p12_8_canonical_specialist_evolution.sql",
+        "supabase/migrations/20261028022000_p12_8_lifecycle_transition_guards.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "collaboration-composition",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-25",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "deterministic scoped discovery",
+        "Command Center orchestrator",
+        "participants/decomposition/dependency/schema compatibility",
+        "no data shared by default",
+        "permission ceilings",
+        "conflict arbitration",
+        "evidence handoff",
+        "verification/failure handling/cancellation"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "procedure-learning",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-26",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "distinct verified source runs",
+        "repeatability threshold",
+        "exact identity/version and PIF.4 promotion",
+        "prerequisites/ordered steps/decision points/failure handling/variation/verification/permissions",
+        "scoped nonexecutable reusable representation",
+        "rollback and provenance"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "compiler-interoperability",
+      "authority": [
+        "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md#section-22",
+        "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md#C12/P12.8"
+      ],
+      "requirements": [
+        "versioned evidence-linked scoped testable reversible artifacts",
+        "supported procedure/inheritance/composition constructs",
+        "deterministic Agency DAG-compatible output",
+        "unsupported constructs fail closed",
+        "blocked until current Agency admission",
+        "backward-compatible existing specialist contracts"
+      ],
+      "implementation": [
+        "clean-room/src/specialists/interoperability.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p12-8-interoperability.test.mjs",
+        "clean-room/tests/p12-8-interoperability-postgres.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261028020000_p12_8_specialist_interoperability.sql"
+      ],
+      "status": "PASS",
+      "laterDependencies": [
+        "C13: outcome effectiveness/calibration/health metrics and advanced compiler synthesis",
+        "C14: advanced intelligence recovery/chaos/scale validation",
+        "C15: final integration/live/owner/device acceptance"
+      ]
+    }
+  ]
+}

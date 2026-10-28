@@ -117,7 +117,7 @@ function assertEvidenceIds(values: readonly string[], label: string, requireOne 
 }
 
 function assertAuthority(authority: SpecialistControlAuthority): void {
-  if (authority.actor === "specialist") throw new Error("Specialists cannot mutate, self-promote, or expand their own authority");
+  if (authority.actor !== "owner" && authority.actor !== "command_center") throw new Error("Specialists cannot mutate, self-promote, or expand their own authority");
   assertEvidenceIds(authority.evidenceIds, "Specialist control authority evidence", true);
 }
 
@@ -259,6 +259,24 @@ export class SpecialistBrainRegistry {
     const next = freezeModel({ ...current, version: current.version + 1, enabled: false, lifecycle: "retired", learningEligibility: "none" });
     this.#models.replace(next, expectedVersion);
     return next;
+  }
+
+  /** Atomic synchronous canonical batch for evidence-governed split/merge/evolution.
+   * Validate every precondition before mutation; JavaScript cannot interleave these writes. */
+  applyModelBatch(changes: readonly { readonly model: SpecialistModelContract; readonly expectedVersion: number | null }[], authority: SpecialistControlAuthority): readonly SpecialistModelContract[] {
+    assertAuthority(authority);
+    if (changes.length === 0 || new Set(changes.map(c => c.model.key)).size !== changes.length) throw new Error("Specialist batch requires distinct models");
+    const frozen = changes.map(change => {
+      validateSpecialistModel(change.model);
+      const current = this.#models.get(change.model.key);
+      if (change.expectedVersion === null ? current !== undefined || change.model.version !== 1 : !current || current.version !== change.expectedVersion || change.model.version !== current.version + 1 || current.lifecycle === "retired") throw new Error("Specialist batch version/lifecycle conflict");
+      return { model: freezeModel(change.model), expectedVersion: change.expectedVersion };
+    });
+    for (const change of frozen) {
+      if (change.expectedVersion === null) this.#models.register(change.model);
+      else this.#models.replace(change.model, change.expectedVersion);
+    }
+    return Object.freeze(frozen.map(c => c.model));
   }
 
   getModel(key: string): SpecialistModelContract | undefined { return this.#models.get(key); }
