@@ -1,0 +1,44 @@
+# P15.1 exact inspection — CCR-00426..CCR-00465
+
+Ledger checkpoint: 377 VERIFIED / 5475 UNVERIFIED.
+
+- `CCR-00426` — **UNVERIFIED** — **Crash recovery.**
+- `CCR-00427` — **UNVERIFIED** — **Resume from first incomplete task.**
+- `CCR-00428` — **UNVERIFIED** — **Atomic Stop.**
+- `CCR-00429` — **UNVERIFIED** — **Safe Pause.**
+- `CCR-00430` — **UNVERIFIED** — **Resume contract.**
+- `CCR-00431` — **UNVERIFIED** — **Cancel pending execution.**
+- `CCR-00432` — **UNVERIFIED** — **Prevent stale executor response from resurrecting stopped work.**
+- `CCR-00433` — **UNVERIFIED** — **Plan versioning.**
+- `CCR-00434` — **UNVERIFIED** — **Dynamic plan expansion.**
+- `CCR-00435` — **UNVERIFIED** — **Plan-diff history.**
+- `CCR-00436` — **UNVERIFIED** — **Verified tasks / trustworthy plan only.**
+- `CCR-00437` — **UNVERIFIED** — **Unknown denominator = `N/A`.**
+- `CCR-00438` — **UNVERIFIED** — **Plan expansion can decrease percentage.**
+- `CCR-00439` — **UNVERIFIED** — **Project progress and Agent progress separate.**
+- `CCR-00440` — **UNVERIFIED** — **Barrier-sweep count and progress separate.**
+- `CCR-00441` — **UNVERIFIED** — **No time-based fake progress.**
+- `CCR-00442` — **UNVERIFIED** — **No status-based fake progress.**
+- `CCR-00443` — **UNVERIFIED** — **Task weights only where legitimately defined.**
+- `CCR-00444` — **UNVERIFIED** — **Progress explanation available.**
+- `CCR-00445` — **UNVERIFIED** — **Roadmap progress linked to evidence.**
+- `CCR-00446` — **UNVERIFIED** — **Needs Owner state.**
+- `CCR-00447` — **UNVERIFIED** — **PC Required state.**
+- `CCR-00448` — **UNVERIFIED** — **Phone Required state.**
+- `CCR-00449` — **UNVERIFIED** — **Local Browser Required state.**
+- `CCR-00450` — **UNVERIFIED** — **Any Device state.**
+- `CCR-00451` — **UNVERIFIED** — **Exact blocker reason.**
+- `CCR-00452` — **UNVERIFIED** — **Exact required action.**
+- `CCR-00453` — **UNVERIFIED** — **Exact verification method.**
+- `CCR-00454` — **UNVERIFIED** — **Exact resume behavior.**
+- `CCR-00455` — **UNVERIFIED** — **Owner acknowledgement is not proof.**
+- `CCR-00456` — **UNVERIFIED** — **Checkpoint re-verifies downstream state.**
+- `CCR-00457` — **UNVERIFIED** — **Same run resumes after verification.**
+- `CCR-00458` — **UNVERIFIED** — **No run recreation simply because James completed a blocker.**
+- `CCR-00459` — **UNVERIFIED** — **No project switching after blocker.**
+- `CCR-00460` — **UNVERIFIED** — **No hidden escalation around an owner boundary.**
+- `CCR-00461` — **UNVERIFIED** — **Normal Chat first.**
+- `CCR-00462` — **UNVERIFIED** — **Genuine capability boundary required.**
+- `CCR-00463` — **UNVERIFIED** — **Work task is smallest useful blocked operation.**
+- `CCR-00464` — **UNVERIFIED** — **Project Auto exact-project Work authorization contract.**
+- `CCR-00465` — **UNVERIFIED** — **Luna High first.**
