@@ -69,6 +69,7 @@ export function validateCommerceEconomics(input:CommerceProductEconomics,binding
   if(!input.id.trim()||!input.ownerId.trim()||!input.projectId.trim()||!input.productRef.trim()||!input.supplierRef.trim()||!input.currency.trim()) throw new Error("commerce economics identity/scope/product/supplier/currency required");
   if(input.ownerId!==binding.ownerId||input.projectId!==binding.projectId||!binding.supplierAccountRefs.includes(input.supplierRef)) throw new Error("commerce economics cannot cross project/supplier boundary");
   if(!Number.isFinite(input.landedCost)||input.landedCost<0||!Number.isFinite(input.salePrice)||input.salePrice<0) throw new Error("commerce pricing values invalid");
+  if(input.salePrice<input.landedCost) throw new Error("commerce pricing cannot create negative landed margin");
   time(input.observedAt,"commerce economics observedAt");
   return Object.freeze({...input,sourceRefs:refs(input.sourceRefs,"commerce economics source refs")});
 }
