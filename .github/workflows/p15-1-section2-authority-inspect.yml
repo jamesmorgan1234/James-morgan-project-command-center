@@ -1,4 +1,4 @@
-name: P15.1 Next-Batch Candidate Inspection
+name: P15.1 Exact Next-Batch Inspection Report
 
 on:
   push:
@@ -8,31 +8,32 @@ on:
       - .github/workflows/p15-1-section2-authority-inspect.yml
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Inspect CCR-00266 through CCR-00305 and existing proof hits
+        with:
+          fetch-depth: 2
+      - name: Persist exact CCR-00266 through CCR-00305 wording
         shell: bash
         run: |
           set -euo pipefail
           node <<'NODE'
-          const fs=require('fs'),zlib=require('zlib');
+          const fs=require('fs');
           const doc=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));
-          const recovered=JSON.parse(fs.readFileSync('clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json','utf8'));
-          const found=new Map();
-          function visit(v){if(!v||typeof v!=='object')return;if(!Array.isArray(v)){const id=v.id??v.requirementId??v.requirement_id??v.rowId??v.row_id;if(id&&typeof v.requirement==='string'&&typeof v.truthState==='string')found.set(String(id),v);}if(Array.isArray(v))for(const x of v)visit(x);else for(const x of Object.values(v))visit(x);}
-          visit(doc);
-          const rows=[...found.entries()].filter(([id])=>id>='CCR-00266'&&id<='CCR-00305').sort(([a],[b])=>a.localeCompare(b));
-          console.log('RANGE_ROWS='+rows.length);
-          for(const [id,row] of rows) console.log('---ROW---\n'+JSON.stringify({id,requirement:row.requirement,truthState:row.truthState,implementationLocations:row.implementationLocations,tests:row.tests}));
-          let raw=Buffer.from(recovered.canonicalCsv.payload.base64,'base64');if(String(recovered.canonicalCsv.payload.encoding).includes('gzip'))raw=zlib.gunzipSync(raw);
-          function parseCsv(s){const out=[];let row=[],field='',q=false;for(let i=0;i<s.length;i++){const c=s[i];if(q){if(c==='"'&&s[i+1]==='"'){field+='"';i++;}else if(c==='"')q=false;else field+=c;}else if(c==='"')q=true;else if(c===','){row.push(field);field='';}else if(c==='\n'){row.push(field.replace(/\r$/,''));out.push(row);row=[];field='';}else field+=c;}if(field.length||row.length){row.push(field.replace(/\r$/,''));out.push(row);}return out;}
-          const p=parseCsv(raw.toString('utf8')),h=p[0],records=p.slice(1).map(v=>Object.fromEntries(h.map((k,i)=>[k,v[i]??''])));
-          for(const row of records.filter(r=>r.canonical_id>='CCR-00266'&&r.canonical_id<='CCR-00305').sort((a,b)=>a.canonical_id.localeCompare(b.canonical_id))) console.log('---CANONICAL---\n'+JSON.stringify(row));
+          const rows=doc.requirements.filter(r=>r.id>='CCR-00266'&&r.id<='CCR-00305').sort((a,b)=>a.id.localeCompare(b.id));
+          if(rows.length!==40) throw new Error('Expected 40 rows, got '+rows.length);
+          let out='# P15.1 exact inspection — CCR-00266 through CCR-00305\n\n';
+          out+='Source ledger at trigger commit: `'+process.env.GITHUB_SHA+'`\n\n';
+          for(const row of rows) out+=`- **${row.id}** — ${row.requirement} — current: **${row.truthState}**\n`;
+          fs.writeFileSync('clean-room/evidence/P15_1_BATCH_00266_00305_EXACT_INSPECTION.md',out);
           NODE
-          echo '---LIKELY EXISTING PROOF HITS---'
-          grep -RniE --include='*.mjs' --include='*.ts' --include='*.tsx' --include='*.js' --include='*.css' '(accessib|keyboard|focus|screen reader|aria|contrast|motion|responsive|mobile|tablet|desktop|navigation|scroll|loading|empty|error|offline|touch|tap target|zoom|safe-area|portrait|landscape|orientation|visual regression|design token|template)' clean-room/src clean-room/tests clean-room/public 2>/dev/null | head -n 1600 || true
+          git diff --check
+          git config user.name jamesmorgan1234
+          git config user.email JAMESMORGAN1234@YAHOO.COM
+          git add clean-room/evidence/P15_1_BATCH_00266_00305_EXACT_INSPECTION.md
+          git commit -m "evidence: save exact P15.1 CCR-00266-00305 inspection"
+          git push origin HEAD:build/spec-lock-v2-clean-room
