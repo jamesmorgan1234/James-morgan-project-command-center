@@ -6,6 +6,7 @@ export * from "./command-runtime.js";
 export * from "./governance.js";
 export * from "./ledger.js";
 export * from "./evidence.js";
+export * from "./authority-source.js";
 export * from "./config.js";
 export * from "./scope.js";
 export * from "./capabilities.js";
