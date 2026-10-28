@@ -26,6 +26,7 @@ import {reviewedAgencyRunWorkLadderMappings} from './p15-1-reviewed-agency-run-w
 import {reviewedAgencyOwnerDeviceBlockerMappings} from './p15-1-reviewed-agency-owner-device-blocker-mappings.mjs';
 import {reviewedAgencyControlProgressMappings} from './p15-1-reviewed-agency-control-progress-mappings.mjs';
 import {reviewedWorkProjectContractMappings} from './p15-1-reviewed-work-project-contract-mappings.mjs';
+import {reviewedProjectBooksFoundationMappings} from './p15-1-reviewed-project-books-foundation-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -67,7 +68,8 @@ export function currentReviewedMappings(root){
   ...reviewedAgencyRunWorkLadderMappings(),
   ...reviewedAgencyOwnerDeviceBlockerMappings(),
   ...reviewedAgencyControlProgressMappings(),
-  ...reviewedWorkProjectContractMappings()
+  ...reviewedWorkProjectContractMappings(),
+  ...reviewedProjectBooksFoundationMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
