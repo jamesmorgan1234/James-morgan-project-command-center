@@ -11,6 +11,7 @@ import {reviewedDeviceAdaptationMappings} from './p15-1-reviewed-device-adaptati
 import {reviewedPwaLifecycleMappings} from './p15-1-reviewed-pwa-lifecycle-mappings.mjs';
 import {reviewedBrainContextMappings} from './p15-1-reviewed-brain-context-mappings.mjs';
 import {reviewedRecommendationMappings} from './p15-1-reviewed-recommendation-mappings.mjs';
+import {reviewedBrainMemoryRecommendationMappings} from './p15-1-reviewed-brain-memory-recommendation-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -37,7 +38,8 @@ export function currentReviewedMappings(root){
   ...reviewedDeviceAdaptationMappings(),
   ...reviewedPwaLifecycleMappings(),
   ...reviewedBrainContextMappings(),
-  ...reviewedRecommendationMappings()
+  ...reviewedRecommendationMappings(),
+  ...reviewedBrainMemoryRecommendationMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
