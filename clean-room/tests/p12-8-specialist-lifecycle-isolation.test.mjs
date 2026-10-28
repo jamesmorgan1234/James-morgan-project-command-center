@@ -6,7 +6,7 @@ import { SpecialistLifecycleRegistry, assertSpecialistIsolation } from "../dist/
 const type={typeKey:"service_business",truthOwner:"specialist:service_business",isolationClass:"specialist:service_business",requiredProviderCapabilities:["crm"],sourceRefs:["type:source"]};
 const project={id:"lifecycle-1",ownerId:"owner-1",projectId:"project-1",typeKey:"service_business",displayName:"Service One",canonicalRef:"service:project-1",status:"active",providerCapabilities:["crm"],sourceRefs:["project:source"]};
 
-function auth(action,targetProjectId){return {authorizationRef:`auth:${action}`,ownerId:"owner-1",projectId:"project-1",action,...(targetProjectId?{targetProjectId}: {})};}
+function auth(action,targetProjectId){return {authorizationRef:`evd_lifecycle-${action}`,ownerId:"owner-1",projectId:"project-1",action,...(targetProjectId?{targetProjectId}: {})};}
 
 test("P12.8 future specialist types register without changing Command Center truth ownership",()=>{
   const registry=new SpecialistLifecycleRegistry();

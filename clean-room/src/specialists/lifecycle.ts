@@ -1,3 +1,5 @@
+import { assertIdentifierKind } from "../kernel/identifiers.js";
+
 export type SpecialistLifecycleStatus = "active" | "dormant" | "archived" | "replaced";
 export type SpecialistProviderHealth = "available" | "degraded" | "unavailable";
 
@@ -144,7 +146,13 @@ export class SpecialistLifecycleRegistry {
   }
 
   private assertAuthorization(authorization: SpecialistLifecycleAuthorization, project: SpecialistLifecycleProject, action: SpecialistLifecycleAuthorization["action"], targetProjectId?: string): void {
-    if (!authorization.authorizationRef.trim() || authorization.ownerId !== project.ownerId || authorization.projectId !== project.projectId || authorization.action !== action || (targetProjectId !== undefined && authorization.targetProjectId !== targetProjectId)) throw new Error("specialist lifecycle action requires exact owner/project/action authorization");
+    try {
+      assertIdentifierKind(authorization.authorizationRef, "evidence");
+      if (authorization.authorizationRef !== authorization.authorizationRef.trim()) throw new Error("canonical evidence reference cannot contain surrounding whitespace");
+    } catch {
+      throw new Error("specialist lifecycle action requires exact owner/project/action authorization with canonical evidence reference");
+    }
+    if (authorization.ownerId !== project.ownerId || authorization.projectId !== project.projectId || authorization.action !== action || (targetProjectId !== undefined && authorization.targetProjectId !== targetProjectId)) throw new Error("specialist lifecycle action requires exact owner/project/action authorization");
   }
 
   private replace(current: SpecialistLifecycleProject, next: SpecialistLifecycleProject): SpecialistLifecycleProject {
