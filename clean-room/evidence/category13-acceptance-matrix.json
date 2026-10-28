@@ -1,0 +1,575 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_ISOLATED_ANALYTICS",
+  "authorityReconciliation": {
+    "path": "roadmap/master-build-plan-owner-review/21_ECOSYSTEM_INTELLIGENCE_ROADMAP_RECONCILIATION_2026-10-25.md",
+    "line": 164,
+    "text": "### Category 13 \u2014 Analytics/observability/recommendations/self-audit"
+  },
+  "phases": [
+    {
+      "id": "P13.1",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 305,
+          "text": "- `P13.1` \u2014 Metric registry, semantic truth, calibration, and cognitive/ecosystem health metrics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 759,
+          "text": "### P13.1 \u2014 Metric registry and semantic truth"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 216,
+          "text": "## 11. Uncertainty propagation and calibration"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 626,
+          "text": "## 38. Cognitive and ecosystem health"
+        }
+      ],
+      "requirements": [
+        "stable identity/version/name/meaning/owner/domain",
+        "units/type/formula/aggregation/numerator-denominator/direction/range",
+        "source/provenance/evidence and truth class",
+        "event/processing time/windows/freshness",
+        "zero/unknown/N/A/absent/deleted/stale/conflicting semantics",
+        "applicability/privacy/dependencies/lifecycle/supersession",
+        "calibration/drift and fourteen cognitive/ecosystem health definitions",
+        "no incompatible units/windows/versions or semantic collisions"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/metrics.ts",
+        "clean-room/src/analytics/reliability.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-1-semantic-metrics.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.2",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 306,
+          "text": "- `P13.2` \u2014 Events, logs, traces, evidence, and learning-trace observability"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 763,
+          "text": "### P13.2 \u2014 Events, logs, traces, and evidence observability"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 560,
+          "text": "## 33. Trace fabric"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 659,
+          "text": "## 41. Automatic documentation and explainability"
+        }
+      ],
+      "requirements": [
+        "correlation/trace IDs and parent-child exact versions",
+        "request/context/policy/router/specialist/method/tool/provider/evidence/verifier/state/outcome/learning/promotion/transfer/procedure/rollback/metric linkage",
+        "PIF.9 owner reuse and explainability",
+        "privacy-safe metadata/redaction and retention",
+        "owner/company/project/Brain isolation"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/observability.ts",
+        "clean-room/src/analytics/privacy-instrumentation.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-2-scoped-trace.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.3",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 307,
+          "text": "- `P13.3` \u2014 Reliability, performance, drift, and ecosystem-health observability"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 767,
+          "text": "### P13.3 \u2014 Reliability and performance observability"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 585,
+          "text": "## 35. Architecture and configuration drift detection"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 626,
+          "text": "## 38. Cognitive and ecosystem health"
+        }
+      ],
+      "requirements": [
+        "observed versus inferred versus unknown health",
+        "availability/latency/errors/queue/retries/provider/resource/cache/update/SLO candidates",
+        "provider/model/method/data/ontology/configuration drift and revalidation pressure",
+        "evidence-scoped cognitive/ecosystem health; no invented healthy values"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/reliability.ts",
+        "clean-room/src/analytics/intelligence-governance.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-3-health-observability.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.4",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 308,
+          "text": "- `P13.4` \u2014 Project, roadmap, and portfolio analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 771,
+          "text": "### P13.4 \u2014 Project, roadmap, and portfolio analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 305,
+          "text": "## 17. Outcome learning and decision quality"
+        }
+      ],
+      "requirements": [
+        "closure/evidence-derived progress and trusted denominators",
+        "project versus Agency separation",
+        "cycle/block/owner-wait intervals and throughput",
+        "dependencies/blockers/milestones/risk/resources/delivery state",
+        "authorized portfolio metadata rollups without private content"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/portfolio.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-4-portfolio-evidence.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.5",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 309,
+          "text": "- `P13.5` \u2014 Agency worker, queue, routing, concurrency, and routing-regret analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 775,
+          "text": "### P13.5 \u2014 Agency worker, queue, routing, and concurrency analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 376,
+          "text": "## 21. Routing intelligence"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 626,
+          "text": "## 38. Cognitive and ecosystem health"
+        }
+      ],
+      "requirements": [
+        "worker/lead health state, utilization and claim latency",
+        "queue depth/age, leases/fencing/stale-write/conflict/verifier-reject/steal/fairness/backpressure/resource/retry/failover observations",
+        "decision-time routing alternatives and expected regret",
+        "paired comparable benchmark regret separated from causal outcomes",
+        "unknown cost/resource/missing telemetry and no raw task payloads"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/agency.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-5-agency-routing.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.6",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 310,
+          "text": "- `P13.6` \u2014 Recommendations, outcomes, decision-quality, and transfer-effect measurement"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 779,
+          "text": "### P13.6 \u2014 Recommendations and outcome measurement"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 305,
+          "text": "## 17. Outcome learning and decision quality"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 342,
+          "text": "## 19. Transferability Map"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 358,
+          "text": "## 20. Cross-Brain learning"
+        }
+      ],
+      "requirements": [
+        "recommendation evidence/confidence/status/criteria/outcome linkage",
+        "predicted versus actual metrics with exact units/versions",
+        "decision-time snapshot and no hindsight evidence",
+        "process quality separate from luck/external/controllable factors/confounders",
+        "measured calibration/Brier/gap/sample limits",
+        "transfer source/recipient/version baseline, benefits/regressions and attribution limits",
+        "advisory only; no automatic installation/global promotion"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/recommendations.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-6-outcome-calibration.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.7",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 311,
+          "text": "- `P13.7` \u2014 Build-history lessons, failure intelligence, negative knowledge, and procedure-learning registry"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 783,
+          "text": "### P13.7 \u2014 Build-history lessons and improvement registry"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 324,
+          "text": "## 18. Negative Knowledge Library"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 398,
+          "text": "## 22. Ecosystem Intelligence Compiler"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 461,
+          "text": "## 26. Procedure learning"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 530,
+          "text": "## 30. Failure intelligence"
+        }
+      ],
+      "requirements": [
+        "build/failure lessons and immutable version/source evidence",
+        "failure class/precursors/impact/root-cause confidence/recovery/detection-recovery timing",
+        "recurrence and prevention proposals/affected promotions",
+        "reuse canonical PIF.8 negative knowledge with scope",
+        "reference P12.8 procedure authority, version performance/outcome/applicability history",
+        "compiler source material only; no competing procedure authority or silent mutations"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/lessons.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-7-failure-procedure.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.8",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 312,
+          "text": "- `P13.8` \u2014 Security, trust, and correlated-error analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 787,
+          "text": "### P13.8 \u2014 Security and trust analytics"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 548,
+          "text": "## 31. Correlated-error detection"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 626,
+          "text": "## 38. Cognitive and ecosystem health"
+        }
+      ],
+      "requirements": [
+        "auth/security/protected/scope/provider/permission/export/deploy/publish/incident signal analysis",
+        "payload minimization and exact scope",
+        "shared source/model/provider/benchmark/assumption/artifact common-mode detection",
+        "transitive independence discount and disagreement",
+        "no authorization or automatic response path"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/security.ts",
+        "clean-room/src/analytics/intelligence-governance.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-8-security-correlation.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.9",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 313,
+          "text": "- `P13.9` \u2014 Self-audit, compliance, Architecture Critic, and Ecosystem Optimizer governance"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 791,
+          "text": "### P13.9 \u2014 Self-audit and compliance engine"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 585,
+          "text": "## 35. Architecture and configuration drift detection"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 647,
+          "text": "## 39. Architecture Critic"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 653,
+          "text": "## 40. Ecosystem Optimizer"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 659,
+          "text": "## 41. Automatic documentation and explainability"
+        }
+      ],
+      "requirements": [
+        "self-audit requirement/implementation/evidence truth states",
+        "missing/unverified/broken/dormant-regressed findings with severity/owner",
+        "intended-versus-observed architecture/version/dependency/drift/duplication/coupling",
+        "declared evidence-backed routing/calibration/method/correlation/resource/cost/latency/transfer criteria",
+        "bounded revocable critic/optimizer proposals and exact input provenance",
+        "owner-readable canonical documentation; no execution/promotion/runtime/policy mutation"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/self-audit.ts",
+        "clean-room/src/analytics/intelligence-governance.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-9-governance-critic.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    },
+    {
+      "id": "P13.10",
+      "authority": [
+        {
+          "path": "roadmap/master-build-plan-owner-review/22_COMPLETE_199_PHASE_CURRENT_MASTER_ROADMAP_AUDIT_CANDIDATE.md",
+          "line": 314,
+          "text": "- `P13.10` \u2014 Evaluator/benchmark, analytics-accuracy, privacy, and scale suite"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md",
+          "line": 795,
+          "text": "### P13.10 \u2014 Analytics accuracy, privacy, and scale suite"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 285,
+          "text": "## 16. Evaluator Registry and benchmark fabric"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 305,
+          "text": "## 17. Outcome learning and decision quality"
+        },
+        {
+          "path": "roadmap/master-build-plan-owner-review/20_ECOSYSTEM_INTELLIGENCE_CONTINUOUS_LEARNING_ARCHITECTURE_AMENDMENT.md",
+          "line": 554,
+          "text": "## 32. Transaction and side-effect integrity"
+        }
+      ],
+      "requirements": [
+        "canonical PIF.7 evaluator identity/version/protocol/owner/target/criterion/bounds/environment/bias/sample/repeat/data-class rules",
+        "synthetic/replay/simulation/shadow/canary/staging/production/external/owner evidence distinctions",
+        "recalibration/invalidation and self-evaluator safeguards",
+        "formula/unit/window/version/duplicate/missing/stale/contradiction/uncertainty accuracy",
+        "scope/privacy/redaction/retention/export/historical replay",
+        "source-digest binding/idempotency/competing writes/immutable database history",
+        "100k-event representative scale and deterministic recalculation",
+        "C2 authorization and Category 12/PIF regressions"
+      ],
+      "implementation": [
+        "clean-room/src/analytics/evaluators.ts",
+        "clean-room/src/analytics/accuracy.ts",
+        "clean-room/src/analytics/storage.ts",
+        "clean-room/src/analytics/access.ts",
+        "clean-room/src/analytics/contracts.ts",
+        "clean-room/src/analytics/storage.ts"
+      ],
+      "tests": [
+        "clean-room/tests/p13-10-adversarial-scale.test.mjs",
+        "clean-room/tests/p13-10-evaluator-accuracy.test.mjs",
+        "clean-room/tests/p13-10-gate-integrity.test.mjs",
+        "clean-room/tests/p13-durable-analytics.test.mjs"
+      ],
+      "database": [
+        "supabase/migrations/20261026030000_pif7_evaluator_outcomes.sql",
+        "supabase/migrations/20261026143000_p13_analytics_observability_governance.sql",
+        "supabase/migrations/20261028030000_p13_scoped_analytics_contracts.sql"
+      ],
+      "gate": "npm run gate:category13",
+      "status": "PASS",
+      "laterOwnership": [
+        "C14 advanced recovery/migration/chaos/scale/dormant-future acceptance",
+        "C15 final integration/traceability/production/owner/device acceptance"
+      ]
+    }
+  ]
+}

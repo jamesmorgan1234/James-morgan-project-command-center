@@ -1,4 +1,4 @@
-export type EvaluationEvidenceClass = "synthetic" | "simulation" | "shadow" | "canary" | "production" | "external" | "owner_verified";
+export type EvaluationEvidenceClass = "synthetic" | "replay" | "staging" | "simulation" | "shadow" | "canary" | "production" | "external" | "owner_verified";
 export type EvaluationDecision = "better" | "worse" | "equivalent" | "insufficient_evidence";
 export type OutcomeTruth = "observed" | "verified" | "calculated" | "synthetic";
 
@@ -19,6 +19,7 @@ export interface EvaluatorDefinition {
   readonly acceptanceAuthority: "command_center" | "owner";
   readonly calibrationEvidenceRefs: readonly string[];
   readonly active: boolean;
+  readonly protocol?: EvaluatorProtocol;
 }
 
 export interface DecisionTimeSnapshot {
@@ -87,8 +88,10 @@ export function validateEvaluator(definition: EvaluatorDefinition): EvaluatorDef
   score(definition.minimumConfidence, "Evaluator minimum confidence");
   unique(definition.biasRisks, "Evaluator bias risks", true); unique(definition.requiredDataClasses, "Evaluator required data"); unique(definition.prohibitedDataClasses, "Evaluator prohibited data");
   unique(definition.applicableDomains, "Evaluator domains", true); unique(definition.applicableTaskClasses, "Evaluator task classes", true); unique(definition.calibrationEvidenceRefs, "Evaluator calibration evidence", true);
+  if (definition.protocol) validateEvaluatorProtocol(definition.protocol);
+  if (definition.minimumEvidenceClasses.some(c=>!["synthetic","replay","simulation","shadow","canary","staging","production","external","owner_verified"].includes(c))) throw new Error("Unknown evaluator benchmark class");
   if (definition.minimumEvidenceClasses.length === 0) throw new Error("Evaluator minimum evidence classes are required");
-  return Object.freeze({ ...definition, biasRisks: Object.freeze([...definition.biasRisks]), requiredDataClasses: Object.freeze([...definition.requiredDataClasses]), prohibitedDataClasses: Object.freeze([...definition.prohibitedDataClasses]), applicableDomains: Object.freeze([...definition.applicableDomains]), applicableTaskClasses: Object.freeze([...definition.applicableTaskClasses]), minimumEvidenceClasses: Object.freeze([...definition.minimumEvidenceClasses]), calibrationEvidenceRefs: Object.freeze([...definition.calibrationEvidenceRefs]) });
+  return immutable({ ...definition, ...(definition.protocol?{protocol:structuredClone(definition.protocol)}:{}), biasRisks: Object.freeze([...definition.biasRisks]), requiredDataClasses: Object.freeze([...definition.requiredDataClasses]), prohibitedDataClasses: Object.freeze([...definition.prohibitedDataClasses]), applicableDomains: Object.freeze([...definition.applicableDomains]), applicableTaskClasses: Object.freeze([...definition.applicableTaskClasses]), minimumEvidenceClasses: Object.freeze([...definition.minimumEvidenceClasses]), calibrationEvidenceRefs: Object.freeze([...definition.calibrationEvidenceRefs]) });
 }
 
 export class EvaluatorRegistry {
@@ -109,6 +112,13 @@ export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: Dec
   unique(snapshot.constraintRefs, "Decision snapshot constraints");
   unique(snapshot.evidenceRefs, "Decision snapshot evidence", true);
   if (snapshot.evaluatorKey !== definition.key || snapshot.evaluatorVersion !== definition.version) throw new Error("Decision snapshot must pin exact evaluator version");
+  if (new Set(observations.map(o=>o.runRef)).size!==observations.length || new Set(observations.map(o=>o.repeatIndex)).size!==observations.length) throw new Error("Duplicate evaluator run/repeat");
+  for(const o of observations){
+    if(!Number.isSafeInteger(o.sampleCount)||o.sampleCount<1||!Number.isSafeInteger(o.repeatIndex)||o.repeatIndex<1||!Number.isFinite(o.baselineScore)||!Number.isFinite(o.candidateScore)) throw new Error("Invalid evaluator observation");
+    score(o.confidence,"Observation confidence");unique(o.sourceRefs,"Observation sources",true);
+    if(!["synthetic","replay","simulation","shadow","canary","staging","production","external","owner_verified"].includes(o.evidenceClass))throw new Error("Unknown observation benchmark class");
+    if(o.synthetic&&["production","external","owner_verified"].includes(o.evidenceClass))throw new Error("Synthetic observation cannot claim production class");
+  }
   const reasons: string[] = [];
   if (!definition.active) reasons.push("evaluator_inactive");
   if (!definition.applicableDomains.includes(context.domain)) reasons.push("domain_out_of_scope");
@@ -116,6 +126,7 @@ export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: Dec
   if (observations.length < definition.repeatCount) reasons.push("repeatability_not_met");
   const totalSamples = observations.reduce((sum, item) => sum + item.sampleCount, 0); if (totalSamples < definition.minimumSampleCount) reasons.push("sample_count_not_met");
   const observedClasses = [...new Set(observations.map((item) => item.evidenceClass))];
+  if(observedClasses.length>1)reasons.push("benchmark_classes_require_separate_results");
   if (!definition.minimumEvidenceClasses.every((required) => observedClasses.includes(required))) reasons.push("required_evidence_class_missing");
   const productionEvidence = observations.some((item) => !item.synthetic && (item.evidenceClass === "production" || item.evidenceClass === "external" || item.evidenceClass === "owner_verified"));
   if (!productionEvidence) reasons.push("no_production_grade_outcome_evidence");
@@ -132,9 +143,30 @@ export function evaluateCandidate(definition: EvaluatorDefinition, snapshot: Dec
 }
 
 export function validateActualOutcome(outcome: ActualOutcomeRecord): ActualOutcomeRecord {
+  invariant(["observed","verified","calculated","synthetic"].includes(outcome.truth)&&["none","possible","supported"].includes(outcome.causalAttribution),"invalid_outcome_truth");
   if (!outcome.id.trim() || !outcome.evaluationRunRef.trim() || !outcome.candidateRef.trim() || !outcome.metricKey.trim()) throw new Error("Outcome identity/run/candidate/metric are required");
   ts(outcome.observedAt, "Outcome observedAt"); if (!Number.isFinite(outcome.value)) throw new Error("Outcome value must be finite"); unique(outcome.sourceRefs, "Outcome sources", true); unique(outcome.confounders, "Outcome confounders");
   if (outcome.truth === "synthetic" && outcome.causalAttribution !== "none") throw new Error("Synthetic result cannot claim causal production outcome");
   if (outcome.causalAttribution === "supported" && (outcome.truth !== "verified" || outcome.confounders.length > 0)) throw new Error("Supported causality requires verified outcome with resolved confounders");
   return Object.freeze({ ...outcome, sourceRefs: Object.freeze([...outcome.sourceRefs]), confounders: Object.freeze([...outcome.confounders]) });
+}
+
+import {authorizeAnalytics,analyticsEvidence,immutable,invariant,timestamp,version as contractVersion,canonicalAnalyticsJson,type AnalyticsScope,type AnalyticsAccess} from './contracts.js';
+export interface EvaluatorProtocol {readonly targetRef:string;readonly criterionRef:string;readonly benchmarkRef:string;readonly benchmarkVersion:number;readonly environment:string;readonly minimumDelta:number;readonly maximumDelta:number;readonly invalidationTriggers:readonly string[];readonly revalidateAfter:string}
+function validateEvaluatorProtocol(p:EvaluatorProtocol):void {contractVersion(p.benchmarkVersion);invariant(p.targetRef.trim()&&p.criterionRef.trim()&&p.benchmarkRef.trim()&&p.environment.trim()&&Number.isFinite(p.minimumDelta)&&Number.isFinite(p.maximumDelta)&&p.minimumDelta<=p.maximumDelta&&p.invalidationTriggers.length>0,'invalid_evaluator_protocol');timestamp(p.revalidateAfter);}
+export function scopedEvaluation(access:AnalyticsAccess,scope:AnalyticsScope,registry:EvaluatorRegistry,key:string,version:number,snapshot:DecisionTimeSnapshot,observations:readonly EvaluationObservation[],context:{domain:string;taskClass:string;dataClasses:readonly string[];candidateOwnerRef:string;calibrationScore:number;environment:string;benchmarkRef:string;benchmarkVersion:number;invalidated:boolean}){
+ authorizeAnalytics(access,'read',scope,key);const definition=registry.get(key,version);invariant(definition&&registry.get(key)?.version===version&&definition.protocol,'current_protocol_evaluator_required');const p=definition.protocol;
+ invariant(!context.invalidated&&timestamp(p.revalidateAfter)>timestamp(access.now())&&timestamp(snapshot.capturedAt)<=timestamp(access.now()),'evaluator_stale_invalidated_or_future');
+ invariant(p.environment===context.environment&&p.benchmarkRef===context.benchmarkRef&&p.benchmarkVersion===context.benchmarkVersion&&p.targetRef===snapshot.candidateRef,'evaluator_benchmark_target_mismatch');
+ analyticsEvidence(access,scope,[...new Set([...definition.calibrationEvidenceRefs,...snapshot.evidenceRefs,...observations.flatMap(o=>o.sourceRefs)])]);
+ invariant(definition.requiredDataClasses.every(c=>context.dataClasses.includes(c))&&!definition.prohibitedDataClasses.some(c=>context.dataClasses.includes(c)),"evaluator_data_class_boundary");
+ const result=evaluateCandidate(definition,snapshot,observations,context);const withinBounds=result.meanDelta>=p.minimumDelta&&result.meanDelta<=p.maximumDelta;
+ return immutable({...result,sampleCount:observations.reduce((n,o)=>n+o.sampleCount,0),meanDelta:observations.length&&result.evidenceClasses.length===1?result.meanDelta:null,reasonCodes:withinBounds?result.reasonCodes:[...result.reasonCodes,"benchmark_bounds_not_met"],benchmarkRef:p.benchmarkRef,benchmarkVersion:p.benchmarkVersion,environment:p.environment,productionObserved:observations.some(o=>o.evidenceClass==='production'&&!o.synthetic),acceptanceEligible:result.acceptanceEligible&&withinBounds,requiresRecalibration:context.calibrationScore<definition.minimumConfidence,authorizationGranted:false});
+}
+export interface EvaluatorStore {append(scope:AnalyticsScope,definition:EvaluatorDefinition,evidenceIds:readonly string[],expectedVersion:number|null):Promise<EvaluatorDefinition>}
+export async function registerDurableEvaluator(access:AnalyticsAccess,registry:EvaluatorRegistry,store:EvaluatorStore,scope:AnalyticsScope,definition:EvaluatorDefinition,evidenceIds:readonly string[]):Promise<EvaluatorDefinition>{
+ const {metadataOnly}=await import('./storage.js');metadataOnly(definition);
+ authorizeAnalytics(access,'record',scope,definition.key);const d=validateEvaluator(definition),current=registry.get(d.key);invariant(d.protocol&&d.version===(current?current.version+1:1),'evaluator_registration_version_protocol_required');analyticsEvidence(access,scope,evidenceIds);
+ const {analyticsDigest}=await import('./contracts.js');const digest=await analyticsDigest({id:d.key,version:d.version,scope,kind:'evaluator',definition:d});invariant(evidenceIds.some(id=>access.evidence(id)?.record.subjectId===d.key&&access.evidence(id)?.record.configDigest===digest),'evaluator_source_receipt_digest_mismatch');
+ authorizeAnalytics(access,'record',scope,d.key);const stored=await store.append(scope,d,evidenceIds,current?.version??null);invariant(canonicalAnalyticsJson(stored)===canonicalAnalyticsJson(d),'evaluator_store_contract_conflict');registry.register(stored);return stored;
 }
