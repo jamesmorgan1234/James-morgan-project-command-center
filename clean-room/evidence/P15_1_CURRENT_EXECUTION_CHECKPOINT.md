@@ -1,3 +1,70 @@
+# Current continuation checkpoint — owner-requested handoff, Category 15 remains INCOMPLETE
+
+This section supersedes the prior session's stop reason below. The owner requested
+that current work be saved and returned to Normal Chat; no percentage reserve applies.
+Starting live HEAD/tree: `20974954b15dcc5f30c9c2065df29875148dedae` /
+`cbac606358de248c3716312a2f94332d3f08399c`.
+
+## Completed authority repair
+
+Commit `d4918bf32a8cece1a88f68bb77bd194b148effe6`,
+`fix: reject competing current architecture authority declarations`, tree
+`63dedddde0c41cfe3bbabb062bccc1b097f6986f`.
+The audit previously returned success when the manifest named the historical roadmap
+while current Roadmap 22 remained intact. The regression reproduced that success (one
+failing test). A narrow existing-authority assertion now requires James Morgan's
+CURRENT_BUILD_AUTHORITY manifest and the current classification overlay to name the
+same existing Roadmap 22 / Manifest 23, with immutable historical identity rules.
+It creates no new architecture authority and preserves the A06-to-A00 historical overlay.
+Local build: 1569 PASS, 0 FAIL, 0 SKIP. Exact-head CI run `40682765639`, job
+`122797375423`: two 1569-test runs passed; authority/type/core QA/release/PWA passed;
+final C15 gate failed on incomplete requirement closure; production was skipped.
+
+## Registry replacement defect repaired in this checkpoint
+
+`Registry.replace()` accepted NaN/infinite/fractional/unsafe versions because it only
+compared with the prior version. A new deterministic test first failed (missing expected
+exception). Replacement now applies the same positive safe-integer invariant as
+registration before mutation. Rejection preserves the prior record; valid v1-to-v2
+replacement remains supported. No schema/migration changed.
+New regression covers NaN, both infinities, fractions, unsafe integer, numeric string,
+and absent version. Focused suite: 18 PASS / 0 FAIL / 0 SKIP.
+Final local `npm run build`: 1571 PASS / 0 FAIL / 0 SKIP, module/browser builds PASS.
+Typecheck, architecture, legacy and authority audits passed. Automated repository scan
+passed with 0 secrets/violations; semantic every-file review remains false.
+`git diff --check` passed. These local results are not exact-head CI or phase certification.
+
+## Qualification refresh is explicitly unfinished
+
+The saved native inventory remains 5852 total / 136 recorded VERIFIED / 0 N/A /
+5716 UNVERIFIED. No new row has been promoted. The 136 mappings are preserved with
+historical proof, but changed registry/test bytes invalidate their former global source
+qualification. Current strict traceability and C15 gates correctly fail until fresh
+observed source CI and its actual repository audit refresh qualification. Do not describe
+the recorded 136 as all currently requalified before that refresh.
+
+Native tests now exercise this truthful intermediate state: they still reject all
+fabricated/copy claims and require changed-byte errors plus blocked advancement when
+old proof is stale. After requalification they require deterministic native equality.
+Counts follow the explicit reviewed mappings rather than being frozen forever at 136.
+
+Next Normal Chat action: refetch authorized branch, inspect the new registry commit's
+exact-head CI, obtain the matching actual repository audit, and run existing assembler
+with `--baseline-audit=<actual audit>` and `--qualification=<actual observed CI JSON>`.
+Commit only truthful refreshed native evidence using expected-head protection.
+Then resume semantic mappings CCR-00001, CCR-00003, CCR-00004. Their mechanisms were
+reviewed, but new mappings have NOT yet been added. Continue the unresolved inventory
+and only advance after P15.1 genuinely closes. A preliminary observation of shallow
+object freezing in generic ledger/registry records is NOT a reproduced or certified
+finding; investigate separately before making any immutability claim or repair.
+
+No main/production/Supabase/auth/protected assets, migrations, external provider or
+financial operations, deployment/promotion, spending or paid activation occurred.
+
+---
+
+# Historical prior-session checkpoint (retained provenance)
+
 # P15.1 current execution checkpoint — PARTIAL, NOT CATEGORY 15 COMPLETION
 
 Scope: authorized isolated branch `build/spec-lock-v2-clean-room` only.

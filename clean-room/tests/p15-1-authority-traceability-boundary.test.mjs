@@ -45,3 +45,12 @@ test('P15.1 live authority audit rejects an intact current roadmap with a compet
   assert.equal(JSON.parse(result.stdout).ok,false);
  }finally{rmSync(temporary,{recursive:true,force:true});}
 });
+
+test('P15.1 requirement roadmap implementation test acceptance chain rejects each missing closure link',async()=>{
+ const {validateRequirementClosure}=await import('../dist/kernel/index.js');
+ const row={requirementId:'CCR-00003',authoritativeSource:'owner:F-0003',capabilityKey:'requirements',owningPhase:'P15.1',dependencyIds:['C0'],implementationRefs:['kernel:evidence'],positiveTestRefs:['test:positive'],negativeTestRefs:['test:negative'],failureTestRefs:['test:failure'],evidenceIds:['evd_chain-proof'],truthState:'verified'};
+ assert.equal(validateRequirementClosure(row).requirementId,'CCR-00003');
+ for(const field of ['authoritativeSource','owningPhase'])assert.throws(()=>validateRequirementClosure({...row,[field]:''}),/required/);
+ for(const field of ['implementationRefs','positiveTestRefs','negativeTestRefs','failureTestRefs','evidenceIds'])assert.throws(()=>validateRequirementClosure({...row,[field]:[]}),/Verified requirement requires/);
+ assert.equal(validateRequirementClosure({...row,truthState:'implemented_unverified',evidenceIds:[]}).truthState,'implemented_unverified');
+});
