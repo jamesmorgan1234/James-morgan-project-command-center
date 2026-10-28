@@ -17,6 +17,7 @@ import {reviewedBrainGapRecommendationMappings} from './p15-1-reviewed-brain-gap
 import {reviewedBrainPlatformMapping} from './p15-1-reviewed-brain-platform-mapping.mjs';
 import {reviewedBrainGovernanceMappings} from './p15-1-reviewed-brain-governance-mappings.mjs';
 import {reviewedVoiceMappings} from './p15-1-reviewed-voice-mappings.mjs';
+import {reviewedAgentExecutionMappings} from './p15-1-reviewed-agent-execution-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -49,7 +50,8 @@ export function currentReviewedMappings(root){
   ...reviewedBrainGapRecommendationMappings(),
   ...reviewedBrainPlatformMapping(),
   ...reviewedBrainGovernanceMappings(),
-  ...reviewedVoiceMappings()
+  ...reviewedVoiceMappings(),
+  ...reviewedAgentExecutionMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
