@@ -1,3 +1,21 @@
+# P15.1 SECTION 1 — QUALIFICATION REPAIR COMPLETE (NORMAL CHAT)
+
+This section supersedes the stale qualification warning immediately below while preserving the prior handoff as historical provenance. James's locked Category 15 workflow applies: one numbered section per session, frequent durable saves, and STOP after this section until James sends `C`.
+
+Qualification source remains implementation HEAD `dfa203cfa1f9aaa3c3e29c51829667f9023734a5`, tree `d9ec165981cc17669d90484ffdf5a6ef6c043a9c`, with independently observed GitHub Actions run `40716109152`, job `122914120327`: completed overall FAILURE; two full 1,597-test executions PASS with 0 FAIL / 0 SKIP; authority, typecheck, core QA, release and PWA PASS; final Category 15 gate FAIL; production verification SKIPPED. Overall failure is intentionally preserved and is not presented as global success.
+
+Normal Chat regenerated the exact source audit from committed Git bytes in a clean GitHub runner. Source audit: 1,643 tracked / 1,643 scanned, automated every-file scan complete, semantic every-file review FALSE, zero secret findings, zero violations. Correct immutable authority digests were independently rechecked: REV3 `b24b1cd5b9a7b3c875aa4c9d9095a50c753906b7da3812b8ce0bcad66c63b5b0`; current manifest 23 `3aee5bd4ee94c1561fb0b13b13d3360fc27007343c943fa15e501eeb7e21cd4b`.
+
+The existing `p15-1-assemble-current-traceability.mjs` was run with that matching source audit and the observed CI metadata, using its checkpoint-safe `--write` path. Native evidence was published in commit `2c7ed0cc52e48b077ca5e1ca6014cc84a2e2ef54` (`evidence: refresh P15.1 source qualification`). Result: structure valid; metadata valid; 5,852 rows; 164 VERIFIED; 0 NOT_APPLICABLE; 5,688 UNVERIFIED; 0 structurally invalid rows; repositoryEvidenceValid TRUE; zero repository evidence errors; zero qualification errors.
+
+The strict traceability gate was then executed and correctly remained `SOURCE_RECOVERED_TRACEABILITY_OPEN`, repositoryEvidenceValid TRUE, zero repository errors, advancementAllowed FALSE because 5,688 requirements remain unresolved. This is the required Section 1 outcome: qualification is repaired without falsely closing P15.1.
+
+No requirement mapping was added or promoted in Section 1. No implementation/runtime, schema, migration, main, production, production Supabase/authentication, protected asset, deployment/promotion, external communication, financial operation, paid activation or spending occurred.
+
+NEXT LOCKED SESSION: P15.1 Section 2 — Authority / governance / control. Select the next coherent 20–40 related unresolved requirements, review semantic implementation/test/evidence individually, repair any real defect, verify, save, and STOP. Do not begin Section 2 until James sends `C`.
+
+---
+
 # OWNER-REQUESTED STOP — saved Normal Chat handoff
 
 James explicitly requested stopping Work and handing back to Normal Chat. This supersedes earlier continuous-Work/no-handoff directions. No additional implementation is authorized by this checkpoint.
