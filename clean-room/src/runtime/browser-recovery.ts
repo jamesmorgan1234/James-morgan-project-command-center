@@ -7,22 +7,26 @@ type RecoveryMessageType = "QUERY_KNOWN_GOOD" | "RESTORE_KNOWN_GOOD" | "MARK_REL
 async function sendRecoveryMessage(type: RecoveryMessageType, releaseId?: string): Promise<boolean> {
   if (!("serviceWorker" in navigator)) return false;
   try {
-    const registration = await navigator.serviceWorker.ready;
-    const target = navigator.serviceWorker.controller ?? registration.active;
-    if (!target) return false;
     return await new Promise<boolean>((resolve) => {
-      const channel = new MessageChannel();
+      let channel: MessageChannel | undefined;
       let settled = false;
       const finish = (value: boolean): void => {
         if (settled) return;
         settled = true;
         clearTimeout(timer);
-        channel.port1.close();
+        try { channel?.port1.close(); } catch {}
         resolve(value);
       };
       const timer = window.setTimeout(() => finish(false), RECOVERY_MESSAGE_TIMEOUT_MS);
-      channel.port1.onmessage = (event) => finish(event.data?.ok === true);
-      target.postMessage(releaseId ? { type, releaseId } : { type }, [channel.port2]);
+      void (async () => {
+        const registration = await navigator.serviceWorker.ready;
+        if (settled) return;
+        const target = navigator.serviceWorker.controller ?? registration.active;
+        if (!target) { finish(false); return; }
+        channel = new MessageChannel();
+        channel.port1.onmessage = (event) => finish(event.data?.ok === true);
+        target.postMessage(releaseId ? { type, releaseId } : { type }, [channel.port2]);
+      })().catch(() => finish(false));
     });
   } catch {
     return false;

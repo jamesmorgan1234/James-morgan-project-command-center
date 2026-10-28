@@ -271,14 +271,15 @@ export function classifyRecoveryFailure(error: unknown): RecoveryFailureCode {
 }
 
 export function createRecoveryShellPlan(reason: RecoveryFailureCode, knownGoodFallbackAvailable: boolean): RecoveryShellPlan {
+  const safeReason: RecoveryFailureCode = typeof reason === "string" && Object.hasOwn(RECOVERY_MESSAGES, reason) ? reason : "startup_failed";
   return Object.freeze({
     mode: "recovery",
-    reason,
-    message: RECOVERY_MESSAGES[reason],
+    reason: safeReason,
+    message: RECOVERY_MESSAGES[safeReason],
     retryAllowed: true,
     knownGoodFallbackAvailable,
     privateDataAllowed: false,
-    diagnostic: Object.freeze({ code: reason, privacySafe: true as const, ownerStateMutationAllowed: false as const })
+    diagnostic: Object.freeze({ code: safeReason, privacySafe: true as const, ownerStateMutationAllowed: false as const })
   });
 }
 

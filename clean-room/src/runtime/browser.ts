@@ -594,6 +594,10 @@ function renderUnknownHeader(path: string): HTMLElement {
 let activeProvider: RuntimeSnapshotProvider | undefined;
 let renderGeneration = 0;
 let signedOut = false;
+function startupFailed(): boolean {
+  return (window as Window & { __commandCenterStartupFailed?: boolean }).__commandCenterStartupFailed === true;
+}
+window.addEventListener("command-center-startup-failed", () => { renderGeneration += 1; });
 window.addEventListener("command-center-owner-signout", () => {
   signedOut = true;
   renderGeneration += 1;
@@ -628,14 +632,16 @@ function startPwaUpdates(): void {
 export async function renderApplication(provider?: RuntimeSnapshotProvider): Promise<void> {
   const root = document.querySelector<HTMLElement>("#app");
   if (!root) throw new Error("Missing #app root");
-  if (signedOut) return;
+  if (signedOut || startupFailed()) return;
   const generation = ++renderGeneration;
-  root.replaceChildren(el("p", "boot-state__message", "Starting Command Center."));
+  const pending = el("p", "boot-state__message", "Starting Command Center.");
+  pending.dataset.commandCenterBootstrap = "";
+  root.replaceChildren(pending);
   activeProvider ??= provider ?? providerFromDocument(document);
   let snapshot: CommandCenterRuntimeSnapshot;
   try { snapshot = await activeProvider.load(); }
   catch { snapshot = createDisconnectedRuntimeSnapshot(); }
-  if (signedOut || generation !== renderGeneration) return;
+  if (signedOut || startupFailed() || generation !== renderGeneration) return;
   syncShell(snapshot);
   if (snapshot.connection.state === "disconnected") {
     document.title = "Command Center";

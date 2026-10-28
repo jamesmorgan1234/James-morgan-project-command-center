@@ -1,3 +1,15 @@
+# P15.1 startup/recovery repairs saved — qualification pending; evidence-first throughput
+
+Parent acf1100b5eec02889c436c9d0f7d4c2d3396ff33 / ed759614cca3cec1c6c4dd8689e07da3fdad390b. That saved 206-row ledger CI 40752614648 / job 123043025974 passes type/authority/core/release/PWA and fails only the still-open Category15 gate; production skipped. Current startup/recovery review covers CCR-01954..01985: 18 individually supported candidates, 14 explicit gaps, recorded in evidence/P15_1_STARTUP_RECOVERY_BATCH_REVIEW.md. Do not count 224 certified before exact-source qualification.
+
+Coherent source repairs: 15000ms startup watchdog, stale-generation/private render fence, bootstrap marker during awaited runtime load, worker readiness deadline included in existing 1500ms message timeout, allowlisted diagnostic reason normalization. Existing owner gates and protected operations unchanged. Strict module build passed; focused startup/privacy/recovery 25 PASS / 0 FAIL / 0 SKIP; architecture/legacy/scoped diff checks PASS. Baseline watchdog regressions 0 PASS / 2 FAIL; worker-ready deadline regression failed before repair. A fixture syntax error was corrected and not counted as a product failure/pass.
+
+James explicitly instructed faster evidence-first execution: prioritize requirements already satisfied by existing implementation/tests, record genuine gaps separately, reuse shared proof only when semantically valid, and group qualification so each defect does not stall unrelated review. No new repairs merely because rows are unverified. Save review decisions along the way; do not stop at routine commits.
+
+NEXT: inspect this source exact-head CI, qualify the 18 mappings using guarded tooling, preserve repository/qualification errors 0 and P15.1 open. While CI runs, read the next coherent data-foundation batch using existing tests; then persist mapping-only batches against unchanged source-bound evidence. Do not begin P15.2+. No main, production, Supabase/auth policies, protected assets, deployment, external communications or paid usage touched; no spending.
+
+---
+
 # P15.1 session continuation — portable 206-row qualification saved
 
 Qualifying source 73005f745c31e7028c1422b76b5c34159f3b3d19 / tree 802cdef1049aca6ce7b8a25e7a1a8268684e737f. CI 40751637885 / job 123039585615 completed overall FAILURE: two 1620 PASS / 0 FAIL / 0 SKIP executions; authority/type/core QA/release/PWA PASS; final Category15 FAIL; production SKIPPED. The previous Windows-path ledger defect is repaired; actual canonical REV3 source references now contain only the authoritative filename on both platforms.

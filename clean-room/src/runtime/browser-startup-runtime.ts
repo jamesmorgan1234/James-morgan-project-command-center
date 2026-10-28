@@ -6,6 +6,7 @@ import { installBrowserRecoveryShell, markCurrentReleaseKnownGood } from "./brow
 interface StartupWindow extends Window {
   __commandCenterStartupInstalled?: boolean;
   __commandCenterStartupConfigurationValid?: boolean;
+  __commandCenterStartupFailed?: boolean;
 }
 
 const runtimeWindow = window as StartupWindow;
@@ -30,6 +31,8 @@ function renderSafeBootstrap(state: "loading" | "degraded" | "failed", message: 
 }
 
 function renderRecovery(reason: RecoveryFailureCode): void {
+  runtimeWindow.__commandCenterStartupFailed = true;
+  window.dispatchEvent(new Event("command-center-startup-failed"));
   const node = bootstrapNode();
   if (!node) return;
   installBrowserRecoveryShell(node, reason);
@@ -40,7 +43,7 @@ export function installBrowserStartupBoundary(): boolean {
   runtimeWindow.__commandCenterStartupInstalled = true;
 
   const coordinator = new BrowserStartupCoordinator();
-  const generation = coordinator.begin().generation;
+  const generation = coordinator.begin({ timeoutMs: 15000, onTimeout: () => renderRecovery("startup_failed") }).generation;
   renderSafeBootstrap("loading", coordinator.current.message);
 
   try {
