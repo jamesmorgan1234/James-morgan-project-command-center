@@ -47,6 +47,10 @@ test("P15.1 A00 owner requirements and truth dimensions prove CCR-01886 through 
   requirements.registerOwnerRequirement({ id: "req_old", sourceId: "src_owner", statement: "Keep free-first controls." });
   requirements.registerOwnerRequirement({ id: "req_new", sourceId: "src_owner", statement: "Keep normal chat first." });
   assert.deepEqual(requirements.active().map((entry) => entry.id).sort(), ["req_new", "req_old"]);
+  requirements.remove("req_old");
+  assert.deepEqual(requirements.active().map((entry) => entry.id), ["req_new"]);
+  assert.equal(requirements.require("req_old").state, "removed");
+  assert.equal(requirements.history("req_old").at(-1)?.state, "removed");
 
   const truth = new GovernedTruthStore();
   truth.create("project:alpha", { desired: "enabled" });
