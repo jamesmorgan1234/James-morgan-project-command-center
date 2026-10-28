@@ -1,3 +1,41 @@
+# Active P15.1 seam — authority ledger value isolation repaired; qualification refresh pending
+
+Parent live source: 01615bb28262aa5923e7726a9d2298c207e0c805, tree
+3bfb17e5a6ca6115f0f4068ba38b0b00a63f8b21. Its CI run 40699626484 / job
+122855579012 completed with two 1571-test PASS executions, core/type/authority/release/
+PWA PASS, final C15 FAIL on unresolved closure, production SKIPPED.
+
+The earlier shallow-value observation is now reproduced: three regressions failed
+(0 PASS / 3 FAIL). Caller input and public returned nested values could alter recorded
+owner authority without a new version, and executable/uncloneable values were accepted.
+VersionedLedger now snapshots values using structuredClone before insertion and
+returns detached snapshots from append/revoke/current/governing/history/conflict reads.
+Uncloneable values reject before any mutation, including during conflict resolution.
+Existing scope, version, precedence, supersession, reason and conflict gates remain.
+No new ledger, model, schema or migration was introduced. Current source consumers use
+the generic ledger only through this existing canonical kernel API.
+
+Guarded focused tests: 18 PASS / 0 FAIL / 0 SKIP, including all three new regressions,
+existing authority ledgers, retained A00 mapping assertions and native proof rejection.
+TypeScript module compile and strict noEmit typecheck PASS; architecture/legacy checks
+PASS. A line-ending-only diff issue was corrected before publication; final diff check
+must pass. Test execution disables telemetry and all Node network I/O via an untracked
+verification-only preloader, never product code or assertions.
+
+Native inventory remains 5852 / 154 recorded VERIFIED / 0 N/A / 5698 UNVERIFIED.
+The 154 mappings and original historical evidence remain preserved. The ledger runtime
+change intentionally invalidates prior global source binding until its new exact-head
+CI and actual source audit refresh qualification. Do not describe historical recorded
+VERIFIED rows as freshly qualified on changed ledger bytes. No later phase advanced.
+
+Next: inspect this repair's exact-head CI, fix real failures, refresh native evidence
+using matching source byte audit and independently observed CI, then continue P15.1.
+The no-unapproved-feature/runtime governance seam and original unresolved rows remain
+next candidates for semantic review, not certified findings. No percentage stop rule.
+Main/production/Supabase/auth/protected assets untouched, no spending/paid service,
+financial actions, merge, force-push, manual deployment/promotion or external messages.
+
+---
 # Latest active Category 15 checkpoint — P15.1 remains open
 
 Live starting source: `4226643182cdbe1fd1164c30a4da31ae6a70dbfe`, tree

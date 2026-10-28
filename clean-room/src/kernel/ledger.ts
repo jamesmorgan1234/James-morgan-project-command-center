@@ -45,7 +45,12 @@ function normalizeEntry<T>(entry: LedgerEntry<T>): LedgerRecord<T> {
   if (conflictsWith.some((id) => !id.trim())) throw new Error(`Ledger conflict references cannot be empty for ${entry.id}`);
   if (entry.supersedes !== undefined) assertNonEmpty(entry.supersedes, "Ledger supersedes");
   if (entry.resolutionReason !== undefined) assertNonEmpty(entry.resolutionReason, "Ledger resolutionReason");
-  return Object.freeze({ ...entry, precedence, conflictsWith: Object.freeze(conflictsWith) });
+  return Object.freeze({ ...entry, value: structuredClone(entry.value), precedence, conflictsWith: Object.freeze(conflictsWith) });
+}
+
+/** Each public value is detached from canonical history; readonly typing alone is insufficient at runtime. */
+function snapshotRecord<T>(record: LedgerRecord<T>): LedgerRecord<T> {
+  return Object.freeze({ ...record, value: structuredClone(record.value), conflictsWith: Object.freeze([...record.conflictsWith]) });
 }
 
 export class VersionedLedger<T> {
@@ -63,7 +68,7 @@ export class VersionedLedger<T> {
         if (existing.scope !== normalized.scope) throw new Error(`Conflict reference ${conflictId} is outside scope ${normalized.scope}`);
       }
       this.#entries.push(normalized);
-      return normalized;
+      return snapshotRecord(normalized);
     }
 
     if (normalized.state === "current") {
@@ -79,7 +84,7 @@ export class VersionedLedger<T> {
     }
 
     this.#entries.push(normalized);
-    return normalized;
+    return snapshotRecord(normalized);
   }
 
   recordConflict(entry: Omit<LedgerEntry<T>, "state"> & { readonly conflictsWith: readonly string[] }): LedgerRecord<T> {
@@ -115,11 +120,12 @@ export class VersionedLedger<T> {
     const currentIndex = this.#entries.findIndex((existing) => existing.id === current.id);
     this.#entries[currentIndex] = Object.freeze({ ...current, state: "revoked" as const, revokedBy: normalized.id });
     this.#entries.push(normalized);
-    return normalized;
+    return snapshotRecord(normalized);
   }
 
   current(scope: string): LedgerRecord<T> | undefined {
-    return [...this.#entries].reverse().find((entry) => entry.scope === scope && entry.state === "current");
+    const record = [...this.#entries].reverse().find((entry) => entry.scope === scope && entry.state === "current");
+    return record ? snapshotRecord(record) : undefined;
   }
 
   governing(scope: string): LedgerRecord<T> | undefined {
@@ -129,10 +135,10 @@ export class VersionedLedger<T> {
   }
 
   unresolvedConflicts(scope?: string): readonly LedgerRecord<T>[] {
-    return Object.freeze(this.#entries.filter((entry) => entry.state === "unresolved_conflict" && (scope === undefined || entry.scope === scope)));
+    return Object.freeze(this.#entries.filter((entry) => entry.state === "unresolved_conflict" && (scope === undefined || entry.scope === scope)).map(snapshotRecord));
   }
 
   history(scope: string): readonly LedgerRecord<T>[] {
-    return Object.freeze(this.#entries.filter((entry) => entry.scope === scope));
+    return Object.freeze(this.#entries.filter((entry) => entry.scope === scope).map(snapshotRecord));
   }
 }
