@@ -33,7 +33,7 @@ test('P15.1 owner device blocker rejects invalid environment blank reason and ac
 
 test('P15.1 owner device blocker keeps owner action verification pending before same-session resume',()=>{
  assert.match(blockerRuntime,/'Owner reports required action completed'/);
- assert.match(blockerRuntime,/update public\.agent_sessions set status='active',exact_next_action='Verify user action: '\|\|st\.title where id=st\.session_id and owner_id=u/);
+ assert.match(blockerRuntime,/update public\.agent_sessions\s+set status='active',\s*exact_next_action='Verify user action: '\|\|st\.title,\s*updated_at=now\(\)\s+where id=st\.session_id and owner_id=u;/);
  assert.match(blockerRuntime,/update public\.agent_session_projects set state='active' where session_id=st\.session_id and owner_id=u and project_id=st\.project_id/);
  assert.match(blockerRuntime,/'user_action_claimed','Owner reports user-only requirement completed; downstream verification still required'/);
  assert.match(blockerRuntime,/return jsonb_build_object\('ok',true,'step_id',st\.id,'verification_pending',true\)/);
