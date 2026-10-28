@@ -47,10 +47,10 @@ test("P12.7 roadmap repository deployment provider analytics support and monetiz
   assert.throws(()=>validateSoftwareDeploymentEvidence({id:"deployment-cross",ownerId:"owner-1",projectId:"project-1",companyId:"company-1",repositoryRef:"wrong-repo",commitRef:"abc123",environmentRef:"preview",deploymentProviderRef:"deploy-provider-1",deploymentRef:"deployment:2",sourceRefs:["deploy:cross"]},bound),/exact project repository and provider/i);
 });
 
-test("P12.7 durable software-platform evidence is isolated append-only recovery-capable and exact-deployment bound",()=>{
+test("P12.7 durable software-platform evidence preserves company source context and exact deployment binding",()=>{
   const sql=readFileSync(new URL("../../supabase/migrations/20261026141000_p12_7_software_platform_specialist.sql",import.meta.url),"utf8");
-  assert.match(sql,/command_center_software_platform_history/i);
-  assert.match(sql,/command_center_software_platform_state_history/i);
+  assert.match(sql,/command_center_software_platform_history[\s\S]*company_ref text not null[\s\S]*source_refs jsonb not null/i);
+  assert.match(sql,/command_center_software_platform_state_history[\s\S]*company_ref text not null[\s\S]*source_refs jsonb not null/i);
   assert.match(sql,/command_center_software_platform_deployments/i);
   assert.match(sql,/Software-platform evidence is immutable/i);
   assert.match(sql,/is_command_center_authorized/i);
