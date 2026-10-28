@@ -1,3 +1,4 @@
+import {assertCurrentArchitectureAuthority} from './p15-1-current-architecture-authority.mjs';
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -52,6 +53,7 @@ if (classificationOverlayValid) {
     errors.push({ label: "current-requirement-classification-overlay", message: "CCR-00001 classification correction does not preserve the historical A06/F-0001 anchor and effective A00 authority" });
   }
 }
+check("single-current-architecture-authority", () => assertCurrentArchitectureAuthority(manifest, classificationOverlay));
 const expanded = check("phase-manifest", () => expandPhaseManifest(manifest));
 
 if (expanded) {
