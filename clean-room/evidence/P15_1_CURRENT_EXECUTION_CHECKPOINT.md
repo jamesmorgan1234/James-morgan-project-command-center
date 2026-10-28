@@ -1,27 +1,15 @@
-# P15.1 current execution checkpoint — 392 VERIFIED
+# P15.1 current checkpoint — 398 VERIFIED
 
-Pre-work live HEAD a66d5acc98387bb88f710250e96e574ce0082811 / tree 2744793de39d043bafb315cc457b520ed17bd28f. Refetched and preserved. This checkpoint supersedes older count/resume notes; previous work is retained in Git history.
+Pre-qualification live HEAD 6ec8179789fa9bef351c11bfc984f6a701d3bd9f / tree ef8cbe279cdeb752249abbb8ab2fa2ffe0b7195e. Review/mappings were saved remotely before qualification. Previous nine-row qualification a5a5e6a52960645b8860fd545d66a0ed63e86d6a / tree 09d7d931fec0f80a07859e052a662f0aa9293a9a preserved.
 
-## Saved qualified state
-5852 total; 392 VERIFIED; 5460 UNVERIFIED; 0 NOT_APPLICABLE; 0 structurally invalid. repositoryEvidence.valid true; repository-evidence errors 0; qualification errors 0. P15.1 SOURCE_RECOVERED_TRACEABILITY_OPEN, closureComplete false, advancementAllowed false. No P15.2 advancement.
+Actual generated totals: 5852 total / 398 VERIFIED / 5454 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid true; repository-evidence errors 0; qualification errors 0. P15.1 SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete false, advancementAllowed false. No P15.2 advancement.
 
-Exactly nine newly qualified rows: CCR-00446, CCR-00447, CCR-00448, CCR-00449, CCR-00450, CCR-00451, CCR-00452, CCR-00454, CCR-00455. CCR-00453 and CCR-00456..00460 remain UNVERIFIED with reasons in P15_1_00446_00460_REVIEW_GAPS.md. Canonical text/version and all previous VERIFIED dispositions preserved by deterministic assertions.
+New six: CCR-00426, CCR-00428, CCR-00429, CCR-00432, CCR-00437, CCR-00439. Exact six-ID delta, canonical wording, preserved earlier certifications and native counts assertions PASS. Review: P15_1_00426_00465_CONTROL_PROGRESS_REVIEW.md. Exact implementation/test references in p15-1-reviewed-agency-control-progress-mappings.mjs. Current batch is mapping-only: no implementation/test/schema/migration changes. Existing source-bound proof remains a66d5acc98387bb88f710250e96e574ce0082811; GitHub Actions 40787480238 / job 123164185374, two 1630 PASS/0 FAIL/0 SKIP executions, core/authority/type/release/PWA pass, final Category15 gate fails, production skipped. No new runtime test execution claimed for this six-row metadata qualification.
 
-## Actual source-bound proof
-Source a66d5acc98387bb88f710250e96e574ce0082811. GitHub Actions 40787480238, job 123164185374. Observed completed overall FAILURE; core QA, authority, typecheck, module/browser builds, artifact/release and PWA lifecycle SUCCESS. Two complete module-suite executions each 1630 PASS / 0 FAIL / 0 SKIP; dedicated owner/device proof 3 PASS. Final Category15 nonproduction gate FAILS because P15.1 legitimately remains open; production verification SKIPPED. Do not claim global green CI.
-Repository audit at same source: 1722 tracked/scanned, zero secret findings, zero violations; semantic every-file review FALSE (P15.2 not done).
+Executed: node scripts/p15-1-assemble-current-traceability.mjs --write (exit 0, 398, zero errors); node scripts/category15-traceability-gate.mjs (expected exit 1, open inventory, repository errors zero); exact delta/count/text/preservation assertions PASS; git diff --check PASS. Previous nine-row source requalification and 4 focused traceability tests passed as recorded in Git history at a5a5e6a. Source audit there scanned 1722 tracked files, zero violations/secrets, semantic every-file review FALSE.
 
-## Commands actually run
-- node scripts/category15-repository-audit.mjs --write: exit 0.
-- assembleCurrentTraceability guarded preview with exact source audit and independently observed CI packet: exact nine-ID delta, 392/5460 counts, all prior certifications/source text preserved, six parked rows unchanged, zero errors: PASS.
-- node scripts/p15-1-assemble-current-traceability.mjs --baseline-audit=category15-repository-audit.json --qualification=/tmp/p151-qualification-a66.json --write: exit 0, 392, zero qualification/repository errors.
-- node scripts/category15-traceability-gate.mjs: expected exit 1, unresolved inventory, no advancement.
-- Node22.23.4 node --test --test-reporter=spec tests/p15-1-current-traceability.test.mjs: 4 PASS / 0 FAIL / 0 SKIP.
-- git diff --check: PASS.
-No runtime, schema, migration, test or reviewed-mapping changes required for this nine-row qualification. Native ledger generated only through guarded tooling.
+Remaining parked from saved 40-row inspection: CCR-00427, CCR-00433..00436, CCR-00438, CCR-00440..00445, CCR-00453, CCR-00456..00460, CCR-00463. Exact per-row reasons in P15_1_00426_00465_CONTROL_PROGRESS_REVIEW.md and P15_1_00446_00460_REVIEW_GAPS.md. All remain UNVERIFIED, never N/A. Earlier preserved certifications 00430/00431/00461/00462/00464/00465 were not recounted as new.
 
-## Next exact action
-Use saved P15_1_BATCH_00426_00465_EXACT_INSPECTION.md and live dispositions. Do not redo owner/device discovery. Review remaining recovery/control CCR-00426..00432, plan/progress CCR-00433..00445 and Normal Chat/Work CCR-00461..00465 against existing implementation and named tests. Some may already be certified; preserve them. A: directly proven => map/qualify; B: missing proof => targeted proof or precise parked reason; C: genuine implementation gap => smallest correct scoped repair. No adjacency/keyword-only promotions. Park weak rows without blocking supported ones; then continue remaining inventory in coherent 20–40-row batches.
+NEXT: select next coherent unresolved batch after CCR-00465; inspect exact wording, existing owning modules and named positive/negative tests together; A map proven existing behavior, B park exact missing proof or add targeted proof when worthwhile, C smallest genuine implementation repair. Do not redo completed inspection. Continue P15.1 only; save review before qualification, qualify through native guarded tool, verify remote state, next batch. Do not treat broad tests as semantic proof. Revisit parked rows when shared proof makes that useful.
 
-## Boundaries
-P15.1 only. No main, production, Supabase production/authentication, protected release assets, deployment, merge, force push, publishing, promotions, external communications, financial actions, paid services or spending. James final authority; Command Center permanent top Brain; ARO subordinate. At visible 8% remaining reserve stop new work, save/refetch and give one complete normal-chat handoff. If James says stop, immediately enter checkpoint/handoff mode.
+No main, production, Supabase production/auth, protected assets, deployment, publishing, promotion, merge, force push, external communications, financial operation, paid service or spending. James final authority; Command Center permanent top Brain. At visible 8% reserve or James saying stop, immediately checkpoint and provide one self-contained normal-chat handoff. Usage percentage is not exposed by current tools; no low-usage warning observed.
