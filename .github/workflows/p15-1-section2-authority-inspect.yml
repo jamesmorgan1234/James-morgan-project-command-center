@@ -1,4 +1,4 @@
-name: P15.1 PWA Lifecycle Tranche Qualification
+name: P15.1 Brain Recommendation Proof Index
 
 on:
   push:
@@ -11,53 +11,32 @@ permissions:
   contents: write
 
 jobs:
-  qualify:
+  inspect:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           fetch-depth: 2
-      - name: Guarded assemble and qualify corrected PWA lifecycle tranche
+      - name: Persist exact existing Brain/context/recommendation test proof names
         shell: bash
         run: |
           set -euo pipefail
-          cd clean-room
-          node scripts/p15-1-assemble-current-traceability.mjs --write | tee /tmp/p151-assemble.json
           node <<'NODE'
-          const fs=require('fs');
-          const d=JSON.parse(fs.readFileSync('evidence/category15-requirement-traceability.json','utf8'));
-          const rows=new Map(d.requirements.map(r=>[r.id,r]));
-          const expected=['CCR-00306','CCR-00307','CCR-00309','CCR-00312','CCR-00316'];
-          const s=d.closureSummary;
-          if(s.verifiedCount!==309||s.unverifiedCount!==5543||s.notApplicableCount!==0||s.structurallyInvalidRowCount!==0) throw new Error('Unexpected ledger totals '+JSON.stringify(s));
-          if(!d.repositoryEvidence?.valid||d.repositoryEvidence.errors?.length) throw new Error('Repository evidence invalid '+JSON.stringify(d.repositoryEvidence?.errors));
-          if(d.assembly?.qualificationErrors?.length) throw new Error('Qualification errors '+JSON.stringify(d.assembly.qualificationErrors));
-          for(const id of expected) if(rows.get(id)?.truthState!=='VERIFIED') throw new Error(id+' did not qualify');
-          for(const id of ['CCR-01875','CCR-01908']) if(rows.get(id)?.truthState!=='UNVERIFIED') throw new Error(id+' exclusion changed');
-          console.log('QUALIFIED_PWA_ROWS='+expected.join(','));
-          console.log('VERIFIED='+s.verifiedCount+' UNVERIFIED='+s.unverifiedCount);
+          const fs=require('fs'),path=require('path');
+          const root='clean-room/tests';
+          const terms=/(brain|provider|model|capabilit|prompt|policy|context|project|portfolio|fact|idea|rule|decision|histor|provenance|citation|confidence|knowledge|contradict|stale|recommendation|dedup|lifecycle|impact|cost|risk|success|outcome)/i;
+          const lines=['# P15.1 existing Brain/context/recommendation proof index',''];
+          for(const name of fs.readdirSync(root).sort()){
+            if(!name.endsWith('.mjs')) continue;
+            const p=path.join(root,name), text=fs.readFileSync(p,'utf8');
+            const found=[...text.matchAll(/test\(["'`]([^"'`]+)["'`]/g)].map(m=>m[1]).filter(t=>terms.test(t));
+            if(found.length){lines.push(`## ${name}`); for(const t of found)lines.push(`- ${t}`); lines.push('');}
+          }
+          fs.writeFileSync('clean-room/evidence/P15_1_BRAIN_RECOMMENDATION_EXISTING_PROOF_INDEX.md',lines.join('\n')+'\n');
           NODE
-          set +e
-          node scripts/category15-traceability-gate.mjs | tee /tmp/p151-gate.json
-          gate=$?
-          set -e
-          if [ "$gate" -ne 1 ]; then echo "Expected open P15.1 gate exit 1, got $gate"; exit 1; fi
-          cat > evidence/P15_1_PWA_LIFECYCLE_TRANCHE_QUALIFICATION.md <<EOF
-          # P15.1 PWA lifecycle tranche qualification
-
-          Trigger source commit: ${GITHUB_SHA}
-
-          Guarded assembly qualified exactly five additional existing-proof rows: CCR-00306, CCR-00307, CCR-00309, CCR-00312, CCR-00316.
-
-          Ledger totals: 5,852 canonical / 309 VERIFIED / 5,543 UNVERIFIED / 0 NOT_APPLICABLE / 0 structurally invalid. repositoryEvidence.valid=true; repository-evidence errors=0; qualification errors=0.
-
-          P15.1 remains SOURCE_RECOVERED_TRACEABILITY_OPEN; closureComplete=false; advancementAllowed=false. CCR-01875 and CCR-01908 remain UNVERIFIED. No later phase advanced.
-
-          This tranche changes evidence mappings/generated traceability only; no runtime, service-worker, schema, protected asset, production, deployment, merge, paid service or spending action is claimed.
-          EOF
           git diff --check
           git config user.name jamesmorgan1234
           git config user.email JAMESMORGAN1234@YAHOO.COM
-          git add evidence/category15-requirement-traceability.json evidence/P15_1_PWA_LIFECYCLE_TRANCHE_QUALIFICATION.md
-          git commit -m "evidence: qualify 309 P15.1 requirements with PWA lifecycle proofs"
+          git add clean-room/evidence/P15_1_BRAIN_RECOMMENDATION_EXISTING_PROOF_INDEX.md
+          git commit -m "evidence: index existing P15.1 Brain recommendation proofs"
           git push origin HEAD:build/spec-lock-v2-clean-room
