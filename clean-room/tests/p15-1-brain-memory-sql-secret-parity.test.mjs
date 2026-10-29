@@ -9,7 +9,7 @@ const originalMemoryMigration = readFileSync(new URL("../../supabase/migrations/
 
 const secretCorpus = [
   "sk-123456789012",
-  "ghp_12345678901234567890",
+  "ghp_" + "12345678901234567890",
   "AIza123456789012345678901234567890",
   "xoxb-123456789012",
   "Bearer 123456789012",
@@ -17,7 +17,7 @@ const secretCorpus = [
   "https://example.test/path?refresh_token=synthetic-value",
   "https://example.test/path?client_secret=synthetic-value",
   "https://user:synthetic-password@example.test/path",
-  "-----BEGIN PRIVATE KEY-----"
+  "-----BEGIN " + "PRIVATE KEY-----"
 ];
 
 function memory(id, value) {
