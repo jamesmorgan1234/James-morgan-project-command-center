@@ -91,3 +91,13 @@ test('generated content identifies its originating project and project ownership
  assert.equal(registry.get(generated.id).projectId,'project:alpha');
  assert.throws(()=>new AssetRegistry().register({...generated,id:'content:blank-project',projectId:' '}),/project scope must be nonblank/);
 });
+
+test('generated content exposes approval status and preserves approval transitions by version',()=>{
+ const registry=new AssetRegistry();
+ const generated={...base,id:'content:generated-approval',generation:{toolRef:'tool:writer-v1'}};
+ registry.register(generated);
+ assert.equal(registry.get(generated.id).approvalState,'unreviewed');
+ registry.replace({...generated,version:2,sourceRef:'source:v2',approvalState:'approved'},1);
+ assert.equal(registry.get(generated.id).approvalState,'approved');
+ assert.deepEqual(registry.history(generated.id).map((record)=>record.approvalState),['unreviewed','approved']);
+});
