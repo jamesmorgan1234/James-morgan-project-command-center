@@ -4,13 +4,12 @@ Status: IN PROGRESS — evidence review checkpoint only. This file does not prom
 
 Authorized branch: `build/spec-lock-v2-clean-room`
 
-Live branch state at checkpoint start:
-- HEAD: `b3a1a81dbb4469272080f11a1c05b42e871fb33f`
-- tree: `9fe24cd82788779035506ad807c0736f3e8a1ff8`
+Current reviewed source checkpoint:
+- HEAD: `154870aa5bb91f2451261fe14845c278061e709e`
+- tree: `b3158f8466d2a37ff139086bb2c2494c6d31035e`
+- commit: `ci: preserve authoritative P15.1 review slice`
 
 ## Authoritative master-ledger wording
-
-Recovered from the authoritative master requirements artifact before repository evidence review:
 
 - CCR-00688 — **Reproducible build.**
 - CCR-00689 — **Locked dependency versions.**
@@ -31,55 +30,63 @@ Recovered from the authoritative master requirements artifact before repository 
 - CCR-00704 — **Owner acceptance stored separately from automated QA.**
 - CCR-00705 — **No release called complete because CI alone is green.**
 
-## Confirmed findings preserved at this checkpoint
+## Superseded findings corrected
 
-### CCR-00688 / CCR-00689 — reproducibility and dependency locking
+The earlier checkpoint statement that the clean-room had no lockfile and CI used ad-hoc `npm install --no-save` is historical and no longer current.
 
-Current clean-room `package.json` pins the direct development dependencies to exact versions, but the reviewed clean-room tree has no dependency lockfile. Reviewed CI workflows install the dependencies with `npm install ... --no-save` rather than consuming a committed lockfile with `npm ci`.
+Current repository state includes:
+- committed `clean-room/package-lock.json`;
+- exact direct dependency pins in `clean-room/package.json`;
+- `npm ci --no-audit --no-fund --ignore-scripts` in the clean-room QA workflow;
+- source qualification now includes the package files, TypeScript build configuration and the exact clean-room QA workflow;
+- artifact audit recomputes release manifest/build hashes from actual artifact bytes;
+- a direct two-isolated-workspace reproducibility proof;
+- a release-feature activation gate requiring exact live-verified healthy deployment evidence;
+- direct AI-provider/memory and voice-provider/intent invariance tests.
 
-Conservative verdict at this checkpoint: **do not promote CCR-00688 or CCR-00689 from documentation alone.** The complete dependency graph is not presently locked/reproducible by repository evidence reviewed so far.
+## Current exact-head CI observation
 
-### CCR-00692 — PR review boundary
+Run `40845541896`, job `123351996341`, source `154870aa5bb91f2451261fe14845c278061e709e` passed:
+- locked dependency installation;
+- authority/type/legacy/repository gates;
+- source-bound repository audit preservation;
+- authoritative P15.1 row-slice export;
+- owner-blocker proof;
+- module/browser builds;
+- embedded module tests;
+- artifact audit;
+- second exact-head module test gate;
+- release-candidate audit;
+- observed PWA lifecycle.
 
-The reviewed branch/repository state did not establish an enforced PR-review boundary. Process documentation by itself is not direct enforcement evidence. The branch inspection performed during this review reported the target branch protection state as not protected.
+The final Category 15 nonproduction phase gate remains intentionally red because P15.1 traceability is still open. Production-live verification is skipped. Core-QA success must not be reported as full release completion.
 
-Conservative verdict at this checkpoint: **do not promote CCR-00692 from process documentation alone.**
+## Current row dispositions from semantic review
 
-### CCR-00694 / CCR-00695 / CCR-00696 — current deployment proof
+Strong repository-proof candidates now prepared for guarded source-bound qualification:
+- CCR-00688 — direct two-clean-build byte/digest equality proof.
+- CCR-00689 — lockfile + exact pins + `npm ci` + lifecycle-script suppression.
+- CCR-00690 — artifact identity recomputed from actual bytes with corruption/substitution failure cases.
+- CCR-00700 — feature activation requires exact live-verified healthy deployment evidence before mutation.
 
-Repository-local production/live evidence exists, but the reviewed evidence is tied to a recorded deployment/release state rather than the present P15.1 review HEAD `b3a1a81dbb4469272080f11a1c05b42e871fb33f`.
+Still parked in this slice:
+- CCR-00691 — branch isolation needs complete write/deployment-boundary proof.
+- CCR-00692 — branch is not protected; enforced PR review boundary is not established.
+- CCR-00693 — pre-deploy validation has substantial existing proof but is not promoted in this checkpoint.
+- CCR-00694–CCR-00696 — require current authorized deployment/live evidence; historical evidence is not reused as present proof.
+- CCR-00697 — PWA lifecycle exists; exact version-consistency proof requires separate semantic certification.
+- CCR-00698 — regression suites pass but row-specific qualification is deferred from this first repair batch.
+- CCR-00699 — rollback machinery exists but full current rollback-candidate validity is not yet certified.
+- CCR-00701–CCR-00702 — current candidate-bound release notes / known-issues artifacts are not yet established.
+- CCR-00703 — physical-device acceptance remains a real owner/device boundary.
+- CCR-00704 — no current separately stored owner-acceptance receipt is fabricated.
+- CCR-00705 — automated QA and release completion are separated, but row-specific qualification is deferred from this first repair batch.
 
-Conservative verdict at this checkpoint: **do not use older deployment evidence to promote deployment verification, exact production-SHA verification, or post-deployment health verification for the present HEAD.**
+## Counts
 
-### Human/device acceptance boundary
-
-The existing release evidence deliberately distinguishes automated CI evidence from owner/physical-device acceptance. CI success must not be treated as a substitute for human/device signoff.
-
-No human/device requirement is being promoted by this checkpoint.
-
-## Evidence still under direct review
-
-The following rows require row-by-row repository proof review before any mapping change is made:
-
-- CCR-00690 artifact hashes
-- CCR-00691 branch isolation
-- CCR-00693 pre-deploy validation
-- CCR-00697 PWA version verification
-- CCR-00698 regression verification
-- CCR-00699 rollback candidate validation
-- CCR-00700 feature-flag activation only after deployment health passes
-- CCR-00701 release notes
-- CCR-00702 known issues
-- CCR-00703 physical-device acceptance
-- CCR-00704 owner acceptance stored separately from automated QA
-- CCR-00705 no release called complete because CI alone is green
-
-## Traceability counts
-
-No traceability promotion is made by this checkpoint. Counts therefore remain:
-
+No guarded qualification has been performed by this review commit. Until the native assembler successfully requalifies rows against an independently observed exact-head CI source audit, counts remain:
 - VERIFIED: 525
 - UNVERIFIED: 5,327
 - TOTAL: 5,852
 
-This checkpoint exists so the authoritative wording and confirmed negative findings survive any chat/runtime interruption before the final CCR-00688–CCR-00705 review is completed.
+Do not begin P15.2. Do not deploy, promote, merge, change production/Supabase/auth, fabricate owner/device acceptance, or weaken the phase gate.
