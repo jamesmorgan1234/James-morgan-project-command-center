@@ -50,3 +50,18 @@ test('CCR-02173 several AI ecosystems can coexist and route distinct canonical c
   assert.equal(routes.route({capability:'brain:vision',allowPaid:false,maxPrivacy:'local',preferQuality:true}).providerKey,'provider:ecosystem-b');
   assert.equal(routes.route({capability:'brain:code',allowPaid:false,maxPrivacy:'private_remote',preferQuality:true}).providerKey,'provider:ecosystem-c');
 });
+
+test('CCR-02174 synthetic AI-provider replacement preserves canonical capability routing',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route('ai-route:replacement-a','provider:synthetic-a','synthetic-model-a','remote','remote',['brain:reason']));
+  const before=routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true});
+  assert.equal(before.providerKey,'provider:synthetic-a');
+  assert.deepEqual(before.capabilities,['brain:reason']);
+
+  routes.remove('ai-route:replacement-a');
+  routes.register(route('ai-route:replacement-b','provider:synthetic-b','synthetic-model-b','self_hosted','local',['brain:reason']));
+  const after=routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true});
+  assert.equal(after.providerKey,'provider:synthetic-b');
+  assert.deepEqual(after.capabilities,['brain:reason']);
+  assert.notEqual(after.modelId,before.modelId);
+});
