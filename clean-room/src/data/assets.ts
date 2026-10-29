@@ -16,6 +16,12 @@ export interface AssetQaReceipt {
   readonly evidenceId: string;
 }
 
+export interface AssetMediaMetadata {
+  readonly durationMs?: number;
+  readonly widthPx?: number;
+  readonly heightPx?: number;
+}
+
 export interface AssetRecord {
   readonly id: string;
   readonly ownerId: string;
@@ -25,6 +31,7 @@ export interface AssetRecord {
   readonly generation?: AssetGenerationProvenance;
   readonly qa?: AssetQaReceipt;
   readonly mediaType?: string;
+  readonly mediaMetadata?: AssetMediaMetadata;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -55,6 +62,15 @@ function validateMediaType(mediaType: string | undefined): void {
   if (!/^[a-z0-9][a-z0-9!#$&^_.+-]*\/[a-z0-9][a-z0-9!#$&^_.+-]*$/i.test(mediaType)) throw new Error("Asset media type must be a canonical type/subtype value without parameters");
 }
 
+function validateMediaMetadata(mediaMetadata: AssetMediaMetadata | undefined, mediaType: string | undefined): void {
+  if (mediaMetadata === undefined) return;
+  if (mediaMetadata === null || typeof mediaMetadata !== "object" || Array.isArray(mediaMetadata)) throw new Error("Asset media metadata must be an object");
+  if (mediaType === undefined) throw new Error("Asset media metadata requires a media type");
+  const values = [mediaMetadata.durationMs, mediaMetadata.widthPx, mediaMetadata.heightPx];
+  if (values.every((value) => value === undefined)) throw new Error("Asset media metadata requires duration or dimensions");
+  if (values.some((value) => value !== undefined && (!Number.isSafeInteger(value) || value <= 0))) throw new Error("Asset media metadata values must be positive safe integers");
+}
+
 function validateGeneration(generation: AssetGenerationProvenance | undefined): void {
   if (generation === undefined) return;
   if (generation === null || typeof generation !== "object" || Array.isArray(generation)) throw new Error("Asset generation provenance must be an object");
@@ -71,10 +87,12 @@ function validateQa(qa: AssetQaReceipt | undefined): void {
 }
 
 function freezeAsset(record: AssetRecord): AssetRecord {
-  if (record.generation !== undefined && record.qa !== undefined) return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }), qa: Object.freeze({ ...record.qa }) });
-  if (record.generation !== undefined) return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }) });
-  if (record.qa !== undefined) return Object.freeze({ ...record, qa: Object.freeze({ ...record.qa }) });
-  return Object.freeze({ ...record });
+  return Object.freeze({
+    ...record,
+    ...(record.generation === undefined ? {} : { generation: Object.freeze({ ...record.generation }) }),
+    ...(record.qa === undefined ? {} : { qa: Object.freeze({ ...record.qa }) }),
+    ...(record.mediaMetadata === undefined ? {} : { mediaMetadata: Object.freeze({ ...record.mediaMetadata }) })
+  });
 }
 
 function validateAsset(record: AssetRecord): void {
@@ -86,6 +104,7 @@ function validateAsset(record: AssetRecord): void {
   if (record.originRequirementId !== undefined && !record.originRequirementId.trim()) throw new Error("Asset originating requirement must be nonblank");
   if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
   validateMediaType(record.mediaType);
+  validateMediaMetadata(record.mediaMetadata, record.mediaType);
   validateGeneration(record.generation);
   validateQa(record.qa);
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
