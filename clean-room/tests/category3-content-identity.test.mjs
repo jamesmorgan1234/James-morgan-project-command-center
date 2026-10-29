@@ -53,3 +53,17 @@ test('approved historical content version remains identifiable after a newer rev
  assert.equal(registry.get(base.id).version,3);
  assert.equal(registry.get(base.id).approvalState,'unreviewed');
 });
+
+test('superseded content versions remain traceable with their original provenance',()=>{
+ const registry=new AssetRegistry();
+ const v1={...base,sha256:'a'.repeat(64),originalState:'available'};
+ registry.register(v1);
+ registry.replace({...v1,version:2,sourceRef:'source:v2',sha256:'b'.repeat(64)},1);
+ registry.replace({...v1,version:3,sourceRef:'source:v3',sha256:'c'.repeat(64)},2);
+ const history=registry.history(base.id);
+ assert.deepEqual(history.map((record)=>record.sha256),['a'.repeat(64),'b'.repeat(64),'c'.repeat(64)]);
+ assert.deepEqual(history.map((record)=>record.sourceRef),['source:v1','source:v2','source:v3']);
+ assert.equal(history[0].version,1);
+ assert.equal(history[1].version,2);
+ assert.equal(registry.get(base.id).version,3);
+});
