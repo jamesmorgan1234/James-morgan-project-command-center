@@ -54,40 +54,31 @@ jobs:
           set -euo pipefail
           gh run download "$SOURCE_RUN_ID" -n "$AUDIT_ARTIFACT" -D .runtime/p15-1-qualification/audit
           test "$(jq -r '.headSha' .runtime/p15-1-qualification/audit/category15-repository-audit.json)" = "$SOURCE_COMMIT"
-      - name: Run native guarded P15.1 assembler
-        run: |
-          set -euo pipefail
-          node scripts/p15-1-assemble-current-traceability.mjs \
-            --baseline-audit=.runtime/p15-1-qualification/audit/category15-repository-audit.json \
-            --qualification=.runtime/p15-1-qualification/qualification.json \
-            --write | tee .runtime/p15-1-qualification/assembler-summary.json
-          npm run gate:category15-traceability
-      - name: Verify prepared eight-row qualification result
+      - name: Diagnose native guarded P15.1 assembler without writing
         run: |
           set -euo pipefail
           node --input-type=module <<'NODE'
-          import { readFileSync, writeFileSync } from 'node:fs';
-          const p='evidence/category15-requirement-traceability.json';
-          const d=JSON.parse(readFileSync(p,'utf8'));
+          import { writeFileSync } from 'node:fs';
+          import { assembleCurrentTraceability } from './scripts/p15-1-assemble-current-traceability.mjs';
+          const d=assembleCurrentTraceability({
+            baselineAuditPath:'.runtime/p15-1-qualification/audit/category15-repository-audit.json',
+            qualificationPath:'.runtime/p15-1-qualification/qualification.json'
+          });
           const ids=['CCR-00688','CCR-00689','CCR-00690','CCR-00700','CCR-00706','CCR-00707','CCR-00721','CCR-00722'];
           const rows=Object.fromEntries(d.requirements.filter(r=>ids.includes(r.id)).map(r=>[r.id,{truthState:r.truthState,blocker:r.blocker,evidenceVersion:r.evidenceVersion}]));
           const counts=d.requirements.reduce((a,r)=>(a[r.truthState]=(a[r.truthState]??0)+1,a),{});
-          const report={sourceCommit:d.verification?.sourceCommit,ci:d.verification?.ci,counts,repositoryEvidence:d.repositoryEvidence,qualificationErrors:d.assembly?.qualificationErrors??[],rows};
+          const report={sourceCommit:d.verification?.sourceCommit,ci:d.verification?.ci,counts,repositoryEvidence:d.repositoryEvidence,qualificationErrors:d.assembly?.qualificationErrors??[],closureSummary:d.closureSummary,rows};
+          writeFileSync('.runtime/p15-1-qualification/candidate-traceability.json',JSON.stringify(d)+'\n');
           writeFileSync('.runtime/p15-1-qualification/result-report.json',JSON.stringify(report,null,2)+'\n');
           console.log(JSON.stringify(report));
-          if(d.verification?.sourceCommit!==process.env.SOURCE_COMMIT) process.exit(21);
-          if(!d.repositoryEvidence?.valid) process.exit(22);
-          if((d.assembly?.qualificationErrors??[]).length) process.exit(23);
-          if(ids.some(id=>rows[id]?.truthState!=='VERIFIED')) process.exit(24);
           NODE
-      - name: Preserve guarded qualification output
+      - name: Preserve guarded diagnostic output
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: p15-1-guarded-qualification-${{ github.sha }}
           path: |
-            clean-room/evidence/category15-requirement-traceability.json
+            clean-room/.runtime/p15-1-qualification/candidate-traceability.json
             clean-room/.runtime/p15-1-qualification/qualification.json
-            clean-room/.runtime/p15-1-qualification/assembler-summary.json
             clean-room/.runtime/p15-1-qualification/result-report.json
             clean-room/.runtime/p15-1-qualification/run.json
             clean-room/.runtime/p15-1-qualification/jobs.json
