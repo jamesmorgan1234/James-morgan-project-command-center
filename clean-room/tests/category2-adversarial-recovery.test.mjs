@@ -175,14 +175,25 @@ test("adversarial: CI supply-chain seam is pinned and lifecycle scripts are disa
   const pkg = JSON.parse(source("package.json"));
   assert.equal(pkg.private, true);
   assert.equal(pkg.devDependencies.typescript, "5.8.3");
+  assert.equal(pkg.devDependencies["@electric-sql/pglite"], "0.5.12");
   assert.equal(Object.hasOwn(pkg.scripts, "preinstall"), false);
   assert.equal(Object.hasOwn(pkg.scripts, "install"), false);
   assert.equal(Object.hasOwn(pkg.scripts, "postinstall"), false);
 
+  const lock = JSON.parse(source("package-lock.json"));
+  assert.equal(lock.lockfileVersion, 3);
+  assert.equal(lock.packages[""].devDependencies.typescript, "5.8.3");
+  assert.equal(lock.packages[""].devDependencies["@electric-sql/pglite"], "0.5.12");
+  assert.equal(lock.packages["node_modules/typescript"].version, "5.8.3");
+  assert.match(lock.packages["node_modules/typescript"].integrity, /^sha512-/);
+  assert.equal(lock.packages["node_modules/@electric-sql/pglite"].version, "0.5.12");
+  assert.match(lock.packages["node_modules/@electric-sql/pglite"].integrity, /^sha512-/);
+
   const workflow = readFileSync(new URL("../../.github/workflows/spec-lock-v2-clean-room-qa.yml", import.meta.url), "utf8");
   assert.match(workflow, /actions\/checkout@11d5960a326750d5838078e36cf38b85af677262/);
   assert.match(workflow, /actions\/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020/);
-  assert.match(workflow, /--ignore-scripts/);
-  assert.match(workflow, /typescript@5\.8\.3/);
+  assert.match(workflow, /cache-dependency-path:\s*clean-room\/package-lock\.json/);
+  assert.match(workflow, /npm ci --no-audit --no-fund --ignore-scripts/);
+  assert.doesNotMatch(workflow, /\bnpm install\b/);
   assert.doesNotMatch(workflow, /uses:\s*actions\/(checkout|setup-node)@v\d+/i);
 });
