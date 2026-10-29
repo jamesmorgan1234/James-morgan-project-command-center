@@ -59,3 +59,18 @@ test('asset generation provenance identifies generator tool or provider and cann
  assert.throws(()=>new AssetRegistry().register({...asset,id:'blank-generation',generation:{providerRef:' '}}),/references must be nonblank/);
  assert.throws(()=>new AssetRegistry().register({...asset,id:'null-generation',generation:null}),/must be an object/);
 });
+
+test('asset QA status is linked to an evidence receipt and remains version-specific',()=>{
+ const registry=new AssetRegistry();
+ const passed={...asset,id:'qa-linked',qa:{status:'passed',evidenceId:'evidence:qa-v1'}};
+ registry.register(passed);
+ assert.deepEqual(registry.get(passed.id).qa,{status:'passed',evidenceId:'evidence:qa-v1'});
+ assert.equal(Object.isFrozen(registry.get(passed.id).qa),true);
+ registry.replace({...passed,version:2,sourceRef:'source-v2',qa:{status:'failed',evidenceId:'evidence:qa-v2'}},1);
+ assert.deepEqual(registry.get(passed.id).qa,{status:'failed',evidenceId:'evidence:qa-v2'});
+
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-blank',qa:{status:'passed',evidenceId:' '}}),/nonblank evidence receipt id/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-missing',qa:{status:'passed'}}),/nonblank evidence receipt id/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-unknown',qa:{status:'unknown',evidenceId:'evidence:qa'}}),/Unsupported asset QA status/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-null',qa:null}),/QA receipt must be an object/);
+});
