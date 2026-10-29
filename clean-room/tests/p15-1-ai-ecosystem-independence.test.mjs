@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {AiRouteRegistry} from '../dist/brain/index.js';
 
-function route(key,providerKey,modelId,executionMode='self_hosted',privacy='local'){
+function route(key,providerKey,modelId,executionMode='self_hosted',privacy='local',capabilities=['brain:reason']){
   return {
     key,
     providerKey,
@@ -10,7 +10,7 @@ function route(key,providerKey,modelId,executionMode='self_hosted',privacy='loca
     versionRef:'v1',
     executionMode,
     enabled:true,
-    capabilities:['brain:reason'],
+    capabilities,
     cost:'free',
     privacy,
     health:'available',
@@ -37,4 +37,16 @@ test('CCR-02172 Command Center architecture can route Brain inference without An
   assert.equal(selected.providerKey,'provider:owner-runtime');
   assert.equal(selected.executionMode,'self_hosted');
   assert.equal(routes.list().some((candidate)=>candidate.providerKey.toLowerCase().includes('anthropic')),false);
+});
+
+test('CCR-02173 several AI ecosystems can coexist and route distinct canonical capabilities simultaneously',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route('ai-route:ecosystem-a','provider:ecosystem-a','reason-model','remote','remote',['brain:reason']));
+  routes.register(route('ai-route:ecosystem-b','provider:ecosystem-b','vision-model','self_hosted','local',['brain:vision']));
+  routes.register(route('ai-route:ecosystem-c','provider:ecosystem-c','coding-model','hybrid','private_remote',['brain:code']));
+
+  assert.equal(routes.list().length,3);
+  assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true}).providerKey,'provider:ecosystem-a');
+  assert.equal(routes.route({capability:'brain:vision',allowPaid:false,maxPrivacy:'local',preferQuality:true}).providerKey,'provider:ecosystem-b');
+  assert.equal(routes.route({capability:'brain:code',allowPaid:false,maxPrivacy:'private_remote',preferQuality:true}).providerKey,'provider:ecosystem-c');
 });
