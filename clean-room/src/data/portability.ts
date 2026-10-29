@@ -1,5 +1,6 @@
 import type { AssetSensitivity } from "./assets.js";
 import { immutableJson } from "./canonical.js";
+import type { ProviderRegistry } from "./providers.js";
 
 export interface PortableRecord {
   readonly id: string;
@@ -47,9 +48,17 @@ export interface RestrictedExportAuthorization {
   readonly allowedSensitivities: readonly RestrictedExportSensitivity[];
 }
 
+export const RESTRICTED_DATA_EXPORT_SCOPE = "data:restricted:export" as const;
+
+export interface IntegrationExportAuthority {
+  readonly providerKey: string;
+  readonly providerVersion: number;
+}
+
 export interface ExportOptions {
   readonly scope: ExportScope;
   readonly authorization?: RestrictedExportAuthorization;
+  readonly integration?: IntegrationExportAuthority;
 }
 
 function sameExportScope(left: ExportScope, right: ExportScope): boolean {
@@ -57,6 +66,12 @@ function sameExportScope(left: ExportScope, right: ExportScope): boolean {
 }
 
 export class PortabilityCenter {
+  readonly #providerRegistry?: ProviderRegistry;
+
+  constructor(providerRegistry?: ProviderRegistry) {
+    this.#providerRegistry = providerRegistry;
+  }
+
   stageImport(batchId: string, incoming: readonly PortableRecord[], existing: readonly PortableRecord[]): ImportDryRun {
     if (!batchId.trim()) throw new Error("Import batch id is required");
     for (const record of existing) this.#validateRecord(record);
@@ -82,6 +97,7 @@ export class PortabilityCenter {
 
   export(records: readonly PortableRecord[], options?: ExportOptions): ExportManifest {
     for (const record of records) this.#validateRecord(record);
+    if (options?.integration !== undefined) this.#assertIntegrationExportAuthority(options.integration);
 
     let allowedRestricted = new Set<RestrictedExportSensitivity>();
     if (options !== undefined) {
@@ -98,6 +114,13 @@ export class PortabilityCenter {
       .filter((record) => record.sensitivity === "internal" || allowedRestricted.has(record.sensitivity))
       .map((record) => immutableJson(record) as PortableRecord);
     return Object.freeze({ recordCount: allowed.length, redactedCount: records.length - allowed.length, records: Object.freeze([...allowed]) });
+  }
+
+  #assertIntegrationExportAuthority(authority: IntegrationExportAuthority): void {
+    if (!authority.providerKey.startsWith("provider:") || !authority.providerKey.slice("provider:".length).trim()) throw new Error("Integration export provider key is required");
+    if (!Number.isSafeInteger(authority.providerVersion) || authority.providerVersion < 1) throw new Error("Integration export provider version must be positive");
+    if (!this.#providerRegistry) throw new Error("Integration export requires the current provider registry");
+    this.#providerRegistry.assertCurrentScope(authority.providerKey, authority.providerVersion, RESTRICTED_DATA_EXPORT_SCOPE);
   }
 
   #validateScope(scope: ExportScope): void {

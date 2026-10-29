@@ -49,6 +49,15 @@ export class ProviderRegistry {
 
   get(key: string): ProviderContract | undefined { return this.#providers.get(key); }
 
+  assertCurrentScope(key: string, expectedVersion: number, scope: string): ProviderContract {
+    if (!scope.trim()) throw new Error("Provider scope is required");
+    const current = this.#required(key);
+    if (current.version !== expectedVersion) throw new Error(`Provider version conflict for ${key}`);
+    if (!current.enabled) throw new Error(`Provider disabled: ${key}`);
+    if (!current.scopes.includes(scope)) throw new Error(`Provider scope not granted for ${key}: ${scope}`);
+    return current;
+  }
+
   #validate(provider: ProviderContract): void {
     if (typeof provider.enabled !== "boolean" || !["none", "oauth", "api_key_ref", "session", "passkey", "custom_ref"].includes(provider.authMode) || !["free", "paid", "unknown"].includes(provider.cost) || !["available", "degraded", "unavailable", "unconfigured"].includes(provider.health) || !["none", "source", "tool_result", "live_verified"].includes(provider.verification) || !["fail_closed", "read_only", "degraded"].includes(provider.failureMode)) throw new Error("Unsupported provider contract state");
     if (!provider.key.slice("provider:".length).trim() || provider.capabilities.some((item) => !item.trim()) || provider.scopes.some((item) => !item.trim())) throw new Error("Provider identity capabilities and scopes must be nonblank");
