@@ -123,7 +123,7 @@ test("P1.10 architecture source policy passes the clean-room source and rejects 
     await writeFile(join(scratch, "bad.ts"), "HTMLElement.prototype.render = () => {};\ndocument.write('patch');\n", "utf8");
     const blocked = spawnSync(process.execPath, [script, scratch], { encoding: "utf8" });
     assert.notEqual(blocked.status, 0);
-    assert.match(blocked.stderr, /Prohibited runtime patch pattern detected/);
+    assert.match(blocked.stderr, /Architecture source violation detected:/);
     assert.match(blocked.stderr, /native prototype assignment/);
     assert.match(blocked.stderr, /document.write runtime patch/);
   } finally {
