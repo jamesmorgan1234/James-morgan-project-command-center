@@ -26,7 +26,7 @@ function isObject(value: unknown): value is Record<string, unknown> {
 
 function isCanonicalInstant(value: unknown): value is string {
   if (typeof value !== "string") return false;
-  const match = /^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(?:\\.\\d{1,9})?(Z|[+-](\\d{2}):(\\d{2}))$/.exec(value);
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d{1,9})?(Z|[+-](\d{2}):(\d{2}))$/.exec(value);
   if (!match) return false;
   const [, year, month, day, hour, minute, second, zone, offsetHour, offsetMinute] = match;
   const y = Number(year), m = Number(month), d = Number(day);
@@ -51,6 +51,27 @@ function isEvidenceRefs(value: unknown): boolean {
     && (item.reference === undefined || typeof item.reference === "string"));
 }
 
+function isRuntimeLiveExecution(value: unknown): boolean {
+  return isObject(value)
+    && typeof value.runId === "string" && value.runId.trim().length > 0
+    && typeof value.taskId === "string" && value.taskId.trim().length > 0
+    && value.status === "working"
+    && value.executorClaimed === true
+    && isCanonicalInstant(value.lastHeartbeatAt)
+    && (value.currentTaskTitle === undefined || typeof value.currentTaskTitle === "string")
+    && (value.blocker === undefined || typeof value.blocker === "string")
+    && isEvidenceRefs(value.evidence);
+}
+
+function isRuntimeNextWorkReadiness(value: unknown): boolean {
+  return isObject(value)
+    && typeof value.workUnitId === "string" && value.workUnitId.trim().length > 0
+    && value.ready === true
+    && typeof value.title === "string"
+    && typeof value.priorityRank === "number" && Number.isFinite(value.priorityRank)
+    && isEvidenceRefs(value.evidence);
+}
+
 function isRuntimeProject(value: unknown): boolean {
   if (!isObject(value) || typeof value.id !== "string" || !value.id.trim()
     || typeof value.name !== "string" || !value.name.trim() || !isEvidenceRefs(value.evidence)) return false;
@@ -60,6 +81,8 @@ function isRuntimeProject(value: unknown): boolean {
     || !isTruthValue(value.blockers, (item) => Array.isArray(item) && item.every((entry) => typeof entry === "string"))
     || !isTruthValue(value.needsMeCount, (item) => Number.isSafeInteger(item) && Number(item) >= 0)
     || !isTruthValue(value.recentActivity, (item) => Array.isArray(item) && item.every((entry) => typeof entry === "string"))) return false;
+  if (value.liveExecution !== undefined && !isTruthValue(value.liveExecution, isRuntimeLiveExecution)) return false;
+  if (value.nextWorkReadiness !== undefined && !isTruthValue(value.nextWorkReadiness, isRuntimeNextWorkReadiness)) return false;
   for (const field of ["typeKey", "companyId"]) {
     if (value[field] !== undefined && !isTruthValue(value[field], (item) => typeof item === "string")) return false;
   }
