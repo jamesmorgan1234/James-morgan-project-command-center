@@ -35,9 +35,9 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          cache-dependency-path: clean-room/package.json
-      - name: Install zero-cost build dependency
-        run: npm install --no-audit --no-fund --ignore-scripts --no-save typescript@5.8.3
+          cache-dependency-path: clean-room/package-lock.json
+      - name: Install locked zero-cost dependencies
+        run: npm ci --no-audit --no-fund --ignore-scripts
       - name: Current authority / phase / Amendment-20 validation
         run: npm run audit:authority
       - name: Typecheck
