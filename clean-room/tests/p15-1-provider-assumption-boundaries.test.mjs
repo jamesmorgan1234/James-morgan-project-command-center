@@ -103,3 +103,19 @@ test('CCR-02159 provider memory remains outside canonical Brain memory',()=>{
   assert.equal(JSON.stringify(ledger.current(memory.ownerId,memory.projectId)),before);
   assert.deepEqual(ledger.current(memory.ownerId,memory.projectId),[memory]);
 });
+
+test('CCR-02162 future self-hosted model runtime is an explicit routable execution mode',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route({
+    key:'ai-route:self-hosted-model',
+    providerKey:'provider:self-hosted-model',
+    modelId:'owner-model-v1',
+    executionMode:'self_hosted',
+    privacy:'local',
+    contextWindowTokens:65536
+  }));
+  const selected=routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'local',preferQuality:true,minimumContextTokens:32000});
+  assert.equal(selected.executionMode,'self_hosted');
+  assert.equal(selected.providerKey,'provider:self-hosted-model');
+  assert.equal(selected.modelId,'owner-model-v1');
+});
