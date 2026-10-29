@@ -31,6 +31,31 @@ export interface ExportManifest {
   readonly records: readonly PortableRecord[];
 }
 
+export interface ExportScope {
+  readonly ownerId: string;
+  readonly projectId?: string;
+}
+
+export type RestrictedExportSensitivity = Exclude<AssetSensitivity, "internal">;
+
+export interface RestrictedExportAuthorization {
+  readonly authorized: true;
+  readonly ownerDecisionRef: string;
+  readonly scope: ExportScope;
+  readonly encrypted: true;
+  readonly encryptionKeyRef: string;
+  readonly allowedSensitivities: readonly RestrictedExportSensitivity[];
+}
+
+export interface ExportOptions {
+  readonly scope: ExportScope;
+  readonly authorization?: RestrictedExportAuthorization;
+}
+
+function sameExportScope(left: ExportScope, right: ExportScope): boolean {
+  return left.ownerId === right.ownerId && (left.projectId ?? null) === (right.projectId ?? null);
+}
+
 export class PortabilityCenter {
   stageImport(batchId: string, incoming: readonly PortableRecord[], existing: readonly PortableRecord[]): ImportDryRun {
     if (!batchId.trim()) throw new Error("Import batch id is required");
@@ -55,10 +80,38 @@ export class PortabilityCenter {
     return Object.freeze({ batchId, results: Object.freeze(results), canApplyWithoutOverwrite: !results.some((result) => result.disposition === "conflict") });
   }
 
-  export(records: readonly PortableRecord[], includeSecret = false): ExportManifest {
+  export(records: readonly PortableRecord[], options?: ExportOptions): ExportManifest {
     for (const record of records) this.#validateRecord(record);
-    const allowed = records.filter((record) => includeSecret || record.sensitivity !== "secret").map((record) => immutableJson(record) as PortableRecord);
+
+    let allowedRestricted = new Set<RestrictedExportSensitivity>();
+    if (options !== undefined) {
+      this.#validateScope(options.scope);
+      if (options.authorization !== undefined) {
+        const authorization = options.authorization;
+        this.#validateRestrictedAuthorization(authorization);
+        if (!sameExportScope(options.scope, authorization.scope)) throw new Error("Restricted export authorization scope mismatch");
+        allowedRestricted = new Set(authorization.allowedSensitivities);
+      }
+    }
+
+    const allowed = records
+      .filter((record) => record.sensitivity === "internal" || allowedRestricted.has(record.sensitivity))
+      .map((record) => immutableJson(record) as PortableRecord);
     return Object.freeze({ recordCount: allowed.length, redactedCount: records.length - allowed.length, records: Object.freeze([...allowed]) });
+  }
+
+  #validateScope(scope: ExportScope): void {
+    if (!scope.ownerId.trim()) throw new Error("Export owner scope is required");
+    if (scope.projectId !== undefined && !scope.projectId.trim()) throw new Error("Export project scope must be nonblank");
+  }
+
+  #validateRestrictedAuthorization(authorization: RestrictedExportAuthorization): void {
+    if (authorization.authorized !== true) throw new Error("Restricted export requires explicit authorization");
+    if (!authorization.ownerDecisionRef.trim()) throw new Error("Restricted export requires owner decision evidence");
+    this.#validateScope(authorization.scope);
+    if (authorization.encrypted !== true || !authorization.encryptionKeyRef.trim()) throw new Error("Restricted export requires an explicit encryption policy");
+    if (authorization.allowedSensitivities.length === 0 || new Set(authorization.allowedSensitivities).size !== authorization.allowedSensitivities.length) throw new Error("Restricted export authorization requires unique sensitivity classes");
+    if (authorization.allowedSensitivities.some((sensitivity) => !["sensitive", "protected", "secret"].includes(sensitivity))) throw new Error("Unsupported restricted export sensitivity");
   }
 
   #validateRecord(record: PortableRecord): void {
