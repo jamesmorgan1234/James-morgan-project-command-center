@@ -44,6 +44,11 @@ function assertHash(hash: string): void {
   if (!/^[a-f0-9]{64}$/i.test(hash)) throw new Error("Asset sha256 must contain exactly 64 hexadecimal characters");
 }
 
+function normalizeHash(hash: string): string {
+  assertHash(hash);
+  return hash.toLowerCase();
+}
+
 function validateGeneration(generation: AssetGenerationProvenance | undefined): void {
   if (generation === undefined) return;
   if (generation === null || typeof generation !== "object" || Array.isArray(generation)) throw new Error("Asset generation provenance must be an object");
@@ -81,6 +86,7 @@ function validateAsset(record: AssetRecord): void {
 
 export class AssetRegistry {
   readonly #assets = new Map<string, AssetRecord>();
+  readonly #sha256Index = new Map<string, Set<string>>();
 
   register(record: AssetRecord): void {
     validateAsset(record);
@@ -91,7 +97,9 @@ export class AssetRegistry {
     parseTimestamp(record.createdAt, "createdAt");
     parseTimestamp(record.updatedAt, "updatedAt");
     if (this.#assets.has(record.id)) throw new Error(`Asset already exists: ${record.id}`);
-    this.#assets.set(record.id, freezeAsset(record));
+    const stored = freezeAsset(record);
+    this.#assets.set(record.id, stored);
+    this.#indexHash(stored);
   }
 
   replace(record: AssetRecord, expectedVersion: number, authorization?: ProtectedAssetReplacementAuthorization): void {
@@ -106,11 +114,37 @@ export class AssetRegistry {
     if (current.generation !== undefined && (record.generation === undefined || current.generation.generatorRef !== record.generation.generatorRef || current.generation.toolRef !== record.generation.toolRef || current.generation.providerRef !== record.generation.providerRef)) throw new Error("Asset generation provenance cannot be silently rewritten");
     if (record.sha256) assertHash(record.sha256);
     if (current.approvalState === "locked" && (authorization?.authorized !== true || typeof authorization?.ownerDecisionRef !== "string" || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
-    this.#assets.set(record.id, freezeAsset(record));
+    const stored = freezeAsset(record);
+    this.#deindexHash(current);
+    this.#assets.set(record.id, stored);
+    this.#indexHash(stored);
   }
 
   get(id: string): AssetRecord | undefined { return this.#assets.get(id); }
   listProject(projectId: string): readonly AssetRecord[] { return Object.freeze([...this.#assets.values()].filter((asset) => asset.projectId === projectId)); }
+
+  findDuplicatesBySha256(sha256: string): readonly AssetRecord[] {
+    const ids = this.#sha256Index.get(normalizeHash(sha256));
+    if (!ids || ids.size < 2) return Object.freeze([]);
+    return Object.freeze([...ids].map((id) => this.#required(id)));
+  }
+
+  #indexHash(record: AssetRecord): void {
+    if (!record.sha256) return;
+    const hash = normalizeHash(record.sha256);
+    const ids = this.#sha256Index.get(hash) ?? new Set<string>();
+    ids.add(record.id);
+    this.#sha256Index.set(hash, ids);
+  }
+
+  #deindexHash(record: AssetRecord): void {
+    if (!record.sha256) return;
+    const hash = normalizeHash(record.sha256);
+    const ids = this.#sha256Index.get(hash);
+    if (!ids) return;
+    ids.delete(record.id);
+    if (ids.size === 0) this.#sha256Index.delete(hash);
+  }
 
   #required(id: string): AssetRecord {
     const record = this.#assets.get(id);
