@@ -22,6 +22,15 @@ export interface AssetMediaMetadata {
   readonly heightPx?: number;
 }
 
+export interface AssetArchiveManifestEntry {
+  readonly path: string;
+  readonly sha256?: string;
+}
+
+export interface AssetArchiveManifest {
+  readonly entries: readonly AssetArchiveManifestEntry[];
+}
+
 export interface AssetRecord {
   readonly id: string;
   readonly ownerId: string;
@@ -32,6 +41,7 @@ export interface AssetRecord {
   readonly qa?: AssetQaReceipt;
   readonly mediaType?: string;
   readonly mediaMetadata?: AssetMediaMetadata;
+  readonly archiveManifest?: AssetArchiveManifest;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -71,6 +81,21 @@ function validateMediaMetadata(mediaMetadata: AssetMediaMetadata | undefined, me
   if (values.some((value) => value !== undefined && (!Number.isSafeInteger(value) || value <= 0))) throw new Error("Asset media metadata values must be positive safe integers");
 }
 
+function validateArchiveManifest(archiveManifest: AssetArchiveManifest | undefined, mediaType: string | undefined): void {
+  if (archiveManifest === undefined) return;
+  if (archiveManifest === null || typeof archiveManifest !== "object" || Array.isArray(archiveManifest)) throw new Error("Asset archive manifest must be an object");
+  if (mediaType === undefined) throw new Error("Asset archive manifest requires a media type");
+  if (!Array.isArray(archiveManifest.entries) || archiveManifest.entries.length === 0) throw new Error("Asset archive manifest requires at least one entry");
+  const paths = new Set<string>();
+  for (const entry of archiveManifest.entries) {
+    if (entry === null || typeof entry !== "object" || Array.isArray(entry) || typeof entry.path !== "string" || !entry.path.trim()) throw new Error("Asset archive manifest entry path is required");
+    if (entry.path.startsWith("/") || entry.path.includes("\\") || entry.path.split("/").some((part) => part === "" || part === "." || part === "..")) throw new Error("Asset archive manifest entry path must be a safe relative path");
+    if (paths.has(entry.path)) throw new Error(`Asset archive manifest contains duplicate path: ${entry.path}`);
+    paths.add(entry.path);
+    if (entry.sha256 !== undefined) assertHash(entry.sha256);
+  }
+}
+
 function validateGeneration(generation: AssetGenerationProvenance | undefined): void {
   if (generation === undefined) return;
   if (generation === null || typeof generation !== "object" || Array.isArray(generation)) throw new Error("Asset generation provenance must be an object");
@@ -91,7 +116,8 @@ function freezeAsset(record: AssetRecord): AssetRecord {
     ...record,
     ...(record.generation === undefined ? {} : { generation: Object.freeze({ ...record.generation }) }),
     ...(record.qa === undefined ? {} : { qa: Object.freeze({ ...record.qa }) }),
-    ...(record.mediaMetadata === undefined ? {} : { mediaMetadata: Object.freeze({ ...record.mediaMetadata }) })
+    ...(record.mediaMetadata === undefined ? {} : { mediaMetadata: Object.freeze({ ...record.mediaMetadata }) }),
+    ...(record.archiveManifest === undefined ? {} : { archiveManifest: Object.freeze({ entries: Object.freeze(record.archiveManifest.entries.map((entry) => Object.freeze({ ...entry }))) }) })
   });
 }
 
@@ -105,6 +131,7 @@ function validateAsset(record: AssetRecord): void {
   if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
   validateMediaType(record.mediaType);
   validateMediaMetadata(record.mediaMetadata, record.mediaType);
+  validateArchiveManifest(record.archiveManifest, record.mediaType);
   validateGeneration(record.generation);
   validateQa(record.qa);
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
