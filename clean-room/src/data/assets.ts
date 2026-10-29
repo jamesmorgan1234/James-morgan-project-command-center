@@ -3,11 +3,17 @@ import { parseTimestamp } from "../security/types.js";
 export type AssetSensitivity = "internal" | "sensitive" | "protected" | "secret";
 export type AssetOriginalState = "available" | "missing" | "reconstruction";
 export type AssetApprovalState = "unreviewed" | "approved" | "locked";
+export type AssetQaStatus = "passed" | "failed";
 
 export interface AssetGenerationProvenance {
   readonly generatorRef?: string;
   readonly toolRef?: string;
   readonly providerRef?: string;
+}
+
+export interface AssetQaReceipt {
+  readonly status: AssetQaStatus;
+  readonly evidenceId: string;
 }
 
 export interface AssetRecord {
@@ -17,6 +23,7 @@ export interface AssetRecord {
   readonly originRequirementId?: string;
   readonly originTaskId?: string;
   readonly generation?: AssetGenerationProvenance;
+  readonly qa?: AssetQaReceipt;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -45,9 +52,18 @@ function validateGeneration(generation: AssetGenerationProvenance | undefined): 
   if (values.some((value) => value !== undefined && (typeof value !== "string" || !value.trim()))) throw new Error("Asset generation provenance references must be nonblank");
 }
 
+function validateQa(qa: AssetQaReceipt | undefined): void {
+  if (qa === undefined) return;
+  if (qa === null || typeof qa !== "object" || Array.isArray(qa)) throw new Error("Asset QA receipt must be an object");
+  if (!["passed", "failed"].includes(qa.status)) throw new Error("Unsupported asset QA status");
+  if (typeof qa.evidenceId !== "string" || !qa.evidenceId.trim()) throw new Error("Asset QA status requires a nonblank evidence receipt id");
+}
+
 function freezeAsset(record: AssetRecord): AssetRecord {
-  if (record.generation === undefined) return Object.freeze({ ...record });
-  return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }) });
+  if (record.generation !== undefined && record.qa !== undefined) return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }), qa: Object.freeze({ ...record.qa }) });
+  if (record.generation !== undefined) return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }) });
+  if (record.qa !== undefined) return Object.freeze({ ...record, qa: Object.freeze({ ...record.qa }) });
+  return Object.freeze({ ...record });
 }
 
 function validateAsset(record: AssetRecord): void {
@@ -59,6 +75,7 @@ function validateAsset(record: AssetRecord): void {
   if (record.originRequirementId !== undefined && !record.originRequirementId.trim()) throw new Error("Asset originating requirement must be nonblank");
   if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
   validateGeneration(record.generation);
+  validateQa(record.qa);
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
 }
 
