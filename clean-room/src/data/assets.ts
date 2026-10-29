@@ -139,6 +139,7 @@ function validateAsset(record: AssetRecord): void {
 
 export class AssetRegistry {
   readonly #assets = new Map<string, AssetRecord>();
+  readonly #history = new Map<string, readonly AssetRecord[]>();
   readonly #sha256Index = new Map<string, Set<string>>();
 
   register(record: AssetRecord): void {
@@ -152,6 +153,7 @@ export class AssetRegistry {
     if (this.#assets.has(record.id)) throw new Error(`Asset already exists: ${record.id}`);
     const stored = freezeAsset(record);
     this.#assets.set(record.id, stored);
+    this.#history.set(record.id, Object.freeze([stored]));
     this.#indexHash(stored);
   }
 
@@ -168,12 +170,15 @@ export class AssetRegistry {
     if (record.sha256) assertHash(record.sha256);
     if (current.approvalState === "locked" && (authorization?.authorized !== true || typeof authorization?.ownerDecisionRef !== "string" || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
     const stored = freezeAsset(record);
+    const history = this.#history.get(record.id) ?? Object.freeze([current]);
     this.#deindexHash(current);
     this.#assets.set(record.id, stored);
+    this.#history.set(record.id, Object.freeze([...history, stored]));
     this.#indexHash(stored);
   }
 
   get(id: string): AssetRecord | undefined { return this.#assets.get(id); }
+  history(id: string): readonly AssetRecord[] { return this.#history.get(id) ?? Object.freeze([]); }
   listProject(projectId: string): readonly AssetRecord[] { return Object.freeze([...this.#assets.values()].filter((asset) => asset.projectId === projectId)); }
 
   findDuplicatesBySha256(sha256: string): readonly AssetRecord[] {
