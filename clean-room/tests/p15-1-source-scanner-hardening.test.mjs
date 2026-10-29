@@ -121,6 +121,41 @@ test("P15.1 architecture scanner rejects multiline incremental innerHTML but ign
   });
 });
 
+test("P15.1 architecture scanner rejects static relative import and re-export cycles", async () => {
+  await withFixture({
+    "a.ts": `
+      import { b } from "./b.js";
+      export const a = b;
+    `,
+    "b.ts": `
+      export { a } from "./a.js";
+      export const b = 1;
+    `
+  }, (root) => {
+    const result = scan(architectureScanner, root);
+    assert.equal(result.status, 1, result.stdout + result.stderr);
+    assert.match(result.stderr, /import cycle:/);
+    assert.match(result.stderr, /a\.ts/);
+    assert.match(result.stderr, /b\.ts/);
+  });
+});
+
+test("P15.1 architecture scanner accepts an acyclic relative import graph", async () => {
+  await withFixture({
+    "a.ts": `
+      import { b } from "./b.js";
+      export const a = b;
+    `,
+    "b.ts": `
+      export const b = 1;
+    `
+  }, (root) => {
+    const result = scan(architectureScanner, root);
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.match(result.stdout, /no prohibited runtime patch patterns or static relative import cycles/);
+  });
+});
+
 test("P15.1 architecture scanner accepts benign source containing policy text only", async () => {
   await withFixture({
     "fixture.ts": `
