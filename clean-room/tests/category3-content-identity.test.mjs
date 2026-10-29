@@ -41,3 +41,15 @@ test('content registry tracks every successful version and failed stale writes d
  assert.deepEqual(registry.history(base.id).map((record)=>record.version),[1,2,3]);
  assert.deepEqual(registry.history('content:unknown'),[]);
 });
+
+test('approved historical content version remains identifiable after a newer revision exists',()=>{
+ const registry=new AssetRegistry();
+ registry.register(base);
+ registry.replace({...base,version:2,sourceRef:'source:v2',approvalState:'approved'},1);
+ registry.replace({...base,version:3,sourceRef:'source:v3',approvalState:'unreviewed'},2);
+ const approved=registry.history(base.id).filter((record)=>record.approvalState==='approved');
+ assert.deepEqual(approved.map((record)=>record.version),[2]);
+ assert.equal(approved[0].sourceRef,'source:v2');
+ assert.equal(registry.get(base.id).version,3);
+ assert.equal(registry.get(base.id).approvalState,'unreviewed');
+});
