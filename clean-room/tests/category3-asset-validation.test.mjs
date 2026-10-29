@@ -146,3 +146,10 @@ test('content registry retains audio media identity and duration across asset re
  assert.equal(current.version,2);
  assert.equal(current.sha256,'3'.repeat(64));
 });
+
+test('content registry supports spreadsheet assets through canonical media type metadata',()=>{
+ const registry=new AssetRegistry();
+ const spreadsheet={...asset,id:'spreadsheet-asset',mediaType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',sha256:'4'.repeat(64),originalState:'available'};
+ registry.register(spreadsheet);
+ assert.equal(registry.get(spreadsheet.id).mediaType,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+});
