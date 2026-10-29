@@ -143,3 +143,19 @@ test('CCR-02163 future local-device model runtime is an explicit local-only rout
   assert.equal(selected.executionMode,'local');
   assert.equal(selected.providerKey,'provider:local-device');
 });
+
+test('CCR-02164 future hybrid cloud/local model routing is an explicit routing mode',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route({
+    key:'ai-route:hybrid-model',
+    providerKey:'provider:hybrid-runtime',
+    modelId:'hybrid-model-v1',
+    executionMode:'hybrid',
+    privacy:'private_remote',
+    contextWindowTokens:96000,
+    qualityRank:15
+  }));
+  const selected=routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'private_remote',preferQuality:true,minimumContextTokens:64000});
+  assert.equal(selected.executionMode,'hybrid');
+  assert.equal(selected.providerKey,'provider:hybrid-runtime');
+});
