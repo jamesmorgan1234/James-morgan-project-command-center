@@ -20,13 +20,82 @@ export interface HttpRuntimeSnapshotProviderOptions {
   readonly timeoutMs?: number;
 }
 
-function isObject(value: unknown): value is Record<string, unknown> { return typeof value === "object" && value !== null; }
+function isObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isCanonicalInstant(value: unknown): value is string {
+  if (typeof value !== "string") return false;
+  const match = /^(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2})(?:\\.\\d{1,9})?(Z|[+-](\\d{2}):(\\d{2}))$/.exec(value);
+  if (!match) return false;
+  const [, year, month, day, hour, minute, second, zone, offsetHour, offsetMinute] = match;
+  const y = Number(year), m = Number(month), d = Number(day);
+  const maxDay = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  if (m < 1 || m > 12 || d < 1 || d > maxDay || Number(hour) > 23 || Number(minute) > 59 || Number(second) > 59) return false;
+  if (zone !== "Z" && (Number(offsetHour) > 14 || Number(offsetMinute) > 59 || (Number(offsetHour) === 14 && Number(offsetMinute) !== 0))) return false;
+  return Number.isFinite(Date.parse(value));
+}
+
+function isTruthValue(value: unknown, accepts: (item: unknown) => boolean): boolean {
+  if (!isObject(value)) return false;
+  if (value.state === "known") return Object.hasOwn(value, "value") && value.value != null && accepts(value.value)
+    && Object.keys(value).every((key) => key === "state" || key === "value");
+  if (value.state === "unknown" || value.state === "not_applicable") return Object.keys(value).length === 1;
+  return false;
+}
+
+function isEvidenceRefs(value: unknown): boolean {
+  return Array.isArray(value) && value.every((item) => isObject(item)
+    && typeof item.source === "string" && item.source.trim().length > 0
+    && (item.observedAt === undefined || isCanonicalInstant(item.observedAt))
+    && (item.reference === undefined || typeof item.reference === "string"));
+}
+
+function isRuntimeProject(value: unknown): boolean {
+  if (!isObject(value) || typeof value.id !== "string" || !value.id.trim()
+    || typeof value.name !== "string" || !value.name.trim() || !isEvidenceRefs(value.evidence)) return false;
+  const stringFields = ["mission", "lifecycle", "verification", "priority", "stage", "status", "currentCheckpoint", "nextAction", "agencyState"];
+  if (!stringFields.every((field) => isTruthValue(value[field], (item) => typeof item === "string"))) return false;
+  if (!isTruthValue(value.progressPercent, (item) => typeof item === "number" && Number.isFinite(item) && item >= 0 && item <= 100)
+    || !isTruthValue(value.blockers, (item) => Array.isArray(item) && item.every((entry) => typeof entry === "string"))
+    || !isTruthValue(value.needsMeCount, (item) => Number.isSafeInteger(item) && Number(item) >= 0)
+    || !isTruthValue(value.recentActivity, (item) => Array.isArray(item) && item.every((entry) => typeof entry === "string"))) return false;
+  for (const field of ["typeKey", "companyId"]) {
+    if (value[field] !== undefined && !isTruthValue(value[field], (item) => typeof item === "string")) return false;
+  }
+  if (value.specialistKey !== undefined && typeof value.specialistKey !== "string") return false;
+  if (value.detailSections !== undefined && (!Array.isArray(value.detailSections) || !value.detailSections.every((section) => isObject(section)
+    && typeof section.key === "string" && section.key.trim().length > 0
+    && typeof section.title === "string" && Number.isSafeInteger(section.sortOrder)
+    && typeof section.required === "boolean"
+    && (section.capabilityKey === undefined || typeof section.capabilityKey === "string")
+    && isTruthValue(section.content, (item) => typeof item === "string")
+    && isEvidenceRefs(section.evidence)))) return false;
+  return true;
+}
+
+function isRuntimeSurface(value: unknown): boolean {
+  return isObject(value) && typeof value.key === "string" && value.key.trim().length > 0
+    && typeof value.label === "string" && value.label.trim().length > 0
+    && ["available", "unavailable", "disconnected", "stale"].includes(String(value.availability))
+    && isTruthValue(value.summary, (item) => typeof item === "string")
+    && isEvidenceRefs(value.evidence);
+}
 
 function isRuntimeSnapshot(value: unknown): value is CommandCenterRuntimeSnapshot {
-  if (!isObject(value) || value.schemaVersion !== "cc-runtime-snapshot-v1") return false;
-  if (typeof value.generatedAt !== "string" || !isObject(value.connection) || !Array.isArray(value.projects) || !Array.isArray(value.surfaces)) return false;
-  const state = value.connection.state;
-  return state === "connected" || state === "disconnected" || state === "degraded" || state === "stale";
+  if (!isObject(value) || value.schemaVersion !== "cc-runtime-snapshot-v1" || !isCanonicalInstant(value.generatedAt)) return false;
+  if (!isObject(value.connection) || !["connected", "disconnected", "degraded", "stale"].includes(String(value.connection.state))
+    || typeof value.connection.providerId !== "string" || typeof value.connection.message !== "string"
+    || !isTruthValue(value.connection.lastSuccessfulSyncAt, isCanonicalInstant)) return false;
+  if (!isObject(value.owner) || !isTruthValue(value.owner.displayName, (item) => typeof item === "string")) return false;
+  if (!Array.isArray(value.projects) || !value.projects.every(isRuntimeProject)
+    || !Array.isArray(value.surfaces) || !value.surfaces.every(isRuntimeSurface)) return false;
+  if (!isObject(value.release)
+    || !isTruthValue(value.release.releaseId, (item) => typeof item === "string")
+    || !isTruthValue(value.release.knownGoodReleaseId, (item) => typeof item === "string")) return false;
+  if (value.agency !== undefined && !isObject(value.agency)) return false;
+  if (value.brain !== undefined && !isObject(value.brain)) return false;
+  return true;
 }
 
 export class HttpRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
