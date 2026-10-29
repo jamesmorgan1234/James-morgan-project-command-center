@@ -1,5 +1,5 @@
 import { readdir, readFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { dirname, extname, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import ts from "typescript";
 
@@ -12,6 +12,7 @@ const nativeConstructors = new Set([
   "Array", "Object", "Promise", "String", "Number"
 ]);
 const violations = [];
+const sources = new Map();
 
 function unwrap(node) {
   let current = node;
@@ -97,6 +98,112 @@ function inspectSource(path, text) {
   visit(sourceFile);
 }
 
+function importHasRuntimeEdge(statement) {
+  const clause = statement.importClause;
+  if (!clause) return true;
+  if (clause.isTypeOnly || clause.name) return !clause.isTypeOnly;
+  if (!clause.namedBindings || ts.isNamespaceImport(clause.namedBindings)) return true;
+  return clause.namedBindings.elements.some((element) => !element.isTypeOnly);
+}
+
+function exportHasRuntimeEdge(statement) {
+  if (statement.isTypeOnly) return false;
+  if (!statement.exportClause || !ts.isNamedExports(statement.exportClause)) return true;
+  return statement.exportClause.elements.some((element) => !element.isTypeOnly);
+}
+
+function runtimeRelativeSpecifiers(path, text) {
+  const sourceFile = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true);
+  const specifiers = [];
+  for (const statement of sourceFile.statements) {
+    if (
+      ts.isImportDeclaration(statement)
+      && ts.isStringLiteralLike(statement.moduleSpecifier)
+      && importHasRuntimeEdge(statement)
+    ) {
+      specifiers.push(statement.moduleSpecifier.text);
+      continue;
+    }
+    if (
+      ts.isExportDeclaration(statement)
+      && statement.moduleSpecifier
+      && ts.isStringLiteralLike(statement.moduleSpecifier)
+      && exportHasRuntimeEdge(statement)
+    ) {
+      specifiers.push(statement.moduleSpecifier.text);
+    }
+  }
+  return specifiers.filter((specifier) => specifier.startsWith("."));
+}
+
+function resolveSourceDependency(importer, specifier, sourcePaths) {
+  const absolute = resolve(dirname(importer), specifier);
+  const extension = extname(absolute);
+  const candidates = [];
+  if (extension === ".js") {
+    candidates.push(`${absolute.slice(0, -3)}.ts`);
+  } else if (extension) {
+    candidates.push(absolute);
+  } else {
+    candidates.push(
+      `${absolute}.ts`,
+      `${absolute}.mjs`,
+      resolve(absolute, "index.ts"),
+      resolve(absolute, "index.mjs")
+    );
+  }
+  return candidates.find((candidate) => sourcePaths.has(candidate));
+}
+
+function findImportCycle(graph) {
+  const visited = new Set();
+  const active = new Set();
+  const stack = [];
+
+  function visit(path) {
+    if (active.has(path)) {
+      const start = stack.indexOf(path);
+      return [...stack.slice(start), path];
+    }
+    if (visited.has(path)) return null;
+
+    active.add(path);
+    stack.push(path);
+    for (const dependency of graph.get(path) ?? []) {
+      const cycle = visit(dependency);
+      if (cycle) return cycle;
+    }
+    stack.pop();
+    active.delete(path);
+    visited.add(path);
+    return null;
+  }
+
+  for (const path of [...graph.keys()].sort()) {
+    const cycle = visit(path);
+    if (cycle) return cycle;
+  }
+  return null;
+}
+
+function recordImportCycle() {
+  const sourcePaths = new Set(sources.keys());
+  const graph = new Map();
+  for (const [path, text] of sources) {
+    const dependencies = runtimeRelativeSpecifiers(path, text)
+      .map((specifier) => resolveSourceDependency(path, specifier, sourcePaths))
+      .filter(Boolean)
+      .sort();
+    graph.set(path, dependencies);
+  }
+  const cycle = findImportCycle(graph);
+  if (!cycle) return;
+  const display = cycle
+    .map((path) => relative(root, path).split(sep).join("/"))
+    .join(" -> ");
+  violations.push(`import cycle: ${display}`);
+}
+
 async function walk(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = resolve(directory, entry.name);
@@ -105,14 +212,17 @@ async function walk(directory) {
       continue;
     }
     if (!entry.name.endsWith(".ts") && !entry.name.endsWith(".mjs")) continue;
-    inspectSource(path, await readFile(path, "utf8"));
+    const text = await readFile(path, "utf8");
+    sources.set(path, text);
+    inspectSource(path, text);
   }
 }
 
 await walk(root);
+recordImportCycle();
 if (violations.length > 0) {
-  console.error("Prohibited runtime patch pattern detected:");
+  console.error("Architecture source violation detected:");
   console.error(violations.join("\n"));
   process.exit(1);
 }
-console.log("PASS: architecture source contains no prohibited runtime patch patterns.");
+console.log("PASS: architecture source contains no prohibited runtime patch patterns or static relative import cycles.");
