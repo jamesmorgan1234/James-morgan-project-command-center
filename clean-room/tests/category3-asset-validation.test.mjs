@@ -74,3 +74,20 @@ test('asset QA status is linked to an evidence receipt and remains version-speci
  assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-unknown',qa:{status:'unknown',evidenceId:'evidence:qa'}}),/Unsupported asset QA status/);
  assert.throws(()=>new AssetRegistry().register({...asset,id:'qa-null',qa:null}),/QA receipt must be an object/);
 });
+
+test('asset registry detects exact duplicate content by normalized sha256 and updates the index on replacement',()=>{
+ const registry=new AssetRegistry();
+ const hash='a'.repeat(64);
+ const otherHash='b'.repeat(64);
+ const first={...asset,id:'duplicate-a',sha256:hash,originalState:'available'};
+ const second={...asset,id:'duplicate-b',sha256:hash.toUpperCase(),originalState:'available'};
+ registry.register(first);
+ assert.deepEqual(registry.findDuplicatesBySha256(hash),[]);
+ registry.register(second);
+ assert.deepEqual(registry.findDuplicatesBySha256(hash).map((record)=>record.id),['duplicate-a','duplicate-b']);
+ assert.deepEqual(registry.findDuplicatesBySha256(hash.toUpperCase()).map((record)=>record.id),['duplicate-a','duplicate-b']);
+ registry.replace({...second,version:2,sha256:otherHash,sourceRef:'source-v2'},1);
+ assert.deepEqual(registry.findDuplicatesBySha256(hash),[]);
+ assert.deepEqual(registry.findDuplicatesBySha256(otherHash),[]);
+ assert.throws(()=>registry.findDuplicatesBySha256('not-a-hash'),/64 hexadecimal characters/);
+});
