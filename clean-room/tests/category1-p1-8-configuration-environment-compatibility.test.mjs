@@ -1,7 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  CURRENT_RUNTIME_API_VERSION,
   CURRENT_RUNTIME_CONFIG_VERSION,
+  CURRENT_RUNTIME_SCHEMA_VERSION,
   validateRuntimeConfig,
   validateRuntimeStartupContract,
   validateVersionedRuntimeConfig
@@ -12,10 +14,10 @@ const base = {
   configVersion: CURRENT_RUNTIME_CONFIG_VERSION,
   environment: "test",
   releaseId: "rel_p1-8",
-  schemaVersion: 3,
-  apiVersion: 4,
-  compatibleSchema: { min: 2, max: 4 },
-  compatibleApi: { min: 3, max: 5 },
+  schemaVersion: CURRENT_RUNTIME_SCHEMA_VERSION,
+  apiVersion: CURRENT_RUNTIME_API_VERSION,
+  compatibleSchema: { min: CURRENT_RUNTIME_SCHEMA_VERSION, max: CURRENT_RUNTIME_SCHEMA_VERSION },
+  compatibleApi: { min: CURRENT_RUNTIME_API_VERSION, max: CURRENT_RUNTIME_API_VERSION },
   features: { safeMode: true }
 };
 
