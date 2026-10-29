@@ -90,7 +90,7 @@ test("P15.1 runtime and owner-session contracts stay bound to their implemented 
   assert.deepEqual(ownerSession.methods, ["POST"]);
   assert.equal(ownerSession.access, "session-control");
   assert.deepEqual(ownerSession.capabilities, ["owner-session:establish", "owner-session:refresh", "owner-session:clear"]);
-  assert.match(ownerSessionSource, /request\.method\s*!==\s*"POST"/);
+  assert.match(ownerSessionSource, /req\.method\s*!==\s*"POST"/);
   assert.match(ownerSessionSource, /"establish"/);
   assert.match(ownerSessionSource, /"refresh"/);
   assert.match(ownerSessionSource, /"clear"/);
