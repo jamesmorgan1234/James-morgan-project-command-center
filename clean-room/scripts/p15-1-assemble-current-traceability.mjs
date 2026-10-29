@@ -1,4 +1,4 @@
-import {assertSourceAuditMatchesGit} from './p15-1-source-audit-binding.mjs';
+import {assertSourceAuditMatchesGit,isQualifiedSourceInput} from './p15-1-source-audit-binding.mjs';
 import {readFileSync,writeFileSync,readdirSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -20,7 +20,7 @@ export function assembleCurrentTraceability({baselineAuditPath,qualificationPath
  if(audit)assertSourceAuditMatchesGit(audit,{repoRoot:root,sourceCommit:qualification.sourceCommit});
  const baselineBindings=audit?Object.fromEntries(audit.files.map(f=>[f.path,f.sha256])):previous.fileBindings;
  const proof=previous??{scope:'ISOLATED_REPOSITORY_REQUALIFICATION',sourceCommit:qualification.sourceCommit,ci:qualification.ci,fileBindings:{}};
- const initialPaths=Object.keys(baselineBindings).filter(p=>/^clean-room\/(src|public|tests)\//.test(p)||p.startsWith('supabase/migrations/')||/^roadmap\/master-build-plan-owner-review\/(20_|22_|23_|24_|25_|Command_Center_Canonical_Owner_Additions_REV3\.json$)/.test(p));
+ const initialPaths=Object.keys(baselineBindings).filter(isQualifiedSourceInput);
  if(!previous)for(const path of initialPaths)proof.fileBindings[path]=baselineBindings[path];
  const overlay=JSON.parse(readFileSync(resolve(root,'roadmap/master-build-plan-owner-review/25_CURRENT_REQUIREMENT_CLASSIFICATION_OVERRIDES.json'),'utf8'));
  for(const row of rows.slice(0,5825)){const c=resolveCurrentRequirementClassification(row,overlay);if(c.classificationSource==='current-authority-overlay')row.currentClassification=c;}

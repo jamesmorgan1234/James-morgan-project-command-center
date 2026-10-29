@@ -6,10 +6,12 @@ import {resolveCurrentRequirementClassification} from './current-requirement-cla
 import {currentReviewedMappings} from './p15-1-current-reviewed-mappings.mjs';
 import {expandPhaseManifest} from './current-authority-lib.mjs';
 export const fileDigest=bytes=>createHash('sha256').update(bytes).digest('hex');
+export const TRACEABILITY_CI_WORKFLOW='.github/workflows/spec-lock-v2-clean-room-qa.yml';
 export function traceabilityReference(ref){
  if(typeof ref!=='string')throw Error('Traceability reference must be text');
  const [location,testName]=ref.split(' :: '),[path,anchor]=location.split('#');
- if(!path||path.startsWith('/')||path.includes('\\')||path.split('/').some(p=>p==='..'||p==='.')||!/^clean-room\/|^supabase\/|^roadmap\//.test(path))throw Error('Unsafe traceability repository path');
+ const allowedPath=/^clean-room\/|^supabase\/|^roadmap\//.test(path)||path===TRACEABILITY_CI_WORKFLOW;
+ if(!path||path.startsWith('/')||path.includes('\\')||path.split('/').some(p=>p==='..'||p==='.')||!allowedPath)throw Error('Unsafe traceability repository path');
  return {path,anchor:anchor?.split(/[\s(]/)[0]??null,testName:testName??null};
 }
 export function verifyReference(root,reference,{bindings,test=false}={}){
