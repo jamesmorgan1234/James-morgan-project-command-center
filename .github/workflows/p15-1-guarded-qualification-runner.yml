@@ -42,44 +42,67 @@ jobs:
           gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}" > .runtime/p15-1-qualification/run.json
           test "$(jq -r '.head_sha' .runtime/p15-1-qualification/run.json)" = "$SOURCE_COMMIT"
           test "$(jq -r '.head_branch' .runtime/p15-1-qualification/run.json)" = "build/spec-lock-v2-clean-room"
+          test "$(jq -r '.status' .runtime/p15-1-qualification/run.json)" = "completed"
+          test "$(jq -r '.conclusion' .runtime/p15-1-qualification/run.json)" = "failure"
           gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/jobs?per_page=100" > .runtime/p15-1-qualification/jobs.json
-          jq -e --argjson job "$SOURCE_JOB_ID" '.jobs[] | select(.id==$job) | .name=="category-15"' .runtime/p15-1-qualification/jobs.json >/dev/null
+          jq -e --argjson job "$SOURCE_JOB_ID" '.jobs[] | select(.id==$job and .name=="category-15" and .status=="completed" and .conclusion=="failure")' .runtime/p15-1-qualification/jobs.json >/dev/null
           for step in "Current authority / phase / Amendment-20 validation" "Typecheck" "Legacy exclusion gate" "Repository audit gate" "P15.1 owner blocker proof test" "Build modules" "Build browser" "Embedded module tests" "Artifact audit gate" "Exact-head module test gate" "Release-candidate audit gate" "P15.14 observed PWA lifecycle"; do
             jq -e --argjson job "$SOURCE_JOB_ID" --arg step "$step" '.jobs[] | select(.id==$job) | .steps[] | select(.name==$step and .conclusion=="success")' .runtime/p15-1-qualification/jobs.json >/dev/null
           done
           jq -e --argjson job "$SOURCE_JOB_ID" '.jobs[] | select(.id==$job) | .steps[] | select(.name=="Final Category 15 nonproduction phase gate" and .conclusion=="failure")' .runtime/p15-1-qualification/jobs.json >/dev/null
-          jq -n --arg source "$SOURCE_COMMIT" --arg run "$SOURCE_RUN_ID" --arg job "$SOURCE_JOB_ID" '{schemaVersion:"1.0.0",qualifier:"independent-exact-head-ci-check",suite:"p15-1-full-module-test-suite",sourceCommit:$source,ci:{provider:"github-actions",runId:$run,jobId:$job,workflow:"Spec Lock v2 Clean Room QA",job:"category-15",embeddedModuleTests:{passed:1639,failed:0,skipped:0},exactHeadModuleTestGate:{passed:1639,failed:0,skipped:0},finalCategory15NonproductionPhaseGate:"expected-open-phase-failure"}}' > .runtime/p15-1-qualification/qualification.json
+          jq -n --arg source "$SOURCE_COMMIT" --argjson run "$SOURCE_RUN_ID" --argjson job "$SOURCE_JOB_ID" '{schemaVersion:"1.0.0",qualifier:"independent-exact-head-ci-check",suite:"p15-1-full-module-test-suite",sourceCommit:$source,ci:{provider:"github-actions",status:"completed",conclusion:"failure",coreQaConclusion:"success",runId:$run,jobId:$job,testPass:1639,testFail:0,testSkipped:0,workflow:"Spec Lock v2 Clean Room QA",job:"category-15",embeddedModuleTests:{passed:1639,failed:0,skipped:0},exactHeadModuleTestGate:{passed:1639,failed:0,skipped:0},finalCategory15NonproductionPhaseGate:"expected-open-phase-failure"}}' > .runtime/p15-1-qualification/qualification.json
       - name: Retrieve exact source-bound repository audit
         run: |
           set -euo pipefail
           gh run download "$SOURCE_RUN_ID" -n "$AUDIT_ARTIFACT" -D .runtime/p15-1-qualification/audit
           test "$(jq -r '.headSha' .runtime/p15-1-qualification/audit/category15-repository-audit.json)" = "$SOURCE_COMMIT"
-      - name: Diagnose native guarded P15.1 assembler without writing
+      - name: Preserve prequalification baseline
+        run: cp evidence/category15-requirement-traceability.json .runtime/p15-1-qualification/baseline-traceability.json
+      - name: Run native guarded P15.1 assembler
+        run: |
+          set -euo pipefail
+          node scripts/p15-1-assemble-current-traceability.mjs \
+            --baseline-audit=.runtime/p15-1-qualification/audit/category15-repository-audit.json \
+            --qualification=.runtime/p15-1-qualification/qualification.json \
+            --write | tee .runtime/p15-1-qualification/assembler-summary.json
+          npm run gate:category15-traceability
+      - name: Verify exact guarded qualification outcome
         run: |
           set -euo pipefail
           node --input-type=module <<'NODE'
-          import { writeFileSync } from 'node:fs';
-          import { assembleCurrentTraceability } from './scripts/p15-1-assemble-current-traceability.mjs';
-          const d=assembleCurrentTraceability({
-            baselineAuditPath:'.runtime/p15-1-qualification/audit/category15-repository-audit.json',
-            qualificationPath:'.runtime/p15-1-qualification/qualification.json'
-          });
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const before=JSON.parse(readFileSync('.runtime/p15-1-qualification/baseline-traceability.json','utf8'));
+          const d=JSON.parse(readFileSync('evidence/category15-requirement-traceability.json','utf8'));
           const ids=['CCR-00688','CCR-00689','CCR-00690','CCR-00700','CCR-00706','CCR-00707','CCR-00721','CCR-00722'];
-          const rows=Object.fromEntries(d.requirements.filter(r=>ids.includes(r.id)).map(r=>[r.id,{truthState:r.truthState,blocker:r.blocker,evidenceVersion:r.evidenceVersion}]));
+          const parked=['CCR-00691','CCR-00692','CCR-00693','CCR-00694','CCR-00695','CCR-00696','CCR-00697','CCR-00698','CCR-00699','CCR-00701','CCR-00702','CCR-00703','CCR-00704','CCR-00705',...Array.from({length:13},(_,i)=>`CCR-${String(708+i).padStart(5,'0')}`),'CCR-00723','CCR-00724','CCR-00725','CCR-00726','CCR-00727'];
+          const byId=new Map(d.requirements.map(r=>[r.id,r]));
+          const beforeVerified=before.requirements.filter(r=>r.truthState==='VERIFIED').map(r=>r.id);
+          const lost=beforeVerified.filter(id=>byId.get(id)?.truthState!=='VERIFIED');
+          const rows=Object.fromEntries(ids.map(id=>[id,{truthState:byId.get(id)?.truthState,blocker:byId.get(id)?.blocker,evidenceVersion:byId.get(id)?.evidenceVersion}]));
+          const parkedStates=Object.fromEntries(parked.map(id=>[id,byId.get(id)?.truthState]));
           const counts=d.requirements.reduce((a,r)=>(a[r.truthState]=(a[r.truthState]??0)+1,a),{});
-          const report={sourceCommit:d.verification?.sourceCommit,ci:d.verification?.ci,counts,repositoryEvidence:d.repositoryEvidence,qualificationErrors:d.assembly?.qualificationErrors??[],closureSummary:d.closureSummary,rows};
-          writeFileSync('.runtime/p15-1-qualification/candidate-traceability.json',JSON.stringify(d)+'\n');
+          const report={sourceCommit:d.verification?.sourceCommit,ci:d.verification?.ci,total:d.requirements.length,counts,closureSummary:d.closureSummary,repositoryEvidence:d.repositoryEvidence,qualificationErrors:d.assembly?.qualificationErrors??[],previousVerifiedCount:beforeVerified.length,lostPreviouslyVerified:lost,rows,parkedStates};
           writeFileSync('.runtime/p15-1-qualification/result-report.json',JSON.stringify(report,null,2)+'\n');
           console.log(JSON.stringify(report));
+          if(d.verification?.sourceCommit!==process.env.SOURCE_COMMIT) process.exit(21);
+          if(!d.repositoryEvidence?.valid || (d.repositoryEvidence?.errors??[]).length) process.exit(22);
+          if((d.assembly?.qualificationErrors??[]).length) process.exit(23);
+          if(d.requirements.length!==5852 || counts.VERIFIED!==533 || counts.UNVERIFIED!==5319 || (counts.NOT_APPLICABLE??0)!==0) process.exit(24);
+          if(d.closureSummary?.structurallyInvalidRowCount!==0 || d.closureSummary?.closureComplete!==false) process.exit(25);
+          if(ids.some(id=>rows[id]?.truthState!=='VERIFIED')) process.exit(26);
+          if(lost.length) process.exit(27);
+          if(parked.some(id=>parkedStates[id]!=='UNVERIFIED')) process.exit(28);
           NODE
-      - name: Preserve guarded diagnostic output
+      - name: Preserve guarded qualification output
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: p15-1-guarded-qualification-${{ github.sha }}
           path: |
-            clean-room/.runtime/p15-1-qualification/candidate-traceability.json
+            clean-room/evidence/category15-requirement-traceability.json
             clean-room/.runtime/p15-1-qualification/qualification.json
+            clean-room/.runtime/p15-1-qualification/assembler-summary.json
             clean-room/.runtime/p15-1-qualification/result-report.json
+            clean-room/.runtime/p15-1-qualification/baseline-traceability.json
             clean-room/.runtime/p15-1-qualification/run.json
             clean-room/.runtime/p15-1-qualification/jobs.json
             clean-room/.runtime/p15-1-qualification/audit/category15-repository-audit.json
