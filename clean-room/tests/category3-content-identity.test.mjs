@@ -27,3 +27,17 @@ test('content identity is independent of filename or display name',()=>{
  assert.equal(registry.get(second.id).id,'content:same-name-b');
  assert.notEqual(registry.get(first.id).id,registry.get(second.id).id);
 });
+
+test('content registry tracks every successful version and failed stale writes do not mutate history',()=>{
+ const registry=new AssetRegistry();
+ registry.register(base);
+ registry.replace({...base,version:2,sourceRef:'source:v2'},1);
+ registry.replace({...base,version:3,sourceRef:'source:v3'},2);
+ const history=registry.history(base.id);
+ assert.deepEqual(history.map((record)=>record.version),[1,2,3]);
+ assert.deepEqual(history.map((record)=>record.sourceRef),['source:v1','source:v2','source:v3']);
+ assert.equal(Object.isFrozen(history),true);
+ assert.throws(()=>registry.replace({...base,version:4,sourceRef:'stale-write'},1),/version conflict/);
+ assert.deepEqual(registry.history(base.id).map((record)=>record.version),[1,2,3]);
+ assert.deepEqual(registry.history('content:unknown'),[]);
+});
