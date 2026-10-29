@@ -6,7 +6,7 @@ import ts from "typescript";
 const root = process.argv[2]
   ? resolve(process.argv[2])
   : fileURLToPath(new URL("../src/", import.meta.url));
-const prohibited = ["../legacy", "/legacy/", "old-agent", "cc7_agent_"];
+const prohibited = ["../legacy", "/legacy/", "old-agent", "cc7_agent_", "/archive/"];
 const violations = [];
 
 function prohibitedSpecifier(specifier) {
