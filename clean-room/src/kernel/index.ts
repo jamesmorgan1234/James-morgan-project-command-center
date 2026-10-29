@@ -17,5 +17,6 @@ export * from "./recovery.js";
 export * from "./invariants.js";
 export * from "./architecture-contract.js";
 export * from "./resilience.js";
+export * from "./release-feature-activation.js";
 export * from "./scheduling.js";
 export * from "./localization.js";
