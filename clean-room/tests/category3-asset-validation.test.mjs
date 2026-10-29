@@ -153,3 +153,16 @@ test('content registry supports spreadsheet assets through canonical media type 
  registry.register(spreadsheet);
  assert.equal(registry.get(spreadsheet.id).mediaType,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 });
+
+test('content registry preserves source-code asset identity across revisions',()=>{
+ const registry=new AssetRegistry();
+ const source={...asset,id:'source-code-asset',mediaType:'text/typescript',sha256:'5'.repeat(64),originalState:'available',sourceRef:'git:source-v1'};
+ registry.register(source);
+ registry.replace({...source,version:2,sha256:'6'.repeat(64),sourceRef:'git:source-v2'},1);
+ const current=registry.get(source.id);
+ assert.equal(current.id,'source-code-asset');
+ assert.equal(current.mediaType,'text/typescript');
+ assert.equal(current.version,2);
+ assert.equal(current.sha256,'6'.repeat(64));
+ assert.equal(current.sourceRef,'git:source-v2');
+});
