@@ -79,3 +79,15 @@ test('draft unreviewed content is distinguishable from approved and locked conte
  assert.notEqual(states[1],states[2]);
  assert.throws(()=>new AssetRegistry().register({...base,id:'content:bad-state',approvalState:'draft'}),/Unsupported asset state/);
 });
+
+test('generated content identifies its originating project and project ownership cannot be silently rewritten',()=>{
+ const registry=new AssetRegistry();
+ const generated={...base,id:'content:generated-project',projectId:'project:alpha',generation:{generatorRef:'generator:content-pipeline'}};
+ registry.register(generated);
+ assert.equal(registry.get(generated.id).projectId,'project:alpha');
+ registry.replace({...generated,version:2,sourceRef:'source:v2'},1);
+ assert.equal(registry.get(generated.id).projectId,'project:alpha');
+ assert.throws(()=>registry.replace({...generated,version:3,sourceRef:'source:v3',projectId:'project:beta'},2),/project ownership/);
+ assert.equal(registry.get(generated.id).projectId,'project:alpha');
+ assert.throws(()=>new AssetRegistry().register({...generated,id:'content:blank-project',projectId:' '}),/project scope must be nonblank/);
+});
