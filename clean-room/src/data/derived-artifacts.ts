@@ -54,7 +54,7 @@ export interface DerivedArtifactRegistration {
   readonly ownerId: string;
   readonly derivedId: string;
   readonly kind: DerivedArtifactKind;
-  readonly sourceSensitivities: readonly SourceSensitivity[];
+  readonly sourceSensitivities?: readonly SourceSensitivity[];
   readonly requestedSensitivity?: SourceSensitivity;
   readonly downgradeAuthorization?: DerivedSensitivityDowngradeAuthorization;
   readonly createdAt: string;
@@ -69,7 +69,10 @@ function isSourceSensitivity(value: string): value is SourceSensitivity {
   return ["internal", "sensitive", "protected", "secret"].includes(value);
 }
 
-function strictestSensitivity(values: readonly SourceSensitivity[]): SourceSensitivity {
+function strictestSensitivity(values: readonly SourceSensitivity[] | undefined): SourceSensitivity {
+  // Legacy callers that predate source classification fail closed at the strictest class.
+  // New callers that supply the field must provide at least one explicit classification.
+  if (values === undefined) return "secret";
   if (values.length === 0) throw new Error("Derived artifact requires source sensitivity classifications");
   if (values.some((value) => !isSourceSensitivity(value))) throw new Error("Unsupported derived source sensitivity");
   return values.reduce((strictest, current) => SENSITIVITY_RANK[current] > SENSITIVITY_RANK[strictest] ? current : strictest);
@@ -106,7 +109,8 @@ function frozenProvenance(provenance: readonly ProvenanceRef[]): readonly Proven
  * deletion can only move artifact state toward more restrictive states. Source sensitivity
  * propagates to each output by default. Any downgrade is an immutable registration-time
  * exception that requires explicit owner decision, policy and receipt evidence; model/system
- * requests cannot authorize it. There is no artifact reactivation API.
+ * requests cannot authorize it. There is no artifact reactivation API. Legacy registrations
+ * without source classifications fail closed to secret until callers are upgraded.
  */
 export class DerivedArtifactRegistry {
   readonly #records = new Map<string, DerivedArtifactRecord>();
