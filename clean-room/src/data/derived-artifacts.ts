@@ -2,6 +2,7 @@ import { parseTimestamp } from "../security/types.js";
 import type { DerivedPayloadState } from "./privacy.js";
 import type { DerivedRecord, DerivedState } from "./derived.js";
 import type { ProvenanceRef } from "./provenance.js";
+import type { SourceSensitivity } from "./sources.js";
 
 export const DERIVED_ARTIFACT_KINDS = Object.freeze([
   "summary",
@@ -16,6 +17,23 @@ export const DERIVED_ARTIFACT_KINDS = Object.freeze([
 export type DerivedArtifactKind = (typeof DERIVED_ARTIFACT_KINDS)[number];
 export type DerivedArtifactState = DerivedState;
 
+const SENSITIVITY_RANK: Readonly<Record<SourceSensitivity, number>> = Object.freeze({
+  internal: 0,
+  sensitive: 1,
+  protected: 2,
+  secret: 3
+});
+
+export interface DerivedSensitivityDowngradeAuthorization {
+  readonly authorized: true;
+  readonly requestedBy: "owner";
+  readonly ownerDecisionRef: string;
+  readonly policyRef: string;
+  readonly receiptRef: string;
+  readonly fromSensitivity: SourceSensitivity;
+  readonly toSensitivity: SourceSensitivity;
+}
+
 export interface DerivedArtifactRecord {
   readonly artifactId: string;
   readonly ownerId: string;
@@ -23,6 +41,9 @@ export interface DerivedArtifactRecord {
   readonly kind: DerivedArtifactKind;
   readonly state: DerivedArtifactState;
   readonly provenance: readonly ProvenanceRef[];
+  readonly sourceSensitivity: SourceSensitivity;
+  readonly sensitivity: SourceSensitivity;
+  readonly sensitivityDecisionRef?: string;
   readonly createdAt: string;
   readonly updatedAt: string;
   readonly restrictionReason?: string;
@@ -33,12 +54,44 @@ export interface DerivedArtifactRegistration {
   readonly ownerId: string;
   readonly derivedId: string;
   readonly kind: DerivedArtifactKind;
+  readonly sourceSensitivities: readonly SourceSensitivity[];
+  readonly requestedSensitivity?: SourceSensitivity;
+  readonly downgradeAuthorization?: DerivedSensitivityDowngradeAuthorization;
   readonly createdAt: string;
   readonly updatedAt: string;
 }
 
 function isDerivedArtifactKind(value: string): value is DerivedArtifactKind {
   return (DERIVED_ARTIFACT_KINDS as readonly string[]).includes(value);
+}
+
+function isSourceSensitivity(value: string): value is SourceSensitivity {
+  return ["internal", "sensitive", "protected", "secret"].includes(value);
+}
+
+function strictestSensitivity(values: readonly SourceSensitivity[]): SourceSensitivity {
+  if (values.length === 0) throw new Error("Derived artifact requires source sensitivity classifications");
+  if (values.some((value) => !isSourceSensitivity(value))) throw new Error("Unsupported derived source sensitivity");
+  return values.reduce((strictest, current) => SENSITIVITY_RANK[current] > SENSITIVITY_RANK[strictest] ? current : strictest);
+}
+
+function resolveSensitivity(input: DerivedArtifactRegistration): Readonly<{ sourceSensitivity: SourceSensitivity; sensitivity: SourceSensitivity; sensitivityDecisionRef?: string }> {
+  const sourceSensitivity = strictestSensitivity(input.sourceSensitivities);
+  const sensitivity = input.requestedSensitivity ?? sourceSensitivity;
+  if (!isSourceSensitivity(sensitivity)) throw new Error("Unsupported derived artifact sensitivity");
+
+  const isDowngrade = SENSITIVITY_RANK[sensitivity] < SENSITIVITY_RANK[sourceSensitivity];
+  if (!isDowngrade) {
+    if (input.downgradeAuthorization !== undefined) throw new Error("Downgrade authorization is only valid for a sensitivity downgrade");
+    return Object.freeze({ sourceSensitivity, sensitivity });
+  }
+
+  const authorization = input.downgradeAuthorization;
+  if (!authorization || authorization.authorized !== true) throw new Error("Derived sensitivity downgrade requires explicit owner authorization");
+  if (authorization.requestedBy !== "owner") throw new Error("Model/system-requested sensitivity downgrade is forbidden");
+  if (!authorization.ownerDecisionRef.trim() || !authorization.policyRef.trim() || !authorization.receiptRef.trim()) throw new Error("Derived sensitivity downgrade requires decision, policy, and receipt evidence");
+  if (authorization.fromSensitivity !== sourceSensitivity || authorization.toSensitivity !== sensitivity) throw new Error("Derived sensitivity downgrade authorization does not match the requested transition");
+  return Object.freeze({ sourceSensitivity, sensitivity, sensitivityDecisionRef: authorization.receiptRef.trim() });
 }
 
 function frozenProvenance(provenance: readonly ProvenanceRef[]): readonly ProvenanceRef[] {
@@ -50,8 +103,10 @@ function frozenProvenance(provenance: readonly ProvenanceRef[]): readonly Proven
  * Canonical contract for every derived artifact class covered by A08.3/A08.7.
  * Artifacts never own independent authority: registration and use bind to the canonical
  * DerivedRecord, provenance is snapshotted from that record, and canonical restriction/
- * deletion can only move artifact state toward more restrictive states. There is no
- * artifact reactivation API; restore must pass through current canonical restore gates.
+ * deletion can only move artifact state toward more restrictive states. Source sensitivity
+ * propagates to each output by default. Any downgrade is an immutable registration-time
+ * exception that requires explicit owner decision, policy and receipt evidence; model/system
+ * requests cannot authorize it. There is no artifact reactivation API.
  */
 export class DerivedArtifactRegistry {
   readonly #records = new Map<string, DerivedArtifactRecord>();
@@ -67,6 +122,7 @@ export class DerivedArtifactRegistry {
     const updatedAt = parseTimestamp(input.updatedAt, "derivedArtifact.updatedAt");
     if (updatedAt < createdAt) throw new Error("Derived artifact updatedAt cannot predate createdAt");
     if (this.#records.has(input.artifactId)) throw new Error(`Derived artifact already exists: ${input.artifactId}`);
+    const resolvedSensitivity = resolveSensitivity(input);
 
     const record: DerivedArtifactRecord = Object.freeze({
       artifactId: input.artifactId,
@@ -75,6 +131,7 @@ export class DerivedArtifactRegistry {
       kind: input.kind,
       state: "active",
       provenance: frozenProvenance(canonical.provenance),
+      ...resolvedSensitivity,
       createdAt: input.createdAt,
       updatedAt: input.updatedAt
     });
@@ -90,7 +147,6 @@ export class DerivedArtifactRegistry {
     for (const [artifactId, artifact] of this.#records) {
       if (artifact.derivedId !== canonical.id || artifact.ownerId !== canonical.ownerId) continue;
       if (canonical.state === "active") {
-        // Never silently reactivate a previously restricted/deleted artifact.
         if (artifact.state !== "active") continue;
         continue;
       }
