@@ -107,3 +107,10 @@ test('content registry supports EPUB assets through the open canonical media typ
  registry.register(epub);
  assert.equal(registry.get(epub.id).mediaType,'application/epub+zip');
 });
+
+test('content registry supports DOCX assets through canonical media type metadata',()=>{
+ const registry=new AssetRegistry();
+ const docx={...asset,id:'docx-asset',mediaType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',sha256:'e'.repeat(64),originalState:'available'};
+ registry.register(docx);
+ assert.equal(registry.get(docx.id).mediaType,'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+});
