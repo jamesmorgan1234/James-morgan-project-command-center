@@ -62,6 +62,17 @@ if (!isSha256(release.buildHash)) structuralErrors.push("release identity buildH
 if (!isSha256(release.assetManifestHash)) structuralErrors.push("release identity assetManifestHash is not SHA-256");
 if (release.schemaCompatibility !== "cc-runtime-snapshot-v1") structuralErrors.push(`unexpected runtime schema compatibility ${release.schemaCompatibility}`);
 
+const identityFiles = files.filter((path) => !path.endsWith("release.json") && !path.endsWith("pwa-assets.json"));
+const assetManifest = [];
+for (const path of identityFiles) {
+  const bytes = await readFile(path);
+  assetManifest.push({ path: webPath(path), sha256: sha256(bytes), bytes: bytes.length });
+}
+const computedAssetManifestHash = sha256(JSON.stringify(assetManifest));
+const computedBuildHash = sha256(`${release.releaseId}:${release.schemaCompatibility}:${computedAssetManifestHash}`);
+if (isSha256(release.assetManifestHash) && release.assetManifestHash !== computedAssetManifestHash) structuralErrors.push("release identity assetManifestHash does not match artifact bytes");
+if (isSha256(release.buildHash) && release.buildHash !== computedBuildHash) structuralErrors.push("release identity buildHash does not match releaseId/schema/artifact manifest");
+
 const pwaAssets = JSON.parse(await readFile(join(OUT, "pwa-assets.json"), "utf8"));
 if (pwaAssets.expectedSha256 !== APPROVED_ICON_SHA256) structuralErrors.push("protected icon expected hash changed");
 if (pwaAssets.approvedIcon === "verified") {
