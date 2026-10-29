@@ -114,3 +114,10 @@ test('content registry supports DOCX assets through canonical media type metadat
  registry.register(docx);
  assert.equal(registry.get(docx.id).mediaType,'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 });
+
+test('content registry supports image assets through canonical media type metadata',()=>{
+ const registry=new AssetRegistry();
+ const image={...asset,id:'image-asset',mediaType:'image/png',sha256:'f'.repeat(64),originalState:'available'};
+ registry.register(image);
+ assert.equal(registry.get(image.id).mediaType,'image/png');
+});
