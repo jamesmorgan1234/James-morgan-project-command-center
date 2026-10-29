@@ -46,6 +46,13 @@ jobs:
         run: npm run check:legacy
       - name: Repository audit gate
         run: npm run audit:repository
+      - name: Preserve source-bound repository audit
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: p15-1-repository-audit-${{ github.sha }}
+          path: clean-room/category15-repository-audit.json
+          if-no-files-found: error
+          retention-days: 7
       - name: P15.1 owner blocker proof test
         run: node --test --test-reporter=spec tests/p15-1-agent-owner-device-blocker-contract.test.mjs
       - name: Build modules
