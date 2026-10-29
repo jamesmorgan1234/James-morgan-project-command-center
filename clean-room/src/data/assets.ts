@@ -89,7 +89,7 @@ function validateArchiveManifest(archiveManifest: AssetArchiveManifest | undefin
   const paths = new Set<string>();
   for (const entry of archiveManifest.entries) {
     if (entry === null || typeof entry !== "object" || Array.isArray(entry) || typeof entry.path !== "string" || !entry.path.trim()) throw new Error("Asset archive manifest entry path is required");
-    if (entry.path.startsWith("/") || entry.path.includes("\\") || entry.path.split("/").some((part) => part === "" || part === "." || part === "..")) throw new Error("Asset archive manifest entry path must be a safe relative path");
+    if (entry.path.startsWith("/") || entry.path.includes("\\") || entry.path.split("/").some((part: string) => part === "" || part === "." || part === "..")) throw new Error("Asset archive manifest entry path must be a safe relative path");
     if (paths.has(entry.path)) throw new Error(`Asset archive manifest contains duplicate path: ${entry.path}`);
     paths.add(entry.path);
     if (entry.sha256 !== undefined) assertHash(entry.sha256);
