@@ -26,6 +26,15 @@ test("P5.9 shared project detail registry contains every universal project-room 
   assert.equal(sections.at(-1)?.title, "Conversation");
 });
 
+test("P5.9 unknown and future project types retain the generic universal Project Detail shell", () => {
+  const registry = createCoreProjectSections();
+  for (const typeKey of ["project-type:unknown", "project-type:future-unregistered"]) {
+    const sections = registry.forProjectType(typeKey);
+    assert.deepEqual(sections.map((section) => section.key), CORE_KEYS);
+    assert.equal(sections.at(-1)?.title, "Conversation");
+  }
+});
+
 test("P5.9 shipped Project Detail renders the universal shell and scopes cross-surface links to the project", async () => {
   const browser = await read("src/runtime/browser.ts");
   for (const key of CORE_KEYS) assert.match(browser, new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
