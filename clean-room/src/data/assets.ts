@@ -4,12 +4,19 @@ export type AssetSensitivity = "internal" | "sensitive" | "protected" | "secret"
 export type AssetOriginalState = "available" | "missing" | "reconstruction";
 export type AssetApprovalState = "unreviewed" | "approved" | "locked";
 
+export interface AssetGenerationProvenance {
+  readonly generatorRef?: string;
+  readonly toolRef?: string;
+  readonly providerRef?: string;
+}
+
 export interface AssetRecord {
   readonly id: string;
   readonly ownerId: string;
   readonly projectId?: string;
   readonly originRequirementId?: string;
   readonly originTaskId?: string;
+  readonly generation?: AssetGenerationProvenance;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -30,6 +37,18 @@ function assertHash(hash: string): void {
   if (!/^[a-f0-9]{64}$/i.test(hash)) throw new Error("Asset sha256 must contain exactly 64 hexadecimal characters");
 }
 
+function validateGeneration(generation: AssetGenerationProvenance | undefined): void {
+  if (generation === undefined) return;
+  if (generation === null || typeof generation !== "object" || Array.isArray(generation)) throw new Error("Asset generation provenance must be an object");
+  const values = [generation.generatorRef, generation.toolRef, generation.providerRef];
+  if (values.every((value) => value === undefined)) throw new Error("Asset generation provenance requires a generator, tool, or provider reference");
+  if (values.some((value) => value !== undefined && (typeof value !== "string" || !value.trim()))) throw new Error("Asset generation provenance references must be nonblank");
+}
+
+function freezeAsset(record: AssetRecord): AssetRecord {
+  return Object.freeze({ ...record, generation: record.generation === undefined ? undefined : Object.freeze({ ...record.generation }) });
+}
+
 function validateAsset(record: AssetRecord): void {
   if (!record.id.trim() || !record.ownerId.trim() || !record.name.trim() || !record.sourceRef.trim()) throw new Error("Asset identity/provenance fields are required");
   if (!["internal", "sensitive", "protected", "secret"].includes(record.sensitivity) || !["available", "missing", "reconstruction"].includes(record.originalState) || !["unreviewed", "approved", "locked"].includes(record.approvalState)) throw new Error("Unsupported asset state");
@@ -38,6 +57,7 @@ function validateAsset(record: AssetRecord): void {
   if (record.projectId !== undefined && !record.projectId.trim()) throw new Error("Asset project scope must be nonblank");
   if (record.originRequirementId !== undefined && !record.originRequirementId.trim()) throw new Error("Asset originating requirement must be nonblank");
   if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
+  validateGeneration(record.generation);
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
 }
 
@@ -53,7 +73,7 @@ export class AssetRegistry {
     parseTimestamp(record.createdAt, "createdAt");
     parseTimestamp(record.updatedAt, "updatedAt");
     if (this.#assets.has(record.id)) throw new Error(`Asset already exists: ${record.id}`);
-    this.#assets.set(record.id, Object.freeze({ ...record }));
+    this.#assets.set(record.id, freezeAsset(record));
   }
 
   replace(record: AssetRecord, expectedVersion: number, authorization?: ProtectedAssetReplacementAuthorization): void {
@@ -65,9 +85,10 @@ export class AssetRegistry {
     if ((current.projectId ?? null) !== (record.projectId ?? null)) throw new Error("Asset project ownership cannot be silently rewritten");
     if (current.originRequirementId !== undefined && current.originRequirementId !== record.originRequirementId) throw new Error("Asset originating requirement cannot be silently rewritten");
     if (current.originTaskId !== undefined && current.originTaskId !== record.originTaskId) throw new Error("Asset originating task cannot be silently rewritten");
+    if (current.generation !== undefined && (record.generation === undefined || current.generation.generatorRef !== record.generation.generatorRef || current.generation.toolRef !== record.generation.toolRef || current.generation.providerRef !== record.generation.providerRef)) throw new Error("Asset generation provenance cannot be silently rewritten");
     if (record.sha256) assertHash(record.sha256);
     if (current.approvalState === "locked" && (authorization?.authorized !== true || typeof authorization?.ownerDecisionRef !== "string" || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
-    this.#assets.set(record.id, Object.freeze({ ...record }));
+    this.#assets.set(record.id, freezeAsset(record));
   }
 
   get(id: string): AssetRecord | undefined { return this.#assets.get(id); }
