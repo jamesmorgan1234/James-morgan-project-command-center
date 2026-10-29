@@ -35,3 +35,27 @@ test('asset requirement and task provenance is typed, backfillable, and cannot b
  assert.throws(()=>new AssetRegistry().register({...asset,id:'blank-requirement',originRequirementId:''}),/originating requirement/);
  assert.throws(()=>new AssetRegistry().register({...asset,id:'blank-task',originTaskId:''}),/originating task/);
 });
+
+test('asset generation provenance identifies generator tool or provider and cannot be silently rewritten',()=>{
+ const registry=new AssetRegistry();
+ const generation={generatorRef:'generator:content-pipeline',toolRef:'tool:writer-v1',providerRef:'provider:local'};
+ const linked={...asset,id:'generated',generation};
+ registry.register(linked);
+ assert.deepEqual(registry.get(linked.id).generation,generation);
+ assert.equal(Object.isFrozen(registry.get(linked.id).generation),true);
+ registry.replace({...linked,version:2,sourceRef:'source-v2'},1);
+ for(const changed of [{generatorRef:'generator:other'},{toolRef:'tool:other'},{providerRef:'provider:other'}]){
+  assert.throws(()=>registry.replace({...linked,version:3,sourceRef:'source-v3',generation:{...generation,...changed}},2),/generation provenance/);
+ }
+ assert.throws(()=>registry.replace({...linked,version:3,sourceRef:'source-v3',generation:undefined},2),/generation provenance/);
+ assert.equal(registry.get(linked.id).version,2);
+
+ const backfill=new AssetRegistry();
+ backfill.register({...asset,id:'generated-backfill'});
+ backfill.replace({...asset,id:'generated-backfill',version:2,generation:{toolRef:'tool:legacy'}},1);
+ assert.equal(backfill.get('generated-backfill').generation.toolRef,'tool:legacy');
+
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'empty-generation',generation:{}}),/requires a generator, tool, or provider/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'blank-generation',generation:{providerRef:' '}}),/references must be nonblank/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'null-generation',generation:null}),/must be an object/);
+});
