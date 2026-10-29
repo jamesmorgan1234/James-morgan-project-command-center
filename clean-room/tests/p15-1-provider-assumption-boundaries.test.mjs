@@ -61,3 +61,16 @@ test('CCR-02157 provider billing and quota models are abstract eligibility input
   assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true}).providerKey,'provider-free');
   assert.equal(JSON.stringify(architecture.list()),architectureBefore);
 });
+
+test('CCR-02158 provider context-window limits are explicit routing capacity rather than architecture assumptions',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route({key:'ai-route:small-context',providerKey:'provider-small',modelId:'small-model',contextWindowTokens:8000,qualityRank:20}));
+  routes.register(route({key:'ai-route:large-context',providerKey:'provider-large',modelId:'large-model',contextWindowTokens:128000,qualityRank:10}));
+  routes.register(route({key:'ai-route:unknown-context',providerKey:'provider-unknown-context',modelId:'unknown-context-model',contextWindowTokens:'unknown',qualityRank:30}));
+
+  assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true}).providerKey,'provider-unknown-context');
+  assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true,minimumContextTokens:32000}).providerKey,'provider-large');
+  assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true,minimumContextTokens:256000}),undefined);
+  assert.throws(()=>routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true,minimumContextTokens:0}),/Minimum context tokens/);
+  assert.throws(()=>new AiRouteRegistry().register(route({key:'ai-route:bad-context',contextWindowTokens:0})),/context window/);
+});
