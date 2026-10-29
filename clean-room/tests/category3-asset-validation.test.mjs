@@ -100,3 +100,10 @@ test('content registry supports PDF assets through canonical media type metadata
  assert.throws(()=>new AssetRegistry().register({...asset,id:'bad-media-type',mediaType:'applicationpdf'}),/canonical type\/subtype/);
  assert.throws(()=>new AssetRegistry().register({...asset,id:'parameterized-media-type',mediaType:'application/pdf; charset=binary'}),/canonical type\/subtype/);
 });
+
+test('content registry supports EPUB assets through the open canonical media type seam',()=>{
+ const registry=new AssetRegistry();
+ const epub={...asset,id:'epub-asset',mediaType:'application/epub+zip',sha256:'d'.repeat(64),originalState:'available'};
+ registry.register(epub);
+ assert.equal(registry.get(epub.id).mediaType,'application/epub+zip');
+});
