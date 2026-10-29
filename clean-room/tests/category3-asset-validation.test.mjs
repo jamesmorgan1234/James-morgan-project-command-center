@@ -91,3 +91,12 @@ test('asset registry detects exact duplicate content by normalized sha256 and up
  assert.deepEqual(registry.findDuplicatesBySha256(otherHash),[]);
  assert.throws(()=>registry.findDuplicatesBySha256('not-a-hash'),/64 hexadecimal characters/);
 });
+
+test('content registry supports PDF assets through canonical media type metadata',()=>{
+ const registry=new AssetRegistry();
+ const pdf={...asset,id:'pdf-asset',mediaType:'application/pdf',sha256:'c'.repeat(64),originalState:'available'};
+ registry.register(pdf);
+ assert.equal(registry.get(pdf.id).mediaType,'application/pdf');
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'bad-media-type',mediaType:'applicationpdf'}),/canonical type\/subtype/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'parameterized-media-type',mediaType:'application/pdf; charset=binary'}),/canonical type\/subtype/);
+});
