@@ -29,6 +29,7 @@ import {reviewedWorkProjectContractMappings} from './p15-1-reviewed-work-project
 import {reviewedProjectBooksFoundationMappings} from './p15-1-reviewed-project-books-foundation-mappings.mjs';
 import {reviewedProviderContractMappings} from './p15-1-reviewed-provider-contract-mappings.mjs';
 import {reviewedAutomationSecurityMappings} from './p15-1-reviewed-automation-security-mappings.mjs';
+import {reviewedSecurityDiagnosticsMappings} from './p15-1-reviewed-security-diagnostics-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -73,7 +74,8 @@ export function currentReviewedMappings(root){
   ...reviewedWorkProjectContractMappings(),
   ...reviewedProjectBooksFoundationMappings(),
   ...reviewedProviderContractMappings(),
-  ...reviewedAutomationSecurityMappings()
+  ...reviewedAutomationSecurityMappings(),
+  ...reviewedSecurityDiagnosticsMappings()
  ];
  const seen=new Set();
  return selected.map(original=>{
