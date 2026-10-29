@@ -1,3 +1,5 @@
+import { redactSecretText } from "../security/secret-channels.js";
+
 export interface TraceEvent {
   readonly traceId: string;
   readonly correlationId: string;
@@ -12,7 +14,9 @@ const SECRET_KEYS = new Set(["token", "password", "secret", "api_key", "authoriz
 
 export function redactFields(fields: Readonly<Record<string, string>>): Readonly<Record<string, string>> {
   const output: Record<string, string> = {};
-  for (const [key, value] of Object.entries(fields)) output[key] = SECRET_KEYS.has(key.toLowerCase()) ? "[REDACTED]" : value;
+  for (const [key, value] of Object.entries(fields)) {
+    output[key] = SECRET_KEYS.has(key.toLowerCase()) ? "[REDACTED]" : redactSecretText(value);
+  }
   return Object.freeze(output);
 }
 
