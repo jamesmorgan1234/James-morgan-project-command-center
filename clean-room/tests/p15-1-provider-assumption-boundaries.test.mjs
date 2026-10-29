@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {AiRouteRegistry} from '../dist/brain/index.js';
+import {AiRouteRegistry,BrainMemoryLedger} from '../dist/brain/index.js';
 import {createCoreArchitectureResponsibilityRegistry} from '../dist/kernel/index.js';
 
 function route(overrides={}){
@@ -73,4 +73,33 @@ test('CCR-02158 provider context-window limits are explicit routing capacity rat
   assert.equal(routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true,minimumContextTokens:256000}),undefined);
   assert.throws(()=>routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'remote',preferQuality:true,minimumContextTokens:0}),/Minimum context tokens/);
   assert.throws(()=>new AiRouteRegistry().register(route({key:'ai-route:bad-context',contextWindowTokens:0})),/context window/);
+});
+
+test('CCR-02159 provider memory remains outside canonical Brain memory',()=>{
+  const ledger=new BrainMemoryLedger();
+  const memory={
+    id:'memory:canonical-provider-independent',
+    ownerId:'owner-1',
+    projectId:'prj_command-center',
+    kind:'fact',
+    version:1,
+    state:'current',
+    value:{fact:'Canonical memory belongs to Command Center.'},
+    confidence:1,
+    sensitivity:'internal',
+    sourceRefs:['source:canonical-memory'],
+    recordedAt:'2026-10-29T00:00:00Z'
+  };
+  ledger.append(memory);
+  const before=JSON.stringify(ledger.current(memory.ownerId,memory.projectId));
+  assert.equal(before.includes('"providerKey"'),false);
+  assert.equal(before.includes('"modelId"'),false);
+
+  const routes=new AiRouteRegistry();
+  routes.register(route({key:'ai-route:memory-a',providerKey:'provider-memory-a',modelId:'memory-model-a'}));
+  routes.remove('ai-route:memory-a');
+  routes.register(route({key:'ai-route:memory-b',providerKey:'provider-memory-b',modelId:'memory-model-b',executionMode:'self_hosted',privacy:'local'}));
+
+  assert.equal(JSON.stringify(ledger.current(memory.ownerId,memory.projectId)),before);
+  assert.deepEqual(ledger.current(memory.ownerId,memory.projectId),[memory]);
 });
