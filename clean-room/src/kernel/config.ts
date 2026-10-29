@@ -1,12 +1,23 @@
 import { inferBackendClassification, validateTrustedEnvironmentBinding } from "./trusted-environment.mjs";
 
 export const CURRENT_RUNTIME_CONFIG_VERSION = 1 as const;
+export const CURRENT_RUNTIME_SCHEMA_VERSION = 1 as const;
+export const CURRENT_RUNTIME_API_VERSION = 1 as const;
 export type EnvironmentName = "development" | "test" | "preview" | "staging" | "production";
 export type BackendClassification = "isolated" | "shared-nonproduction" | "protected-production";
 
 const ENVIRONMENT_NAMES = new Set<EnvironmentName>(["development", "test", "preview", "staging", "production"]);
 
 export interface VersionRange { readonly min: number; readonly max: number; }
+export const SUPPORTED_RUNTIME_SCHEMA_RANGE: Readonly<VersionRange> = Object.freeze({
+  min: CURRENT_RUNTIME_SCHEMA_VERSION,
+  max: CURRENT_RUNTIME_SCHEMA_VERSION
+});
+export const SUPPORTED_RUNTIME_API_RANGE: Readonly<VersionRange> = Object.freeze({
+  min: CURRENT_RUNTIME_API_VERSION,
+  max: CURRENT_RUNTIME_API_VERSION
+});
+
 export interface RuntimeConfig {
   readonly configVersion?: number;
   readonly environment: EnvironmentName;
@@ -76,6 +87,12 @@ function assertReleaseIdentity(releaseId: unknown, label: string): asserts relea
   if (/^__COMMAND_CENTER_[A-Z0-9_]+__$/.test(releaseId.trim())) throw new Error(`${label} contains an unresolved build placeholder`);
 }
 
+function assertSupportedRuntimeVersion(label: string, version: number, supported: Readonly<VersionRange>): void {
+  if (version < supported.min || version > supported.max) {
+    throw new Error(`Unsupported ${label} ${version}; supported range is ${supported.min}-${supported.max}`);
+  }
+}
+
 export function validateRuntimeConfig(config: RuntimeConfig): RuntimeConfig {
   if (!config || typeof config !== "object") throw new Error("Runtime config is required");
   assertEnvironment(config.environment, "runtime environment");
@@ -100,6 +117,8 @@ export function validateVersionedRuntimeConfig(config: RuntimeConfig): Versioned
   if (validated.configVersion !== CURRENT_RUNTIME_CONFIG_VERSION) {
     throw new Error(`Unsupported configVersion ${validated.configVersion}; expected ${CURRENT_RUNTIME_CONFIG_VERSION}`);
   }
+  assertSupportedRuntimeVersion("schemaVersion", validated.schemaVersion, SUPPORTED_RUNTIME_SCHEMA_RANGE);
+  assertSupportedRuntimeVersion("apiVersion", validated.apiVersion, SUPPORTED_RUNTIME_API_RANGE);
   return validated as VersionedRuntimeConfig;
 }
 
