@@ -121,3 +121,16 @@ test('content registry supports image assets through canonical media type metada
  registry.register(image);
  assert.equal(registry.get(image.id).mediaType,'image/png');
 });
+
+test('content registry supports video assets with validated media metadata',()=>{
+ const registry=new AssetRegistry();
+ const mediaMetadata={durationMs:120000,widthPx:1920,heightPx:1080};
+ const video={...asset,id:'video-asset',mediaType:'video/mp4',mediaMetadata,sha256:'1'.repeat(64),originalState:'available'};
+ registry.register(video);
+ assert.equal(registry.get(video.id).mediaType,'video/mp4');
+ assert.deepEqual(registry.get(video.id).mediaMetadata,mediaMetadata);
+ assert.equal(Object.isFrozen(registry.get(video.id).mediaMetadata),true);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'metadata-without-type',mediaMetadata:{durationMs:1}}),/requires a media type/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'empty-media-metadata',mediaType:'video/mp4',mediaMetadata:{}}),/requires duration or dimensions/);
+ assert.throws(()=>new AssetRegistry().register({...asset,id:'zero-duration',mediaType:'video/mp4',mediaMetadata:{durationMs:0}}),/positive safe integers/);
+});
