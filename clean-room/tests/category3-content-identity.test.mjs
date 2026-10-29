@@ -14,3 +14,16 @@ test('content registry requires a stable nonblank content id and preserves it ac
  assert.equal(current.version,2);
  assert.throws(()=>registry.replace({...base,id:'content:other',version:2,sourceRef:'source:v2'},1),/Unknown asset/);
 });
+
+test('content identity is independent of filename or display name',()=>{
+ const registry=new AssetRegistry();
+ const first={...base,id:'content:same-name-a',name:'shared-output.pdf',sourceRef:'file:a'};
+ const second={...base,id:'content:same-name-b',name:'shared-output.pdf',sourceRef:'file:b'};
+ registry.register(first);
+ registry.register(second);
+ assert.equal(registry.get(first.id).name,'shared-output.pdf');
+ assert.equal(registry.get(second.id).name,'shared-output.pdf');
+ assert.equal(registry.get(first.id).id,'content:same-name-a');
+ assert.equal(registry.get(second.id).id,'content:same-name-b');
+ assert.notEqual(registry.get(first.id).id,registry.get(second.id).id);
+});
