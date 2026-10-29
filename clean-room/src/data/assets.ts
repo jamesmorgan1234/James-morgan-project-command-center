@@ -8,6 +8,8 @@ export interface AssetRecord {
   readonly id: string;
   readonly ownerId: string;
   readonly projectId?: string;
+  readonly originRequirementId?: string;
+  readonly originTaskId?: string;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -34,6 +36,8 @@ function validateAsset(record: AssetRecord): void {
   if (record.sha256 !== undefined) assertHash(record.sha256);
   if (record.originalState === "available" && !record.sha256) throw new Error("Available asset requires sha256 identity");
   if (record.projectId !== undefined && !record.projectId.trim()) throw new Error("Asset project scope must be nonblank");
+  if (record.originRequirementId !== undefined && !record.originRequirementId.trim()) throw new Error("Asset originating requirement must be nonblank");
+  if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
 }
 
@@ -59,6 +63,8 @@ export class AssetRegistry {
     if (current.version !== expectedVersion || record.version !== current.version + 1) throw new Error(`Asset version conflict for ${record.id}`);
     if (current.ownerId !== record.ownerId || current.createdAt !== record.createdAt) throw new Error("Asset owner/creation identity cannot be rewritten");
     if ((current.projectId ?? null) !== (record.projectId ?? null)) throw new Error("Asset project ownership cannot be silently rewritten");
+    if (current.originRequirementId !== undefined && current.originRequirementId !== record.originRequirementId) throw new Error("Asset originating requirement cannot be silently rewritten");
+    if (current.originTaskId !== undefined && current.originTaskId !== record.originTaskId) throw new Error("Asset originating task cannot be silently rewritten");
     if (record.sha256) assertHash(record.sha256);
     if (current.approvalState === "locked" && (authorization?.authorized !== true || typeof authorization?.ownerDecisionRef !== "string" || !authorization.ownerDecisionRef.trim())) throw new Error(`Locked asset replacement requires explicit owner decision: ${record.id}`);
     this.#assets.set(record.id, Object.freeze({ ...record }));
