@@ -83,6 +83,22 @@ function throwIfCancelled(signal: CancellationSignal | undefined): void {
   if (signal?.cancelled) throw new CommandCancelledError(signal.reason);
 }
 
+function commandReplayScope(command: CommandEnvelope): readonly [string, string | null] {
+  // Replay namespace only. Authorization remains the responsibility of the canonical policy/domain gates.
+  return Object.freeze([command.actor, command.projectId ?? null]);
+}
+
+function commandInboxKey(command: CommandEnvelope): string {
+  const [actor, projectId] = commandReplayScope(command);
+  return JSON.stringify([actor, projectId, command.id]);
+}
+
+function commandIdempotencyKey(command: CommandEnvelope): string | undefined {
+  if (!command.idempotencyKey) return undefined;
+  const [actor, projectId] = commandReplayScope(command);
+  return JSON.stringify([actor, projectId, command.type, command.idempotencyKey]);
+}
+
 export function assertCommandEnvelope(command: CommandEnvelope): CommandEnvelope {
   assertNonBlank(command.id, "command id");
   assertNonBlank(command.type, "command type");
@@ -109,6 +125,7 @@ export class CommandRuntime {
   readonly #handlers = new Map<string, CommandHandler>();
   readonly #idempotency = new Map<string, readonly EventEnvelope[]>();
   readonly #inbox = new Map<string, readonly EventEnvelope[]>();
+  readonly #inboxCommandIds = new Set<string>();
   #outbox: OutboxRecord[] = [];
   #sequence = 0;
 
@@ -127,14 +144,16 @@ export class CommandRuntime {
     const handler = this.#handlers.get(command.type);
     if (!handler) throw new Error(`No command handler registered for ${command.type}`);
 
-    const inboxReplay = this.#inbox.get(command.id);
+    const inboxKey = commandInboxKey(command);
+    const inboxReplay = this.#inbox.get(inboxKey);
     if (inboxReplay) return inboxReplay;
 
-    const dedupeKey = command.idempotencyKey ? `${command.type}:${command.idempotencyKey}` : undefined;
+    const dedupeKey = commandIdempotencyKey(command);
     if (dedupeKey) {
       const replay = this.#idempotency.get(dedupeKey);
       if (replay) {
-        this.#inbox.set(command.id, replay);
+        this.#inbox.set(inboxKey, replay);
+        this.#inboxCommandIds.add(command.id);
         return replay;
       }
     }
@@ -169,9 +188,10 @@ export class CommandRuntime {
         })));
         const outboxRecords = events.map((event) => Object.freeze({ event, transactionId, published: false }));
 
-        // Transaction boundary: sequence, inbox, idempotency, and outbox become visible together only after validation succeeds.
+        // Transaction boundary: sequence, scoped inbox, scoped idempotency, and outbox become visible together only after validation succeeds.
         this.#sequence = startingSequence + events.length;
-        this.#inbox.set(command.id, events);
+        this.#inbox.set(inboxKey, events);
+        this.#inboxCommandIds.add(command.id);
         if (dedupeKey) this.#idempotency.set(dedupeKey, events);
         this.#outbox.push(...outboxRecords);
         return events;
@@ -189,7 +209,7 @@ export class CommandRuntime {
 
   inboxHas(commandId: string): boolean {
     assertNonBlank(commandId, "command id");
-    return this.#inbox.has(commandId);
+    return this.#inboxCommandIds.has(commandId);
   }
 
   pendingOutbox(): readonly OutboxRecord[] {
@@ -216,7 +236,23 @@ export interface Transition<S extends string> {
 
 export class StateMachine<S extends string> {
   readonly #transitions: readonly Transition<S>[];
-  constructor(transitions: readonly Transition<S>[]) { this.#transitions = Object.freeze([...transitions]); }
+  constructor(transitions: readonly Transition<S>[]) {
+    const seen = new Map<string, S>();
+    const snapshot = transitions.map((transition) => {
+      const from = assertNonBlank(transition.from, "transition from") as S;
+      const event = assertNonBlank(transition.event, "transition event");
+      const to = assertNonBlank(transition.to, "transition to") as S;
+      const key = JSON.stringify([from, event]);
+      const existing = seen.get(key);
+      if (existing !== undefined) {
+        if (existing !== to) throw new Error(`Conflicting state transition: ${from} --${event}--> ${existing} or ${to}`);
+        throw new Error(`Duplicate state transition: ${from} --${event}--> ${to}`);
+      }
+      seen.set(key, to);
+      return Object.freeze({ from, event, to });
+    });
+    this.#transitions = Object.freeze(snapshot);
+  }
   next(current: S, event: string): S {
     const match = this.#transitions.find((transition) => transition.from === current && transition.event === event);
     if (!match) throw new Error(`Invalid state transition: ${current} --${event}--> ?`);
