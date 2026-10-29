@@ -46,7 +46,8 @@ function validateGeneration(generation: AssetGenerationProvenance | undefined): 
 }
 
 function freezeAsset(record: AssetRecord): AssetRecord {
-  return Object.freeze({ ...record, generation: record.generation === undefined ? undefined : Object.freeze({ ...record.generation }) });
+  if (record.generation === undefined) return Object.freeze({ ...record });
+  return Object.freeze({ ...record, generation: Object.freeze({ ...record.generation }) });
 }
 
 function validateAsset(record: AssetRecord): void {
