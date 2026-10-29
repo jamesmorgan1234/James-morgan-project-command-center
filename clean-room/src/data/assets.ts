@@ -24,6 +24,7 @@ export interface AssetRecord {
   readonly originTaskId?: string;
   readonly generation?: AssetGenerationProvenance;
   readonly qa?: AssetQaReceipt;
+  readonly mediaType?: string;
   readonly name: string;
   readonly sha256?: string;
   readonly version: number;
@@ -47,6 +48,11 @@ function assertHash(hash: string): void {
 function normalizeHash(hash: string): string {
   assertHash(hash);
   return hash.toLowerCase();
+}
+
+function validateMediaType(mediaType: string | undefined): void {
+  if (mediaType === undefined) return;
+  if (!/^[a-z0-9][a-z0-9!#$&^_.+-]*\/[a-z0-9][a-z0-9!#$&^_.+-]*$/i.test(mediaType)) throw new Error("Asset media type must be a canonical type/subtype value without parameters");
 }
 
 function validateGeneration(generation: AssetGenerationProvenance | undefined): void {
@@ -79,6 +85,7 @@ function validateAsset(record: AssetRecord): void {
   if (record.projectId !== undefined && !record.projectId.trim()) throw new Error("Asset project scope must be nonblank");
   if (record.originRequirementId !== undefined && !record.originRequirementId.trim()) throw new Error("Asset originating requirement must be nonblank");
   if (record.originTaskId !== undefined && !record.originTaskId.trim()) throw new Error("Asset originating task must be nonblank");
+  validateMediaType(record.mediaType);
   validateGeneration(record.generation);
   validateQa(record.qa);
   if (parseTimestamp(record.updatedAt, "updatedAt") < parseTimestamp(record.createdAt, "createdAt")) throw new Error("Asset update cannot predate creation");
