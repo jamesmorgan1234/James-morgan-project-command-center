@@ -119,3 +119,27 @@ test('CCR-02162 future self-hosted model runtime is an explicit routable executi
   assert.equal(selected.providerKey,'provider:self-hosted-model');
   assert.equal(selected.modelId,'owner-model-v1');
 });
+
+test('CCR-02163 future local-device model runtime is an explicit local-only routing mode',()=>{
+  const routes=new AiRouteRegistry();
+  routes.register(route({
+    key:'ai-route:local-device-model',
+    providerKey:'provider:local-device',
+    modelId:'device-model-v1',
+    executionMode:'local',
+    privacy:'local',
+    contextWindowTokens:32768
+  }));
+  routes.register(route({
+    key:'ai-route:remote-model',
+    providerKey:'provider:remote-model',
+    modelId:'remote-model-v1',
+    executionMode:'remote',
+    privacy:'remote',
+    qualityRank:20,
+    contextWindowTokens:131072
+  }));
+  const selected=routes.route({capability:'brain:reason',allowPaid:false,maxPrivacy:'local',preferQuality:true,minimumContextTokens:16000});
+  assert.equal(selected.executionMode,'local');
+  assert.equal(selected.providerKey,'provider:local-device');
+});
