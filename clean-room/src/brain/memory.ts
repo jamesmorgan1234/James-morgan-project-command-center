@@ -1,3 +1,5 @@
+import { immutableJson } from "../data/canonical.js";
+import { assertSecretChannelSafe } from "../security/secret-channels.js";
 import { parseTimestamp } from "../security/types.js";
 
 export type MemoryKind = "fact" | "decision" | "rule" | "preference" | "goal" | "asset" | "history" | "owner_input";
@@ -84,6 +86,10 @@ export class BrainMemoryLedger<T> {
     parseTimestamp(memory.recordedAt, "recordedAt");
     if (memory.retainUntil) parseTimestamp(memory.retainUntil, "retainUntil");
     if (this.#items.some((item) => item.id === memory.id)) throw new Error(`Memory already exists: ${memory.id}`);
+
+    const valueSnapshot = immutableJson(memory.value) as Readonly<T>;
+    assertSecretChannelSafe("brain_memory", valueSnapshot);
+
     if (memory.state === "current" && memory.supersedes) {
       const previousIndex = this.#items.findIndex((item) => item.id === memory.supersedes && item.state === "current");
       if (previousIndex < 0) throw new Error(`Superseded memory is not current or missing: ${memory.supersedes}`);
@@ -91,7 +97,7 @@ export class BrainMemoryLedger<T> {
       if (!previous || previous.ownerId !== memory.ownerId || previous.projectId !== memory.projectId || previous.kind !== memory.kind) throw new Error("Memory correction must stay within owner/project/kind boundary");
       this.#items[previousIndex] = Object.freeze({ ...previous, state: "superseded" as const });
     }
-    this.#items.push(Object.freeze({ ...memory, sourceRefs: Object.freeze([...memory.sourceRefs]) }));
+    this.#items.push(Object.freeze({ ...memory, value: valueSnapshot, sourceRefs: Object.freeze([...memory.sourceRefs]) }));
   }
 
   attachLayer(metadata: LayeredMemoryMetadata): void {
