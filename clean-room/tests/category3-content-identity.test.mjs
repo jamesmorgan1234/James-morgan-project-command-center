@@ -67,3 +67,15 @@ test('superseded content versions remain traceable with their original provenanc
  assert.equal(history[1].version,2);
  assert.equal(registry.get(base.id).version,3);
 });
+
+test('draft unreviewed content is distinguishable from approved and locked content',()=>{
+ const registry=new AssetRegistry();
+ registry.register(base);
+ registry.replace({...base,version:2,sourceRef:'source:v2',approvalState:'approved'},1);
+ registry.replace({...base,version:3,sourceRef:'source:v3',approvalState:'locked'},2);
+ const states=registry.history(base.id).map((record)=>record.approvalState);
+ assert.deepEqual(states,['unreviewed','approved','locked']);
+ assert.notEqual(states[0],states[1]);
+ assert.notEqual(states[1],states[2]);
+ assert.throws(()=>new AssetRegistry().register({...base,id:'content:bad-state',approvalState:'draft'}),/Unsupported asset state/);
+});
