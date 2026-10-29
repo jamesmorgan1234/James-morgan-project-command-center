@@ -1,25 +1,101 @@
 import { readdir, readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import ts from "typescript";
 
 const root = process.argv[2]
   ? resolve(process.argv[2])
   : fileURLToPath(new URL("../src/", import.meta.url));
 
-const prohibitedPatterns = [
-  { label: "incremental innerHTML patch", pattern: /\.innerHTML\s*\+=/ },
-  { label: "document.write runtime patch", pattern: /\bdocument\.write\s*\(/ },
-  {
-    label: "native prototype assignment",
-    pattern: /\b(?:Window|Document|Element|HTMLElement|EventTarget|Node|Array|Object|Promise|String|Number)\.prototype\.[A-Za-z_$][\w$]*\s*=/
-  },
-  {
-    label: "native prototype defineProperty patch",
-    pattern: /\bObject\.definePropert(?:y|ies)\s*\(\s*(?:Window|Document|Element|HTMLElement|EventTarget|Node|Array|Object|Promise|String|Number)\.prototype\b/
-  }
-];
-
+const nativeConstructors = new Set([
+  "Window", "Document", "Element", "HTMLElement", "EventTarget", "Node",
+  "Array", "Object", "Promise", "String", "Number"
+]);
 const violations = [];
+
+function unwrap(node) {
+  let current = node;
+  while (
+    ts.isParenthesizedExpression(current)
+    || ts.isAsExpression(current)
+    || ts.isTypeAssertionExpression(current)
+    || ts.isNonNullExpression(current)
+    || ts.isSatisfiesExpression?.(current)
+  ) current = current.expression;
+  return current;
+}
+
+function accessSegments(node) {
+  const current = unwrap(node);
+  if (ts.isIdentifier(current)) return [current.text];
+  if (ts.isPropertyAccessExpression(current)) {
+    const parent = accessSegments(current.expression);
+    return parent ? [...parent, current.name.text] : undefined;
+  }
+  if (ts.isElementAccessExpression(current)) {
+    const parent = accessSegments(current.expression);
+    const argument = unwrap(current.argumentExpression);
+    if (!parent || !argument || !ts.isStringLiteralLike(argument)) return undefined;
+    return [...parent, argument.text];
+  }
+  return undefined;
+}
+
+function isNativePrototype(node) {
+  const segments = accessSegments(node);
+  return Boolean(segments && segments.length === 2 && nativeConstructors.has(segments[0]) && segments[1] === "prototype");
+}
+
+function isNativePrototypeMember(node) {
+  const segments = accessSegments(node);
+  return Boolean(segments && segments.length >= 3 && nativeConstructors.has(segments[0]) && segments[1] === "prototype");
+}
+
+function isNamedAccess(node, owner, member) {
+  const segments = accessSegments(node);
+  return Boolean(segments && segments.length === 2 && segments[0] === owner && segments[1] === member);
+}
+
+function lineFor(sourceFile, node) {
+  return sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1;
+}
+
+function record(path, sourceFile, node, label) {
+  violations.push(`${path}:${lineFor(sourceFile, node)}: ${label}`);
+}
+
+function inspectSource(path, text) {
+  const sourceFile = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true);
+
+  function visit(node) {
+    if (ts.isBinaryExpression(node)) {
+      if (node.operatorToken.kind === ts.SyntaxKind.PlusEqualsToken) {
+        const segments = accessSegments(node.left);
+        if (segments?.at(-1) === "innerHTML") record(path, sourceFile, node, "incremental innerHTML patch");
+      }
+      if (node.operatorToken.kind === ts.SyntaxKind.EqualsToken && isNativePrototypeMember(node.left)) {
+        record(path, sourceFile, node, "native prototype assignment");
+      }
+    }
+
+    if (ts.isCallExpression(node)) {
+      if (isNamedAccess(node.expression, "document", "write")) {
+        record(path, sourceFile, node, "document.write runtime patch");
+      }
+
+      const defineProperty = isNamedAccess(node.expression, "Object", "defineProperty")
+        || isNamedAccess(node.expression, "Object", "defineProperties")
+        || isNamedAccess(node.expression, "Reflect", "defineProperty");
+      if (defineProperty && node.arguments[0] && isNativePrototype(node.arguments[0])) {
+        record(path, sourceFile, node, "native prototype defineProperty patch");
+      }
+    }
+
+    ts.forEachChild(node, visit);
+  }
+
+  visit(sourceFile);
+}
 
 async function walk(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
@@ -29,13 +105,7 @@ async function walk(directory) {
       continue;
     }
     if (!entry.name.endsWith(".ts") && !entry.name.endsWith(".mjs")) continue;
-    const text = await readFile(path, "utf8");
-    const lines = text.split(/\r?\n/);
-    for (let index = 0; index < lines.length; index += 1) {
-      for (const policy of prohibitedPatterns) {
-        if (policy.pattern.test(lines[index])) violations.push(`${path}:${index + 1}: ${policy.label}: ${lines[index].trim()}`);
-      }
-    }
+    inspectSource(path, await readFile(path, "utf8"));
   }
 }
 
