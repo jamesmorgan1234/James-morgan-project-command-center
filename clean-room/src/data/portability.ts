@@ -66,7 +66,7 @@ function sameExportScope(left: ExportScope, right: ExportScope): boolean {
 }
 
 export class PortabilityCenter {
-  readonly #providerRegistry?: ProviderRegistry;
+  readonly #providerRegistry: ProviderRegistry | undefined;
 
   constructor(providerRegistry?: ProviderRegistry) {
     this.#providerRegistry = providerRegistry;
