@@ -6,21 +6,23 @@ on:
     paths: ['.github/workflows/p15-1-guarded-qualification-runner.yml']
 
 permissions:
-  contents: read
+  contents: write
   actions: read
 
 jobs:
-  qualify:
+  qualify-and-checkpoint:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     defaults:
       run:
         working-directory: clean-room
     env:
+      BRANCH: build/spec-lock-v2-clean-room
       SOURCE_COMMIT: cf45ddfa19da7b2fe7b5979d78887d4e8aade1fe
       SOURCE_RUN_ID: '40847340612'
       SOURCE_JOB_ID: '123357963705'
       AUDIT_ARTIFACT: p15-1-repository-audit-cf45ddfa19da7b2fe7b5979d78887d4e8aade1fe
+      EXPECTED_TRACE_SHA256: 707debe4fe51f467daa43018408f8c46f9005e87ba35c598c234fb14dd201bdb
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -33,13 +35,13 @@ jobs:
           cache-dependency-path: clean-room/package-lock.json
       - name: Install locked zero-cost dependencies
         run: npm ci --no-audit --no-fund --ignore-scripts
-      - name: Observe source CI and retrieve source audit
+      - name: Observe exact-head source CI and retrieve audit
         run: |
           set -euo pipefail
           mkdir -p .runtime/p15-1-qualification/audit
           gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}" > .runtime/p15-1-qualification/run.json
           test "$(jq -r '.head_sha' .runtime/p15-1-qualification/run.json)" = "$SOURCE_COMMIT"
-          test "$(jq -r '.head_branch' .runtime/p15-1-qualification/run.json)" = "build/spec-lock-v2-clean-room"
+          test "$(jq -r '.head_branch' .runtime/p15-1-qualification/run.json)" = "$BRANCH"
           test "$(jq -r '.status' .runtime/p15-1-qualification/run.json)" = completed
           test "$(jq -r '.conclusion' .runtime/p15-1-qualification/run.json)" = failure
           gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${SOURCE_RUN_ID}/jobs?per_page=100" > .runtime/p15-1-qualification/jobs.json
@@ -51,14 +53,15 @@ jobs:
           jq -n --arg source "$SOURCE_COMMIT" --argjson run "$SOURCE_RUN_ID" --argjson job "$SOURCE_JOB_ID" '{schemaVersion:"1.0.0",qualifier:"independent-exact-head-ci-check",suite:"p15-1-full-module-test-suite",sourceCommit:$source,ci:{provider:"github-actions",status:"completed",conclusion:"failure",coreQaConclusion:"success",runId:$run,jobId:$job,testPass:1639,testFail:0,testSkipped:0,workflow:"Spec Lock v2 Clean Room QA",job:"category-15",embeddedModuleTests:{passed:1639,failed:0,skipped:0},exactHeadModuleTestGate:{passed:1639,failed:0,skipped:0},finalCategory15NonproductionPhaseGate:"expected-open-phase-failure"}}' > .runtime/p15-1-qualification/qualification.json
           gh run download "$SOURCE_RUN_ID" -n "$AUDIT_ARTIFACT" -D .runtime/p15-1-qualification/audit
           test "$(jq -r '.headSha' .runtime/p15-1-qualification/audit/category15-repository-audit.json)" = "$SOURCE_COMMIT"
-      - name: Run native guarded assembler and expected-open gate
+      - name: Run native guarded assembler and verify expected-open gate
         run: |
           set -euo pipefail
-          cp evidence/category15-requirement-traceability.json .runtime/p15-1-qualification/baseline-traceability.json
+          cp evidence/category15-requirement-traceability.json .runtime/p15-1-qualification/baseline.json
           node scripts/p15-1-assemble-current-traceability.mjs \
             --baseline-audit=.runtime/p15-1-qualification/audit/category15-repository-audit.json \
             --qualification=.runtime/p15-1-qualification/qualification.json \
             --write | tee .runtime/p15-1-qualification/assembler-summary.json
+          echo "$EXPECTED_TRACE_SHA256  evidence/category15-requirement-traceability.json" | sha256sum -c -
           set +e
           node scripts/category15-traceability-gate.mjs > .runtime/p15-1-qualification/gate-summary.json
           gate_code=$?
@@ -66,43 +69,92 @@ jobs:
           cat .runtime/p15-1-qualification/gate-summary.json
           test "$gate_code" -eq 1
           jq -e '.status=="SOURCE_RECOVERED_TRACEABILITY_OPEN" and .advancementAllowed==false and .verifiedCount==533 and .unverifiedCount==5319 and .repositoryEvidenceValid==true and (.repositoryErrors|length)==0' .runtime/p15-1-qualification/gate-summary.json >/dev/null
-      - name: Verify exact guarded qualification outcome
+      - name: Verify exact row preservation and qualification
         run: |
           set -euo pipefail
           node --input-type=module <<'NODE'
-          import {readFileSync,writeFileSync} from 'node:fs';
-          const before=JSON.parse(readFileSync('.runtime/p15-1-qualification/baseline-traceability.json','utf8'));
+          import {readFileSync} from 'node:fs';
+          const before=JSON.parse(readFileSync('.runtime/p15-1-qualification/baseline.json','utf8'));
           const d=JSON.parse(readFileSync('evidence/category15-requirement-traceability.json','utf8'));
           const ids=['CCR-00688','CCR-00689','CCR-00690','CCR-00700','CCR-00706','CCR-00707','CCR-00721','CCR-00722'];
           const parked=['CCR-00691','CCR-00692','CCR-00693','CCR-00694','CCR-00695','CCR-00696','CCR-00697','CCR-00698','CCR-00699','CCR-00701','CCR-00702','CCR-00703','CCR-00704','CCR-00705',...Array.from({length:13},(_,i)=>`CCR-${String(708+i).padStart(5,'0')}`),'CCR-00723','CCR-00724','CCR-00725','CCR-00726','CCR-00727'];
           const byId=new Map(d.requirements.map(r=>[r.id,r]));
-          const beforeVerified=before.requirements.filter(r=>r.truthState==='VERIFIED').map(r=>r.id);
-          const lost=beforeVerified.filter(id=>byId.get(id)?.truthState!=='VERIFIED');
-          const rows=Object.fromEntries(ids.map(id=>[id,{truthState:byId.get(id)?.truthState,blocker:byId.get(id)?.blocker,evidenceVersion:byId.get(id)?.evidenceVersion}]));
-          const parkedStates=Object.fromEntries(parked.map(id=>[id,byId.get(id)?.truthState]));
-          const counts=d.requirements.reduce((a,r)=>(a[r.truthState]=(a[r.truthState]??0)+1,a),{});
-          const report={sourceCommit:d.verification?.sourceCommit,ci:d.verification?.ci,total:d.requirements.length,counts,closureSummary:d.closureSummary,repositoryEvidence:d.repositoryEvidence,qualificationErrors:d.assembly?.qualificationErrors??[],previousVerifiedCount:beforeVerified.length,lostPreviouslyVerified:lost,rows,parkedStates};
-          writeFileSync('.runtime/p15-1-qualification/result-report.json',JSON.stringify(report,null,2)+'\n');
-          console.log(JSON.stringify(report));
-          if(d.verification?.sourceCommit!==process.env.SOURCE_COMMIT)process.exit(21);
-          if(!d.repositoryEvidence?.valid||(d.repositoryEvidence?.errors??[]).length)process.exit(22);
-          if((d.assembly?.qualificationErrors??[]).length)process.exit(23);
-          if(d.requirements.length!==5852||counts.VERIFIED!==533||counts.UNVERIFIED!==5319||(counts.NOT_APPLICABLE??0)!==0)process.exit(24);
-          if(d.closureSummary?.structurallyInvalidRowCount!==0||d.closureSummary?.closureComplete!==false)process.exit(25);
-          if(ids.some(id=>rows[id]?.truthState!=='VERIFIED'))process.exit(26);
-          if(lost.length)process.exit(27);
-          if(parked.some(id=>parkedStates[id]!=='UNVERIFIED'))process.exit(28);
+          const prior=before.requirements.filter(r=>r.truthState==='VERIFIED').map(r=>r.id);
+          if(prior.length!==525)process.exit(20);
+          if(prior.some(id=>byId.get(id)?.truthState!=='VERIFIED'))process.exit(21);
+          if(ids.some(id=>byId.get(id)?.truthState!=='VERIFIED'))process.exit(22);
+          if(parked.some(id=>byId.get(id)?.truthState!=='UNVERIFIED'))process.exit(23);
+          if(!d.repositoryEvidence?.valid||(d.repositoryEvidence?.errors??[]).length)process.exit(24);
+          if((d.assembly?.qualificationErrors??[]).length)process.exit(25);
+          if(d.closureSummary?.rowCount!==5852||d.closureSummary?.verifiedCount!==533||d.closureSummary?.unverifiedCount!==5319||d.closureSummary?.notApplicableCount!==0||d.closureSummary?.structurallyInvalidRowCount!==0||d.closureSummary?.closureComplete!==false)process.exit(26);
           NODE
-      - name: Preserve guarded qualification output
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
-        with:
-          name: p15-1-guarded-qualification-${{ github.sha }}
-          path: |
-            clean-room/evidence/category15-requirement-traceability.json
-            clean-room/.runtime/p15-1-qualification/qualification.json
-            clean-room/.runtime/p15-1-qualification/assembler-summary.json
-            clean-room/.runtime/p15-1-qualification/gate-summary.json
-            clean-room/.runtime/p15-1-qualification/result-report.json
-            clean-room/.runtime/p15-1-qualification/audit/category15-repository-audit.json
-          if-no-files-found: error
-          retention-days: 7
+      - name: Atomically checkpoint qualified output and remove runner
+        run: |
+          set -euo pipefail
+          remote_head="$(git ls-remote origin "refs/heads/${BRANCH}" | cut -f1)"
+          test "$remote_head" = "$GITHUB_SHA"
+          cat > evidence/P15_1_00688_00727_QUALIFICATION_CHECKPOINT.md <<'EOF'
+          # P15.1 CCR-00688 through CCR-00727 guarded qualification checkpoint
+
+          P15.1 remains OPEN. P15.2 has not started.
+
+          ## Qualified source boundary
+
+          - Authorized branch: `build/spec-lock-v2-clean-room`
+          - Independently audited source commit: `cf45ddfa19da7b2fe7b5979d78887d4e8aade1fe`
+          - Source tree: `067759aee1dd1af98190bd32779bbb9a0c8f2e6a`
+          - GitHub Actions run: `40847340612`
+          - Job: `123357963705` (`category-15`)
+          - Embedded module tests: 1,639 passed / 0 failed / 0 skipped
+          - Exact-head module test gate: 1,639 passed / 0 failed / 0 skipped
+          - Core QA conclusion: success
+          - Overall CI conclusion: failure only because the final Category 15 nonproduction phase gate correctly remains open
+          - Source audit artifact: `p15-1-repository-audit-cf45ddfa19da7b2fe7b5979d78887d4e8aade1fe` (artifact id `12885153280`)
+
+          ## Guarded qualification outcome
+
+          Newly qualified rows:
+
+          - `CCR-00688`
+          - `CCR-00689`
+          - `CCR-00690`
+          - `CCR-00700`
+          - `CCR-00706`
+          - `CCR-00707`
+          - `CCR-00721`
+          - `CCR-00722`
+
+          Counts after native guarded assembly:
+
+          - TOTAL: 5,852
+          - VERIFIED: 533
+          - UNVERIFIED: 5,319
+          - NOT_APPLICABLE: 0
+          - Structurally invalid: 0
+          - Delta VERIFIED: +8
+
+          Native assembler result:
+
+          - repository evidence valid: true
+          - repository evidence errors: 0
+          - qualification errors: 0
+          - previously VERIFIED rows lost: 0
+          - all explicitly parked CCR-00691 through CCR-00727 findings remained UNVERIFIED as required
+          - traceability SHA-256: `707debe4fe51f467daa43018408f8c46f9005e87ba35c598c234fb14dd201bdb`
+
+          Native phase gate result remains:
+
+          - status: `SOURCE_RECOVERED_TRACEABILITY_OPEN`
+          - closure complete: false
+          - advancement allowed: false
+
+          No production, deployment, merge, promotion, protected-asset, owner-device, financial, or paid-service action was performed.
+          EOF
+          sed -i 's/^          //' evidence/P15_1_00688_00727_QUALIFICATION_CHECKPOINT.md
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -- ':(top).github/workflows/p15-1-guarded-qualification-runner.yml'
+          git add evidence/category15-requirement-traceability.json evidence/P15_1_00688_00727_QUALIFICATION_CHECKPOINT.md
+          git diff --cached --check
+          git commit -m "docs: qualify P15.1 release provider batch"
+          git push origin "HEAD:refs/heads/${BRANCH}"
