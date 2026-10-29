@@ -134,3 +134,15 @@ test('content registry supports video assets with validated media metadata',()=>
  assert.throws(()=>new AssetRegistry().register({...asset,id:'empty-media-metadata',mediaType:'video/mp4',mediaMetadata:{}}),/requires duration or dimensions/);
  assert.throws(()=>new AssetRegistry().register({...asset,id:'zero-duration',mediaType:'video/mp4',mediaMetadata:{durationMs:0}}),/positive safe integers/);
 });
+
+test('content registry retains audio media identity and duration across asset revisions',()=>{
+ const registry=new AssetRegistry();
+ const audio={...asset,id:'audio-asset',mediaType:'audio/mpeg',mediaMetadata:{durationMs:180000},sha256:'2'.repeat(64),originalState:'available'};
+ registry.register(audio);
+ registry.replace({...audio,version:2,sha256:'3'.repeat(64),sourceRef:'source-v2'},1);
+ const current=registry.get(audio.id);
+ assert.equal(current.mediaType,'audio/mpeg');
+ assert.deepEqual(current.mediaMetadata,{durationMs:180000});
+ assert.equal(current.version,2);
+ assert.equal(current.sha256,'3'.repeat(64));
+});
