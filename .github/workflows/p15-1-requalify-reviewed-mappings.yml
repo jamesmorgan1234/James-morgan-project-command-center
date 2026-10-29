@@ -1,0 +1,171 @@
+name: P15.1 Reviewed Mapping Requalification
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - 'clean-room/scripts/p15-1-reviewed-*.mjs'
+      - 'clean-room/scripts/p15-1-current-reviewed-mappings.mjs'
+      - '.github/workflows/p15-1-requalify-reviewed-mappings.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: p15-1-reviewed-requalification-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  core-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      test_pass: ${{ steps.module-tests.outputs.pass }}
+      test_fail: ${{ steps.module-tests.outputs.fail }}
+      test_skipped: ${{ steps.module-tests.outputs.skipped }}
+    defaults:
+      run:
+        working-directory: clean-room
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 50
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: clean-room/package-lock.json
+      - name: Install locked zero-cost dependencies
+        run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Current authority validation
+        run: npm run audit:authority
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Legacy exclusion gate
+        run: npm run check:legacy
+      - name: Architecture source gate
+        run: npm run check:architecture
+      - name: Repository audit gate
+        run: npm run audit:repository
+      - name: Build modules
+        run: npm run build:modules
+      - name: Build browser
+        run: npm run build:browser
+      - name: Exact-head module tests with machine-readable totals
+        id: module-tests
+        shell: bash
+        run: |
+          set -o pipefail
+          node --test --test-concurrency=1 --test-reporter=tap tests/*.test.mjs | tee p15-1-module-tests.tap
+          pass="$(awk '/^# pass [0-9]+$/{v=$3} END{print v}' p15-1-module-tests.tap)"
+          fail="$(awk '/^# fail [0-9]+$/{v=$3} END{print v}' p15-1-module-tests.tap)"
+          skipped="$(awk '/^# skipped [0-9]+$/{v=$3} END{print v}' p15-1-module-tests.tap)"
+          test -n "$pass"
+          test -n "$fail"
+          test -n "$skipped"
+          test "$pass" -gt 0
+          test "$fail" -eq 0
+          test "$skipped" -eq 0
+          echo "pass=$pass" >> "$GITHUB_OUTPUT"
+          echo "fail=$fail" >> "$GITHUB_OUTPUT"
+          echo "skipped=$skipped" >> "$GITHUB_OUTPUT"
+      - name: Artifact audit gate
+        run: npm run audit:artifact
+      - name: Release-candidate audit gate
+        run: npm run audit:release-candidate
+      - name: P15.14 nonproduction PWA lifecycle evidence
+        run: bash scripts/category15-pwa-lifecycle.sh
+
+  assemble-and-commit:
+    needs: core-qa
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 50
+      - name: Rebuild exact-head repository audit
+        working-directory: clean-room
+        run: node scripts/category15-repository-audit.mjs --write
+      - name: Resolve completed source-bound core-QA job
+        id: core-job
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          job_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs?per_page=100" --jq '.jobs[] | select(.name=="core-qa") | .id' | head -n 1)"
+          test -n "$job_id"
+          echo "job_id=$job_id" >> "$GITHUB_OUTPUT"
+      - name: Write exact-head qualification receipt
+        env:
+          CORE_JOB_ID: ${{ steps.core-job.outputs.job_id }}
+          TEST_PASS: ${{ needs.core-qa.outputs.test_pass }}
+          TEST_FAIL: ${{ needs.core-qa.outputs.test_fail }}
+          TEST_SKIPPED: ${{ needs.core-qa.outputs.test_skipped }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const fs=require('node:fs');
+          const receipt={
+            sourceCommit:process.env.GITHUB_SHA,
+            ci:{
+              status:'completed',
+              conclusion:'success',
+              coreQaConclusion:'success',
+              runId:Number(process.env.GITHUB_RUN_ID),
+              jobId:Number(process.env.CORE_JOB_ID),
+              testPass:Number(process.env.TEST_PASS),
+              testFail:Number(process.env.TEST_FAIL),
+              testSkipped:Number(process.env.TEST_SKIPPED)
+            }
+          };
+          if(!receipt.ci.jobId||!receipt.ci.testPass||receipt.ci.testFail!==0||receipt.ci.testSkipped!==0)throw Error('Invalid source-bound qualification receipt');
+          fs.writeFileSync('clean-room/p15-1-qualification.json',JSON.stringify(receipt)+'\n');
+          NODE
+      - name: Assemble guarded P15.1 traceability
+        id: assemble
+        shell: bash
+        run: |
+          set -euo pipefail
+          before="$(node -e "const fs=require('node:fs');const d=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));console.log(d.requirements.filter(r=>r.truthState==='VERIFIED').length)")"
+          (
+            cd clean-room
+            node scripts/p15-1-assemble-current-traceability.mjs \
+              --baseline-audit=category15-repository-audit.json \
+              --qualification=p15-1-qualification.json \
+              --write
+          )
+          after="$(node -e "const fs=require('node:fs');const d=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));console.log(d.requirements.filter(r=>r.truthState==='VERIFIED').length)")"
+          test "$after" -gt "$before"
+          echo "before=$before" >> "$GITHUB_OUTPUT"
+          echo "after=$after" >> "$GITHUB_OUTPUT"
+      - name: Refuse stale-branch write
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin build/spec-lock-v2-clean-room
+          remote="$(git rev-parse origin/build/spec-lock-v2-clean-room)"
+          test "$remote" = "$GITHUB_SHA"
+      - name: Commit guarded ledger promotion
+        env:
+          BEFORE: ${{ steps.assemble.outputs.before }}
+          AFTER: ${{ steps.assemble.outputs.after }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add clean-room/evidence/category15-requirement-traceability.json
+          git diff --cached --quiet && { echo "No guarded ledger change to commit"; exit 1; }
+          git commit -m "chore: requalify P15.1 reviewed mappings (${BEFORE} -> ${AFTER})"
+          git push origin HEAD:build/spec-lock-v2-clean-room

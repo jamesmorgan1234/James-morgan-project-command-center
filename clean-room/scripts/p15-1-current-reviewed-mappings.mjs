@@ -33,6 +33,7 @@ import {reviewedSecurityDiagnosticsMappings} from './p15-1-reviewed-security-dia
 import {reviewedRecoveryTestCoverageMappings} from './p15-1-reviewed-recovery-test-coverage-mappings.mjs';
 import {reviewedFailureAcceptanceMappings} from './p15-1-reviewed-failure-acceptance-mappings.mjs';
 import {reviewedReleaseProviderInvarianceMappings} from './p15-1-reviewed-release-provider-invariance-mappings.mjs';
+import {reviewedWorkBatch1ExistingProofMappings} from './p15-1-reviewed-work-batch1-existing-proof-mappings.mjs';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
@@ -81,7 +82,8 @@ export function currentReviewedMappings(root){
   ...reviewedSecurityDiagnosticsMappings(),
   ...reviewedRecoveryTestCoverageMappings(),
   ...reviewedFailureAcceptanceMappings(),
-  ...reviewedReleaseProviderInvarianceMappings()
+  ...reviewedReleaseProviderInvarianceMappings(),
+  ...reviewedWorkBatch1ExistingProofMappings(),
  ];
  const seen=new Set();
  return selected.map(original=>{
