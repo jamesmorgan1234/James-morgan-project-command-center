@@ -83,7 +83,7 @@ test("P15.1 runtime and owner-session contracts stay bound to their implemented 
   assert.match(providerSource, /method:\s*"GET"/);
   assert.match(providerSource, /cache:\s*"no-store"/);
   assert.match(providerSource, /credentials:\s*"same-origin"/);
-  assert.match(providerSource, /DEFAULT_RUNTIME_REQUEST_TIMEOUT_MS\s*=\s*8_?000/);
+  assert.match(providerSource, /this\.#timeoutMs\s*=\s*options\.timeoutMs\s*\?\?\s*8_?000/);
 
   const ownerSession = getFirstPartyApiContract("owner-session");
   assert.equal(ownerSession.binding, "/api/owner-session");
