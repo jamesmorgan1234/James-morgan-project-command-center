@@ -96,9 +96,9 @@ export function createContextSnapshot(input: {
     return SENSITIVITY_RANK[source.sensitivity] <= SENSITIVITY_RANK[input.maxSensitivity];
   }).map((source) => Object.freeze({
     ...source,
-    ...(source.purpose ? { purpose: Object.freeze([...source.purpose]) } : {}),
-    applicabilityRefs: source.applicabilityRefs === undefined ? undefined : Object.freeze([...source.applicabilityRefs]),
-    lineageRefs: source.lineageRefs === undefined ? undefined : Object.freeze([...source.lineageRefs]),
+    ...(source.purpose !== undefined ? { purpose: Object.freeze([...source.purpose]) } : {}),
+    ...(source.applicabilityRefs !== undefined ? { applicabilityRefs: Object.freeze([...source.applicabilityRefs]) } : {}),
+    ...(source.lineageRefs !== undefined ? { lineageRefs: Object.freeze([...source.lineageRefs]) } : {}),
     value: immutableJson(source.value) as Readonly<Record<string, unknown>>
   }));
   return Object.freeze({
@@ -107,9 +107,9 @@ export function createContextSnapshot(input: {
     projectId: input.projectId,
     createdAt: input.createdAt,
     maxSensitivity: input.maxSensitivity,
-    entityId: input.entityId,
-    subsystemId: input.subsystemId,
-    contractVersion: input.requiredContractVersion,
+    ...(input.entityId !== undefined ? { entityId: input.entityId } : {}),
+    ...(input.subsystemId !== undefined ? { subsystemId: input.subsystemId } : {}),
+    ...(input.requiredContractVersion !== undefined ? { contractVersion: input.requiredContractVersion } : {}),
     sourceIds: Object.freeze(allowed.map((source) => source.id)),
     sources: Object.freeze(allowed)
   });
