@@ -19,6 +19,34 @@ export interface ReleaseIdentity {
   readonly schemaCompatibility: string;
 }
 
+export interface PwaShellContract {
+  readonly manifestPath: "/manifest.webmanifest";
+  readonly serviceWorkerPath: "/sw.js";
+  readonly serviceWorkerScope: "/";
+  readonly offlineFallbackRoute: "/offline";
+  readonly staticShellCached: true;
+  readonly approvedIconRequired: true;
+  readonly updateStateExplicit: true;
+  readonly staleWorkerRecoverable: true;
+  readonly versionVisible: true;
+  readonly cachedShellNeverImpliesFreshBusinessData: true;
+  readonly incompatibleSchemaActivationBlocked: true;
+}
+
+export const COMMAND_CENTER_PWA_SHELL: PwaShellContract = Object.freeze({
+  manifestPath: "/manifest.webmanifest",
+  serviceWorkerPath: "/sw.js",
+  serviceWorkerScope: "/",
+  offlineFallbackRoute: "/offline",
+  staticShellCached: true,
+  approvedIconRequired: true,
+  updateStateExplicit: true,
+  staleWorkerRecoverable: true,
+  versionVisible: true,
+  cachedShellNeverImpliesFreshBusinessData: true,
+  incompatibleSchemaActivationBlocked: true
+});
+
 export class PwaUpdateCoordinator {
   #state: UpdateState = "idle";
   #candidate: ReleaseIdentity | undefined;
@@ -37,6 +65,11 @@ export class PwaUpdateCoordinator {
     if (this.#state !== "available" && this.#state !== "downloading") throw new Error("Update candidate can only be set after discovery");
     if (!candidate.releaseId.trim() || !candidate.buildHash.trim() || !candidate.assetManifestHash.trim() || !candidate.schemaCompatibility.trim()) throw new Error("Immutable release identity fields are required");
     this.#candidate = Object.freeze({ ...candidate });
+  }
+
+  candidateIsSchemaCompatible(currentSchemaCompatibility: string): boolean {
+    if (!currentSchemaCompatibility.trim() || !this.#candidate) return false;
+    return this.#candidate.schemaCompatibility === currentSchemaCompatibility;
   }
 
   markActive(): void {
