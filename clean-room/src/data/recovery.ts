@@ -101,8 +101,8 @@ function restoreDecision(input: RestoreRevalidationInput, status: RestoreDecisio
     evaluatedAt: input.now,
     currentPolicyEpoch: input.currentPolicyEpoch,
     evidenceRefs: Object.freeze([...evidenceRefs]),
-    obligationRefs: input.obligationRefs === undefined ? undefined : Object.freeze([...input.obligationRefs]),
-    revalidationTriggers: input.revalidationTriggers === undefined ? undefined : Object.freeze([...input.revalidationTriggers])
+    ...(input.obligationRefs !== undefined ? { obligationRefs: Object.freeze([...input.obligationRefs]) } : {}),
+    ...(input.revalidationTriggers !== undefined ? { revalidationTriggers: Object.freeze([...input.revalidationTriggers]) } : {})
   });
 }
 
