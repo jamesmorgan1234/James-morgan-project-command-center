@@ -4,6 +4,27 @@ import type { CapabilityTruth, EnumerationCapability } from "./refresh.js";
 export type ProviderCost = "free" | "paid" | "unknown";
 export type ProviderHealth = "available" | "degraded" | "unavailable" | "unconfigured";
 export type ProviderFailureMode = "fail_closed" | "read_only" | "degraded";
+export type ProviderCompleteness = "unknown" | "partial" | "complete";
+export type ProviderTrust = "unrated" | "low" | "medium" | "high" | "authoritative";
+export type ProviderReachability = "unknown" | "reachable" | "degraded" | "unreachable";
+
+export interface ProviderReliability {
+  readonly successRate?: number;
+  readonly sampleSize?: number;
+  readonly lastFailureAt?: string;
+}
+
+export interface ProviderObligation {
+  readonly kind: string;
+  readonly dueAt?: string;
+  readonly blocking?: boolean;
+}
+
+export interface ProviderRevalidation {
+  readonly required: boolean;
+  readonly after?: string;
+  readonly triggerRefs?: readonly string[];
+}
 
 export interface ProviderContract {
   readonly key: string;
@@ -17,6 +38,12 @@ export interface ProviderContract {
   readonly health: ProviderHealth;
   readonly verification: "none" | "source" | "tool_result" | "live_verified";
   readonly failureMode: ProviderFailureMode;
+  readonly completeness?: ProviderCompleteness;
+  readonly trust?: ProviderTrust;
+  readonly reachability?: ProviderReachability;
+  readonly reliability?: ProviderReliability;
+  readonly obligations?: readonly ProviderObligation[];
+  readonly revalidation?: ProviderRevalidation;
 }
 
 export class ProviderRegistry {
@@ -25,7 +52,7 @@ export class ProviderRegistry {
   register(provider: ProviderContract): void {
     this.#validate(provider);
     if (this.#providers.has(provider.key)) throw new Error(`Provider already exists: ${provider.key}`);
-    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]) }));
+    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]), obligations: provider.obligations === undefined ? undefined : Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))), revalidation: provider.revalidation === undefined ? undefined : Object.freeze({ ...provider.revalidation, triggerRefs: provider.revalidation.triggerRefs === undefined ? undefined : Object.freeze([...provider.revalidation.triggerRefs]) }) }));
   }
 
   replace(provider: ProviderContract, expectedVersion: number): void {
@@ -33,7 +60,7 @@ export class ProviderRegistry {
     const current = this.#required(provider.key);
     if (current.version !== expectedVersion) throw new Error(`Provider version conflict for ${provider.key}`);
     if (provider.version <= current.version) throw new Error(`Provider version must advance for ${provider.key}`);
-    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]) }));
+    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]), obligations: provider.obligations === undefined ? undefined : Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))), revalidation: provider.revalidation === undefined ? undefined : Object.freeze({ ...provider.revalidation, triggerRefs: provider.revalidation.triggerRefs === undefined ? undefined : Object.freeze([...provider.revalidation.triggerRefs]) }) }));
   }
 
   remove(key: string, expectedVersion: number): ProviderContract {
@@ -66,6 +93,25 @@ export class ProviderRegistry {
     if (!Number.isFinite(provider.freshnessSeconds) || provider.freshnessSeconds < 0) throw new Error("Provider freshnessSeconds must be non-negative");
     if (new Set(provider.capabilities).size !== provider.capabilities.length) throw new Error("Provider capabilities must be unique");
     if (new Set(provider.scopes).size !== provider.scopes.length) throw new Error("Provider scopes must be unique");
+    if (provider.completeness !== undefined && !["unknown", "partial", "complete"].includes(provider.completeness)) throw new Error("Unsupported provider completeness state");
+    if (provider.trust !== undefined && !["unrated", "low", "medium", "high", "authoritative"].includes(provider.trust)) throw new Error("Unsupported provider trust state");
+    if (provider.reachability !== undefined && !["unknown", "reachable", "degraded", "unreachable"].includes(provider.reachability)) throw new Error("Unsupported provider reachability state");
+    if (provider.reliability !== undefined) {
+      if (provider.reliability.successRate !== undefined && (!Number.isFinite(provider.reliability.successRate) || provider.reliability.successRate < 0 || provider.reliability.successRate > 1)) throw new Error("Provider reliability successRate must be between 0 and 1");
+      if (provider.reliability.sampleSize !== undefined && (!Number.isSafeInteger(provider.reliability.sampleSize) || provider.reliability.sampleSize < 0)) throw new Error("Provider reliability sampleSize must be non-negative");
+      if (provider.reliability.lastFailureAt !== undefined) parseTimestamp(provider.reliability.lastFailureAt, "provider.reliability.lastFailureAt");
+    }
+    if (provider.obligations !== undefined) {
+      for (const obligation of provider.obligations) {
+        if (!obligation.kind.trim()) throw new Error("Provider obligation kind is required");
+        if (obligation.dueAt !== undefined) parseTimestamp(obligation.dueAt, "provider.obligation.dueAt");
+      }
+    }
+    if (provider.revalidation !== undefined) {
+      if (typeof provider.revalidation.required !== "boolean") throw new Error("Provider revalidation required must be boolean");
+      if (provider.revalidation.after !== undefined) parseTimestamp(provider.revalidation.after, "provider.revalidation.after");
+      if (provider.revalidation.triggerRefs !== undefined && (provider.revalidation.triggerRefs.some((ref) => !ref.trim()) || new Set(provider.revalidation.triggerRefs).size !== provider.revalidation.triggerRefs.length)) throw new Error("Provider revalidation triggerRefs must be unique and nonblank");
+    }
   }
 
   #required(key: string): ProviderContract {
@@ -88,6 +134,12 @@ export interface ProviderCapabilitySnapshot {
   readonly callbacks: CapabilityTruth;
   readonly pricing: ProviderCost;
   readonly verification: "tool_result" | "live_verified";
+  readonly completeness?: ProviderCompleteness;
+  readonly trust?: ProviderTrust;
+  readonly reachability?: ProviderReachability;
+  readonly reliability?: ProviderReliability;
+  readonly obligationRefs?: readonly string[];
+  readonly revalidationRequired?: boolean;
 }
 
 export type ProviderDrift = "none" | "compatible" | "breaking" | "pricing_unknown";
@@ -96,13 +148,14 @@ export function classifyProviderDrift(previous: ProviderCapabilitySnapshot | und
   if (!next.id.startsWith("provider-snapshot:") || !next.providerKey.startsWith("provider:") || !next.schemaFingerprint.trim() || !next.capabilityFingerprint.trim()) throw new Error("Provider capability snapshot identity/fingerprints are required");
   parseTimestamp(next.observedAt, "providerSnapshot.observedAt");
   if (new Set(next.capabilities).size !== next.capabilities.length) throw new Error("Provider snapshot capabilities must be unique");
+  if (next.obligationRefs !== undefined && (next.obligationRefs.some((ref) => !ref.trim()) || new Set(next.obligationRefs).size !== next.obligationRefs.length)) throw new Error("Provider snapshot obligationRefs must be unique and nonblank");
   if (next.pricing === "unknown") return "pricing_unknown";
   if (!previous) return "compatible";
   if (previous.providerKey !== next.providerKey) throw new Error("Cannot compare drift across different providers");
   const removedCapability = previous.capabilities.some((capability) => !next.capabilities.includes(capability));
   const enumerationRegression = (Object.keys(next.enumeration) as (keyof EnumerationCapability)[]).some((key) => previous.enumeration[key] === "verified_supported" && next.enumeration[key] !== "verified_supported");
   if (removedCapability || enumerationRegression) return "breaking";
-  if (previous.schemaFingerprint !== next.schemaFingerprint || previous.capabilityFingerprint !== next.capabilityFingerprint || previous.apiVersion !== next.apiVersion || previous.modelVersion !== next.modelVersion || previous.pricing !== next.pricing) return "compatible";
+  if (previous.schemaFingerprint !== next.schemaFingerprint || previous.capabilityFingerprint !== next.capabilityFingerprint || previous.apiVersion !== next.apiVersion || previous.modelVersion !== next.modelVersion || previous.pricing !== next.pricing || previous.completeness !== next.completeness || previous.trust !== next.trust || previous.reachability !== next.reachability || previous.revalidationRequired !== next.revalidationRequired) return "compatible";
   return "none";
 }
 
@@ -113,7 +166,7 @@ export class ProviderCapabilityLedger {
     const history = this.#snapshots.get(snapshot.providerKey) ?? [];
     const previous = history.at(-1);
     const drift = classifyProviderDrift(previous, snapshot);
-    const frozen = Object.freeze({ ...snapshot, capabilities: Object.freeze([...snapshot.capabilities]), enumeration: Object.freeze({ ...snapshot.enumeration }) });
+    const frozen = Object.freeze({ ...snapshot, capabilities: Object.freeze([...snapshot.capabilities]), enumeration: Object.freeze({ ...snapshot.enumeration }), obligationRefs: snapshot.obligationRefs === undefined ? undefined : Object.freeze([...snapshot.obligationRefs]) });
     this.#snapshots.set(snapshot.providerKey, [...history, frozen]);
     return Object.freeze({ snapshot: frozen, drift });
   }
