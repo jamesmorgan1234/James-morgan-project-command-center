@@ -1,5 +1,6 @@
 export * from "./identifiers.js";
 export * from "./lifecycle.js";
+export * from "./intelligence-identity.js";
 export * from "./registry.js";
 export * from "./module-contract.js";
 export * from "./command-runtime.js";
