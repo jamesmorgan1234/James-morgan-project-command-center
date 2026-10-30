@@ -45,6 +45,15 @@ export type RestoreKeyState = "active" | "decrypt_only" | "revoked" | "missing";
 export type RestoreApplicationState = "valid" | "invalid" | "unknown";
 export type RestoreSourceLifecycle = "active" | "degraded" | "unavailable" | "tombstoned";
 export type RestoreDecisionStatus = "active" | "restricted" | "denied";
+export type RestoreCompleteness = "unknown" | "partial" | "complete";
+export type RestoreTrust = "unrated" | "low" | "medium" | "high" | "authoritative";
+export type RestoreReachability = "unknown" | "reachable" | "degraded" | "unreachable";
+
+export interface RestoreReliability {
+  readonly successRate?: number;
+  readonly sampleSize?: number;
+  readonly lastFailureAt?: string;
+}
 
 export interface RestoreRevalidationInput {
   readonly now: string;
@@ -61,6 +70,13 @@ export interface RestoreRevalidationInput {
   readonly purposeAllowed: boolean;
   readonly retentionAllowed: boolean;
   readonly evidenceRefs: readonly string[];
+  readonly sourceFreshUntil?: string;
+  readonly sourceCompleteness?: RestoreCompleteness;
+  readonly sourceTrust?: RestoreTrust;
+  readonly sourceReachability?: RestoreReachability;
+  readonly sourceReliability?: RestoreReliability;
+  readonly obligationRefs?: readonly string[];
+  readonly revalidationTriggers?: readonly string[];
 }
 
 export interface RestoreRevalidationDecision {
@@ -69,6 +85,8 @@ export interface RestoreRevalidationDecision {
   readonly evaluatedAt: string;
   readonly currentPolicyEpoch: number;
   readonly evidenceRefs: readonly string[];
+  readonly obligationRefs?: readonly string[];
+  readonly revalidationTriggers?: readonly string[];
 }
 
 export interface RestoreProjectionResult {
@@ -82,7 +100,9 @@ function restoreDecision(input: RestoreRevalidationInput, status: RestoreDecisio
     reason,
     evaluatedAt: input.now,
     currentPolicyEpoch: input.currentPolicyEpoch,
-    evidenceRefs: Object.freeze([...evidenceRefs])
+    evidenceRefs: Object.freeze([...evidenceRefs]),
+    obligationRefs: input.obligationRefs === undefined ? undefined : Object.freeze([...input.obligationRefs]),
+    revalidationTriggers: input.revalidationTriggers === undefined ? undefined : Object.freeze([...input.revalidationTriggers])
   });
 }
 
@@ -94,6 +114,17 @@ export function evaluateRestoreRevalidation(input: RestoreRevalidationInput): Re
   if (evidenceRefs.length === 0 || evidenceRefs.some((ref) => ref.length === 0) || new Set(evidenceRefs).size !== evidenceRefs.length) {
     return restoreDecision(input, "denied", "restore_evidence_missing_or_invalid", evidenceRefs.filter(Boolean));
   }
+  if (input.obligationRefs !== undefined && (input.obligationRefs.some((ref) => !ref.trim()) || new Set(input.obligationRefs).size !== input.obligationRefs.length)) return restoreDecision(input, "denied", "restore_obligation_refs_invalid", evidenceRefs);
+  if (input.revalidationTriggers !== undefined && (input.revalidationTriggers.some((ref) => !ref.trim()) || new Set(input.revalidationTriggers).size !== input.revalidationTriggers.length)) return restoreDecision(input, "denied", "restore_revalidation_triggers_invalid", evidenceRefs);
+  if (input.sourceCompleteness !== undefined && !["unknown", "partial", "complete"].includes(input.sourceCompleteness)) return restoreDecision(input, "denied", "restore_source_completeness_invalid", evidenceRefs);
+  if (input.sourceTrust !== undefined && !["unrated", "low", "medium", "high", "authoritative"].includes(input.sourceTrust)) return restoreDecision(input, "denied", "restore_source_trust_invalid", evidenceRefs);
+  if (input.sourceReachability !== undefined && !["unknown", "reachable", "degraded", "unreachable"].includes(input.sourceReachability)) return restoreDecision(input, "denied", "restore_source_reachability_invalid", evidenceRefs);
+  if (input.sourceReliability !== undefined) {
+    if (input.sourceReliability.successRate !== undefined && (!Number.isFinite(input.sourceReliability.successRate) || input.sourceReliability.successRate < 0 || input.sourceReliability.successRate > 1)) return restoreDecision(input, "denied", "restore_source_reliability_invalid", evidenceRefs);
+    if (input.sourceReliability.sampleSize !== undefined && (!Number.isSafeInteger(input.sourceReliability.sampleSize) || input.sourceReliability.sampleSize < 0)) return restoreDecision(input, "denied", "restore_source_reliability_invalid", evidenceRefs);
+    if (input.sourceReliability.lastFailureAt !== undefined) parseTimestamp(input.sourceReliability.lastFailureAt, "restore.sourceReliability.lastFailureAt");
+  }
+  if (input.sourceFreshUntil !== undefined && parseTimestamp(input.sourceFreshUntil, "restore.sourceFreshUntil") <= now) return restoreDecision(input, "restricted", "restore_source_stale", evidenceRefs);
 
   if (input.authorizationState !== "active") return restoreDecision(input, "denied", `authorization_${input.authorizationState}`, evidenceRefs);
   if (!input.authorizationRef?.trim()) return restoreDecision(input, "denied", "authorization_reference_missing", evidenceRefs);
@@ -115,6 +146,8 @@ export function evaluateRestoreRevalidation(input: RestoreRevalidationInput): Re
   if (input.payloadState === "restricted") return restoreDecision(input, "restricted", "payload_restricted", evidenceRefs);
   if (input.keyState === "decrypt_only") return restoreDecision(input, "restricted", "key_decrypt_only", evidenceRefs);
   if (input.sourceLifecycle === "degraded" || input.sourceLifecycle === "unavailable") return restoreDecision(input, "restricted", `source_${input.sourceLifecycle}`, evidenceRefs);
+  if (input.sourceReachability === "degraded" || input.sourceReachability === "unreachable") return restoreDecision(input, "restricted", `source_reachability_${input.sourceReachability}`, evidenceRefs);
+  if (input.sourceCompleteness === "unknown" || input.sourceCompleteness === "partial") return restoreDecision(input, "restricted", `source_completeness_${input.sourceCompleteness}`, evidenceRefs);
 
   return restoreDecision(input, "active", "current_authority_and_privacy_revalidated", evidenceRefs);
 }
