@@ -1,7 +1,8 @@
 import { parseTimestamp } from "../security/types.js";
 
 export type GraphNodeType = "project" | "business" | "person" | "account" | "book" | "provider" | "asset" | "rule" | "decision" | "task" | "metric" | "obligation" | "alias" | "release";
-export type GraphRelation = "owns" | "belongs_to" | "uses" | "depends_on" | "aliases" | "renamed_to" | "merged_into" | "supersedes" | "derived_from" | "references" | "produced_by";
+export type GraphRelation = "owns" | "belongs_to" | "uses" | "depends_on" | "aliases" | "renamed_to" | "merged_into" | "supersedes" | "derived_from" | "references" | "produced_by" | "causes" | "supports" | "refutes" | "contradicts" | "impacts";
+export type GraphDependencyImpact = "none" | "low" | "medium" | "high" | "blocking";
 
 export interface GraphNode {
   readonly id: string;
@@ -19,6 +20,11 @@ export interface GraphEdge {
   readonly sourceRef: string;
   readonly effectiveAt: string;
   readonly supersededAt?: string;
+  readonly graphVersion?: number;
+  readonly confidence?: number;
+  readonly contradictionRef?: string;
+  readonly lineageRefs?: readonly string[];
+  readonly dependencyImpact?: GraphDependencyImpact;
 }
 
 export class CommandGraph {
@@ -40,9 +46,16 @@ export class CommandGraph {
     if (!edge.sourceRef.trim()) throw new Error("Graph edge requires provenance sourceRef");
     parseTimestamp(edge.effectiveAt, "effectiveAt");
     if (edge.supersededAt !== undefined && parseTimestamp(edge.supersededAt, "supersededAt") < parseTimestamp(edge.effectiveAt, "effectiveAt")) throw new Error("Graph supersession cannot predate effective time");
+    if (edge.graphVersion !== undefined && (!Number.isSafeInteger(edge.graphVersion) || edge.graphVersion < 1)) throw new Error("Graph version must be positive");
+    if (edge.confidence !== undefined && (!Number.isFinite(edge.confidence) || edge.confidence < 0 || edge.confidence > 1)) throw new Error("Graph edge confidence must be between 0 and 1");
+    if (edge.contradictionRef !== undefined && !edge.contradictionRef.trim()) throw new Error("Graph contradiction reference cannot be blank");
+    if (edge.lineageRefs !== undefined && (edge.lineageRefs.some((ref) => !ref.trim()) || new Set(edge.lineageRefs).size !== edge.lineageRefs.length)) throw new Error("Graph lineage references must be unique and nonblank");
+    if (edge.dependencyImpact !== undefined && !["none", "low", "medium", "high", "blocking"].includes(edge.dependencyImpact)) throw new Error("Unsupported graph dependency impact");
+    if (edge.relation === "contradicts" && !edge.contradictionRef) throw new Error("Contradiction edges require contradictionRef");
+    if (edge.relation === "depends_on" && edge.dependencyImpact === undefined) throw new Error("Dependency edges require dependencyImpact");
     if (edge.relation === "aliases" && [...this.#edges.values()].some((item) => item.from === edge.from && item.relation === "aliases" && !item.supersededAt) && !edge.supersededAt) throw new Error("Alias already has a current canonical target");
     if (this.#edges.has(edge.id)) throw new Error(`Graph edge already exists: ${edge.id}`);
-    this.#edges.set(edge.id, Object.freeze({ ...edge }));
+    this.#edges.set(edge.id, Object.freeze({ ...edge, lineageRefs: edge.lineageRefs === undefined ? undefined : Object.freeze([...edge.lineageRefs]) }));
   }
 
   supersedeEdge(id: string, at: string): GraphEdge {
@@ -50,7 +63,7 @@ export class CommandGraph {
     if (!current) throw new Error(`Unknown graph edge: ${id}`);
     if (current.supersededAt) throw new Error(`Graph edge already superseded: ${id}`);
     if (parseTimestamp(at, "at") < parseTimestamp(current.effectiveAt, "effectiveAt")) throw new Error("Graph supersession cannot predate effective time");
-    const updated = Object.freeze({ ...current, version: current.version + 1, supersededAt: at });
+    const updated = Object.freeze({ ...current, version: current.version + 1, graphVersion: current.graphVersion === undefined ? undefined : current.graphVersion + 1, supersededAt: at });
     this.#edges.set(id, updated);
     return updated;
   }
