@@ -9,3 +9,4 @@ export * from "./pwa.js";
 export * from "./device.js";
 export * from "./fixtures.js";
 export * from "./primitives.js";
+export * from "./accessibility.js";
