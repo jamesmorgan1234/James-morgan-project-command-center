@@ -55,7 +55,10 @@ export class CommandGraph {
     if (edge.relation === "depends_on" && edge.dependencyImpact === undefined) throw new Error("Dependency edges require dependencyImpact");
     if (edge.relation === "aliases" && [...this.#edges.values()].some((item) => item.from === edge.from && item.relation === "aliases" && !item.supersededAt) && !edge.supersededAt) throw new Error("Alias already has a current canonical target");
     if (this.#edges.has(edge.id)) throw new Error(`Graph edge already exists: ${edge.id}`);
-    this.#edges.set(edge.id, Object.freeze({ ...edge, lineageRefs: edge.lineageRefs === undefined ? undefined : Object.freeze([...edge.lineageRefs]) }));
+    this.#edges.set(edge.id, Object.freeze({
+      ...edge,
+      ...(edge.lineageRefs !== undefined ? { lineageRefs: Object.freeze([...edge.lineageRefs]) } : {})
+    }));
   }
 
   supersedeEdge(id: string, at: string): GraphEdge {
@@ -63,7 +66,12 @@ export class CommandGraph {
     if (!current) throw new Error(`Unknown graph edge: ${id}`);
     if (current.supersededAt) throw new Error(`Graph edge already superseded: ${id}`);
     if (parseTimestamp(at, "at") < parseTimestamp(current.effectiveAt, "effectiveAt")) throw new Error("Graph supersession cannot predate effective time");
-    const updated = Object.freeze({ ...current, version: current.version + 1, graphVersion: current.graphVersion === undefined ? undefined : current.graphVersion + 1, supersededAt: at });
+    const updated = Object.freeze({
+      ...current,
+      version: current.version + 1,
+      ...(current.graphVersion !== undefined ? { graphVersion: current.graphVersion + 1 } : {}),
+      supersededAt: at
+    });
     this.#edges.set(id, updated);
     return updated;
   }
