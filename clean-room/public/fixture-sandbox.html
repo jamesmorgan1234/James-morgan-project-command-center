@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#ff6a00">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Command Center — UI Fixtures</title>
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/primitive-system.css">
+  <style>
+    .fixture-shell{max-width:1100px;margin:0 auto;padding:24px}.fixture-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.fixture-card{min-height:160px}.fixture-meta{font-family:ui-monospace,monospace;font-size:.78rem;word-break:break-word}.fixture-actions{display:flex;gap:8px;flex-wrap:wrap}.fixture-card:focus-within{outline:3px solid currentColor;outline-offset:3px}@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0s!important;transition-duration:0s!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <main class="fixture-shell" aria-labelledby="fixture-title">
+    <header class="bevel-card">
+      <span class="brand-kicker">COMMAND CENTER · P4 FIXTURE SANDBOX</span>
+      <h1 id="fixture-title" class="section-title">Deterministic shared-component states</h1>
+      <p class="muted">Static local fixtures only. No provider, account, network truth, or live business data is required.</p>
+      <p class="fixture-meta">seed=command-center-p4-fixtures-v1 · states=normal,degraded,error · keyboard=required · capture=browser-native</p>
+    </header>
+    <section id="fixtures" class="fixture-grid" aria-label="Shared component fixtures"></section>
+  </main>
+  <script>
+    const kinds = [
+      "card","row","status_pill","progress","expansion","dialog","button","loader","empty_state","zero_state","error_state","tooltip",
+      "health_badge","freshness_badge","confidence_indicator","source_trust_label","stale_data_banner","provider_state_panel","missing_source_panel",
+      "conflict_panel","approval_card","obligation_card","audit_row","reversible_action","destructive_confirm_dialog","offline_state"
+    ];
+    const states = ["normal","degraded","error"];
+    const root = document.getElementById("fixtures");
+    for (const kind of kinds) {
+      for (const state of states) {
+        const article = document.createElement("article");
+        article.className = "bevel-card fixture-card";
+        article.dataset.fixtureId = `fixture:${kind}:${state}`;
+        article.dataset.primitive = kind;
+        article.dataset.state = state;
+        const title = document.createElement("h2");
+        title.className = "section-title";
+        title.textContent = kind.replaceAll("_", " ");
+        const badge = document.createElement("span");
+        badge.className = `status status--${state === "normal" ? "available" : state}`;
+        badge.textContent = state.toUpperCase();
+        badge.setAttribute("aria-label", `${kind} state ${state}`);
+        const body = document.createElement("p");
+        body.className = "muted";
+        body.textContent = `Deterministic ${state} fixture for ${kind}. Semantic state is textual and never color-only.`;
+        const meta = document.createElement("p");
+        meta.className = "fixture-meta";
+        meta.textContent = `command-center-p4:${kind}:${state}:v1`;
+        const actions = document.createElement("div");
+        actions.className = "fixture-actions";
+        const button = document.createElement("button");
+        button.className = "project-filter-button";
+        button.type = "button";
+        button.textContent = "Keyboard action";
+        button.setAttribute("aria-label", `Exercise ${kind} ${state} fixture`);
+        button.addEventListener("click", () => { button.setAttribute("aria-pressed", button.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
+        actions.append(button);
+        article.append(title, badge, body, meta, actions);
+        root.append(article);
+      }
+    }
+  </script>
+</body>
+</html>
