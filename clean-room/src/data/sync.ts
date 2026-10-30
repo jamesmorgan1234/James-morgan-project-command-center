@@ -85,7 +85,11 @@ export class ReconciliationQueue<T> {
     if (conflict.obligationRefs !== undefined && (conflict.obligationRefs.some((ref) => !ref.trim()) || new Set(conflict.obligationRefs).size !== conflict.obligationRefs.length)) throw new Error("Reconciliation obligationRefs must be unique and nonblank");
     if (conflict.revalidationTriggers !== undefined && (conflict.revalidationTriggers.some((ref) => !ref.trim()) || new Set(conflict.revalidationTriggers).size !== conflict.revalidationTriggers.length)) throw new Error("Reconciliation revalidationTriggers must be unique and nonblank");
     if (this.#items.has(conflict.id)) throw new Error(`Reconciliation conflict already exists: ${conflict.id}`);
-    this.#items.set(conflict.id, Object.freeze({ ...conflict, obligationRefs: conflict.obligationRefs === undefined ? undefined : Object.freeze([...conflict.obligationRefs]), revalidationTriggers: conflict.revalidationTriggers === undefined ? undefined : Object.freeze([...conflict.revalidationTriggers]) }));
+    this.#items.set(conflict.id, Object.freeze({
+      ...conflict,
+      ...(conflict.obligationRefs !== undefined ? { obligationRefs: Object.freeze([...conflict.obligationRefs]) } : {}),
+      ...(conflict.revalidationTriggers !== undefined ? { revalidationTriggers: Object.freeze([...conflict.revalidationTriggers]) } : {})
+    }));
   }
 
   resolve(id: string): ReconciliationConflict<T> {
