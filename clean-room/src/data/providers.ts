@@ -52,7 +52,18 @@ export class ProviderRegistry {
   register(provider: ProviderContract): void {
     this.#validate(provider);
     if (this.#providers.has(provider.key)) throw new Error(`Provider already exists: ${provider.key}`);
-    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]), obligations: provider.obligations === undefined ? undefined : Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))), revalidation: provider.revalidation === undefined ? undefined : Object.freeze({ ...provider.revalidation, triggerRefs: provider.revalidation.triggerRefs === undefined ? undefined : Object.freeze([...provider.revalidation.triggerRefs]) }) }));
+    this.#providers.set(provider.key, Object.freeze({
+      ...provider,
+      capabilities: Object.freeze([...provider.capabilities]),
+      scopes: Object.freeze([...provider.scopes]),
+      ...(provider.obligations !== undefined ? { obligations: Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))) } : {}),
+      ...(provider.revalidation !== undefined ? {
+        revalidation: Object.freeze({
+          ...provider.revalidation,
+          ...(provider.revalidation.triggerRefs !== undefined ? { triggerRefs: Object.freeze([...provider.revalidation.triggerRefs]) } : {})
+        })
+      } : {})
+    }));
   }
 
   replace(provider: ProviderContract, expectedVersion: number): void {
@@ -60,7 +71,18 @@ export class ProviderRegistry {
     const current = this.#required(provider.key);
     if (current.version !== expectedVersion) throw new Error(`Provider version conflict for ${provider.key}`);
     if (provider.version <= current.version) throw new Error(`Provider version must advance for ${provider.key}`);
-    this.#providers.set(provider.key, Object.freeze({ ...provider, capabilities: Object.freeze([...provider.capabilities]), scopes: Object.freeze([...provider.scopes]), obligations: provider.obligations === undefined ? undefined : Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))), revalidation: provider.revalidation === undefined ? undefined : Object.freeze({ ...provider.revalidation, triggerRefs: provider.revalidation.triggerRefs === undefined ? undefined : Object.freeze([...provider.revalidation.triggerRefs]) }) }));
+    this.#providers.set(provider.key, Object.freeze({
+      ...provider,
+      capabilities: Object.freeze([...provider.capabilities]),
+      scopes: Object.freeze([...provider.scopes]),
+      ...(provider.obligations !== undefined ? { obligations: Object.freeze(provider.obligations.map((item) => Object.freeze({ ...item }))) } : {}),
+      ...(provider.revalidation !== undefined ? {
+        revalidation: Object.freeze({
+          ...provider.revalidation,
+          ...(provider.revalidation.triggerRefs !== undefined ? { triggerRefs: Object.freeze([...provider.revalidation.triggerRefs]) } : {})
+        })
+      } : {})
+    }));
   }
 
   remove(key: string, expectedVersion: number): ProviderContract {
@@ -166,7 +188,12 @@ export class ProviderCapabilityLedger {
     const history = this.#snapshots.get(snapshot.providerKey) ?? [];
     const previous = history.at(-1);
     const drift = classifyProviderDrift(previous, snapshot);
-    const frozen = Object.freeze({ ...snapshot, capabilities: Object.freeze([...snapshot.capabilities]), enumeration: Object.freeze({ ...snapshot.enumeration }), obligationRefs: snapshot.obligationRefs === undefined ? undefined : Object.freeze([...snapshot.obligationRefs]) });
+    const frozen = Object.freeze({
+      ...snapshot,
+      capabilities: Object.freeze([...snapshot.capabilities]),
+      enumeration: Object.freeze({ ...snapshot.enumeration }),
+      ...(snapshot.obligationRefs !== undefined ? { obligationRefs: Object.freeze([...snapshot.obligationRefs]) } : {})
+    });
     this.#snapshots.set(snapshot.providerKey, [...history, frozen]);
     return Object.freeze({ snapshot: frozen, drift });
   }
