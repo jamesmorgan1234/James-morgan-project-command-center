@@ -108,9 +108,14 @@ export class KnowledgeLedger<T> {
       ...claim,
       value,
       sourceRefs: Object.freeze([...claim.sourceRefs]),
-      evidenceEdges: claim.evidenceEdges === undefined ? undefined : Object.freeze(claim.evidenceEdges.map((edge) => Object.freeze({ ...edge }))),
-      applicability: claim.applicability === undefined ? undefined : Object.freeze({ ...claim.applicability }),
-      revalidation: claim.revalidation === undefined ? undefined : Object.freeze({ ...claim.revalidation, triggerRefs: claim.revalidation.triggerRefs === undefined ? undefined : Object.freeze([...claim.revalidation.triggerRefs]) })
+      ...(claim.evidenceEdges !== undefined ? { evidenceEdges: Object.freeze(claim.evidenceEdges.map((edge) => Object.freeze({ ...edge }))) } : {}),
+      ...(claim.applicability !== undefined ? { applicability: Object.freeze({ ...claim.applicability }) } : {}),
+      ...(claim.revalidation !== undefined ? {
+        revalidation: Object.freeze({
+          ...claim.revalidation,
+          ...(claim.revalidation.triggerRefs !== undefined ? { triggerRefs: Object.freeze([...claim.revalidation.triggerRefs]) } : {})
+        })
+      } : {})
     }));
   }
 
