@@ -25,6 +25,63 @@ export interface HomeModuleGridContract {
   readonly modules: readonly HomePrimaryModule[];
 }
 
+export type HomeHealthState = "healthy" | "degraded" | "blocked" | "unknown";
+
+export interface HomeDiagnosticSummary {
+  readonly systemHealth: HomeHealthState;
+  readonly connectionHealth: HomeHealthState;
+  readonly knowledgeFreshness: HomeHealthState;
+  readonly activeProjectCount: number;
+  readonly blockedProjectCount: number;
+  readonly pendingApprovalCount: number;
+  readonly pendingObligationCount: number;
+  readonly recentAuditEntryRefs: readonly string[];
+  readonly quickActionRefs: readonly string[];
+  readonly diagnosticRoute: string;
+  readonly freshnessObservedAt: string;
+  readonly setupRoute?: string;
+  readonly recoveryRoute?: string;
+  readonly availableOffline: true;
+  readonly quickActionsRequireAuthority: true;
+}
+
+function assertCount(label: string, value: number): void {
+  if (!Number.isSafeInteger(value) || value < 0) throw new Error(`${label} must be a non-negative safe integer`);
+}
+
+function assertRefs(label: string, values: readonly string[]): readonly string[] {
+  if (values.some((value) => !value.trim()) || new Set(values).size !== values.length) throw new Error(`${label} must contain unique nonblank references`);
+  return Object.freeze([...values]);
+}
+
+export function homeDiagnosticSummary(input: Readonly<Omit<HomeDiagnosticSummary, "availableOffline" | "quickActionsRequireAuthority">>): HomeDiagnosticSummary {
+  assertCount("activeProjectCount", input.activeProjectCount);
+  assertCount("blockedProjectCount", input.blockedProjectCount);
+  assertCount("pendingApprovalCount", input.pendingApprovalCount);
+  assertCount("pendingObligationCount", input.pendingObligationCount);
+  if (!input.diagnosticRoute.startsWith("/")) throw new Error("Home diagnostic summary requires a local diagnostic route");
+  if (!Number.isFinite(Date.parse(input.freshnessObservedAt))) throw new Error("Home diagnostic summary requires freshness metadata");
+  if (input.setupRoute !== undefined && !input.setupRoute.startsWith("/")) throw new Error("Home setup route must be local");
+  if (input.recoveryRoute !== undefined && !input.recoveryRoute.startsWith("/")) throw new Error("Home recovery route must be local");
+  return Object.freeze({
+    systemHealth: input.systemHealth,
+    connectionHealth: input.connectionHealth,
+    knowledgeFreshness: input.knowledgeFreshness,
+    activeProjectCount: input.activeProjectCount,
+    blockedProjectCount: input.blockedProjectCount,
+    pendingApprovalCount: input.pendingApprovalCount,
+    pendingObligationCount: input.pendingObligationCount,
+    recentAuditEntryRefs: assertRefs("recentAuditEntryRefs", input.recentAuditEntryRefs),
+    quickActionRefs: assertRefs("quickActionRefs", input.quickActionRefs),
+    diagnosticRoute: input.diagnosticRoute,
+    freshnessObservedAt: input.freshnessObservedAt,
+    ...(input.setupRoute !== undefined ? { setupRoute: input.setupRoute } : {}),
+    ...(input.recoveryRoute !== undefined ? { recoveryRoute: input.recoveryRoute } : {}),
+    availableOffline: true,
+    quickActionsRequireAuthority: true
+  });
+}
+
 const HOME_GRID_EXTENSIONS = new Map<HomePrimaryModuleKey, HomePrimaryModule>();
 
 function assertModule(module: HomePrimaryModule): void {
