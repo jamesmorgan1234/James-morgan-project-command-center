@@ -1,21 +1,15 @@
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { authoritativeTraceabilityRows } from './p15-1-repository-evidence.mjs';
 
 const root = fileURLToPath(new URL('../..', import.meta.url));
-const start = Number(process.env.P15_ROW_SLICE_START ?? 1);
-const end = Number(process.env.P15_ROW_SLICE_END ?? 5852);
-if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 1 || end < start) throw new Error('Invalid P15 row slice bounds');
-
-const source = authoritativeTraceabilityRows(root);
-const ids = new Set(Array.from({ length: end - start + 1 }, (_, offset) => `CCR-${String(start + offset).padStart(5, '0')}`));
-const requirements = source.requirements.filter((row) => ids.has(row.id));
-if (requirements.length !== ids.size) throw new Error(`Expected ${ids.size} canonical rows, found ${requirements.length}`);
+const source = JSON.parse(readFileSync(resolve(root, 'clean-room/evidence/category15-requirement-traceability.json'), 'utf8'));
+const requirements = source.requirements;
+if (!Array.isArray(requirements) || requirements.length !== 5852) throw new Error(`Expected 5852 current traceability rows, found ${requirements?.length}`);
 const document = Object.freeze({
-  schemaVersion: 'cc-p15-1-authoritative-row-slice-v1',
-  startId: `CCR-${String(start).padStart(5, '0')}`,
-  endId: `CCR-${String(end).padStart(5, '0')}`,
+  schemaVersion: 'cc-p15-1-current-traceability-export-v1',
+  startId: 'CCR-00001',
+  endId: 'CCR-05852',
   rowCount: requirements.length,
   requirements
 });
