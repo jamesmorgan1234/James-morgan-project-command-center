@@ -152,7 +152,5 @@ export function createCoreRouteRegistry(): RouteRegistry {
   routes.register(route("route:settings", "/settings", "Settings", "module:settings", "history", { offlineCapable: true, protectedEditGuard: true }));
   routes.register(route("route:settings-security", "/settings/security", "Security", "module:settings", "history", { protectedEditGuard: true }));
   routes.register(route("route:settings-devices", "/settings/devices", "Devices", "module:settings", "history", { offlineCapable: true }));
-  routes.register(route("route:offline", "/offline", "Offline", "module:offline", "home", { offlineCapable: true }));
-  routes.register(route("route:ui-fixtures", "/__fixtures", "UI Fixtures", "module:fixtures", "home", { offlineCapable: true }));
   return routes;
 }
