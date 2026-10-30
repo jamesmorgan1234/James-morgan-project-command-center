@@ -4,8 +4,8 @@ import { fileURLToPath } from 'node:url';
 import { authoritativeTraceabilityRows } from './p15-1-repository-evidence.mjs';
 
 const root = fileURLToPath(new URL('../..', import.meta.url));
-const start = Number(process.env.P15_ROW_SLICE_START ?? 688);
-const end = Number(process.env.P15_ROW_SLICE_END ?? 727);
+const start = Number(process.env.P15_ROW_SLICE_START ?? 1);
+const end = Number(process.env.P15_ROW_SLICE_END ?? 5852);
 if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start < 1 || end < start) throw new Error('Invalid P15 row slice bounds');
 
 const source = authoritativeTraceabilityRows(root);
