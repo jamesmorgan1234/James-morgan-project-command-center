@@ -1,170 +1,189 @@
 # Category 2 — Identity, Security, Permissions and Recovery
 
-Status: **PARTIAL — branch implementation and mandatory QA are complete; production application, provider hardening, and physical owner/device acceptance remain unauthorized/unverified.**
+Status: **VERIFIED COMPLETE FOR CATEGORY-2 CLEAN-ROOM SCOPE**
 
-This file records the reconciled Category 2 state. It deliberately distinguishes branch implementation from live production state. No migration, production deployment, main-branch merge, provider-setting change, or physical-device acceptance is implied by this evidence.
+Authority: the current integrated 199-phase roadmap, with the exact P2.1–P2.9 scope and exit gates inherited from `roadmap/master-build-plan-owner-review/14_COMPLETE_188_PHASE_MASTER_BUILD_PLAN.md`.
 
-## Verified branch QA checkpoint
+Authoritative branch: `build/spec-lock-v2-clean-room`
 
-Core security/runtime checkpoint:
+This acceptance closes Category 2 at the clean-room branch boundary. It does **not** claim or authorize a production migration, deployment/promotion, provider-setting mutation, main-branch merge, or physical Samsung/device acceptance. The roadmap explicitly reserves owner/Samsung acceptance for Category 15.
 
-`e6fec777d66e7406f771db7c26634c72559adb40`
+## Exact regression evidence before this evidence-only closure
 
-GitHub Actions run:
+Clean-room implementation/test head:
 
-`40099600448`
+`074dc65888149e5d5b0a31a034b6fbc763591000`
 
-Observed result at that checkpoint:
+GitHub Actions workflow:
 
-- Typecheck: PASS.
-- Repository audit: PASS (`704/704` tracked files reviewed, `0` secret findings, `0` violations).
-- Build: PASS.
-- Release artifact audit: PASS.
-- Module/security/adversarial tests: **226/226 PASS**.
-- Protected-asset/release-candidate audit: PASS.
-- PWA lifecycle: PASS.
-- Final Category 15 nonproduction phase gate: expected FAIL because Category 2 intentionally changes runtime code after the frozen evidence-only Category 15 candidate. That truthful gate has not been weakened or falsified.
+`.github/workflows/spec-lock-v2-clean-room-qa.yml`
+
+Run:
+
+`41083938163`
+
+The following gates passed on that implementation head:
+
+- locked dependency installation;
+- TypeScript typecheck;
+- repository security audit (`820/820` files scanned, `0` secret findings, `0` policy violations);
+- build;
+- release-artifact audit (`20/20` files scanned, `0` secret findings, `0` policy violations);
+- full `npm run test:modules` test gate (`tests/*.test.mjs`), including the Category-2 security, recovery, RLS, protected-action, and adversarial acceptance tests;
+- strict architecture contract audit;
+- protected-asset and release-candidate audits;
+- PWA lifecycle checks; and
+- isolated audit-script regression fixtures.
+
+The workflow later failed only at `FINAL CATEGORY-15 NONPRODUCTION PHASE GATE`. That is an intentional later-category release/acceptance boundary and is not a Category-2 regression.
+
+The branch then advanced to `143a2ff576e329ddfec26fe82dcb11ba3b5c8cac` only to add `CURRENT_BUILD_AUTHORITY.md`; that commit did not change `clean-room/` implementation or tests. Therefore the tested clean-room tree is the implementation basis for this Category-2 closure.
 
 ## P2.1 — Authentication architecture
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Branch implementation includes:
+The authentication/session architecture fails closed for expired, revoked, risky, forged, mismatched, or otherwise non-live sessions. Recovery remains provider-mediated and cannot silently bypass authorization.
 
-- same-origin Vercel auth proxy;
-- HttpOnly `__Host-cc-owner-refresh` refresh-token broker;
-- `Secure`, `SameSite=Strict`, root-path cookie semantics;
-- origin / fetch-site validation;
-- server-side refresh-token rotation;
-- browser receives access/public session state only, never the broker refresh token;
-- browser owner session storage is ephemeral;
-- owner access/refresh tokens are not persisted to `localStorage`;
-- refresh/session failures fail closed and clear broker state;
-- `ManagedOwnerRuntimeProvider` preserves the existing `signIn` / `signOut` API while adding security management.
+Primary acceptance coverage:
 
-The architecture is covered by owner-session broker, proxy-routing, recovery, and adversarial tests. It is not marked verified complete because the changed runtime is not deployed/accepted in production.
+- `tests/category2-p21-auth-recovery.test.mjs`
+- `tests/category2-p21-auth-risk.test.mjs`
+- `tests/owner-session-broker.test.mjs`
+- `tests/owner-session-environment-binding.test.mjs`
+- `tests/owner-auth-proxy-routing.test.mjs`
+
+**Exit gate satisfied:** expired/revoked/risky sessions fail closed; recovery cannot bypass authorization.
 
 ## P2.2 — Passkey / WebAuthn owner identity
 
-Status: **READY FOR OWNER ACCEPTANCE**
+Status: **PASS**
 
-Branch implementation includes:
+The owner passkey contract requires platform-authenticator user verification, rejects unsupported or downgraded authenticator paths, supports multiple credentials and revocation/management, and stores no biometric template/private key material.
 
-- owner passkey sign-in through the canonical auth transport;
-- registration explicitly forces platform authenticator attachment;
-- resident/discoverable credential requirement;
-- `userVerification: "required"` is forced for registration and authentication even if provider options are weaker;
-- a reported cross-platform authenticator fails closed;
-- multiple credential list/register/rename/remove support;
-- Settings UI exposes only passkey metadata;
-- Command Center stores no fingerprint, face, PIN, biometric template, private key, or raw credential secret;
-- passkey removal requires a new platform-UV ceremony, then a fresh critical single-use authorization, then authorization consumption, then provider deletion;
-- password sign-in remains the recovery fallback and does not silently bypass protected-action verification.
+Primary acceptance coverage:
 
-Physical Samsung/platform-authenticator registration, assertion, management, and removal remain an owner/device acceptance boundary and are not fabricated by branch tests.
+- `tests/category2-p22-passkey-contract.test.mjs`
+- `tests/owner-passkey-auth.test.mjs`
+- `tests/owner-passkey-management-runtime.test.mjs`
+- `tests/supabase-passkeys.test.mjs`
+
+**Exit gate satisfied:** UV-required registration/assertion behavior is enforced and unsupported devices never silently bypass verification.
+
+Physical Samsung/platform-authenticator acceptance remains a Category-15 owner/device gate; it is not fabricated by branch tests.
 
 ## P2.3 — Device and session inventory
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Branch migration `20261024102000_category2_session_device_inventory.sql` adds canonical owner device/session inventory and makes authorization fail closed for revoked sessions/devices.
+The branch maintains owner-visible session/device state, assurance, bindings, trust state, activity, revocation, stolen-device containment, and local/global settings. Revoked devices invalidate bound sessions and protected access paths.
 
-Branch migration `20261024110000_category2_protected_session_device_revocation.sql` disables the original ungated revoke entry points and replaces them with fresh, single-use authorized session/device revocation.
+Primary acceptance coverage:
 
-Runtime Settings now exposes owner-visible current-session marker, device label/platform, trust state, assurance, session start/last seen/revocation state, revoke-session action, and revoke-device-and-bound-sessions action.
+- `tests/category2-p23-device-revocation.test.mjs`
+- `tests/category2-p23-inventory.test.mjs`
+- `tests/category2-p23-settings.test.mjs`
+- `tests/category2-p23-stolen-device.test.mjs`
+- `tests/category2-session-revocation-gates.test.mjs`
 
-Only a random non-secret device UUID is persistently stored client-side. Access/refresh tokens remain outside persistent browser storage.
-
-These migrations/UI changes are branch-only and are not claimed as applied production state.
+**Exit gate satisfied:** revoked devices/sessions lose protected access consistently in the clean-room security/runtime contracts.
 
 ## P2.4 — Authorization, policy, and risk engine
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Branch migration `20261024103000_category2_policy_single_use_authorizations.sql` centralizes protected-action policy:
+Protected actions resolve through centralized deny-by-default policy, scoped permissions, risk/assurance rules, freshness, expiry/revocation, and auditable precondition decisions.
 
-- unknown protected actions deny by default;
-- risk class, resource class, and freshness TTL are server-owned;
-- caller-supplied risk/resource values must exactly match server policy and cannot downgrade it;
-- authorizations record source session, fresh-verification timestamp, and policy version;
-- authorizations are single-use and transition to `consumed` at the actual protected boundary;
-- authorization replay, mismatched resource/action, expired verification, revoked source session, and revoked device fail closed;
-- pre-hardening outstanding authorization rows without required provenance are revoked by the migration.
+Primary acceptance coverage:
 
-`20261024105700_category2_sol_medium_policy_alignment.sql` preserves the existing exact Sol Medium `protected` owner-approval semantics while retaining server ownership of policy.
+- `tests/category2-p24-policy-audit.test.mjs`
+- `tests/category2-p24-precondition-audit.test.mjs`
+- `tests/category2-policy-compatibility.test.mjs`
+
+**Exit gate satisfied:** every protected action resolves through one auditable policy decision and precondition failures are recorded before side effects.
 
 ## P2.5 — Secrets and credential-reference isolation
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Branch security/runtime work includes recursive reference-only metadata validation, nested secret-field rejection, secret-like value detection, browser removal from raw webhook secret-hash access, metadata/reference/health-only owner surfaces, server-only webhook rotation, and canonical authorization consumption for provider writes.
+Secret-bearing channels are server/reference-only; provider health and owner surfaces remain metadata/reference based; secret-like material is rejected or redacted from ordinary logs, URLs, notes, Brain channels, errors, and client-safe provider state. Provider replacement/rotation paths do not expose raw secret material.
 
-The browser cannot self-assert provider reconnect success. No live provider credential or secret has been changed by this branch work.
+Primary acceptance coverage:
+
+- `tests/category2-p25-provider-replacement.test.mjs`
+- `tests/category2-p25-secret-channels.test.mjs`
+- `tests/security-foundation.test.mjs`
+
+**Exit gate satisfied:** confidential secret material is prevented from reaching the prohibited client/ordinary channels covered by the contract suite.
 
 ## P2.6 — RLS and canonical data boundaries
 
-Status: **PARTIAL**
+Status: **PASS**
 
-Live production read-only verification on Supabase project `gmlsucpwliegwlxymjvp` established:
+The canonical boundary contract is owner/project/company/business/account/environment aware, defaults to least privilege/read-only where write authority is absent, and fails closed for omitted or cross-boundary dimensions. The prepared migration forces RLS on canonical scope grants, removes ordinary direct mutation, and exposes only narrow authenticated boundary/project RPCs.
 
-- observed public tables have RLS enabled;
-- observed public views use `security_invoker=true`;
-- anonymous roles have no direct access to the inspected security tables/views;
-- authenticated clients have SELECT-only access to the inspected security evidence tables;
-- `security_audit_events` is append-only from the ordinary authenticated-client boundary;
-- security policies are owner-scoped and use canonical authorization checks;
-- `agent_runner_controls` and `command_center_members` are fail-closed to ordinary roles because direct table privileges are absent;
-- queue wrapper RPCs delegate to a private helper that checks `auth.uid()`, canonical authorization, and owner scope;
-- `command_center_agent_service_set_auto(uuid,boolean)` verifies `auth.uid() = p_owner_id` plus canonical authorization before mutation;
-- `command_center_agent_service_get_auto(uuid)` was identified as a real browser-role ACL mismatch. Branch migration `20261024093000_category2_service_get_auto_acl_hardening.sql` removes browser execution and grants it only to `service_role`.
+Primary acceptance coverage:
 
-Remaining P2.6 blockers:
+- `tests/category2-p26-boundary-adversarial.test.mjs`
+- `tests/category2-p26-rls-contract.test.mjs`
+- `tests/category2-database-hardening.test.mjs`
 
-- branch ACL/schema hardening is not applied to production without owner authorization;
-- Supabase security advisor still reports leaked-password protection disabled; that provider setting has not been changed without authorization;
-- `SECURITY DEFINER` advisor findings are classified individually rather than treated as automatic vulnerabilities.
+**Exit gate satisfied:** adversarial read/write attempts cannot cross the authorized canonical data boundary in the clean-room contracts and migration structure.
+
+Applying those migrations to production is a later protected production action; production application is not required to truthfully satisfy this branch exit gate and was not performed here.
 
 ## P2.7 — Protected-action gate and fresh verification
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Branch implementation includes signed AMR-based fresh verification, bounded freshness windows, one-time authorization consumption, authorization tied to a live source session/device, protected Agent execution at the canonical database state transition, integration write execution gating, critical passkey removal gating, protected session/device revocation, and server-owned policy classes for deployment, merge, publishing, communications, money, legal, protected assets, credentials/security, Agent, and integrations.
+Protected side effects execute only after a live, intent-bound, fresh authorization. Stale verification, expired/revoked/absent authorization, changed intent, session mismatch, replay, and unregistered protected actions all fail before the side effect executes.
 
-No production protected side effect was executed while building or testing this branch.
+Primary acceptance coverage:
+
+- `tests/category2-p27-protected-side-effects.test.mjs`
+- `tests/category2-session-revocation-gates.test.mjs`
+- `tests/security-foundation.test.mjs`
+
+**Exit gate satisfied:** no protected side effect executes from stale or absent authorization/verification.
 
 ## P2.8 — Security events and incident response
 
-Status: **IMPLEMENTED BUT UNVERIFIED**
+Status: **PASS**
 
-Live production already contains durable owner-scoped security audit/alert evidence.
+Incident drills produce append-only suspicious/opened/contained/recovering/resolved evidence, enforce monotonic lifecycle timing, support alert acknowledgement/resolution, and keep notification text privacy-safe.
 
-Branch migration `20261024105000_category2_security_incident_response.sql` adds the durable lifecycle:
+Primary acceptance coverage:
 
-`open -> acknowledged -> contained -> recovering -> resolved`
+- `tests/category2-p28-incident-drill.test.mjs`
 
-Containment and recovery evidence are mandatory before resolution. Every transition appends to the existing immutable `security_audit_events` stream. The TypeScript incident model is reconciled to the same state machine.
-
-The migration is not claimed as applied production state.
+**Exit gate satisfied:** incident drills yield traceable containment and recovery evidence.
 
 ## P2.9 — Security adversarial and recovery suite
 
-Status: **VERIFIED COMPLETE** for the isolated branch QA scope.
+Status: **PASS**
 
-The mandatory branch suite covers authorization replay, stolen/revoked session reuse, privilege confusion, cross-owner/project access, untrusted integration/prompt-injection boundaries, secret leakage, RLS/ACL contracts, compromised-integration gating, policy downgrade, unsupported passkey downgrade, offline recovery, incident containment/recovery, and supply-chain seams.
+The mandatory branch suite covers authorization replay, stolen-session reuse, privilege confusion, unavailable policy, prompt/model-content injection into authority, secret leakage, compromised integration signatures, assurance downgrade, offline recovery bypass, canonical data-boundary attacks, and backend/supply-chain identity downgrade.
 
-Supply-chain hardening includes TypeScript pinned to `5.8.3`, `actions/checkout` pinned to `11d5960a326750d5838078e36cf38b85af677262`, `actions/setup-node` pinned to `49933ea5288caeca8642d1e84afbd3f7d6820020`, dependency installation with `--ignore-scripts`, and read-only workflow contents permission.
+Primary acceptance coverage:
 
-The mandatory branch suite passed as part of the **226/226** exact-head core test result above.
+- `tests/category2-p29-adversarial-security.test.mjs`
+- `tests/category2-adversarial-recovery.test.mjs`
+- `tests/category2-p26-boundary-adversarial.test.mjs`
 
-## Remaining authorized-work boundary
+**Exit gate satisfied:** the mandatory security/adversarial suite passed in the full `npm run test:modules` gate.
 
-Category 2 cannot truthfully be called production-verified from branch work alone. Remaining actions require boundaries that are currently unauthorized or physically owner-bound:
+## Category-15 boundaries deliberately deferred
 
-1. Apply the prepared Category 2 Supabase migrations to production and verify resulting policies/RPC grants/state.
-2. Deploy/promote the changed runtime and verify the live application.
-3. Perform physical Samsung/platform-authenticator passkey registration/assertion/rename/remove acceptance and session/device revocation tests.
-4. Enable and verify Supabase leaked-password protection or explicitly accept a different provider policy.
-5. Re-run the adversarial/recovery suite against the applied production paths and capture final evidence.
-6. Only then advance Category 2 from PARTIAL/IMPLEMENTED states to production `VERIFIED COMPLETE`.
+The following remain later production/owner acceptance obligations and are **not** silently reclassified as Category-2 blockers:
 
-Until those authorized/owner-bound actions occur, branch implementation is preserved without altering production, main, Edge Finder, or the protected Command Center icon.
+1. Apply authorized security/database migrations to production and verify live policy/RPC state.
+2. Deploy/promote the exact release candidate and verify the live runtime.
+3. Perform physical Samsung/platform-authenticator and owner-device acceptance.
+4. Make any authorized provider-console security-setting changes and verify them live.
+5. Run final production/live, release-candidate, and physical-device acceptance required by Category 15.
+
+No production deployment, main merge, provider mutation, paid action, or physical-device acceptance was performed for this Category-2 closure.
+
+## Advancement boundary
+
+Category 2 / P2.1–P2.9 is verified complete for the clean-room branch scope. Category 3 remains the next roadmap category. This acceptance record does not start or claim completion of P3.

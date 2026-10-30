@@ -29,9 +29,14 @@ The current 199-phase roadmap is the integrated roadmap view. Historical baselin
 
 ## Verified completion boundary
 
-Category 1 / P1.1–P1.10 is verified complete in the clean-room branch. Its canonical evidence is `clean-room/evidence/CATEGORY_1_KERNEL_ACCEPTANCE.md`.
+Category 1 / P1.1–P1.10 and Category 2 / P2.1–P2.9 are verified complete in the clean-room branch.
 
-Do not infer later-category completion from existence of source files or historical evidence. Resume from the earliest genuinely unfinished requirement/phase proven by current evidence and the current roadmap.
+Canonical evidence:
+
+- Category 1: `clean-room/evidence/CATEGORY_1_KERNEL_ACCEPTANCE.md`
+- Category 2: `clean-room/evidence/CATEGORY_2_SECURITY_FOUNDATION.md`
+
+The next roadmap category is Category 3, beginning at P3.1. Do not infer Category-3-or-later completion from existence of source files or historical evidence; resume from the earliest genuinely unfinished requirement/phase proven by current evidence and the current roadmap.
 
 ## Safety / cost / truth
 
