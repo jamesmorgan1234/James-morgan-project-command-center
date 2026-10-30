@@ -5,12 +5,25 @@ export interface RouteDefinition {
   readonly moduleKey: string;
   readonly scrollOwner: "shell";
   readonly backBehavior: "history" | "home" | "none";
+  readonly offlineCapable?: boolean;
+  readonly protectedEditGuard?: boolean;
 }
 
 export interface ResolvedRoute {
   readonly route: RouteDefinition;
   readonly params: Readonly<Record<string, string>>;
 }
+
+export interface RouteNavigationState {
+  readonly routeKey: string;
+  readonly path: string;
+  readonly query: string;
+  readonly selectedProjectId?: string;
+  readonly selectedEntityId?: string;
+  readonly hasProtectedUnsavedEdits: boolean;
+}
+
+export type RouteTransitionDecision = "allow" | "require_commit_or_discard" | "missing_target";
 
 function normalizePath(path: string): string {
   const withoutQuery = path.split(/[?#]/, 1)[0] ?? "/";
@@ -90,34 +103,56 @@ export class RouteRegistry {
     return undefined;
   }
 
+  transitionDecision(path: string, current?: Readonly<{ hasProtectedUnsavedEdits: boolean }>): RouteTransitionDecision {
+    if (!this.resolve(path)) return "missing_target";
+    if (current?.hasProtectedUnsavedEdits) return "require_commit_or_discard";
+    return "allow";
+  }
+
   get(key: string): RouteDefinition | undefined { return this.#byKey.get(key); }
   list(): readonly RouteDefinition[] { return Object.freeze([...this.#byKey.values()]); }
 }
 
-function route(key: string, path: string, title: string, moduleKey: string, backBehavior: RouteDefinition["backBehavior"] = "history"): RouteDefinition {
-  return { key, path, title, moduleKey, scrollOwner: "shell", backBehavior };
+export function routeNavigationState(route: ResolvedRoute, search: string, hasProtectedUnsavedEdits = false): RouteNavigationState {
+  const query = new URLSearchParams(search);
+  const selectedProjectId = route.params.projectId ?? query.get("project") ?? undefined;
+  const selectedEntityId = query.get("entity") ?? undefined;
+  return Object.freeze({
+    routeKey: route.route.key,
+    path: route.route.path,
+    query: query.toString(),
+    ...(selectedProjectId ? { selectedProjectId } : {}),
+    ...(selectedEntityId ? { selectedEntityId } : {}),
+    hasProtectedUnsavedEdits
+  });
+}
+
+function route(key: string, path: string, title: string, moduleKey: string, backBehavior: RouteDefinition["backBehavior"] = "history", options: Readonly<Pick<RouteDefinition, "offlineCapable" | "protectedEditGuard">> = {}): RouteDefinition {
+  return { key, path, title, moduleKey, scrollOwner: "shell", backBehavior, ...options };
 }
 
 export function createCoreRouteRegistry(): RouteRegistry {
   const routes = new RouteRegistry();
-  routes.register(route("route:home", "/", "Command Center", "module:home", "none"));
-  routes.register(route("route:projects", "/projects", "Projects", "module:projects"));
-  routes.register(route("route:active-live", "/active", "Active / Live", "module:projects"));
-  routes.register(route("route:next-up", "/next-up", "Next Up", "module:projects"));
-  routes.register(route("route:project-detail", "/project/:projectId", "Project Details", "module:projects"));
-  routes.register(route("route:brain", "/brain", "Brain", "module:brain"));
-  routes.register(route("route:agency", "/agency", "Agency", "module:agency"));
-  routes.register(route("route:needs-me", "/needs-me", "Needs Me", "module:needs-me"));
-  routes.register(route("route:search", "/search", "Search", "module:search"));
-  routes.register(route("route:automations", "/automations", "Automations", "module:automations"));
-  routes.register(route("route:personal", "/personal", "Personal", "module:personal"));
-  routes.register(route("route:finance", "/finance", "Finance", "module:finance"));
-  routes.register(route("route:social", "/social", "Social & Communications", "module:social"));
-  routes.register(route("route:books", "/books", "Books", "module:books"));
-  routes.register(route("route:specialists", "/specialists", "Specialists", "module:specialists"));
-  routes.register(route("route:analytics", "/analytics", "Analytics", "module:analytics"));
-  routes.register(route("route:settings", "/settings", "Settings", "module:settings"));
-  routes.register(route("route:settings-security", "/settings/security", "Security", "module:settings"));
-  routes.register(route("route:settings-devices", "/settings/devices", "Devices", "module:settings"));
+  routes.register(route("route:home", "/", "Command Center", "module:home", "none", { offlineCapable: true }));
+  routes.register(route("route:projects", "/projects", "Projects", "module:projects", "history", { offlineCapable: true }));
+  routes.register(route("route:active-live", "/active", "Active / Live", "module:projects", "history", { offlineCapable: true }));
+  routes.register(route("route:next-up", "/next-up", "Next Up", "module:projects", "history", { offlineCapable: true }));
+  routes.register(route("route:project-detail", "/project/:projectId", "Project Details", "module:projects", "history", { offlineCapable: true, protectedEditGuard: true }));
+  routes.register(route("route:brain", "/brain", "Brain", "module:brain", "history", { offlineCapable: true, protectedEditGuard: true }));
+  routes.register(route("route:agency", "/agency", "Agency", "module:agency", "history", { offlineCapable: true, protectedEditGuard: true }));
+  routes.register(route("route:needs-me", "/needs-me", "Needs Me", "module:needs-me", "history", { offlineCapable: true }));
+  routes.register(route("route:search", "/search", "Search", "module:search", "history", { offlineCapable: true }));
+  routes.register(route("route:automations", "/automations", "Automations", "module:automations", "history", { protectedEditGuard: true }));
+  routes.register(route("route:personal", "/personal", "Personal", "module:personal", "history", { offlineCapable: true }));
+  routes.register(route("route:finance", "/finance", "Finance", "module:finance", "history", { offlineCapable: true }));
+  routes.register(route("route:social", "/social", "Social & Communications", "module:social", "history", { offlineCapable: true }));
+  routes.register(route("route:books", "/books", "Books", "module:books", "history", { offlineCapable: true }));
+  routes.register(route("route:specialists", "/specialists", "Specialists", "module:specialists", "history", { offlineCapable: true }));
+  routes.register(route("route:analytics", "/analytics", "Analytics", "module:analytics", "history", { offlineCapable: true }));
+  routes.register(route("route:settings", "/settings", "Settings", "module:settings", "history", { offlineCapable: true, protectedEditGuard: true }));
+  routes.register(route("route:settings-security", "/settings/security", "Security", "module:settings", "history", { protectedEditGuard: true }));
+  routes.register(route("route:settings-devices", "/settings/devices", "Devices", "module:settings", "history", { offlineCapable: true }));
+  routes.register(route("route:offline", "/offline", "Offline", "module:offline", "home", { offlineCapable: true }));
+  routes.register(route("route:ui-fixtures", "/__fixtures", "UI Fixtures", "module:fixtures", "home", { offlineCapable: true }));
   return routes;
 }
