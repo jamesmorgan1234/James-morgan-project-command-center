@@ -1,5 +1,6 @@
 import {reviewedAuthorityKernelMappings} from './p15-1-reviewed-authority-kernel-mappings.mjs';
 import {reviewedCategory12ReconciliationMappings} from './category12-c1-c2-ledger-reconciliation.mjs';
+import {reviewedCategory3ReconciliationMappings} from './p15-1-reviewed-category3-reconciliation-mappings.mjs';
 import {reviewedSection2AuthoritySourceMappings} from './p15-1-reviewed-section2-authority-source-mappings.mjs';
 import {reviewedAuthShellMappings} from './p15-1-reviewed-auth-shell-mappings.mjs';
 import {reviewedAuthSessionMappings} from './p15-1-reviewed-auth-session-mappings.mjs';
@@ -51,6 +52,7 @@ export function currentReviewedMappings(root){
   ...reviewedSecurityMappings(),
   ...reviewedAuthorityKernelMappings(),
   ...reviewedCategory12ReconciliationMappings(),
+  ...reviewedCategory3ReconciliationMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
   ...reviewedAuthShellMappings(),
   ...reviewedAuthSessionMappings(),
