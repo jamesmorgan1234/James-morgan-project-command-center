@@ -5,6 +5,8 @@
       "source": "/__cc_auth__/:path*",
       "destination": "https://gmlsucpwliegwlxymjvp.supabase.co/auth/v1/:path*"
     },
+    { "source": "/__fixtures", "destination": "/fixture-sandbox.html" },
+    { "source": "/offline", "destination": "/offline.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
