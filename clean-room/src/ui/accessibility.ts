@@ -67,7 +67,7 @@ export function statusAccessibilityState(visualState: string, textEquivalent: st
   return Object.freeze({ visualState, textEquivalent, colorOnly: false });
 }
 
-export function motionDuration(preferredReducedMotion: boolean, standardDurationMs: number): number {
+export function accessibleMotionDuration(preferredReducedMotion: boolean, standardDurationMs: number): number {
   if (!Number.isFinite(standardDurationMs) || standardDurationMs < 0) throw new Error("Motion duration must be a non-negative finite number");
   return preferredReducedMotion ? 0 : standardDurationMs;
 }
