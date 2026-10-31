@@ -113,7 +113,6 @@ export class AiRouteRegistry {
     for (const fallbackKey of primary.fallbackRouteKeys ?? []) {
       const fallback = this.#routes.get(fallbackKey);
       if (!fallback) continue;
-      if (this.route({ ...request, brainKey: request.brainKey, methodId: request.methodId, toolKey: request.toolKey })?.key === fallback.key) return fallback;
       const eligible = fallback.enabled && fallback.health !== "unavailable" && fallback.capabilities.includes(request.capability) && (request.allowPaid || fallback.cost !== "paid") && PRIVACY_RANK[fallback.privacy] <= PRIVACY_RANK[request.maxPrivacy] && fallback.quotaAvailable !== false && (request.minimumContextTokens === undefined || (typeof fallback.contextWindowTokens === "number" && fallback.contextWindowTokens >= request.minimumContextTokens)) && routeSupportsContext(fallback, request);
       if (eligible) return fallback;
     }
