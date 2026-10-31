@@ -392,7 +392,6 @@ export function cloneDraftForAccount(draft: SocialDraft, intendedAccountId: stri
   const cloned: SocialDraft = {
     ...draft,
     intendedAccountId: intendedAccountId.trim(),
-    variantOfDraftId: draft.id,
     version: draft.version + 1,
     approvalRefs: Object.freeze([]),
     approvalBindings: Object.freeze([]),

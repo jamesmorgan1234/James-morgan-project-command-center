@@ -193,7 +193,7 @@ export function validateEvidenceBackedAttribution(record: EvidenceBackedAttribut
   for (const metric of metrics) {
     const valid = validateEvidenceBackedMetric(metric);
     const prior = byId.get(valid.id);
-    if (prior && prior.observedAt === valid.observedAt && JSON.stringify(prior) !== JSON.stringify(valid)) throw new Error("conflicting metric evidence");
+    if (prior && prior.observedAt === valid.observedAt && JSON.stringify(prior) !== JSON.stringify(valid)) throw new Error("Conflicting metric evidence");
     if (!prior || Date.parse(valid.observedAt) > Date.parse(prior.observedAt)) byId.set(valid.id, valid);
   }
   for (const id of sourceMetricIds) {
@@ -235,7 +235,7 @@ export function buildSocialPerformanceSnapshot(metrics: readonly EvidenceBackedS
   const current = new Map<string, EvidenceBackedSocialMetric>();
   for (const metric of metrics.filter((item) => item.ownerId === ownerId && item.brandId === brandId && item.accountId === accountId).map(validateEvidenceBackedMetric)) {
     const prior = current.get(metric.id);
-    if (prior && prior.observedAt === metric.observedAt && JSON.stringify(prior) !== JSON.stringify(metric)) throw new Error("conflicting metric evidence");
+    if (prior && prior.observedAt === metric.observedAt && JSON.stringify(prior) !== JSON.stringify(metric)) throw new Error("Conflicting metric evidence");
     if (!prior || Date.parse(metric.observedAt) > Date.parse(prior.observedAt)) current.set(metric.id, metric);
   }
   const scopedMetrics = [...current.values()];

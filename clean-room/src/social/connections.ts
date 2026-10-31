@@ -49,7 +49,7 @@ export function connectionIsLive(connection: SocialConnection, requiredScopes: r
 }
 
 export function requiredOwnerConnectionAction(connection: SocialConnection, requiredScopes: readonly string[] = [], now?: string): string | null {
-  if (connection.state === "revoked") return "Reconnect and explicitly reauthorize the intended social account";
+  if (connection.state === "revoked") return "Reconnect and explicitly reauthorize the account";
   if (connection.state === "expired") return "Refresh or reconnect the intended social account";
   if (connection.state === "disconnected") return "Connect the intended social account";
   if (connection.providerHealth !== "available") return "Wait for provider recovery; do not treat stored token metadata as live access";
@@ -125,8 +125,8 @@ export function assessSocialConnection(connection: SocialConnectionEvidence, req
     missingScopes.length === 0;
 
   const ownerActionRequired = !live;
-  const requiresReconnect = connection.state !== "connected" || connection.credentialState === "expired" || connection.credentialState === "revoked";
-  if (ownerActionRequired && connection.providerHealth !== "unavailable" && !connection.requiredOwnerActionRef?.trim()) {
+  const requiresReconnect = connection.state !== "connected";
+  if (requiresReconnect && connection.providerHealth !== "unavailable" && !connection.requiredOwnerActionRef?.trim()) {
     throw new Error("non-live social connection requires owner-action evidence unless blocked only by provider outage");
   }
   if (requiresReconnect && !connection.reconnectRef?.trim()) throw new Error("disconnected, expired, or revoked social connection requires a recoverable reconnect reference");

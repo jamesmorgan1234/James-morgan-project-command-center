@@ -46,7 +46,7 @@ export function assertSocialIsolation(records: readonly SocialRecoveryRecord[]):
 }
 
 export function assertPaidActionAllowed(_record: SocialRecoveryRecord, _exactAuthorizationRef?: string): void {
-  throw new Error("paid social action requires a fresh protected owner authorization path");
+  throw new Error("paid social action is blocked without a fresh protected owner authorization path");
 }
 
 export function recoveryAction(record: SocialRecoveryRecord): "none" | "reconnect" | "reauthorize" {

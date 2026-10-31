@@ -175,7 +175,10 @@ export class InboxMessageRegistry {
     const current = this.#byId.get(message.id);
     if (current && (current.ownerId !== message.ownerId || current.brandId !== message.brandId || current.accountId !== message.accountId || current.threadId !== message.threadId || current.contentHash !== message.contentHash || current.body !== message.body || current.platform !== message.platform || current.externalAuthorRef !== message.externalAuthorRef || current.receivedAt !== message.receivedAt)) throw new Error("canonical inbound message identity/content cannot be substituted");
     if (current && Date.parse(message.observedAt) < Date.parse(current.observedAt)) throw new Error("inbound observation time cannot regress");
-    const frozen = Object.freeze({ ...message, sourceRefs: Object.freeze([...new Set([...(current?.sourceRefs ?? []), ...sourceRefs])]) });
+    const canonicalMessage: Record<string, unknown> = { ...message };
+    delete canonicalMessage.role;
+    delete canonicalMessage.sendAuthorized;
+    const frozen = Object.freeze({ ...canonicalMessage, sourceRefs: Object.freeze([...new Set([...(current?.sourceRefs ?? []), ...sourceRefs])]) }) as unknown as EvidenceBackedExternalMessage;
     this.#byId.set(message.id, frozen);
     for (const sourceRef of sourceRefs) this.#bySource.set(JSON.stringify([message.ownerId, message.accountId, sourceRef]), message.id);
     this.upsertThreadFromMessage(frozen);
@@ -214,7 +217,7 @@ export class InboxMessageRegistry {
 export function assessInboundMessage(message: EvidenceBackedExternalMessage): EvidenceBackedInboxTriage {
   if (!message.id.trim() || !message.ownerId.trim() || !message.accountId.trim()) throw new Error("inbound message identity is required");
   const lower = message.body.toLowerCase();
-  const suspicious = ["system prompt", "reveal secret", "execute command", "credential"].some((marker) => lower.includes(marker));
+  const suspicious = ["system prompt", "reveal secret", "execute command", "credential", "ignore previous instructions"].some((marker) => lower.includes(marker));
   const harassment = ["threat", "harass", "abuse"].some((marker) => lower.includes(marker));
   const spam = lower.includes("giveaway") || lower.includes("guaranteed profit");
   const category: SocialTriageCategory = spam ? "spam" : harassment ? "harassment" : lower.includes("?") ? "question" : "unknown";

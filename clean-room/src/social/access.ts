@@ -156,7 +156,7 @@ export async function planSocialDataRestore(boundary: SocialAccessBoundary, sess
   if (snapshot.schemaVersion !== 1) throw new Error("unsupported social recovery schema version");
   const access = boundary.authorize(sessionId, snapshot.accountId, ["recovery"], now, true);
   if (access.identity.ownerId !== snapshot.ownerId || access.identity.platformIdentityId !== snapshot.platformIdentityId || !snapshot.evidenceRefs.length || snapshot.evidenceRefs.some((ref) => !ref.trim())) throw new Error("restore canonical account/provenance mismatch");
-  if (new Set(snapshot.records.map((record) => record.id)).size !== snapshot.records.length || snapshot.records.some((record) => !record.id.trim() || !["draft", "asset_reference", "metric_observation", "untrusted_message"].includes(record.kind))) throw new Error("restore contains unsupported or duplicate records");
+  if (new Set(snapshot.records.map((record) => record.id)).size !== snapshot.records.length || snapshot.records.some((record) => !record.id.trim() || !["draft", "asset_reference", "metric_observation", "untrusted_message"].includes(record.kind))) throw new Error("restore cannot import unsupported or duplicate records");
   assertSecretChannelSafe("brain_memory", snapshot);
   if (knownGoodHash !== await socialRecoverySnapshotHash(snapshot)) throw new Error("known-good recovery integrity mismatch");
   boundary.authorize(sessionId, snapshot.accountId, ["recovery"], boundary.clock(), true);

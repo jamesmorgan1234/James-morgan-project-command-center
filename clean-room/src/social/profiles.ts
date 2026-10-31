@@ -350,7 +350,7 @@ export function createRuleDrivenPlatformAdapter(
         "maxScheduleAheadSeconds", "requiresRightsEvidence", "audioMusicPolicy"
       ]);
       for (const key of Object.keys(profile.providerConstraints)) {
-        if (!supported.has(key)) throw new Error(`unsupported provider constraint requires a capable versioned adapter: ${key}`);
+        if (!supported.has(key)) throw new Error(`Unsupported provider constraint requires a capable versioned adapter: ${key}`);
       }
 
       const constraints = profile.providerConstraints;
@@ -433,7 +433,7 @@ export function createRuleDrivenPlatformAdapter(
             )
           )
         ) {
-          throw new Error("schedule violates platform policy");
+          throw new Error("Schedule violates platform policy");
         }
       }
 
