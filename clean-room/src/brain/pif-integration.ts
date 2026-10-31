@@ -1,5 +1,8 @@
+import type { TransferAssessment } from "../analytics/transferability.js";
+import type { LearningPacket, PromotionDecision } from "../data/learning.js";
 import { IntelligenceTraceFabric, type IntelligenceTraceEdge, type IntelligenceTraceNode, type TracePrivacyClass } from "../data/intelligence-trace.js";
 import { compileLayeredBrainContext, type ContextOmission, type LayeredContextCandidate, type LayeredContextCompileRequest, type LayeredContextPacket } from "./context-builder.js";
+import type { SpecialistModelContract } from "./specialists.js";
 
 const PRIVACY_RANK: Readonly<Record<TracePrivacyClass, number>> = Object.freeze({
   ecosystem_shared: 0,
@@ -73,4 +76,74 @@ export function assertTraceNodePrivacyMonotonicity(from: IntelligenceTraceNode, 
   if (from.ownerId !== to.ownerId) throw new Error("Trace nodes cross owner boundary");
   if (PRIVACY_RANK[from.privacy] > PRIVACY_RANK[to.privacy]) throw new Error("Trace nodes widen privacy boundary");
   if (from.privacy === to.privacy && SCOPED_PRIVACY.has(from.privacy) && from.scopeRef !== to.scopeRef) throw new Error("Trace nodes cross same-class scope boundary");
+}
+
+export interface CrossBrainLearningProjection {
+  readonly sourceBrainId: string;
+  readonly sourceBrainVersion: number;
+  readonly targetBrainId: string;
+  readonly targetBrainVersion: number;
+  readonly learningPacketRef: string;
+  readonly promotionRef: string;
+  readonly transferAssessmentRef: string;
+  readonly capabilityKey: string;
+  readonly sourceMethodId: string;
+  readonly taskClass: string;
+  readonly evidenceRefs: readonly string[];
+  readonly executablePolicy: false;
+}
+
+function activeSpecialist(model: SpecialistModelContract, label: string): void {
+  if (!model.enabled || model.lifecycle !== "active" || model.health === "unavailable") throw new Error(`${label} Brain must be active and available`);
+  if (model.controlPlane !== "command_center") throw new Error(`${label} Brain must remain under Command Center control`);
+}
+
+/**
+ * P6.6 governed cross-Brain learning bridge. It accepts only canonical validated Learning Packets
+ * that already passed scoped promotion and transferability evaluation. The result is a non-executable
+ * projection, so learning cannot silently install policy, permissions, tools, or authority.
+ */
+export function projectGovernedCrossBrainLearning(input: {
+  readonly source: SpecialistModelContract;
+  readonly target: SpecialistModelContract;
+  readonly packet: LearningPacket;
+  readonly promotion: PromotionDecision;
+  readonly transfer: TransferAssessment;
+}): CrossBrainLearningProjection {
+  activeSpecialist(input.source, "Source");
+  activeSpecialist(input.target, "Target");
+  if (input.source.key === input.target.key) throw new Error("Cross-Brain learning requires distinct source and target Brains");
+  if (input.packet.sourceBrainId !== input.source.key) throw new Error("Learning packet source Brain mismatch");
+  if (input.packet.validationState !== "validated") throw new Error("Cross-Brain learning requires validated learning");
+  if (input.promotion.packetId !== input.packet.id || input.promotion.packetVersion !== input.packet.version || input.promotion.lifecycle !== "promoted") throw new Error("Cross-Brain learning requires exact promoted packet version");
+  if (input.promotion.executablePolicy !== false) throw new Error("Learning promotion cannot become executable policy");
+  if (input.promotion.applicability.scope !== "brain" || input.promotion.applicability.ref !== input.target.key) throw new Error("Cross-Brain promotion must be explicitly scoped to the target Brain");
+  if (input.transfer.sourceRef !== `${input.packet.id}@${input.packet.version}` || input.transfer.decision !== "eligible") throw new Error("Cross-Brain learning requires an eligible exact-packet transfer assessment");
+  if (!input.target.capabilityKeys.includes(input.packet.sourceCapabilityKey)) throw new Error("Target Brain lacks promoted learning capability");
+  if (!input.target.supportedWorkClasses.includes(input.packet.taskClass)) throw new Error("Target Brain does not support the learning task class");
+
+  const evidenceRefs = Object.freeze([...new Set([
+    ...input.packet.evidenceIds,
+    ...input.packet.provenanceEvidenceIds,
+    ...input.promotion.evidenceIds,
+    ...input.transfer.evidenceRefs,
+    ...input.transfer.applicabilityEvidenceRefs,
+    ...input.transfer.evaluatorEvidenceRefs
+  ])].sort());
+  if (evidenceRefs.length === 0) throw new Error("Cross-Brain learning requires evidence");
+
+  return Object.freeze({
+    sourceBrainId: input.source.key,
+    sourceBrainVersion: input.source.version,
+    targetBrainId: input.target.key,
+    targetBrainVersion: input.target.version,
+    learningPacketRef: `${input.packet.id}@${input.packet.version}`,
+    promotionRef: `${input.promotion.id}@${input.promotion.version}`,
+    transferAssessmentRef: `${input.transfer.id}@${input.transfer.version}`,
+    capabilityKey: input.packet.sourceCapabilityKey,
+    sourceMethodId: input.packet.sourceMethodId,
+    taskClass: input.packet.taskClass,
+    evidenceRefs,
+    executablePolicy: false
+  });
 }
