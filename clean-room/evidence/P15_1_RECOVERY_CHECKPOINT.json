@@ -1,0 +1,51 @@
+{
+  "artifact_kind": "recovery_checkpoint_only",
+  "strict_verification_evidence": false,
+  "project": "COMMAND CENTER NEW",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "checkpoint_version": 1,
+  "verified_project_head_before_checkpoint_commit": "497a9a4ab38f6af7488411add364f3b4cbe06537",
+  "last_completed_step": "P1.8 compatibility implementation and strict semantic mapping were committed; implementation-level clean-room QA passed; strict P15.1 requalification then failed on a stale embedded P1.8 expectation.",
+  "last_verification": {
+    "implementation_qa_workflow_run_id": 41224356959,
+    "implementation_qa_result": "passed",
+    "strict_requalification_workflow_run_id": 41224653437,
+    "strict_requalification_failed_job_id": 124606179421,
+    "strict_requalification_result": "failed_on_stale_test_expectation"
+  },
+  "strict_diagnostic_last_proven": {
+    "verified": 1263,
+    "unverified": 4589,
+    "total": 5852
+  },
+  "upstream_verified_p1_p14_scope": 5730,
+  "p1_8_candidate_requirement_ids": [
+    "CCR-01127",
+    "CCR-01128",
+    "CCR-01129",
+    "CCR-01130",
+    "CCR-01131",
+    "CCR-01132",
+    "CCR-01134",
+    "CCR-01178",
+    "CCR-01179",
+    "CCR-01180",
+    "CCR-01183",
+    "CCR-05287"
+  ],
+  "invariants": [
+    "Strict P15.1 validator remains unchanged.",
+    "No strict row is promoted without generated diagnostic proof.",
+    "Upstream P1-P14 verification remains preserved and distinct from strict P15.1 closure.",
+    "No Work usage.",
+    "No paid action authorized."
+  ],
+  "checkpoint_policy": [
+    "Create or update this recovery checkpoint after each verified atomic substep.",
+    "Commit stale-expectation repair separately before broader evidence-family bridge work.",
+    "Checkpoint after strict requalification result and after diagnostic regeneration.",
+    "Checkpoint after each verified evidence-family bridge batch."
+  ],
+  "next_action": "Fetch failed job 124606179421 logs, locate the exact stale P1.8 expected mapping fixture/assertion, make the minimal expectation-only repair, and rerun the same strict validation unchanged."
+}
