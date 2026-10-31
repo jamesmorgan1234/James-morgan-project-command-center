@@ -2,62 +2,101 @@ import type { AuthSessionStore } from "../security/auth.js";
 import type { PolicyEngine } from "../security/policy.js";
 import type { ProtectedAuthorizationRegistry } from "../security/protected-authorizations.js";
 import { parseTimestamp } from "../security/types.js";
-import { assertSocialDraftIntegrity,assertSocialDraftTarget,type SocialDraft } from "./drafts.js";
-import { assessSocialConnectionForIdentity,type SocialConnectionEvidence } from "./connections.js";
+import { assertSocialDraftIntegrity, assertSocialDraftTarget, type SocialDraft } from "./drafts.js";
+import { assessSocialConnectionForIdentity, type SocialConnectionEvidence } from "./connections.js";
 import type { SocialIdentityMapRecord } from "./identity.js";
-import { transformForProfile,type PlatformProfileRegistry,type PlatformAdapterRegistry } from "./profiles.js";
-import { EvidenceBackedPublishLedger,type EvidenceBackedPublishIntent } from "./publishing.js";
+import { transformForProfile, type PlatformProfileRegistry, type PlatformAdapterRegistry } from "./profiles.js";
+import { EvidenceBackedPublishLedger, type EvidenceBackedPublishIntent } from "./publishing.js";
 
 export interface SocialPublishReservation {
- readonly ownerId:string; readonly intentId:string; readonly authorizationRef:string;
- readonly idempotencyKey:string; readonly providerRequestRef:string; readonly envelope:string;
+  readonly ownerId: string;
+  readonly intentId: string;
+  readonly authorizationRef: string;
+  readonly idempotencyKey: string;
+  readonly providerRequestRef: string;
+  readonly envelope: string;
 }
-/** Must commit an atomic unique reservation before resolving. Never restore or rewind this store. */
-export interface AtomicSocialPublishStore { reserve(reservation:SocialPublishReservation):Promise<"reserved"|"already_reserved">; }
-export function socialPublishAuthorizationBinding(i:EvidenceBackedPublishIntent,identity:SocialIdentityMapRecord):string {
- return JSON.stringify([i.ownerId,identity.entityId,identity.companyId??null,i.brandId,identity.projectId??null,i.accountId,identity.platform,identity.platformIdentityId,identity.version,i.id,i.draftId,i.draftVersion,i.draftContentHash,i.profileKey,i.profileVersion,i.idempotencyKey,i.scheduledAt??null]);
+
+export interface AtomicSocialPublishStore {
+  reserve(reservation: SocialPublishReservation): Promise<"reserved" | "already_reserved">;
 }
-/** Trusted-server composition using canonical C2 stores. No draft, provider or Agent can issue a grant. */
+
+export interface SocialPublishPreview {
+  readonly ownerId: string;
+  readonly brandId: string;
+  readonly accountId: string;
+  readonly platform: string;
+  readonly platformIdentityId: string;
+  readonly draftId: string;
+  readonly draftVersion: number;
+  readonly scheduledAt?: string;
+}
+
+export function buildSocialPublishPreview(intent: EvidenceBackedPublishIntent, draft: SocialDraft, identity: SocialIdentityMapRecord): SocialPublishPreview {
+  assertSocialDraftTarget(draft, identity);
+  if (intent.ownerId !== identity.ownerId || intent.brandId !== identity.brandId || intent.accountId !== identity.accountIdentityId || intent.draftId !== draft.id || intent.draftVersion !== draft.version) throw new Error("publish preview exact account/draft mismatch");
+  return Object.freeze({ ownerId: intent.ownerId, brandId: intent.brandId, accountId: intent.accountId, platform: identity.platform, platformIdentityId: identity.platformIdentityId, draftId: intent.draftId, draftVersion: intent.draftVersion, ...(intent.scheduledAt ? { scheduledAt: intent.scheduledAt } : {}) });
+}
+
+export function socialPublishAuthorizationBinding(intent: EvidenceBackedPublishIntent, identity: SocialIdentityMapRecord): string {
+  return JSON.stringify([intent.ownerId, identity.entityId, identity.companyId ?? null, intent.brandId, identity.projectId ?? null, intent.accountId, identity.platform, identity.platformIdentityId, identity.version, intent.id, intent.draftId, intent.draftVersion, intent.draftContentHash, intent.profileKey, intent.profileVersion, intent.idempotencyKey, intent.scheduledAt ?? null]);
+}
+
 export class SocialPublishGate {
- constructor(readonly sessions:AuthSessionStore,readonly policies:PolicyEngine,readonly authorizations:ProtectedAuthorizationRegistry,readonly store:AtomicSocialPublishStore,readonly ledger:EvidenceBackedPublishLedger,readonly liveConnection:(accountId:string)=>SocialConnectionEvidence,readonly clock:()=>string=()=>new Date().toISOString()){}
- async reserve(i:EvidenceBackedPublishIntent,draft:SocialDraft,identity:SocialIdentityMapRecord,profiles:PlatformProfileRegistry,adapters:PlatformAdapterRegistry,sessionId:string,now:string,providerRequestRef:string){
-  const check=(atTime:string)=>{
-   const session=this.sessions.validateLive(sessionId,atTime);
-   if(session.assurance!=="fresh_passkey_uv")throw new Error("Publish requires fresh passkey verification");
-   if(session.ownerId!==i.ownerId||session.companyId!==identity.companyId||session.projectId!==identity.projectId||session.accountId!==identity.accountIdentityId)throw new Error("Publish live session company/project/account mismatch");
-   const decision=this.policies.evaluate({action:"social.publish",subject:{...session,sessionId:session.id},resourceOwnerId:i.ownerId,...(identity.companyId?{resourceCompanyId:identity.companyId}:{}),...(identity.projectId?{resourceProjectId:identity.projectId}:{}),resourceAccountId:i.accountId,now:atTime,revocationStateFresh:true});
-   if(!decision.allowed)throw new Error(`Publish policy denied: ${decision.reason}`);
-   const at=parseTimestamp(atTime,"now");
-   if(!session.lastVerifiedAt || at-parseTimestamp(session.lastVerifiedAt,"verification")>=300_000 || parseTimestamp(session.lastVerifiedAt,"verification")>at)throw new Error("Publish requires fresh current verification");
-  };
-  check(now); const connection=this.liveConnection(i.accountId); assertSocialDraftTarget(draft,identity);await assertSocialDraftIntegrity(draft);
-  const profile=profiles.get(i.ownerId,i.profileKey);
-  if(!profile.publishScope || !i.requiredScopes.includes(profile.publishScope))throw new Error("Exact provider publishing scope missing from current profile/intent");
-  if(profile.version!==i.profileVersion || profile.platform!==identity.platform)throw new Error("Publish profile stale or wrong platform");
-  if(i.scheduledAt && profile.providerConstraints.schedulingSupported!==true)throw new Error("Current profile does not support scheduling");
-  // Transformation approval must cover the exact bytes: changing content/disclosures requires a newly sealed approved draft.
-  const media=draft.assetBindings.length?draft.assetBindings:[undefined];
-  for(const asset of media){
-   const transformed=transformForProfile({caption:draft.body,mediaKind:asset?asset.mediaKind??"unknown":"text",disclosures:draft.disclosures??[],rightsEvidenceRefs:draft.rightsEvidenceRefs,metadata:{mediaCount:draft.assetBindings.length,...(asset?.width!==undefined?{width:asset.width}:{}),...(asset?.height!==undefined?{height:asset.height}:{}),...(asset?.durationSeconds!==undefined?{durationSeconds:asset.durationSeconds}:{})},now},profile,adapters);
-   if(transformed.caption!==draft.body || transformed.disclosures.some(d=>!draft.disclosures?.includes(d)))throw new Error("Transformed content requires new exact draft approval");
+  constructor(
+    readonly sessions: AuthSessionStore,
+    readonly policies: PolicyEngine,
+    readonly authorizations: ProtectedAuthorizationRegistry,
+    readonly store: AtomicSocialPublishStore,
+    readonly ledger: EvidenceBackedPublishLedger,
+    readonly liveConnection: (accountId: string) => SocialConnectionEvidence,
+    readonly clock: () => string = () => new Date().toISOString()
+  ) {}
+
+  async reserve(intent: EvidenceBackedPublishIntent, draft: SocialDraft, identity: SocialIdentityMapRecord, profiles: PlatformProfileRegistry, adapters: PlatformAdapterRegistry, sessionId: string, now: string, providerRequestRef: string) {
+    const check = (at: string) => {
+      const session = this.sessions.validateLive(sessionId, at);
+      if (session.assurance !== "fresh_passkey_uv") throw new Error("publish requires fresh passkey verification");
+      if (session.ownerId !== intent.ownerId || session.companyId !== identity.companyId || session.projectId !== identity.projectId || session.accountId !== identity.accountIdentityId) throw new Error("publish live session scope mismatch");
+      const decision = this.policies.evaluate({ action: "social.publish", subject: { ...session, sessionId: session.id }, resourceOwnerId: intent.ownerId, ...(identity.companyId ? { resourceCompanyId: identity.companyId } : {}), ...(identity.projectId ? { resourceProjectId: identity.projectId } : {}), resourceAccountId: intent.accountId, now: at, revocationStateFresh: true });
+      if (!decision.allowed) throw new Error("publish policy denied");
+      const atMs = parseTimestamp(at, "now");
+      if (!session.lastVerifiedAt || atMs - parseTimestamp(session.lastVerifiedAt, "verification") >= 300_000) throw new Error("publish verification stale");
+    };
+
+    check(now);
+    buildSocialPublishPreview(intent, draft, identity);
+    await assertSocialDraftIntegrity(draft);
+    const profile = profiles.get(intent.ownerId, intent.profileKey);
+    if (profile.version !== intent.profileVersion || profile.platform !== identity.platform) throw new Error("publish profile stale or wrong platform");
+    if (!profile.publishScope || !intent.requiredScopes.includes(profile.publishScope)) throw new Error("exact provider publishing scope missing");
+    if (intent.scheduledAt && profile.providerConstraints.schedulingSupported !== true) throw new Error("current platform profile does not support scheduling");
+
+    const media = draft.assetBindings.length ? draft.assetBindings : [undefined];
+    for (const asset of media) {
+      const transformed = transformForProfile({ caption: draft.body, mediaKind: asset ? asset.mediaKind ?? "unknown" : "text", disclosures: draft.disclosures ?? [], rightsEvidenceRefs: draft.rightsEvidenceRefs, metadata: { mediaCount: draft.assetBindings.length, ...(asset?.width !== undefined ? { width: asset.width } : {}), ...(asset?.height !== undefined ? { height: asset.height } : {}), ...(asset?.durationSeconds !== undefined ? { durationSeconds: asset.durationSeconds } : {}) }, now }, profile, adapters);
+      if (transformed.caption !== draft.body || transformed.disclosures.some((item) => !draft.disclosures?.includes(item))) throw new Error("transformed content requires a newly approved exact draft");
+    }
+
+    if (!assessSocialConnectionForIdentity(this.liveConnection(intent.accountId), identity, intent.requiredScopes, now, 300_000).live) throw new Error("publish connection not live");
+    const binding = socialPublishAuthorizationBinding(intent, identity);
+    const use = { ownerId: intent.ownerId, sessionId, action: "social.publish", authorizationIntentBinding: binding };
+    const grant = this.authorizations.assertUsable(intent.authorizationRef, use, now);
+    if (grant.authoritySource !== "owner_verified" || grant.issuedAt !== intent.authorizationObservedAt || grant.expiresAt !== intent.authorizationExpiresAt || parseTimestamp(now, "now") - parseTimestamp(grant.issuedAt, "grant") >= 300_000) throw new Error("publish requires fresh exact owner authorization");
+    if (parseTimestamp(grant.issuedAt, "grant") < parseTimestamp(draft.observedAt, "draft")) throw new Error("publish authorization predates exact content");
+    if (!providerRequestRef.trim()) throw new Error("stable provider request identity required");
+
+    this.ledger.prepare(intent, draft, this.liveConnection(intent.accountId), now, 300_000);
+    if (intent.scheduledAt && parseTimestamp(intent.scheduledAt, "schedule") > parseTimestamp(now, "now")) throw new Error("publish schedule not due");
+    const reserved = await this.store.reserve({ ownerId: intent.ownerId, intentId: intent.id, authorizationRef: intent.authorizationRef, idempotencyKey: intent.idempotencyKey, providerRequestRef, envelope: binding });
+    if (reserved !== "reserved") return Object.freeze({ dispatchAllowed: false as const, state: "reconciliation_required" as const });
+
+    const finalNow = this.clock();
+    check(finalNow);
+    if (!assessSocialConnectionForIdentity(this.liveConnection(intent.accountId), identity, intent.requiredScopes, finalNow, 300_000).live) throw new Error("publish connection lost before dispatch");
+    this.authorizations.assertUsable(intent.authorizationRef, use, finalNow);
+    this.authorizations.consume(intent.authorizationRef, use, finalNow);
+    this.ledger.startAttempt({ attemptId: providerRequestRef, intentId: intent.id, accountId: intent.accountId, idempotencyKey: intent.idempotencyKey, state: "submitted", providerRequestRef, observedAt: finalNow });
+    return Object.freeze({ dispatchAllowed: true as const, state: "reserved" as const, providerRequestRef });
   }
-  if(!assessSocialConnectionForIdentity(connection,identity,i.requiredScopes,now,300_000).live)throw new Error("Publish connection not currently live");
-  const binding=socialPublishAuthorizationBinding(i,identity),use={ownerId:i.ownerId,sessionId,action:"social.publish",authorizationIntentBinding:binding};
-  const grant=this.authorizations.assertUsable(i.authorizationRef,use,now);
-  if(grant.issuedAt!==i.authorizationObservedAt || grant.expiresAt!==i.authorizationExpiresAt || parseTimestamp(now,"now")-parseTimestamp(grant.issuedAt,"grant")>=300_000)throw new Error("Publish authorization freshness/metadata mismatch");
-  if(grant.authoritySource!=="owner_verified")throw new Error("Publishing requires exact verified owner authorization");
-  if(parseTimestamp(grant.issuedAt,"grant")<parseTimestamp(draft.observedAt,"draft"))throw new Error("Publish authorization predates exact content");
-  if(!providerRequestRef.trim())throw new Error("Stable provider request identity required");
-  if(this.ledger.intent(i.id) && this.ledger.intent(i.id)!.scheduledAt!==i.scheduledAt)throw new Error("Rescheduled publication requires new exact owner authorization/intent");
-  this.ledger.prepare(i,draft,connection,now,300_000);
-  if(i.scheduledAt && parseTimestamp(i.scheduledAt,"schedule")>parseTimestamp(now,"now"))throw new Error("Publish schedule not due");
-  const result=await this.store.reserve({ownerId:i.ownerId,intentId:i.id,authorizationRef:i.authorizationRef,idempotencyKey:i.idempotencyKey,providerRequestRef,envelope:binding});
-  if(result!=="reserved")return Object.freeze({dispatchAllowed:false as const,state:"reconciliation_required" as const});
-  const finalNow=this.clock(); check(finalNow);
-  if(!assessSocialConnectionForIdentity(this.liveConnection(i.accountId),identity,i.requiredScopes,finalNow,300_000).live)throw new Error("Publish connection lost before dispatch");
-  if(Date.parse(finalNow)-Date.parse(this.authorizations.assertUsable(i.authorizationRef,use,finalNow).issuedAt)>=300_000)throw new Error("Publish authorization became stale during persistence");
-  this.authorizations.consume(i.authorizationRef,use,finalNow);
-  this.ledger.startAttempt({attemptId:providerRequestRef,intentId:i.id,accountId:i.accountId,idempotencyKey:i.idempotencyKey,state:"submitted",providerRequestRef,observedAt:finalNow});
-  return Object.freeze({dispatchAllowed:true as const,state:"reserved" as const,providerRequestRef});
- }
 }
