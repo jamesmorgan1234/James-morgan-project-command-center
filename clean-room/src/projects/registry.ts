@@ -1,4 +1,10 @@
 import { assertProjectRecord, type ProjectRecord, type ProjectTypeDefinition } from "./types.js";
+import {
+  assertProjectInheritanceTarget,
+  inheritedProjectIntelligence,
+  type ProjectInheritanceCandidate,
+  type ProjectInheritancePlan
+} from "./inheritance.js";
 
 const PROJECT_TYPE_KEY = /^project-type:[a-z0-9][a-z0-9._:-]{0,119}$/;
 const GOVERNED_LIFECYCLES = new Set(["archived", "superseded"]);
@@ -44,15 +50,19 @@ export class ProjectTypeRegistry {
 
 export class ProjectRegistry {
   readonly #projects = new Map<string, ProjectRecord>();
+  readonly #inheritedIntelligence = new Map<string, readonly ProjectInheritanceCandidate[]>();
   constructor(private readonly types: ProjectTypeRegistry) {}
 
-  create(project: ProjectRecord): void {
+  create(project: ProjectRecord, inheritancePlan?: ProjectInheritancePlan): void {
     assertProjectRecord(project);
     if (!this.types.get(project.typeKey)) throw new Error(`Unknown project type: ${project.typeKey}`);
     if (project.version !== 1) throw new Error("New project must start at version 1");
     if (this.#projects.has(project.id)) throw new Error(`Project already exists: ${project.id}`);
+    if (inheritancePlan) assertProjectInheritanceTarget(inheritancePlan, project);
+    const inherited = inheritancePlan ? inheritedProjectIntelligence(inheritancePlan) : Object.freeze([] as ProjectInheritanceCandidate[]);
     this.types.retainForProject(project.typeKey);
     this.#projects.set(project.id, Object.freeze({ ...project }));
+    this.#inheritedIntelligence.set(project.id, inherited);
   }
 
   replace(project: ProjectRecord, expectedVersion: number): void {
@@ -70,6 +80,7 @@ export class ProjectRegistry {
 
   get(id: string): ProjectRecord | undefined { return this.#projects.get(id); }
   list(includeArchived = false): readonly ProjectRecord[] { return Object.freeze([...this.#projects.values()].filter((project) => includeArchived || project.lifecycle !== "archived")); }
+  inheritedIntelligence(id: string): readonly ProjectInheritanceCandidate[] { return this.#inheritedIntelligence.get(id) ?? Object.freeze([] as ProjectInheritanceCandidate[]); }
 
   #required(id: string): ProjectRecord {
     const project = this.#projects.get(id);
