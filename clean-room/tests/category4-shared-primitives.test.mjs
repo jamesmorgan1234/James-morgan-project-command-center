@@ -14,8 +14,11 @@ const ROOT = new URL("../", import.meta.url);
 async function source(path) { return readFile(new URL(path, ROOT), "utf8"); }
 
 const REQUIRED_PRIMITIVES = [
-  "card", "row", "status_pill", "progress", "expansion", "dialog", "button",
-  "loader", "empty_state", "zero_state", "error_state", "tooltip"
+  "approval_card", "audit_row", "button", "card", "confidence_indicator", "conflict_panel",
+  "destructive_confirm_dialog", "dialog", "empty_state", "error_state", "expansion", "freshness_badge",
+  "health_badge", "loader", "missing_source_panel", "obligation_card", "offline_state", "progress",
+  "provider_state_panel", "reversible_action", "row", "source_trust_label", "stale_data_banner",
+  "status_pill", "tooltip", "zero_state"
 ];
 
 test("P4.5 exposes one canonical contract for every locked shared primitive", () => {
