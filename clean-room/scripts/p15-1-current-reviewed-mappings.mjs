@@ -110,3 +110,5 @@ export function currentReviewedMappings(root){
   return {...input,sourceReferenceCorrections:corrections};
  });
 }
+
+// P15.1 integration trigger: preserve the transferred P1-P14 14/14 verified baseline and re-materialize existing reviewed evidence through the guarded canonical assembler; no phase rebuild or semantic reinterpretation.
