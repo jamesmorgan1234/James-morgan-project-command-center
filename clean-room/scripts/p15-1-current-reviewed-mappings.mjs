@@ -44,6 +44,7 @@ import {reviewedSocialP10Mappings} from './p15-1-reviewed-social-p10-mappings.mj
 import {reviewedSocialP11BooksMappings} from './p15-1-reviewed-social-p11-books-mappings.mjs';
 import {reviewedSpecialistP12Mappings} from './p15-1-reviewed-specialist-p12-mappings.mjs';
 import {reviewedRecoveryP14Mappings} from './p15-1-reviewed-recovery-p14-mappings.mjs';
+import {reviewedAnalyticsP13Mappings} from './p15-1-reviewed-analytics-p13-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -59,6 +60,7 @@ export function currentReviewedMappings(root){
   ...reviewedSocialP11BooksMappings(),
   ...reviewedSpecialistP12Mappings(),
   ...reviewedRecoveryP14Mappings(),
+  ...reviewedAnalyticsP13Mappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
