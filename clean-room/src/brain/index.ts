@@ -1,5 +1,6 @@
 export * from "./core.js";
 export * from "./providers.js";
+export * from "./intelligence-routing.js";
 export * from "./memory.js";
 export * from "./memory-governance.js";
 export * from "./context-builder.js";
