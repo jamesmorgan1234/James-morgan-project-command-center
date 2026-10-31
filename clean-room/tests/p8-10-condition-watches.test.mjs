@@ -5,6 +5,25 @@ import { evaluateWatch, nextWatchBackoffUntil } from "../dist/personal/index.js"
 
 const baseWatch = { id: "watch", ownerId: "owner-1", conditionKey: "reply-arrived", cadenceRef: "hourly", actionPolicy: "notification_only", protectedActionsAuthorized: false, priorVerifiedState: false, lastObservationId: "obs-1", lastVerifiedObservedAt: "2026-10-26T15:00:00Z" };
 
+test("P8.10 condition/event/webhook/project-state watch classes are explicit and source mismatches fail closed", () => {
+  for (const watchKind of ["condition", "event", "webhook", "project_state"]) {
+    const decision = evaluateWatch(
+      { ...baseWatch, watchKind, lastObservationId: undefined },
+      { watchId: "watch", watchKind, conditionMet: true, verified: true, observationId: `obs-${watchKind}`, observedAt: "2026-10-26T15:01:00Z", sourceRefs: [`verified:${watchKind}`] }
+    );
+    assert.equal(decision.fire, true);
+    assert.equal(decision.protectedActionAuthorized, false);
+  }
+  assert.throws(() => evaluateWatch(
+    { ...baseWatch, watchKind: "webhook", lastObservationId: undefined },
+    { watchId: "watch", watchKind: "project_state", conditionMet: true, verified: true, observationId: "obs-mismatch", observedAt: "2026-10-26T15:01:00Z", sourceRefs: ["verified:provider"] }
+  ), /kind mismatch/i);
+  assert.throws(() => evaluateWatch(
+    { ...baseWatch, watchKind: "unsupported", lastObservationId: undefined },
+    { watchId: "watch", conditionMet: true, verified: true, observationId: "obs-invalid", observedAt: "2026-10-26T15:01:00Z", sourceRefs: ["verified:provider"] }
+  ), /watch kind/i);
+});
+
 test("P8.10 duplicate and stale verified observations cannot trigger effects", () => {
   assert.deepEqual(evaluateWatch(baseWatch, { watchId: "watch", conditionMet: true, verified: true, observationId: "obs-1", observedAt: "2026-10-26T15:01:00Z", sourceRefs: ["mail"] }), { fire: false, reason: "duplicate_observation", protectedActionAuthorized: false });
   assert.deepEqual(evaluateWatch(baseWatch, { watchId: "watch", conditionMet: true, verified: true, observationId: "obs-old", observedAt: "2026-10-26T14:59:59Z", sourceRefs: ["mail"] }), { fire: false, reason: "stale_observation", protectedActionAuthorized: false });
@@ -24,9 +43,10 @@ test("P8.10 safe-action policy still cannot authorize a protected action", () =>
   assert.equal(decision.protectedActionAuthorized, false);
 });
 
-test("P8.10 durable schema versions observations/transitions and persists bounded backoff without effect authority", () => {
+test("P8.10 durable schema versions trigger class, observations/transitions and persists bounded backoff without effect authority", () => {
   const sql = readFileSync(new URL("../../supabase/migrations/20261026093000_p8_10_condition_watches.sql", import.meta.url), "utf8");
   assert.match(sql, /command_center_condition_watches/i);
+  assert.match(sql, /watch_kind text not null default 'condition' check \(watch_kind in \('condition','event','webhook','project_state'\)\)/i);
   assert.match(sql, /backoff_until timestamptz/i);
   assert.match(sql, /command_center_watch_observations/i);
   assert.match(sql, /unique\(owner_id,watch_id,observation_id\)/i);

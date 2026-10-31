@@ -1,9 +1,10 @@
--- C8 / P8.10 — durable condition watches, observations, transitions, and bounded backoff.
+-- C8 / P8.10 — durable condition/event/webhook/project-state watches, observations, transitions, and bounded backoff.
 
 create table if not exists public.command_center_condition_watches (
   owner_id uuid not null references auth.users(id) on delete cascade,
   watch_id text not null check (btrim(watch_id) <> ''),
   project_id text,
+  watch_kind text not null default 'condition' check (watch_kind in ('condition','event','webhook','project_state')),
   condition_key text not null check (btrim(condition_key) <> ''),
   cadence_ref text not null check (btrim(cadence_ref) <> ''),
   action_policy text not null check (action_policy in ('notification_only','safe_action')),
