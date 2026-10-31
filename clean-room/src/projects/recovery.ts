@@ -1,3 +1,5 @@
+import { validateProjectInheritancePlan, type ProjectInheritancePlan } from "./inheritance.js";
+
 export type ProjectRecoveryMode = "greenfield" | "clean_rebuild" | "rescue" | "migration" | "modernization" | "reality_reconstruction" | "archived_revival" | "retirement";
 
 export interface ProjectRecoveryPlan {
@@ -8,6 +10,8 @@ export interface ProjectRecoveryPlan {
   readonly decisionRefs: readonly string[];
   readonly checkpointRefs: readonly string[];
   readonly ownerReactivationRef?: string;
+  readonly previousInheritedIntelligenceRefs?: readonly string[];
+  readonly inheritancePlan?: ProjectInheritancePlan;
 }
 
 function assertRefs(values: readonly string[], label: string, required: boolean): void {
@@ -24,4 +28,20 @@ export function validateRecoveryPlan(plan: ProjectRecoveryPlan): void {
   assertRefs(plan.checkpointRefs, "Recovery checkpoints", false);
   if (plan.mode === "archived_revival" && !plan.ownerReactivationRef?.trim()) throw new Error("Archived project revival requires owner-governed reactivation");
   if (["rescue", "migration", "modernization", "reality_reconstruction", "archived_revival"].includes(plan.mode) && plan.checkpointRefs.length === 0) throw new Error(`${plan.mode} requires a verified checkpoint reference`);
+
+  const priorInheritance = plan.previousInheritedIntelligenceRefs ?? [];
+  assertRefs(priorInheritance, "Recovery inherited intelligence", false);
+  if (plan.inheritancePlan) {
+    validateProjectInheritancePlan(plan.inheritancePlan);
+    if (plan.inheritancePlan.projectId !== plan.projectId) throw new Error("Recovery inheritance project identity mismatch");
+  }
+  if (priorInheritance.length > 0 && !plan.inheritancePlan) {
+    throw new Error("Recovery of inherited intelligence requires explicit applicability revalidation");
+  }
+  if (plan.inheritancePlan) {
+    const considered = new Set(plan.inheritancePlan.candidates.map((candidate) => candidate.canonicalRef));
+    for (const ref of priorInheritance) {
+      if (!considered.has(ref)) throw new Error(`Recovery inheritance revalidation omitted prior intelligence: ${ref}`);
+    }
+  }
 }
