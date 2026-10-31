@@ -1,252 +1,52 @@
-import { connectionIsLive, assessSocialConnection, type SocialConnection, type SocialConnectionEvidence } from "./connections.js";
-import { assertDraftPublishReady, type SocialDraft } from "./drafts.js";
+import {connectionIsLive,assessSocialConnection,type SocialConnection,type SocialConnectionEvidence} from "./connections.js";
+import {assertDraftPublishReady,type SocialDraft} from "./drafts.js";
 
-export type PublishState = "prepared" | "scheduled" | "submitting" | "uncertain" | "published" | "failed" | "cancelled";
+export type PublishState="prepared"|"scheduled"|"submitting"|"uncertain"|"published"|"failed"|"cancelled";
+export interface PublishIntent{readonly id:string;readonly ownerId:string;readonly brandId:string;readonly accountId:string;readonly draftId:string;readonly idempotencyKey:string;readonly state:PublishState;readonly scheduledAt?:string;readonly authorizationRef:string;readonly requiredScopes:readonly string[];}
+export interface PublishReceipt{readonly intentId:string;readonly accountId:string;readonly externalPublicationId:string;readonly providerRef:string;readonly canonicalPostUrl?:string;readonly publishedAt:string;}
+export interface SocialContentCalendarEntry{readonly id:string;readonly ownerId:string;readonly brandId:string;readonly accountId:string;readonly draftId:string;readonly scheduledAt:string;readonly status:"planned"|"scheduled"|"published"|"failed"|"cancelled";readonly sourceRefs:readonly string[];}
+export interface SocialPublicationHistoryRecord{readonly intentId:string;readonly accountId:string;readonly draftId:string;readonly state:PublishState;readonly externalPublicationId?:string;readonly canonicalPostUrl?:string;readonly publishedAt?:string;readonly failedReason?:string;readonly evidenceRefs:readonly string[];}
 
-export interface PublishIntent {
-  readonly id: string;
-  readonly ownerId: string;
-  readonly brandId: string;
-  readonly accountId: string;
-  readonly draftId: string;
-  readonly idempotencyKey: string;
-  readonly state: PublishState;
-  readonly scheduledAt?: string;
-  readonly authorizationRef: string;
-  readonly requiredScopes: readonly string[];
+function ts(v:string,l:string){const p=Date.parse(v);if(!Number.isFinite(p))throw new Error(`${l} must be an ISO-compatible timestamp`);return p;}
+function refs(v:readonly string[],l:string,one=false){if((one&&!v.length)||v.some(x=>!x.trim()))throw new Error(`${l} cannot contain blank values`);return Object.freeze([...new Set(v.map(x=>x.trim()))]);}
+
+export class SocialContentCalendar{
+ readonly #e=new Map<string,SocialContentCalendarEntry>();
+ upsert(x:SocialContentCalendarEntry){if(!x.id.trim()||!x.ownerId.trim()||!x.brandId.trim()||!x.accountId.trim()||!x.draftId.trim())throw new Error("content calendar identity/scope/draft are required");ts(x.scheduledAt,"content calendar scheduledAt");const sourceRefs=refs(x.sourceRefs,"content calendar source refs",true);const c=this.#e.get(x.id);if(c&&(c.ownerId!==x.ownerId||c.brandId!==x.brandId||c.accountId!==x.accountId||c.draftId!==x.draftId))throw new Error("content calendar identity cannot be silently retargeted");const f=Object.freeze({...x,sourceRefs});this.#e.set(x.id,f);return f;}
+ list(ownerId:string,brandId?:string,accountId?:string){return Object.freeze([...this.#e.values()].filter(x=>x.ownerId===ownerId&&(brandId===undefined||x.brandId===brandId)&&(accountId===undefined||x.accountId===accountId)));}
 }
 
-export interface PublishReceipt {
-  readonly intentId: string;
-  readonly accountId: string;
-  readonly externalPublicationId: string;
-  readonly providerRef: string;
-  readonly publishedAt: string;
+export class PublishLedger{
+ readonly #i=new Map<string,PublishIntent>();readonly #fp=new Map<string,string>();readonly #k=new Map<string,string>();readonly #r=new Map<string,PublishReceipt>();readonly #f=new Map<string,string>();
+ prepare(i:PublishIntent,d:SocialDraft,c:SocialConnection,now?:string){if(i.state!=="prepared")throw new Error("new publish intent must start prepared");const fp=JSON.stringify(i);if(this.#i.has(i.id)){if(this.#fp.get(i.id)!==fp)throw new Error("publish intent identity collision");return this.#i.get(i.id)!;}assertDraftPublishReady(d);if(!i.authorizationRef.trim())throw new Error("publishing requires explicit protected-action authorization evidence");if(i.ownerId!==d.ownerId||i.brandId!==d.brandId||i.accountId!==d.intendedAccountId||i.draftId!==d.id)throw new Error("publish intent must target the exact approved draft/account identity");if(c.accountId!==i.accountId||!connectionIsLive(c,i.requiredScopes,now))throw new Error("intended social account is not verified live with required scopes");const prior=this.#k.get(i.idempotencyKey);if(prior&&prior!==i.id)throw new Error("duplicate publish idempotency key");const f=Object.freeze({...i,requiredScopes:Object.freeze([...i.requiredScopes])});this.#i.set(i.id,f);this.#fp.set(i.id,fp);this.#k.set(i.idempotencyKey,i.id);return f;}
+ transition(id:string,expected:PublishState,next:PublishState){const c=this.#i.get(id);if(!c||c.state!==expected)throw new Error("publish state mismatch");const a:Readonly<Record<PublishState,readonly PublishState[]>>={prepared:["scheduled","submitting","failed","cancelled"],scheduled:["submitting","failed","cancelled"],submitting:["published","uncertain","failed"],uncertain:["published","failed"],published:[],cancelled:[],failed:[]};if(!a[c.state].includes(next))throw new Error(`invalid publish transition ${c.state} -> ${next}`);const u=Object.freeze({...c,state:next});this.#i.set(id,u);return u;}
+ recordReceipt(r:PublishReceipt){const c=this.#i.get(r.intentId);if(!c||c.accountId!==r.accountId)throw new Error("receipt does not match exact intended account");if(!r.externalPublicationId.trim()||!r.providerRef.trim())throw new Error("publication receipt requires provider evidence");if(r.canonicalPostUrl!==undefined&&!r.canonicalPostUrl.trim())throw new Error("canonical post URL cannot be blank");ts(r.publishedAt,"publishedAt");const p=this.#r.get(r.intentId);if(p&&(p.externalPublicationId!==r.externalPublicationId||p.canonicalPostUrl!==r.canonicalPostUrl))throw new Error("conflicting publication receipts require reconciliation");this.#r.set(r.intentId,Object.freeze({...r}));if(c.state==="submitting"||c.state==="uncertain")this.transition(r.intentId,c.state,"published");}
+ recordFailure(id:string,reason:string){if(!reason.trim())throw new Error("failed publish reason is required");const c=this.#i.get(id);if(!c)throw new Error("unknown publish intent");if(this.#r.has(id))throw new Error("confirmed publication cannot be overwritten by failure");this.#f.set(id,reason.trim());return c.state==="failed"?c:this.transition(id,c.state,"failed");}
+ receipt(id:string){return this.#r.get(id);}
+ history(ownerId:string):readonly SocialPublicationHistoryRecord[]{return Object.freeze([...this.#i.values()].filter(i=>i.ownerId===ownerId).map(i=>{const r=this.#r.get(i.id),f=this.#f.get(i.id);return Object.freeze({intentId:i.id,accountId:i.accountId,draftId:i.draftId,state:i.state,...(r?{externalPublicationId:r.externalPublicationId,...(r.canonicalPostUrl?{canonicalPostUrl:r.canonicalPostUrl}:{}),publishedAt:r.publishedAt}:{}),...(f?{failedReason:f}:{}),evidenceRefs:Object.freeze(r?[r.providerRef]:f?[`failure:${i.id}`]:[])});}));}
 }
 
-export class PublishLedger {
-  readonly #intents = new Map<string, PublishIntent>();
-  readonly #fingerprints = new Map<string,string>();
-  readonly #byIdempotency = new Map<string, string>();
-  readonly #receipts = new Map<string, PublishReceipt>();
+export interface EvidenceBackedPublishIntent{readonly id:string;readonly ownerId:string;readonly brandId:string;readonly accountId:string;readonly draftId:string;readonly draftVersion:number;readonly draftContentHash:string;readonly profileKey:string;readonly profileVersion:number;readonly idempotencyKey:string;readonly state:PublishState;readonly scheduledAt?:string;readonly authorizationRef:string;readonly authorizationAccountId:string;readonly authorizationObservedAt:string;readonly authorizationExpiresAt:string;readonly requiredScopes:readonly string[];readonly workflowId?:string;readonly workflowOrdinal?:number;}
+export type PublishAttemptState="submitted"|"acknowledged"|"failed"|"unknown";
+export interface PublishAttemptEvidence{readonly attemptId:string;readonly intentId:string;readonly accountId:string;readonly idempotencyKey:string;readonly state:PublishAttemptState;readonly providerRequestRef:string;readonly observedAt:string;readonly responseRef?:string;readonly externalPublicationId?:string;}
+export interface EvidenceBackedPublishReceipt{readonly intentId:string;readonly accountId:string;readonly idempotencyKey:string;readonly externalPublicationId:string;readonly providerRef:string;readonly canonicalPostUrl?:string;readonly publishedAt:string;readonly evidenceRefs:readonly string[];}
 
-  prepare(intent: PublishIntent, draft: SocialDraft, connection: SocialConnection, now?: string): PublishIntent {
-    if(intent.state!=="prepared")throw new Error("New publish intent must start prepared");
-    const fingerprint=JSON.stringify(intent);
-    if(this.#intents.has(intent.id)){if(this.#fingerprints.get(intent.id)!==fingerprint)throw new Error("Publish intent identity collision");return this.#intents.get(intent.id)!;}
-    assertDraftPublishReady(draft);
-    if (!intent.authorizationRef.trim()) throw new Error("publishing requires explicit protected-action authorization evidence");
-    if (intent.ownerId !== draft.ownerId || intent.brandId !== draft.brandId || intent.accountId !== draft.intendedAccountId || intent.draftId !== draft.id) {
-      throw new Error("publish intent must target the exact approved draft/account identity");
-    }
-    if (connection.accountId !== intent.accountId || !connectionIsLive(connection, intent.requiredScopes, now)) throw new Error("intended social account is not verified live with required scopes");
-    const existing = this.#byIdempotency.get(intent.idempotencyKey);
-    if (existing && existing !== intent.id) throw new Error("duplicate publish idempotency key");
-    const frozen = Object.freeze({ ...intent, requiredScopes: Object.freeze([...intent.requiredScopes]) });
-    this.#intents.set(intent.id, frozen); this.#fingerprints.set(intent.id,fingerprint);
-    this.#byIdempotency.set(intent.idempotencyKey, intent.id);
-    return frozen;
-  }
-
-  transition(intentId: string, expected: PublishState, next: PublishState): PublishIntent {
-    const current = this.#intents.get(intentId);
-    if (!current || current.state !== expected) throw new Error("publish state mismatch");
-    const allowed: Readonly<Record<PublishState, readonly PublishState[]>> = {
-      prepared: ["scheduled", "submitting", "failed", "cancelled"],
-      scheduled: ["submitting", "failed", "cancelled"],
-      submitting: ["published", "uncertain", "failed"],
-      uncertain: ["published", "failed"],
-      published: [],
-      cancelled: [],
-      failed: []
-    };
-    if (!allowed[current.state].includes(next)) throw new Error(`invalid publish transition ${current.state} -> ${next}`);
-    const updated = Object.freeze({ ...current, state: next });
-    this.#intents.set(intentId, updated);
-    return updated;
-  }
-
-  recordReceipt(receipt: PublishReceipt): void {
-    const current = this.#intents.get(receipt.intentId);
-    if (!current || current.accountId !== receipt.accountId) throw new Error("receipt does not match exact intended account");
-    if (!receipt.externalPublicationId.trim() || !receipt.providerRef.trim()) throw new Error("publication receipt requires provider evidence");
-    const prior = this.#receipts.get(receipt.intentId);
-    if (prior && prior.externalPublicationId !== receipt.externalPublicationId) throw new Error("conflicting publication receipts require reconciliation");
-    this.#receipts.set(receipt.intentId, Object.freeze({ ...receipt }));
-    if (current.state === "submitting" || current.state === "uncertain") this.transition(receipt.intentId, current.state, "published");
-  }
-
-  receipt(intentId: string): PublishReceipt | undefined {
-    return this.#receipts.get(intentId);
-  }
-}
-
-export interface EvidenceBackedPublishIntent {
-  readonly id: string;
-  readonly ownerId: string;
-  readonly brandId: string;
-  readonly accountId: string;
-  readonly draftId: string;
-  readonly draftVersion: number;
-  readonly draftContentHash: string;
-  readonly profileKey: string;
-  readonly profileVersion: number;
-  readonly idempotencyKey: string;
-  readonly state: PublishState;
-  readonly scheduledAt?: string | undefined;
-  readonly authorizationRef: string;
-  readonly authorizationAccountId: string;
-  readonly authorizationObservedAt: string;
-  readonly authorizationExpiresAt: string;
-  readonly requiredScopes: readonly string[];
-}
-
-export type PublishAttemptState = "submitted" | "acknowledged" | "failed" | "unknown";
-
-export interface PublishAttemptEvidence {
-  readonly attemptId: string;
-  readonly intentId: string;
-  readonly accountId: string;
-  readonly idempotencyKey: string;
-  readonly state: PublishAttemptState;
-  readonly providerRequestRef: string;
-  readonly observedAt: string;
-  readonly responseRef?: string | undefined;
-  readonly externalPublicationId?: string | undefined;
-}
-
-export interface EvidenceBackedPublishReceipt {
-  readonly intentId: string;
-  readonly accountId: string;
-  readonly idempotencyKey: string;
-  readonly externalPublicationId: string;
-  readonly providerRef: string;
-  readonly publishedAt: string;
-  readonly evidenceRefs: readonly string[];
-}
-
-function publishTimestamp(value: string, label: string): number {
-  const parsed = Date.parse(value);
-  if (!Number.isFinite(parsed)) throw new Error(`${label} must be an ISO-compatible timestamp`);
-  return parsed;
-}
-
-function publishRefs(values: readonly string[], label: string): readonly string[] {
-  if (values.some((value) => !value.trim())) throw new Error(`${label} cannot contain blank values`);
-  return Object.freeze([...new Set(values.map((value) => value.trim()))]);
-}
-
-export class EvidenceBackedPublishLedger {
-  readonly #intents = new Map<string, EvidenceBackedPublishIntent>();
-  readonly #fingerprints = new Map<string,string>();
-  readonly #idempotency = new Map<string, string>();
-  readonly #attempts = new Map<string, PublishAttemptEvidence>();
-  readonly #receipts = new Map<string, EvidenceBackedPublishReceipt>();
-  readonly #publicEffects = new Map<string, string>();
-
-  prepare(intent: EvidenceBackedPublishIntent, draft: SocialDraft, connection: SocialConnectionEvidence, now: string, maxVerificationAgeMs: number): EvidenceBackedPublishIntent {
-    if(intent.state!=="prepared")throw new Error("New publish intent must start prepared");
-    const fingerprint=JSON.stringify(intent);
-    if(this.#intents.has(intent.id)){if(this.#fingerprints.get(intent.id)!==fingerprint)throw new Error("Publish intent identity collision");return this.#intents.get(intent.id)!;}
-    assertDraftPublishReady(draft);
-    const nowMs = publishTimestamp(now, "publish preparation now");
-    const authAt = publishTimestamp(intent.authorizationObservedAt, "publish authorization observedAt");
-    const authExpires = publishTimestamp(intent.authorizationExpiresAt, "publish authorization expiresAt");
-    if (!intent.id.trim() || !intent.authorizationRef.trim() || !intent.idempotencyKey.trim() || !intent.profileKey.trim()) throw new Error("publish intent identity, authorization, idempotency, and platform profile are required");
-    if (!Number.isSafeInteger(intent.draftVersion) || intent.draftVersion < 1 || !Number.isSafeInteger(intent.profileVersion) || intent.profileVersion < 1) throw new Error("publish draft/profile versions must be positive");
-    if (authAt > nowMs || authExpires <= nowMs || authExpires <= authAt) throw new Error("publish authorization must be current and unexpired");
-    if (intent.authorizationAccountId !== intent.accountId) throw new Error("protected-action authorization must name the exact intended account");
-    if (intent.ownerId !== draft.ownerId || intent.brandId !== draft.brandId || intent.accountId !== draft.intendedAccountId || intent.draftId !== draft.id || intent.draftVersion !== draft.version || intent.draftContentHash !== draft.contentHash) throw new Error("publish intent must bind the exact approved draft revision/content/account");
-    if (connection.ownerId !== intent.ownerId || connection.canonicalAccountId !== intent.accountId) throw new Error("social connection does not match exact owner/account authorization");
-    const assessment = assessSocialConnection(connection, intent.requiredScopes, now, maxVerificationAgeMs);
-    if (!assessment.live) throw new Error("intended social account is not verified live with required scopes");
-    const existing = this.#idempotency.get(intent.idempotencyKey);
-    if (existing && existing !== intent.id) throw new Error("publish idempotency key is already bound to another intent");
-    const frozen = Object.freeze({ ...intent, requiredScopes: publishRefs(intent.requiredScopes, "publish required scopes") });
-    this.#intents.set(intent.id, frozen); this.#fingerprints.set(intent.id,fingerprint);
-    this.#idempotency.set(intent.idempotencyKey, intent.id);
-    return frozen;
-  }
-
-  schedule(intentId: string, scheduledAt: string): EvidenceBackedPublishIntent {
-    const current = this.requireIntent(intentId);
-    if (current.state !== "prepared") throw new Error("only prepared publish intent can be scheduled");
-    publishTimestamp(scheduledAt, "publish schedule");
-    return this.replace(current, { ...current, state: "scheduled", scheduledAt });
-  }
-
-  startAttempt(attempt: PublishAttemptEvidence): PublishAttemptEvidence {
-    const intent = this.requireIntent(attempt.intentId);
-    if (intent.state !== "prepared" && intent.state !== "scheduled") throw new Error("publish attempt cannot start until uncertain/published/failed state is reconciled");
-    if (attempt.accountId !== intent.accountId || attempt.idempotencyKey !== intent.idempotencyKey) throw new Error("publish attempt must use exact account and intent idempotency key");
-    if (!attempt.attemptId.trim() || !attempt.providerRequestRef.trim()) throw new Error("publish attempt requires stable provider request evidence");
-    publishTimestamp(attempt.observedAt, "publish attempt observedAt");
-    if (this.#attempts.has(attempt.attemptId)) throw new Error("duplicate publish attempt id");
-    const attemptedAt=publishTimestamp(attempt.observedAt,"attempt time");
-    if(attempt.state!=="submitted" || attemptedAt<publishTimestamp(intent.authorizationObservedAt,"authorization time") || attemptedAt>=publishTimestamp(intent.authorizationExpiresAt,"authorization expiry"))throw new Error("Publish authorization stale or attempt state invalid");
-    if(intent.scheduledAt && attemptedAt<publishTimestamp(intent.scheduledAt,"scheduledAt"))throw new Error("Publish schedule not due");
-    const frozen = Object.freeze({ ...attempt });
-    this.#attempts.set(attempt.attemptId, frozen);
-    this.replace(intent, { ...intent, state: "submitting" });
-    return frozen;
-  }
-
-  markAttemptUnknown(attemptId: string, responseRef: string, observedAt: string): EvidenceBackedPublishIntent {
-    const attempt = this.#attempts.get(attemptId);
-    if (!attempt) throw new Error("unknown publish attempt");
-    if (!responseRef.trim()) throw new Error("unknown publish outcome requires response/loss evidence");
-    publishTimestamp(observedAt, "unknown publish outcome observedAt");
-    const intent = this.requireIntent(attempt.intentId);
-    if (intent.state !== "submitting") throw new Error("only submitting publication can become uncertain");
-    this.#attempts.set(attemptId, Object.freeze({ ...attempt, state: "unknown", responseRef, observedAt }));
-    return this.replace(intent, { ...intent, state: "uncertain" });
-  }
-
-  reconcileReceipt(receipt: EvidenceBackedPublishReceipt): EvidenceBackedPublishReceipt {
-    const intent = this.requireIntent(receipt.intentId);
-    if (receipt.accountId !== intent.accountId || receipt.idempotencyKey !== intent.idempotencyKey) throw new Error("publication receipt does not match exact account/idempotency binding");
-    if (!receipt.externalPublicationId.trim() || !receipt.providerRef.trim()) throw new Error("publication receipt requires external effect and provider evidence");
-    publishTimestamp(receipt.publishedAt, "publication receipt publishedAt");
-    const evidenceRefs = publishRefs(receipt.evidenceRefs, "publication receipt evidence");
-    if (evidenceRefs.length === 0) throw new Error("publication receipt evidence is required");
-    const prior = this.#receipts.get(receipt.intentId);
-    if (prior) {
-      if (prior.externalPublicationId !== receipt.externalPublicationId || prior.accountId !== receipt.accountId) throw new Error("conflicting publication receipts indicate more than one possible public effect");
-      return prior;
-    }
-    const effectKey = JSON.stringify([receipt.accountId,receipt.externalPublicationId]);
-    const boundIntent = this.#publicEffects.get(effectKey);
-    if (boundIntent && boundIntent !== receipt.intentId) throw new Error("public effect is already attributed to another publish intent");
-    if (intent.state !== "submitting" && intent.state !== "uncertain" && intent.state !== "published") throw new Error("publication receipt is inconsistent with current publish state");
-    const frozen = Object.freeze({ ...receipt, evidenceRefs });
-    this.#receipts.set(receipt.intentId, frozen);
-    this.#publicEffects.set(effectKey, receipt.intentId);
-    if (intent.state !== "published") this.replace(intent, { ...intent, state: "published" });
-    return frozen;
-  }
-
-  recordFailure(intentId: string, evidenceRef: string): EvidenceBackedPublishIntent {
-    const intent = this.requireIntent(intentId);
-    if (this.#receipts.has(intentId)) throw new Error("confirmed public effect cannot be overwritten by failure");
-    if (!evidenceRef.trim()) throw new Error("publish failure requires evidence");
-    if (intent.state !== "submitting" && intent.state !== "uncertain" && intent.state !== "prepared" && intent.state !== "scheduled") throw new Error("publish failure transition is invalid");
-    return this.replace(intent, { ...intent, state: "failed" });
-  }
-
-  cancel(id:string):EvidenceBackedPublishIntent {const i=this.requireIntent(id);if(i.state!=="prepared"&&i.state!=="scheduled")throw new Error("Dispatched publication requires reconciliation, not cancellation");return this.replace(i,{...i,state:"cancelled"});}
-  reschedule(id:string,scheduledAt:string,now:string):EvidenceBackedPublishIntent {const i=this.requireIntent(id);if(i.state!=="scheduled"||publishTimestamp(scheduledAt,"schedule")<publishTimestamp(now,"now"))throw new Error("Invalid reschedule");return this.replace(i,{...i,scheduledAt});}
-  intent(id: string): EvidenceBackedPublishIntent | undefined { return this.#intents.get(id); }
-  receipt(id: string): EvidenceBackedPublishReceipt | undefined { return this.#receipts.get(id); }
-
-  private requireIntent(id: string): EvidenceBackedPublishIntent {
-    const intent = this.#intents.get(id);
-    if (!intent) throw new Error("unknown publish intent");
-    return intent;
-  }
-
-  private replace(current: EvidenceBackedPublishIntent, next: EvidenceBackedPublishIntent): EvidenceBackedPublishIntent {
-    const frozen = Object.freeze({ ...next, requiredScopes: Object.freeze([...next.requiredScopes]) });
-    this.#intents.set(current.id, frozen);
-    return frozen;
-  }
+export class EvidenceBackedPublishLedger{
+ readonly #i=new Map<string,EvidenceBackedPublishIntent>();readonly #fp=new Map<string,string>();readonly #k=new Map<string,string>();readonly #a=new Map<string,PublishAttemptEvidence>();readonly #r=new Map<string,EvidenceBackedPublishReceipt>();readonly #effects=new Map<string,string>();readonly #fail=new Map<string,{reason:string;evidenceRef:string}>();
+ prepare(i:EvidenceBackedPublishIntent,d:SocialDraft,c:SocialConnectionEvidence,now:string,maxAge:number){
+  if(i.state!=="prepared")throw new Error("new publish intent must start prepared");const fp=JSON.stringify(i);if(this.#i.has(i.id)){if(this.#fp.get(i.id)!==fp)throw new Error("publish intent identity collision");return this.#i.get(i.id)!;}assertDraftPublishReady(d);
+  const n=ts(now,"publish preparation now"),a=ts(i.authorizationObservedAt,"authorization observedAt"),e=ts(i.authorizationExpiresAt,"authorization expiresAt");if(!i.id.trim()||!i.authorizationRef.trim()||!i.idempotencyKey.trim()||!i.profileKey.trim())throw new Error("publish intent identity, authorization, idempotency, and profile are required");if(!Number.isSafeInteger(i.draftVersion)||i.draftVersion<1||!Number.isSafeInteger(i.profileVersion)||i.profileVersion<1)throw new Error("publish draft/profile versions must be positive");if((i.workflowId===undefined)!==(i.workflowOrdinal===undefined))throw new Error("publish workflow id and ordinal must be supplied together");if(i.workflowId!==undefined&&!i.workflowId.trim())throw new Error("publish workflow id cannot be blank");if(i.workflowOrdinal!==undefined&&(!Number.isSafeInteger(i.workflowOrdinal)||i.workflowOrdinal<1))throw new Error("publish workflow ordinal must be positive");if(a>n||e<=n||e<=a)throw new Error("publish authorization must be current and unexpired");if(i.authorizationAccountId!==i.accountId)throw new Error("protected-action authorization must name the exact intended account");if(i.ownerId!==d.ownerId||i.brandId!==d.brandId||i.accountId!==d.intendedAccountId||i.draftId!==d.id||i.draftVersion!==d.version||i.draftContentHash!==d.contentHash)throw new Error("publish intent must bind exact draft revision/content/account");if(c.ownerId!==i.ownerId||c.canonicalAccountId!==i.accountId)throw new Error("social connection does not match exact owner/account");if(!assessSocialConnection(c,i.requiredScopes,now,maxAge).live)throw new Error("intended social account is not verified live with required scopes");const p=this.#k.get(i.idempotencyKey);if(p&&p!==i.id)throw new Error("publish idempotency key is already bound");
+  if(i.workflowId&&i.workflowOrdinal&&i.workflowOrdinal>1){const first=[...this.#i.values()].find(x=>x.workflowId===i.workflowId&&x.workflowOrdinal===1&&x.ownerId===i.ownerId&&x.brandId===i.brandId);if(!first||first.state!=="published")throw new Error("one-before-many requires the first workflow publication to be confirmed");}
+  const f=Object.freeze({...i,requiredScopes:refs(i.requiredScopes,"publish required scopes")});this.#i.set(i.id,f);this.#fp.set(i.id,fp);this.#k.set(i.idempotencyKey,i.id);return f;
+ }
+ schedule(id:string,at:string){const i=this.req(id);if(i.state!=="prepared")throw new Error("only prepared publish intent can be scheduled");ts(at,"publish schedule");return this.put(i,{...i,state:"scheduled",scheduledAt:at});}
+ startAttempt(a:PublishAttemptEvidence){const i=this.req(a.intentId);if(i.state!=="prepared"&&i.state!=="scheduled")throw new Error("publish attempt cannot start until prior outcome is reconciled");if(a.accountId!==i.accountId||a.idempotencyKey!==i.idempotencyKey)throw new Error("publish attempt must use exact account and idempotency key");if(!a.attemptId.trim()||!a.providerRequestRef.trim())throw new Error("publish attempt requires stable provider request evidence");const at=ts(a.observedAt,"attempt observedAt");if(this.#a.has(a.attemptId))throw new Error("duplicate publish attempt id");if(a.state!=="submitted"||at<ts(i.authorizationObservedAt,"authorization time")||at>=ts(i.authorizationExpiresAt,"authorization expiry"))throw new Error("publish authorization stale or attempt state invalid");if(i.scheduledAt&&at<ts(i.scheduledAt,"scheduledAt"))throw new Error("publish schedule not due");const f=Object.freeze({...a});this.#a.set(a.attemptId,f);this.put(i,{...i,state:"submitting"});return f;}
+ markAttemptUnknown(id:string,responseRef:string,at:string){const a=this.#a.get(id);if(!a)throw new Error("unknown publish attempt");if(!responseRef.trim())throw new Error("unknown publish outcome requires response evidence");ts(at,"unknown outcome observedAt");const i=this.req(a.intentId);if(i.state!=="submitting")throw new Error("only submitting publication can become uncertain");this.#a.set(id,Object.freeze({...a,state:"unknown",responseRef,observedAt:at}));return this.put(i,{...i,state:"uncertain"});}
+ reconcileReceipt(r:EvidenceBackedPublishReceipt){const i=this.req(r.intentId);if(r.accountId!==i.accountId||r.idempotencyKey!==i.idempotencyKey)throw new Error("publication receipt does not match exact account/idempotency binding");if(!r.externalPublicationId.trim()||!r.providerRef.trim())throw new Error("publication receipt requires external effect and provider evidence");if(r.canonicalPostUrl!==undefined&&!r.canonicalPostUrl.trim())throw new Error("canonical post URL cannot be blank");ts(r.publishedAt,"publishedAt");const ev=refs(r.evidenceRefs,"publication receipt evidence",true),prior=this.#r.get(r.intentId);if(prior){if(prior.externalPublicationId!==r.externalPublicationId||prior.accountId!==r.accountId||prior.canonicalPostUrl!==r.canonicalPostUrl)throw new Error("conflicting publication receipts indicate more than one possible public effect");return prior;}const ek=JSON.stringify([r.accountId,r.externalPublicationId]),bound=this.#effects.get(ek);if(bound&&bound!==r.intentId)throw new Error("public effect is already attributed to another intent");if(!["submitting","uncertain","published"].includes(i.state))throw new Error("publication receipt is inconsistent with current state");const f=Object.freeze({...r,evidenceRefs:ev});this.#r.set(r.intentId,f);this.#effects.set(ek,r.intentId);if(i.state!=="published")this.put(i,{...i,state:"published"});return f;}
+ recordFailure(id:string,evidenceRef:string,reason="provider_publish_failed"){const i=this.req(id);if(this.#r.has(id))throw new Error("confirmed public effect cannot be overwritten by failure");if(!evidenceRef.trim()||!reason.trim())throw new Error("publish failure requires evidence and reason");if(!["submitting","uncertain","prepared","scheduled"].includes(i.state))throw new Error("publish failure transition is invalid");this.#fail.set(id,{reason:reason.trim(),evidenceRef:evidenceRef.trim()});return this.put(i,{...i,state:"failed"});}
+ cancel(id:string){const i=this.req(id);if(i.state!=="prepared"&&i.state!=="scheduled")throw new Error("dispatched publication requires reconciliation, not cancellation");return this.put(i,{...i,state:"cancelled"});}
+ reschedule(id:string,at:string,now:string){const i=this.req(id);if(i.state!=="scheduled"||ts(at,"schedule")<ts(now,"now"))throw new Error("invalid reschedule");return this.put(i,{...i,scheduledAt:at});}
+ intent(id:string){return this.#i.get(id);} receipt(id:string){return this.#r.get(id);}
+ history(ownerId:string):readonly SocialPublicationHistoryRecord[]{return Object.freeze([...this.#i.values()].filter(i=>i.ownerId===ownerId).map(i=>{const r=this.#r.get(i.id),f=this.#fail.get(i.id);return Object.freeze({intentId:i.id,accountId:i.accountId,draftId:i.draftId,state:i.state,...(r?{externalPublicationId:r.externalPublicationId,...(r.canonicalPostUrl?{canonicalPostUrl:r.canonicalPostUrl}:{}),publishedAt:r.publishedAt}:{}),...(f?{failedReason:f.reason}:{}),evidenceRefs:Object.freeze(r?[...r.evidenceRefs]:f?[f.evidenceRef]:[])});}));}
+ private req(id:string){const i=this.#i.get(id);if(!i)throw new Error("unknown publish intent");return i;} private put(c:EvidenceBackedPublishIntent,n:EvidenceBackedPublishIntent){const f=Object.freeze({...n,requiredScopes:Object.freeze([...n.requiredScopes])});this.#i.set(c.id,f);return f;}
 }
