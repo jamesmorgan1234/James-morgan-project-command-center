@@ -32,7 +32,6 @@ jobs:
           const root=process.cwd();
           const ledger=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));
           const reviewed=currentReviewedMappings(root);
-          const byId=new Map(reviewed.map(r=>[r.id,r]));
           const sourceById=new Map(ledger.requirements.map(r=>[r.id,r]));
           const norm=v=>typeof v==='string'?v.trim().replace(/\s+/g,' '):v;
           const key=row=>JSON.stringify([norm(row.requirement),row.architectureBranch,row.classification,row.activationPrerequisites]);
@@ -46,7 +45,7 @@ jobs:
           const bucket=new Map();
           for(const row of unverified){const k=JSON.stringify([row.architectureBranch,row.architectureOwner,row.classification]);const b=bucket.get(k)??{architectureBranch:row.architectureBranch,architectureOwner:row.architectureOwner,classification:row.classification,count:0,firstId:row.id,lastId:row.id};b.count++;b.lastId=row.id;bucket.set(k,b);}
           const counts={};for(const r of ledger.requirements)counts[r.truthState]=(counts[r.truthState]??0)+1;
-          const out={schemaVersion:'cc-p15-1-normal-chat-diagnostic-v1',sourceCommit:process.env.GITHUB_SHA,total:ledger.requirements.length,counts,reviewedMappingCount:reviewed.length,safeExactDuplicateCandidateCount:safeDuplicateCandidates.length,ambiguousExactDuplicateCandidateCount:ambiguousDuplicateCandidates.length,safeExactDuplicateCandidates,ambiguousExactDuplicateCandidates,unverifiedBuckets:[...bucket.values()].sort((a,b)=>b.count-a.count)};
+          const out={schemaVersion:'cc-p15-1-normal-chat-diagnostic-v1',sourceCommit:process.env.GITHUB_SHA,total:ledger.requirements.length,counts,reviewedMappingCount:reviewed.length,safeExactDuplicateCandidateCount:safeDuplicateCandidates.length,ambiguousExactDuplicateCandidateCount:ambiguousDuplicateCandidates.length,safeExactDuplicateCandidates:safeDuplicateCandidates,ambiguousExactDuplicateCandidates:ambiguousDuplicateCandidates,unverifiedBuckets:[...bucket.values()].sort((a,b)=>b.count-a.count)};
           fs.writeFileSync('clean-room/evidence/P15_1_NORMAL_CHAT_DIAGNOSTIC.json',JSON.stringify(out,null,2)+'\n');
           NODE
       - name: Commit diagnostic
