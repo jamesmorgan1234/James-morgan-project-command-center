@@ -101,13 +101,41 @@ export class SocialAccessBoundary {
     if (!identity || !capability) throw new Error("social account permission view unavailable");
     this.sessions.validateLive(sessionId, now);
     if (identity.ownerId !== capability.ownerId || identity.accountIdentityId !== capability.accountId || identity.brandId !== capability.brandId || identity.companyId !== capability.companyId || identity.projectId !== capability.projectId) throw new Error("social permission view scope mismatch");
-    return Object.freeze({ ownerId: identity.ownerId, companyId: identity.companyId, projectId: identity.projectId, brandId: identity.brandId, accountId, platform: identity.platform, platformIdentityId: identity.platformIdentityId, readableDataClasses: cleanClasses(capability.dataClasses), canWrite: capability.canWrite, revoked: capability.revoked, contained: capability.contained, verifiedAt: capability.verifiedAt, expiresAt: capability.expiresAt, secretsExposed: false });
+    return Object.freeze({
+      ownerId: identity.ownerId,
+      ...(identity.companyId !== undefined ? { companyId: identity.companyId } : {}),
+      ...(identity.projectId !== undefined ? { projectId: identity.projectId } : {}),
+      brandId: identity.brandId,
+      accountId,
+      platform: identity.platform,
+      platformIdentityId: identity.platformIdentityId,
+      readableDataClasses: cleanClasses(capability.dataClasses),
+      canWrite: capability.canWrite,
+      revoked: capability.revoked,
+      contained: capability.contained,
+      verifiedAt: capability.verifiedAt,
+      expiresAt: capability.expiresAt,
+      secretsExposed: false
+    });
   }
 }
 
 export function exportSocialAccountMetadata(identity: SocialIdentityMapRecord): SocialAccountMetadataExport {
   assertSecretChannelSafe("brain_memory", identity);
-  return Object.freeze({ ownerId: identity.ownerId, entityId: identity.entityId, companyId: identity.companyId, projectId: identity.projectId, brandId: identity.brandId, accountId: identity.accountIdentityId, platform: identity.platform, platformIdentityId: identity.platformIdentityId, displayName: identity.displayName, aliases: Object.freeze([...identity.aliases]), version: identity.version, secretsExposed: false });
+  return Object.freeze({
+    ownerId: identity.ownerId,
+    entityId: identity.entityId,
+    ...(identity.companyId !== undefined ? { companyId: identity.companyId } : {}),
+    ...(identity.projectId !== undefined ? { projectId: identity.projectId } : {}),
+    brandId: identity.brandId,
+    accountId: identity.accountIdentityId,
+    platform: identity.platform,
+    platformIdentityId: identity.platformIdentityId,
+    displayName: identity.displayName,
+    aliases: Object.freeze([...identity.aliases]),
+    version: identity.version,
+    secretsExposed: false
+  });
 }
 
 export interface SocialRecoverySnapshot {
