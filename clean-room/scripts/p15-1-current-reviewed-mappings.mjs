@@ -41,6 +41,7 @@ import {resolve} from 'node:path';
 import {resolveA00Traceability} from './p15-1-a00-traceability-lib.mjs';
 import {reviewedSecurityMappings} from './p15-1-reviewed-security-mappings.mjs';
 import {reviewedSocialP10Mappings} from './p15-1-reviewed-social-p10-mappings.mjs';
+import {reviewedSocialP11BooksMappings} from './p15-1-reviewed-social-p11-books-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -53,6 +54,7 @@ export function currentReviewedMappings(root){
   ...reviewedSecurityMappings(),
   ...reviewedAuthorityKernelMappings(),
   ...reviewedSocialP10Mappings(),
+  ...reviewedSocialP11BooksMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
