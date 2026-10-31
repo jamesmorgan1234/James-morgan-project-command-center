@@ -10,3 +10,4 @@ export * from "./device.js";
 export * from "./fixtures.js";
 export * from "./primitives.js";
 export * from "./accessibility.js";
+export * from "./presentation.js";
