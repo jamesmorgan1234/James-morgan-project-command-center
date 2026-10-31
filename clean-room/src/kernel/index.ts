@@ -9,6 +9,7 @@ export * from "./ledger.js";
 export * from "./evidence.js";
 export * from "./authority-source.js";
 export * from "./config.js";
+export * from "./compatibility.js";
 export * from "./scope.js";
 export * from "./capabilities.js";
 export * from "./method-portfolio.js";
