@@ -1,0 +1,60 @@
+name: P15.1 Normal Chat Diagnostic
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - '.github/workflows/p15-1-normal-chat-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - name: Build compact P15.1 diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { currentReviewedMappings } from './clean-room/scripts/p15-1-current-reviewed-mappings.mjs';
+          const root=process.cwd();
+          const ledger=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));
+          const reviewed=currentReviewedMappings(root);
+          const byId=new Map(reviewed.map(r=>[r.id,r]));
+          const sourceById=new Map(ledger.requirements.map(r=>[r.id,r]));
+          const norm=v=>typeof v==='string'?v.trim().replace(/\s+/g,' '):v;
+          const key=row=>JSON.stringify([norm(row.requirement),row.architectureBranch,row.classification,row.activationPrerequisites]);
+          const core=m=>JSON.stringify({truthState:m.truthState??'VERIFIED',owningPhases:m.owningPhases,dependencies:m.dependencies,implementationLocations:m.implementationLocations,tests:m.tests,nonApplicabilityAuthority:m.nonApplicabilityAuthority??null});
+          const reviewedGroups=new Map();
+          for(const m of reviewed){const row=sourceById.get(m.id);if(!row)continue;const k=key(row);const a=reviewedGroups.get(k)??[];a.push(m);reviewedGroups.set(k,a);}
+          const safeDuplicateCandidates=[];
+          const ambiguousDuplicateCandidates=[];
+          const unverified=ledger.requirements.filter(r=>r.truthState==='UNVERIFIED');
+          for(const row of unverified){const ms=reviewedGroups.get(key(row));if(!ms?.length)continue;const cores=[...new Set(ms.map(core))];const item={id:row.id,requirement:row.requirement,architectureBranch:row.architectureBranch,classification:row.classification,templateIds:ms.map(m=>m.id),templateCoreCount:cores.length};if(cores.length===1)safeDuplicateCandidates.push(item);else ambiguousDuplicateCandidates.push(item);}
+          const bucket=new Map();
+          for(const row of unverified){const k=JSON.stringify([row.architectureBranch,row.architectureOwner,row.classification]);const b=bucket.get(k)??{architectureBranch:row.architectureBranch,architectureOwner:row.architectureOwner,classification:row.classification,count:0,firstId:row.id,lastId:row.id};b.count++;b.lastId=row.id;bucket.set(k,b);}
+          const counts={};for(const r of ledger.requirements)counts[r.truthState]=(counts[r.truthState]??0)+1;
+          const out={schemaVersion:'cc-p15-1-normal-chat-diagnostic-v1',sourceCommit:process.env.GITHUB_SHA,total:ledger.requirements.length,counts,reviewedMappingCount:reviewed.length,safeExactDuplicateCandidateCount:safeDuplicateCandidates.length,ambiguousExactDuplicateCandidateCount:ambiguousDuplicateCandidates.length,safeExactDuplicateCandidates,ambiguousExactDuplicateCandidates,unverifiedBuckets:[...bucket.values()].sort((a,b)=>b.count-a.count)};
+          fs.writeFileSync('clean-room/evidence/P15_1_NORMAL_CHAT_DIAGNOSTIC.json',JSON.stringify(out,null,2)+'\n');
+          NODE
+      - name: Commit diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add clean-room/evidence/P15_1_NORMAL_CHAT_DIAGNOSTIC.json
+          git commit -m "chore: record P15.1 normal-chat diagnostic"
+          git push origin HEAD:build/spec-lock-v2-clean-room
