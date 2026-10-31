@@ -140,10 +140,10 @@ export function assessSocialConnection(connection: SocialConnectionEvidence, req
     tokenFresh,
     missingScopes: Object.freeze(missingScopes),
     ownerActionRequired,
-    ownerActionRef: connection.requiredOwnerActionRef,
-    reconnectRef: connection.reconnectRef,
-    credentialRef: connection.credentialRef,
-    credentialState: connection.credentialState,
+    ...(connection.requiredOwnerActionRef !== undefined ? { ownerActionRef: connection.requiredOwnerActionRef } : {}),
+    ...(connection.reconnectRef !== undefined ? { reconnectRef: connection.reconnectRef } : {}),
+    ...(connection.credentialRef !== undefined ? { credentialRef: connection.credentialRef } : {}),
+    ...(connection.credentialState !== undefined ? { credentialState: connection.credentialState } : {}),
     secretsExposed: false as const,
     protectedActionAuthorized: false as const
   });
