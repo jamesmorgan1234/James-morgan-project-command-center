@@ -1,4 +1,5 @@
 export * from "./types.js";
+export * from "./inheritance.js";
 export * from "./registry.js";
 export * from "./lineage.js";
 export * from "./roadmap.js";
