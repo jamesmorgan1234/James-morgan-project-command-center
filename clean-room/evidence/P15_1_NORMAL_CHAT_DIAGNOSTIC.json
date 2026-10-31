@@ -1,0 +1,913 @@
+{
+  "schemaVersion": "cc-p15-1-normal-chat-diagnostic-v1",
+  "sourceCommit": "19657f4bbffd7998f92eb31fa2feea2ff50ffd08",
+  "total": 5852,
+  "counts": {
+    "VERIFIED": 1263,
+    "UNVERIFIED": 4589
+  },
+  "reviewedMappingCount": 1275,
+  "safeExactDuplicateCandidateCount": 12,
+  "ambiguousExactDuplicateCandidateCount": 0,
+  "safeExactDuplicateCandidates": [
+    {
+      "id": "CCR-01127",
+      "requirement": "**API deprecation headers/metadata if internal versioning evolves.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01127"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01128",
+      "requirement": "**Client capability negotiation.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01128"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01129",
+      "requirement": "**Server capability negotiation.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01129"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01130",
+      "requirement": "**Graceful unsupported-feature handling.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01130"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01131",
+      "requirement": "**No hard crash when client sees a future unknown field.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01131"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01132",
+      "requirement": "**Forward-compatible parsing.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01132"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01134",
+      "requirement": "**Read contracts tolerant; write contracts strict.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01134"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01178",
+      "requirement": "**API change impact report.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01178"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01179",
+      "requirement": "**API changelog.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01179"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01180",
+      "requirement": "**API semantic versioning strategy.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01180"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-01183",
+      "requirement": "**Backend refuses dangerous incompatible client safely.**",
+      "architectureBranch": "A08",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-01183"
+      ],
+      "templateCoreCount": 1
+    },
+    {
+      "id": "CCR-05287",
+      "requirement": "API version",
+      "architectureBranch": "A09",
+      "classification": "GOVERNANCE / STANDARD",
+      "templateIds": [
+        "CCR-05287"
+      ],
+      "templateCoreCount": 1
+    }
+  ],
+  "ambiguousExactDuplicateCandidates": [],
+  "unverifiedBuckets": [
+    {
+      "architectureBranch": "A00",
+      "architectureOwner": "Owner Authority / Governance",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 335,
+      "firstId": "CCR-00007",
+      "lastId": "CCR-05820"
+    },
+    {
+      "architectureBranch": "A27",
+      "architectureOwner": "Dormant Future Multi-user / Commercial Fork Boundary",
+      "classification": "BUILT — DORMANT",
+      "count": 297,
+      "firstId": "CCR-01753",
+      "lastId": "CCR-04110"
+    },
+    {
+      "architectureBranch": "A12",
+      "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+      "classification": "CORE — ACTIVE",
+      "count": 287,
+      "firstId": "CCR-02271",
+      "lastId": "CCR-04591"
+    },
+    {
+      "architectureBranch": "A10",
+      "architectureOwner": "Brain / AI Intelligence",
+      "classification": "CORE — ACTIVE",
+      "count": 247,
+      "firstId": "CCR-00092",
+      "lastId": "CCR-04617"
+    },
+    {
+      "architectureBranch": "A14",
+      "architectureOwner": "Finance / Banking / Credit",
+      "classification": "CORE — ACTIVE",
+      "count": 231,
+      "firstId": "CCR-02287",
+      "lastId": "CCR-04803"
+    },
+    {
+      "architectureBranch": "A21",
+      "architectureOwner": "Analytics / Metrics / Recommendations / Self-Audit / Evidence",
+      "classification": "TEST / EVIDENCE",
+      "count": 219,
+      "firstId": "CCR-00268",
+      "lastId": "CCR-05805"
+    },
+    {
+      "architectureBranch": "A24",
+      "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 199,
+      "firstId": "CCR-00030",
+      "lastId": "CCR-05681"
+    },
+    {
+      "architectureBranch": "A22",
+      "architectureOwner": "Security / Privacy / Trust / Incident Response",
+      "classification": "SECURITY / RECOVERY",
+      "count": 179,
+      "firstId": "CCR-00090",
+      "lastId": "CCR-05663"
+    },
+    {
+      "architectureBranch": "A01",
+      "architectureOwner": "Core Kernel / Lifecycle",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 172,
+      "firstId": "CCR-00031",
+      "lastId": "CCR-01634"
+    },
+    {
+      "architectureBranch": "A11",
+      "architectureOwner": "Agent / Execution Infrastructure",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 150,
+      "firstId": "CCR-00084",
+      "lastId": "CCR-05822"
+    },
+    {
+      "architectureBranch": "A10",
+      "architectureOwner": "Brain / AI Intelligence",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 147,
+      "firstId": "CCR-00083",
+      "lastId": "CCR-05821"
+    },
+    {
+      "architectureBranch": "A13",
+      "architectureOwner": "Personal Operations",
+      "classification": "CORE — ACTIVE",
+      "count": 133,
+      "firstId": "CCR-02283",
+      "lastId": "CCR-04573"
+    },
+    {
+      "architectureBranch": "A11",
+      "architectureOwner": "Agent / Execution Infrastructure",
+      "classification": "CORE — ACTIVE",
+      "count": 127,
+      "firstId": "CCR-02265",
+      "lastId": "CCR-04572"
+    },
+    {
+      "architectureBranch": "A16",
+      "architectureOwner": "Books / Publishing Platform",
+      "classification": "CORE — ACTIVE",
+      "count": 95,
+      "firstId": "CCR-02351",
+      "lastId": "CCR-04581"
+    },
+    {
+      "architectureBranch": "A12",
+      "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 88,
+      "firstId": "CCR-00009",
+      "lastId": "CCR-05658"
+    },
+    {
+      "architectureBranch": "A16",
+      "architectureOwner": "Books / Publishing Platform",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 85,
+      "firstId": "CCR-00081",
+      "lastId": "CCR-05607"
+    },
+    {
+      "architectureBranch": "A15",
+      "architectureOwner": "Social / Communications / Publishing Accounts",
+      "classification": "CORE — ACTIVE",
+      "count": 85,
+      "firstId": "CCR-03167",
+      "lastId": "CCR-04286"
+    },
+    {
+      "architectureBranch": "A19",
+      "architectureOwner": "Search / Notifications / Needs Me",
+      "classification": "CORE — ACTIVE",
+      "count": 80,
+      "firstId": "CCR-02246",
+      "lastId": "CCR-04595"
+    },
+    {
+      "architectureBranch": "A24",
+      "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+      "classification": "CORE — ACTIVE",
+      "count": 79,
+      "firstId": "CCR-02230",
+      "lastId": "CCR-04383"
+    },
+    {
+      "architectureBranch": "A21",
+      "architectureOwner": "Analytics / Metrics / Recommendations / Self-Audit / Evidence",
+      "classification": "CORE — ACTIVE",
+      "count": 74,
+      "firstId": "CCR-00338",
+      "lastId": "CCR-04596"
+    },
+    {
+      "architectureBranch": "A16",
+      "architectureOwner": "Books / Publishing Platform",
+      "classification": "SECURITY / RECOVERY",
+      "count": 70,
+      "firstId": "CCR-00042",
+      "lastId": "CCR-05700"
+    },
+    {
+      "architectureBranch": "A22",
+      "architectureOwner": "Security / Privacy / Trust / Incident Response",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 68,
+      "firstId": "CCR-00436",
+      "lastId": "CCR-05825"
+    },
+    {
+      "architectureBranch": "A23",
+      "architectureOwner": "Recovery / Backup / Migration / Disaster Recovery",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 67,
+      "firstId": "CCR-00044",
+      "lastId": "CCR-05667"
+    },
+    {
+      "architectureBranch": "A25",
+      "architectureOwner": "Deployment / Release / Provenance / Rollback",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 65,
+      "firstId": "CCR-00091",
+      "lastId": "CCR-05824"
+    },
+    {
+      "architectureBranch": "A21",
+      "architectureOwner": "Analytics / Metrics / Recommendations / Self-Audit / Evidence",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 64,
+      "firstId": "CCR-00088",
+      "lastId": "CCR-05823"
+    },
+    {
+      "architectureBranch": "A14",
+      "architectureOwner": "Finance / Banking / Credit",
+      "classification": "BUILT — DORMANT",
+      "count": 56,
+      "firstId": "CCR-02801",
+      "lastId": "CCR-04804"
+    },
+    {
+      "architectureBranch": "A10",
+      "architectureOwner": "Brain / AI Intelligence",
+      "classification": "BUILT — DORMANT",
+      "count": 55,
+      "firstId": "CCR-03297",
+      "lastId": "CCR-04607"
+    },
+    {
+      "architectureBranch": "A27",
+      "architectureOwner": "Dormant Future Multi-user / Commercial Fork Boundary",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 52,
+      "firstId": "CCR-00788",
+      "lastId": "CCR-05704"
+    },
+    {
+      "architectureBranch": "A14",
+      "architectureOwner": "Finance / Banking / Credit",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 48,
+      "firstId": "CCR-00011",
+      "lastId": "CCR-05819"
+    },
+    {
+      "architectureBranch": "A11",
+      "architectureOwner": "Agent / Execution Infrastructure",
+      "classification": "BUILT — DORMANT",
+      "count": 36,
+      "firstId": "CCR-03745",
+      "lastId": "CCR-04088"
+    },
+    {
+      "architectureBranch": "A11",
+      "architectureOwner": "Agent / Execution Infrastructure",
+      "classification": "TEST / EVIDENCE",
+      "count": 35,
+      "firstId": "CCR-00010",
+      "lastId": "CCR-05736"
+    },
+    {
+      "architectureBranch": "A20",
+      "architectureOwner": "Automation / Scheduling / Triggers",
+      "classification": "CORE — ACTIVE",
+      "count": 31,
+      "firstId": "CCR-02276",
+      "lastId": "CCR-04352"
+    },
+    {
+      "architectureBranch": "A12",
+      "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+      "classification": "BUILT — DORMANT",
+      "count": 31,
+      "firstId": "CCR-02357",
+      "lastId": "CCR-04091"
+    },
+    {
+      "architectureBranch": "A00",
+      "architectureOwner": "Owner Authority / Governance",
+      "classification": "CORE — ACTIVE",
+      "count": 30,
+      "firstId": "CCR-01794",
+      "lastId": "CCR-03416"
+    },
+    {
+      "architectureBranch": "A23",
+      "architectureOwner": "Recovery / Backup / Migration / Disaster Recovery",
+      "classification": "SECURITY / RECOVERY",
+      "count": 27,
+      "firstId": "CCR-00204",
+      "lastId": "CCR-05533"
+    },
+    {
+      "architectureBranch": "A26",
+      "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 27,
+      "firstId": "CCR-00618",
+      "lastId": "CCR-05481"
+    },
+    {
+      "architectureBranch": "A13",
+      "architectureOwner": "Personal Operations",
+      "classification": "BUILT — DORMANT",
+      "count": 26,
+      "firstId": "CCR-02677",
+      "lastId": "CCR-04696"
+    },
+    {
+      "architectureBranch": "A19",
+      "architectureOwner": "Search / Notifications / Needs Me",
+      "classification": "BUILT — DORMANT",
+      "count": 26,
+      "firstId": "CCR-02812",
+      "lastId": "CCR-04014"
+    },
+    {
+      "architectureBranch": "A25",
+      "architectureOwner": "Deployment / Release / Provenance / Rollback",
+      "classification": "TEST / EVIDENCE",
+      "count": 24,
+      "firstId": "CCR-00838",
+      "lastId": "CCR-05809"
+    },
+    {
+      "architectureBranch": "A25",
+      "architectureOwner": "Deployment / Release / Provenance / Rollback",
+      "classification": "CORE — ACTIVE",
+      "count": 24,
+      "firstId": "CCR-02280",
+      "lastId": "CCR-03230"
+    },
+    {
+      "architectureBranch": "A17",
+      "architectureOwner": "Commerce / Shopping / Coupon Orchestration",
+      "classification": "CORE — ACTIVE",
+      "count": 24,
+      "firstId": "CCR-02658",
+      "lastId": "CCR-04550"
+    },
+    {
+      "architectureBranch": "A12",
+      "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+      "classification": "TEST / EVIDENCE",
+      "count": 21,
+      "firstId": "CCR-00445",
+      "lastId": "CCR-05783"
+    },
+    {
+      "architectureBranch": "A14",
+      "architectureOwner": "Finance / Banking / Credit",
+      "classification": "TEST / EVIDENCE",
+      "count": 20,
+      "firstId": "CCR-00015",
+      "lastId": "CCR-05356"
+    },
+    {
+      "architectureBranch": "A19",
+      "architectureOwner": "Search / Notifications / Needs Me",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 20,
+      "firstId": "CCR-00803",
+      "lastId": "CCR-05678"
+    },
+    {
+      "architectureBranch": "A16",
+      "architectureOwner": "Books / Publishing Platform",
+      "classification": "TEST / EVIDENCE",
+      "count": 20,
+      "firstId": "CCR-00860",
+      "lastId": "CCR-05749"
+    },
+    {
+      "architectureBranch": "A23",
+      "architectureOwner": "Recovery / Backup / Migration / Disaster Recovery",
+      "classification": "CORE — ACTIVE",
+      "count": 20,
+      "firstId": "CCR-01325",
+      "lastId": "CCR-04532"
+    },
+    {
+      "architectureBranch": "A16",
+      "architectureOwner": "Books / Publishing Platform",
+      "classification": "BUILT — DORMANT",
+      "count": 19,
+      "firstId": "CCR-02881",
+      "lastId": "CCR-04036"
+    },
+    {
+      "architectureBranch": "A20",
+      "architectureOwner": "Automation / Scheduling / Triggers",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 18,
+      "firstId": "CCR-00089",
+      "lastId": "CCR-05190"
+    },
+    {
+      "architectureBranch": "A10",
+      "architectureOwner": "Brain / AI Intelligence",
+      "classification": "TEST / EVIDENCE",
+      "count": 17,
+      "firstId": "CCR-01162",
+      "lastId": "CCR-05786"
+    },
+    {
+      "architectureBranch": "A10",
+      "architectureOwner": "Brain / AI Intelligence",
+      "classification": "SECURITY / RECOVERY",
+      "count": 17,
+      "firstId": "CCR-03473",
+      "lastId": "CCR-05601"
+    },
+    {
+      "architectureBranch": "A20",
+      "architectureOwner": "Automation / Scheduling / Triggers",
+      "classification": "BUILT — DORMANT",
+      "count": 17,
+      "firstId": "CCR-03775",
+      "lastId": "CCR-04610"
+    },
+    {
+      "architectureBranch": "A14",
+      "architectureOwner": "Finance / Banking / Credit",
+      "classification": "SECURITY / RECOVERY",
+      "count": 15,
+      "firstId": "CCR-03469",
+      "lastId": "CCR-05705"
+    },
+    {
+      "architectureBranch": "A03",
+      "architectureOwner": "Identity / Authentication / Sessions / Devices",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 13,
+      "firstId": "CCR-01727",
+      "lastId": "CCR-05816"
+    },
+    {
+      "architectureBranch": "A11",
+      "architectureOwner": "Agent / Execution Infrastructure",
+      "classification": "SECURITY / RECOVERY",
+      "count": 12,
+      "firstId": "CCR-01997",
+      "lastId": "CCR-05083"
+    },
+    {
+      "architectureBranch": "A24",
+      "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+      "classification": "TEST / EVIDENCE",
+      "count": 11,
+      "firstId": "CCR-00744",
+      "lastId": "CCR-05781"
+    },
+    {
+      "architectureBranch": "A22",
+      "architectureOwner": "Security / Privacy / Trust / Incident Response",
+      "classification": "TEST / EVIDENCE",
+      "count": 11,
+      "firstId": "CCR-01054",
+      "lastId": "CCR-05803"
+    },
+    {
+      "architectureBranch": "A08",
+      "architectureOwner": "Command Bus / Event Bus / Workflow Runtime",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 11,
+      "firstId": "CCR-01127",
+      "lastId": "CCR-01183"
+    },
+    {
+      "architectureBranch": "A22",
+      "architectureOwner": "Security / Privacy / Trust / Incident Response",
+      "classification": "CORE — ACTIVE",
+      "count": 11,
+      "firstId": "CCR-02334",
+      "lastId": "CCR-04600"
+    },
+    {
+      "architectureBranch": "A15",
+      "architectureOwner": "Social / Communications / Publishing Accounts",
+      "classification": "BUILT — DORMANT",
+      "count": 10,
+      "firstId": "CCR-03627",
+      "lastId": "CCR-04038"
+    },
+    {
+      "architectureBranch": "A24",
+      "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+      "classification": "BUILT — DORMANT",
+      "count": 8,
+      "firstId": "CCR-02288",
+      "lastId": "CCR-04218"
+    },
+    {
+      "architectureBranch": "A15",
+      "architectureOwner": "Social / Communications / Publishing Accounts",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 7,
+      "firstId": "CCR-00799",
+      "lastId": "CCR-05643"
+    },
+    {
+      "architectureBranch": "A13",
+      "architectureOwner": "Personal Operations",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 7,
+      "firstId": "CCR-05170",
+      "lastId": "CCR-05585"
+    },
+    {
+      "architectureBranch": "A04",
+      "architectureOwner": "Authorization / Policy / Risk / Approval",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 6,
+      "firstId": "CCR-00475",
+      "lastId": "CCR-02123"
+    },
+    {
+      "architectureBranch": "A23",
+      "architectureOwner": "Recovery / Backup / Migration / Disaster Recovery",
+      "classification": "TEST / EVIDENCE",
+      "count": 6,
+      "firstId": "CCR-01030",
+      "lastId": "CCR-05774"
+    },
+    {
+      "architectureBranch": "A21",
+      "architectureOwner": "Analytics / Metrics / Recommendations / Self-Audit / Evidence",
+      "classification": "BUILT — DORMANT",
+      "count": 6,
+      "firstId": "CCR-02962",
+      "lastId": "CCR-04093"
+    },
+    {
+      "architectureBranch": "A13",
+      "architectureOwner": "Personal Operations",
+      "classification": "TEST / EVIDENCE",
+      "count": 6,
+      "firstId": "CCR-04891",
+      "lastId": "CCR-04901"
+    },
+    {
+      "architectureBranch": "A12",
+      "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+      "classification": "SECURITY / RECOVERY",
+      "count": 5,
+      "firstId": "CCR-01515",
+      "lastId": "CCR-05074"
+    },
+    {
+      "architectureBranch": "A17",
+      "architectureOwner": "Commerce / Shopping / Coupon Orchestration",
+      "classification": "TEST / EVIDENCE",
+      "count": 5,
+      "firstId": "CCR-04826",
+      "lastId": "CCR-04858"
+    },
+    {
+      "architectureBranch": "A03",
+      "architectureOwner": "Identity / Authentication / Sessions / Devices",
+      "classification": "TEST / EVIDENCE",
+      "count": 4,
+      "firstId": "CCR-00320",
+      "lastId": "CCR-05344"
+    },
+    {
+      "architectureBranch": "A00",
+      "architectureOwner": "Owner Authority / Governance",
+      "classification": "TEST / EVIDENCE",
+      "count": 4,
+      "firstId": "CCR-01842",
+      "lastId": "CCR-05527"
+    },
+    {
+      "architectureBranch": "A17",
+      "architectureOwner": "Commerce / Shopping / Coupon Orchestration",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 4,
+      "firstId": "CCR-02031",
+      "lastId": "CCR-05640"
+    },
+    {
+      "architectureBranch": "A18",
+      "architectureOwner": "Media / Content / VeloClip Orchestration",
+      "classification": "CORE — ACTIVE",
+      "count": 4,
+      "firstId": "CCR-04551",
+      "lastId": "CCR-04555"
+    },
+    {
+      "architectureBranch": "A20",
+      "architectureOwner": "Automation / Scheduling / Triggers",
+      "classification": "TEST / EVIDENCE",
+      "count": 3,
+      "firstId": "CCR-01063",
+      "lastId": "CCR-05804"
+    },
+    {
+      "architectureBranch": "A23",
+      "architectureOwner": "Recovery / Backup / Migration / Disaster Recovery",
+      "classification": "BUILT — DORMANT",
+      "count": 3,
+      "firstId": "CCR-03445",
+      "lastId": "CCR-03868"
+    },
+    {
+      "architectureBranch": "A03",
+      "architectureOwner": "Identity / Authentication / Sessions / Devices",
+      "classification": "BUILT — DORMANT",
+      "count": 3,
+      "firstId": "CCR-03769",
+      "lastId": "CCR-04611"
+    },
+    {
+      "architectureBranch": "A19",
+      "architectureOwner": "Search / Notifications / Needs Me",
+      "classification": "TEST / EVIDENCE",
+      "count": 3,
+      "firstId": "CCR-04808",
+      "lastId": "CCR-05757"
+    },
+    {
+      "architectureBranch": "A00",
+      "architectureOwner": "Owner Authority / Governance",
+      "classification": "SECURITY / RECOVERY",
+      "count": 2,
+      "firstId": "CCR-00741",
+      "lastId": "CCR-05375"
+    },
+    {
+      "architectureBranch": "A15",
+      "architectureOwner": "Social / Communications / Publishing Accounts",
+      "classification": "SECURITY / RECOVERY",
+      "count": 2,
+      "firstId": "CCR-03472",
+      "lastId": "CCR-03478"
+    },
+    {
+      "architectureBranch": "A27",
+      "architectureOwner": "Dormant Future Multi-user / Commercial Fork Boundary",
+      "classification": "SECURITY / RECOVERY",
+      "count": 2,
+      "firstId": "CCR-04011",
+      "lastId": "CCR-05023"
+    },
+    {
+      "architectureBranch": "A04",
+      "architectureOwner": "Authorization / Policy / Risk / Approval",
+      "classification": "CORE — ACTIVE",
+      "count": 2,
+      "firstId": "CCR-04171",
+      "lastId": "CCR-04467"
+    },
+    {
+      "architectureBranch": "A18",
+      "architectureOwner": "Media / Content / VeloClip Orchestration",
+      "classification": "TEST / EVIDENCE",
+      "count": 2,
+      "firstId": "CCR-04825",
+      "lastId": "CCR-04861"
+    },
+    {
+      "architectureBranch": "A15",
+      "architectureOwner": "Social / Communications / Publishing Accounts",
+      "classification": "TEST / EVIDENCE",
+      "count": 2,
+      "firstId": "CCR-05357",
+      "lastId": "CCR-05785"
+    },
+    {
+      "architectureBranch": "A02",
+      "architectureOwner": "Registries / Capability Fabric",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 1,
+      "firstId": "CCR-00094",
+      "lastId": "CCR-00094"
+    },
+    {
+      "architectureBranch": "A20",
+      "architectureOwner": "Automation / Scheduling / Triggers",
+      "classification": "SECURITY / RECOVERY",
+      "count": 1,
+      "firstId": "CCR-00551",
+      "lastId": "CCR-00551"
+    },
+    {
+      "architectureBranch": "A01",
+      "architectureOwner": "Core Kernel / Lifecycle",
+      "classification": "TEST / EVIDENCE",
+      "count": 1,
+      "firstId": "CCR-00847",
+      "lastId": "CCR-00847"
+    },
+    {
+      "architectureBranch": "A25",
+      "architectureOwner": "Deployment / Release / Provenance / Rollback",
+      "classification": "BUILT — DORMANT",
+      "count": 1,
+      "firstId": "CCR-03001",
+      "lastId": "CCR-03001"
+    },
+    {
+      "architectureBranch": "A00",
+      "architectureOwner": "Owner Authority / Governance",
+      "classification": "BUILT — DORMANT",
+      "count": 1,
+      "firstId": "CCR-03410",
+      "lastId": "CCR-03410"
+    },
+    {
+      "architectureBranch": "A26",
+      "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+      "classification": "CORE — ACTIVE",
+      "count": 1,
+      "firstId": "CCR-03429",
+      "lastId": "CCR-03429"
+    },
+    {
+      "architectureBranch": "A22",
+      "architectureOwner": "Security / Privacy / Trust / Incident Response",
+      "classification": "BUILT — DORMANT",
+      "count": 1,
+      "firstId": "CCR-03643",
+      "lastId": "CCR-03643"
+    },
+    {
+      "architectureBranch": "A18",
+      "architectureOwner": "Media / Content / VeloClip Orchestration",
+      "classification": "BUILT — DORMANT",
+      "count": 1,
+      "firstId": "CCR-03655",
+      "lastId": "CCR-03655"
+    },
+    {
+      "architectureBranch": "A27",
+      "architectureOwner": "Dormant Future Multi-user / Commercial Fork Boundary",
+      "classification": "FUTURE — NOT YET BUILDABLE",
+      "count": 1,
+      "firstId": "CCR-04029",
+      "lastId": "CCR-04029"
+    },
+    {
+      "architectureBranch": "A17",
+      "architectureOwner": "Commerce / Shopping / Coupon Orchestration",
+      "classification": "SECURITY / RECOVERY",
+      "count": 1,
+      "firstId": "CCR-04549",
+      "lastId": "CCR-04549"
+    },
+    {
+      "architectureBranch": "A04",
+      "architectureOwner": "Authorization / Policy / Risk / Approval",
+      "classification": "TEST / EVIDENCE",
+      "count": 1,
+      "firstId": "CCR-04918",
+      "lastId": "CCR-04918"
+    },
+    {
+      "architectureBranch": "A25",
+      "architectureOwner": "Deployment / Release / Provenance / Rollback",
+      "classification": "SECURITY / RECOVERY",
+      "count": 1,
+      "firstId": "CCR-04973",
+      "lastId": "CCR-04973"
+    },
+    {
+      "architectureBranch": "A09",
+      "architectureOwner": "Provider / Adapter Platform",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 1,
+      "firstId": "CCR-05287",
+      "lastId": "CCR-05287"
+    },
+    {
+      "architectureBranch": "A18",
+      "architectureOwner": "Media / Content / VeloClip Orchestration",
+      "classification": "GOVERNANCE / STANDARD",
+      "count": 1,
+      "firstId": "CCR-05519",
+      "lastId": "CCR-05519"
+    },
+    {
+      "architectureBranch": "A26",
+      "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+      "classification": "TEST / EVIDENCE",
+      "count": 1,
+      "firstId": "CCR-05728",
+      "lastId": "CCR-05728"
+    }
+  ]
+}
