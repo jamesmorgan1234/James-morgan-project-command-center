@@ -3,12 +3,15 @@
   "recoveredFrom": "BULK_AUTHORITY_PARSE.json (sha256 df257f70305436ca61964c7a4364c8dca519b01962a64632abc7725cdfd292fd)",
   "sourceAuthority": {
     "path": "P10-P14_authority_replacements/P14_REPLACEMENT_AUTHORITY_ONLY.md",
-    "sha256": "96a09d05d696b7308af1abc33d59287641db76f47b993a674bdd3fcd03e5e552",
+    "sha256": "bcde4f16de0886fdcafb11f0bf13f817bd2994b10d041a10b6b8818eb3ea309c",
     "archive": "COMMAND_CENTER_P1-P14_VERIFIED_FILES_PACKAGE.zip",
     "archiveSha256": "008f1a1d608a17dc5acd9d87fe934c1421102574697699afaeae0f8aa529db68",
-    "authorityCcrCount": 506,
+    "authorityCcrCount": 505,
     "uniqueCcrCount": 505,
-    "note": "Authority reports 506 entries; the reconstructed map holds 505 unique ids, exactly equal to the ledger recovery+dormant clusters, so the 506th is a repeated entry."
+    "testReport": "P10-P14_authority_replacements/P14_AUTHORITY_TEST_REPORT.txt",
+    "testReportSha256": "96a09d05d696b7308af1abc33d59287641db76f47b993a674bdd3fcd03e5e552",
+    "testReportOverallPass": true,
+    "note": "The authority lists 505 entries and the reconstructed map holds the same 505 unique ids, exactly equal to the ledger recovery+dormant clusters."
   },
   "phaseMap": {
     "P14.1": [
