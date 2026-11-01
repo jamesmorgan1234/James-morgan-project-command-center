@@ -1,7 +1,7 @@
 {
   "schemaVersion": "cc-current-release-candidate-v1",
   "status": "CANDIDATE_PREPARED_AUTHORIZATION_REQUIRED",
-  "generatedAt": "2026-11-01T22:34:17.347Z",
+  "generatedAt": "2026-11-01T22:45:20.738Z",
   "gitSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
   "releaseIdentity": {
     "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
@@ -50,6 +50,14 @@
       {
         "sha": "8e2db040b14563b267c76b90a9f4868c88acef10",
         "subject": "chore: rebind the current candidate to the repaired evidence"
+      },
+      {
+        "sha": "146923ed9f4b1c3633db11bbc6919ff7fb5d3f02",
+        "subject": "fix: install locked tooling before the guarded ledger promotion"
+      },
+      {
+        "sha": "6fe4dfb76fbe21ce257200703bcfd0b7cefef34d",
+        "subject": "chore: requalify P15.1 reviewed mappings (5852 -> 5852)"
       }
     ],
     "evidenceOnlyCommitsDoNotRedefineCandidate": true
@@ -118,5 +126,5 @@
     "protectedAssetsChanged": false,
     "note": "Production, main, production Supabase/auth and protected release assets remain untouched."
   },
-  "manifestHash": "784488b3a967e1d7ad22d74a507a77b91a2bb46739599971f859c813494d3d5f"
+  "manifestHash": "8a0a42b17a231fe507fddbb923d860daa3e723eb4bf78a4ab65f71ffd5be0ff9"
 }
