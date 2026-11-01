@@ -1,0 +1,208 @@
+{
+  "schemaVersion": "cc-whole-system-rendered-dom-sweep-v1",
+  "generatedAt": "2026-11-01T18:36:04.256Z",
+  "routeCount": 22,
+  "rows": [
+    {
+      "file": "_active.html",
+      "textLength": 689,
+      "h1": "Active / Live",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Active / Live · Command Center ‹ COMMAND CENTER Active / Live Live projects in progress CO"
+    },
+    {
+      "file": "_agency.html",
+      "textLength": 683,
+      "h1": "Agency",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Agency · Command Center ‹ COMMAND CENTER Agency Durable execution and autonomy truth CONNE"
+    },
+    {
+      "file": "_analytics.html",
+      "textLength": 669,
+      "h1": "Analytics",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Analytics · Command Center ‹ COMMAND CENTER Analytics Private owner command system CONNECT"
+    },
+    {
+      "file": "_automations.html",
+      "textLength": 710,
+      "h1": "Automations",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Automations · Command Center ‹ COMMAND CENTER Automations Private owner command system CON"
+    },
+    {
+      "file": "_books.html",
+      "textLength": 653,
+      "h1": "Books",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Books · Command Center ‹ COMMAND CENTER Books Private owner command system CONNECTED SYNTH"
+    },
+    {
+      "file": "_brain.html",
+      "textLength": 687,
+      "h1": "Brain",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Brain · Command Center ‹ COMMAND CENTER Brain Persistent intelligence workspace CONNECTED "
+    },
+    {
+      "file": "_finance.html",
+      "textLength": 661,
+      "h1": "Finance",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Finance · Command Center ‹ COMMAND CENTER Finance Private owner command system CONNECTED S"
+    },
+    {
+      "file": "_needs-me.html",
+      "textLength": 536,
+      "h1": "Needs Me",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Needs Me · Command Center ‹ COMMAND CENTER Needs Me Private owner command system CONNECTED"
+    },
+    {
+      "file": "_next-up.html",
+      "textLength": 649,
+      "h1": "Next Up",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Next Up · Command Center ‹ COMMAND CENTER Next Up Priority queue CONNECTED SYNTHETIC PREVI"
+    },
+    {
+      "file": "_personal.html",
+      "textLength": 676,
+      "h1": "Personal",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Personal · Command Center ‹ COMMAND CENTER Personal Private owner command system CONNECTED"
+    },
+    {
+      "file": "_project_fixture-critical.html",
+      "textLength": 1682,
+      "h1": "[TEST] Critical rendering path",
+      "navLinks": 22,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Project Details · Command Center ‹ COMMAND CENTER [TEST] Critical rendering path Project D"
+    },
+    {
+      "file": "_project_fixture-low.html",
+      "textLength": 1655,
+      "h1": "[TEST] Low rendering path",
+      "navLinks": 22,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Project Details · Command Center ‹ COMMAND CENTER [TEST] Low rendering path Project Detail"
+    },
+    {
+      "file": "_project_fixture-normal.html",
+      "textLength": 1670,
+      "h1": "[TEST] Normal rendering path",
+      "navLinks": 22,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Project Details · Command Center ‹ COMMAND CENTER [TEST] Normal rendering path Project Det"
+    },
+    {
+      "file": "_projects.html",
+      "textLength": 1232,
+      "h1": "Projects",
+      "navLinks": 21,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Projects · Command Center ‹ COMMAND CENTER Projects Full portfolio of tracked projects CON"
+    },
+    {
+      "file": "_search.html",
+      "textLength": 689,
+      "h1": "Search",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Search · Command Center ‹ COMMAND CENTER Search Private owner command system CONNECTED SYN"
+    },
+    {
+      "file": "_settings.html",
+      "textLength": 665,
+      "h1": "Settings",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Settings · Command Center ‹ COMMAND CENTER Settings Private owner command system CONNECTED"
+    },
+    {
+      "file": "_settings_devices.html",
+      "textLength": 694,
+      "h1": "Devices",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Devices · Command Center ‹ COMMAND CENTER Devices Private owner command system CONNECTED S"
+    },
+    {
+      "file": "_settings_security.html",
+      "textLength": 721,
+      "h1": "Security",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Security · Command Center ‹ COMMAND CENTER Security Private owner command system CONNECTED"
+    },
+    {
+      "file": "_social.html",
+      "textLength": 720,
+      "h1": "Social &amp; Communications",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Social &amp; Communications · Command Center ‹ COMMAND CENTER Social &amp; Communications "
+    },
+    {
+      "file": "_specialists.html",
+      "textLength": 676,
+      "h1": "Specialists",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Specialists · Command Center ‹ COMMAND CENTER Specialists Private owner command system CON"
+    },
+    {
+      "file": "_this-route-does-not-exist.html",
+      "textLength": 643,
+      "h1": "Route unavailable",
+      "navLinks": 18,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Route unavailable · Command Center ‹ COMMAND CENTER Route unavailable /this-route-does-not"
+    },
+    {
+      "file": "home.html",
+      "textLength": 725,
+      "h1": "Command Center",
+      "navLinks": 22,
+      "appShell": true,
+      "notFoundSnippet": false,
+      "head": "Command Center · Command Center COMMAND CENTER Command Center Private owner command system"
+    }
+  ],
+  "renderedRouteCount": 22,
+  "unknownRouteTruthful": true,
+  "crashesObserved": "Chrome headless-shell intermittently aborted (Trace/breakpoint trap) on /projects; retried until rendered. Harness instability, not an app defect."
+}

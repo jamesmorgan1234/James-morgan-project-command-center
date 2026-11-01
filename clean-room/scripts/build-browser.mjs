@@ -85,13 +85,13 @@ if (previewAcceptance) {
   const checkpoints = new ProjectCheckpointStore();
   const observedAt = "2026-10-23T00:00:00Z";
   const definitions = [
-    ["fixture-critical", "[TEST] Critical rendering path", "critical", "active"],
-    ["fixture-normal", "[TEST] Normal rendering path", "normal", "active"],
-    ["fixture-low", "[TEST] Low rendering path", "low", "candidate"]
+    ["fixture-critical", "[TEST] Critical rendering path", "critical", "active", "Synthetic in progress"],
+    ["fixture-normal", "[TEST] Normal rendering path", "normal", "active", "Synthetic in progress"],
+    ["fixture-low", "[TEST] Low rendering path", "low", "candidate", "Synthetic candidate"]
   ];
-  for (const [id, name, priority, lifecycle] of definitions) {
-    projects.create({ id, typeKey: "project-type:acceptance", ownerId: "synthetic-owner", name, mission: "Synthetic preview record <fixture & evidence>; no real business data.", lifecycle, verification: "partial", priority, version: 1, createdAt: observedAt, updatedAt: observedAt, agentAccessEnabled: false, portfolioAutoEnabled: false, protected: true });
-    checkpoints.append({ id: id + "-checkpoint", projectId: id, roadmapVersion: 1, createdAt: observedAt, exactNextWorkUnitId: id + "-next", verificationMethod: "synthetic browser acceptance", evidenceRefs: ["synthetic:p15.14"], resumeStateHash: "synthetic-only" });
+  for (const [id, name, priority, lifecycle, status] of definitions) {
+    projects.create({ id, typeKey: "project-type:acceptance", ownerId: "synthetic-owner", name, mission: "Synthetic preview record <fixture & evidence>; no real business data.", lifecycle, status, verification: "partial", priority, version: 1, createdAt: observedAt, updatedAt: observedAt, agentAccessEnabled: false, portfolioAutoEnabled: false, protected: true });
+    checkpoints.append({ id: id + "-checkpoint", projectId: id, roadmapVersion: 1, createdAt: observedAt, exactNextWorkUnitId: id + "-next", verificationMethod: "synthetic browser acceptance", evidenceRefs: ["synthetic:p15.14"], resumeStateHash: sha256(`synthetic:${id}`) });
   }
   const roadmap = { projectId: "fixture-critical", version: 1, workUnits: [
     { id: "fixture-a", categoryId: "fixture", phaseId: "1", title: "Synthetic verified unit", status: "verified", applicable: true, dependencyIds: [], gateIds: [], acceptanceCriteria: ["fixture only"] },
