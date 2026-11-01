@@ -24,3 +24,4 @@ export * from "./scheduling.js";
 export * from "./localization.js";
 export * from "./registries.js";
 export * from "./module-hygiene.js";
+export * from "./standards.js";
