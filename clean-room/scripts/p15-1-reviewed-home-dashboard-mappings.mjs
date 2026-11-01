@@ -75,3 +75,5 @@ export function reviewedHomeDashboardMappings() {
       "The barrier result carries a null percentage, so a count is never presented as a fabricated percentage.")
   ];
 }
+
+// Re-trigger marker: assembly was skipped by a preflight pathspec bug; mapping rows unchanged.

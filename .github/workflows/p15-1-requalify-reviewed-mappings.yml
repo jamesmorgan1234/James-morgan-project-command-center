@@ -61,7 +61,7 @@ jobs:
           if [ "${{ github.event_name }}" = "push" ]; then
             base="${{ github.event.before }}"
             if ! git cat-file -e "$base" 2>/dev/null; then base="$(git rev-parse HEAD~1)"; fi
-            mapfile -t modules < <(git diff --name-only "$base" "${{ github.sha }}" -- 'clean-room/scripts/p15-1-reviewed-*.mjs' | sed 's#^clean-room/##')
+            mapfile -t modules < <(git diff --name-only "$base" "${{ github.sha }}" -- 'scripts/p15-1-reviewed-*.mjs' | sed 's#^clean-room/##')
           else
             mapfile -t modules < <(ls scripts/p15-1-reviewed-*.mjs | grep -v current-reviewed)
           fi
