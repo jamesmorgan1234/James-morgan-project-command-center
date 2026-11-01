@@ -15,14 +15,17 @@ test("P15.2 every-file review accounts for every tracked file and reports no def
   assert.equal(summary.phaseId, "P15.2");
   assert.equal(summary.reviewScope, "all-git-tracked-files");
   assert.equal(summary.trackedFileCount, tracked.length);
-  assert.equal(summary.reviewedFileCount, tracked.length);
+  // The evidence verdict cannot review or digest itself, so it is excluded from
+  // its own inventory; every other tracked file must be accounted for.
+  assert.equal(summary.reviewedFileCount, tracked.length - 1);
+  assert.equal(summary.evidenceFileExcluded, true);
   assert.equal(summary.defectCount, 0);
   assert.ok(summary.directoryCount > 0);
   for (const [role, count] of Object.entries(summary.filesByRole)) {
     assert.ok(Object.hasOwn(summary.roleLegend, role), `unknown role ${role}`);
     assert.ok(count > 0, `role ${role} has no files`);
   }
-  assert.equal(Object.values(summary.filesByRole).reduce((total, count) => total + count, 0), tracked.length);
+  assert.equal(Object.values(summary.filesByRole).reduce((total, count) => total + count, 0), tracked.length - 1);
 });
 
 test("P15.2 committed evidence reviews exactly the tracked inventory", () => {
