@@ -1,0 +1,32 @@
+name: P15.1 Snapshot Artifact
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - '.github/workflows/p15-1-snapshot-artifact.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Create exact branch snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD > P15_1_SNAPSHOT_HEAD.txt
+          zip -qr p15-1-repo-snapshot.zip . -x '.git/*' 'p15-1-repo-snapshot.zip'
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: p15-1-repo-snapshot
+          path: p15-1-repo-snapshot.zip
+          if-no-files-found: error
+          retention-days: 1
