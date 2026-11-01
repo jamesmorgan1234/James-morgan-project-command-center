@@ -9,6 +9,7 @@ import {reviewedDataFoundationMappings} from './p15-1-reviewed-data-foundation-m
 import {reviewedEntityRelationshipMappings} from './p15-1-reviewed-entity-relationship-mappings.mjs';
 import {reviewedAssetContractMappings} from './p15-1-reviewed-asset-contract-mappings.mjs';
 import {reviewedDesignSystemMappings} from './p15-1-reviewed-design-system-mappings.mjs';
+import {reviewedDesignPerfPwaMappings} from './p15-1-reviewed-design-perf-pwa-mappings.mjs';
 import {reviewedDeviceAdaptationMappings} from './p15-1-reviewed-device-adaptation-mappings.mjs';
 import {reviewedPwaLifecycleMappings} from './p15-1-reviewed-pwa-lifecycle-mappings.mjs';
 import {reviewedBrainContextMappings} from './p15-1-reviewed-brain-context-mappings.mjs';
@@ -133,6 +134,7 @@ export function currentReviewedMappings(root){
   ...reviewedEntityRelationshipMappings(),
   ...reviewedAssetContractMappings(),
   ...reviewedDesignSystemMappings(),
+  ...reviewedDesignPerfPwaMappings(),
   ...reviewedDeviceAdaptationMappings(),
   ...reviewedPwaLifecycleMappings(),
   ...reviewedBrainContextMappings(),
