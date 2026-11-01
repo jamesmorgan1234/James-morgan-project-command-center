@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "cc-production-authorization-v1",
+  "status": "AUTHORIZED",
+  "authorizedBy": "James Morgan",
+  "releaseCandidateSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+  "releaseCandidateManifestHash": "8a0a42b17a231fe507fddbb923d860daa3e723eb4bf78a4ab65f71ffd5be0ff9",
+  "operationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
+  "scope": [
+    "production_deploy",
+    "production_live_verification"
+  ],
+  "constraints": {
+    "spendingAuthorized": false,
+    "p15_17OwnerAcceptanceAuthorized": false,
+    "p15_18PhysicalSamsungAcceptanceAuthorized": false,
+    "resources": "existing-$0-free-only"
+  },
+  "authorizationText": "I authorize P15.15 production release of COMMAND CENTER candidate 2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b under production operation cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8, using only existing $0/free resources. I authorize creation of the production-authorization evidence required for this exact candidate and P15.16 production deploy/live verification. I do not authorize spending, P15.17 acceptance, or P15.18 device acceptance."
+}
