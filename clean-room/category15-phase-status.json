@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 10,
+  "verification": {
+    "headSha": "6efcbaed796d9799e063cba3b0187a3ffd65960b",
+    "exactHeadCiVerified": false,
+    "authorityAuditVerified": true
+  },
+  "currentPhaseCount": 199,
+  "lockedCanonicalRequirementCount": 5852,
+  "lockedBaselineRequirementCount": 5825,
+  "lockedRev3RequirementCount": 27,
+  "canonicalTotalsValid": true,
+  "allCategory15DefinitionsPresent": true,
+  "historicalLedgerCandidates": [
+    "roadmap/master-build-plan-owner-review/02_MASTER_BUILD_PLAN_REQUIREMENT_LEDGER.md",
+    "roadmap/master-build-plan-owner-review/Command_Center_Canonical_Requirement_Registry.json",
+    "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json",
+    "clean-room/evidence/category15-requirement-traceability.json"
+  ],
+  "recoveredOriginalLedgerAuthorityPath": "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json",
+  "originalHistoricalLedgerRecovered": true,
+  "canonicalRequirementAuthoritySatisfied": true,
+  "requirementTraceabilityPath": "clean-room/evidence/category15-requirement-traceability.json",
+  "requirementTraceabilityStructureValid": true,
+  "requirementTraceabilityClosureComplete": false,
+  "requirementTraceabilityValid": false,
+  "requirementTraceabilitySummary": {
+    "structureValid": true,
+    "closureComplete": true,
+    "metadataValid": true,
+    "rowCount": 5852,
+    "verifiedCount": 5852,
+    "notApplicableCount": 0,
+    "unverifiedCount": 0,
+    "structurallyInvalidRowCount": 0,
+    "closureInvalidRowCount": 0
+  },
+  "requirementTraceabilityRepositoryEvidence": {
+    "valid": false,
+    "errors": [
+      {
+        "id": "PROOF",
+        "message": "Changed/unqualified evidence input: clean-room/scripts/build-browser.mjs"
+      },
+      {
+        "id": "PROOF",
+        "message": "Changed/unqualified evidence input: clean-room/tests/category15-gate-integrity.test.mjs"
+      },
+      {
+        "id": "CCR-00688",
+        "message": "Changed/unqualified evidence input: clean-room/scripts/build-browser.mjs"
+      },
+      {
+        "id": "CCR-00690",
+        "message": "Changed/unqualified evidence input: clean-room/scripts/build-browser.mjs"
+      }
+    ],
+    "invalidRowIds": [
+      "CCR-00688",
+      "CCR-00690"
+    ]
+  },
+  "historicalCandidate": {
+    "releaseCandidateSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+    "previewDeploymentId": "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
+    "buildHash": "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
+    "assetManifestHash": "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
+    "status": "HISTORICAL_EVIDENCE_ONLY",
+    "note": "This frozen historical candidate and its historical owner decision are not authorization for a materially different future candidate."
+  },
+  "currentCandidateManifestPath": "clean-room/evidence/CURRENT_RELEASE_CANDIDATE.json",
+  "currentOwnerDecisionPath": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
+  "phases": {
+    "P15.1": {
+      "status": "SOURCE_RECOVERED_TRACEABILITY_OPEN",
+      "reason": "The authoritative original CCR-00001–CCR-05825 ledger has been recovered and verified, resolving the source-artifact blocker. P15.1 remains open until all 5,852 requirements have strict requirement-level source/version, scope, phase, dependency, implementation, positive/negative/failure-path test, evidence-version/environment, truth-state, and blocker-or-justified-non-applicability closure.",
+      "evidence": [
+        "clean-room/evidence/P15_1_RECOVERED_ORIGINAL_LEDGER_AUTHORITY.json"
+      ],
+      "requiredTraceability": "clean-room/evidence/category15-requirement-traceability.json",
+      "traceabilitySummary": {
+        "structureValid": true,
+        "closureComplete": true,
+        "metadataValid": true,
+        "rowCount": 5852,
+        "verifiedCount": 5852,
+        "notApplicableCount": 0,
+        "unverifiedCount": 0,
+        "structurallyInvalidRowCount": 0,
+        "closureInvalidRowCount": 0
+      }
+    },
+    "P15.2": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Separately evidenced semantic every-file review is bound to this exact head."
+    },
+    "P15.3": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_3.json",
+        "clean-room/tests/kernel-foundation.test.mjs",
+        "clean-room/tests/runtime-integration.test.mjs"
+      ]
+    },
+    "P15.4": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_4.json",
+        "clean-room/tests/security-foundation.test.mjs",
+        "clean-room/tests/finance-platform-foundation.test.mjs"
+      ]
+    },
+    "P15.5": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_5.json",
+        "clean-room/tests/ui-shell-foundation.test.mjs",
+        "clean-room/tests/runtime-visual-structure.test.mjs",
+        "clean-room/tests/route-state-closure.test.mjs"
+      ]
+    },
+    "P15.6": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_6.json",
+        "clean-room/tests/data-platform-recovery.test.mjs",
+        "clean-room/tests/recovery-scale-foundation.test.mjs"
+      ]
+    },
+    "P15.7": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_7.json",
+        "clean-room/tests/agency-foundation.test.mjs"
+      ]
+    },
+    "P15.8": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_8.json",
+        "clean-room/tests/agency-foundation.test.mjs"
+      ]
+    },
+    "P15.9": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_9.json",
+        "clean-room/tests/projects-foundation.test.mjs",
+        "clean-room/tests/agency-foundation.test.mjs"
+      ]
+    },
+    "P15.10": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_10.json",
+        "clean-room/tests/personal-ops-foundation.test.mjs",
+        "clean-room/tests/agency-foundation.test.mjs"
+      ]
+    },
+    "P15.11": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_11.json",
+        "clean-room/tests/recovery-scale-foundation.test.mjs",
+        "clean-room/tests/category15-release-artifact-audit.test.mjs"
+      ]
+    },
+    "P15.12": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_12.json",
+        "clean-room/tests/category15-performance-load-soak.test.mjs"
+      ]
+    },
+    "P15.13": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_13.json",
+        "clean-room/scripts/category15-release-artifact-audit.mjs",
+        "clean-room/scripts/build-browser.mjs",
+        "clean-room/public/assets/command-center-approved-icon-512.png"
+      ]
+    },
+    "P15.14": {
+      "status": "VERIFIED_COMPLETE",
+      "reason": "Exact-head semantic/effect evidence receipt validates the full current phase gate.",
+      "evidence": [
+        "clean-room/evidence/phase-receipts/P15_14.json",
+        "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
+        "clean-room/tests/owner-auth-proxy-routing.test.mjs",
+        "clean-room/scripts/category15-pwa-lifecycle.mjs"
+      ]
+    },
+    "P15.15": {
+      "status": "BLOCKED_OWNER_AUTHORIZATION",
+      "reason": "No current exact-candidate production authorization is established. Historical authorization is retained only as historical evidence.",
+      "historicalCandidate": {
+        "releaseCandidateSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
+        "previewDeploymentId": "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
+        "buildHash": "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
+        "assetManifestHash": "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
+        "status": "HISTORICAL_EVIDENCE_ONLY",
+        "note": "This frozen historical candidate and its historical owner decision are not authorization for a materially different future candidate."
+      }
+    },
+    "P15.16": {
+      "status": "BLOCKED_DEPENDENCY",
+      "reason": "Production deployment/live verification requires a verified current P15.15 authorization for the exact current candidate."
+    },
+    "P15.17": {
+      "status": "BLOCKED_DEPENDENCY",
+      "reason": "Owner acceptance requires completed current production/live verification."
+    },
+    "P15.18": {
+      "status": "BLOCKED_DEPENDENCY",
+      "reason": "Physical Samsung acceptance requires current live verification, owner acceptance, and the real device."
+    }
+  }
+}

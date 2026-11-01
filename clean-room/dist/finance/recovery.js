@@ -1,0 +1,118 @@
+import { parseTimestamp } from "../security/types.js";
+export function reconcileFinancialSnapshot(current, incoming) {
+    if (!incoming.providerKey.trim() || !incoming.ownerId.trim() || !incoming.contentHash.trim())
+        throw new Error("Financial provider snapshot identity/hash are required");
+    refs(incoming.accountIds, "Financial snapshot account ids", false);
+    if (new Set(incoming.accountIds).size !== incoming.accountIds.length)
+        throw new Error("Duplicate financial snapshot account identity");
+    const incomingAt = parseTimestamp(incoming.capturedAt, "incoming.capturedAt");
+    if (!current)
+        return "accept_newer";
+    if (current.providerKey !== incoming.providerKey || current.ownerId !== incoming.ownerId)
+        throw new Error("Financial provider snapshot scope mismatch");
+    const currentAt = parseTimestamp(current.capturedAt, "current.capturedAt");
+    if (incomingAt < currentAt)
+        return "reject_stale";
+    if (incomingAt === currentAt && incoming.contentHash === current.contentHash)
+        return sameSet(current.accountIds, incoming.accountIds) ? "duplicate" : "manual_conflict";
+    if (incomingAt === currentAt && incoming.contentHash !== current.contentHash)
+        return "manual_conflict";
+    return "accept_newer";
+}
+function refs(values, label, requireOne = true) {
+    if (!Array.isArray(values) || (requireOne && values.length === 0) || values.some((value) => typeof value !== "string" || !value.trim()))
+        throw new Error(`${label} must contain nonblank references`);
+    return Object.freeze([...new Set(values.map((value) => value.trim()))]);
+}
+function sameSet(left, right) {
+    if (left.length !== right.length)
+        return false;
+    const r = new Set(right);
+    return left.every((item) => r.has(item));
+}
+export function assessFinancialRecovery(input) {
+    if (!input.id.trim() || !input.ownerId.trim() || !input.providerKey.startsWith("finance-provider:") || !input.auditRef.trim())
+        throw new Error("Finance recovery identity/provider/audit evidence is required");
+    parseTimestamp(input.observedAt, "Finance recovery observedAt");
+    const evidenceRefs = refs(input.evidenceRefs, "Finance recovery evidence");
+    const canonical = refs(input.canonicalAccountRefs, "Finance canonical account refs", input.incidentKind === "account_relink");
+    const priorExecutionRefs = refs(input.priorExecutionRefs, "Finance prior execution refs", false);
+    const receiptRefs = refs(input.receiptRefs, "Finance receipt refs", false);
+    let disposition = "manual_review";
+    let reason = "manual_reconciliation_required";
+    let canonicalIdentityPreserved = true;
+    if (input.integrityVerified !== true || input.provenanceVerified !== true) {
+        disposition = "reject";
+        reason = "integrity_or_provenance_unverified";
+    }
+    else if (input.providerHealth === "compromised" || input.incidentKind === "compromised_provider") {
+        disposition = "reject";
+        reason = "provider_compromised";
+    }
+    else if (input.incidentKind === "provider_error") {
+        disposition = "defer";
+        reason = "provider_error";
+    }
+    else if (input.incidentKind === "stale_balance") {
+        disposition = "reject";
+        reason = "stale_balance";
+    }
+    else if (input.incidentKind === "partial_sync") {
+        disposition = "defer";
+        reason = "partial_sync";
+    }
+    else if (input.incidentKind === "duplicate") {
+        disposition = "reject";
+        reason = "duplicate_evidence";
+    }
+    else if (!["available", "degraded", "unavailable", "compromised"].includes(input.providerHealth)) {
+        disposition = "reject";
+        reason = "unknown_provider_health";
+    }
+    else if (input.incidentKind === "account_relink" && input.providerHealth !== "available") {
+        disposition = "defer";
+        reason = "relink_provider_not_available";
+    }
+    else if (input.incidentKind === "account_relink") {
+        const relinked = refs(input.relinkedAccountRefs ?? [], "Finance relinked account refs");
+        canonicalIdentityPreserved = sameSet(canonical, relinked);
+        disposition = canonicalIdentityPreserved ? "accept" : "manual_review";
+        reason = canonicalIdentityPreserved ? "canonical_identity_preserved" : "relink_identity_conflict";
+    }
+    else if (input.incidentKind === "restore") {
+        if (input.providerHealth !== "available") {
+            disposition = "defer";
+            reason = "restore_provider_not_available";
+        }
+        else {
+            const validation = input.restoreValidation;
+            if (!validation || !validation.knownGoodSnapshotRef?.trim() || validation.backupHashVerified !== true || validation.currentAuthorizationRevalidated !== true || validation.currentRevocationsRevalidated !== true || validation.immutableHistoryPreserved !== true || !Array.isArray(validation.missingAccountRefs) || validation.missingAccountRefs.length > 0) {
+                disposition = "reject";
+                reason = "restore_current_security_or_snapshot_unverified";
+            }
+            else {
+                disposition = "accept";
+                reason = "restore_evidence_verified";
+            }
+        }
+    }
+    else if (input.incidentKind === "protected_action_uncertain") {
+        disposition = "manual_review";
+        reason = priorExecutionRefs.length > 0 || receiptRefs.length > 0 ? "uncertain_outcome_requires_receipt_reconciliation" : "uncertain_outcome_requires_provider_reconciliation";
+    }
+    else if (input.incidentKind === "protected_action_rollback") {
+        disposition = "manual_review";
+        reason = "rollback_requires_new_exact_owner_authorization";
+    }
+    if (disposition !== "accept")
+        canonicalIdentityPreserved = false;
+    return Object.freeze({ id: input.id, incidentKind: input.incidentKind, disposition, reason, evidenceRefs, auditRef: input.auditRef, canonicalIdentityPreserved, actionReplayAllowed: false, rollbackAuthorized: false, failClosed: true, protectedActionAuthorized: false });
+}
+/** Trusted server restore preflight: historical authorization is never authoritative. */
+export function assessFinancialRestoreWithLiveAccess(boundary, sessionId, resource, now, input) {
+    if (input.incidentKind !== "restore" || input.ownerId !== resource.ownerId)
+        throw new Error("Restore owner/incident scope mismatch");
+    boundary.authorize(sessionId, resource, now, { requestedDataClasses: ["recovery"], auditRef: input.auditRef, incidentState: "normal" }, true);
+    return assessFinancialRecovery(input);
+}
+//# sourceMappingURL=recovery.js.map

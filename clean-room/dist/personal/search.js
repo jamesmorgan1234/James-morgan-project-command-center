@@ -1,0 +1,44 @@
+function terms(value) { return value.toLowerCase().split(/[^a-z0-9]+/).filter((term) => term.length > 1); }
+function timestamp(value, label) { const parsed = Date.parse(value); if (!Number.isFinite(parsed))
+    throw new Error(`${label} must be a valid timestamp`); return parsed; }
+export function federatedSearch(request, documents) {
+    const queryTerms = terms(request.query);
+    if (queryTerms.length === 0)
+        return Object.freeze([]);
+    if (!request.ownerId.trim() || !Number.isFinite(request.maxSensitivityRank) || request.maxSensitivityRank < 0)
+        throw new Error("Search owner/sensitivity bound are required");
+    const allowedDomains = new Set(request.allowedDomains);
+    const allowedProjects = new Set(request.allowedProjectIds);
+    const authorizedPermissions = new Set(request.authorizedPermissionRefs ?? []);
+    const now = request.now ? timestamp(request.now, "Search now") : Date.now();
+    const hits = [];
+    for (const document of documents) {
+        if (!document.id.trim() || !document.ownerId.trim() || !document.domain.trim() || !document.title.trim())
+            continue;
+        if (!Number.isFinite(document.sensitivityRank) || document.sensitivityRank < 0)
+            continue;
+        if (document.ownerId !== request.ownerId || document.sensitivityRank > request.maxSensitivityRank || !allowedDomains.has(document.domain))
+            continue;
+        if (document.projectId && !allowedProjects.has(document.projectId))
+            continue;
+        if (document.provenanceRefs.length === 0 || document.provenanceRefs.some((ref) => !ref.trim()))
+            continue;
+        if (document.sourceVersion !== undefined && (!Number.isSafeInteger(document.sourceVersion) || document.sourceVersion < 1))
+            continue;
+        if (document.updatedAt)
+            timestamp(document.updatedAt, "Search document updatedAt");
+        if (document.deletedAt && timestamp(document.deletedAt, "Search document deletedAt") <= now)
+            continue;
+        if (document.staleAfter && timestamp(document.staleAfter, "Search document staleAfter") <= now)
+            continue;
+        const requiredPermissions = document.permissionRefs ?? [];
+        if (requiredPermissions.some((permission) => !permission.trim()) || requiredPermissions.some((permission) => !authorizedPermissions.has(permission)))
+            continue;
+        const haystack = new Set(terms(`${document.title} ${document.text}`));
+        const score = queryTerms.filter((term) => haystack.has(term)).length / queryTerms.length;
+        if (score > 0)
+            hits.push(Object.freeze({ id: document.id, title: document.title, domain: document.domain, score, provenanceRefs: Object.freeze([...document.provenanceRefs]), ...(document.sourceVersion !== undefined ? { sourceVersion: document.sourceVersion } : {}), ...(document.updatedAt !== undefined ? { updatedAt: document.updatedAt } : {}) }));
+    }
+    return Object.freeze(hits.sort((a, b) => b.score - a.score || a.title.localeCompare(b.title)));
+}
+//# sourceMappingURL=search.js.map

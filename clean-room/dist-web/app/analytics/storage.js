@@ -1,0 +1,149 @@
+import { ScopedAnalyticsTrace } from './observability.js';
+import { validateMetricSemantics, validateSemanticObservation, semanticMetricView } from './metrics.js';
+import { analyticsDigest, analyticsEvidence, authorizeAnalytics, canonicalAnalyticsJson, immutable, invariant, timestamp, version, equalScope, keys, BENCHMARK_CLASSES } from './contracts.js';
+export async function analyticsSourceDigest(input) { return analyticsDigest(input); }
+export function metadataOnly(value) { if (typeof value === 'string') {
+    invariant(value.length <= 4096 && !/(bearer\s+[a-z0-9]|sk-[a-z0-9_-]{12}|-----begin.*private key|password\s*[:=]|token\s*[:=]|secret\s*[:=]|[\w.+-]+@[\w.-]+\.[a-z]{2,})/i.test(value), 'unsafe_analytics_payload');
+}
+else if (typeof value === 'number')
+    invariant(Number.isFinite(value), 'nonfinite_analytics_payload');
+else if (Array.isArray(value))
+    value.forEach(metadataOnly);
+else if (value && typeof value === 'object') {
+    for (const [key, v] of Object.entries(value)) {
+        metadataOnly(key);
+        invariant(!/^(password|token|secret|credentials|api_key|authorization|cookie|body|prompt|message|email|phone|address|rawPayload)$/i.test(key), 'private_analytics_field');
+        if (['autoApply', 'autoApplied', 'maySelfMutate', 'mayExecute', 'mayPromote', 'authorizationGranted', 'executable'].includes(key))
+            invariant(v === false, 'analytics_cannot_acquire_authority');
+        metadataOnly(v);
+    }
+} }
+/** One durable boundary over existing C13 owners; sources must provide a current canonical
+ * receipt binding exact identity/version/scope/benchmark/payload. Analytics cannot self-verify input. */
+export class AnalyticsRepository {
+    access;
+    metrics;
+    store;
+    constructor(access, metrics, store) {
+        this.access = access;
+        this.metrics = metrics;
+        this.store = store;
+    }
+    validate(input) {
+        authorizeAnalytics(this.access, 'record', input.scope, input.id);
+        version(input.version);
+        keys(input, ['id', 'version', 'scope', 'kind', 'occurredAt', 'expiresAt', 'temporalLabel', 'retentionClass', 'benchmarkClass', 'evidenceIds', 'payload']);
+        invariant(['current', 'historical'].includes(input.temporalLabel), 'invalid_analytics_temporal_label');
+        invariant(BENCHMARK_CLASSES.includes(input.benchmarkClass), 'invalid_analytics_benchmark');
+        const now = timestamp(this.access.now()), ttl = { short: 86400000, standard: 2592000000, long: 31536000000 }[input.retentionClass];
+        invariant(ttl && timestamp(input.occurredAt) <= now && timestamp(input.expiresAt) > now && timestamp(input.expiresAt) - timestamp(input.occurredAt) <= ttl, 'analytics_retention_or_time_invalid');
+        invariant(input.kind !== 'health' || input.payload.observation?.occurredAt === input.occurredAt, 'observation_event_time_binding');
+        metadataOnly(input.payload);
+        analyticsEvidence(this.access, input.scope, input.evidenceIds);
+        if (input.kind === 'metric') {
+            keys(input.payload, ['definition']);
+            const d = input.payload.definition;
+            invariant(d && d.semantics && d.version === input.version && d.key === input.id, 'metric_record_identity');
+            validateMetricSemantics(d.semantics);
+            invariant(canonicalAnalyticsJson(d) === canonicalAnalyticsJson(this.metrics.get(d.key, d.version)), 'metric_record_not_canonical');
+        }
+        else if (input.kind === 'health') {
+            keys(input.payload, ['observation']);
+            const o = input.payload.observation;
+            invariant(o && o.id === input.id && equalScope(o.scope, input.scope) && o.benchmarkClass === input.benchmarkClass, 'metric_observation_record_binding');
+            validateSemanticObservation(this.metrics, o, this.access.now(), input.temporalLabel === 'historical');
+        }
+        else if (input.kind === 'trace') {
+            keys(input.payload, ['event']);
+            const e = input.payload.event;
+            invariant(e && equalScope(e.scope, input.scope) && e.id === input.id && e.version === input.version && e.occurredAt === input.occurredAt && e.expiresAt === input.expiresAt, 'trace_record_binding');
+        }
+        else {
+            const property = { outcome: 'analysis', lesson: 'lesson', security: 'report', governance: 'report', evaluation: 'result' }[input.kind];
+            invariant(property, 'unsupported_analytics_record_kind');
+            keys(input.payload, [property]);
+            const p = input.payload[property];
+            invariant(p && typeof p === 'object', 'analytics_projection_required');
+            const allowed = { outcome: ['id', 'scope', 'recommendationId', 'snapshot', 'metricKey', 'metricVersion', 'unit', 'actualOutcomeRef', 'predictedValue', 'predictionError', 'confidence', 'processQuality', 'outcomeValue', 'benchmarkClass', 'confounders', 'causalAttribution', 'controllableFactors', 'externalFactors', 'resultingLessonRef', 'globallyApplicable', 'authorizationGranted'], lesson: ['id', 'scope', 'failureClass', 'sourceVersionRefs', 'precursorRefs', 'impactRefs', 'rootCauseConfidence', 'recoveryRef', 'detectedAfterMs', 'recoveredAfterMs', 'preventionProposalRef', 'affectedPromotionRefs', 'negativeKnowledgeRef', 'evidenceIds', 'negativeKnowledgeVersion', 'discoverable', 'autoApplied', 'compilerSourceOnly', 'procedureId', 'version', 'canonicalOwner', 'sourceDecisionId', 'sourceRuns', 'applicabilityScope', 'observations', 'successes', 'failures', 'successRate', 'expired', 'mayPromote', 'mayExecute'], security: ['scope', 'signals', 'byKind', 'independence', 'authorizationGranted', 'automaticResponse'], governance: ['scope', 'findings', 'proposals', 'controlPlane', 'maySelfMutate', 'mayExecute', 'mayPromote'], evaluation: ['evaluatorKey', 'evaluatorVersion', 'sampleCount', 'decision', 'calibratedConfidence', 'meanDelta', 'eligibleProductionEvidence', 'acceptanceEligible', 'evidenceClasses', 'evidenceRefs', 'reasonCodes', 'benchmarkRef', 'benchmarkVersion', 'environment', 'productionObserved', 'requiresRecalibration', 'authorizationGranted'] }[input.kind];
+            keys(p, allowed);
+            if (input.kind !== 'evaluation')
+                invariant(p.scope || input.kind === 'lesson' && p.applicabilityScope, 'analytics_projection_scope_required');
+            if (p.scope)
+                invariant(equalScope(p.scope, input.scope), 'analytics_projection_scope_mismatch');
+            if (input.kind === 'outcome') {
+                for (const k of allowed)
+                    invariant(k in p, 'incomplete_outcome_projection');
+                invariant(p.benchmarkClass === input.benchmarkClass && p.globallyApplicable === false && p.authorizationGranted === false, 'outcome_benchmark_authority_mismatch');
+            }
+            if (input.kind === 'lesson')
+                invariant((p.failureClass && p.rootCauseConfidence !== undefined && p.autoApplied === false) || (p.canonicalOwner === 'P12.8' && p.procedureId && p.mayExecute === false && p.mayPromote === false), 'canonical_failure_or_procedure_projection_required');
+            if (input.kind === 'security')
+                invariant(p.authorizationGranted === false && p.automaticResponse === false && typeof p.signals === 'number', 'security_projection_authority_mismatch');
+            if (input.kind === 'evaluation')
+                invariant(typeof p.sampleCount === 'number' && Number.isSafeInteger(p.sampleCount) && p.sampleCount >= 0 && p.benchmarkRef && p.evaluatorVersion, 'evaluation_protocol_sample_required');
+            if (input.kind === 'governance')
+                invariant(p.controlPlane === 'command_center' && (p.maySelfMutate === false || p.mayExecute === false), 'ungoverned_analytics_proposal');
+            if (input.kind === 'evaluation')
+                invariant(p.authorizationGranted === false && (!p.productionObserved || input.benchmarkClass === 'production'), 'evaluation_benchmark_authority_mismatch');
+        }
+    }
+    async record(value) {
+        const input = immutable(value);
+        this.validate(input);
+        const digest = await analyticsSourceDigest(input);
+        invariant(input.evidenceIds.some(id => { const p = this.access.evidence(id); return p?.record.subjectId === input.id && p.record.configDigest === digest; }), 'analytics_source_receipt_digest_mismatch');
+        this.validate(input);
+        if (input.kind === 'trace') {
+            const graph = new ScopedAnalyticsTrace(this.access), prior = await this.store.read(input.scope, 'trace', this.access.now());
+            let pending = prior.map(r => r.payload.event);
+            let count = 0;
+            const added = new Set();
+            while (pending.length) {
+                const ready = pending.filter(e => e.parentId === null || added.has(JSON.stringify([e.parentId, e.parentVersion])));
+                invariant(ready.length > 0, 'stored_trace_orphan_or_cycle');
+                for (const e of ready) {
+                    graph.append(e);
+                    added.add(JSON.stringify([e.id, e.version]));
+                }
+                count += ready.length;
+                pending = pending.filter(e => !ready.includes(e));
+            }
+            graph.append(input.payload.event);
+        }
+        const stored = await this.store.append(immutable({ ...input, digest, recordedAt: this.access.now() }));
+        invariant(stored.digest === digest && equalScope(stored.scope, input.scope) && stored.id === input.id && stored.version === input.version, 'analytics_store_identity_conflict');
+        authorizeAnalytics(this.access, 'record', input.scope, input.id);
+        return immutable(stored);
+    }
+    async metricViews(scope) { const records = await this.read(scope, 'health'); return records.map(r => { const observation = r.payload.observation, view = semanticMetricView(this.metrics, observation, this.access.now()); return r.sourceEvidenceState === 'current_verified' && r.temporalLabel === 'current' ? immutable({ ...view, sourceEvidenceState: r.sourceEvidenceState }) : immutable({ ...view, value: null, historicalValue: observation.value, state: 'unknown', temporalState: 'historical', sourceEvidenceState: r.sourceEvidenceState }); }); }
+    async read(scope, kind, operation = 'read') { authorizeAnalytics(this.access, operation, scope, kind); const now = this.access.now(), records = await this.store.read(scope, kind, now), views = []; for (const r of records) {
+        invariant(equalScope(r.scope, scope) && r.kind === kind && timestamp(r.expiresAt) > timestamp(now), 'analytics_store_scope_retention_violation');
+        const { digest, recordedAt, ...source } = r;
+        invariant(await analyticsSourceDigest(source) === digest, 'analytics_record_integrity_failure');
+        let current = true;
+        try {
+            analyticsEvidence(this.access, scope, r.evidenceIds);
+            invariant(r.evidenceIds.some(id => { const p = this.access.evidence(id); return p?.record.subjectId === r.id && p.record.configDigest === digest; }), 'source_receipt_no_longer_matches');
+        }
+        catch {
+            current = false;
+        }
+        views.push({ ...r, sourceEvidenceState: current ? 'current_verified' : 'invalidated_or_stale', viewTemporalLabel: current && r.temporalLabel === 'current' ? 'current' : 'historical' });
+    } authorizeAnalytics(this.access, operation, scope, kind); return immutable(views); }
+}
+export class PostgresAnalyticsStore {
+    query;
+    constructor(query) {
+        this.query = query;
+    }
+    async append(record) { const r = await this.query('select command_center_private.p13_append_analytics($1::jsonb) as record', [JSON.stringify(record)]); invariant(r.rows[0]?.record, 'analytics_record_not_persisted'); return r.rows[0].record; }
+    async read(scope, kind, now) { const r = await this.query('select command_center_private.p13_read_analytics($1::jsonb,$2::text,$3::timestamptz) as records', [JSON.stringify(scope), kind, now]); return (r.rows[0]?.records ?? []); }
+}
+export class PostgresEvaluatorStore {
+    query;
+    constructor(query) {
+        this.query = query;
+    }
+    async append(scope, definition, evidenceIds, expectedVersion) { const result = await this.query('select command_center_private.p13_register_evaluator($1::uuid,$2::jsonb,$3::text[],$4::bigint) as evaluator', [scope.ownerId, JSON.stringify(definition), [...evidenceIds], expectedVersion]); invariant(result.rows[0]?.evaluator, 'evaluator_not_persisted'); return result.rows[0].evaluator; }
+}
+//# sourceMappingURL=storage.js.map

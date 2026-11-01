@@ -1,0 +1,1 @@
+{"version":3,"file":"browser-entrypoint.js","sourceRoot":"","sources":["../../src/runtime/browser-entrypoint.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,6BAA6B,EAAE,MAAM,8BAA8B,CAAC;AAE7E,IAAI,6BAA6B,EAAE,EAAE,CAAC;IACpC,MAAM,MAAM,CAAC,iCAAiC,CAAC,CAAC;IAChD,MAAM,MAAM,CAAC,cAAc,CAAC,CAAC;AAC/B,CAAC"}
