@@ -120,6 +120,14 @@ jobs:
         with:
           ref: ${{ github.sha }}
           fetch-depth: 50
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: clean-room/package-lock.json
+      - name: Install locked zero-cost dependencies
+        working-directory: clean-room
+        run: npm ci --no-audit --no-fund --ignore-scripts
       - name: Rebuild exact-head repository audit
         working-directory: clean-room
         run: node scripts/category15-repository-audit.mjs --write

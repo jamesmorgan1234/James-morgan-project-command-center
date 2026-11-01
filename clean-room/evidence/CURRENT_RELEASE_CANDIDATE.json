@@ -1,7 +1,7 @@
 {
   "schemaVersion": "cc-current-release-candidate-v1",
   "status": "CANDIDATE_PREPARED_AUTHORIZATION_REQUIRED",
-  "generatedAt": "2026-11-01T22:29:30.036Z",
+  "generatedAt": "2026-11-01T22:34:17.347Z",
   "gitSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
   "releaseIdentity": {
     "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
@@ -46,6 +46,10 @@
       {
         "sha": "a8b9d1d8d08c8ce582706791da1a91e879ebb540",
         "subject": "fix: re-review the inventory in the commit that rewrites the P15.1 ledger"
+      },
+      {
+        "sha": "8e2db040b14563b267c76b90a9f4868c88acef10",
+        "subject": "chore: rebind the current candidate to the repaired evidence"
       }
     ],
     "evidenceOnlyCommitsDoNotRedefineCandidate": true
@@ -114,5 +118,5 @@
     "protectedAssetsChanged": false,
     "note": "Production, main, production Supabase/auth and protected release assets remain untouched."
   },
-  "manifestHash": "e07b9da64f7972ce003ba9a410cfb327a6e5c8863ac56e10a9e198a46930c9c6"
+  "manifestHash": "784488b3a967e1d7ad22d74a507a77b91a2bb46739599971f859c813494d3d5f"
 }
