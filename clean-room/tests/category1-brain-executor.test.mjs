@@ -7,7 +7,7 @@ import {
 import {
   voiceIndependence, listeningState, ambiguityConfirmation,
   voiceProvider, handsFreeSummary, voiceActionLog
-} from "../dist/brain/voice.js";
+} from "../dist/brain/voice-contracts.js";
 import {
   taskTransition, heartbeat, wakeContract, resultContract,
   assertRealClaim, assertObjectiveLock, impactRadius

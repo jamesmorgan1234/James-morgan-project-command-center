@@ -1,7 +1,7 @@
 /** P15.1 reviewed mappings: Brain governance, voice and executor (20 rows). */
 
 const GOV = "clean-room/src/brain/governance.ts";
-const VOICE = "clean-room/src/brain/voice.ts";
+const VOICE = "clean-room/src/brain/voice-contracts.ts";
 const EXEC = "clean-room/src/agency/executor.ts";
 const SUITE = "clean-room/tests/category1-brain-executor.test.mjs";
 const t = (name) => `${SUITE} :: ${name}`;
