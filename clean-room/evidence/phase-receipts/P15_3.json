@@ -1,0 +1,229 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.3",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "d9acb245ccaafd3c58aa34c55e3e89e5288e4cbd",
+  "inputs": [
+    "clean-room/scripts/p15-3-architecture-invariants-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/agency/delegation.ts",
+    "clean-room/src/agency/protected.ts",
+    "clean-room/src/brain/improvement-governor.ts",
+    "clean-room/src/brain/specialists.ts",
+    "clean-room/src/data/learning.ts",
+    "clean-room/src/kernel/architecture-contract.ts",
+    "clean-room/src/kernel/capabilities.ts",
+    "clean-room/src/kernel/invariants.ts",
+    "clean-room/src/kernel/method-portfolio.ts",
+    "clean-room/src/kernel/registries.ts",
+    "clean-room/src/kernel/registry.ts",
+    "clean-room/src/kernel/scope.ts",
+    "clean-room/tests/p15-3-architecture-invariants.test.mjs"
+  ],
+  "inputsDigest": "5de3144ccdac1622921ad8fa41fc3f3510ed5d0395d3f6d45dd9302426ad84fb",
+  "evidence": [
+    "clean-room/scripts/p15-3-architecture-invariants-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/tests/p15-3-architecture-invariants.test.mjs",
+    "clean-room/scripts/check-architecture-contracts.mjs",
+    "clean-room/tests/kernel-foundation.test.mjs",
+    "clean-room/tests/runtime-integration.test.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.3",
+    "invariantCount": 9,
+    "checkCount": 31,
+    "failedInvariantCount": 0,
+    "sourceFileCount": 337,
+    "importEdgeCount": 572,
+    "invariants": [
+      {
+        "id": "single-owner-responsibilities",
+        "description": "Command Center owns each architectural responsibility exactly once",
+        "passed": true,
+        "checks": [
+          {
+            "name": "core responsibility registry covers every core contract",
+            "passed": true
+          },
+          {
+            "name": "duplicate responsibility ownership is rejected",
+            "passed": true
+          },
+          {
+            "name": "single-owner assertion rejects competing owners",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "command-center-control-plane",
+        "description": "James' Command Center remains the only control plane above specialists",
+        "passed": true,
+        "checks": [
+          {
+            "name": "specialist model without Command Center control plane is rejected",
+            "passed": true
+          },
+          {
+            "name": "specialist authority requires the command-center actor",
+            "passed": true
+          },
+          {
+            "name": "delegation controlled by any other orchestrator is rejected",
+            "passed": true
+          },
+          {
+            "name": "specialist projections cannot inherit unrelated scope",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "authority-narrows-never-expands",
+        "description": "Delegated authority can only narrow, never amplify",
+        "passed": true,
+        "checks": [
+          {
+            "name": "equal-or-narrower delegation is accepted",
+            "passed": true
+          },
+          {
+            "name": "scope amplification is rejected",
+            "passed": true
+          },
+          {
+            "name": "budget, concurrency, retry and resource amplification are rejected",
+            "passed": true
+          },
+          {
+            "name": "revoked, stale-policy and expired delegation is rejected",
+            "passed": true
+          },
+          {
+            "name": "execution scope containment is directional",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "canonical-registries",
+        "description": "Canonical registries stay canonical and reject incompatible or duplicated entries",
+        "passed": true,
+        "checks": [
+          {
+            "name": "duplicate registry keys and version regressions are rejected",
+            "passed": true
+          },
+          {
+            "name": "incompatible capability versions are rejected and unregistration is residue-free",
+            "passed": true
+          },
+          {
+            "name": "method contracts require provenance, benchmark and rollback evidence",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "no-duplicate-control-plane-and-acyclic-dependencies",
+        "description": "One architecture: acyclic module graph, no escaping or legacy edges, no foreign control plane",
+        "passed": true,
+        "checks": [
+          {
+            "name": "no static relative import cycle exists across active source",
+            "passed": true
+          },
+          {
+            "name": "no active source import escapes clean-room/src",
+            "passed": true
+          },
+          {
+            "name": "no active source declares a competing control plane",
+            "passed": true
+          },
+          {
+            "name": "legacy runtime imports are rejected",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "registration-only-extension",
+        "description": "Representative capabilities and specialists extend and retire without mutating architecture",
+        "passed": true,
+        "checks": [
+          {
+            "name": "capability can be added through registration and removed cleanly",
+            "passed": true
+          },
+          {
+            "name": "specialist can be registered, versioned and retired through the registry",
+            "passed": true
+          },
+          {
+            "name": "protected side effects require fresh exact authorization",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "learning-cannot-become-global-truth",
+        "description": "Unsupported learning cannot silently become global truth",
+        "passed": true,
+        "checks": [
+          {
+            "name": "private learning cannot be proposed for global promotion",
+            "passed": true
+          },
+          {
+            "name": "validated project learning promotes only at its own scope",
+            "passed": true
+          },
+          {
+            "name": "unvalidated, stale, contradicted and retracted learning cannot stay promoted",
+            "passed": true
+          },
+          {
+            "name": "global promotion requires every readiness dependency",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "self-improvement-cannot-mutate-authority",
+        "description": "Self-improvement cannot install itself or expand scope, permission or authority",
+        "passed": true,
+        "checks": [
+          {
+            "name": "a self-installing proposal is rejected",
+            "passed": true
+          },
+          {
+            "name": "scope and permission expansion are rejected",
+            "passed": true
+          },
+          {
+            "name": "snapshots bound to stale policy or invalidated learning are rejected",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "evidence-and-provenance-controls",
+        "description": "Evidence, provenance, confidence, risk, cost and privacy controls remain enforced",
+        "passed": true,
+        "checks": [
+          {
+            "name": "method registration rejects unsupported evidence and expiry ordering",
+            "passed": true
+          },
+          {
+            "name": "capability maturity cannot be inflated without proof",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "bf2a6605a744572c351f64f28f4405275bfe2407",
+  "gitSha": "d9acb245ccaafd3c58aa34c55e3e89e5288e4cbd",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1950,
-  "inventoryDigest": "ff90dc0697803e35ea72214b9313661952b839402669f6350f5aac7b6d5cb067",
+  "reviewedFileCount": 1953,
+  "inventoryDigest": "23bcf21965a91ca1887aae4faeaaa88b44ffe2089c5c111b4bf4267f1f4acbca",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1951,
-    "reviewedFileCount": 1950,
+    "trackedFileCount": 1954,
+    "reviewedFileCount": 1953,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -47,9 +47,9 @@
       "ASRV": 1,
       "EVID": 176,
       "APUB": 11,
-      "SCRP": 119,
+      "SCRP": 121,
       "ASRC": 338,
-      "TEST": 428,
+      "TEST": 429,
       "RDMAP": 289,
       "SBAS": 229,
       "HTST": 43
@@ -703,7 +703,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 116,
+      "fileCount": 118,
       "roles": [
         "SCRP"
       ]
@@ -717,7 +717,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 428,
+      "fileCount": 429,
       "roles": [
         "TEST"
       ]
@@ -4864,8 +4864,8 @@
       "path": "clean-room/scripts/category15-phase-gate-audit.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "831ec84913904e01e9d2aa99c210afa318f8d47f8c04930af368d8cf7e9c123c",
-      "bytes": 16184,
+      "sha256": "16bc013e1a71ce18723e9d9b7a62c908622caa6246e765bfb55bbb995de53452",
+      "bytes": 16340,
       "contentKind": "text",
       "findings": []
     },
@@ -4963,8 +4963,8 @@
       "path": "clean-room/scripts/current-authority-lib.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "6578de872aa1ca9d71ddc1d29081e4db829080f53102dcd0e26935d1133811b1",
-      "bytes": 4803,
+      "sha256": "808677b9b0ebe291f17ff12e2323d065b4d9b2d21e24675f40e78d40135de0a0",
+      "bytes": 5137,
       "contentKind": "text",
       "findings": []
     },
@@ -5847,6 +5847,24 @@
       "disposition": "retain-active",
       "sha256": "c8c4d3623ab30a6be6e445650ab8375bc911d5699aace63abde980857a05a608",
       "bytes": 17387,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-3-architecture-invariants-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "4fe4a208069adae64dbdd1e1ecb5078c8f8277d17c1b0e62241134e968772fa1",
+      "bytes": 33512,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/phase-receipt-binding.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "9b47e981133ceb2b7af3cb0bef40682527c57654e3656bd4051e4629d6a5df9f",
+      "bytes": 2764,
       "contentKind": "text",
       "findings": []
     },
@@ -12131,6 +12149,15 @@
       "disposition": "retain-active",
       "sha256": "bac3648bf572edb9cdd48cf6a0970d1ce3198b5ef1c5f9296acc6d61256d59be",
       "bytes": 3357,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-3-architecture-invariants.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "f33cde423fbc1dd5a605ccb6e419379571cf0cfda18bc42d263c4f492ad60b92",
+      "bytes": 4900,
       "contentKind": "text",
       "findings": []
     },
