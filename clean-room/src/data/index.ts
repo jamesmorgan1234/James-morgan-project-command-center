@@ -1,5 +1,6 @@
 export * from "./canonical.js";
 export * from "./knowledge.js";
+export * from "./knowledge-objects.js";
 export * from "./intelligence-contracts.js";
 export * from "./learning.js";
 export * from "./epistemics.js";
