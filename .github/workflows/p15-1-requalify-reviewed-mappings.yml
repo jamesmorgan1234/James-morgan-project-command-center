@@ -26,6 +26,7 @@ jobs:
       test_pass: ${{ steps.module-tests.outputs.pass }}
       test_fail: ${{ steps.module-tests.outputs.fail }}
       test_skipped: ${{ steps.module-tests.outputs.skipped }}
+      mappings_changed: ${{ steps.preflight.outputs.mappings_changed }}
     defaults:
       run:
         working-directory: clean-room
@@ -53,6 +54,7 @@ jobs:
       - name: Build modules
         run: npm run build:modules
       - name: Reviewed mapping preflight (changed modules)
+        id: preflight
         shell: bash
         run: |
           set -euo pipefail
@@ -63,7 +65,8 @@ jobs:
           else
             mapfile -t modules < <(ls scripts/p15-1-reviewed-*.mjs | grep -v current-reviewed)
           fi
-          if [ ${#modules[@]} -eq 0 ]; then echo "no reviewed mapping modules changed"; exit 0; fi
+          if [ ${#modules[@]} -eq 0 ]; then echo "mappings_changed=false" >> "$GITHUB_OUTPUT"; echo "no reviewed mapping modules changed"; exit 0; fi
+          echo "mappings_changed=true" >> "$GITHUB_OUTPUT"
           for module in "${modules[@]}"; do
             echo "preflight: $module"
             node scripts/p15-1-reviewed-mapping-preflight.mjs "$module"
@@ -97,6 +100,7 @@ jobs:
 
   assemble-and-commit:
     needs: core-qa
+    if: needs.core-qa.outputs.mappings_changed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
