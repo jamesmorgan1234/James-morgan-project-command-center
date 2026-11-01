@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.14",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "2597e69ae33aad7cd26f7c378b81b0828468c984",
+  "inputs": [
+    "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
+    "clean-room/public/sw.js",
+    "clean-room/scripts/category15-pwa-lifecycle.mjs",
+    "clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs",
+    "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
+    "clean-room/tests/owner-auth-proxy-routing.test.mjs",
+    "clean-room/tests/p15-14-nonproduction-acceptance.test.mjs"
+  ],
+  "inputsDigest": "a6bf7b35d768bfd5e0b9890ff945876ad05e0d6101b49354b151977d42838d59",
+  "evidence": [
+    "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
+    "clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs",
+    "clean-room/scripts/category15-pwa-lifecycle.mjs",
+    "clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs",
+    "clean-room/tests/owner-auth-proxy-routing.test.mjs",
+    "clean-room/tests/p15-14-nonproduction-acceptance.test.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.14",
+    "checkCount": 9,
+    "failedCheckCount": 0,
+    "contractResults": {
+      "tests": 5,
+      "pass": 5,
+      "fail": 0
+    },
+    "browser": {
+      "binary": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell",
+      "lifecycleVerified": true
+    },
+    "checks": [
+      {
+        "name": "nonproduction contract suites execute and exit zero",
+        "passed": true,
+        "detail": {
+          "exit": 0
+        }
+      },
+      {
+        "name": "nonproduction contract suites report no failing tests",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "nonproduction contract suites actually ran assertions",
+        "passed": true,
+        "detail": {
+          "tests": 5,
+          "pass": 5
+        }
+      },
+      {
+        "name": "a real browser binary is available for lifecycle acceptance",
+        "passed": true,
+        "detail": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell"
+      },
+      {
+        "name": "real browser service-worker lifecycle exits zero",
+        "passed": true,
+        "detail": {
+          "exit": 0
+        }
+      },
+      {
+        "name": "browser proof covers install, offline replay, explicit activation and two-cache retention",
+        "passed": true,
+        "detail": "P15.14 PWA lifecycle verified: install, same-session offline cache replay, waiting-worker activation, two-cache rollback retention\n"
+      },
+      {
+        "name": "service worker keeps the versioned shell cache prefix",
+        "passed": true
+      },
+      {
+        "name": "service worker retains an explicit activate-update message contract",
+        "passed": true
+      },
+      {
+        "name": "service worker keeps a known-good rollback path",
+        "passed": true
+      }
+    ]
+  }
+}

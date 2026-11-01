@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.13",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "2597e69ae33aad7cd26f7c378b81b0828468c984",
+  "inputs": [
+    "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
+    "clean-room/public/assets/command-center-approved-icon-512.png",
+    "clean-room/public/index.html",
+    "clean-room/public/manifest.webmanifest",
+    "clean-room/public/sw.js",
+    "clean-room/scripts/build-browser.mjs",
+    "clean-room/scripts/category15-release-artifact-audit.mjs",
+    "clean-room/scripts/p15-13-release-artifact-audit.mjs",
+    "clean-room/tests/p15-13-release-artifact.test.mjs"
+  ],
+  "inputsDigest": "d04ee2bcafb8e298d303456629178ba790b1b7269f4527ce2e7ef1bc1a632535",
+  "evidence": [
+    "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
+    "clean-room/scripts/p15-13-release-artifact-audit.mjs",
+    "clean-room/tests/p15-13-release-artifact.test.mjs",
+    "clean-room/scripts/category15-release-artifact-audit.mjs",
+    "clean-room/scripts/build-browser.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.13",
+    "artifactFileCount": 1027,
+    "checkCount": 18,
+    "failedCheckCount": 0,
+    "releaseIdentity": {
+      "releaseId": "df317238f7e160df157c5fd2193864da0de8f433",
+      "buildHash": "38e59e03d070982752ac1b6f0fc84c08472159d9d99872f08ebb277189a1a9d8",
+      "assetManifestHash": "ed074047c8ed5e4687308d938aaf7a20b1d30b82f2afb15070e2948a74b44ccf",
+      "schemaCompatibility": "cc-runtime-snapshot-v1"
+    },
+    "protectedIcon": {
+      "state": "verified",
+      "expectedSha256": "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa"
+    },
+    "checks": [
+      {
+        "name": "artifact audit executes and exits zero under --require-protected-assets",
+        "passed": true,
+        "detail": {
+          "exit": 0
+        }
+      },
+      {
+        "name": "artifact audit reports a structurally valid release",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "artifact audit reports no readiness blockers",
+        "passed": true,
+        "detail": []
+      },
+      {
+        "name": "release candidate is ready",
+        "passed": true
+      },
+      {
+        "name": "protected Command Center icon is the approved asset",
+        "passed": true,
+        "detail": {
+          "state": "verified",
+          "expectedSha256": "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa"
+        }
+      },
+      {
+        "name": "exactly one HTML entrypoint at /index.html",
+        "passed": true,
+        "detail": [
+          "/index.html"
+        ]
+      },
+      {
+        "name": "exactly one service worker at /sw.js",
+        "passed": true,
+        "detail": [
+          "/sw.js"
+        ]
+      },
+      {
+        "name": "approved icon bytes hash to the frozen protected hash",
+        "passed": true,
+        "detail": "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa"
+      },
+      {
+        "name": "release identity is present",
+        "passed": true,
+        "detail": "df317238f7e160df157c5fd2193864da0de8f433"
+      },
+      {
+        "name": "release identity is the immutable audited commit",
+        "passed": true,
+        "detail": {
+          "releaseId": "df317238f7e160df157c5fd2193864da0de8f433",
+          "headSha": "df317238f7e160df157c5fd2193864da0de8f433"
+        }
+      },
+      {
+        "name": "release build hash and asset manifest hash are SHA-256",
+        "passed": true,
+        "detail": {
+          "releaseId": "df317238f7e160df157c5fd2193864da0de8f433",
+          "buildHash": "38e59e03d070982752ac1b6f0fc84c08472159d9d99872f08ebb277189a1a9d8",
+          "assetManifestHash": "ed074047c8ed5e4687308d938aaf7a20b1d30b82f2afb15070e2948a74b44ccf",
+          "schemaCompatibility": "cc-runtime-snapshot-v1"
+        }
+      },
+      {
+        "name": "runtime schema compatibility is the frozen snapshot schema",
+        "passed": true,
+        "detail": "cc-runtime-snapshot-v1"
+      },
+      {
+        "name": "service worker embeds the audited release id",
+        "passed": true,
+        "detail": "df317238f7e160df157c5fd2193864da0de8f433"
+      },
+      {
+        "name": "document head advertises the audited release id",
+        "passed": true,
+        "detail": "df317238f7e160df157c5fd2193864da0de8f433"
+      },
+      {
+        "name": "no unreplaced release placeholders remain",
+        "passed": true
+      },
+      {
+        "name": "protected icon is marked verified in the built assets manifest",
+        "passed": true,
+        "detail": {
+          "approvedIcon": "verified",
+          "expectedSha256": "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa"
+        }
+      },
+      {
+        "name": "manifest wires the approved protected icon and stays rooted",
+        "passed": true,
+        "detail": [
+          {
+            "src": "/assets/command-center-approved-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+          }
+        ]
+      },
+      {
+        "name": "release artifact contains a bounded number of shipped files",
+        "passed": true,
+        "detail": 1027
+      }
+    ]
+  }
+}
