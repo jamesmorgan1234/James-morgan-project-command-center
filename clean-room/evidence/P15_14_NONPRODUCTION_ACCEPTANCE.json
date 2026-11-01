@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "cc-p15-14-nonproduction-acceptance-v1",
+  "headSha": "df317238f7e160df157c5fd2193864da0de8f433",
+  "contractSuites": [
+    "tests/category15-nonproduction-contract-acceptance.test.mjs",
+    "tests/owner-auth-proxy-routing.test.mjs"
+  ],
+  "contractResults": {
+    "tests": 5,
+    "pass": 5,
+    "fail": 0
+  },
+  "browser": {
+    "binary": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell",
+    "lifecycleVerified": true
+  },
+  "lifecycleTranscriptTail": "P15.14 PWA lifecycle verified: install, same-session offline cache replay, waiting-worker activation, two-cache rollback retention\n",
+  "checks": [
+    {
+      "name": "nonproduction contract suites execute and exit zero",
+      "passed": true,
+      "detail": {
+        "exit": 0
+      }
+    },
+    {
+      "name": "nonproduction contract suites report no failing tests",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "nonproduction contract suites actually ran assertions",
+      "passed": true,
+      "detail": {
+        "tests": 5,
+        "pass": 5
+      }
+    },
+    {
+      "name": "a real browser binary is available for lifecycle acceptance",
+      "passed": true,
+      "detail": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell"
+    },
+    {
+      "name": "real browser service-worker lifecycle exits zero",
+      "passed": true,
+      "detail": {
+        "exit": 0
+      }
+    },
+    {
+      "name": "browser proof covers install, offline replay, explicit activation and two-cache retention",
+      "passed": true,
+      "detail": "P15.14 PWA lifecycle verified: install, same-session offline cache replay, waiting-worker activation, two-cache rollback retention\n"
+    },
+    {
+      "name": "service worker keeps the versioned shell cache prefix",
+      "passed": true
+    },
+    {
+      "name": "service worker retains an explicit activate-update message contract",
+      "passed": true
+    },
+    {
+      "name": "service worker keeps a known-good rollback path",
+      "passed": true
+    }
+  ],
+  "checkCount": 9,
+  "failedCheckCount": 0,
+  "verified": true
+}
