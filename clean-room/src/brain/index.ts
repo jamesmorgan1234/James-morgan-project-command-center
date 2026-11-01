@@ -16,3 +16,4 @@ export * from "./voice.js";
 export * from "./improvements.js";
 export * from "./improvement-governor.js";
 export * from "./local.js";
+export * from "./truth-discipline.js";
