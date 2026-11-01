@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.4",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "e0eeeddd31ee060cbb35c874b811dd365f1d6b08",
+  "inputs": [
+    "clean-room/scripts/p15-4-red-team-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/data/learning.ts",
+    "clean-room/src/security/auth.ts",
+    "clean-room/src/security/boundaries.ts",
+    "clean-room/src/security/data-sensitivity.ts",
+    "clean-room/src/security/devices.ts",
+    "clean-room/src/security/intent.ts",
+    "clean-room/src/security/leak-prevention.ts",
+    "clean-room/src/security/policy.ts",
+    "clean-room/src/security/protected-actions.ts",
+    "clean-room/src/security/protected-gate.ts",
+    "clean-room/tests/p15-4-red-team.test.mjs"
+  ],
+  "inputsDigest": "eaf89fed12643632b9d9de22b76331a734c6e4a429fb0540cbc775dc4d4a9d30",
+  "evidence": [
+    "clean-room/scripts/p15-4-red-team-audit.mjs",
+    "clean-room/tests/p15-4-red-team.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/tests/security-foundation.test.mjs",
+    "clean-room/tests/p14-security-boundaries.test.mjs",
+    "clean-room/tests/category2-p29-adversarial-security.test.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.4",
+    "suiteCount": 7,
+    "checkCount": 28,
+    "failedSuiteCount": 0,
+    "criticalFailureCount": 0,
+    "suites": [
+      {
+        "id": "session-identity-and-staleness",
+        "description": "Stale, revoked, expired and time-travelled sessions cannot authorize anything",
+        "severity": "critical",
+        "passed": true,
+        "checks": [
+          {
+            "name": "expired session is rejected",
+            "passed": true
+          },
+          {
+            "name": "revoked session cannot be resurrected by a later valid call",
+            "passed": true
+          },
+          {
+            "name": "backward session time is rejected",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "protected-action-bypass",
+        "description": "Protected actions require a live session, fresh verification, exact scope and matching intent",
+        "severity": "critical",
+        "passed": true,
+        "checks": [
+          {
+            "name": "exact authorized protected action succeeds",
+            "passed": true
+          },
+          {
+            "name": "policy unavailability fails closed",
+            "passed": true
+          },
+          {
+            "name": "stale revocation state fails closed",
+            "passed": true
+          },
+          {
+            "name": "missing or insufficient assurance is rejected",
+            "passed": true
+          },
+          {
+            "name": "stale fresh-verification timestamp is rejected",
+            "passed": true
+          },
+          {
+            "name": "cross-project, cross-company and cross-environment protected actions are denied",
+            "passed": true
+          },
+          {
+            "name": "tampered intent is rejected even with a valid session",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "cross-project-company-isolation",
+        "description": "Project, company, account and environment data never cross boundaries",
+        "severity": "critical",
+        "passed": true,
+        "checks": [
+          {
+            "name": "exact boundary grant is allowed",
+            "passed": true
+          },
+          {
+            "name": "every boundary mismatch is denied",
+            "passed": true
+          },
+          {
+            "name": "write access is not implied by read grants",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "cross-brain-transfer",
+        "description": "Private or scoped learning cannot be transferred across Brain, project or company scope",
+        "severity": "critical",
+        "passed": true,
+        "checks": [
+          {
+            "name": "project-private learning cannot cross project scope",
+            "passed": true
+          },
+          {
+            "name": "company-private learning cannot cross company scope",
+            "passed": true
+          },
+          {
+            "name": "private learning cannot request global promotion",
+            "passed": true
+          },
+          {
+            "name": "learning without evidence, provenance or rollback authority is rejected",
+            "passed": true
+          },
+          {
+            "name": "stale validated learning cannot remain validated",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "privacy-and-data-minimisation",
+        "description": "Sensitive and secret values are minimised per surface and never stored or copied",
+        "severity": "high",
+        "passed": true,
+        "checks": [
+          {
+            "name": "secret fields are redacted on every surface",
+            "passed": true
+          },
+          {
+            "name": "sensitive fields are redacted unless an explicit export is authorized",
+            "passed": true
+          },
+          {
+            "name": "clipboard and credential storage boundaries are enforced",
+            "passed": true
+          },
+          {
+            "name": "role boundaries cannot read above their class",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "leak-prevention",
+        "description": "Share links, indexing, metadata and URLs cannot leak private data",
+        "severity": "high",
+        "passed": true,
+        "checks": [
+          {
+            "name": "revoked and expired share links are rejected",
+            "passed": true
+          },
+          {
+            "name": "share link scope cannot be widened",
+            "passed": true
+          },
+          {
+            "name": "a private PWA can never be search-indexable",
+            "passed": true
+          },
+          {
+            "name": "public metadata cannot carry project data",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "replay-and-uncertain-side-effects",
+        "description": "Replay, tampering and uncertain outcomes cannot duplicate or amplify side effects",
+        "severity": "high",
+        "passed": true,
+        "checks": [
+          {
+            "name": "intent binding is deterministic and parameter-sensitive",
+            "passed": true
+          },
+          {
+            "name": "unsupported intent parameter shapes are rejected",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
