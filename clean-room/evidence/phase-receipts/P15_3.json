@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.3",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "d9acb245ccaafd3c58aa34c55e3e89e5288e4cbd",
+  "gitSha": "12460912db947bd24e95876f3749ab5156aa9cdb",
   "inputs": [
     "clean-room/scripts/p15-3-architecture-invariants-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",
@@ -20,7 +20,7 @@
     "clean-room/src/kernel/scope.ts",
     "clean-room/tests/p15-3-architecture-invariants.test.mjs"
   ],
-  "inputsDigest": "5de3144ccdac1622921ad8fa41fc3f3510ed5d0395d3f6d45dd9302426ad84fb",
+  "inputsDigest": "9c6c801b72ca7c8fcf6f8c267f137f1ee3651c06784439ee220a3a7730d34bcf",
   "evidence": [
     "clean-room/scripts/p15-3-architecture-invariants-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",
