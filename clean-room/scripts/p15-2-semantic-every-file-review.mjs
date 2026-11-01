@@ -175,6 +175,9 @@ for (const [path, authority] of Object.entries(authorities)) {
 
 const canonicalAuthorityDeclarations = new Map();
 for (const path of tracked) {
+  // The evidence file cannot review or digest itself; it is verified by the
+  // gate from the inventory of everything else.
+  if (path === P15_2_EVIDENCE_PATH) continue;
   const absolute = resolve(repoRoot, path);
   if (!existsSync(absolute)) { record("defect", "tracked_file_missing", path, "Tracked file is absent from the working tree"); continue; }
   const bytes = readFileSync(absolute);
@@ -278,6 +281,7 @@ const summary = {
   phaseId: "P15.2",
   trackedFileCount: tracked.length,
   reviewedFileCount: reviews.length,
+  evidenceFileExcluded: trackedSet.has(P15_2_EVIDENCE_PATH),
   reviewScope: "all-git-tracked-files",
   roleLegend: ROLE_LEGEND,
   filesByRole: byRole,
@@ -288,6 +292,7 @@ const summary = {
 
 if (write && defects.length === 0) {
   const reviewed = tracked.filter((path) => path !== P15_2_EVIDENCE_PATH);
+  if (reviewed.length !== reviews.length) throw new Error(`review coverage mismatch: ${reviews.length} records for ${reviewed.length} files`);
   const evidence = {
     schemaVersion: 1,
     phaseId: "P15.2",
