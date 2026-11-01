@@ -1,7 +1,7 @@
 {
   "schemaVersion": "cc-current-release-candidate-v1",
   "status": "CANDIDATE_PREPARED_AUTHORIZATION_REQUIRED",
-  "generatedAt": "2026-11-01T21:14:43.232Z",
+  "generatedAt": "2026-11-01T22:29:30.036Z",
   "gitSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
   "releaseIdentity": {
     "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
@@ -26,6 +26,26 @@
       {
         "sha": "2a4e495845194c854a2016aca86d4351a28e1011",
         "subject": "chore: record the P15.15 whole-system sweep and current release candidate"
+      },
+      {
+        "sha": "7f67fea857c2d3b86e59f5597f375743ba9ed42e",
+        "subject": "chore: bind the P15.2 every-file review and current candidate to the tested source"
+      },
+      {
+        "sha": "d14236eeb422b40117cfbcf4f1151d129bba1199",
+        "subject": "chore: requalify P15.1 reviewed mappings (5852 -> 5852)"
+      },
+      {
+        "sha": "b2f878498e472772104ca33259d63fa3ab9b2f82",
+        "subject": "fix: pin clean-room Node runtime for deployment compatibility"
+      },
+      {
+        "sha": "3e9eeb25881aecebd3494fac85447b7a5fe780fb",
+        "subject": "fix: add deterministic Vercel deployment build"
+      },
+      {
+        "sha": "a8b9d1d8d08c8ce582706791da1a91e879ebb540",
+        "subject": "fix: re-review the inventory in the commit that rewrites the P15.1 ledger"
       }
     ],
     "evidenceOnlyCommitsDoNotRedefineCandidate": true
@@ -94,5 +114,5 @@
     "protectedAssetsChanged": false,
     "note": "Production, main, production Supabase/auth and protected release assets remain untouched."
   },
-  "manifestHash": "fc8b2eee7c0ea8f18001241bb6a2880ed47bd6430b06528efe4a27ff0ce1264b"
+  "manifestHash": "e07b9da64f7972ce003ba9a410cfb327a6e5c8863ac56e10a9e198a46930c9c6"
 }
