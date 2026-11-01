@@ -65,6 +65,7 @@ import {reviewedLeakPreventionMappings} from './p15-1-reviewed-leak-prevention-m
 import {reviewedModuleHygieneMappings} from './p15-1-reviewed-module-hygiene-mappings.mjs';
 import {reviewedStandardsMappings} from './p15-1-reviewed-standards-mappings.mjs';
 import {reviewedErrorTaxonomyMappings} from './p15-1-reviewed-error-taxonomy-mappings.mjs';
+import {reviewedReuseBatchOneMappings} from './p15-1-reviewed-reuse-batch-one-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -101,6 +102,7 @@ export function currentReviewedMappings(root){
   ...reviewedModuleHygieneMappings(),
   ...reviewedStandardsMappings(),
   ...reviewedErrorTaxonomyMappings(),
+  ...reviewedReuseBatchOneMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
