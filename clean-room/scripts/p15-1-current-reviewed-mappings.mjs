@@ -55,6 +55,7 @@ import {reviewedRecommendationImpactMappings} from './p15-1-reviewed-recommendat
 import {reviewedRunCoordinationMappings} from './p15-1-reviewed-run-coordination-mappings.mjs';
 import {reviewedFailurePolicyMappings} from './p15-1-reviewed-failure-policy-mappings.mjs';
 import {reviewedTaskContractMappings} from './p15-1-reviewed-task-contract-mappings.mjs';
+import {reviewedBlockedStatusMappings} from './p15-1-reviewed-blocked-status-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -81,6 +82,7 @@ export function currentReviewedMappings(root){
   ...reviewedRunCoordinationMappings(),
   ...reviewedFailurePolicyMappings(),
   ...reviewedTaskContractMappings(),
+  ...reviewedBlockedStatusMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),

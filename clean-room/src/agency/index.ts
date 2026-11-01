@@ -26,3 +26,4 @@ export * from "./dispatch.js";
 export * from "./run-coordination.js";
 export * from "./failure-policy.js";
 export * from "./task-contract.js";
+export * from "./blocked-status.js";
