@@ -198,6 +198,12 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add clean-room/evidence/category15-requirement-traceability.json
+          # The P15.2 every-file review digests the whole tracked inventory, so the
+          # ledger this job rewrites must be re-reviewed in the same commit. Without
+          # this, every guarded promotion leaves HEAD with stale P15.2 evidence,
+          # which fails core-qa and blocks the very job that refreshes the ledger.
+          ( cd clean-room && node scripts/p15-2-semantic-every-file-review.mjs --write )
+          git add clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json
           git diff --cached --quiet && { echo "No guarded ledger change to commit"; exit 1; }
           git commit -m "chore: requalify P15.1 reviewed mappings (${BEFORE} -> ${AFTER})"
           git push origin HEAD:build/spec-lock-v2-clean-room
