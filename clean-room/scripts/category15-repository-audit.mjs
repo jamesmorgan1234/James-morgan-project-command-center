@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { extname, resolve } from "node:path";
+import { P15_2_EVIDENCE_PATH, validateSemanticEveryFileReview } from "./p15-2-repository-evidence.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -10,7 +11,7 @@ const tracked = execFileSync("git", ["ls-files", "-z"], { cwd: repoRoot }).toStr
 const trackedSet = new Set(tracked);
 const headSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: repoRoot }).toString("utf8").trim();
 const requiredEntrypoints = ["clean-room/public/index.html","clean-room/public/sw.js","clean-room/src/runtime/browser.ts"];
-const semanticEvidencePath = "clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json";
+const semanticEvidencePath = P15_2_EVIDENCE_PATH;
 const textExtensions = new Set([".js",".mjs",".cjs",".ts",".tsx",".json",".md",".txt",".csv",".yml",".yaml",".html",".css",".scss",".sql",".toml",".xml",".webmanifest"]);
 const secretPatterns = [
   { key: "openai_api_key", re: /\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}\b/g },
@@ -73,17 +74,16 @@ if (activeServiceWorkers.length !== 1) violations.push({ code: "active_service_w
 const automatedEveryFileScanComplete = reviews.length === tracked.length && violations.length === 0;
 let semanticEveryFileReviewComplete = false;
 let semanticEvidence = null;
+let semanticEvidenceErrors = [{ id: "P15.2", message: "Semantic every-file review evidence is absent" }];
 if (trackedSet.has(semanticEvidencePath) && existsSync(resolve(repoRoot, semanticEvidencePath))) {
   try {
     semanticEvidence = JSON.parse(readFileSync(resolve(repoRoot, semanticEvidencePath), "utf8"));
-    semanticEveryFileReviewComplete =
-      semanticEvidence.status === "VERIFIED_COMPLETE" &&
-      semanticEvidence.gitSha === headSha &&
-      Number.isInteger(semanticEvidence.reviewedFileCount) &&
-      semanticEvidence.reviewedFileCount === tracked.length &&
-      Array.isArray(semanticEvidence.evidence) && semanticEvidence.evidence.length > 0;
-  } catch {
+    const verification = validateSemanticEveryFileReview(semanticEvidence, { repoRoot, headSha, evidencePath: semanticEvidencePath });
+    semanticEveryFileReviewComplete = verification.valid;
+    semanticEvidenceErrors = verification.errors;
+  } catch (error) {
     semanticEveryFileReviewComplete = false;
+    semanticEvidenceErrors = [{ id: "P15.2", message: `Unreadable semantic every-file review evidence: ${error.message}` }];
   }
 }
 
@@ -96,9 +96,11 @@ const report = {
   automatedEveryFileScanComplete,
   semanticEveryFileReviewComplete,
   semanticEvidencePath,
+  semanticEvidenceErrors,
+  semanticEvidenceSourceCommit: semanticEvidence?.gitSha ?? null,
   semanticEvidenceTracked: trackedSet.has(semanticEvidencePath),
   semanticClaim: semanticEveryFileReviewComplete
-    ? "A separately evidenced semantic review is bound to this exact head."
+    ? "A separately evidenced semantic review is bound to the exact reviewed inventory of this repository."
     : "Automated hashing/classification/pattern checks are not semantic every-file certification.",
   activeArchitecture: {
     sourceRoot: "clean-room/src",
