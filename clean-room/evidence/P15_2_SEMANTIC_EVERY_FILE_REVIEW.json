@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "d9acb245ccaafd3c58aa34c55e3e89e5288e4cbd",
+  "gitSha": "9495ccfdc326238abe3b0e68e7257bcc19ced35b",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1953,
-  "inventoryDigest": "23bcf21965a91ca1887aae4faeaaa88b44ffe2089c5c111b4bf4267f1f4acbca",
+  "reviewedFileCount": 1954,
+  "inventoryDigest": "8e1862be7aad1c18da45f6cc946365fa42f240b97542a67fffc1a3c3fd890db2",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1954,
-    "reviewedFileCount": 1953,
+    "trackedFileCount": 1955,
+    "reviewedFileCount": 1954,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,7 +45,7 @@
       "HIST": 271,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 176,
+      "EVID": 177,
       "APUB": 11,
       "SCRP": 121,
       "ASRC": 338,
@@ -675,7 +675,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 176,
+      "fileCount": 177,
       "roles": [
         "EVID"
       ]
@@ -4686,6 +4686,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "427d57c500c8f4091c38a9cec4a70b6a265985a3663a976524e01958e91cf75b",
       "bytes": 13188682,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_3.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "ce1e7cf23bbcc9a224314c53c41479a3748258bfdaee22c881e040f4e94c96cf",
+      "bytes": 7586,
       "contentKind": "text",
       "findings": []
     },
