@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.8",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "e6287f3032f50586ebbade4b77ea25b92fb1cbe2",
+  "inputs": [
+    "clean-room/scripts/p15-8-scheduler-failover-replay-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/agency/project-agent.ts",
+    "clean-room/src/agency/recovery.ts",
+    "clean-room/src/agency/replay.ts",
+    "clean-room/src/agency/resilience.ts",
+    "clean-room/src/agency/rollout.ts",
+    "clean-room/src/agency/scheduler.ts",
+    "clean-room/src/agency/shift.ts",
+    "clean-room/tests/agency-foundation.test.mjs",
+    "clean-room/tests/p15-8-scheduler-failover-replay.test.mjs"
+  ],
+  "inputsDigest": "e4a154faef834285b74c057978d7fdb1e54dd082423a8ce4cc6d39bcb254ca90",
+  "evidence": [
+    "clean-room/scripts/p15-8-scheduler-failover-replay-audit.mjs",
+    "clean-room/tests/p15-8-scheduler-failover-replay.test.mjs",
+    "clean-room/tests/agency-foundation.test.mjs",
+    "clean-room/tests/category7-recovery-failover.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.8",
+    "suiteCount": 6,
+    "checkCount": 14,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "suites": [
+      {
+        "id": "scheduler-leadership-and-fencing",
+        "description": "Scheduler leadership is single-owner and fenced across failover",
+        "passed": true,
+        "checks": [
+          {
+            "name": "a second scheduler cannot lead while the first lease is live",
+            "passed": true
+          },
+          {
+            "name": "expired leadership fails over with a higher fence and rejects the stale leader",
+            "passed": true
+          },
+          {
+            "name": "leadership acquisition validates the lease window",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "worker-crash-and-project-agent-persistence",
+        "description": "Mission, queue and checkpoint survive worker replacement",
+        "passed": true,
+        "checks": [
+          {
+            "name": "Project Agent identity survives worker churn with a monotonic lease",
+            "passed": true
+          },
+          {
+            "name": "Project Agent store claims and releases workers without losing state",
+            "passed": true
+          },
+          {
+            "name": "orphaned assignments requeue only from a verified checkpoint",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "shift-incidents-and-owner-boundaries",
+        "description": "Shift Manager distinguishes recoverable incidents from real owner boundaries",
+        "passed": true,
+        "checks": [
+          {
+            "name": "stalled and failed workers are recoverable, blocked workers escalate only when listed",
+            "passed": true
+          },
+          {
+            "name": "coordination faults split into recoverable and owner-boundary sets",
+            "passed": true
+          },
+          {
+            "name": "Shift Manager rejects invalid coordination input",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "lead-failover",
+        "description": "Lead failover preserves mission, queue, checkpoint and authority",
+        "passed": true,
+        "checks": [
+          {
+            "name": "failover requires a replacement and durable references",
+            "passed": true
+          },
+          {
+            "name": "expired assignments recover to a replacement worker with new fence and revalidation",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "deterministic-replay",
+        "description": "Replay reproduces coordination decisions exactly",
+        "passed": true,
+        "checks": [
+          {
+            "name": "a valid replay log reproduces the recorded choices",
+            "passed": true
+          },
+          {
+            "name": "replay rejects gaps, duplicates and non-monotonic sequences",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "canary-rollback",
+        "description": "Canary evaluation blocks regressions before broad promotion",
+        "passed": true,
+        "checks": [
+          {
+            "name": "a healthier candidate promotes and a regressed candidate does not",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}

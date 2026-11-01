@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.7",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "e6287f3032f50586ebbade4b77ea25b92fb1cbe2",
+  "inputs": [
+    "clean-room/scripts/p15-7-concurrency-claims-fencing-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/agency/dispatch.ts",
+    "clean-room/src/agency/integration.ts",
+    "clean-room/src/agency/leases.ts",
+    "clean-room/src/agency/protected.ts",
+    "clean-room/src/agency/resources.ts",
+    "clean-room/src/agency/run-coordination.ts",
+    "clean-room/src/agency/verification.ts",
+    "clean-room/tests/agency-foundation.test.mjs",
+    "clean-room/tests/p15-7-concurrency-claims-fencing.test.mjs"
+  ],
+  "inputsDigest": "092872e5cffe217955f6856aa9c059610da7a0da556999bdda10dcee56f62ce6",
+  "evidence": [
+    "clean-room/scripts/p15-7-concurrency-claims-fencing-audit.mjs",
+    "clean-room/tests/p15-7-concurrency-claims-fencing.test.mjs",
+    "clean-room/tests/agency-foundation.test.mjs",
+    "clean-room/tests/category7-agency-adversarial.test.mjs",
+    "clean-room/tests/category15-performance-load-soak.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.7",
+    "suiteCount": 6,
+    "checkCount": 19,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "contentionCycles": 200,
+    "suites": [
+      {
+        "id": "atomic-claims-and-parallelism",
+        "description": "Concurrent claims are atomic and same-project parallelism stays productive",
+        "passed": true,
+        "checks": [
+          {
+            "name": "a live claim cannot be double-owned by a competing worker",
+            "passed": true
+          },
+          {
+            "name": "independent tasks proceed concurrently without blocking each other",
+            "passed": true
+          },
+          {
+            "name": "renewal extends only the holder's live lease",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "fencing-and-stale-commits",
+        "description": "Fencing prevents stale workers from mutating after losing ownership",
+        "passed": true,
+        "checks": [
+          {
+            "name": "an expired claim is re-fenced and the prior generation cannot commit",
+            "passed": true
+          },
+          {
+            "name": "released claims cannot commit and a later claim re-fences",
+            "passed": true
+          },
+          {
+            "name": "fencing holds across repeated contention cycles",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "lease-expiry-and-resource-recovery",
+        "description": "Expired leases and resource claims are recovered deterministically",
+        "passed": true,
+        "checks": [
+          {
+            "name": "expired claims cannot commit and expired resource claims are released with evidence",
+            "passed": true
+          },
+          {
+            "name": "resource recovery fails closed on missing evidence or invalid claims",
+            "passed": true
+          },
+          {
+            "name": "recovered resources become claimable again",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "resource-serialization-and-lock-conflicts",
+        "description": "Conflicting writes serialize while shared reads stay parallel",
+        "passed": true,
+        "checks": [
+          {
+            "name": "shared claims coexist and exclusive claims serialize",
+            "passed": true
+          },
+          {
+            "name": "a claim bundle cannot contain duplicate keys and is ordered deterministically",
+            "passed": true
+          },
+          {
+            "name": "cross-project shared resources serialize without cross-scope mutation",
+            "passed": true
+          },
+          {
+            "name": "project locks are fenced leases that cannot be stolen while live",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "duplicate-jobs-and-idempotency",
+        "description": "Duplicate runs, tasks and equivalent work are deduplicated",
+        "passed": true,
+        "checks": [
+          {
+            "name": "run/task/equivalent-work duplicates are reported rather than executed twice",
+            "passed": true
+          },
+          {
+            "name": "one active run per project and portfolio lane",
+            "passed": true
+          },
+          {
+            "name": "commands are ordered by stop, pause, then start and coalesce deterministically",
+            "passed": true
+          },
+          {
+            "name": "dispatch separates acceptance from execution claim",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "conflict-arbitration-and-verifier-independence",
+        "description": "Divergent outputs are arbitrated and high-risk work cannot self-certify",
+        "passed": true,
+        "checks": [
+          {
+            "name": "overlapping divergent artifacts conflict instead of last-write-wins",
+            "passed": true
+          },
+          {
+            "name": "high and critical risk require an independent verifier",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
