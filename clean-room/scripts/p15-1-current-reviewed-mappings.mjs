@@ -12,6 +12,7 @@ import {reviewedDesignSystemMappings} from './p15-1-reviewed-design-system-mappi
 import {reviewedDesignPerfPwaMappings} from './p15-1-reviewed-design-perf-pwa-mappings.mjs';
 import {reviewedShellPerfDataMappings} from './p15-1-reviewed-shell-perf-data-mappings.mjs';
 import {reviewedBrainExecutorMappings} from './p15-1-reviewed-brain-executor-mappings.mjs';
+import {reviewedChatSchedulingMappings} from './p15-1-reviewed-chat-scheduling-mappings.mjs';
 import {reviewedDeviceAdaptationMappings} from './p15-1-reviewed-device-adaptation-mappings.mjs';
 import {reviewedPwaLifecycleMappings} from './p15-1-reviewed-pwa-lifecycle-mappings.mjs';
 import {reviewedBrainContextMappings} from './p15-1-reviewed-brain-context-mappings.mjs';
@@ -139,6 +140,7 @@ export function currentReviewedMappings(root){
   ...reviewedDesignPerfPwaMappings(),
   ...reviewedShellPerfDataMappings(),
   ...reviewedBrainExecutorMappings(),
+  ...reviewedChatSchedulingMappings(),
   ...reviewedDeviceAdaptationMappings(),
   ...reviewedPwaLifecycleMappings(),
   ...reviewedBrainContextMappings(),
