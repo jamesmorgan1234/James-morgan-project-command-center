@@ -64,6 +64,7 @@ import {reviewedDataRightsMappings} from './p15-1-reviewed-data-rights-mappings.
 import {reviewedLeakPreventionMappings} from './p15-1-reviewed-leak-prevention-mappings.mjs';
 import {reviewedModuleHygieneMappings} from './p15-1-reviewed-module-hygiene-mappings.mjs';
 import {reviewedStandardsMappings} from './p15-1-reviewed-standards-mappings.mjs';
+import {reviewedErrorTaxonomyMappings} from './p15-1-reviewed-error-taxonomy-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -99,6 +100,7 @@ export function currentReviewedMappings(root){
   ...reviewedLeakPreventionMappings(),
   ...reviewedModuleHygieneMappings(),
   ...reviewedStandardsMappings(),
+  ...reviewedErrorTaxonomyMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
