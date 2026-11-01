@@ -45,7 +45,8 @@ export function isAncestor(repoRoot, ancestor, headSha) {
 }
 
 export function validateReceiptBinding(receipt, { repoRoot, headSha }) {
-  if (!receipt || !Array.isArray(receipt.inputs) || receipt.inputs.length === 0) return false;
+  if (!receipt || receipt.status !== "VERIFIED_COMPLETE") return false;
+  if (!Array.isArray(receipt.inputs) || receipt.inputs.length === 0) return false;
   if (typeof receipt.inputsDigest !== "string" || !/^[a-f0-9]{64}$/.test(receipt.inputsDigest)) return false;
   if (!isAncestor(repoRoot, receipt.gitSha, headSha)) return false;
   const tracked = trackedSet(repoRoot);

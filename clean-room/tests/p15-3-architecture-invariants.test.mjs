@@ -44,7 +44,7 @@ test("P15.3 audit exercises real compiled modules rather than roadmap prose", ()
   for (const specifier of ["../dist/kernel/index.js", "../dist/agency/index.js", "../dist/brain/index.js", "../dist/data/index.js"]) {
     assert.ok(auditSource.includes(specifier), `audit must load ${specifier}`);
   }
-  for (const behaviour of ["validateDelegatedAuthority", "validateSpecialistModel", "LearningPromotionGovernor", "SelfImprovementGovernor", "assertProtectedPreflight"]) {
+  for (const behaviour of ["validateDelegatedAuthority", "validateSpecialistProjection", "LearningPromotionGovernor", "SelfImprovementGovernor", "assertProtectedPreflight", "createCoreArchitectureResponsibilityRegistry"]) {
     assert.ok(auditSource.includes(behaviour), `audit must exercise ${behaviour}`);
   }
   assert.match(phaseGateSource, /validateReceiptBinding\(candidate, \{ repoRoot, headSha \}\)/);
