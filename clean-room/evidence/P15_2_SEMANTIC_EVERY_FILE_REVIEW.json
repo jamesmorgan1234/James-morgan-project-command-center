@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "00c50a49f0ccde4f2514d75713889c26874a9a9f",
+  "gitSha": "e59782d02757082a0c130fe548d4cfcbbde826d3",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1963,
-  "inventoryDigest": "2cd36a242fe8c774cc9bd18b3a89b6f5ffcc3b9d35257bd535a0f7d44fdb5069",
+  "reviewedFileCount": 1981,
+  "inventoryDigest": "b4871b6d3188fb81bc0e76346ef8dbfdd9b63ae25e55feac747bc2bc12f33e7d",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1964,
-    "reviewedFileCount": 1963,
+    "trackedFileCount": 1982,
+    "reviewedFileCount": 1981,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,11 +45,11 @@
       "HIST": 271,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 180,
+      "EVID": 186,
       "APUB": 11,
-      "SCRP": 124,
+      "SCRP": 130,
       "ASRC": 338,
-      "TEST": 432,
+      "TEST": 438,
       "RDMAP": 289,
       "SBAS": 229,
       "HTST": 43
@@ -675,7 +675,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 180,
+      "fileCount": 186,
       "roles": [
         "EVID"
       ]
@@ -703,7 +703,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 121,
+      "fileCount": 127,
       "roles": [
         "SCRP"
       ]
@@ -717,7 +717,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 432,
+      "fileCount": 438,
       "roles": [
         "TEST"
       ]
@@ -4690,6 +4690,33 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/phase-receipts/P15_10.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "74ac676eefe8567c9ae17ea7ed3be4b3c4661b42532ed4c6a42704fd32801f29",
+      "bytes": 4541,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_11.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d1ba73a76d81dc25cd42f40cff61894aa9a85f3033098609633d8d875ba8f87",
+      "bytes": 4760,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_12.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "69fd888ba492636efd32ca17d594cfc8b87e33a6516215b3ab75633679e4b1e6",
+      "bytes": 4602,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/phase-receipts/P15_3.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -4722,6 +4749,33 @@
       "disposition": "retain-authority-evidence",
       "sha256": "fa11a3278663092ba75e5192f8381338a4abe6eaf5dfd2c5b4a0a2cc4ccc2d27",
       "bytes": 6387,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_7.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "366717db221e5b90836081a5a46323eab067af24777e1337fb286e4cd2fdb18a",
+      "bytes": 5256,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_8.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "2adf7d4831f46b22341c1e02e29be8f88480803b717d6323696c62aa8c6b9663",
+      "bytes": 4414,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/phase-receipts/P15_9.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "2740c54b1a32bc03995cbe6874b5089f862f100ba36231ea12ce209725f649a5",
+      "bytes": 3463,
       "contentKind": "text",
       "findings": []
     },
@@ -5869,6 +5923,33 @@
       "findings": []
     },
     {
+      "path": "clean-room/scripts/p15-10-needs-me-boundary-resume-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "a10a60905e7b225c526642d3cb652485b9eb5aa160e723108cab49d02c6ebbdd",
+      "bytes": 19814,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-11-recovery-migration-provider-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "30a7fa28bceab97077e44016883c9435e86472ef1c6822372b0554f38a0ebad6",
+      "bytes": 18084,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-12-performance-load-soak-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "2bf54881e18a7bf49d039458a2848e045d6f8bf70ca74849bde8c1e8c48eceb4",
+      "bytes": 15341,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/scripts/p15-2-repository-evidence.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
@@ -5919,6 +6000,33 @@
       "disposition": "retain-active",
       "sha256": "bba6a6dce2133938d701d9d947a58bc60c3b5f1799d3df85419a10a19d85f2db",
       "bytes": 24983,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-7-concurrency-claims-fencing-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "d3bf55041bccdeeac1890adab8d6deb66dcc3ee68a8ad9531e308df8fd4727af",
+      "bytes": 20042,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-8-scheduler-failover-replay-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "8c46a98f2c649560108cea0d02be4f116c3546b6ada0e1fa30aa2c1c86b93957",
+      "bytes": 17415,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-9-foundry-steering-audit.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "639c164898b3efb9c1b69ee90976af7154ec9b33ef65d5c83f8e49039a841516",
+      "bytes": 11307,
       "contentKind": "text",
       "findings": []
     },
@@ -12207,6 +12315,33 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/p15-10-needs-me-boundary-resume.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "03f10d9396bdf958a463dac35f8c0a687a7cb76c898e573a3aa5551c5c5f2bef",
+      "bytes": 3930,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-11-recovery-migration-provider.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "e1be3a85db0a882f215e3b72c9e4dcf46646f62d7451271ef571bd5335e47ce1",
+      "bytes": 3946,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-12-performance-load-soak.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "0753ce239957a6e9f312b10ad4e63edd6576ed38bbfe68083ba5040cb9d8bd16",
+      "bytes": 4362,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/p15-2-every-file-review.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
@@ -12248,6 +12383,33 @@
       "disposition": "retain-active",
       "sha256": "2cb0c2a10057cd98d36751e2c83acc492347a02356b613a56c9660fbbc07eb04",
       "bytes": 5332,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-7-concurrency-claims-fencing.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "d88ca46cbc675dd476ad169c64c38038c6c5ad35dc337510288e24843b1e6a38",
+      "bytes": 4125,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-8-scheduler-failover-replay.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "7524b303671c7e6c61f5da7fdd5a239b0f28207cd3715418f058a5cd1fc32684",
+      "bytes": 3979,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-9-foundry-steering.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "742e85d00a42e872c17b201f1e500b02c3fb1ea345995cda23c2e8a40b2c6d2d",
+      "bytes": 3724,
       "contentKind": "text",
       "findings": []
     },
