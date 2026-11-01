@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "65df508ff4c1dec13cdbd2bb2a94e7557020e648",
+  "gitSha": "2a40fb5687339db34ef468ecb86837d2016cc1a1",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1989,
-  "inventoryDigest": "3717647436a339be882bb66692ea9ee008855551ac70434633f4b5a4460ad8d2",
+  "reviewedFileCount": 2037,
+  "inventoryDigest": "3db06db2f1807511b84708797be68999ffdaf601aafb9a3adbf8bb28527d4e1e",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1990,
-    "reviewedFileCount": 1989,
+    "trackedFileCount": 2038,
+    "reviewedFileCount": 2037,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,9 +45,9 @@
       "HIST": 271,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 190,
+      "EVID": 236,
       "APUB": 11,
-      "SCRP": 132,
+      "SCRP": 134,
       "ASRC": 338,
       "TEST": 440,
       "RDMAP": 289,
@@ -675,7 +675,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 190,
+      "fileCount": 236,
       "roles": [
         "EVID"
       ]
@@ -703,7 +703,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 129,
+      "fileCount": 131,
       "roles": [
         "SCRP"
       ]
@@ -3550,7 +3550,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "6d8802783c0baf7cf0e41071e02d07b099d0d29d5ebbb8def0f656b68b498b83",
+      "sha256": "fa657dbd8068eb6ea47d566ef6d799055371668a54a37f4c4d701d64f49948a3",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3559,7 +3559,7 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "9a8209061f2e5dc18e71237e348224ccee95349e254cd43948cadd0fea8d81e6",
+      "sha256": "46f3431efe7821ce62394184ce305f49d78a18390251e102d9ba0dbc2dbffba0",
       "bytes": 2183,
       "contentKind": "text",
       "findings": []
@@ -4438,6 +4438,24 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/WHOLE_SYSTEM_RENDERED_DOM_SWEEP.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "b706bd05dc7d10c3a81dae0f3522786772dddb486319cbc2453309cb6cc52349",
+      "bytes": 6733,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/WHOLE_SYSTEM_RENDERED_SWEEP.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "3c61e19dc1ee07c0e7b10590604106bc173bba3eee1a3bad8df771f928eaf595",
+      "bytes": 39035,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/a00-traceability-overrides/001-p1-foundational-authority.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -4738,7 +4756,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "091460a4c0c466e537ff0b1c6543067915e7cfb1c70c8e2cdca4a7d610735005",
+      "sha256": "1152f71835b0ae1bdf589ec257bca405b1eeb81c98f5fb893cf02c2682f697d4",
       "bytes": 5189,
       "contentKind": "text",
       "findings": []
@@ -4747,7 +4765,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "5d6f0877550705cdd53ddf189aad3cafca3262ad89da156511079e7e104805f7",
+      "sha256": "b175aac701759150c595890e40fd0e915299a1ab38d24bb5d47d1f68e45917ec",
       "bytes": 2974,
       "contentKind": "text",
       "findings": []
@@ -4813,6 +4831,402 @@
       "sha256": "2740c54b1a32bc03995cbe6874b5089f862f100ba36231ea12ce209725f649a5",
       "bytes": 3463,
       "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-active.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-agency.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-analytics.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-automations.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-books.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-brain.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-finance.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-home.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-needs-me.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-next-up.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-personal.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-project-fixture-critical.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-project-fixture-low.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-project-fixture-normal.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-projects.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-search.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-settings-devices.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-settings-security.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-settings.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-social.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-specialists.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/desktop-this-route-does-not-exist.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5892dd559086d3f7b7fa5f593a78d5fb9fd5948d489e4f41d2391910968fa3ad",
+      "bytes": 18435,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-active.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-agency.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-analytics.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-automations.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-books.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-brain.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-finance.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-home.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "6d4c12dce5fb13fa9b0e3fbd76ef7fe42c89f752336f646433fc2d8f1b6a092e",
+      "bytes": 884787,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-needs-me.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-next-up.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-personal.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-project-fixture-critical.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-project-fixture-low.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-project-fixture-normal.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-projects.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-search.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-settings-devices.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-settings-security.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-settings.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-social.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-specialists.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/whole-system-sweep/phone-this-route-does-not-exist.png",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4d7bc04e154e81895666c908e780379816a94faf483bbef9f800de08c90b89d7",
+      "bytes": 45095,
+      "contentKind": "binary",
       "findings": []
     },
     {
@@ -6090,6 +6504,24 @@
       "disposition": "retain-active",
       "sha256": "004fdd5309629822caa96866ec1129e7f8c15de0b1f1e907851a0d2b815e3e6f",
       "bytes": 2824,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/serve-spa.py",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "1f573f85a27505cf6baddd6e92a982960647cdb4b86754bc8246ad5d994c78da",
+      "bytes": 1114,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/whole-system-rendered-sweep.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "c11ee4de73e0e98f8adbefb6540ecee7f9dbc00e20848bc07c5a378cc19543f4",
+      "bytes": 13587,
       "contentKind": "text",
       "findings": []
     },
