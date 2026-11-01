@@ -11,6 +11,7 @@
  */
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, extname, resolve } from "node:path";
+import ts from "typescript";
 import { execFileSync } from "node:child_process";
 import {
   P15_2_EVIDENCE_PATH,
@@ -130,7 +131,31 @@ const findings = [];
 const reviews = [];
 const record = (severity, code, path, detail) => findings.push({ severity, code, path, detail });
 
-const specifierPattern = /(?:from\s*|import\s*\(\s*|require\(\s*)["'](\.[^"']*)["']/g;
+/** Real module edges only: AST import/export/dynamic-import/require declarations. */
+function moduleSpecifiers(path, text) {
+  const sourceFile = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true);
+  const specifiers = [];
+  const literal = (node) => (node && ts.isStringLiteralLike(node) ? node.text : undefined);
+  function visit(node) {
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+      const specifier = literal(node.moduleSpecifier);
+      if (specifier) specifiers.push(specifier);
+    } else if (ts.isImportEqualsDeclaration(node) && ts.isExternalModuleReference(node.moduleReference)) {
+      const specifier = literal(node.moduleReference.expression);
+      if (specifier) specifiers.push(specifier);
+    } else if (ts.isCallExpression(node)) {
+      const dynamicImport = node.expression.kind === ts.SyntaxKind.ImportKeyword;
+      const requireCall = ts.isIdentifier(node.expression) && node.expression.text === "require";
+      if (dynamicImport || requireCall) {
+        const specifier = literal(node.arguments[0]);
+        if (specifier) specifiers.push(specifier);
+      }
+    }
+    ts.forEachChild(node, visit);
+  }
+  visit(sourceFile);
+  return specifiers;
+}
 const usesPattern = /^[ \t]*uses:\s*(\S+)/;
 const pinnedRef = /@[a-f0-9]{40}$/;
 
@@ -173,9 +198,9 @@ for (const path of tracked) {
       }
     }
     if (role === "ASRC" || role === "APUB") {
-      for (const match of text.matchAll(specifierPattern)) {
-        if (legacyMarkers.some((marker) => match[1].includes(marker))) {
-          record("defect", "legacy_runtime_dependency", path, `Active clean-room file imports a legacy/archive module ${match[1]}`);
+      for (const specifier of moduleSpecifiers(path, text)) {
+        if (legacyMarkers.some((marker) => specifier.includes(marker))) {
+          record("defect", "legacy_runtime_dependency", path, `Active clean-room file imports a legacy/archive module ${specifier}`);
         }
       }
     }
@@ -184,12 +209,10 @@ for (const path of tracked) {
       try { JSON.parse(text); } catch (error) { record("defect", "invalid_json", path, String(error.message).slice(0, 120)); }
     }
     if (codeExtensions.has(ext)) {
-      for (const match of text.matchAll(specifierPattern)) {
-        // A quoted/backticked match is a string literal that merely describes an
-        // import (assertions about entrypoint text), not a real module edge.
-        if (/['"`]/.test(text[match.index - 1] ?? "")) continue;
-        const resolved = resolveSpecifier(path, match[1]);
-        if (!resolved.ok) record("defect", resolved.code, path, `Relative specifier ${match[1]} does not resolve to a tracked module`);
+      for (const specifier of moduleSpecifiers(path, text)) {
+        if (!specifier.startsWith(".")) continue;
+        const resolved = resolveSpecifier(path, specifier);
+        if (!resolved.ok) record("defect", resolved.code, path, `Relative specifier ${specifier} does not resolve to a tracked module`);
       }
       if (role === "ASRC" && /\b(?:document\.write\s*\(|Object\.definePropert(?:y|ies)\s*\(\s*(?:Array|Object|String|Number|Promise|Window|Document|Element|HTMLElement|EventTarget|Node)\.prototype)/.test(text)) {
         record("defect", "band_aid_runtime_patch", path, "Active source patches native prototypes or writes documents directly");

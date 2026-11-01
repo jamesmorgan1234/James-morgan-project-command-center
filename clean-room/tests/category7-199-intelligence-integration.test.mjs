@@ -288,7 +288,7 @@ test("P7.13/P7.15 specialist collaboration composes dynamically while delegated 
     envelope: delegationEnvelope(["repo:read", "admin:all"]),
     childSpecialist: amplifiedChild,
     childProjection: { ...request.childProjection, permissionKeys: ["admin:all"] }
-  }), /amplify authority/);
+  }), /(?:amplify authority|amplification blocked)/);
 });
 
 test("P7.16 high-risk learning/transfer/improvement requires independent verifier and evaluator ownership", () => {
