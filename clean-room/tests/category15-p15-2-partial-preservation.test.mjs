@@ -98,7 +98,7 @@ test("P15.2 live state is coupled to verified evidence instead of a hard-coded s
   const gate = spawnSync(process.execPath, ["scripts/category15-phase-gate-audit.mjs"], { cwd: process.cwd(), encoding: "utf8" });
   assert.equal(gate.status, 0, `phase status audit failed unexpectedly: ${gate.stderr || gate.stdout}`);
   const summary = JSON.parse(gate.stdout.trim().split("\n").filter(Boolean).at(-1));
-  if (!existsSync(semanticEvidencePath)) {
+  if (!existsSync(resolve(repoRoot, semanticEvidencePath))) {
     assert.equal(summary.p15_2, "PARTIAL");
     return;
   }
