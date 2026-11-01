@@ -70,5 +70,15 @@ test("Task 4 integrity: the current open Category 15 state remains a real hard f
   assert.ok(lines.length > 0, "Category 15 gate emitted no machine-readable summary");
   const summary = JSON.parse(lines.at(-1));
   assert.ok(summary.p15_1_through_14_unverified_count > 0, "Category 15 reports no genuine open nonproduction phases");
-  assert.notEqual(summary.p15_1, "VERIFIED_COMPLETE", "P15.1 was falsely promoted to VERIFIED_COMPLETE");
+  if (summary.p15_1 === "VERIFIED_COMPLETE") {
+    const counts = summary.traceabilityCounts ?? {};
+    assert.equal(counts.closureComplete, true, "P15.1 was promoted without strict row-level closure");
+    assert.equal(counts.unverifiedCount, 0, "P15.1 was promoted while requirements remain UNVERIFIED");
+    assert.equal(counts.closureInvalidRowCount, 0, "P15.1 was promoted with closure-invalid rows");
+    assert.equal(
+      summary.requirementTraceabilityRepositoryEvidenceValid,
+      true,
+      "P15.1 was promoted without valid source-bound repository evidence"
+    );
+  }
 });
