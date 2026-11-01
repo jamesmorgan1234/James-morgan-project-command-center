@@ -7,6 +7,16 @@ on:
     paths:
       - 'clean-room/scripts/p15-1-reviewed-*.mjs'
       - 'clean-room/scripts/p15-1-current-reviewed-mappings.mjs'
+      - 'clean-room/src/**'
+      - 'clean-room/tests/**'
+      - 'clean-room/scripts/**'
+      - 'clean-room/public/**'
+      - 'clean-room/package.json'
+      - 'clean-room/package-lock.json'
+      - 'clean-room/tsconfig.json'
+      - 'clean-room/tsconfig.build.json'
+      - 'supabase/migrations/**'
+      - 'roadmap/master-build-plan-owner-review/**'
       - '.github/workflows/p15-1-requalify-reviewed-mappings.yml'
   workflow_dispatch:
 
@@ -100,7 +110,6 @@ jobs:
 
   assemble-and-commit:
     needs: core-qa
-    if: needs.core-qa.outputs.mappings_changed == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -165,7 +174,10 @@ jobs:
               --write
           )
           after="$(node -e "const fs=require('node:fs');const d=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));console.log(d.requirements.filter(r=>r.truthState==='VERIFIED').length)")"
-          test "$after" -gt "$before"
+          test "$after" -ge "$before"
+          if [ "$after" -eq "$before" ]; then
+            node -e "const fs=require('node:fs');const d=JSON.parse(fs.readFileSync('clean-room/evidence/category15-requirement-traceability.json','utf8'));if(d.verification.sourceCommit!==process.env.GITHUB_SHA)throw Error('Evidence refresh is not bound to this exact source');if(!d.repositoryEvidence.valid)throw Error('Refreshed evidence is invalid');console.log('evidence-refresh-bound='+d.verification.sourceCommit);"
+          fi
           echo "before=$before" >> "$GITHUB_OUTPUT"
           echo "after=$after" >> "$GITHUB_OUTPUT"
       - name: Refuse stale-branch write
