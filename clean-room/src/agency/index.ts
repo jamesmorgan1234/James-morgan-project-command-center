@@ -22,3 +22,4 @@ export * from "./recovery.js";
 export * from "./resilience.js";
 export * from "./rev3-closure.js";
 export * from "./intelligence-integration.js";
+export * from "./dispatch.js";

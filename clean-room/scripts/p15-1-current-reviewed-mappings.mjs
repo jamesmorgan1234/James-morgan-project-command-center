@@ -49,6 +49,7 @@ import {reviewedPresentationMappings} from './p15-1-reviewed-presentation-mappin
 import {reviewedKnowledgeObjectMappings} from './p15-1-reviewed-knowledge-object-mappings.mjs';
 import {reviewedBrainTruthMappings} from './p15-1-reviewed-brain-truth-mappings.mjs';
 import {reviewedComplianceRegistryMappings} from './p15-1-reviewed-compliance-registry-mappings.mjs';
+import {reviewedRegistryDispatchMappings} from './p15-1-reviewed-registry-dispatch-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -69,6 +70,7 @@ export function currentReviewedMappings(root){
   ...reviewedKnowledgeObjectMappings(),
   ...reviewedBrainTruthMappings(),
   ...reviewedComplianceRegistryMappings(),
+  ...reviewedRegistryDispatchMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
