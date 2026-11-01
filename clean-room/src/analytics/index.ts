@@ -19,3 +19,4 @@ export * from "./contracts.js";
 export * from "./storage.js";
 export * from "./access.js";
 export * from "./compliance-reports.js";
+export * from "./recommendation-impact.js";
