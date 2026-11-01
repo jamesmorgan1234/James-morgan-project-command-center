@@ -1,0 +1,242 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.5",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "93f15e06a05a602860973e679c825afe6811ea96",
+  "inputs": [
+    "clean-room/public/app.css",
+    "clean-room/public/project-system.css",
+    "clean-room/scripts/p15-5-visual-ux-device-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/runtime/browser.ts",
+    "clean-room/src/runtime/route-state.ts",
+    "clean-room/src/ui/accessibility.ts",
+    "clean-room/src/ui/design-tokens.ts",
+    "clean-room/src/ui/device.ts",
+    "clean-room/src/ui/fixtures.ts",
+    "clean-room/src/ui/navigation.ts",
+    "clean-room/src/ui/presentation.ts",
+    "clean-room/src/ui/primitives.ts",
+    "clean-room/src/ui/pwa.ts",
+    "clean-room/src/ui/routes.ts",
+    "clean-room/src/ui/shell.ts",
+    "clean-room/src/ui/visual-references.ts",
+    "clean-room/tests/p15-5-visual-ux-device-audit.test.mjs",
+    "clean-room/tests/route-state-closure.test.mjs",
+    "clean-room/tests/runtime-visual-structure.test.mjs",
+    "clean-room/tests/ui-shell-foundation.test.mjs"
+  ],
+  "inputsDigest": "9c6863886cf0d73ee6a2e8d8eb3a7ed88735333b5a6a3018aeb7ddf97ef4628d",
+  "evidence": [
+    "clean-room/scripts/p15-5-visual-ux-device-audit.mjs",
+    "clean-room/tests/p15-5-visual-ux-device-audit.test.mjs",
+    "clean-room/tests/ui-shell-foundation.test.mjs",
+    "clean-room/tests/runtime-visual-structure.test.mjs",
+    "clean-room/tests/route-state-closure.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.5",
+    "suiteCount": 8,
+    "checkCount": 34,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "approvedScreenCount": 4,
+    "coreRouteCount": 19,
+    "requiredStateCount": 9,
+    "suites": [
+      {
+        "id": "approved-screen-authority",
+        "description": "Shown screens match the owner-approved visual authority",
+        "passed": true,
+        "checks": [
+          {
+            "name": "four approved screens are the only approved structural authority",
+            "passed": true
+          },
+          {
+            "name": "approved authority is honest about unmapped legacy filenames",
+            "passed": true
+          },
+          {
+            "name": "shared visual language names the governing system and rejects drift",
+            "passed": true
+          },
+          {
+            "name": "approved reference viewport is phone-first portrait and scales truthfully",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "unseen-screen-derivation",
+        "description": "Unseen screens inherit the approved system instead of redesigning it",
+        "passed": true,
+        "checks": [
+          {
+            "name": "derivation rule is explicit and derived screens are never claimed as pixel-identical",
+            "passed": true
+          },
+          {
+            "name": "every approved screen has a structural fixture with its required regions and card traits",
+            "passed": true
+          },
+          {
+            "name": "no approved fixture reintroduces decorative chevrons or title-only navigation",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "required-routes-and-navigation",
+        "description": "Every required route resolves truthfully with no silent Home fallback",
+        "passed": true,
+        "checks": [
+          {
+            "name": "core registry and explicit browser route table agree exactly",
+            "passed": true
+          },
+          {
+            "name": "every declared route resolves to its own explicit browser state",
+            "passed": true
+          },
+          {
+            "name": "unknown paths fail safely and keep a display-safe path",
+            "passed": true
+          },
+          {
+            "name": "a newly declared but unmapped route is blocked rather than rendered generically",
+            "passed": true
+          },
+          {
+            "name": "route registration rejects duplicate paths and removal leaves no residue",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "interactions-back-and-scroll",
+        "description": "Back and scroll have exactly one owner and behave truthfully",
+        "passed": true,
+        "checks": [
+          {
+            "name": "navigation coordinator alone owns history and scroll restoration",
+            "passed": true
+          },
+          {
+            "name": "application shell rejects competing slot owners and invalid transitions",
+            "passed": true
+          },
+          {
+            "name": "offline and degraded shell states are explicit, not silently ready",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "loading-empty-error-and-degraded-states",
+        "description": "Loading, empty, error, degraded and offline states are truthful and complete",
+        "passed": true,
+        "checks": [
+          {
+            "name": "every required regression state has a deterministic, provider-free fixture",
+            "passed": true
+          },
+          {
+            "name": "status semantics always carry a textual equivalent, never colour alone",
+            "passed": true
+          },
+          {
+            "name": "status labels and owner-facing text stay canonical and free of plumbing",
+            "passed": true
+          },
+          {
+            "name": "offline policy keeps the shell available without faking fresh data",
+            "passed": true
+          },
+          {
+            "name": "update lifecycle blocks incompatible activation and preserves known-good rollback",
+            "passed": true
+          },
+          {
+            "name": "runtime renders explicit unavailable/empty states instead of fabricating zeroes",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "accessibility",
+        "description": "Accessibility contracts are enforced rather than declared",
+        "passed": true,
+        "checks": [
+          {
+            "name": "interactive targets meet the 48px minimum and require an accessible name",
+            "passed": true
+          },
+          {
+            "name": "keyboard commands and focus boundaries behave truthfully",
+            "passed": true
+          },
+          {
+            "name": "the accessibility contract keeps every required guarantee",
+            "passed": true
+          },
+          {
+            "name": "reduced motion removes animation and transition budget is enforced",
+            "passed": true
+          },
+          {
+            "name": "primitives, overlays and layers cannot break accessibility rules",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "responsive-geometry-and-target-devices",
+        "description": "Responsive geometry and target devices keep the phone-first contract",
+        "passed": true,
+        "checks": [
+          {
+            "name": "layout classes separate compact phone, phone, tablet and desktop",
+            "passed": true
+          },
+          {
+            "name": "target devices stay phone-first including the accepted Samsung viewport",
+            "passed": true
+          },
+          {
+            "name": "reference scale and motion adapt to device profile",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "runtime-assembly-and-no-legacy-drift",
+        "description": "Browser runtime assembly carries the approved system with no legacy dependency",
+        "passed": true,
+        "checks": [
+          {
+            "name": "browser runtime renders each approved structure distinctly",
+            "passed": true
+          },
+          {
+            "name": "owner-facing navigation uses whole cards with no decorative chevrons",
+            "passed": true
+          },
+          {
+            "name": "approved visual tokens and geometry are present in the shipped stylesheets",
+            "passed": true
+          },
+          {
+            "name": "no generic UI framework or competing design system is introduced",
+            "passed": true
+          },
+          {
+            "name": "runtime and UI modules stay inside the clean-room source with no legacy or dynamic escape hatch",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}

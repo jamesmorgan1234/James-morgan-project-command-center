@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.6",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "93f15e06a05a602860973e679c825afe6811ea96",
+  "inputs": [
+    "clean-room/scripts/p15-6-historical-recovery-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/data/historical-export.ts",
+    "clean-room/src/data/historical-lineage.ts",
+    "clean-room/src/data/privacy.ts",
+    "clean-room/src/recovery/acceptance.ts",
+    "clean-room/src/recovery/contracts.ts",
+    "clean-room/src/recovery/historical-report.ts",
+    "clean-room/src/recovery/lost-artifact.ts",
+    "clean-room/tests/data-platform-recovery.test.mjs",
+    "clean-room/tests/p15-6-historical-recovery-audit.test.mjs",
+    "clean-room/tests/recovery-scale-foundation.test.mjs"
+  ],
+  "inputsDigest": "8f15145b8d4d0fc5f8104fdaa4e86007edc0da0df31295153084bcb04116aa7a",
+  "evidence": [
+    "clean-room/scripts/p15-6-historical-recovery-audit.mjs",
+    "clean-room/tests/p15-6-historical-recovery-audit.test.mjs",
+    "clean-room/tests/data-platform-recovery.test.mjs",
+    "clean-room/tests/recovery-scale-foundation.test.mjs",
+    "clean-room/tests/p14-5-historical-completeness.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.6",
+    "suiteCount": 7,
+    "checkCount": 19,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "requirementIds": [
+      "CCR-05847",
+      "CCR-05848",
+      "CCR-05849",
+      "CCR-05850",
+      "CCR-05851",
+      "CCR-05852"
+    ],
+    "conversations": 3,
+    "messageNodes": 7,
+    "branchPoints": 2,
+    "containers": 2,
+    "redactedNodes": 1,
+    "suites": [
+      {
+        "id": "import-adapter-and-provenance",
+        "description": "CCR-05847 — safe staged ingestion with batch identity, validation and provenance",
+        "requirementIds": [
+          "CCR-05847"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "representative export stages every conversation under one batch identity",
+            "passed": true
+          },
+          {
+            "name": "invalid exports are rejected before any canonical write",
+            "passed": true
+          },
+          {
+            "name": "provenance is bound to the exact staged source, not caller claims",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "complete-message-graph",
+        "description": "CCR-05848 — the complete available message graph is imported, not titles or final messages",
+        "requirementIds": [
+          "CCR-05848"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "every mapping node is inventoried including empty structural roots",
+            "passed": true
+          },
+          {
+            "name": "branch text is never flattened into a single fabricated chronology",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "branch-aware-lineage",
+        "description": "CCR-05849 — divergent branches keep their lineage and invalid graphs are rejected",
+        "requirementIds": [
+          "CCR-05849"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "graph validation reports the real branch point and accepts the fixture",
+            "passed": true
+          },
+          {
+            "name": "missing parents, cycles, duplicate children and mismatched links are rejected",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "container-identity-lineage",
+        "description": "CCR-05850 — container identity is preserved as lineage, never as canonical truth",
+        "requirementIds": [
+          "CCR-05850"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "containers group conversations by their historical template identity",
+            "passed": true
+          },
+          {
+            "name": "container membership never becomes a current canonical project claim",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "lost-artifact-original-first",
+        "description": "CCR-05851 — missing artifacts keep their reference and originals are tried before reconstruction",
+        "requirementIds": [
+          "CCR-05851"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "original recovery is attempted before any reconstruction",
+            "passed": true
+          },
+          {
+            "name": "reconstruction is allowed only after exhaustion, is labelled, and cannot masquerade as the original",
+            "passed": true
+          },
+          {
+            "name": "unauthorized, duplicated and dishonest attempts are rejected",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "completeness-report-exactness",
+        "description": "CCR-05852 — the completeness report matches the staged graph exactly",
+        "requirementIds": [
+          "CCR-05852"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "the audited report matches the real staged graph and keeps missing artifacts open",
+            "passed": true
+          },
+          {
+            "name": "forged counts, hidden privacy exclusions and wrong provenance are rejected",
+            "passed": true
+          },
+          {
+            "name": "scope, digest, access and evidence failures fail closed",
+            "passed": true
+          },
+          {
+            "name": "completeness requires every declared dimension and exact counts",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "privacy-exclusion-and-determinism",
+        "description": "Secrets and private content never leak and recovery is deterministic",
+        "requirementIds": [
+          "CCR-05847",
+          "CCR-05852"
+        ],
+        "passed": true,
+        "checks": [
+          {
+            "name": "private branch content is excluded from the stage and from the report",
+            "passed": true
+          },
+          {
+            "name": "credential-shaped content is never staged as plaintext",
+            "passed": true
+          },
+          {
+            "name": "recovery output is deterministic for the same source",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
