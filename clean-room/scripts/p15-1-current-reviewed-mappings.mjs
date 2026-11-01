@@ -52,6 +52,7 @@ import {reviewedComplianceRegistryMappings} from './p15-1-reviewed-compliance-re
 import {reviewedRegistryDispatchMappings} from './p15-1-reviewed-registry-dispatch-mappings.mjs';
 import {reviewedHomeDashboardMappings} from './p15-1-reviewed-home-dashboard-mappings.mjs';
 import {reviewedRecommendationImpactMappings} from './p15-1-reviewed-recommendation-impact-mappings.mjs';
+import {reviewedRunCoordinationMappings} from './p15-1-reviewed-run-coordination-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -75,6 +76,7 @@ export function currentReviewedMappings(root){
   ...reviewedRegistryDispatchMappings(),
   ...reviewedHomeDashboardMappings(),
   ...reviewedRecommendationImpactMappings(),
+  ...reviewedRunCoordinationMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
