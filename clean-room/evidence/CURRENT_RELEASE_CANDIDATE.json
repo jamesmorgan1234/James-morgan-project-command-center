@@ -1,7 +1,7 @@
 {
   "schemaVersion": "cc-current-release-candidate-v1",
   "status": "CANDIDATE_PREPARED_AUTHORIZATION_REQUIRED",
-  "generatedAt": "2026-11-01T21:14:30.024Z",
+  "generatedAt": "2026-11-01T21:14:43.232Z",
   "gitSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
   "releaseIdentity": {
     "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
@@ -22,7 +22,12 @@
       "clean-room/public"
     ],
     "testedCandidateIsApplicationSourceCommit": true,
-    "evidenceCommitsAfterCandidate": [],
+    "evidenceCommitsAfterCandidate": [
+      {
+        "sha": "2a4e495845194c854a2016aca86d4351a28e1011",
+        "subject": "chore: record the P15.15 whole-system sweep and current release candidate"
+      }
+    ],
     "evidenceOnlyCommitsDoNotRedefineCandidate": true
   },
   "renderedAcceptance": {
@@ -89,5 +94,5 @@
     "protectedAssetsChanged": false,
     "note": "Production, main, production Supabase/auth and protected release assets remain untouched."
   },
-  "manifestHash": "3fc40ac770dcb634d7f8b837b71b992d8fc20a7e49360a72c98aeab749158081"
+  "manifestHash": "fc8b2eee7c0ea8f18001241bb6a2880ed47bd6430b06528efe4a27ff0ce1264b"
 }
