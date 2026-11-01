@@ -93,11 +93,16 @@ export function validateSectionCoverage(sections, mapping) {
   return true;
 }
 
-export function validateEvidenceReceipt(receipt, { phaseId, headSha } = {}) {
+export function validateEvidenceReceipt(receipt, { phaseId, headSha, verifyBinding } = {}) {
   if (!receipt || receipt.status !== "VERIFIED_COMPLETE") return false;
   if (phaseId && receipt.phaseId !== phaseId) return false;
-  if (headSha && receipt.gitSha !== headSha) return false;
   if (!Array.isArray(receipt.evidence) || receipt.evidence.length === 0) return false;
+  if (headSha && receipt.gitSha !== headSha) {
+    // A committed receipt cannot name the commit that contains it. Such a receipt
+    // must instead be bound to an ancestor source commit whose declared audited
+    // inputs still hash exactly, which is verified by the supplied binding.
+    if (typeof verifyBinding !== "function" || !verifyBinding(receipt)) return false;
+  }
   return true;
 }
 

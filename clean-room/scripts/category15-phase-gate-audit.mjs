@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { expandPhaseManifest, validateEvidenceReceipt } from "./current-authority-lib.mjs";
 import { validateRequirementTraceability } from "./category15-requirement-traceability-validation.mjs";
 import {validateTraceabilityRepositoryEvidence} from "./p15-1-repository-evidence.mjs";
+import {validateReceiptBinding} from "./phase-receipt-binding.mjs";
 
 const cleanRoom = process.cwd();
 const repoRoot = resolve(cleanRoom, "..");
@@ -43,7 +44,7 @@ function loadReceipt(id) {
   if (!tracked(path) || !existsSync(resolve(repoRoot, path))) return { path, receipt: null, valid: false };
   try {
     const receipt = JSON.parse(read(path));
-    return { path, receipt, valid: validateEvidenceReceipt(receipt, { phaseId: id, headSha }) };
+    return { path, receipt, valid: validateEvidenceReceipt(receipt, { phaseId: id, headSha, verifyBinding: (candidate) => validateReceiptBinding(candidate, { repoRoot, headSha }) }) };
   } catch { return { path, receipt: null, valid: false }; }
 }
 
