@@ -1,0 +1,11 @@
+clean-room/dist/
+clean-room/dist-web/
+clean-room/node_modules/
+clean-room/category15-phase-status.json
+clean-room/category15-repository-audit.json
+clean-room/current-authority-audit.json
+clean-room/p15-2-every-file-review.json
+clean-room/*.log
+clean-room/evidence/whole-system-sweep/
+.tools/
+.scratch/
