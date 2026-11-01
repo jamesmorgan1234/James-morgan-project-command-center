@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.9",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "945ee8f1e3c87781277048aa05df2412e73064b7",
+  "inputs": [
+    "clean-room/scripts/p15-9-foundry-steering-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/brain/steering.ts",
+    "clean-room/src/projects/foundry.ts",
+    "clean-room/tests/category6-live-steering-persistence.test.mjs",
+    "clean-room/tests/p15-9-foundry-steering.test.mjs",
+    "clean-room/tests/projects-foundation.test.mjs"
+  ],
+  "inputsDigest": "1bceeaabd119db7be4be10740071d1407a75e754ec5813b2d7216d3864f6cbdc",
+  "evidence": [
+    "clean-room/scripts/p15-9-foundry-steering-audit.mjs",
+    "clean-room/tests/p15-9-foundry-steering.test.mjs",
+    "clean-room/tests/projects-foundation.test.mjs",
+    "clean-room/tests/category6-live-steering-persistence.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.9",
+    "suiteCount": 4,
+    "checkCount": 12,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "stages": 10,
+    "suites": [
+      {
+        "id": "foundry-stage-progression",
+        "description": "Idea to completion follows the ordered Foundry stages",
+        "passed": true,
+        "checks": [
+          {
+            "name": "every stage advances in order and records its evidence",
+            "passed": true
+          },
+          {
+            "name": "illegal jumps and terminal re-entry are rejected",
+            "passed": true
+          },
+          {
+            "name": "every transition requires evidence rather than assumed progress",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "owner-authorization-gate",
+        "description": "Agency execution requires the exact owner authorization reference",
+        "passed": true,
+        "checks": [
+          {
+            "name": "execution cannot begin without an authorization reference",
+            "passed": true
+          },
+          {
+            "name": "authorization is preserved through evidence and acceptance",
+            "passed": true
+          },
+          {
+            "name": "acceptance cannot be reached without an evidence stage",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "steering-invalidation",
+        "description": "Steering invalidates only affected and dependent work",
+        "passed": true,
+        "checks": [
+          {
+            "name": "changing one unit invalidates its dependents transitively",
+            "passed": true
+          },
+          {
+            "name": "pause and resume preserve verified work without re-authorization",
+            "passed": true
+          },
+          {
+            "name": "unverified work is never preserved as verified output",
+            "passed": true
+          },
+          {
+            "name": "steering is deterministic and scoped to declared units",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "scope-and-authority-preservation",
+        "description": "Execution stays inside granted scope through steering",
+        "passed": true,
+        "checks": [
+          {
+            "name": "affected work retains its declared authorization scope",
+            "passed": true
+          },
+          {
+            "name": "steering cannot mark invalidated work as verified",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.10",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "945ee8f1e3c87781277048aa05df2412e73064b7",
+  "inputs": [
+    "clean-room/scripts/p15-10-needs-me-boundary-resume-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/personal/needs-me.ts",
+    "clean-room/src/personal/onboarding.ts",
+    "clean-room/src/personal/runtime-integration.ts",
+    "clean-room/tests/p15-10-needs-me-boundary-resume.test.mjs",
+    "clean-room/tests/p8-5-needs-me.test.mjs",
+    "clean-room/tests/p8-6-onboarding-manifests.test.mjs"
+  ],
+  "inputsDigest": "5d62e06598d2f781b5268bd6727fd52b73d8a4c9db208a9ab73e30ddadd41071",
+  "evidence": [
+    "clean-room/scripts/p15-10-needs-me-boundary-resume-audit.mjs",
+    "clean-room/tests/p15-10-needs-me-boundary-resume.test.mjs",
+    "clean-room/tests/p8-5-needs-me.test.mjs",
+    "clean-room/tests/p8-6-onboarding-manifests.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.10",
+    "suiteCount": 6,
+    "checkCount": 16,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "suites": [
+      {
+        "id": "needs-me-state",
+        "description": "Needs Me tracks owner boundaries, urgency and unlocks truthfully",
+        "passed": true,
+        "checks": [
+          {
+            "name": "open needs are ordered by urgency and unlock impact",
+            "passed": true
+          },
+          {
+            "name": "duplicate boundary keys merge instead of prompting twice",
+            "passed": true
+          },
+          {
+            "name": "a colliding key with a different instruction is rejected rather than silently merged",
+            "passed": true
+          },
+          {
+            "name": "owner needs never contain credential material fields",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "resolution-idempotency",
+        "description": "One resolution clears the boundary permanently without re-asking",
+        "passed": true,
+        "checks": [
+          {
+            "name": "resolving by key is idempotent and evidence-bearing",
+            "passed": true
+          },
+          {
+            "name": "already-resolved boundaries are not re-raised by later observation",
+            "passed": true
+          },
+          {
+            "name": "unknown or malformed resolutions fail closed",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "boundary-resume",
+        "description": "Completed boundary work resumes every linked route exactly once",
+        "passed": true,
+        "checks": [
+          {
+            "name": "one resolution fans out to every resume route with preserved scope",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "onboarding-manifest",
+        "description": "Onboarding manifests are valid, grouped by unlock impact and dependency-aware",
+        "passed": true,
+        "checks": [
+          {
+            "name": "manifests reject duplicate ids, unknown dependencies, self-dependency and cycles",
+            "passed": true
+          },
+          {
+            "name": "setup groups rank by unlock impact",
+            "passed": true
+          },
+          {
+            "name": "blockers expose exact actions, environments and dependency readiness",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "foundry-onboarding-needs",
+        "description": "Foundry capability declarations generate owner needs without duplicate prompts",
+        "passed": true,
+        "checks": [
+          {
+            "name": "manifest generation merges declarations deterministically",
+            "passed": true
+          },
+          {
+            "name": "owner needs carry exact instructions, environment and resume routes",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "restart-and-truthful-states",
+        "description": "Boundaries survive restart without re-asking or fabricating resolution",
+        "passed": true,
+        "checks": [
+          {
+            "name": "snapshot rehydration preserves resolutions and does not re-open cleared work",
+            "passed": true
+          },
+          {
+            "name": "corrupt or unsupported snapshots fail closed",
+            "passed": true
+          },
+          {
+            "name": "needs states are limited to explicit boundary outcomes",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
