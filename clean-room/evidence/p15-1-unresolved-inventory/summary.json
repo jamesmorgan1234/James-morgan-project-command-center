@@ -1,0 +1,201 @@
+{
+  "sourceCommit": "4110ca2fdd0389ea1967f19a80950594a77dc995",
+  "total": 5852,
+  "verified": 3124,
+  "notApplicable": 0,
+  "unresolved": 2728,
+  "firstUnresolved": "CCR-00468",
+  "lastUnresolved": "CCR-05825",
+  "byArchitectureOwner": [
+    [
+      "Brain / AI Intelligence",
+      410
+    ],
+    [
+      "Projects / Portfolio / Roadmaps / Progress",
+      375
+    ],
+    [
+      "Owner Authority / Governance",
+      366
+    ],
+    [
+      "Finance / Banking / Credit",
+      354
+    ],
+    [
+      "Agent / Execution Infrastructure",
+      239
+    ],
+    [
+      "Security / Privacy / Trust / Incident Response",
+      206
+    ],
+    [
+      "Client Shell / UX / PWA / Offline / Multi-device",
+      199
+    ],
+    [
+      "Personal Operations",
+      171
+    ],
+    [
+      "Search / Notifications / Needs Me",
+      122
+    ],
+    [
+      "Core Kernel / Lifecycle",
+      97
+    ],
+    [
+      "Deployment / Release / Provenance / Rollback",
+      69
+    ],
+    [
+      "Automation / Scheduling / Triggers",
+      68
+    ],
+    [
+      "Interoperability / MCP / A2A / Future Protocols",
+      24
+    ],
+    [
+      "Identity / Authentication / Sessions / Devices",
+      19
+    ],
+    [
+      "Authorization / Policy / Risk / Approval",
+      9
+    ]
+  ],
+  "byArchitectureBranch": [
+    [
+      "A10",
+      410
+    ],
+    [
+      "A12",
+      375
+    ],
+    [
+      "A00",
+      366
+    ],
+    [
+      "A14",
+      354
+    ],
+    [
+      "A11",
+      239
+    ],
+    [
+      "A22",
+      206
+    ],
+    [
+      "A24",
+      199
+    ],
+    [
+      "A13",
+      171
+    ],
+    [
+      "A19",
+      122
+    ],
+    [
+      "A01",
+      97
+    ],
+    [
+      "A25",
+      69
+    ],
+    [
+      "A20",
+      68
+    ],
+    [
+      "A26",
+      24
+    ],
+    [
+      "A03",
+      19
+    ],
+    [
+      "A04",
+      9
+    ]
+  ],
+  "byClassification": [
+    [
+      "CORE — ACTIVE",
+      1250
+    ],
+    [
+      "GOVERNANCE / STANDARD",
+      887
+    ],
+    [
+      "BUILT — DORMANT",
+      249
+    ],
+    [
+      "SECURITY / RECOVERY",
+      207
+    ],
+    [
+      "TEST / EVIDENCE",
+      135
+    ]
+  ],
+  "byPrimarySourceFile": [
+    [
+      "Pasted markdown(1).md",
+      1283
+    ],
+    [
+      "Pasted text(5).txt",
+      449
+    ],
+    [
+      "Pasted markdown(2).md",
+      403
+    ],
+    [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md",
+      387
+    ],
+    [
+      "Pasted text(7).txt",
+      174
+    ],
+    [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md|Pasted markdown(1).md",
+      13
+    ],
+    [
+      "2026-10-23 external standards verification",
+      13
+    ],
+    [
+      "Pasted markdown(1).md|Pasted text(5).txt",
+      3
+    ],
+    [
+      "Pasted markdown(1).md|Pasted markdown(2).md",
+      1
+    ],
+    [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md|Pasted markdown(2).md",
+      1
+    ],
+    [
+      "Pasted markdown(2).md|Pasted text(5).txt",
+      1
+    ]
+  ]
+}

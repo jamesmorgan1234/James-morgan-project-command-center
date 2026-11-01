@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "CCR-02510",
+    "requirement": "Revenue can later aggregate by project type.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02510",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02513",
+    "requirement": "Revenue cannot allocate aggregate revenue to projects without evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02513",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02515",
+    "requirement": "Brain has dedicated primary screen.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02515",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02516",
+    "requirement": "Brain supports text conversation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02516",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02517",
+    "requirement": "Brain supports persistent thread history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02517",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02518",
+    "requirement": "Brain supports project-scoped conversation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02518",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02519",
+    "requirement": "Brain supports portfolio conversation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02519",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02520",
+    "requirement": "Brain supports personal-assistant conversation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02520",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02521",
+    "requirement": "Brain supports “What needs me?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02521",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02522",
+    "requirement": "Brain supports “What can you do?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02522",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02523",
+    "requirement": "Brain supports “What changed?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02523",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02524",
+    "requirement": "Brain supports “Explain this.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02524",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02525",
+    "requirement": "Brain supports “Make this better.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02525",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02526",
+    "requirement": "Brain supports “What am I missing?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02526",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02527",
+    "requirement": "Brain supports project navigation commands.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02527",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02528",
+    "requirement": "Brain supports information retrieval.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02528",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02529",
+    "requirement": "Brain supports owner input capture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02529",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02530",
+    "requirement": "Brain supports rule update proposal.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02530",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02531",
+    "requirement": "Brain supports decision capture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02531",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02532",
+    "requirement": "Brain supports idea capture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02532",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02533",
+    "requirement": "Brain supports recommendation generation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02533",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02534",
+    "requirement": "Brain supports research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02534",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02535",
+    "requirement": "Brain supports planning.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02535",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02536",
+    "requirement": "Brain supports scenario analysis.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02536",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02537",
+    "requirement": "Brain supports Agent handoff.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02537",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02538",
+    "requirement": "Brain supports capability routing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02538",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02539",
+    "requirement": "Brain indicates when it is using project context.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02539",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02540",
+    "requirement": "Brain indicates when information is stale where relevant.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02540",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02541",
+    "requirement": "Brain indicates when information is unknown.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02541",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02542",
+    "requirement": "Brain explains source/provenance where useful.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02542",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02543",
+    "requirement": "Brain does not present inference as owner statement.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02543",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02544",
+    "requirement": "Brain does not present recommendation as decision.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02544",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02545",
+    "requirement": "Brain does not present planned capability as implemented.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02545",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02546",
+    "requirement": "Brain Recommendations button is permanent.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02546",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02547",
+    "requirement": "Recommendations screen shows new recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02547",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02548",
+    "requirement": "Recommendations screen shows high-priority recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02548",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02549",
+    "requirement": "Recommendations screen shows system recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02549",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02550",
+    "requirement": "Recommendations screen shows project recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02550",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02551",
+    "requirement": "Recommendations screen shows personal recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02551",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02552",
+    "requirement": "Recommendations screen shows automation opportunities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02552",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02554",
+    "requirement": "Recommendations screen shows Agent capability opportunities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02554",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02555",
+    "requirement": "Recommendations screen shows risk warnings.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02555",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02556",
+    "requirement": "Recommendations screen shows missing-information requests.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02556",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02557",
+    "requirement": "Recommendations screen shows parked ideas.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02557",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02558",
+    "requirement": "Recommendations screen shows accepted items.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02558",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02559",
+    "requirement": "Recommendations screen shows rejected items.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02559",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02560",
+    "requirement": "Recommendations screen shows implemented outcomes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02560",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02563",
+    "requirement": "Recommendation offers Research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02563",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02568",
+    "requirement": "Brain never directly installs accepted recommendation as code.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02568",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02569",
+    "requirement": "Brain Self-Audit has dedicated view.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02569",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02570",
+    "requirement": "Self-Audit compares roadmap requirements with verified implementation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02570",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02574",
+    "requirement": "Self-Audit identifies visual deviation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02574",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02575",
+    "requirement": "Self-Audit identifies Agent semantic failure.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02575",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02578",
+    "requirement": "Brain voice entry is architecturally represented even if phased.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02578",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02579",
+    "requirement": "Brain model/provider details normally remain secondary to user experience.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02579",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02580",
+    "requirement": "Agent has dedicated screen.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02580",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02581",
+    "requirement": "Agent shows active run.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02581",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02582",
+    "requirement": "Agent shows exact project.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02582",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02583",
+    "requirement": "Agent shows exact objective.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02583",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02584",
+    "requirement": "Agent shows control mode.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02584",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02585",
+    "requirement": "Agent shows current task.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02585",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02586",
+    "requirement": "Agent shows next task where known.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02586",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02587",
+    "requirement": "Agent shows run progress or N/A.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02587",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02588",
+    "requirement": "Agent shows verified completed task count.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02588",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02589",
+    "requirement": "Agent shows current blocker.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02589",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02590",
+    "requirement": "Agent shows required owner action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02590",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02591",
+    "requirement": "Agent shows required environment.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02591",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02592",
+    "requirement": "Agent shows Work boundary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02592",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02593",
+    "requirement": "Agent shows pending approval.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02593",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02594",
+    "requirement": "Agent shows executor availability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02594",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02595",
+    "requirement": "Agent shows executor health where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02595",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02596",
+    "requirement": "Agent shows latest checkpoint.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02596",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02597",
+    "requirement": "Agent shows recent evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02597",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02598",
+    "requirement": "Agent shows run history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02598",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02599",
+    "requirement": "Agent supports Project Auto.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02599",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02600",
+    "requirement": "Agent supports Agent Auto.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02600",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02601",
+    "requirement": "Agent supports To Work Barriers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02601",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02602",
+    "requirement": "Agent supports Next Step.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02602",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02603",
+    "requirement": "Agent supports Until Work.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02603",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02604",
+    "requirement": "Agent supports Manual Task.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02604",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02605",
+    "requirement": "Agent supports Project Checkpoint.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02605",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02606",
+    "requirement": "Agent supports Pause.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02606",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02607",
+    "requirement": "Agent supports Resume.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02607",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02608",
+    "requirement": "Agent supports Stop.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02608",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02609",
+    "requirement": "Agent supports Refresh.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02609",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02610",
+    "requirement": "Project Auto locks exact project.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02610",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02611",
+    "requirement": "Project Auto cannot drift to another project.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02611",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02612",
+    "requirement": "Agent Auto works sequentially by default.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02612",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02614",
+    "requirement": "To Work Barriers remains normal-chat only.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02614",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02615",
+    "requirement": "Next Step performs one bounded step.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02615",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02616",
+    "requirement": "Until Work stops at first genuine Work boundary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02616",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02617",
+    "requirement": "Manual Task locks exact objective.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02617",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02619",
+    "requirement": "Project Checkpoint is direct/read-only.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02619",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02620",
+    "requirement": "Project Checkpoint does not require background runner.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02620",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02621",
+    "requirement": "Pause preserves completed work.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02621",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02622",
+    "requirement": "Stop is atomic.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02622",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02623",
+    "requirement": "Stopped run cannot be resurrected by stale executor result.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02623",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02624",
+    "requirement": "Queued means not yet claimed.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02624",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02625",
+    "requirement": "Working requires actual executor claim.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02625",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02627",
+    "requirement": "Failed means actual failure, not temporary queue.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02627",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02628",
+    "requirement": "Needs Owner means exact owner intervention.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02628",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02629",
+    "requirement": "Executor Unavailable is explicit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02629",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02630",
+    "requirement": "Immediate owner-triggered command attempts immediate dispatch.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02630",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02631",
+    "requirement": "Hourly scheduler cannot be sole execution trigger.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02631",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02633",
+    "requirement": "Agent reruns fresh authorization before side effect.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02633",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02634",
+    "requirement": "Agent rereads Stop/Pause before side effect.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02634",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02635",
+    "requirement": "Agent rereads project lock before side effect.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02635",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02636",
+    "requirement": "Agent rereads owner rules before side effect.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02636",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02637",
+    "requirement": "Agent reconciles ambiguous action before retry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02637",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02638",
+    "requirement": "Agent prevents duplicate external action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02638",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02639",
+    "requirement": "Agent stores evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02639",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02640",
+    "requirement": "Agent verifies evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02640",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02641",
+    "requirement": "Agent checkpoints stable progress.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02641",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02642",
+    "requirement": "Agent resumes same run after owner blocker when appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02642",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02643",
+    "requirement": "Agent does not create a replacement run unnecessarily.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02643",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02644",
+    "requirement": "Agent explains why it stopped.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02644",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02645",
+    "requirement": "Agent explains what it needs.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02645",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02646",
+    "requirement": "Agent explains what it will do next.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02646",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02648",
+    "requirement": "Personal Operations has dedicated screen.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02648",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02649",
+    "requirement": "Personal Operations includes Today.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02649",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02650",
+    "requirement": "Personal Operations includes Upcoming.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02650",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02651",
+    "requirement": "Personal Operations includes Needs Me.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02651",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02652",
+    "requirement": "Personal Operations includes reminders.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02652",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02653",
+    "requirement": "Personal Operations includes tasks.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02653",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02654",
+    "requirement": "Personal Operations includes appointments.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02654",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02655",
+    "requirement": "Personal Operations includes errands.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02655",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02656",
+    "requirement": "Personal Operations includes obligations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02656",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02657",
+    "requirement": "Personal Operations includes things waiting on others.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02657",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02659",
+    "requirement": "Personal Operations includes financial obligations summary where authorized.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02659",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02660",
+    "requirement": "Personal Operations includes documents/deadlines.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02660",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02661",
+    "requirement": "Personal Operations includes goals.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02661",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02662",
+    "requirement": "Personal Operations includes routines.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02662",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02663",
+    "requirement": "Personal Operations supports quick add.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02663",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02664",
+    "requirement": "Personal Operations supports voice quick add.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02664",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02666",
+    "requirement": "Personal Operations routes project items to relevant project.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02666",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02667",
+    "requirement": "Personal Operations routes financial actions to Finance.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02667",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02668",
+    "requirement": "Personal Operations avoids duplicate canonical stores.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02668",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02669",
+    "requirement": "Personal Operations has daily brief.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02669",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02670",
+    "requirement": "Personal Operations can show “what needs me?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02670",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02671",
+    "requirement": "Personal Operations can show “what can Agent handle?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02671",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02672",
+    "requirement": "Personal Operations can show “what am I waiting on?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02672",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02673",
+    "requirement": "Personal Operations can show “what is due soon?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02673",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02674",
+    "requirement": "Personal Operations can show “what did I forget?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02674",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02675",
+    "requirement": "Personal Operations can show personal timeline.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02675",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02676",
+    "requirement": "Personal Operations respects privacy classes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02676",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02677",
+    "requirement": "Personal Operations is extensible to future life domains.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02677",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02678",
+    "requirement": "Financial Command Center has dedicated screen.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02678",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02679",
+    "requirement": "Financial Command Center can show linked accounts when connected.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02679",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02680",
+    "requirement": "Financial Command Center can show balances.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02680",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02681",
+    "requirement": "Financial Command Center can show transactions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02681",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02682",
+    "requirement": "Financial Command Center can show recurring activity.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02682",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02683",
+    "requirement": "Financial Command Center can show upcoming bills.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02683",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02684",
+    "requirement": "Financial Command Center can show subscriptions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02684",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02685",
+    "requirement": "Financial Command Center can show cash-flow summary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02685",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02686",
+    "requirement": "Financial Command Center can show obligations before next income.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02686",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02687",
+    "requirement": "Financial Command Center can show budget where configured.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02687",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-02688",
+    "requirement": "Financial Command Center can show debt summary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02688",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02689",
+    "requirement": "Financial Command Center can show credit-report area when connected.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02689",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02690",
+    "requirement": "Credit-report area shows source/model/date.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02690",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02691",
+    "requirement": "Credit-report area shows score if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02691",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02692",
+    "requirement": "Credit-report area shows factors if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02692",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02693",
+    "requirement": "Credit-report area shows accounts if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02693",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02694",
+    "requirement": "Credit-report area shows utilization if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02694",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02695",
+    "requirement": "Credit-report area shows inquiries if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02695",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02696",
+    "requirement": "Credit-report area shows relevant negative items if available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02696",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02697",
+    "requirement": "Financial screen distinguishes bank facts from credit-report facts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02697",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02698",
+    "requirement": "Financial screen supports subscription review.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02698",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02699",
+    "requirement": "Subscription item can show cancellation capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02699",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02701",
+    "requirement": "Cancellation result requires verification.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02701",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02702",
+    "requirement": "Financial Brain can answer finance questions using authorized connected data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02702",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02703",
+    "requirement": "Financial Brain can explain unavailable information.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02703",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02704",
+    "requirement": "Financial Brain cannot invent APRs.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02704",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02705",
+    "requirement": "Financial Brain cannot invent bills.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02705",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02706",
+    "requirement": "Financial Brain cannot invent score changes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02706",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02707",
+    "requirement": "Financial actions are auditable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02707",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02708",
+    "requirement": "Rules Center exists.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02708",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02709",
+    "requirement": "Rules Center shows Global Rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02709",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02710",
+    "requirement": "Rules Center shows Command Center Rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02710",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02711",
+    "requirement": "Rules Center shows project rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02711",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02713",
+    "requirement": "Rules Center shows Agent rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02713",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02714",
+    "requirement": "Rules Center shows financial rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02714",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02715",
+    "requirement": "Rules Center shows temporary rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02715",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02716",
+    "requirement": "Rules Center shows superseded rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02716",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02717",
+    "requirement": "Rule detail shows scope.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02717",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02718",
+    "requirement": "Rule detail shows effective date.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02718",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02719",
+    "requirement": "Rule detail shows source.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02719",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02720",
+    "requirement": "Rule detail shows superseded rule where applicable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02720",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02721",
+    "requirement": "Rule conflict is visible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02721",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02722",
+    "requirement": "Owner can propose/change rule.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02722",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02723",
+    "requirement": "Rule change creates history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02723",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02724",
+    "requirement": "Rule change does not delete history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02724",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02725",
+    "requirement": "Decision Center exists.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02725",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02726",
+    "requirement": "Decision Center shows current decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02726",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02727",
+    "requirement": "Decision Center shows superseded decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02727",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02728",
+    "requirement": "Decision Center shows project decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02728",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02729",
+    "requirement": "Decision Center shows system decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02729",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02730",
+    "requirement": "Decision detail shows reason where available.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02730",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02731",
+    "requirement": "Decision detail shows affected systems.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02731",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02736",
+    "requirement": "Owner Input Center supports project information.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02736",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02739",
+    "requirement": "Owner Input Center supports financial preferences.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02739",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONFIGURATION"
+  }
+]

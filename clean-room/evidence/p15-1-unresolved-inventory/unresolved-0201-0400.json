@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "CCR-00937",
+    "requirement": "**No ambiguous relative dates in durable records.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00937",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00938",
+    "requirement": "**Clock-skew tolerance for distributed events.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00938",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00939",
+    "requirement": "**Monotonic ordering strategy for same-time events.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00939",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00940",
+    "requirement": "**Time-sensitive authorization expiry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00940",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-00941",
+    "requirement": "**Time-sensitive data freshness thresholds.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00941",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00942",
+    "requirement": "**Scheduled-task timezone stability.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00942",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00945",
+    "requirement": "**Long-running operation timeout policy.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00945",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00949",
+    "requirement": "**Development, test, staging, and production clearly separated.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00949",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00954",
+    "requirement": "**Production mode cannot enable debug-only behaviors accidentally.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00954",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00957",
+    "requirement": "**Optional config failures disable only the optional module.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00957",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00958",
+    "requirement": "**Configuration change audit trail.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00958",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-00960",
+    "requirement": "**No hidden magic constants.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00960",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00961",
+    "requirement": "**No business rules hard-coded into random components.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00961",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00962",
+    "requirement": "**No provider URLs scattered throughout code.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00962",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-00963",
+    "requirement": "**Central endpoint registry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00963",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00964",
+    "requirement": "**Central timeout registry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00964",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00965",
+    "requirement": "**Central retry-policy registry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00965",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00966",
+    "requirement": "**Central feature-flag registry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00966",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00970",
+    "requirement": "**Central schema-version metadata.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00970",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00971",
+    "requirement": "**Central PWA-version metadata.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00971",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00973",
+    "requirement": "**Feature flags can be disabled remotely only through authenticated owner-safe paths if ever supported.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00973",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00976",
+    "requirement": "**Feature flag dependencies explicitly declared.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00976",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00977",
+    "requirement": "**Feature flag expiration/removal policy.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00977",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00978",
+    "requirement": "**No permanent zombie flags.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00978",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00982",
+    "requirement": "**Provider credential health.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00982",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-00983",
+    "requirement": "**Credential scope tracking.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00983",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00985",
+    "requirement": "**No secret values in Brain memory.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00985",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00986",
+    "requirement": "**No secret values in checkpoints.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00986",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00990",
+    "requirement": "**Configuration diff tooling.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00990",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-00991",
+    "requirement": "**Environment diff tooling.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00991",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00992",
+    "requirement": "**Production-versus-staging config drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00992",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00993",
+    "requirement": "**Schema drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00993",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00994",
+    "requirement": "**Database function drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00994",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00995",
+    "requirement": "**RLS policy drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00995",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00996",
+    "requirement": "**Storage-policy drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00996",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00997",
+    "requirement": "**Edge-function drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00997",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-00998",
+    "requirement": "**GitHub Pages/deployment config drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00998",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-00999",
+    "requirement": "**Manifest drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-00999",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01000",
+    "requirement": "**Service-worker drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01000",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01002",
+    "requirement": "**Roadmap version drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01002",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01003",
+    "requirement": "**Rules version drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01003",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01004",
+    "requirement": "**Agent policy version drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01004",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01005",
+    "requirement": "**Brain policy version drift detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01005",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01008",
+    "requirement": "**Dependency-lock integrity checks.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01008",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01009",
+    "requirement": "**No unpinned critical dependencies.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01009",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01010",
+    "requirement": "**Dependency update review process.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01010",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01011",
+    "requirement": "**Breaking dependency update detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01011",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01012",
+    "requirement": "**Dependency vulnerability monitoring path.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01012",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01013",
+    "requirement": "**Zero-cost dependency preference where functionally suitable.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01013",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-01014",
+    "requirement": "**License compatibility tracking.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01014",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01015",
+    "requirement": "**Third-party license inventory.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01015",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01016",
+    "requirement": "**No unapproved restrictive license contamination.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01016",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01017",
+    "requirement": "**Build reproducibility verification.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01017",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01019",
+    "requirement": "**Deterministic generated manifests.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01019",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01020",
+    "requirement": "**Source-map policy.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01020",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01021",
+    "requirement": "**Production debug exposure policy.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01021",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01022",
+    "requirement": "**Error-message redaction policy.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01022",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01023",
+    "requirement": "**Stack traces hidden from normal owner UI but retained in diagnostics.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01023",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01025",
+    "requirement": "**Configuration failures categorized separately from application bugs.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01025",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A01",
+    "architectureOwner": "Core Kernel / Lifecycle",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-01054",
+    "requirement": "**RLS policy tests against all relevant roles.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01054",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01057",
+    "requirement": "**Security-definer functions minimized.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01057",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01058",
+    "requirement": "**Security-definer functions isolated where required.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01058",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01061",
+    "requirement": "**Trigger behavior documented.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01061",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01062",
+    "requirement": "**Trigger recursion protection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01062",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01063",
+    "requirement": "**Trigger side effects tested.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01063",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01064",
+    "requirement": "**No hidden trigger modifying unrelated domain state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01064",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01071",
+    "requirement": "**Search-normalized fields separate from display values.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01071",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01091",
+    "requirement": "**Checkpoint integrity verification.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01091",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01092",
+    "requirement": "**Checkpoint chain integrity.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01092",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01093",
+    "requirement": "**Broken checkpoint ancestry detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01093",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01096",
+    "requirement": "**Orphaned Agent task detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01096",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01098",
+    "requirement": "**Orphaned roadmap unit detection.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01098",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01105",
+    "requirement": "**Database is treated as durable truth infrastructure, not a UI scratchpad.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01105",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01113",
+    "requirement": "**No provider-native payload exposed directly throughout UI code.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01113",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-01152",
+    "requirement": "**UI layer owns presentation only.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01152",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01154",
+    "requirement": "**No auth logic duplicated across screens.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01154",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01155",
+    "requirement": "**No progress formula duplicated across screens.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01155",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01156",
+    "requirement": "**No revenue formula duplicated across screens.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01156",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01157",
+    "requirement": "**No status derivation duplicated across screens.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01157",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01158",
+    "requirement": "**No Agent permission rules duplicated across UI and runner independently without shared contract.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01158",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01161",
+    "requirement": "**Contract tests between Agent and executor.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01161",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01162",
+    "requirement": "**Contract tests between Brain and data layer.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01162",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01164",
+    "requirement": "**Contract tests between Deployment and provider.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01164",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": "CONNECTION|AUTHORIZATION"
+  },
+  {
+    "id": "CCR-01177",
+    "requirement": "**Privileged endpoint security review.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01177",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01186",
+    "requirement": "**Single source of truth for modal state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01186",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01187",
+    "requirement": "**Single source of truth for expanded-section state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01187",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01188",
+    "requirement": "**Single source of truth for selected project.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01188",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01189",
+    "requirement": "**Single source of truth for active Agent run.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01189",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01190",
+    "requirement": "**No duplicated local copies drifting from canonical state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01190",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01191",
+    "requirement": "**Explicit loading state per query.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01191",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01192",
+    "requirement": "**Explicit refreshing state separate from initial loading.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01192",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01194",
+    "requirement": "**Explicit error state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01194",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01196",
+    "requirement": "**Explicit offline state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01196",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01197",
+    "requirement": "**No endless spinner without timeout/fallback.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01197",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01198",
+    "requirement": "**No layout jump after optional data arrives where avoidable.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01198",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01199",
+    "requirement": "**Skeleton dimensions match final content dimensions.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01199",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01200",
+    "requirement": "**Stable card geometry during loading.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01200",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01201",
+    "requirement": "**Touch target remains stationary during async update.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01201",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01203",
+    "requirement": "**Button pending state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01203",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01204",
+    "requirement": "**Button success feedback.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01204",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01205",
+    "requirement": "**Button failure feedback.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01205",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01206",
+    "requirement": "**No control looks enabled when action is impossible.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01206",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01207",
+    "requirement": "**Disabled control explains why when useful.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01207",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01208",
+    "requirement": "**No fake decorative button affordances.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01208",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01209",
+    "requirement": "**Chevron means navigation.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01209",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01210",
+    "requirement": "**Toggle means persistent state change.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01210",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01211",
+    "requirement": "**Action button means action.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01211",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01214",
+    "requirement": "**Scroll state survives data refresh.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01214",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01215",
+    "requirement": "**Expanded-state behavior defined on refresh.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01215",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01216",
+    "requirement": "**Selection state behavior defined on refresh.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01216",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01218",
+    "requirement": "**Unsaved-change warning where appropriate.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01218",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01220",
+    "requirement": "**Autosave only where safe and explicit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01220",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01221",
+    "requirement": "**No autosave for protected irreversible changes.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01221",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01222",
+    "requirement": "**Undo for reversible owner edits.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01222",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01223",
+    "requirement": "**Redo optional future seam.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01223",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01224",
+    "requirement": "**Keyboard/focus behavior.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01224",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01225",
+    "requirement": "**Screen-reader labeling.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01225",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01226",
+    "requirement": "**Focus restoration after modal/route transitions.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01226",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01670",
+    "requirement": "**Repeated regression triggers architectural review.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01670",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01696",
+    "requirement": "**Diagnostics includes active Agent run state.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01696",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01699",
+    "requirement": "**Diagnostics includes PWA version.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01699",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01700",
+    "requirement": "**Diagnostics includes Brain policy/model adapter availability.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01700",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01718",
+    "requirement": "**Future AI model capabilities represented abstractly.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01718",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01727",
+    "requirement": "**Future local-device capability registry.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01727",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01728",
+    "requirement": "**Future native-notification adapter.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01728",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01734",
+    "requirement": "**Future geolocation adapter optional and permission-gated.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01734",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A04",
+    "architectureOwner": "Authorization / Policy / Risk / Approval",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01737",
+    "requirement": "**Future semantic search index.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01737",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01739",
+    "requirement": "**Future local search index.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01739",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01740",
+    "requirement": "**Future full-text search engine adapter.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01740",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01741",
+    "requirement": "**Search provider replaceability.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01741",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-01746",
+    "requirement": "**Future cash-flow forecasting.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01746",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01748",
+    "requirement": "**Future portfolio optimization.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01748",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01751",
+    "requirement": "**Future digital twin of project state if ever valuable.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01751",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01756",
+    "requirement": "**Third-party plugins cannot bypass Security.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01756",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01757",
+    "requirement": "**Third-party plugins cannot bypass Agent scope.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01757",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01758",
+    "requirement": "**Third-party plugins cannot access all Brain data by default.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01758",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01766",
+    "requirement": "**Future project-manager view.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01766",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01771",
+    "requirement": "**Future external automation platforms isolated by adapter.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01771",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01775",
+    "requirement": "**Foundation requirements have stable IDs.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01775",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01777",
+    "requirement": "**Every enforceable requirement maps to mechanism.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01777",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01780",
+    "requirement": "**No foundation rule exists only in chat history.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01780",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01781",
+    "requirement": "**No foundation rule exists only in assistant memory.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01781",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01782",
+    "requirement": "**No foundation rule exists only in comments inside code.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01782",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01783",
+    "requirement": "**Foundation manifest stored in repository.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01783",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01784",
+    "requirement": "**Foundation revision recorded.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01784",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01785",
+    "requirement": "**Foundation diff between revisions.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01785",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01787",
+    "requirement": "**Foundation compliance report generated before major release.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01787",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01788",
+    "requirement": "**Foundation compliance failures classified.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01788",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01789",
+    "requirement": "**Critical foundation failure blocks release.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01789",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01790",
+    "requirement": "**Noncritical deferred item requires explicit roadmap classification.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01790",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01791",
+    "requirement": "**No “we'll fix it later” without recorded owner-approved deferment.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01791",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01792",
+    "requirement": "**Foundation unit can be `planned`, `implemented`, `verified`, `locked`, or `deferred`.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01792",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01794",
+    "requirement": "**Deferred does not count complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01794",
+    "sourceFiles": [
+      "Pasted markdown(2).md|Pasted text(5).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01795",
+    "requirement": "**Excluded requires explicit reason.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01795",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01796",
+    "requirement": "**Reopened preserves prior verification history.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01796",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01797",
+    "requirement": "**Foundation percentage derived from applicable verified units only if useful.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01797",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01798",
+    "requirement": "**Foundation progress never manually set.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01798",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01799",
+    "requirement": "**Unknown denominator means N/A.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01799",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01800",
+    "requirement": "**Adding foundation requirements can lower completion percentage.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01800",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01801",
+    "requirement": "**Foundation roadmap dependency graph.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01801",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01802",
+    "requirement": "**Foundation critical path.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01802",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01803",
+    "requirement": "**Foundation blockers.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01803",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01804",
+    "requirement": "**Foundation owner decisions.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01804",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01805",
+    "requirement": "**Foundation ADRs.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01805",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01807",
+    "requirement": "**Foundation security evidence.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01807",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01811",
+    "requirement": "**Foundation visual-system evidence.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01811",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01812",
+    "requirement": "**Foundation Agent evidence.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01812",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01813",
+    "requirement": "**Foundation Brain evidence.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01813",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01818",
+    "requirement": "**Foundation every-file audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01818",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01819",
+    "requirement": "**Foundation dependency audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01819",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01820",
+    "requirement": "**Foundation configuration audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01820",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-01821",
+    "requirement": "**Foundation schema audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01821",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01825",
+    "requirement": "**Foundation performance-budget audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01825",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01826",
+    "requirement": "**Foundation failure-injection audit.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01826",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01828",
+    "requirement": "**Foundation cutover rehearsal.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01828",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01830",
+    "requirement": "**Foundation staging acceptance.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01830",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01831",
+    "requirement": "**Foundation physical-device acceptance.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01831",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01832",
+    "requirement": "**No release before foundation critical path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01832",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01833",
+    "requirement": "**No visual release before screenshot-contract path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01833",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01834",
+    "requirement": "**No Agent release before true execution path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01834",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01835",
+    "requirement": "**No Brain release before knowledge/provenance path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01835",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01836",
+    "requirement": "**No owner-input release before provenance/conflict path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01836",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01838",
+    "requirement": "**No integration release before provider adapter/security path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01838",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-01839",
+    "requirement": "**No automation release before permission/history path is complete.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01839",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01841",
+    "requirement": "**No production cutover until all critical foundation gates pass together.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01841",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01842",
+    "requirement": "**No acceptance based on isolated module demos.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01842",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01843",
+    "requirement": "**The integrated system is the product.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01843",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01845",
+    "requirement": "**Correct architecture beats fast implementation.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01845",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01849",
+    "requirement": "**Modularity beats convenience coupling.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01849",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01850",
+    "requirement": "**Explicit contracts beat assumptions.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01850",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01851",
+    "requirement": "**Owner intent beats AI inference.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01851",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01852",
+    "requirement": "**Evidence beats executor claims.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01852",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01853",
+    "requirement": "**Known unknown beats fabricated certainty.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01853",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01854",
+    "requirement": "**A controlled stop beats unsafe continuation.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01854",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01855",
+    "requirement": "**A clean failure beats silent corruption.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01855",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01856",
+    "requirement": "**A smaller correct subsystem beats a larger unstable one.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01856",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01857",
+    "requirement": "**But the final production cutover waits for the entire required system to work together.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01857",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01859",
+    "requirement": "**Every future feature must leave through a designed removal seam.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01859",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01860",
+    "requirement": "**Every future feature must declare its blast radius before implementation.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01860",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01861",
+    "requirement": "**Every future feature must prove it did not break unrelated behavior.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01861",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  }
+]

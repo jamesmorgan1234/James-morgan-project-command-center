@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "CCR-02257",
+    "requirement": "Main app shell never displays private IDs unless diagnostics specifically require them.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02257",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02258",
+    "requirement": "Main app shell never invents missing data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02258",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02259",
+    "requirement": "Main app shell visually distinguishes unavailable from zero.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02259",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02260",
+    "requirement": "Home follows approved compact phone-first geometry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02260",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02261",
+    "requirement": "Home uses uniform primary module sizing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02261",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02262",
+    "requirement": "Home avoids giant empty spaces.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02262",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02263",
+    "requirement": "Home avoids mismatched bubble/card dimensions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02263",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02264",
+    "requirement": "Home preserves dense Command Center hierarchy.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02264",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02265",
+    "requirement": "Home top row contains Agent Auto.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02265",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02266",
+    "requirement": "Home top row contains To Work Barriers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02266",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02267",
+    "requirement": "Agent Auto and To Work Barriers are visual peers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02267",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02268",
+    "requirement": "Agent Auto and To Work Barriers are mutually exclusive.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02268",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02269",
+    "requirement": "Agent Auto truthfully displays ON/OFF.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02269",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02270",
+    "requirement": "To Work Barriers truthfully displays ON/OFF.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02270",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02271",
+    "requirement": "Home includes Projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02271",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02272",
+    "requirement": "Home includes Next Up.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02272",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02273",
+    "requirement": "Home includes Agent.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02273",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02274",
+    "requirement": "Home includes Revenue/Earnings.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02274",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02275",
+    "requirement": "Home includes Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02275",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02276",
+    "requirement": "Home includes Automation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02276",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02278",
+    "requirement": "Home includes Analytics.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02278",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02279",
+    "requirement": "Home includes Security.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02279",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02280",
+    "requirement": "Home includes Deployment.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02280",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02281",
+    "requirement": "Home includes Active/Live.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02281",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02282",
+    "requirement": "Home includes About/Advanced.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02282",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02303",
+    "requirement": "Home Brain module shows relevant Brain status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02303",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02304",
+    "requirement": "Home Brain module surfaces recommendation count if useful.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02304",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02305",
+    "requirement": "Home Brain module opens Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02305",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02306",
+    "requirement": "Home Revenue displays verified money only.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02306",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02307",
+    "requirement": "Verified zero revenue displays zero.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02307",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02308",
+    "requirement": "Missing revenue displays N/A.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02308",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02309",
+    "requirement": "Revenue module opens Revenue/Financial analytics.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02309",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02310",
+    "requirement": "Home modules use real navigation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02310",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02311",
+    "requirement": "No decorative chevron without target.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02311",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02312",
+    "requirement": "Home loading state preserves geometry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02312",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02313",
+    "requirement": "Home error state identifies affected module.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02313",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02314",
+    "requirement": "One module failure does not blank Home.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02314",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02315",
+    "requirement": "Home refresh does not navigate away.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02315",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02316",
+    "requirement": "Home refresh preserves scroll.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02316",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02317",
+    "requirement": "Home shows data freshness where useful.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02317",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02318",
+    "requirement": "Home supports compact owner-attention indicators.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02318",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02319",
+    "requirement": "Home never exposes debug internals.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02319",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02320",
+    "requirement": "Projects screen follows approved screenshot geometry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02320",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02321",
+    "requirement": "Projects screen uses approved title treatment.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02321",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02322",
+    "requirement": "Projects screen has portfolio summary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02322",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02323",
+    "requirement": "Portfolio summary shows project count.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02323",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02324",
+    "requirement": "Portfolio summary shows truthful status mix.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02324",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02325",
+    "requirement": "Portfolio summary uses approved integrated artwork style.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02325",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02326",
+    "requirement": "Portfolio summary chevron has real destination.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02326",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02327",
+    "requirement": "Projects rows use machinery icon module.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02327",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02328",
+    "requirement": "Projects rows show project title.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02328",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02329",
+    "requirement": "Projects rows show stage/subtitle where applicable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02329",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02330",
+    "requirement": "Projects rows show semantic status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02330",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02331",
+    "requirement": "Projects rows show integrated art.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02331",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02332",
+    "requirement": "Projects rows show progress ring only where approved for Projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02332",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02333",
+    "requirement": "Progress ring uses verified scope.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02333",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02334",
+    "requirement": "Progress ring shows N/A when denominator untrustworthy.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02334",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02335",
+    "requirement": "Progress ring never becomes oval or dominant.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02335",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02336",
+    "requirement": "Projects rows include fraction/detail where applicable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02336",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02337",
+    "requirement": "Projects rows include navigation chevron.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02337",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02338",
+    "requirement": "Project row tap opens Project Details.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02338",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02339",
+    "requirement": "Portfolio summary opens Portfolio Overview.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02339",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02340",
+    "requirement": "Project status does not derive from arbitrary UI assumptions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02340",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02341",
+    "requirement": "Project progress does not derive from time passed.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02341",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02342",
+    "requirement": "Project progress can decrease when scope expands.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02342",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02343",
+    "requirement": "Project progress can be N/A.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02343",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02344",
+    "requirement": "Project count uses canonical projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02344",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02345",
+    "requirement": "Archived projects excluded from active count unless requested.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02345",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02346",
+    "requirement": "Project aliases do not create duplicate counts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02346",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02347",
+    "requirement": "Parent/umbrella project relationships supported.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02347",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02348",
+    "requirement": "Subprojects supported.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02348",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02349",
+    "requirement": "Portfolio Overview shows active/live count.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02349",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02350",
+    "requirement": "Portfolio Overview shows attention count.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02350",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02352",
+    "requirement": "Portfolio Overview shows verified revenue where applicable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02352",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02353",
+    "requirement": "Portfolio Overview shows tracked integrations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02353",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02354",
+    "requirement": "Portfolio Overview shows status distribution.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02354",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02355",
+    "requirement": "Portfolio Overview shows projects needing attention.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02355",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02356",
+    "requirement": "Portfolio Overview shows recent verified activity.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02356",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02357",
+    "requirement": "Portfolio Overview supports future portfolio groupings.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02357",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02358",
+    "requirement": "Portfolio Overview supports entity/business grouping.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02358",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02359",
+    "requirement": "Portfolio Overview supports project-type grouping.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02359",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02360",
+    "requirement": "Portfolio Overview supports owner-defined grouping.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02360",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02361",
+    "requirement": "Projects supports global search integration even if search is not visually embedded in approved Projects screenshot.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02361",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02362",
+    "requirement": "Projects supports filtering through appropriate nonconflicting surface.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02362",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02363",
+    "requirement": "Projects supports archived view.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02363",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02365",
+    "requirement": "Projects supports project merge workflow.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02365",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02366",
+    "requirement": "Projects supports project split workflow.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02366",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02367",
+    "requirement": "Projects supports archive workflow.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02367",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02369",
+    "requirement": "Projects supports project creation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02369",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02370",
+    "requirement": "Project creation supports owner-entered name.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02370",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02372",
+    "requirement": "Project creation supports owning entity.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02372",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02373",
+    "requirement": "Project creation supports goal/mission.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02373",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02374",
+    "requirement": "Project creation supports initial rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02374",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02375",
+    "requirement": "Project creation supports initial roadmap.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02375",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02376",
+    "requirement": "Project creation supports project artwork.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02376",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02377",
+    "requirement": "Project creation supports integration associations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02377",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02378",
+    "requirement": "Project creation supports related-project links.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02378",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02379",
+    "requirement": "Project creation supports future custom fields.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02379",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02380",
+    "requirement": "Active/Live follows its distinct approved screenshot.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02380",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02381",
+    "requirement": "Active/Live does not use Projects progress rings.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02381",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02382",
+    "requirement": "Active row includes machinery icon.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02382",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02383",
+    "requirement": "Active row includes title.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02383",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02384",
+    "requirement": "Active row includes semantic pill.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02384",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02385",
+    "requirement": "Active row includes exact next action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02385",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02386",
+    "requirement": "Active row includes divider.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02386",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02387",
+    "requirement": "Active row includes scope value.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02387",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02388",
+    "requirement": "Active row includes secondary verified live/sync information.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02388",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02389",
+    "requirement": "Active row includes integrated artwork.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02389",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02390",
+    "requirement": "Active row includes real navigation chevron.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02390",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02391",
+    "requirement": "Active row opens Project Details.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02391",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02392",
+    "requirement": "Active/Live only shows projects meeting defined active/live criteria.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02392",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02393",
+    "requirement": "Active/Live criteria are explainable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02393",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02394",
+    "requirement": "Active/Live state does not imply Agent is currently working unless verified.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02394",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02395",
+    "requirement": "Live sync indicator reflects actual freshness.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02395",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02396",
+    "requirement": "Stale data appears stale.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02396",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02398",
+    "requirement": "Active/Live supports future non-project live systems through registry if appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02398",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02399",
+    "requirement": "Active/Live error state remains screen-local.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02399",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02400",
+    "requirement": "Next Up follows approved screenshot.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02400",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02401",
+    "requirement": "Next Up uses compact priority rows.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02401",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02402",
+    "requirement": "Next Up does not use progress rings.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02402",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02403",
+    "requirement": "Next Up row includes machinery icon.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02403",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02404",
+    "requirement": "Next Up row includes title.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02404",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02405",
+    "requirement": "Next Up row includes semantic pill.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02405",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02406",
+    "requirement": "Next Up row includes exact next action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02406",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02407",
+    "requirement": "Next Up row includes integrated art.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02407",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02408",
+    "requirement": "Next Up row includes chevron.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02408",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02409",
+    "requirement": "Next Up priority must be based on defined verified factors.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02409",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02410",
+    "requirement": "Priority factors must be explainable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02410",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02411",
+    "requirement": "Owner explicit priority overrides automated ranking.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02411",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02412",
+    "requirement": "Needs-owner urgency can affect priority.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02412",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02413",
+    "requirement": "Deadline can affect priority.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02413",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02414",
+    "requirement": "Revenue-path proximity may affect priority if owner enables that strategy.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02414",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02415",
+    "requirement": "Blocker resolvability may affect priority.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02415",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02416",
+    "requirement": "Current mission mode may affect priority.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02416",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02417",
+    "requirement": "Priority algorithm must not invent business value.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02417",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02418",
+    "requirement": "Priority changes must be explainable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02418",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02419",
+    "requirement": "Next Up can include personal obligations where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02419",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02420",
+    "requirement": "Next Up can include business obligations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02420",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02421",
+    "requirement": "Next Up can include owner-required Agent blockers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02421",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02422",
+    "requirement": "Next Up can include upcoming financial obligations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02422",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02423",
+    "requirement": "Next Up can include deadlines.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02423",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02424",
+    "requirement": "Next Up supports owner pinning.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02424",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02425",
+    "requirement": "Next Up supports snooze/defer where safe.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02425",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02426",
+    "requirement": "Deferred item retains reason/history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02426",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02427",
+    "requirement": "Next Up supports “Why this?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02427",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02428",
+    "requirement": "Next Up item opens authoritative destination.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02428",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02429",
+    "requirement": "Next Up never becomes a duplicate task database.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02429",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02430",
+    "requirement": "Every project can have Project Details.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02430",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02431",
+    "requirement": "Project Details uses project-type adapter where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02431",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02433",
+    "requirement": "Project Details hero shows identity.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02433",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02434",
+    "requirement": "Project Details hero shows status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02434",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02435",
+    "requirement": "Project Details hero shows relevant artwork.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02435",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02436",
+    "requirement": "Project Details hero navigation has defined destination.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02436",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02437",
+    "requirement": "Project Details shows verified scope.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02437",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02438",
+    "requirement": "Project Details shows verified revenue where applicable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02438",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02439",
+    "requirement": "Project Details shows integration state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02439",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02440",
+    "requirement": "Project Details shows exact next action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02440",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02441",
+    "requirement": "Project Details shows blockers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02441",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02442",
+    "requirement": "Project Details shows integrity/verification state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02442",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02443",
+    "requirement": "Project Details shows Tracking Integrations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02443",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02444",
+    "requirement": "Project Details shows project Agent controls.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02444",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02445",
+    "requirement": "Project Details shows project Brain entry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02445",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02446",
+    "requirement": "Project Details shows roadmap entry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02446",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02447",
+    "requirement": "Project Details shows activity/timeline.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02447",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02448",
+    "requirement": "Project Details shows owner rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02448",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02449",
+    "requirement": "Project Details shows project decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02449",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02450",
+    "requirement": "Project Details shows assets.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02450",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02451",
+    "requirement": "Project Details shows project relationships.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02451",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02452",
+    "requirement": "Project Details shows relevant entity ownership.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02452",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02453",
+    "requirement": "Project Details shows relevant financial summary where authorized.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02453",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02454",
+    "requirement": "Project Details sections may expand/collapse.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02454",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02455",
+    "requirement": "Expanded state participates in navigation semantics where designed.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02455",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02456",
+    "requirement": "Project Details does not display fake action rows.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02456",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02457",
+    "requirement": "Informational rows remain visually informational.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02457",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02458",
+    "requirement": "Action rows have real handlers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02458",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02459",
+    "requirement": "Project Snapshot is a distinct summarized view.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02459",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02460",
+    "requirement": "Project Snapshot shows verified status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02460",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02461",
+    "requirement": "Project Snapshot shows verified scope.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02461",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02462",
+    "requirement": "Project Snapshot shows verified revenue.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02462",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02463",
+    "requirement": "Project Snapshot shows integrations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02463",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02464",
+    "requirement": "Project Snapshot shows next action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02464",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02465",
+    "requirement": "Project Snapshot shows blockers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02465",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02466",
+    "requirement": "Project Snapshot shows verification summary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02466",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02467",
+    "requirement": "Project Snapshot shows recent activity.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02467",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02468",
+    "requirement": "Project Snapshot shows project Agent entry.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02468",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02469",
+    "requirement": "Project Snapshot hides raw plumbing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02469",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02491",
+    "requirement": "Tracking Integrations does not display credentials.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02491",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02492",
+    "requirement": "Project-scoped Agent controls appear.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02492",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02494",
+    "requirement": "Screenshot sample metrics never become production facts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02494",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02495",
+    "requirement": "Revenue screen shows verified portfolio revenue.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02495",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02496",
+    "requirement": "Revenue screen shows project-level verified revenue.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02496",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02497",
+    "requirement": "Revenue screen distinguishes gross revenue.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02497",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02498",
+    "requirement": "Revenue screen can later distinguish net revenue where verified.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02498",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02499",
+    "requirement": "Revenue screen distinguishes received money from projected money.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02499",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02500",
+    "requirement": "Revenue screen distinguishes pending money.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02500",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02501",
+    "requirement": "Revenue screen distinguishes refunds.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02501",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02502",
+    "requirement": "Revenue screen excludes test orders.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02502",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02503",
+    "requirement": "Revenue screen uses zero only for verified zero.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02503",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02504",
+    "requirement": "Revenue screen uses N/A for unavailable data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02504",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02507",
+    "requirement": "Project revenue opens Project Details.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02507",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  }
+]

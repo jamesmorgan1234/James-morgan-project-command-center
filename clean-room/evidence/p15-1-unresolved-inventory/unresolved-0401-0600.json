@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "CCR-01863",
+    "requirement": "**Every future feature must obey current rules automatically.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01863",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01864",
+    "requirement": "**No developer, AI, module, integration, or executor is above the owner rules.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01864",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-01866",
+    "requirement": "**Command Center should be understandable by a new competent engineering team without requiring the original assistant.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01866",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01872",
+    "requirement": "**Command Center should be portable enough that James never becomes trapped by one vendor again.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01872",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01873",
+    "requirement": "**Command Center should grow in capability faster than it grows in fragility.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01873",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01874",
+    "requirement": "**Every architectural decision should move that ratio in the right direction.**",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01874",
+    "sourceFiles": [
+      "Pasted markdown(2).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01875",
+    "requirement": "Every important Command Center fact must have an identifiable authority source.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01875",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01883",
+    "requirement": "Historical roadmap wording must be distinguishable from current authority.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01883",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01899",
+    "requirement": "Historical lineage must survive project renames.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01899",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01903",
+    "requirement": "Historical lineage must survive Brain-provider changes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01903",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-01904",
+    "requirement": "Historical lineage must survive Agent-executor changes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01904",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01906",
+    "requirement": "Roadmap lineage must preserve previous versions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01906",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01908",
+    "requirement": "Requirement wording may be normalized without changing intent.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01908",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01918",
+    "requirement": "Architectural exceptions must have expiration/review status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01918",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A00",
+    "architectureOwner": "Owner Authority / Governance",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01920",
+    "requirement": "Intentional screenshot exceptions must be recorded explicitly.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01920",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01921",
+    "requirement": "Screenshot exceptions must identify the later owner decision that overrides the screenshot detail.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01921",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01922",
+    "requirement": "Screenshot geometry remains controlling where no explicit exception exists.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01922",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01923",
+    "requirement": "No historical screenshot value becomes live production data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01923",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01943",
+    "requirement": "Offline mode must remain owner-authenticated where protected local data exists.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01943",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01944",
+    "requirement": "Sensitive offline caching must be explicitly classified.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01944",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01945",
+    "requirement": "Sensitive offline data may require stronger storage controls.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01945",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01946",
+    "requirement": "Future offline vault must be separable from ordinary PWA cache.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01946",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01965",
+    "requirement": "PWA cache mismatch must be classifiable separately.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01965",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01988",
+    "requirement": "Startup regression beyond threshold blocks release unless explicitly accepted.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01988",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01996",
+    "requirement": "Refresh during active Agent run must not disrupt execution.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01996",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01997",
+    "requirement": "App reopen during active Agent run must restore truthful Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01997",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-01998",
+    "requirement": "App reopen during blocked Agent run must restore blocker state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-01998",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02000",
+    "requirement": "App reopen after deployment update must reconcile versions safely.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02000",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02002",
+    "requirement": "Cross-device state synchronization must be designed intentionally.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02002",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02003",
+    "requirement": "Phone and computer must read the same canonical project state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02003",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02004",
+    "requirement": "Phone and computer must read the same canonical Brain decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02004",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02005",
+    "requirement": "Phone and computer must read the same canonical Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02005",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02006",
+    "requirement": "Phone and computer must read the same canonical roadmap state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02006",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02009",
+    "requirement": "Realtime messages must be treated as notifications of change, not unquestioned truth.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02009",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02010",
+    "requirement": "Realtime update must trigger authoritative reread where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02010",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02011",
+    "requirement": "Lost realtime connection must not imply data loss.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02011",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02012",
+    "requirement": "Realtime reconnection must reconcile missed updates.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02012",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02013",
+    "requirement": "Duplicate realtime events must be harmless.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02013",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02014",
+    "requirement": "Out-of-order realtime events must be harmless.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02014",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02015",
+    "requirement": "Concurrent owner edits must detect version conflict.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02015",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02016",
+    "requirement": "Conflict must not silently overwrite newer data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02016",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02017",
+    "requirement": "Safe automatic merge may be used only for compatible independent fields.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02017",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02018",
+    "requirement": "Conflicting edits must surface a resolution path.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02018",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02019",
+    "requirement": "Agent state changes on backend must appear on all connected devices.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02019",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02020",
+    "requirement": "Owner Stop on one device must stop execution visible on another.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02020",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02021",
+    "requirement": "Owner Pause on one device must propagate immediately enough to be safe.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02021",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02023",
+    "requirement": "Stale device must not overwrite newer protected state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02023",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02024",
+    "requirement": "Cross-device notifications must deduplicate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02024",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02025",
+    "requirement": "Read markers may synchronize where useful.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02025",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02026",
+    "requirement": "Device-specific UI preferences may remain device-scoped where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02026",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-02027",
+    "requirement": "Owner-level preferences must synchronize where appropriate.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02027",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-02028",
+    "requirement": "Scroll position should normally remain device-specific.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02028",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02029",
+    "requirement": "Current navigation route should normally remain device-specific.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02029",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02030",
+    "requirement": "Canonical task state must remain global.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02030",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02032",
+    "requirement": "Canonical financial state must remain global.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02032",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02034",
+    "requirement": "Global Refresh must be strictly read/reconcile unless an explicit source-sync mode is invoked.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02034",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02035",
+    "requirement": "Global Refresh must not create Agent runs.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02035",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02036",
+    "requirement": "Global Refresh must not execute project tasks.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02036",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02037",
+    "requirement": "Global Refresh must not approve anything.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02037",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02038",
+    "requirement": "Global Refresh must not publish anything.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02038",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02039",
+    "requirement": "Global Refresh must not deploy anything.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02039",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02040",
+    "requirement": "Global Refresh must not change owner rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02040",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02041",
+    "requirement": "Global Refresh must not alter Agent Auto.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02041",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02042",
+    "requirement": "Global Refresh must not alter To Work Barriers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02042",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02043",
+    "requirement": "Global Refresh must preserve current route.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02043",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02044",
+    "requirement": "Global Refresh must preserve current scroll position.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02044",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02045",
+    "requirement": "Global Refresh must preserve safe local UI state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02045",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02046",
+    "requirement": "Global Refresh must reread project state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02046",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02048",
+    "requirement": "Global Refresh must reread Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02048",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02050",
+    "requirement": "Global Refresh must reread notifications.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02050",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02052",
+    "requirement": "Source Sync must be a separate capability from Global Refresh.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02052",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02053",
+    "requirement": "Source Sync must declare what external source it is syncing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02053",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02054",
+    "requirement": "Source Sync must declare whether it is read-only or mutating.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02054",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02056",
+    "requirement": "Source Sync must not silently convert unverified external data into verified canonical data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02056",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02058",
+    "requirement": "Manual reconciliation must be possible for conflict cases.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02058",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02059",
+    "requirement": "Automatic reconciliation must be deterministic.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02059",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02060",
+    "requirement": "Reconciliation should prefer current verified source over historical stale state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02060",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02061",
+    "requirement": "Reconciliation must preserve locked owner decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02061",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02063",
+    "requirement": "Reconciliation must not resurrect superseded rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02063",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02064",
+    "requirement": "Full Refresh and project-specific Refresh must share core reconciliation contracts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02064",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02065",
+    "requirement": "Pull-to-refresh behavior must not be introduced unless deliberately designed.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02065",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02066",
+    "requirement": "Refresh status must not pretend to be execution progress.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02066",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02067",
+    "requirement": "Refresh failures must identify affected source.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02067",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02068",
+    "requirement": "Partial refresh success must be represented truthfully.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02068",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02069",
+    "requirement": "Brain must support a parent/meta-Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02069",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02070",
+    "requirement": "Parent Brain must understand portfolio-wide relationships.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02070",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02071",
+    "requirement": "Project Brains must support project-specific specialization.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02071",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02072",
+    "requirement": "Project Brain context must remain scoped by default.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02072",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02073",
+    "requirement": "Project Brain may reference shared intelligence through controlled retrieval.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02073",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02074",
+    "requirement": "Project Brain must not independently redefine global owner rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02074",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02075",
+    "requirement": "Project Brain can have project-specific rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02075",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02076",
+    "requirement": "Project Brain can have project-specific terminology.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02076",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02077",
+    "requirement": "Project Brain can have project-specific assets.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02077",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02078",
+    "requirement": "Project Brain can have project-specific decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02078",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02079",
+    "requirement": "Project Brain can have project-specific recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02079",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02080",
+    "requirement": "Project Brain can have project-specific memories.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02080",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02081",
+    "requirement": "Project Brain can have project-specific tools/capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02081",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02082",
+    "requirement": "Project Brain can have project-specific Agent permissions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02082",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02083",
+    "requirement": "Parent Brain can compare project states without merging their private context blindly.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02083",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02084",
+    "requirement": "Parent Brain can surface reusable lessons across projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02084",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02086",
+    "requirement": "Reusable lessons require compatibility metadata.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02086",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02087",
+    "requirement": "Reusable lessons require quality status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02087",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02088",
+    "requirement": "Reusable lessons can be promoted into Shared Intelligence Library.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02088",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02089",
+    "requirement": "Shared Intelligence Library must be versioned.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02089",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02092",
+    "requirement": "Shared Intelligence Library can contain schemas.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02092",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02094",
+    "requirement": "Shared Intelligence Library can contain security patterns.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02094",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02095",
+    "requirement": "Shared Intelligence Library can contain design patterns.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02095",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02097",
+    "requirement": "Shared Intelligence Library can contain deployment patterns.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02097",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A25",
+    "architectureOwner": "Deployment / Release / Provenance / Rollback",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02098",
+    "requirement": "Shared Intelligence Library can contain verified lessons learned.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02098",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02099",
+    "requirement": "Shared Intelligence Library item must identify origin.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02099",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02100",
+    "requirement": "Shared Intelligence Library item must identify applicable domains.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02100",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02101",
+    "requirement": "Shared Intelligence Library item must identify compatibility.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02101",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02103",
+    "requirement": "Shared Intelligence Library item must identify approval status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02103",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A04",
+    "architectureOwner": "Authorization / Policy / Risk / Approval",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02104",
+    "requirement": "Shared Intelligence Library item must identify deprecation status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02104",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02105",
+    "requirement": "Brain retrieval must prefer compatible current library entries.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02105",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02106",
+    "requirement": "Brain must not reuse a project-specific pattern in another project without compatibility checks.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02106",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02107",
+    "requirement": "Brain must detect duplicated reusable knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02107",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02108",
+    "requirement": "Brain must support content deduplication.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02108",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02109",
+    "requirement": "Brain must support semantic duplicate detection.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02109",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02110",
+    "requirement": "Brain must preserve alternate valid solutions where genuinely different.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02110",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02111",
+    "requirement": "Brain must support knowledge promotion.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02111",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02112",
+    "requirement": "Brain must support knowledge demotion/deprecation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02112",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02113",
+    "requirement": "Brain must support knowledge replacement with lineage.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02113",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02120",
+    "requirement": "Generated content must identify originating project.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02120",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02121",
+    "requirement": "Generated content must identify originating requirement/task where relevant.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02121",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02123",
+    "requirement": "Generated content must identify approval status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02123",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A04",
+    "architectureOwner": "Authorization / Policy / Risk / Approval",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-02144",
+    "requirement": "Command Center must not require ChatGPT product memory to function.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02144",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02146",
+    "requirement": "Command Center must not require one AI provider to interpret its stored knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02146",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02148",
+    "requirement": "Canonical tool definitions must be provider-neutral where practical.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02148",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02149",
+    "requirement": "Canonical Agent tasks must be provider-neutral where practical.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02149",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02151",
+    "requirement": "Canonical conversation records must be exportable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02151",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02152",
+    "requirement": "Canonical structured memory must be exportable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02152",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02153",
+    "requirement": "Brain orchestration rules must be separately versioned from model prompts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02153",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02154",
+    "requirement": "AI-provider prompts must be adapters over Brain policy.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02154",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02155",
+    "requirement": "Provider-specific tool schemas must map to canonical capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02155",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02156",
+    "requirement": "Provider-specific limitations must not become permanent architecture assumptions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02156",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02157",
+    "requirement": "Provider-specific billing model must not become permanent architecture assumption.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02157",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02158",
+    "requirement": "Provider-specific context limits must not become permanent architecture assumption.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02158",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02159",
+    "requirement": "Provider-specific memory system must not be canonical Brain memory.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02159",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02161",
+    "requirement": "Future self-hosted Brain runtime must be architecturally possible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02161",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02162",
+    "requirement": "Future self-hosted model runtime must be architecturally possible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02162",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02163",
+    "requirement": "Future local-device model runtime must be architecturally possible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02163",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02164",
+    "requirement": "Future hybrid cloud/local model routing must be architecturally possible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02164",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02165",
+    "requirement": "Future owner-controlled inference infrastructure must be architecturally possible.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02165",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02166",
+    "requirement": "Model migration must not require rewriting projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02166",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02167",
+    "requirement": "Model migration must not require rewriting rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02167",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02168",
+    "requirement": "Model migration must not require rewriting Command Graph.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02168",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02169",
+    "requirement": "Model migration must not invalidate historical evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02169",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02170",
+    "requirement": "Model migration must preserve owner conversations where retained.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02170",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02171",
+    "requirement": "Command Center must be capable of eventually operating without OpenAI services.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02171",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02172",
+    "requirement": "Command Center must be capable of eventually operating without Anthropic services.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02172",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02173",
+    "requirement": "Command Center must be capable of operating with several AI ecosystems simultaneously.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02173",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02176",
+    "requirement": "Command Center must support fallback to no-AI degraded mode for non-AI core functions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02176",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A26",
+    "architectureOwner": "Interoperability / MCP / A2A / Future Protocols",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02177",
+    "requirement": "Projects must remain viewable if all AI providers are unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02177",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02178",
+    "requirement": "Owner data must remain accessible if all AI providers are unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02178",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02179",
+    "requirement": "Financial records must remain accessible if all AI providers are unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02179",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02180",
+    "requirement": "Rules must remain accessible if all AI providers are unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02180",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02181",
+    "requirement": "Roadmaps must remain accessible if all AI providers are unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02181",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-02182",
+    "requirement": "Brain history must remain accessible if active inference is unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02182",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02183",
+    "requirement": "AI outage must not corrupt Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02183",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02184",
+    "requirement": "Every tappable-looking row must have a real target or lose tappable styling.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02184",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02187",
+    "requirement": "Project Details must support deeper sub-navigation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02187",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02188",
+    "requirement": "Project Details navigation must participate in Back history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02188",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02190",
+    "requirement": "Project detail hero navigation target must be explicit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02190",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02191",
+    "requirement": "Project Snapshot must be a real data view.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02191",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02192",
+    "requirement": "Summary cards with chevrons must navigate somewhere real.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02192",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02193",
+    "requirement": "Home Brain control must be a real entry point.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02193",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02194",
+    "requirement": "Brain Recommendations control must be real.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02194",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02195",
+    "requirement": "Planned/unbuilt Brain capabilities may be visibly represented only when clearly marked planned/unavailable.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02195",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02196",
+    "requirement": "Planned 0% must not be confused with implemented 0% progress.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02196",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02197",
+    "requirement": "Project Earnings/Revenue must represent real verified money.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02197",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02199",
+    "requirement": "Earnings card geometry must be controlled by approved design rather than generic widget defaults.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02199",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02200",
+    "requirement": "Status-card dismissal behavior must be deliberately designed.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02200",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02201",
+    "requirement": "Android/system bottom surfaces must retain black treatment.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02201",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02203",
+    "requirement": "Icon update must not silently revert on PWA update.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02203",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02204",
+    "requirement": "Search/filter capability may exist globally even if excluded from a particular approved Projects screen.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02204",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02205",
+    "requirement": "Screen-specific omissions must not prohibit global capability elsewhere.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02205",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02216",
+    "requirement": "Rejected project proposal must not continually resurface without new evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02216",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02218",
+    "requirement": "Added project proposal must link to originating evidence.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02218",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "TEST / EVIDENCE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02229",
+    "requirement": "Project creation remains an owner-governed action.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02229",
+    "sourceFiles": [
+      "Pasted text(7).txt"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "GOVERNANCE / STANDARD",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02230",
+    "requirement": "Installed PWA opens into Command Center shell.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02230",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02231",
+    "requirement": "Browser version opens into same canonical product.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02231",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02232",
+    "requirement": "Authenticated owner reaches private Home.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02232",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02236",
+    "requirement": "Main app shell uses approved near-black/orange-gold visual system.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02236",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02237",
+    "requirement": "Main app shell supports native vertical scrolling.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02237",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02238",
+    "requirement": "Main app shell has no horizontal overflow.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02238",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02239",
+    "requirement": "Main app shell respects safe areas.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02239",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02240",
+    "requirement": "Main app shell supports physical Android Back.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02240",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02241",
+    "requirement": "Main app shell supports browser Back.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02241",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02244",
+    "requirement": "Main app shell supports Global Refresh.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02244",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02245",
+    "requirement": "Main app shell supports owner-accessible Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02245",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02246",
+    "requirement": "Main app shell supports owner-accessible Search.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02246",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02247",
+    "requirement": "Main app shell supports owner-accessible Needs Me.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02247",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02248",
+    "requirement": "Main app shell supports Notifications.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02248",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02250",
+    "requirement": "Main app shell supports offline/degraded indicator.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02250",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02251",
+    "requirement": "Main app shell supports update-available indicator.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02251",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02252",
+    "requirement": "Main app shell supports safe application update.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02252",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02254",
+    "requirement": "Main app shell supports sign out.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02254",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02255",
+    "requirement": "Main app shell never displays raw backend plumbing in normal mode.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02255",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-02256",
+    "requirement": "Main app shell never displays arbitrary JSON in normal mode.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-02256",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  }
+]

@@ -1,0 +1,3002 @@
+[
+  {
+    "id": "CCR-04292",
+    "requirement": "Agent-control conversations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04292",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04293",
+    "requirement": "Voice conversation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04293",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04294",
+    "requirement": "Image understanding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04294",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04296",
+    "requirement": "Spreadsheet understanding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04296",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04297",
+    "requirement": "Presentation understanding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04297",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04298",
+    "requirement": "PDF understanding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04298",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04299",
+    "requirement": "Code understanding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04299",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04300",
+    "requirement": "Audio understanding seam.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04300",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04301",
+    "requirement": "Video understanding seam.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04301",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04302",
+    "requirement": "Web research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04302",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04303",
+    "requirement": "Connected-data research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04303",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04304",
+    "requirement": "Project research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04304",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04305",
+    "requirement": "Cross-project research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04305",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04306",
+    "requirement": "Personal knowledge research.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04306",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04307",
+    "requirement": "Brain durable memory.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04307",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04308",
+    "requirement": "Brain short-term context.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04308",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04309",
+    "requirement": "Brain fact store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04309",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04310",
+    "requirement": "Brain rules store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04310",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04311",
+    "requirement": "Brain decisions store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04311",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04312",
+    "requirement": "Brain preference store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04312",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-04313",
+    "requirement": "Brain goals store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04313",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04314",
+    "requirement": "Brain ideas store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04314",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04315",
+    "requirement": "Brain hypotheses store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04315",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04316",
+    "requirement": "Brain unknowns/gaps store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04316",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04317",
+    "requirement": "Brain contradictions store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04317",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04318",
+    "requirement": "Brain recommendation store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04318",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04319",
+    "requirement": "Brain research-finding store.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04319",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04320",
+    "requirement": "Provenance for Brain knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04320",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04321",
+    "requirement": "Confidence for Brain knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04321",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04322",
+    "requirement": "Freshness for Brain knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04322",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04323",
+    "requirement": "Supersession for Brain knowledge.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04323",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04324",
+    "requirement": "Owner correction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04324",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04325",
+    "requirement": "Owner correction history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04325",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04326",
+    "requirement": "Brain does not convert inference into fact silently.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04326",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04327",
+    "requirement": "Brain does not convert model output into owner decision silently.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04327",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04328",
+    "requirement": "Context relevance filtering.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04328",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04329",
+    "requirement": "Context-size management.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04329",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04330",
+    "requirement": "Project-context isolation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04330",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04331",
+    "requirement": "Sensitive-context minimization.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04331",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04333",
+    "requirement": "Live-source preference over stale remembered state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04333",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-04334",
+    "requirement": "Missing-versus-zero distinction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04334",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04335",
+    "requirement": "Missing-versus-unavailable distinction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04335",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04336",
+    "requirement": "Unknown-versus-conflicted distinction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04336",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04337",
+    "requirement": "Brain can say “I don’t know.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04337",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04338",
+    "requirement": "Brain can ask for missing owner input.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04338",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04339",
+    "requirement": "Brain can explain what information would improve an answer.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04339",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04340",
+    "requirement": "Brain can detect stale information.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04340",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04341",
+    "requirement": "Brain can request re-verification.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04341",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04342",
+    "requirement": "Brain can identify conflicting rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04342",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04343",
+    "requirement": "Brain can identify conflicting data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04343",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04344",
+    "requirement": "Brain can identify conflicting decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04344",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04345",
+    "requirement": "Brain Recommendations Center.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04345",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04347",
+    "requirement": "Project improvement recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04347",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04350",
+    "requirement": "Financial-efficiency recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04350",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04352",
+    "requirement": "Automation recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04352",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04354",
+    "requirement": "Agent capability recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04354",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04356",
+    "requirement": "Security recommendations.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04356",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04362",
+    "requirement": "New-project proposals.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04362",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04363",
+    "requirement": "New-business/project opportunity proposals.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04363",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04374",
+    "requirement": "Research Recommendation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04374",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04377",
+    "requirement": "Do Not Suggest Again.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04377",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04380",
+    "requirement": "Brain learns recommendation preferences.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04380",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONFIGURATION"
+  },
+  {
+    "id": "CCR-04381",
+    "requirement": "Roadmap-versus-reality audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04381",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04382",
+    "requirement": "Architecture-compliance audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04382",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04383",
+    "requirement": "UI/visual-compliance audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04383",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A24",
+    "architectureOwner": "Client Shell / UX / PWA / Offline / Multi-device",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04384",
+    "requirement": "Agent-compliance audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04384",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04385",
+    "requirement": "Data-truth audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04385",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04386",
+    "requirement": "Security-compliance audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04386",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04388",
+    "requirement": "Project-completeness audit.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04388",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04389",
+    "requirement": "Brain “Why is this blocked?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04389",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04390",
+    "requirement": "Brain “Why is this percentage what it is?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04390",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04391",
+    "requirement": "Brain “What should I do next?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04391",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04392",
+    "requirement": "Brain “What can you handle?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04392",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04393",
+    "requirement": "Brain “Remember this.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04393",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04394",
+    "requirement": "Brain “Change this rule.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04394",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04395",
+    "requirement": "Brain “Add this to the roadmap.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04395",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04396",
+    "requirement": "Brain “Research this.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04396",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04397",
+    "requirement": "Brain “Compare these options.”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04397",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04398",
+    "requirement": "Brain “What happens if…?”",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04398",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04399",
+    "requirement": "Scenario reasoning.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04399",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04400",
+    "requirement": "Decision support.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04400",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04401",
+    "requirement": "Planning.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04401",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04402",
+    "requirement": "Writing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04402",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04403",
+    "requirement": "Coding.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04403",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04404",
+    "requirement": "Analysis.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04404",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04405",
+    "requirement": "Data analysis.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04405",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04406",
+    "requirement": "Brainstorming.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04406",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04407",
+    "requirement": "Summarization.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04407",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04408",
+    "requirement": "Content creation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04408",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04409",
+    "requirement": "Research synthesis.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04409",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04410",
+    "requirement": "Project-plan generation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04410",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04411",
+    "requirement": "Roadmap proposal generation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04411",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04413",
+    "requirement": "Custom-schema proposal generation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04413",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04415",
+    "requirement": "OpenAI provider adapter.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04415",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04417",
+    "requirement": "Other cloud AI provider adapters.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04417",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04418",
+    "requirement": "Local-model adapter.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04418",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04419",
+    "requirement": "Self-hosted-model adapter.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04419",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04421",
+    "requirement": "Model context-window capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04421",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04422",
+    "requirement": "Model reasoning capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04422",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04423",
+    "requirement": "Model coding capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04423",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04424",
+    "requirement": "Model vision capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04424",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04425",
+    "requirement": "Model audio capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04425",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04426",
+    "requirement": "Model document capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04426",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04427",
+    "requirement": "Model tool-use capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04427",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04428",
+    "requirement": "Model latency metric.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04428",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04429",
+    "requirement": "Model reliability metric.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04429",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04430",
+    "requirement": "Model cost metric.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04430",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04431",
+    "requirement": "Model privacy classification.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04431",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04432",
+    "requirement": "Model availability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04432",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04433",
+    "requirement": "Model Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04433",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04434",
+    "requirement": "Quality Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04434",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04435",
+    "requirement": "Cost Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04435",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04436",
+    "requirement": "Privacy Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04436",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04437",
+    "requirement": "Availability Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04437",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04438",
+    "requirement": "Capability Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04438",
+    "sourceFiles": [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md|Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "audit|raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04439",
+    "requirement": "Fallback Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04439",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04440",
+    "requirement": "Verification Router.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04440",
+    "sourceFiles": [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md|Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "audit|raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04441",
+    "requirement": "Multi-model cross-checking.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04441",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04442",
+    "requirement": "Consensus mode.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04442",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04443",
+    "requirement": "Model disagreement display where useful.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04443",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04445",
+    "requirement": "Model performance evaluation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04445",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04446",
+    "requirement": "Model benchmark history.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04446",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04447",
+    "requirement": "Brain can improve routing based on verified outcomes.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04447",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04448",
+    "requirement": "AI provider outage does not erase Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04448",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04449",
+    "requirement": "AI provider change does not erase Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04449",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04450",
+    "requirement": "Model retirement does not erase Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04450",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04451",
+    "requirement": "Brain can eventually outgrow ChatGPT.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04451",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04452",
+    "requirement": "Brain can eventually outgrow any current AI service.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04452",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04453",
+    "requirement": "Provider-independent memory.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04453",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04454",
+    "requirement": "Provider-independent rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04454",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04455",
+    "requirement": "Provider-independent decisions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04455",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04456",
+    "requirement": "Provider-independent projects.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04456",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04457",
+    "requirement": "Provider-independent Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04457",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04460",
+    "requirement": "Provider-independent conversation archive.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04460",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04461",
+    "requirement": "Brain export.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04461",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04462",
+    "requirement": "Brain migration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04462",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04463",
+    "requirement": "Brain backup.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04463",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04464",
+    "requirement": "Brain restore.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04464",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04465",
+    "requirement": "Speech-to-text abstraction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04465",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04466",
+    "requirement": "Text-to-speech abstraction.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04466",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04467",
+    "requirement": "Microphone permission on demand.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04467",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A04",
+    "architectureOwner": "Authorization / Policy / Risk / Approval",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04468",
+    "requirement": "Live transcript.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04468",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04469",
+    "requirement": "Cancel voice request.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04469",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04470",
+    "requirement": "Voice ambiguity handling.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04470",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04471",
+    "requirement": "Voice protected-action confirmation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04471",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04472",
+    "requirement": "Voice and text use same intent architecture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04472",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04473",
+    "requirement": "Voice provider failure does not break Brain.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04473",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04474",
+    "requirement": "Future continuous conversation mode.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04474",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04475",
+    "requirement": "Future spoken brief.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04475",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04476",
+    "requirement": "Future hands-free capture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04476",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04477",
+    "requirement": "Future local speech processing.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04477",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04478",
+    "requirement": "Brain security boundary.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04478",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "SECURITY / RECOVERY",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04479",
+    "requirement": "Brain cannot silently execute protected actions.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04479",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-04480",
+    "requirement": "Brain cannot silently rewrite its own architecture.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04480",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04481",
+    "requirement": "Brain cannot silently change rules.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04481",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04482",
+    "requirement": "Brain cannot silently change owner facts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04482",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04483",
+    "requirement": "Brain proposals go through roadmap/governance.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04483",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04484",
+    "requirement": "Unlimited future Brain capability registration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04484",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04486",
+    "requirement": "Brain as intelligence layer.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04486",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04487",
+    "requirement": "Agent as execution layer.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04487",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04489",
+    "requirement": "Modules/projects as specialized expert systems.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04489",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04495",
+    "requirement": "No duplicated financial truth.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04495",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04496",
+    "requirement": "No duplicated project status.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04496",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04499",
+    "requirement": "No duplicated Agent state.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04499",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04517",
+    "requirement": "Project Resolver.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04517",
+    "sourceFiles": [
+      "Command_Center_Passes_2_3_4_Provisional_Master_Roadmap.md|Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "audit|raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04526",
+    "requirement": "Cross-project command decomposition.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04526",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04567",
+    "requirement": "Generic Project Roadmap capability.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04567",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04568",
+    "requirement": "Generic AddRoadmapProposal.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04568",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04569",
+    "requirement": "Generic GetProjectStatus.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04569",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04570",
+    "requirement": "Generic GetProjectBlockers.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04570",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04572",
+    "requirement": "Generic DispatchProjectAgent.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04572",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A11",
+    "architectureOwner": "Agent / Execution Infrastructure",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04573",
+    "requirement": "Personal Operations capability registration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04573",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04574",
+    "requirement": "Finance capability registration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04574",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04578",
+    "requirement": "Search capability registration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04578",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04579",
+    "requirement": "Notifications capability registration.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04579",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04580",
+    "requirement": "New specialized project can expose capabilities without changing Brain core.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04580",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04586",
+    "requirement": "Brain note is not substitute for canonical module data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04586",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04588",
+    "requirement": "Cached copies clearly labeled projections.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04588",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04589",
+    "requirement": "Projection freshness.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04589",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04590",
+    "requirement": "Projection invalidation.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04590",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04591",
+    "requirement": "Projection rebuild.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04591",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A12",
+    "architectureOwner": "Projects / Portfolio / Roadmaps / Progress",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04592",
+    "requirement": "Cross-system search over canonical sources.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04592",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04594",
+    "requirement": "Cross-system Needs Me.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04594",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04595",
+    "requirement": "Cross-system notifications.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04595",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A19",
+    "architectureOwner": "Search / Notifications / Needs Me",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04600",
+    "requirement": "Cross-system sensitive-data boundaries.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04600",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A22",
+    "architectureOwner": "Security / Privacy / Trust / Incident Response",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04607",
+    "requirement": "Future Brain-generated workflows requiring approval.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04607",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": "AUTHORIZATION"
+  },
+  {
+    "id": "CCR-04610",
+    "requirement": "Future webhook-triggered capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04610",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A20",
+    "architectureOwner": "Automation / Scheduling / Triggers",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04611",
+    "requirement": "Future native-device capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04611",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A03",
+    "architectureOwner": "Identity / Authentication / Sessions / Devices",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04613",
+    "requirement": "Future household capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04613",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A13",
+    "architectureOwner": "Personal Operations",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04614",
+    "requirement": "Future financial capabilities.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04614",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "BUILT — DORMANT",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04617",
+    "requirement": "No new capability requires Brain to be rewritten.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04617",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A10",
+    "architectureOwner": "Brain / AI Intelligence",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04618",
+    "requirement": "Personal Financial Command Center.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04618",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04619",
+    "requirement": "Financial data separated from project completion data.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04619",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04620",
+    "requirement": "Bank-account connection support.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04620",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": "CONNECTION"
+  },
+  {
+    "id": "CCR-04621",
+    "requirement": "Checking accounts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04621",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04622",
+    "requirement": "Savings accounts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04622",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04623",
+    "requirement": "Money-market/cash accounts.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04623",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04624",
+    "requirement": "Credit cards.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04624",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04625",
+    "requirement": "Personal loans.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04625",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  },
+  {
+    "id": "CCR-04626",
+    "requirement": "Auto loans.",
+    "authoritativeSource": "RECOVERED_ORIGINAL:04_MASTER_RECONCILED_REQUIREMENTS(1).csv#CCR-04626",
+    "sourceFiles": [
+      "Pasted markdown(1).md"
+    ],
+    "sourceKinds": [
+      "raw"
+    ],
+    "architectureBranch": "A14",
+    "architectureOwner": "Finance / Banking / Credit",
+    "classification": "CORE — ACTIVE",
+    "activationPrerequisites": ""
+  }
+]
