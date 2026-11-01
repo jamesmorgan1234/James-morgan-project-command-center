@@ -69,6 +69,7 @@ import {reviewedReuseBatchOneMappings} from './p15-1-reviewed-reuse-batch-one-ma
 import {reviewedReuseBatchTwoMappings} from './p15-1-reviewed-reuse-batch-two-mappings.mjs';
 import {reviewedReuseBatchThreeMappings} from './p15-1-reviewed-reuse-batch-three-mappings.mjs';
 import {reviewedTypeContractMappings} from './p15-1-reviewed-type-contracts-mappings.mjs';
+import {reviewedTaxonomyMappings} from './p15-1-reviewed-taxonomies-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -109,6 +110,7 @@ export function currentReviewedMappings(root){
   ...reviewedReuseBatchTwoMappings(),
   ...reviewedReuseBatchThreeMappings(),
   ...reviewedTypeContractMappings(),
+  ...reviewedTaxonomyMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
