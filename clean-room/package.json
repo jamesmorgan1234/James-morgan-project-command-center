@@ -4,12 +4,13 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   },
   "scripts": {
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build:modules": "tsc -p tsconfig.build.json",
     "build:browser": "node scripts/build-browser.mjs",
+    "build:deploy": "npm run build:modules && npm run build:browser",
     "build": "npm run build:modules && npm run build:browser && npm run test:modules",
     "check:legacy": "node scripts/check-no-legacy-imports.mjs",
     "check:architecture": "node scripts/check-architecture-contracts.mjs",
