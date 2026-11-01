@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "cc-current-release-candidate-v1",
+  "status": "CANDIDATE_PREPARED_AUTHORIZATION_REQUIRED",
+  "generatedAt": "2026-11-01T21:14:30.024Z",
+  "gitSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+  "releaseIdentity": {
+    "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+    "buildHash": "2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
+    "assetManifestHash": "0e6e1c1685b1c5fcbf5fec4dee80d4edc405ea41c97c57f4400948384146d641",
+    "schemaCompatibility": "cc-runtime-snapshot-v1"
+  },
+  "productionOperationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
+  "candidateArtifact": {
+    "buildCommand": "COMMAND_CENTER_RELEASE_ID=<candidate sha> npm run build:modules && COMMAND_CENTER_RELEASE_ID=<candidate sha> npm run build:browser",
+    "environment": "development",
+    "syntheticPreviewData": false,
+    "note": "The candidate identity is the exact artifact built from the tested application source with no synthetic preview data."
+  },
+  "sourceBinding": {
+    "applicationSourceRoots": [
+      "clean-room/src",
+      "clean-room/public"
+    ],
+    "testedCandidateIsApplicationSourceCommit": true,
+    "evidenceCommitsAfterCandidate": [],
+    "evidenceOnlyCommitsDoNotRedefineCandidate": true
+  },
+  "renderedAcceptance": {
+    "evidencePath": "clean-room/evidence/WHOLE_SYSTEM_FINAL_VERIFICATION.json",
+    "evidenceCommitBound": false,
+    "driver": "playwright",
+    "browser": "chromium 131.0.6778.33",
+    "viewports": [
+      {
+        "id": "phone",
+        "width": 390,
+        "height": 844,
+        "deviceScaleFactor": 1
+      },
+      {
+        "id": "tablet",
+        "width": 768,
+        "height": 1024,
+        "deviceScaleFactor": 1
+      },
+      {
+        "id": "desktop",
+        "width": 1440,
+        "height": 900,
+        "deviceScaleFactor": 1
+      }
+    ],
+    "routeCount": 22,
+    "observationCount": 66,
+    "defectCount": 0,
+    "syntheticPreviewData": true,
+    "note": "Route rendering used the synthetic preview acceptance artifact derived from the same application source commit; the candidate artifact itself carries no synthetic runtime data."
+  },
+  "priorPhaseEvidence": {
+    "releaseArtifactAudit": {
+      "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
+      "headSha": "fef4e6560bdd4256f13c6793fd3314e01bb33cf5",
+      "checkCount": 18,
+      "failedCheckCount": 0,
+      "verified": true
+    },
+    "nonproductionAcceptance": {
+      "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
+      "checkCount": 9,
+      "failedCheckCount": 0
+    },
+    "note": "P15.13/P15.14 receipts are bound to their own audited commits and are preserved, not restated as this candidate's audits."
+  },
+  "ownerAuthorization": {
+    "required": true,
+    "granted": false,
+    "ownerDecisionPath": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
+    "requiredOwnerDecisionFields": {
+      "status": "AUTHORIZED",
+      "releaseCandidateSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+      "releaseCandidateManifestHash": "<manifestHash below>",
+      "operationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8"
+    },
+    "note": "No owner authorization exists. This manifest only identifies the exact candidate and the exact production operation that would require James's explicit authorization."
+  },
+  "production": {
+    "deployed": false,
+    "mergeToMainPerformed": false,
+    "protectedAssetsChanged": false,
+    "note": "Production, main, production Supabase/auth and protected release assets remain untouched."
+  },
+  "manifestHash": "3fc40ac770dcb634d7f8b837b71b992d8fc20a7e49360a72c98aeab749158081"
+}
