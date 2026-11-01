@@ -20,3 +20,4 @@ export * from "./protected-actions.js";
 export * from "./events.js";
 export * from "./alerts.js";
 export * from "./data-sensitivity.js";
+export * from "./data-rights.js";
