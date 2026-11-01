@@ -73,6 +73,9 @@ import {reviewedTaxonomyMappings} from './p15-1-reviewed-taxonomies-mappings.mjs
 import {reviewedStartupMappings} from './p15-1-reviewed-startup-mappings.mjs';
 import {reviewedNavigationMappings} from './p15-1-reviewed-navigation-mappings.mjs';
 import {reviewedDecisionMappings} from './p15-1-reviewed-decisions-mappings.mjs';
+import {reviewedRelationshipMappings} from './p15-1-reviewed-relationships-mappings.mjs';
+import {reviewedIntegrityMappings} from './p15-1-reviewed-integrity-mappings.mjs';
+import {reviewedDesignTokenMappings} from './p15-1-reviewed-design-token-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -117,6 +120,9 @@ export function currentReviewedMappings(root){
   ...reviewedStartupMappings(),
   ...reviewedNavigationMappings(),
   ...reviewedDecisionMappings(),
+  ...reviewedRelationshipMappings(),
+  ...reviewedIntegrityMappings(),
+  ...reviewedDesignTokenMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
