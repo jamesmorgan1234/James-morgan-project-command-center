@@ -52,6 +52,22 @@ jobs:
         run: npm run audit:repository
       - name: Build modules
         run: npm run build:modules
+      - name: Reviewed mapping preflight (changed modules)
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "push" ]; then
+            base="${{ github.event.before }}"
+            if ! git cat-file -e "$base" 2>/dev/null; then base="$(git rev-parse HEAD~1)"; fi
+            mapfile -t modules < <(git diff --name-only "$base" "${{ github.sha }}" -- 'clean-room/scripts/p15-1-reviewed-*.mjs' | sed 's#^clean-room/##')
+          else
+            mapfile -t modules < <(ls scripts/p15-1-reviewed-*.mjs | grep -v current-reviewed)
+          fi
+          if [ ${#modules[@]} -eq 0 ]; then echo "no reviewed mapping modules changed"; exit 0; fi
+          for module in "${modules[@]}"; do
+            echo "preflight: $module"
+            node scripts/p15-1-reviewed-mapping-preflight.mjs "$module"
+          done
       - name: Build browser
         run: npm run build:browser
       - name: Exact-head module tests with machine-readable totals
