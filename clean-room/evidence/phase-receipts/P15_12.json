@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.12",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "f101249159e4cf29178128f81785956f5fa7be93",
+  "inputs": [
+    "clean-room/scripts/p15-12-performance-load-soak-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/agency/dag.ts",
+    "clean-room/src/agency/leases.ts",
+    "clean-room/src/agency/recovery.ts",
+    "clean-room/src/agency/scheduler.ts",
+    "clean-room/src/data/learning.ts",
+    "clean-room/src/perf/budgets.ts",
+    "clean-room/src/perf/data.ts",
+    "clean-room/src/perf/loading.ts",
+    "clean-room/src/recovery/scale.ts",
+    "clean-room/tests/category15-performance-load-soak.test.mjs",
+    "clean-room/tests/p15-12-performance-load-soak.test.mjs"
+  ],
+  "inputsDigest": "5ba28cf1f29adb6fc7cc5bc4b744e826a0fd44a05dec2b62fcc197851d386af5",
+  "evidence": [
+    "clean-room/scripts/p15-12-performance-load-soak-audit.mjs",
+    "clean-room/tests/p15-12-performance-load-soak.test.mjs",
+    "clean-room/tests/category15-performance-load-soak.test.mjs",
+    "clean-room/tests/p14-6-capacity-under-load.test.mjs",
+    "clean-room/tests/p13-10-adversarial-scale.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.12",
+    "suiteCount": 6,
+    "checkCount": 14,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "workload": {
+      "capacityCycles": 50000,
+      "taskCount": 10000,
+      "claimCycles": 2000,
+      "failoverCycles": 500
+    },
+    "suites": [
+      {
+        "id": "sustained-saturation-soak",
+        "description": "Sustained load converts excess demand into backpressure, never loss",
+        "passed": true,
+        "checks": [
+          {
+            "name": "50000 capacity decisions stay deterministic and total",
+            "passed": true
+          },
+          {
+            "name": "degraded providers and resource pressure never fabricate completion",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "many-task-dependency-scheduling",
+        "description": "Large dependency graphs expose only ready work with no starvation",
+        "passed": true,
+        "checks": [
+          {
+            "name": "10000 chained tasks schedule deterministically",
+            "passed": true
+          },
+          {
+            "name": "independent tasks across many projects all become ready without loss",
+            "passed": true
+          },
+          {
+            "name": "a blocked dependency never becomes ready and no task is duplicated",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "concurrent-claim-soak",
+        "description": "Repeated contention never permits duplicate or stale execution",
+        "passed": true,
+        "checks": [
+          {
+            "name": "2000 claim generations reject every stale commit",
+            "passed": true
+          },
+          {
+            "name": "expired work is reaped with its checkpoint rather than silently dropped",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "bounded-concurrency-and-backpressure",
+        "description": "Concurrency, queues and requests stay bounded under pressure",
+        "passed": true,
+        "checks": [
+          {
+            "name": "queues, requests and rate limits bound work instead of growing",
+            "passed": true
+          },
+          {
+            "name": "listing strategy and paging stay bounded at scale",
+            "passed": true
+          },
+          {
+            "name": "budgets and cheap-work guards hold under scale",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "failover-under-load",
+        "description": "Scheduler failover remains fenced while the claim load continues",
+        "passed": true,
+        "checks": [
+          {
+            "name": "500 leadership cycles never admit two live leaders",
+            "passed": true
+          },
+          {
+            "name": "claim load and failover interleave without cross-scope leakage",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "learning-governance-fail-closed",
+        "description": "Ecosystem learning cannot be promoted without valid evidence",
+        "passed": true,
+        "checks": [
+          {
+            "name": "invalid or unknown learning packets are rejected",
+            "passed": true
+          },
+          {
+            "name": "learning promotion cannot be decided without validators",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}

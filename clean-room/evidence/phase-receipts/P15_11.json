@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.11",
+  "status": "VERIFIED_COMPLETE",
+  "gitSha": "f101249159e4cf29178128f81785956f5fa7be93",
+  "inputs": [
+    "clean-room/scripts/p15-11-recovery-migration-provider-audit.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs",
+    "clean-room/src/data/recovery.ts",
+    "clean-room/src/recovery/acceptance.ts",
+    "clean-room/src/recovery/backup.ts",
+    "clean-room/src/recovery/migrations.ts",
+    "clean-room/src/recovery/replacement.ts",
+    "clean-room/src/recovery/restore.ts",
+    "clean-room/src/recovery/scale.ts",
+    "clean-room/src/ui/pwa.ts",
+    "clean-room/tests/p15-11-recovery-migration-provider.test.mjs",
+    "clean-room/tests/recovery-scale-foundation.test.mjs"
+  ],
+  "inputsDigest": "add615626b9d4457cf214f4ff31baccd4fa0e92d5256a7353379bbe9dba4ad6a",
+  "evidence": [
+    "clean-room/scripts/p15-11-recovery-migration-provider-audit.mjs",
+    "clean-room/tests/p15-11-recovery-migration-provider.test.mjs",
+    "clean-room/tests/recovery-scale-foundation.test.mjs",
+    "clean-room/tests/p14-durable-recovery.test.mjs",
+    "clean-room/tests/category3-recovery-boundaries.test.mjs",
+    "clean-room/scripts/phase-receipt-binding.mjs"
+  ],
+  "summary": {
+    "phaseId": "P15.11",
+    "suiteCount": 5,
+    "checkCount": 16,
+    "failedSuiteCount": 0,
+    "failedCheckCount": 0,
+    "failureClasses": [
+      "backup",
+      "restore",
+      "migration",
+      "provider-loss",
+      "offline",
+      "update",
+      "stale-cache",
+      "chaos"
+    ],
+    "suites": [
+      {
+        "id": "backup-and-restore-integrity",
+        "description": "Backups and restores are encrypted, integrity-addressed and complete",
+        "passed": true,
+        "checks": [
+          {
+            "name": "an encrypted, integrity-addressed backup validates",
+            "passed": true
+          },
+          {
+            "name": "unencrypted or evidence-free backups are rejected",
+            "passed": true
+          },
+          {
+            "name": "intelligence backup classes are all required",
+            "passed": true
+          },
+          {
+            "name": "restore is isolated, integrity-checked and dependency-complete",
+            "passed": true
+          },
+          {
+            "name": "restore under current policy cannot resurrect revoked or invalid state",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "migration-and-rollback",
+        "description": "Migrations are dry-run gated and roll back without mixed-version state",
+        "passed": true,
+        "checks": [
+          {
+            "name": "dry run requires compatibility, preconditions, backup and rollback",
+            "passed": true
+          },
+          {
+            "name": "failed or uncertain migrations require rollback",
+            "passed": true
+          },
+          {
+            "name": "partial migration rolls back every applied item and preserves erasure",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "provider-loss-and-replacement",
+        "description": "Provider loss degrades or replaces without silent substitution",
+        "passed": true,
+        "checks": [
+          {
+            "name": "provider health decides keep, degrade or replace",
+            "passed": true
+          },
+          {
+            "name": "replacement candidates must be available, free and compatible",
+            "passed": true
+          },
+          {
+            "name": "canonical provider replacement enforces free-first and capability parity",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "offline-update-and-stale-cache",
+        "description": "Offline shell and updates never fake freshness or mixed versions",
+        "passed": true,
+        "checks": [
+          {
+            "name": "the PWA shell states its offline limits explicitly",
+            "passed": true
+          },
+          {
+            "name": "incompatible updates are blocked and rollback restores known-good",
+            "passed": true
+          },
+          {
+            "name": "stale caches and projection gaps are rejected rather than patched",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "id": "dormant-and-chaos-recovery",
+        "description": "Dormant capabilities reactivate and chaos recovery stays fenced",
+        "passed": true,
+        "checks": [
+          {
+            "name": "dormant capabilities re-enter the full configure-connect-authorize-enable path",
+            "passed": true
+          },
+          {
+            "name": "chaos recovery requires fencing, checkpoints and no stale mutation",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  }
+}
