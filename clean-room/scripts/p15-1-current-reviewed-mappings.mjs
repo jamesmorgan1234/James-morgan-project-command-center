@@ -82,6 +82,7 @@ import {reviewedRelationshipMappings} from './p15-1-reviewed-relationships-mappi
 import {reviewedIntegrityMappings} from './p15-1-reviewed-integrity-mappings.mjs';
 import {reviewedDesignTokenMappings} from './p15-1-reviewed-design-token-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
+import {reviewedUpstreamRecertifiedClosureMappings} from './p15-1-reviewed-upstream-recertified-closure-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
 export function currentReviewedMappings(root){
@@ -170,6 +171,7 @@ export function currentReviewedMappings(root){
   ...reviewedFailureAcceptanceMappings(),
   ...reviewedReleaseProviderInvarianceMappings(),
   ...reviewedWorkBatch1ExistingProofMappings(),
+  ...reviewedUpstreamRecertifiedClosureMappings(),
  ];
  const seen=new Set();
  return selected.map(original=>{
