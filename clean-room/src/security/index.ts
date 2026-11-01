@@ -19,3 +19,4 @@ export * from "./protected-authorizations.js";
 export * from "./protected-actions.js";
 export * from "./events.js";
 export * from "./alerts.js";
+export * from "./data-sensitivity.js";
