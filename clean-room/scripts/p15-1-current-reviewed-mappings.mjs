@@ -72,6 +72,7 @@ import {reviewedTypeContractMappings} from './p15-1-reviewed-type-contracts-mapp
 import {reviewedTaxonomyMappings} from './p15-1-reviewed-taxonomies-mappings.mjs';
 import {reviewedStartupMappings} from './p15-1-reviewed-startup-mappings.mjs';
 import {reviewedNavigationMappings} from './p15-1-reviewed-navigation-mappings.mjs';
+import {reviewedDecisionMappings} from './p15-1-reviewed-decisions-mappings.mjs';
 import {reviewedRecoveryMappings} from './p15-1-reviewed-recovery-mappings.mjs';
 
 /** Reuses existing reviewed owners. No keyword/file-similarity promotion is allowed. */
@@ -115,6 +116,7 @@ export function currentReviewedMappings(root){
   ...reviewedTaxonomyMappings(),
   ...reviewedStartupMappings(),
   ...reviewedNavigationMappings(),
+  ...reviewedDecisionMappings(),
   ...reviewedCategory12ReconciliationMappings(),
   ...reviewedCategory3SemanticMappings(),
   ...reviewedSection2AuthoritySourceMappings(),
