@@ -26,3 +26,4 @@ export * from "./registries.js";
 export * from "./module-hygiene.js";
 export * from "./standards.js";
 export * from "./error-taxonomy.js";
+export * from "./type-contracts.js";
