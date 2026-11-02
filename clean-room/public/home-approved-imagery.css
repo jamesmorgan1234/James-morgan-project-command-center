@@ -1,0 +1,14 @@
+/* P15.16 — Home/dashboard cards must use only preserved approved imagery. */
+.home-primary-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(8, 12, 18, 0.68), rgba(8, 12, 18, 0.9)),
+    url('/assets/approved-projects-visual-reference.png') center / cover no-repeat;
+}
+
+.home-primary-card > * {
+  position: relative;
+  z-index: 1;
+}
