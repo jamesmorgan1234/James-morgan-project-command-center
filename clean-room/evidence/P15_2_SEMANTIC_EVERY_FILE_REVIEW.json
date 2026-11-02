@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "7e44cfb369282fb9d26d7f0e97eb3ade52d89966",
+  "gitSha": "a6a4a24d30c6c1c9ebb8dfdf69b9b89265165877",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2007,
-  "inventoryDigest": "9f2cc7a3543ff2486f7279e30e67c3a4ed8a972181639e897f3f6ea97e951bf4",
+  "inventoryDigest": "d60b8cdc9cf6ee8e3ef0921609839680f99a1109249d343fd9d402dc2a2a06c0",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -3629,8 +3629,8 @@
       "path": "clean-room/evidence/P15_16_LIVE_VERIFICATION.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "904ec90c15233f4ce0e373d2b213030aeacf405f2e479e1738ee3899aecc819f",
-      "bytes": 10228,
+      "sha256": "d5d868890c31ecf14f43c2150cea5731bc0c20c4d4215ff8baed3620073f7858",
+      "bytes": 11796,
       "contentKind": "text",
       "findings": []
     },
@@ -4763,7 +4763,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "e43627017981b32883e56448fa21edfd71275d5d23be81def2ebb138f9ead624",
+      "sha256": "0e8ea926529396460724bb09b426c0b4e78cecb59ce4321d70e971637fe6094f",
       "bytes": 13193656,
       "contentKind": "text",
       "findings": []
@@ -5069,8 +5069,8 @@
       "path": "clean-room/scripts/category15-production-live-audit.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "8f1ee266d612eae60a96ab771158322b486be1376df107eca5337afd7a78d9eb",
-      "bytes": 7299,
+      "sha256": "8ed6af1324993a29daa991877abed4479e05e5de3aca5e7b11463219b35195ae",
+      "bytes": 8423,
       "contentKind": "text",
       "findings": []
     },
