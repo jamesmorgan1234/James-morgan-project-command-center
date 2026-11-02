@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.4",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "e0eeeddd31ee060cbb35c874b811dd365f1d6b08",
+  "gitSha": "cab1e7679676eeb684e1d231f5bf02277f37537f",
   "inputs": [
     "clean-room/scripts/p15-4-red-team-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",
