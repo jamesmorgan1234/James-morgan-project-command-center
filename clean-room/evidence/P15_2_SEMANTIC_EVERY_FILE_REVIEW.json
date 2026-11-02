@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "4079feda1f2ab41857f67ca57dba10f391644e61",
+  "gitSha": "1614257376752d124dd92fec07fee6bf1ad45a4c",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2004,
-  "inventoryDigest": "dea40354702d4d5c508ef070383f9bd3522fa693fc58115d8791b441548dd878",
+  "reviewedFileCount": 2006,
+  "inventoryDigest": "57abc23e268f409442a57b61365528f6516b43644425975a1dc070d81a342c5b",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2005,
-    "reviewedFileCount": 2004,
+    "trackedFileCount": 2007,
+    "reviewedFileCount": 2006,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -46,10 +46,10 @@
       "CONF": 6,
       "ASRV": 1,
       "EVID": 195,
-      "APUB": 11,
+      "APUB": 12,
       "SCRP": 137,
       "ASRC": 338,
-      "TEST": 442,
+      "TEST": 443,
       "RDMAP": 290,
       "SBAS": 230,
       "HTST": 43
@@ -703,7 +703,7 @@
     },
     {
       "directory": "clean-room/public",
-      "fileCount": 11,
+      "fileCount": 12,
       "roles": [
         "APUB"
       ]
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 442,
+      "fileCount": 443,
       "roles": [
         "TEST"
       ]
@@ -4763,8 +4763,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "6b2a4f2017122c357554f9e204b512cb73a83ca191353806cd45412985e66c41",
-      "bytes": 13193290,
+      "sha256": "fcf40f89650c36dfddc0f3a939bb3ed9104ac2c80a9aef0af667cc16de534ef7",
+      "bytes": 13193536,
       "contentKind": "text",
       "findings": []
     },
@@ -4931,11 +4931,20 @@
       "findings": []
     },
     {
+      "path": "clean-room/public/home-approved-imagery.css",
+      "role": "APUB",
+      "disposition": "retain-active",
+      "sha256": "3da7243d7fbb750ea34c4468c68759b168b24c473bf4e4e37f30a7a0efd9c7c1",
+      "bytes": 403,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/public/index.html",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "1fcdcbc09c03a30bca02d6b06f788abc7cb2a4f687a5d4e8c10b631ed3b5e98b",
-      "bytes": 2011,
+      "sha256": "1f80d593a1a0ad81d979d39345ca7ea3d224a74ec2e326b2c3cdc7d302fecaad",
+      "bytes": 2071,
       "contentKind": "text",
       "findings": []
     },
@@ -12525,6 +12534,15 @@
       "disposition": "retain-active",
       "sha256": "b39f480271ba806e39bb970e9b4f39d93036cd5fb80d2ab8fbdf793048f1f6ac",
       "bytes": 7191,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-16-home-approved-imagery-contract.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "e863b8716929408a018f19fb669443cbef49c3555730aadbbde02c926170586f",
+      "bytes": 1478,
       "contentKind": "text",
       "findings": []
     },
