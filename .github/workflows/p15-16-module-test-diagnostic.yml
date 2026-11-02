@@ -27,6 +27,8 @@ jobs:
           cache-dependency-path: clean-room/package-lock.json
       - name: Install locked zero-cost dependencies
         run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Refresh P15.2 every-file review for exact head
+        run: node scripts/p15-2-semantic-every-file-review.mjs --write
       - name: Build modules
         run: npm run build:modules
       - name: Run unchanged module suite and capture TAP
