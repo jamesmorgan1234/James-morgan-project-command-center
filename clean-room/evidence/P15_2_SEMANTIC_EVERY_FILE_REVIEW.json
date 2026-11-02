@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "1614257376752d124dd92fec07fee6bf1ad45a4c",
+  "gitSha": "68fe05d2e144609c6b1e577ef293029fcaa9a8ec",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2006,
-  "inventoryDigest": "57abc23e268f409442a57b61365528f6516b43644425975a1dc070d81a342c5b",
+  "inventoryDigest": "7aceee9208ac5a9431f398f23ea9ee6f58e683272e7d2fbfb3697030c429ab79",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -3584,7 +3584,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "fa657dbd8068eb6ea47d566ef6d799055371668a54a37f4c4d701d64f49948a3",
+      "sha256": "5f2abad52c7e0a7f4749bfde07043ba5b539c2665ae3e60ad56ec0605ca8f8b7",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3593,8 +3593,8 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "46f3431efe7821ce62394184ce305f49d78a18390251e102d9ba0dbc2dbffba0",
-      "bytes": 2183,
+      "sha256": "62b41f04f6a6a4b8093efaf924141abcf0fabba2f6aaf4d2fe4ab386778e2407",
+      "bytes": 2027,
       "contentKind": "text",
       "findings": []
     },
@@ -4799,7 +4799,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "1152f71835b0ae1bdf589ec257bca405b1eeb81c98f5fb893cf02c2682f697d4",
+      "sha256": "60e529ed6f5da700c9637644290142e81727213aad10d5baf3613de477e107a3",
       "bytes": 5189,
       "contentKind": "text",
       "findings": []
@@ -4808,8 +4808,8 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "b175aac701759150c595890e40fd0e915299a1ab38d24bb5d47d1f68e45917ec",
-      "bytes": 2974,
+      "sha256": "db480cdf7e243e144888147a5b4f49607b4c38a8b923781822ca61c0ee630334",
+      "bytes": 2818,
       "contentKind": "text",
       "findings": []
     },

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.14",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "fef4e6560bdd4256f13c6793fd3314e01bb33cf5",
+  "gitSha": "68fe05d2e144609c6b1e577ef293029fcaa9a8ec",
   "inputs": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/public/sw.js",
@@ -12,7 +12,7 @@
     "clean-room/tests/owner-auth-proxy-routing.test.mjs",
     "clean-room/tests/p15-14-nonproduction-acceptance.test.mjs"
   ],
-  "inputsDigest": "5a17dc86f2fc35004298f8fce014e068e3f638c50ba415095ca59875b9fa349b",
+  "inputsDigest": "cd0cb51a9b8e0a22ce9c2f3be0fbfb378ea7a6fbfd7d95acc96e79f3a07eaa8d",
   "evidence": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs",
@@ -31,7 +31,7 @@
       "fail": 0
     },
     "browser": {
-      "binary": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell",
+      "binary": "/usr/bin/google-chrome",
       "lifecycleVerified": true
     },
     "checks": [
@@ -58,7 +58,7 @@
       {
         "name": "a real browser binary is available for lifecycle acceptance",
         "passed": true,
-        "detail": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell"
+        "detail": "/usr/bin/google-chrome"
       },
       {
         "name": "real browser service-worker lifecycle exits zero",

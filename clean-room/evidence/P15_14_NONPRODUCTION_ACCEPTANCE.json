@@ -1,6 +1,6 @@
 {
   "schemaVersion": "cc-p15-14-nonproduction-acceptance-v1",
-  "headSha": "fef4e6560bdd4256f13c6793fd3314e01bb33cf5",
+  "headSha": "68fe05d2e144609c6b1e577ef293029fcaa9a8ec",
   "contractSuites": [
     "tests/category15-nonproduction-contract-acceptance.test.mjs",
     "tests/owner-auth-proxy-routing.test.mjs"
@@ -11,7 +11,7 @@
     "fail": 0
   },
   "browser": {
-    "binary": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell",
+    "binary": "/usr/bin/google-chrome",
     "lifecycleVerified": true
   },
   "lifecycleTranscriptTail": "P15.14 PWA lifecycle verified: install, same-session offline cache replay, waiting-worker activation, two-cache rollback retention\n",
@@ -39,7 +39,7 @@
     {
       "name": "a real browser binary is available for lifecycle acceptance",
       "passed": true,
-      "detail": "/workspace/chats/67e17073812332b17958c173/.tools/chrome-headless-shell-linux64/chrome-headless-shell"
+      "detail": "/usr/bin/google-chrome"
     },
     {
       "name": "real browser service-worker lifecycle exits zero",
