@@ -29,12 +29,37 @@ jobs:
           cache-dependency-path: clean-room/package-lock.json
       - name: Install locked zero-cost dependencies
         run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Current authority validation
+        run: npm run audit:authority
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Legacy exclusion gate
+        run: npm run check:legacy
+      - name: Architecture source gate
+        run: npm run check:architecture
       - name: Refresh P15.2 every-file review for exact head
         run: node scripts/p15-2-semantic-every-file-review.mjs --write
+      - name: Repository audit gate
+        run: npm run audit:repository
       - name: Build modules
         run: npm run build:modules
       - name: Build browser
         run: npm run build:browser
+      - name: Requalify P15.6 through P15.12 receipts
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/p15-6-historical-recovery-audit.mjs --write
+          node scripts/p15-7-concurrency-claims-fencing-audit.mjs --write
+          node scripts/p15-8-scheduler-failover-replay-audit.mjs --write
+          node scripts/p15-9-foundry-steering-audit.mjs --write
+          node scripts/p15-10-needs-me-boundary-resume-audit.mjs --write
+          node scripts/p15-11-recovery-migration-provider-audit.mjs --write
+          node scripts/p15-12-performance-load-soak-audit.mjs --write
+      - name: Refresh P15.2 after receipt requalification
+        run: node scripts/p15-2-semantic-every-file-review.mjs --write
+      - name: Refresh repository audit after receipt requalification
+        run: npm run audit:repository
       - name: Run unchanged module suite and capture TAP
         id: tests
         shell: bash
@@ -45,12 +70,21 @@ jobs:
           set -e
           cat p15-16-module-tests.tap
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-      - name: Upload diagnostic TAP
+      - name: Upload requalified receipts and TAP
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: p15-16-module-tests-tap
-          path: clean-room/p15-16-module-tests.tap
+          name: p15-16-requalified-receipts-and-tap
+          path: |
+            clean-room/evidence/phase-receipts/P15_6.json
+            clean-room/evidence/phase-receipts/P15_7.json
+            clean-room/evidence/phase-receipts/P15_8.json
+            clean-room/evidence/phase-receipts/P15_9.json
+            clean-room/evidence/phase-receipts/P15_10.json
+            clean-room/evidence/phase-receipts/P15_11.json
+            clean-room/evidence/phase-receipts/P15_12.json
+            clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json
+            clean-room/p15-16-module-tests.tap
           if-no-files-found: error
           retention-days: 1
       - name: Preserve unchanged suite result
