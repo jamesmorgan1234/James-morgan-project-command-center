@@ -1,0 +1,760 @@
+{
+  "schemaVersion": 1,
+  "phaseId": "P15.16",
+  "kind": "authoritative_company_project_backfill",
+  "sourceAuthority": "roadmap/portfolio-future-architecture/companies",
+  "companyCount": 107,
+  "orderingRule": "company ordinal embedded in the authoritative file name (001..NNN), preserved in project_id",
+  "inventoryDigest": "00284edd2fc6d05255f3b2652682ec75b52ecfe49917b4384ce54aa2e6d8a903",
+  "companies": [
+    {
+      "sequence": 1,
+      "companyId": "company:future:001",
+      "projectId": "project:company:future:001",
+      "name": "API-as-a-Business Factory",
+      "source": "roadmap/portfolio-future-architecture/companies/001_API_AS_A_BUSINESS_FACTORY.md"
+    },
+    {
+      "sequence": 2,
+      "companyId": "company:future:002",
+      "projectId": "project:company:future:002",
+      "name": "AI Agent Control Center",
+      "source": "roadmap/portfolio-future-architecture/companies/002_AI_AGENT_CONTROL_CENTER.md"
+    },
+    {
+      "sequence": 3,
+      "companyId": "company:future:003",
+      "projectId": "project:company:future:003",
+      "name": "AI Quality-Control Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/003_AI_QUALITY_CONTROL_PLATFORM.md"
+    },
+    {
+      "sequence": 4,
+      "companyId": "company:future:004",
+      "projectId": "project:company:future:004",
+      "name": "AI Permission / Governance Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/004_AI_PERMISSION_GOVERNANCE_PLATFORM.md"
+    },
+    {
+      "sequence": 5,
+      "companyId": "company:future:005",
+      "projectId": "project:company:future:005",
+      "name": "AI Audit-Trail Infrastructure",
+      "source": "roadmap/portfolio-future-architecture/companies/005_AI_AUDIT_TRAIL_INFRASTRUCTURE.md"
+    },
+    {
+      "sequence": 6,
+      "companyId": "company:future:006",
+      "projectId": "project:company:future:006",
+      "name": "Data Subscription Company",
+      "source": "roadmap/portfolio-future-architecture/companies/006_DATA_SUBSCRIPTION_COMPANY.md"
+    },
+    {
+      "sequence": 7,
+      "companyId": "company:future:007",
+      "projectId": "project:company:future:007",
+      "name": "Pricing Intelligence Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/007_PRICING_INTELLIGENCE_ENGINE.md"
+    },
+    {
+      "sequence": 8,
+      "companyId": "company:future:008",
+      "projectId": "project:company:future:008",
+      "name": "Business Workflow Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/008_BUSINESS_WORKFLOW_AUTOPILOT.md"
+    },
+    {
+      "sequence": 9,
+      "companyId": "company:future:009",
+      "projectId": "project:company:future:009",
+      "name": "Document-to-Workflow Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/009_DOCUMENT_TO_WORKFLOW_ENGINE.md"
+    },
+    {
+      "sequence": 10,
+      "companyId": "company:future:010",
+      "projectId": "project:company:future:010",
+      "name": "Subscription Revenue Recovery Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/010_SUBSCRIPTION_REVENUE_RECOVERY_PLATFORM.md"
+    },
+    {
+      "sequence": 11,
+      "companyId": "company:future:011",
+      "projectId": "project:company:future:011",
+      "name": "Automated Benchmarking Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/011_AUTOMATED_BENCHMARKING_PLATFORM.md"
+    },
+    {
+      "sequence": 12,
+      "companyId": "company:future:012",
+      "projectId": "project:company:future:012",
+      "name": "AI Compliance Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/012_AI_COMPLIANCE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 13,
+      "companyId": "company:future:013",
+      "projectId": "project:company:future:013",
+      "name": "Competitive Intelligence Subscription",
+      "source": "roadmap/portfolio-future-architecture/companies/013_COMPETITIVE_INTELLIGENCE_SUBSCRIPTION.md"
+    },
+    {
+      "sequence": 14,
+      "companyId": "company:future:014",
+      "projectId": "project:company:future:014",
+      "name": "Website Change Intelligence",
+      "source": "roadmap/portfolio-future-architecture/companies/014_WEBSITE_CHANGE_INTELLIGENCE.md"
+    },
+    {
+      "sequence": 15,
+      "companyId": "company:future:015",
+      "projectId": "project:company:future:015",
+      "name": "Business Intelligence Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/015_BUSINESS_INTELLIGENCE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 16,
+      "companyId": "company:future:016",
+      "projectId": "project:company:future:016",
+      "name": "Regulation Change Monitor",
+      "source": "roadmap/portfolio-future-architecture/companies/016_REGULATION_CHANGE_MONITOR.md"
+    },
+    {
+      "sequence": 17,
+      "companyId": "company:future:017",
+      "projectId": "project:company:future:017",
+      "name": "SaaS Spend Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/017_SAAS_SPEND_AUTOPILOT.md"
+    },
+    {
+      "sequence": 18,
+      "companyId": "company:future:018",
+      "projectId": "project:company:future:018",
+      "name": "Customer Churn Prevention AI",
+      "source": "roadmap/portfolio-future-architecture/companies/018_CUSTOMER_CHURN_PREVENTION_AI.md"
+    },
+    {
+      "sequence": 19,
+      "companyId": "company:future:019",
+      "projectId": "project:company:future:019",
+      "name": "Inventory Forecasting API",
+      "source": "roadmap/portfolio-future-architecture/companies/019_INVENTORY_FORECASTING_API.md"
+    },
+    {
+      "sequence": 20,
+      "companyId": "company:future:020",
+      "projectId": "project:company:future:020",
+      "name": "Data Cleanup Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/020_DATA_CLEANUP_AUTOPILOT.md"
+    },
+    {
+      "sequence": 21,
+      "companyId": "company:future:021",
+      "projectId": "project:company:future:021",
+      "name": "Lead Qualification Infrastructure",
+      "source": "roadmap/portfolio-future-architecture/companies/021_LEAD_QUALIFICATION_INFRASTRUCTURE.md"
+    },
+    {
+      "sequence": 22,
+      "companyId": "company:future:022",
+      "projectId": "project:company:future:022",
+      "name": "Cybersecurity Hygiene Autopilot for SMBs",
+      "source": "roadmap/portfolio-future-architecture/companies/022_CYBERSECURITY_HYGIENE_AUTOPILOT_FOR_SMBS.md"
+    },
+    {
+      "sequence": 23,
+      "companyId": "company:future:023",
+      "projectId": "project:company:future:023",
+      "name": "Contract Obligation Tracker",
+      "source": "roadmap/portfolio-future-architecture/companies/023_CONTRACT_OBLIGATION_TRACKER.md"
+    },
+    {
+      "sequence": 24,
+      "companyId": "company:future:024",
+      "projectId": "project:company:future:024",
+      "name": "Vendor Risk Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/024_VENDOR_RISK_AUTOPILOT.md"
+    },
+    {
+      "sequence": 25,
+      "companyId": "company:future:025",
+      "projectId": "project:company:future:025",
+      "name": "Niche Research Subscription",
+      "source": "roadmap/portfolio-future-architecture/companies/025_NICHE_RESEARCH_SUBSCRIPTION.md"
+    },
+    {
+      "sequence": 26,
+      "companyId": "company:future:026",
+      "projectId": "project:company:future:026",
+      "name": "License & Certification Tracker",
+      "source": "roadmap/portfolio-future-architecture/companies/026_LICENSE_CERTIFICATION_TRACKER.md"
+    },
+    {
+      "sequence": 27,
+      "companyId": "company:future:027",
+      "projectId": "project:company:future:027",
+      "name": "Review & Reputation Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/027_REVIEW_REPUTATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 28,
+      "companyId": "company:future:028",
+      "projectId": "project:company:future:028",
+      "name": "AI Knowledge-Base Maintainer",
+      "source": "roadmap/portfolio-future-architecture/companies/028_AI_KNOWLEDGE_BASE_MAINTAINER.md"
+    },
+    {
+      "sequence": 29,
+      "companyId": "company:future:029",
+      "projectId": "project:company:future:029",
+      "name": "Vertical Business OS Generator",
+      "source": "roadmap/portfolio-future-architecture/companies/029_VERTICAL_BUSINESS_OS_GENERATOR.md"
+    },
+    {
+      "sequence": 30,
+      "companyId": "company:future:030",
+      "projectId": "project:company:future:030",
+      "name": "Invoice / Payment Recovery AI",
+      "source": "roadmap/portfolio-future-architecture/companies/030_INVOICE_PAYMENT_RECOVERY_AI.md"
+    },
+    {
+      "sequence": 31,
+      "companyId": "company:future:031",
+      "projectId": "project:company:future:031",
+      "name": "Business Form Automation Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/031_BUSINESS_FORM_AUTOMATION_PLATFORM.md"
+    },
+    {
+      "sequence": 32,
+      "companyId": "company:future:032",
+      "projectId": "project:company:future:032",
+      "name": "AI Procurement Assistant",
+      "source": "roadmap/portfolio-future-architecture/companies/032_AI_PROCUREMENT_ASSISTANT.md"
+    },
+    {
+      "sequence": 33,
+      "companyId": "company:future:033",
+      "projectId": "project:company:future:033",
+      "name": "Accessibility Compliance Monitor",
+      "source": "roadmap/portfolio-future-architecture/companies/033_ACCESSIBILITY_COMPLIANCE_MONITOR.md"
+    },
+    {
+      "sequence": 34,
+      "companyId": "company:future:034",
+      "projectId": "project:company:future:034",
+      "name": "Returns Intelligence Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/034_RETURNS_INTELLIGENCE_PLATFORM.md"
+    },
+    {
+      "sequence": 35,
+      "companyId": "company:future:035",
+      "projectId": "project:company:future:035",
+      "name": "Warranty / Claims Automation Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/035_WARRANTY_CLAIMS_AUTOMATION_PLATFORM.md"
+    },
+    {
+      "sequence": 36,
+      "companyId": "company:future:036",
+      "projectId": "project:company:future:036",
+      "name": "RFP / Tender Intelligence SaaS",
+      "source": "roadmap/portfolio-future-architecture/companies/036_RFP_TENDER_INTELLIGENCE_SAAS.md"
+    },
+    {
+      "sequence": 37,
+      "companyId": "company:future:037",
+      "projectId": "project:company:future:037",
+      "name": "Internal Policy Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/037_INTERNAL_POLICY_AUTOPILOT.md"
+    },
+    {
+      "sequence": 38,
+      "companyId": "company:future:038",
+      "projectId": "project:company:future:038",
+      "name": "Grant Management Software",
+      "source": "roadmap/portfolio-future-architecture/companies/038_GRANT_MANAGEMENT_SOFTWARE.md"
+    },
+    {
+      "sequence": 39,
+      "companyId": "company:future:039",
+      "projectId": "project:company:future:039",
+      "name": "Digital Asset Licensing Marketplace",
+      "source": "roadmap/portfolio-future-architecture/companies/039_DIGITAL_ASSET_LICENSING_MARKETPLACE.md"
+    },
+    {
+      "sequence": 40,
+      "companyId": "company:future:040",
+      "projectId": "project:company:future:040",
+      "name": "Digital Estate / Account Organizer",
+      "source": "roadmap/portfolio-future-architecture/companies/040_DIGITAL_ESTATE_ACCOUNT_ORGANIZER.md"
+    },
+    {
+      "sequence": 41,
+      "companyId": "company:future:041",
+      "projectId": "project:company:future:041",
+      "name": "Autonomous Micro-SaaS Factory",
+      "source": "roadmap/portfolio-future-architecture/companies/041_AUTONOMOUS_MICRO_SAAS_FACTORY.md"
+    },
+    {
+      "sequence": 42,
+      "companyId": "company:future:042",
+      "projectId": "project:company:future:042",
+      "name": "Legacy Browser Worker Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/042_LEGACY_BROWSER_WORKER_PLATFORM.md"
+    },
+    {
+      "sequence": 43,
+      "companyId": "company:future:043",
+      "projectId": "project:company:future:043",
+      "name": "Cloud Cost Optimization Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/043_CLOUD_COST_OPTIMIZATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 44,
+      "companyId": "company:future:044",
+      "projectId": "project:company:future:044",
+      "name": "Chargeback & Dispute Recovery Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/044_CHARGEBACK_DISPUTE_RECOVERY_AUTOPILOT.md"
+    },
+    {
+      "sequence": 45,
+      "companyId": "company:future:045",
+      "projectId": "project:company:future:045",
+      "name": "Autonomous Customer Support Company",
+      "source": "roadmap/portfolio-future-architecture/companies/045_AUTONOMOUS_CUSTOMER_SUPPORT_COMPANY.md"
+    },
+    {
+      "sequence": 46,
+      "companyId": "company:future:046",
+      "projectId": "project:company:future:046",
+      "name": "Customer Onboarding Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/046_CUSTOMER_ONBOARDING_AUTOPILOT.md"
+    },
+    {
+      "sequence": 47,
+      "companyId": "company:future:047",
+      "projectId": "project:company:future:047",
+      "name": "Privacy Request / DSAR Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/047_PRIVACY_REQUEST_DSAR_AUTOPILOT.md"
+    },
+    {
+      "sequence": 48,
+      "companyId": "company:future:048",
+      "projectId": "project:company:future:048",
+      "name": "Accounts-Payable Verification Brain",
+      "source": "roadmap/portfolio-future-architecture/companies/048_ACCOUNTS_PAYABLE_VERIFICATION_BRAIN.md"
+    },
+    {
+      "sequence": 49,
+      "companyId": "company:future:049",
+      "projectId": "project:company:future:049",
+      "name": "Cloud / Software Reliability Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/049_CLOUD_SOFTWARE_RELIABILITY_AUTOPILOT.md"
+    },
+    {
+      "sequence": 50,
+      "companyId": "company:future:050",
+      "projectId": "project:company:future:050",
+      "name": "AI Front-Desk Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/050_AI_FRONT_DESK_PLATFORM.md"
+    },
+    {
+      "sequence": 51,
+      "companyId": "company:future:051",
+      "projectId": "project:company:future:051",
+      "name": "Data-Pipeline Watchdog",
+      "source": "roadmap/portfolio-future-architecture/companies/051_DATA_PIPELINE_WATCHDOG.md"
+    },
+    {
+      "sequence": 52,
+      "companyId": "company:future:052",
+      "projectId": "project:company:future:052",
+      "name": "Certificate-of-Insurance Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/052_CERTIFICATE_OF_INSURANCE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 53,
+      "companyId": "company:future:053",
+      "projectId": "project:company:future:053",
+      "name": "Software Release Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/053_SOFTWARE_RELEASE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 54,
+      "companyId": "company:future:054",
+      "projectId": "project:company:future:054",
+      "name": "Localization Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/054_LOCALIZATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 55,
+      "companyId": "company:future:055",
+      "projectId": "project:company:future:055",
+      "name": "Product Catalog Intelligence Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/055_PRODUCT_CATALOG_INTELLIGENCE_ENGINE.md"
+    },
+    {
+      "sequence": 56,
+      "companyId": "company:future:056",
+      "projectId": "project:company:future:056",
+      "name": "Synthetic Data Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/056_SYNTHETIC_DATA_PLATFORM.md"
+    },
+    {
+      "sequence": 57,
+      "companyId": "company:future:057",
+      "projectId": "project:company:future:057",
+      "name": "Fraud Detection API",
+      "source": "roadmap/portfolio-future-architecture/companies/057_FRAUD_DETECTION_API.md"
+    },
+    {
+      "sequence": 58,
+      "companyId": "company:future:058",
+      "projectId": "project:company:future:058",
+      "name": "Employee Onboarding / Offboarding Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/058_EMPLOYEE_ONBOARDING_OFFBOARDING_AUTOPILOT.md"
+    },
+    {
+      "sequence": 59,
+      "companyId": "company:future:059",
+      "projectId": "project:company:future:059",
+      "name": "Marketplace Listing Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/059_MARKETPLACE_LISTING_AUTOPILOT.md"
+    },
+    {
+      "sequence": 60,
+      "companyId": "company:future:060",
+      "projectId": "project:company:future:060",
+      "name": "Software Migration Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/060_SOFTWARE_MIGRATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 61,
+      "companyId": "company:future:061",
+      "projectId": "project:company:future:061",
+      "name": "Autonomous Collections Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/061_AUTONOMOUS_COLLECTIONS_PLATFORM.md"
+    },
+    {
+      "sequence": 62,
+      "companyId": "company:future:062",
+      "projectId": "project:company:future:062",
+      "name": "Credentialing Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/062_CREDENTIALING_AUTOPILOT.md"
+    },
+    {
+      "sequence": 63,
+      "companyId": "company:future:063",
+      "projectId": "project:company:future:063",
+      "name": "Vendor Onboarding Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/063_VENDOR_ONBOARDING_AUTOPILOT.md"
+    },
+    {
+      "sequence": 64,
+      "companyId": "company:future:064",
+      "projectId": "project:company:future:064",
+      "name": "Business Inbox Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/064_BUSINESS_INBOX_AUTOPILOT.md"
+    },
+    {
+      "sequence": 65,
+      "companyId": "company:future:065",
+      "projectId": "project:company:future:065",
+      "name": "Autonomous QA-as-a-Service",
+      "source": "roadmap/portfolio-future-architecture/companies/065_AUTONOMOUS_QA_AS_A_SERVICE.md"
+    },
+    {
+      "sequence": 66,
+      "companyId": "company:future:066",
+      "projectId": "project:company:future:066",
+      "name": "AI Runtime Security Gateway",
+      "source": "roadmap/portfolio-future-architecture/companies/066_AI_RUNTIME_SECURITY_GATEWAY.md"
+    },
+    {
+      "sequence": 67,
+      "companyId": "company:future:067",
+      "projectId": "project:company:future:067",
+      "name": "Prompt-Injection Firewall API",
+      "source": "roadmap/portfolio-future-architecture/companies/067_PROMPT_INJECTION_FIREWALL_API.md"
+    },
+    {
+      "sequence": 68,
+      "companyId": "company:future:068",
+      "projectId": "project:company:future:068",
+      "name": "AI Cost & Model Routing Optimizer",
+      "source": "roadmap/portfolio-future-architecture/companies/068_AI_COST_MODEL_ROUTING_OPTIMIZER.md"
+    },
+    {
+      "sequence": 69,
+      "companyId": "company:future:069",
+      "projectId": "project:company:future:069",
+      "name": "Usage Billing Infrastructure",
+      "source": "roadmap/portfolio-future-architecture/companies/069_USAGE_BILLING_INFRASTRUCTURE.md"
+    },
+    {
+      "sequence": 70,
+      "companyId": "company:future:070",
+      "projectId": "project:company:future:070",
+      "name": "Entitlement Management API",
+      "source": "roadmap/portfolio-future-architecture/companies/070_ENTITLEMENT_MANAGEMENT_API.md"
+    },
+    {
+      "sequence": 71,
+      "companyId": "company:future:071",
+      "projectId": "project:company:future:071",
+      "name": "Webhook Reliability Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/071_WEBHOOK_RELIABILITY_PLATFORM.md"
+    },
+    {
+      "sequence": 72,
+      "companyId": "company:future:072",
+      "projectId": "project:company:future:072",
+      "name": "API Contract Drift Monitor",
+      "source": "roadmap/portfolio-future-architecture/companies/072_API_CONTRACT_DRIFT_MONITOR.md"
+    },
+    {
+      "sequence": 73,
+      "companyId": "company:future:073",
+      "projectId": "project:company:future:073",
+      "name": "Secrets & Credential Rotation Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/073_SECRETS_CREDENTIAL_ROTATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 74,
+      "companyId": "company:future:074",
+      "projectId": "project:company:future:074",
+      "name": "Cloud Permission Optimizer",
+      "source": "roadmap/portfolio-future-architecture/companies/074_CLOUD_PERMISSION_OPTIMIZER.md"
+    },
+    {
+      "sequence": 75,
+      "companyId": "company:future:075",
+      "projectId": "project:company:future:075",
+      "name": "Identity Access Review Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/075_IDENTITY_ACCESS_REVIEW_AUTOPILOT.md"
+    },
+    {
+      "sequence": 76,
+      "companyId": "company:future:076",
+      "projectId": "project:company:future:076",
+      "name": "PII Discovery & Classification API",
+      "source": "roadmap/portfolio-future-architecture/companies/076_PII_DISCOVERY_CLASSIFICATION_API.md"
+    },
+    {
+      "sequence": 77,
+      "companyId": "company:future:077",
+      "projectId": "project:company:future:077",
+      "name": "Data Redaction / Tokenization API",
+      "source": "roadmap/portfolio-future-architecture/companies/077_DATA_REDACTION_TOKENIZATION_API.md"
+    },
+    {
+      "sequence": 78,
+      "companyId": "company:future:078",
+      "projectId": "project:company:future:078",
+      "name": "Data Retention & Deletion Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/078_DATA_RETENTION_DELETION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 79,
+      "companyId": "company:future:079",
+      "projectId": "project:company:future:079",
+      "name": "Digital Provenance / Authenticity Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/079_DIGITAL_PROVENANCE_AUTHENTICITY_PLATFORM.md"
+    },
+    {
+      "sequence": 80,
+      "companyId": "company:future:080",
+      "projectId": "project:company:future:080",
+      "name": "Software Dependency Risk Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/080_SOFTWARE_DEPENDENCY_RISK_AUTOPILOT.md"
+    },
+    {
+      "sequence": 81,
+      "companyId": "company:future:081",
+      "projectId": "project:company:future:081",
+      "name": "Open-Source License Compliance API",
+      "source": "roadmap/portfolio-future-architecture/companies/081_OPEN_SOURCE_LICENSE_COMPLIANCE_API.md"
+    },
+    {
+      "sequence": 82,
+      "companyId": "company:future:082",
+      "projectId": "project:company:future:082",
+      "name": "Backup Integrity Verification Service",
+      "source": "roadmap/portfolio-future-architecture/companies/082_BACKUP_INTEGRITY_VERIFICATION_SERVICE.md"
+    },
+    {
+      "sequence": 83,
+      "companyId": "company:future:083",
+      "projectId": "project:company:future:083",
+      "name": "Domain / DNS / SSL Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/083_DOMAIN_DNS_SSL_AUTOPILOT.md"
+    },
+    {
+      "sequence": 84,
+      "companyId": "company:future:084",
+      "projectId": "project:company:future:084",
+      "name": "Email Deliverability Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/084_EMAIL_DELIVERABILITY_AUTOPILOT.md"
+    },
+    {
+      "sequence": 85,
+      "companyId": "company:future:085",
+      "projectId": "project:company:future:085",
+      "name": "Revenue Leakage Detection Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/085_REVENUE_LEAKAGE_DETECTION_ENGINE.md"
+    },
+    {
+      "sequence": 86,
+      "companyId": "company:future:086",
+      "projectId": "project:company:future:086",
+      "name": "Payment Reconciliation Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/086_PAYMENT_RECONCILIATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 87,
+      "companyId": "company:future:087",
+      "projectId": "project:company:future:087",
+      "name": "Marketplace Payout Reconciliation Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/087_MARKETPLACE_PAYOUT_RECONCILIATION_ENGINE.md"
+    },
+    {
+      "sequence": 88,
+      "companyId": "company:future:088",
+      "projectId": "project:company:future:088",
+      "name": "Commission Calculation & Audit Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/088_COMMISSION_CALCULATION_AUDIT_ENGINE.md"
+    },
+    {
+      "sequence": 89,
+      "companyId": "company:future:089",
+      "projectId": "project:company:future:089",
+      "name": "Automated Support-QA Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/089_AUTOMATED_SUPPORT_QA_PLATFORM.md"
+    },
+    {
+      "sequence": 90,
+      "companyId": "company:future:090",
+      "projectId": "project:company:future:090",
+      "name": "Content Moderation Infrastructure API",
+      "source": "roadmap/portfolio-future-architecture/companies/090_CONTENT_MODERATION_INFRASTRUCTURE_API.md"
+    },
+    {
+      "sequence": 91,
+      "companyId": "company:future:091",
+      "projectId": "project:company:future:091",
+      "name": "AI Agent Identity & Trust Authority",
+      "source": "roadmap/portfolio-future-architecture/companies/091_AI_AGENT_IDENTITY_TRUST_AUTHORITY.md"
+    },
+    {
+      "sequence": 92,
+      "companyId": "company:future:092",
+      "projectId": "project:company:future:092",
+      "name": "Agentic Commerce Transaction Gateway",
+      "source": "roadmap/portfolio-future-architecture/companies/092_AGENTIC_COMMERCE_TRANSACTION_GATEWAY.md"
+    },
+    {
+      "sequence": 93,
+      "companyId": "company:future:093",
+      "projectId": "project:company:future:093",
+      "name": "Consent & Preference Management Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/093_CONSENT_PREFERENCE_MANAGEMENT_AUTOPILOT.md"
+    },
+    {
+      "sequence": 94,
+      "companyId": "company:future:094",
+      "projectId": "project:company:future:094",
+      "name": "Enterprise Data Lineage & Provenance Graph",
+      "source": "roadmap/portfolio-future-architecture/companies/094_ENTERPRISE_DATA_LINEAGE_PROVENANCE_GRAPH.md"
+    },
+    {
+      "sequence": 95,
+      "companyId": "company:future:095",
+      "projectId": "project:company:future:095",
+      "name": "AI ROI & Value Attribution Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/095_AI_ROI_VALUE_ATTRIBUTION_PLATFORM.md"
+    },
+    {
+      "sequence": 96,
+      "companyId": "company:future:096",
+      "projectId": "project:company:future:096",
+      "name": "Expense Audit & Recovery Engine",
+      "source": "roadmap/portfolio-future-architecture/companies/096_EXPENSE_AUDIT_RECOVERY_ENGINE.md"
+    },
+    {
+      "sequence": 97,
+      "companyId": "company:future:097",
+      "projectId": "project:company:future:097",
+      "name": "Indirect Tax / Sales-Tax Compliance Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/097_INDIRECT_TAX_SALES_TAX_COMPLIANCE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 98,
+      "companyId": "company:future:098",
+      "projectId": "project:company:future:098",
+      "name": "Data Sovereignty & Workload Routing Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/098_DATA_SOVEREIGNTY_WORKLOAD_ROUTING_PLATFORM.md"
+    },
+    {
+      "sequence": 99,
+      "companyId": "company:future:099",
+      "projectId": "project:company:future:099",
+      "name": "Machine-Enforced Data Contract Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/099_MACHINE_ENFORCED_DATA_CONTRACT_PLATFORM.md"
+    },
+    {
+      "sequence": 100,
+      "companyId": "company:future:100",
+      "projectId": "project:company:future:100",
+      "name": "Legacy Software Modernization Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/100_LEGACY_SOFTWARE_MODERNIZATION_AUTOPILOT.md"
+    },
+    {
+      "sequence": 101,
+      "companyId": "company:future:101",
+      "projectId": "project:company:future:101",
+      "name": "Healthcare Administrative Automation OS",
+      "source": "roadmap/portfolio-future-architecture/companies/101_HEALTHCARE_ADMINISTRATIVE_AUTOMATION_OS.md"
+    },
+    {
+      "sequence": 102,
+      "companyId": "company:future:102",
+      "projectId": "project:company:future:102",
+      "name": "E-Discovery & Litigation Evidence Intelligence Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/102_E_DISCOVERY_AND_LITIGATION_EVIDENCE_INTELLIGENCE_PLATFORM.md"
+    },
+    {
+      "sequence": 103,
+      "companyId": "company:future:103",
+      "projectId": "project:company:future:103",
+      "name": "KYC / KYB / AML Compliance Infrastructure",
+      "source": "roadmap/portfolio-future-architecture/companies/103_KYC_KYB_AML_COMPLIANCE_INFRASTRUCTURE.md"
+    },
+    {
+      "sequence": 104,
+      "companyId": "company:future:104",
+      "projectId": "project:company:future:104",
+      "name": "Privacy-Preserving Data Collaboration Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/104_PRIVACY_PRESERVING_DATA_COLLABORATION_PLATFORM.md"
+    },
+    {
+      "sequence": 105,
+      "companyId": "company:future:105",
+      "projectId": "project:company:future:105",
+      "name": "Global Trade & Customs Compliance Autopilot",
+      "source": "roadmap/portfolio-future-architecture/companies/105_GLOBAL_TRADE_AND_CUSTOMS_COMPLIANCE_AUTOPILOT.md"
+    },
+    {
+      "sequence": 106,
+      "companyId": "company:future:106",
+      "projectId": "project:company:future:106",
+      "name": "Insurance Claims Automation & Claims Intelligence Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/106_INSURANCE_CLAIMS_AUTOMATION_AND_CLAIMS_INTELLIGENCE_PLATFORM.md"
+    },
+    {
+      "sequence": 107,
+      "companyId": "company:future:107",
+      "projectId": "project:company:future:107",
+      "name": "Rights, Royalties & Licensing Operations Platform",
+      "source": "roadmap/portfolio-future-architecture/companies/107_RIGHTS_ROYALTIES_AND_LICENSING_OPERATIONS_PLATFORM.md"
+    }
+  ]
+}
