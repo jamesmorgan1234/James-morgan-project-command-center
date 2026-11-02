@@ -61,6 +61,8 @@ jobs:
         run: npm run check:legacy
       - name: Architecture source gate
         run: npm run check:architecture
+      - name: Refresh P15.2 every-file review for exact head
+        run: node scripts/p15-2-semantic-every-file-review.mjs --write
       - name: Repository audit gate
         run: npm run audit:repository
       - name: Build modules
