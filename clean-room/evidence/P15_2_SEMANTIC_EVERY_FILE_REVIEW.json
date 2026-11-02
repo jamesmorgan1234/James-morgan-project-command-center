@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "d7fbb7e2aea4ab5ff9fbfabc66657fee474e60de",
+  "gitSha": "4079feda1f2ab41857f67ca57dba10f391644e61",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2004,
-  "inventoryDigest": "17c3f02e724c58b4d22d6a140283b479419506615453efcb19726c5c7ff101fd",
+  "inventoryDigest": "dea40354702d4d5c508ef070383f9bd3522fa693fc58115d8791b441548dd878",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -2219,8 +2219,8 @@
       "path": ".github/workflows/p15-1-requalify-reviewed-mappings.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "ed2684552a148a3da77b806baeb5714cb2d618d9cf7da08f59c728e826fa100a",
-      "bytes": 9983,
+      "sha256": "c4a99ca08ee8f07928cf7e93c6b809193e6223910ef6e9512dc16c4a9d11dd98",
+      "bytes": 9874,
       "contentKind": "text",
       "findings": []
     },
@@ -2246,8 +2246,8 @@
       "path": ".github/workflows/spec-lock-v2-clean-room-qa.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "fb816f22635b169af2a73bfb6cab7f49fdfc1d8e3a97111fb1dc9746f437869c",
-      "bytes": 4179,
+      "sha256": "1abffbf58c5bf112cf34ec064269112b921510a0dcb62099dce8cf5216e2f49f",
+      "bytes": 5325,
       "contentKind": "text",
       "findings": []
     },
@@ -4763,7 +4763,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "8460840345900192d0e389b49123ed2c28808bb8723dcc49c8182c950de70e8b",
+      "sha256": "6b2a4f2017122c357554f9e204b512cb73a83ca191353806cd45412985e66c41",
       "bytes": 13193290,
       "contentKind": "text",
       "findings": []
