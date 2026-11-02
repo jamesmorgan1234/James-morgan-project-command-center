@@ -1,0 +1,200 @@
+schema_version: 1
+flow_id: CC-PORTFOLIO-ACTIVATION-FLOW
+flow_version: CC-PORTFOLIO-ACTIVATION-FLOW-v1.0.0
+owner_final_authority: James Morgan
+effective_date: 2026-11-02
+status: LOCKED
+scope:
+  current_known_companies: 107
+  company_id_range: "001-107"
+  open_ended_portfolio_supported: true
+
+operating_rules:
+  phase_size: 4
+  phase_count_for_current_107: 27
+  final_phase_size: 3
+  phase_numbering: continuous_integer_only
+  phase_suffixes_allowed: false
+  phase_suffix_examples_forbidden: ["1A", "1B", "2A", "2B"]
+  dynamic_reranking: false
+  phase_membership_locked: true
+  default_concurrent_company_limit: 4
+  sequencing_authority_only: true
+  does_not_authorize_company_build_or_launch: true
+  does_not_authorize_spending: true
+  change_rule: "Only a newer explicit James Morgan instruction may change phase membership, order, or operating rules."
+  advancement_rule: "Work the current numbered phase; move freed capacity forward only after a company is completed or parked at a genuine external barrier."
+
+ordering_authority:
+  phases_1_through_6: "Preserve the owner-approved first-24 priority sequence established before this lock."
+  phases_7_through_27: "Ascending immutable company_id among all remaining Companies 001-107, skipping companies already assigned to Phases 1-6."
+
+phases:
+  - phase: 1
+    companies:
+      - {company_id: "014", canonical_name: "Website Change Intelligence"}
+      - {company_id: "013", canonical_name: "Competitive Intelligence Subscription"}
+      - {company_id: "083", canonical_name: "Domain DNS SSL Autopilot"}
+      - {company_id: "021", canonical_name: "Lead Qualification Infrastructure"}
+  - phase: 2
+    companies:
+      - {company_id: "085", canonical_name: "Revenue Leakage Detection Engine"}
+      - {company_id: "027", canonical_name: "Review Reputation Autopilot"}
+      - {company_id: "084", canonical_name: "Email Deliverability Autopilot"}
+      - {company_id: "096", canonical_name: "Expense Audit Recovery Engine"}
+  - phase: 3
+    companies:
+      - {company_id: "030", canonical_name: "Invoice Payment Recovery AI"}
+      - {company_id: "064", canonical_name: "Business Inbox Autopilot"}
+      - {company_id: "044", canonical_name: "Chargeback Dispute Recovery Autopilot"}
+      - {company_id: "008", canonical_name: "Business Workflow Autopilot"}
+  - phase: 4
+    companies:
+      - {company_id: "050", canonical_name: "AI Front Desk Platform"}
+      - {company_id: "045", canonical_name: "Autonomous Customer Support Company"}
+      - {company_id: "043", canonical_name: "Cloud Cost Optimization Autopilot"}
+      - {company_id: "101", canonical_name: "Healthcare Administrative Automation OS"}
+  - phase: 5
+    companies:
+      - {company_id: "103", canonical_name: "KYC / KYB / AML Compliance Infrastructure"}
+      - {company_id: "106", canonical_name: "Insurance Claims Automation & Claims Intelligence Platform"}
+      - {company_id: "066", canonical_name: "AI Runtime Security Gateway"}
+      - {company_id: "004", canonical_name: "AI Permission Governance Platform"}
+  - phase: 6
+    companies:
+      - {company_id: "002", canonical_name: "AI Agent Control Center"}
+      - {company_id: "092", canonical_name: "Agentic Commerce Transaction Gateway"}
+      - {company_id: "105", canonical_name: "Global Trade & Customs Compliance Autopilot"}
+      - {company_id: "097", canonical_name: "Indirect Tax Sales Tax Compliance Autopilot"}
+  - phase: 7
+    companies:
+      - {company_id: "001", canonical_name: "API as a Business Factory"}
+      - {company_id: "003", canonical_name: "AI Quality Control Platform"}
+      - {company_id: "005", canonical_name: "AI Audit Trail Infrastructure"}
+      - {company_id: "006", canonical_name: "Data Subscription Company"}
+  - phase: 8
+    companies:
+      - {company_id: "007", canonical_name: "Pricing Intelligence Engine"}
+      - {company_id: "009", canonical_name: "Document to Workflow Engine"}
+      - {company_id: "010", canonical_name: "Subscription Revenue Recovery Platform"}
+      - {company_id: "011", canonical_name: "Automated Benchmarking Platform"}
+  - phase: 9
+    companies:
+      - {company_id: "012", canonical_name: "AI Compliance Autopilot"}
+      - {company_id: "015", canonical_name: "Business Intelligence Autopilot"}
+      - {company_id: "016", canonical_name: "Regulation Change Monitor"}
+      - {company_id: "017", canonical_name: "SaaS Spend Autopilot"}
+  - phase: 10
+    companies:
+      - {company_id: "018", canonical_name: "Customer Churn Prevention AI"}
+      - {company_id: "019", canonical_name: "Inventory Forecasting API"}
+      - {company_id: "020", canonical_name: "Data Cleanup Autopilot"}
+      - {company_id: "022", canonical_name: "Cybersecurity Hygiene Autopilot for SMBs"}
+  - phase: 11
+    companies:
+      - {company_id: "023", canonical_name: "Contract Obligation Tracker"}
+      - {company_id: "024", canonical_name: "Vendor Risk Autopilot"}
+      - {company_id: "025", canonical_name: "Niche Research Subscription"}
+      - {company_id: "026", canonical_name: "License Certification Tracker"}
+  - phase: 12
+    companies:
+      - {company_id: "028", canonical_name: "AI Knowledge Base Maintainer"}
+      - {company_id: "029", canonical_name: "Vertical Business OS Generator"}
+      - {company_id: "031", canonical_name: "Business Form Automation Platform"}
+      - {company_id: "032", canonical_name: "AI Procurement Assistant"}
+  - phase: 13
+    companies:
+      - {company_id: "033", canonical_name: "Accessibility Compliance Monitor"}
+      - {company_id: "034", canonical_name: "Returns Intelligence Platform"}
+      - {company_id: "035", canonical_name: "Warranty Claims Automation Platform"}
+      - {company_id: "036", canonical_name: "RFP Tender Intelligence SaaS"}
+  - phase: 14
+    companies:
+      - {company_id: "037", canonical_name: "Internal Policy Autopilot"}
+      - {company_id: "038", canonical_name: "Grant Management Software"}
+      - {company_id: "039", canonical_name: "Digital Asset Licensing Marketplace"}
+      - {company_id: "040", canonical_name: "Digital Estate Account Organizer"}
+  - phase: 15
+    companies:
+      - {company_id: "041", canonical_name: "Autonomous Micro-SaaS Factory"}
+      - {company_id: "042", canonical_name: "Legacy Browser Worker Platform"}
+      - {company_id: "046", canonical_name: "Customer Onboarding Autopilot"}
+      - {company_id: "047", canonical_name: "Privacy Request DSAR Autopilot"}
+  - phase: 16
+    companies:
+      - {company_id: "048", canonical_name: "Accounts Payable Verification Brain"}
+      - {company_id: "049", canonical_name: "Cloud Software Reliability Autopilot"}
+      - {company_id: "051", canonical_name: "Data Pipeline Watchdog"}
+      - {company_id: "052", canonical_name: "Certificate of Insurance Autopilot"}
+  - phase: 17
+    companies:
+      - {company_id: "053", canonical_name: "Software Release Autopilot"}
+      - {company_id: "054", canonical_name: "Localization Autopilot"}
+      - {company_id: "055", canonical_name: "Product Catalog Intelligence Engine"}
+      - {company_id: "056", canonical_name: "Synthetic Data Platform"}
+  - phase: 18
+    companies:
+      - {company_id: "057", canonical_name: "Fraud Detection API"}
+      - {company_id: "058", canonical_name: "Employee Onboarding Offboarding Autopilot"}
+      - {company_id: "059", canonical_name: "Marketplace Listing Autopilot"}
+      - {company_id: "060", canonical_name: "Software Migration Autopilot"}
+  - phase: 19
+    companies:
+      - {company_id: "061", canonical_name: "Autonomous Collections Platform"}
+      - {company_id: "062", canonical_name: "Credentialing Autopilot"}
+      - {company_id: "063", canonical_name: "Vendor Onboarding Autopilot"}
+      - {company_id: "065", canonical_name: "Autonomous QA as a Service"}
+  - phase: 20
+    companies:
+      - {company_id: "067", canonical_name: "Prompt Injection Firewall API"}
+      - {company_id: "068", canonical_name: "AI Cost Model Routing Optimizer"}
+      - {company_id: "069", canonical_name: "Usage Billing Infrastructure"}
+      - {company_id: "070", canonical_name: "Entitlement Management API"}
+  - phase: 21
+    companies:
+      - {company_id: "071", canonical_name: "Webhook Reliability Platform"}
+      - {company_id: "072", canonical_name: "API Contract Drift Monitor"}
+      - {company_id: "073", canonical_name: "Secrets Credential Rotation Autopilot"}
+      - {company_id: "074", canonical_name: "Cloud Permission Optimizer"}
+  - phase: 22
+    companies:
+      - {company_id: "075", canonical_name: "Identity Access Review Autopilot"}
+      - {company_id: "076", canonical_name: "PII Discovery Classification API"}
+      - {company_id: "077", canonical_name: "Data Redaction Tokenization API"}
+      - {company_id: "078", canonical_name: "Data Retention Deletion Autopilot"}
+  - phase: 23
+    companies:
+      - {company_id: "079", canonical_name: "Digital Provenance Authenticity Platform"}
+      - {company_id: "080", canonical_name: "Software Dependency Risk Autopilot"}
+      - {company_id: "081", canonical_name: "Open Source License Compliance API"}
+      - {company_id: "082", canonical_name: "Backup Integrity Verification Service"}
+  - phase: 24
+    companies:
+      - {company_id: "086", canonical_name: "Payment Reconciliation Autopilot"}
+      - {company_id: "087", canonical_name: "Marketplace Payout Reconciliation Engine"}
+      - {company_id: "088", canonical_name: "Commission Calculation Audit Engine"}
+      - {company_id: "089", canonical_name: "Automated Support QA Platform"}
+  - phase: 25
+    companies:
+      - {company_id: "090", canonical_name: "Content Moderation Infrastructure API"}
+      - {company_id: "091", canonical_name: "AI Agent Identity Trust Authority"}
+      - {company_id: "093", canonical_name: "Consent Preference Management Autopilot"}
+      - {company_id: "094", canonical_name: "Enterprise Data Lineage Provenance Graph"}
+  - phase: 26
+    companies:
+      - {company_id: "095", canonical_name: "AI ROI Value Attribution Platform"}
+      - {company_id: "098", canonical_name: "Data Sovereignty Workload Routing Platform"}
+      - {company_id: "099", canonical_name: "Machine-Enforced Data Contract Platform"}
+      - {company_id: "100", canonical_name: "Legacy Software Modernization Autopilot"}
+  - phase: 27
+    companies:
+      - {company_id: "102", canonical_name: "E-Discovery & Litigation Evidence Intelligence Platform"}
+      - {company_id: "104", canonical_name: "Privacy-Preserving Data Collaboration Platform"}
+      - {company_id: "107", canonical_name: "Rights, Royalties & Licensing Operations Platform"}
+
+validation_invariants:
+  - "Every Company 001-107 appears exactly once."
+  - "Phases 1-26 contain exactly four companies each."
+  - "Phase 27 contains exactly three companies."
+  - "No phase uses alphabetic suffixes."
+  - "No company is automatically authorized, activated, launched, or funded by membership in this flow."
