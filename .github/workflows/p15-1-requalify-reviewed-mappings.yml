@@ -4,22 +4,6 @@ on:
   push:
     branches:
       - build/spec-lock-v2-clean-room
-    paths:
-      - 'clean-room/scripts/p15-1-reviewed-*.mjs'
-      - 'clean-room/scripts/p15-1-current-reviewed-mappings.mjs'
-      - 'clean-room/src/**'
-      - 'clean-room/tests/**'
-      - 'clean-room/scripts/**'
-      - 'clean-room/public/**'
-      - 'clean-room/package.json'
-      - 'clean-room/package-lock.json'
-      - 'clean-room/tsconfig.json'
-      - 'clean-room/tsconfig.build.json'
-      - 'clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json'
-      - 'clean-room/evidence/P15_16_LIVE_VERIFICATION.json'
-      - 'supabase/migrations/**'
-      - 'roadmap/master-build-plan-owner-review/**'
-      - '.github/workflows/p15-1-requalify-reviewed-mappings.yml'
   workflow_dispatch:
 
 permissions:
@@ -39,6 +23,7 @@ jobs:
       test_fail: ${{ steps.module-tests.outputs.fail }}
       test_skipped: ${{ steps.module-tests.outputs.skipped }}
       mappings_changed: ${{ steps.preflight.outputs.mappings_changed }}
+      source_tree_changed: ${{ steps.source-tree.outputs.changed }}
     defaults:
       run:
         working-directory: clean-room
@@ -46,6 +31,17 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
+      - name: Detect source tree change
+        id: source-tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          parent="$(git rev-parse HEAD^ 2>/dev/null || true)"
+          if [ -n "$parent" ] && [ "$(git rev-parse 'HEAD^{tree}')" = "$(git rev-parse "${parent}^{tree}")" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
@@ -113,6 +109,7 @@ jobs:
         run: bash scripts/category15-pwa-lifecycle.sh
 
   assemble-and-commit:
+    if: needs.core-qa.outputs.source_tree_changed == 'true'
     needs: core-qa
     runs-on: ubuntu-latest
     timeout-minutes: 10
