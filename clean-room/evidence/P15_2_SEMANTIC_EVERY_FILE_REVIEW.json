@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
+  "gitSha": "d7fbb7e2aea4ab5ff9fbfabc66657fee474e60de",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2005,
-  "inventoryDigest": "48614831a1c2ef129eca5e6a3835274f59ee08c9060bdd08649c03a867c0f0e2",
+  "reviewedFileCount": 2004,
+  "inventoryDigest": "17c3f02e724c58b4d22d6a140283b479419506615453efcb19726c5c7ff101fd",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2006,
-    "reviewedFileCount": 2005,
+    "trackedFileCount": 2005,
+    "reviewedFileCount": 2004,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -40,7 +40,7 @@
     },
     "filesByRole": {
       "SUPP": 1,
-      "CIWF": 9,
+      "CIWF": 8,
       "HIST": 272,
       "ROOTDOC": 30,
       "CONF": 6,
@@ -80,7 +80,7 @@
     },
     {
       "directory": ".github/workflows",
-      "fileCount": 9,
+      "fileCount": 8,
       "roles": [
         "CIWF"
       ]
@@ -2219,8 +2219,8 @@
       "path": ".github/workflows/p15-1-requalify-reviewed-mappings.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "e0d8283b8bc542343ae4bf0044f68eb07cf9eb35d636308542f0158cc891f7f2",
-      "bytes": 9985,
+      "sha256": "ed2684552a148a3da77b806baeb5714cb2d618d9cf7da08f59c728e826fa100a",
+      "bytes": 9983,
       "contentKind": "text",
       "findings": []
     },
@@ -2230,15 +2230,6 @@
       "disposition": "retain-active",
       "sha256": "b422918c0aba07a8cc36032cde6737ddefa640aa5d69dbab42243044acf39bb8",
       "bytes": 3568,
-      "contentKind": "text",
-      "findings": []
-    },
-    {
-      "path": ".github/workflows/p15-16-module-test-diagnostic.yml",
-      "role": "CIWF",
-      "disposition": "retain-active",
-      "sha256": "bf6f5cf6d1ca8498287e71894db2013510c0a5461592a8c7fb58d82f054f7fd1",
-      "bytes": 4579,
       "contentKind": "text",
       "findings": []
     },
@@ -2255,8 +2246,8 @@
       "path": ".github/workflows/spec-lock-v2-clean-room-qa.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "8ff6faf74736f60b7c5bbe4937399fa90b9a5738831222903e5e1b5b3080bfce",
-      "bytes": 3969,
+      "sha256": "fb816f22635b169af2a73bfb6cab7f49fdfc1d8e3a97111fb1dc9746f437869c",
+      "bytes": 4179,
       "contentKind": "text",
       "findings": []
     },
@@ -4772,8 +4763,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "ac40e29c7f9fee056f04d21acb64194ad388e28b5321f25578cfe5f512172be7",
-      "bytes": 13192758,
+      "sha256": "8460840345900192d0e389b49123ed2c28808bb8723dcc49c8182c950de70e8b",
+      "bytes": 13193290,
       "contentKind": "text",
       "findings": []
     },
