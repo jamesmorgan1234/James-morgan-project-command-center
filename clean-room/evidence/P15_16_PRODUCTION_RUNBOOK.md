@@ -54,6 +54,8 @@ All 19 declared routes returned `HTTP 200` with the exact SPA shell on the stabl
 
 Zero runtime errors were observed in the live probes. The Vercel runtime-log endpoint returned an integration error on two attempts and deployment checks returned an empty list, so no log-level error aggregation is claimed.
 
+The full module suite (2353 tests, 0 failures) was reproduced at this evidence head under Node 22.23.4 with `CI=true` and `GITHUB_SHA` set to that head, matching the workflow runtime.
+
 The production runtime remains the authenticated owner-scoped canonical Supabase runtime. The repair required no database migration and no production-data mutation.
 
 ## Rollback / containment
