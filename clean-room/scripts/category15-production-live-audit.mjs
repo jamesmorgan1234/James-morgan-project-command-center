@@ -15,27 +15,37 @@ if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 ac
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
-  deploymentId: "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
+  deploymentId: "dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL",
   stableDomain: "https://command-center-preview-alpha.vercel.app",
-  releaseId: "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-  buildHash: "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
-  assetManifestHash: "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
+  releaseId: "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+  buildHash: "db5445b04e1def7f8b7a65a2cb043d700ab15eeab3697c2546acbc5aa02d843e",
+  assetManifestHash: "e4f0b3f2651b9cddb174abf25c5ae18f7d602020dbfbde3acc1f5eb8ae7c6338",
   schemaCompatibility: "cc-runtime-snapshot-v1",
   mainSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892"
 };
 
+const currentAuthorization = evidence.authorization?.currentEvidenceRebindAuthorization;
 const checks = {
   phase: evidence.phase === "P15.16",
   status: evidence.status === "VERIFIED_COMPLETE",
   target: evidence.production?.target === "production",
   ready: evidence.production?.readyState === "READY",
   deploymentId: evidence.production?.deploymentId === expected.deploymentId,
+  productionSourceSha: evidence.production?.sourceSha === expected.releaseId,
   stableDomain: evidence.production?.stableDomain === expected.stableDomain,
   releaseId: evidence.releaseIdentity?.releaseId === expected.releaseId,
   sourceSha: evidence.releaseIdentity?.sourceSha === expected.releaseId,
   buildHash: evidence.releaseIdentity?.buildHash === expected.buildHash,
   assetManifestHash: evidence.releaseIdentity?.assetManifestHash === expected.assetManifestHash,
   schemaCompatibility: evidence.releaseIdentity?.schemaCompatibility === expected.schemaCompatibility,
+  currentAuthorization: currentAuthorization?.status === "AUTHORIZED"
+    && currentAuthorization?.authorizedBy === "James Morgan"
+    && currentAuthorization?.deploymentId === expected.deploymentId
+    && currentAuthorization?.sourceSha === expected.releaseId,
+  noSupabaseMutationAuthorized: currentAuthorization?.constraints?.supabaseMutationAuthorized === false,
+  noSpendingAuthorized: currentAuthorization?.constraints?.spendingAuthorized === false,
+  p15_17NotAuthorized: currentAuthorization?.constraints?.p15_17Authorized === false,
+  p15_18NotAuthorized: currentAuthorization?.constraints?.p15_18Authorized === false,
   releaseJsonMatched: evidence.liveChecks?.releaseJsonMatched === true,
   htmlReleaseMetaMatched: evidence.liveChecks?.htmlReleaseMetaMatched === true,
   authProxyRule: evidence.liveChecks?.authProxyRulePresentInDeployedSource === true,
@@ -46,10 +56,15 @@ const checks = {
   serviceWorkerServed: evidence.liveChecks?.serviceWorkerServed === true,
   serviceWorkerReleaseId: evidence.liveChecks?.serviceWorkerReleaseIdMatched === true,
   routeContract: evidence.liveChecks?.declaredRouteCount === 19 && evidence.liveChecks?.exactHeadRouteContractPassed === true && Array.isArray(evidence.routes) && evidence.routes.length === 19,
-  liveRouteSpotChecks: Number(evidence.liveChecks?.liveRouteShellSpotCheckCount ?? 0) >= 7 && Array.isArray(evidence.liveChecks?.liveRouteShellSpotChecks),
+  liveRouteSpotChecks: evidence.liveChecks?.liveRouteShellSpotCheckCount === 19 && Array.isArray(evidence.liveChecks?.liveRouteShellSpotChecks) && evidence.liveChecks.liveRouteShellSpotChecks.length === 19,
   runtimeErrors: evidence.liveChecks?.runtimeErrorsObserved === 0,
   noSyntheticRuntime: evidence.liveChecks?.syntheticPreviewRuntimePresent === false,
-  noProductionDataMutation: evidence.liveChecks?.productionDataMutationRequired === false && evidence.liveChecks?.productionDataModified === false,
+  noProductionDataMutation: evidence.liveChecks?.productionDataMutationRequired === false
+    && evidence.liveChecks?.productionDataModified === false
+    && evidence.verificationScope?.supabaseMutationPerformed === false,
+  noPaidAction: evidence.verificationScope?.paidActionPerformed === false,
+  p15_17NotStarted: evidence.verificationScope?.p15_17Started === false,
+  p15_18NotStarted: evidence.verificationScope?.p15_18Started === false,
   fallbackMain: evidence.fallback?.mainSha === expected.mainSha,
   p15_1Visible: typeof evidence.knownBlockers?.["P15.1"] === "string" && evidence.knownBlockers["P15.1"].includes("BLOCKED_SOURCE_ARTIFACT")
 };
@@ -70,7 +85,7 @@ if (process.env.CI === "true" && (!exactHeadCiVerified || !p1515Verified)) {
 
 status.phases["P15.16"] = {
   status: exactHeadCiVerified && p1515Verified ? "VERIFIED_COMPLETE" : "IMPLEMENTED_BUT_UNVERIFIED",
-  reason: "The authorized repaired clean-room runtime was deployed to Vercel production and verified live against the frozen release/build/asset/schema identity. The same-origin owner-Auth proxy and direct private-REST boundary are regression-tested on the exact candidate, representative live routes serve the exact SPA shell, the synthetic Preview fixture is absent, manifest and service worker are live, zero Vercel runtime errors were observed, GitHub main remained unchanged, and no production-data mutation was required. Real Samsung login success remains owner/device acceptance evidence and is not self-certified here.",
+  reason: "The authorized exact-head clean-room runtime is deployed to Vercel production and verified live against the release/build/asset/schema identity. The same-origin owner-Auth proxy and direct private-REST boundary remain regression-tested, all 19 declared live routes serve the exact production shell, the synthetic Preview fixture is absent, manifest and service worker are live, the recent Vercel runtime-error scan is clear, GitHub main remains unchanged, and no production-data mutation or paid action was performed. P15.17 owner acceptance and P15.18 physical-device acceptance were not started.",
   verification: evidence
 };
 status.phases["P15.17"] = {

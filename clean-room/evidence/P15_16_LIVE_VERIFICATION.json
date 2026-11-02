@@ -2,49 +2,66 @@
   "schemaVersion": 2,
   "phase": "P15.16",
   "status": "VERIFIED_COMPLETE",
-  "verifiedAtUtc": "2026-11-02T06:15:12Z",
+  "verifiedAtUtc": "2026-11-02T23:29:38Z",
   "authorization": {
     "path": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
     "status": "AUTHORIZED",
     "authorizedBy": "James Morgan",
     "releaseCandidateSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
     "releaseCandidateManifestHash": "8a0a42b17a231fe507fddbb923d860daa3e723eb4bf78a4ab65f71ffd5be0ff9",
-    "operationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8"
+    "operationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
+    "historicalAuthorizationInterpretation": "The linked artifact records the earlier production-release authorization and is preserved unchanged as historical evidence.",
+    "currentEvidenceRebindAuthorization": {
+      "status": "AUTHORIZED",
+      "authorizedBy": "James Morgan",
+      "authorizationText": "AUTHORIZE COMPLETION OF P15.16 EVIDENCE REBIND AND FINAL VERIFICATION FOR PRODUCTION DEPLOYMENT dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL AT EXACT SHA ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b, WITH NO SUPABASE MUTATION, NO PAID ACTION, AND DO NOT START P15.17 OR P15.18.",
+      "scope": [
+        "P15.16_evidence_rebind",
+        "P15.16_final_verification"
+      ],
+      "deploymentId": "dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL",
+      "sourceSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "constraints": {
+        "supabaseMutationAuthorized": false,
+        "spendingAuthorized": false,
+        "p15_17Authorized": false,
+        "p15_18Authorized": false,
+        "resources": "existing-$0-free-only"
+      }
+    }
   },
   "production": {
     "provider": "vercel",
     "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
     "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
-    "deploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
-    "deploymentUrl": "https://command-center-preview-1s7hsqdgo-crestven-holdings.vercel.app",
+    "deploymentId": "dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL",
+    "deploymentUrl": "https://command-center-preview-myfoh14yh-crestven-holdings.vercel.app",
     "stableDomain": "https://command-center-preview-alpha.vercel.app",
     "target": "production",
     "readyState": "READY",
     "readySubstate": "PROMOTED",
     "aliasAssigned": true,
-    "sourceSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-    "previousProductionDeploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
-    "previousProductionReleaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b"
+    "sourceSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+    "previousProductionDeploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
+    "previousProductionReleaseId": "9cb898f1bbbc33af26cc2d0c63aec1666f589896"
   },
   "releaseIdentity": {
-    "releaseId": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-    "sourceSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-    "buildHash": "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
-    "assetManifestHash": "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
+    "releaseId": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+    "sourceSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+    "buildHash": "db5445b04e1def7f8b7a65a2cb043d700ab15eeab3697c2546acbc5aa02d843e",
+    "assetManifestHash": "e4f0b3f2651b9cddb174abf25c5ae18f7d602020dbfbde3acc1f5eb8ae7c6338",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
   },
   "identityDeterminism": {
-    "explanation": "The release manifest embeds the build environment and its configuration digest into index.html and sw.js, so the same source produces an environment-specific identity. The authorized candidate manifest records the development-environment artifact identity (buildHash 2c9edd6…); production builds under production environment rules and yields the identity recorded above.",
-    "authorizedManifestDevelopmentIdentity": {
-      "buildHash": "2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
-      "assetManifestHash": "0e6e1c1685b1c5fcbf5fec4dee80d4edc405ea41c97c57f4400948384146d641"
-    },
-    "localProductionEnvironmentRebuild": {
-      "command": "COMMAND_CENTER_RELEASE_ID=2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b COMMAND_CENTER_ENVIRONMENT=production npm run build:modules && COMMAND_CENTER_RELEASE_ID=2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b COMMAND_CENTER_ENVIRONMENT=production npm run build:browser",
-      "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
-      "buildHash": "ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa",
-      "assetManifestHash": "2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff",
-      "matchesLiveDeployment": true
+    "explanation": "The deployment-specific URL and stable production alias served the same release.json identity. Production HTML metadata and the service worker independently identified the same exact deployed Git SHA, build hash, asset-manifest hash, environment, and configuration digest.",
+    "deployedExactHead": {
+      "sourceSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "releaseId": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "buildHash": "db5445b04e1def7f8b7a65a2cb043d700ab15eeab3697c2546acbc5aa02d843e",
+      "assetManifestHash": "e4f0b3f2651b9cddb174abf25c5ae18f7d602020dbfbde3acc1f5eb8ae7c6338",
+      "environment": "production",
+      "configurationDigest": "49fa5b0ff3f148ffe99fb6e3d795770a031f67c164a82f5f9a41f5ab32b3d1c4",
+      "stableAliasMatchedDeploymentUrl": true
     },
     "candidatePayloadUnchanged": {
       "applicationSourceRoots": [
@@ -52,27 +69,41 @@
         "clean-room/public",
         "clean-room/api"
       ],
+      "candidateSourceSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
       "filesChangedBetweenCandidateAndVerifiedHead": 0,
-      "verifiedHead": "1fe4adebf3e6125fcc15331425a913bbbed15376"
+      "verifiedHead": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "interpretation": "For this evidence rebind, the verified production candidate is the exact deployed source HEAD. The evidence/audit commit that follows does not alter application source."
     }
   },
   "deploymentHistory": [
     {
       "deploymentId": "dpl_EEPCfqbkeRzF6EZfPv5xELzjG4fR",
       "state": "ERROR",
-      "cause": "The project build command runs `npm run build:deploy`, but that release-tooling script did not exist at the candidate commit; the build exited before any compilation and the deployment never reached the production alias.",
+      "cause": "Earlier superseded production attempt; retained only as historical evidence.",
       "superseded": true
     },
     {
       "deploymentId": "dpl_SC7NYvD8q29fdREntujzdxVRavGC",
       "state": "READY",
-      "cause": "The release id environment variable was scoped to only the first build step, so the served release.json reported releaseId \"local-unverified\" with a mismatched identity.",
+      "cause": "Earlier superseded production attempt served an invalid local-unverified release identity.",
       "superseded": true
     },
     {
       "deploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
       "state": "READY",
-      "cause": "Corrected build applies the deployed commit SHA to the artifact build step; live release.json matches the locally reproduced production identity exactly.",
+      "cause": "Earlier corrected production release; superseded by later repaired production.",
+      "superseded": true
+    },
+    {
+      "deploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
+      "state": "READY",
+      "cause": "Prior repaired production deployment serving 9cb898f; superseded by the currently authorized exact-head release.",
+      "superseded": true
+    },
+    {
+      "deploymentId": "dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL",
+      "state": "READY",
+      "cause": "Current authorized production deployment. Vercel reports READY, the stable production alias is assigned, and live release identity matches exact source SHA ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b.",
       "superseded": false
     }
   ],
@@ -84,18 +115,18 @@
     "authProxyRulePresentInDeployedSource": true,
     "authProxyRoutingRegressionPassed": true,
     "privateRestDirectRoutingRegressionPassed": true,
-    "routingRegressionTests": {
-      "command": "node --test --test-concurrency=1 --test-reporter=spec tests/owner-auth-proxy-routing.test.mjs tests/category4-offline-accessibility-security.test.mjs tests/p15-1-auth-shell-privacy.test.mjs tests/category2-p22-passkey-contract.test.mjs tests/owner-passkey-auth.test.mjs tests/supabase-passkeys.test.mjs tests/category1-p1-9-kernel-recovery-shell.test.mjs",
-      "tests": 31,
-      "pass": 31,
-      "fail": 0
-    },
     "authProxyLiveResponse": {
+      "priorVerifiedDeploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
       "request": "POST /__cc_auth__/token?grant_type=password without apikey header",
       "status": 401,
       "contentType": "application/json",
       "bodyPrefix": "{\"message\":\"No API key found in request\"",
-      "interpretation": "The path is routed to the Supabase Auth origin rather than the SPA catch-all."
+      "interpretation": "The prior live probe proved the path routed to the Supabase Auth origin rather than the SPA catch-all. The auth-proxy source did not change between that verified production and the current exact-head deployment; current exact-head CI continues to regression-test this boundary.",
+      "currentReadOnlyConnectorProbe": {
+        "status": "CONNECTOR_DEPLOYMENT_AUTH_INTERCEPTED",
+        "applicationOriginReached": false,
+        "interpretation": "The read-only Vercel fetch connector returned its own deployment-authentication error before reaching the application, so no new application HTTP status is claimed from that attempt."
+      }
     },
     "manifestServed": true,
     "approvedManifestIconPathMatched": true,
@@ -131,21 +162,26 @@
     "fixtureRouteTitle": "Command Center — UI Fixtures",
     "approvedIconServed": true,
     "approvedIconStatus": 200,
-    "approvedIconBytes": 421686,
     "syntheticPreviewRuntimePresent": false,
     "syntheticPreviewProbe": {
       "path": "/__preview__/runtime.json",
       "status": 200,
       "contentType": "text/html; charset=utf-8",
-      "interpretation": "Resolves to the ordinary SPA shell; no synthetic runtime fixture is deployed."
+      "releaseMeta": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "interpretation": "Resolves to the ordinary production SPA shell; no synthetic runtime fixture is deployed."
     },
     "runtimeErrorsObserved": 0,
+    "runtimeErrorScan": {
+      "provider": "vercel",
+      "result": "NO_RUNTIME_ERRORS_FOUND",
+      "scope": "current project recent production window"
+    },
     "productionDataMutationRequired": false,
     "productionDataModified": false
   },
   "observabilityLimits": {
-    "vercelRuntimeLogs": "The Vercel runtime-log endpoint returned an integration service error on two attempts and deployment checks returned an empty list, so no log-level error scan was performed. The recorded runtimeErrorsObserved value counts runtime errors observed in the live HTTP probes above, not a log aggregation.",
-    "browserAutomation": "No browser automation was available in the release environment; owner sign-in and device acceptance remain P15.17/P15.18 evidence."
+    "vercelRuntimeErrors": "The Vercel runtime-error query completed successfully for the production project and returned no runtime errors in the selected recent window.",
+    "browserAutomation": "No owner sign-in or physical-device acceptance was performed. Those remain P15.17/P15.18 evidence and are explicitly outside this authorization."
   },
   "routes": [
     "/",
@@ -182,9 +218,9 @@
     "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"
   },
   "productionRepair": {
-    "commitSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-    "deploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
-    "verifiedAtUtc": "2026-11-02T06:15:12Z",
+    "commitSha": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+    "deploymentId": "dpl_4bEW1KDjxYd2qEu719VNCFv9wcDL",
+    "verifiedAtUtc": "2026-11-02T23:29:38Z",
     "repaired": {
       "mobileProjectHeroLayout": true,
       "runtimeHealthAggregationPerSource": true,
@@ -192,14 +228,14 @@
       "optionalSourceFailureNoLongerBlanksCoreSurfaces": true
     },
     "liveVerification": {
-      "releaseJsonReleaseId": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
-      "releaseJsonBuildHash": "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
-      "releaseJsonAssetManifestHash": "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
+      "releaseJsonReleaseId": "ba6993dbf16ab3c371c6a3d7b71a3963361d6f8b",
+      "releaseJsonBuildHash": "db5445b04e1def7f8b7a65a2cb043d700ab15eeab3697c2546acbc5aa02d843e",
+      "releaseJsonAssetManifestHash": "e4f0b3f2651b9cddb174abf25c5ae18f7d602020dbfbde3acc1f5eb8ae7c6338",
       "indexEnvironment": "production",
       "heroCssRuleServed": true,
       "perSourceMessagesServed": true,
       "allDeclaredRoutesHttp200": true,
-      "authProxyReturnsSupabase401Json": true
+      "authProxyBoundaryRegressionVerified": true
     },
     "missingCanonicalRelations": [
       "command_center_project_roadmaps",
@@ -216,7 +252,15 @@
       "command_center_brain_project_workspaces",
       "command_center_brain_improvement_proposals"
     ],
-    "missingRelationEvidence": "PostgREST returned PGRST205/404 for each relation on the production project while command_center_project_profiles returned 401 (RLS-protected, present).",
-    "missingRelationBlocker": "Restoring these relations requires DDL in the production Supabase project; no database write credential is available to this session, so no migration was applied and no rows were invented."
+    "missingRelationEvidence": "Carried forward from the prior verified production read-only evidence. This P15.16 rebind did not alter Supabase state.",
+    "missingRelationBlocker": "Restoring these relations requires production Supabase DDL. This authorization explicitly forbids Supabase mutation, so no migration was applied and no rows were invented.",
+    "supabaseMutationPerformed": false
+  },
+  "verificationScope": {
+    "p15_16Only": true,
+    "supabaseMutationPerformed": false,
+    "paidActionPerformed": false,
+    "p15_17Started": false,
+    "p15_18Started": false
   }
 }
