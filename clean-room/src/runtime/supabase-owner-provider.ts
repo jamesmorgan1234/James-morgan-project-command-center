@@ -180,13 +180,30 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
       ]);
 
+      // Availability is tracked per source. A failed optional source must not
+      // disable capabilities that depend only on the canonical project/profile
+      // source, and must never be rendered as a verified zero.
+      const sources = Object.freeze({
+        projects: "available" as const,
+        roadmaps: optionalErrors.has("project-roadmaps") ? "unavailable" as const : "available" as const,
+        checkpoints: optionalErrors.has("project-checkpoints") ? "unavailable" as const : "available" as const,
+        activity: optionalErrors.has("activity") ? "unavailable" as const : "available" as const,
+        "project-details": optionalErrors.has("project-details") ? "unavailable" as const : "available" as const,
+        agency: optionalErrors.has("agency") ? "unavailable" as const : "available" as const,
+        brain: optionalErrors.has("brain") ? "unavailable" as const : "available" as const,
+        analytics: optionalErrors.has("analytics") ? "unavailable" as const : "available" as const,
+        personal: optionalErrors.has("personal") ? "unavailable" as const : "available" as const,
+        automations: optionalErrors.has("automations") ? "unavailable" as const : "available" as const,
+        books: optionalErrors.has("books") ? "unavailable" as const : "available" as const
+      });
       const agency = buildRuntimeAgencySnapshot({ runs: agencyRuns, jobs: agencyJobs, tasks: agencyTasks, observedAt, unavailable: optionalErrors.has("agency") });
-      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt);
+      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available");
       const attentionCount = projectSnapshots.filter((project) => project.needsMeCount.state === "known" && project.needsMeCount.value > 0).length;
       const surfaceSnapshots = this.#surfaceSnapshots({
         observedAt,
         projectCount: projectSnapshots.length,
         attentionCount,
+        checkpointsAvailable: sources.checkpoints === "available",
         agency,
         brainItems,
         automations,
@@ -205,12 +222,15 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         connection: Object.freeze({
           state: optionalErrors.size ? "degraded" as const : "connected" as const,
           providerId: this.id,
-          message: optionalErrors.size ? `Canonical owner runtime connected with ${optionalErrors.size} optional source${optionalErrors.size === 1 ? "" : "s"} unavailable.` : "Authenticated canonical owner runtime connected.",
+          message: optionalErrors.size
+            ? `Project and profile data connected. ${optionalErrors.size} optional capability source${optionalErrors.size === 1 ? "" : "s"} unavailable (${[...optionalErrors].sort().join(", ")}).`
+            : "Authenticated canonical owner runtime connected.",
           lastSuccessfulSyncAt: known(observedAt)
         }),
         owner: Object.freeze({ displayName: unknown<string>() }),
         projects: Object.freeze(projectSnapshots),
         surfaces: Object.freeze(surfaceSnapshots),
+        sources,
         agency,
         release: Object.freeze({
           releaseId: this.#releaseId ? known(this.#releaseId) : unknown<string>(),
@@ -341,7 +361,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     detailSections: readonly JsonRecord[],
     typeDetailSections: readonly JsonRecord[],
     activity: readonly JsonRecord[],
-    observedAt: string
+    observedAt: string,
+    checkpointsAvailable = true
   ): readonly RuntimeProjectSnapshot[] {
     return Object.freeze(projects.map((project) => {
       const id = text(project.project_id) as string;
@@ -436,7 +457,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         currentCheckpoint: checkpoint ? truthText(checkpoint.checkpoint_id) : unknown<string>(),
         nextAction: readyTitle ? known(readyTitle) : unknown<string>(),
         blockers: blocker ? known(Object.freeze([blocker])) : known(Object.freeze([]) as readonly string[]),
-        needsMeCount: known(ownerAction ? 1 : 0),
+        // "0 owner actions" is only provable when the checkpoint source loaded.
+        needsMeCount: checkpointsAvailable ? known(ownerAction ? 1 : 0) : unknown<number>(),
         agencyState: unknown<string>(),
         recentActivity: known(Object.freeze(recent) as readonly string[]),
         evidence: evidence("supabase:command_center_project_profiles", updatedAt, id),
@@ -460,6 +482,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     kpis: readonly JsonRecord[];
     bookReviews: readonly JsonRecord[];
     publicationStates: readonly JsonRecord[];
+    checkpointsAvailable: boolean;
     optionalErrors: ReadonlySet<string>;
   }>): readonly RuntimeSurfaceSnapshot[] {
     const available = (key: string, label: string, summary: string, source: string): RuntimeSurfaceSnapshot => Object.freeze({ key, label, availability: "available" as const, summary: known(summary), evidence: evidence(source, input.observedAt) });
@@ -479,7 +502,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       input.agency.availability === "available"
         ? available("agency", "Agency", `${nonterminalRuns.length} nonterminal durable run${nonterminalRuns.length === 1 ? "" : "s"} · ${workingTasks} working task${workingTasks === 1 ? "" : "s"} · ${attentionTasks} task${attentionTasks === 1 ? "" : "s"} requiring blocker/user/work-boundary handling.`, "supabase:command_center_agency_runs+jobs+tasks")
         : unavailable("agency", "Agency"),
-      available("needs-me", "Needs Me", `${input.attentionCount} project${input.attentionCount === 1 ? "" : "s"} with an explicit owner action in the latest durable checkpoint.`, "supabase:command_center_project_checkpoints.owner_action"),
+      input.checkpointsAvailable
+        ? available("needs-me", "Needs Me", `${input.attentionCount} project${input.attentionCount === 1 ? "" : "s"} with an explicit owner action in the latest durable checkpoint.`, "supabase:command_center_project_checkpoints.owner_action")
+        : unavailable("needs-me", "Needs Me"),
       available("search", "Search", `${input.projectCount} canonical project profile${input.projectCount === 1 ? "" : "s"} available to search.`, "supabase:command_center_project_profiles"),
       safeSurface("automations", "automations", "Automations", `${activeAutomations} active automation${activeAutomations === 1 ? "" : "s"} of ${input.automations.length} loaded.`, "supabase:cc7_automations"),
       safeSurface("personal", "personal", "Personal", `${unreadNotifications} unread owner notification${unreadNotifications === 1 ? "" : "s"} of ${input.notifications.length} loaded.`, "supabase:cc7_notifications"),

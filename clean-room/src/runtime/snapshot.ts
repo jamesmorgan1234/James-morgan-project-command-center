@@ -211,6 +211,9 @@ export interface CommandCenterRuntimeSnapshot {
   readonly surfaces: readonly RuntimeSurfaceSnapshot[];
   readonly agency?: RuntimeAgencySnapshot;
   readonly brain?: RuntimeBrainSnapshot;
+  // Per-source availability. Core surfaces must derive availability from the
+  // sources they actually require instead of one global connection flag.
+  readonly sources?: Readonly<Record<string, "available" | "unavailable">>;
   readonly release: Readonly<{
     releaseId: TruthValue<string>;
     knownGoodReleaseId: TruthValue<string>;

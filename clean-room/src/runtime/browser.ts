@@ -10,6 +10,7 @@ import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projec
 import { renderBrainView } from "./brain-view.js";
 import { renderAgencyView } from "./agency-view.js";
 import { createDisconnectedRuntimeSnapshot } from "./snapshot.js";
+import { activeLiveCell, needsMeCell, nextUpCell, projectCountCell } from "./home-modules.js";
 
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
@@ -418,45 +419,20 @@ function genericCard(title: string, body: string, status?: string, path?: string
   node.append(heading, el("p", "muted", body));
   return node;
 }
+// Home derives each card from the source that card actually needs (see
+// home-modules). One optional-source failure no longer blanks the whole grid.
 function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = el("section", "home-grid");
-  const connected = snapshot.connection.state === "connected";
-  const active = activeProjects(snapshot);
-  const next = nextProjects(snapshot);
-  const ownerAttention = snapshot.surfaces.find((candidate) => candidate.key === "needs-me");
   const grid = createHomeGrid([
-    {
-      key: "projects",
-      title: "Projects",
-      route: "/projects",
-      verifiedCount: connected ? snapshot.projects.length : undefined,
-      supportingText: connected ? `${snapshot.projects.length} canonical project record${snapshot.projects.length === 1 ? "" : "s"} loaded.` : "Project count unavailable until canonical runtime reconnects."
-    },
-    {
-      key: "active_live",
-      title: "Active / Live",
-      route: "/active",
-      verifiedCount: connected ? active.length : undefined,
-      supportingText: connected ? `${active.length} project${active.length === 1 ? "" : "s"} with a claimed executor and fresh verified heartbeat.` : "Live-project count unavailable until canonical runtime reconnects."
-    },
-    {
-      key: "next_up",
-      title: "Next Up",
-      route: "/next-up",
-      verifiedCount: connected ? next.length : undefined,
-      supportingText: connected ? `${next.length} project${next.length === 1 ? "" : "s"} with verified roadmap readiness and evidence.` : "Priority queue unavailable until canonical runtime reconnects."
-    },
-    {
-      key: "owner_attention",
-      title: "Needs Me",
-      route: "/needs-me",
-      supportingText: ownerAttention ? truthText(ownerAttention.summary) : "Owner-attention queue unavailable in the current canonical snapshot."
-    }
+    { key: "projects", title: "Projects", route: "/projects", ...projectCountCell(snapshot) },
+    { key: "active_live", title: "Active / Live", route: "/active", ...activeLiveCell(snapshot, activeProjects(snapshot).length) },
+    { key: "next_up", title: "Next Up", route: "/next-up", ...nextUpCell(snapshot, nextProjects(snapshot).length) },
+    { key: "owner_attention", title: "Needs Me", route: "/needs-me", ...needsMeCell(snapshot) }
   ]);
   for (const module of grid.modules) {
-    const body = module.verifiedCount === undefined ? module.supportingText : `${module.supportingText}`;
-    const card = genericCard(module.title, body, undefined, module.route);
+    const card = genericCard(module.title, module.supportingText, undefined, module.route);
     card.classList.add("home-primary-card");
+    if (module.verifiedCount !== undefined) card.dataset.verifiedCount = String(module.verifiedCount);
     section.append(card);
   }
   return section;
