@@ -117,3 +117,7 @@ P15.17 = `READY_OWNER_ACCEPTANCE` after that verification; no authorization phra
 P15.18 non-device preparation is complete; the remaining boundary is real owner/device evidence.
 
 P15.1 remains `BLOCKED_SOURCE_ARTIFACT`: the final reconciled individual `CCR-00001` through `CCR-05825` ledger is absent.
+
+## Evidence binding
+
+The guarded P15.1 requalification promoted in `e3f41541b7a0edbcbe1f9ccd5014b77a9c4f84dd` binds the 5852 reviewed rows to this evidence package and leaves zero repository-evidence errors at that head. The production facts above are unchanged by that promotion: it rewrites the reviewed ledger and the every-file review, not the deployed candidate or its release identity.
