@@ -1,4 +1,4 @@
-name: P15.13 Exact-Head Requalification Harness
+name: P15.13-P15.14 Exact-Head Requalification Harness
 
 on:
   push:
@@ -11,17 +11,17 @@ permissions:
   contents: write
 
 concurrency:
-  group: p15-13-exact-head-requalification-${{ github.ref }}
+  group: p15-13-14-exact-head-requalification-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
   requalify:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version: '22'
@@ -80,13 +80,54 @@ jobs:
           if (!validateReceiptBinding(receipt, { repoRoot: resolve(process.cwd(), '..'), headSha: process.env.GITHUB_SHA })) throw new Error('Generated P15.13 receipt does not validate');
           writeFileSync('evidence/phase-receipts/P15_13.json', `${JSON.stringify(receipt, null, 2)}\n`);
           NODE
-      - name: Restore diagnostic workflow and refresh P15.2 over final tree
+      - name: Regenerate and bind exact-head P15.14 evidence
+        working-directory: clean-room
         shell: bash
         run: |
           set -euo pipefail
-          git checkout HEAD^ -- .github/workflows/p15-1-normal-chat-diagnostic.yml
+          node scripts/p15-14-nonproduction-acceptance-audit.mjs --write
+          node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          import { resolve } from 'node:path';
+          import { buildPhaseReceipt, validateReceiptBinding } from './scripts/phase-receipt-binding.mjs';
+          const report = JSON.parse(readFileSync('evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json', 'utf8'));
+          if (report.verified !== true || report.headSha !== process.env.GITHUB_SHA) throw new Error('P15.14 audit is not exact-head verified');
+          const inputs = [
+            'clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json',
+            'clean-room/public/sw.js',
+            'clean-room/scripts/category15-pwa-lifecycle.mjs',
+            'clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs',
+            'clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs',
+            'clean-room/tests/owner-auth-proxy-routing.test.mjs',
+            'clean-room/tests/p15-14-nonproduction-acceptance.test.mjs'
+          ];
+          const evidence = [
+            'clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json',
+            'clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs',
+            'clean-room/scripts/category15-pwa-lifecycle.mjs',
+            'clean-room/tests/category15-nonproduction-contract-acceptance.test.mjs',
+            'clean-room/tests/owner-auth-proxy-routing.test.mjs',
+            'clean-room/tests/p15-14-nonproduction-acceptance.test.mjs'
+          ];
+          const summary = {
+            phaseId: 'P15.14',
+            checkCount: report.checkCount,
+            failedCheckCount: report.failedCheckCount,
+            contractResults: report.contractResults,
+            browser: report.browser,
+            checks: report.checks
+          };
+          const receipt = buildPhaseReceipt({ phaseId: 'P15.14', headSha: process.env.GITHUB_SHA, inputs, evidence, summary });
+          if (!validateReceiptBinding(receipt, { repoRoot: resolve(process.cwd(), '..'), headSha: process.env.GITHUB_SHA })) throw new Error('Generated P15.14 receipt does not validate');
+          writeFileSync('evidence/phase-receipts/P15_14.json', `${JSON.stringify(receipt, null, 2)}\n`);
+          NODE
+      - name: Restore original diagnostic workflow and refresh P15.2 over final tree
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout c28ec2497d6f434a25ea0cb224d915cc7fb336d8 -- .github/workflows/p15-1-normal-chat-diagnostic.yml
           ( cd clean-room && node scripts/p15-2-semantic-every-file-review.mjs --write )
-      - name: Verify source-bound P15.13 and preserved P15.14 receipts
+      - name: Verify source-bound P15.13 receipt
         working-directory: clean-room
         shell: bash
         run: |
@@ -95,11 +136,20 @@ jobs:
           import { readFileSync } from 'node:fs';
           import { resolve } from 'node:path';
           import { validateReceiptBinding } from './scripts/phase-receipt-binding.mjs';
-          const repoRoot = resolve(process.cwd(), '..');
-          for (const id of ['P15_13', 'P15_14']) {
-            const receipt = JSON.parse(readFileSync(`evidence/phase-receipts/${id}.json`, 'utf8'));
-            if (!validateReceiptBinding(receipt, { repoRoot, headSha: process.env.GITHUB_SHA })) throw new Error(`${id} receipt binding failed`);
-          }
+          const receipt = JSON.parse(readFileSync('evidence/phase-receipts/P15_13.json', 'utf8'));
+          if (!validateReceiptBinding(receipt, { repoRoot: resolve(process.cwd(), '..'), headSha: process.env.GITHUB_SHA })) throw new Error('P15.13 receipt binding failed after final-tree restoration');
+          NODE
+      - name: Verify source-bound P15.14 receipt
+        working-directory: clean-room
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import { readFileSync } from 'node:fs';
+          import { resolve } from 'node:path';
+          import { validateReceiptBinding } from './scripts/phase-receipt-binding.mjs';
+          const receipt = JSON.parse(readFileSync('evidence/phase-receipts/P15_14.json', 'utf8'));
+          if (!validateReceiptBinding(receipt, { repoRoot: resolve(process.cwd(), '..'), headSha: process.env.GITHUB_SHA })) throw new Error('P15.14 receipt binding failed after final-tree restoration');
           NODE
       - name: Commit only requalified evidence and restored harness
         shell: bash
@@ -108,8 +158,10 @@ jobs:
           expected="$(printf '%s\n' \
             '.github/workflows/p15-1-normal-chat-diagnostic.yml' \
             'clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json' \
+            'clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json' \
             'clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json' \
-            'clean-room/evidence/phase-receipts/P15_13.json' | sort)"
+            'clean-room/evidence/phase-receipts/P15_13.json' \
+            'clean-room/evidence/phase-receipts/P15_14.json' | sort)"
           actual="$(git diff --name-only | sort)"
           test "$actual" = "$expected"
           git diff --check
@@ -120,7 +172,9 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .github/workflows/p15-1-normal-chat-diagnostic.yml \
             clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json \
+            clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json \
             clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json \
-            clean-room/evidence/phase-receipts/P15_13.json
-          git commit -m "chore: requalify P15.13 release evidence for Home imagery source"
+            clean-room/evidence/phase-receipts/P15_13.json \
+            clean-room/evidence/phase-receipts/P15_14.json
+          git commit -m "chore: requalify P15.13 and P15.14 evidence for current source"
           git push origin HEAD:build/spec-lock-v2-clean-room
