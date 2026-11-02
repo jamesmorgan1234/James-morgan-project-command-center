@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   module-test-diagnostic:
@@ -56,9 +56,12 @@ jobs:
           node scripts/p15-10-needs-me-boundary-resume-audit.mjs --write
           node scripts/p15-11-recovery-migration-provider-audit.mjs --write
           node scripts/p15-12-performance-load-soak-audit.mjs --write
-      - name: Refresh P15.2 after receipt requalification
+      - name: Remove temporary diagnostic from final inventory
+        shell: bash
+        run: git -C "$GITHUB_WORKSPACE" rm .github/workflows/p15-16-module-test-diagnostic.yml
+      - name: Refresh P15.2 for final post-diagnostic inventory
         run: node scripts/p15-2-semantic-every-file-review.mjs --write
-      - name: Refresh repository audit after receipt requalification
+      - name: Refresh repository audit for final inventory
         run: npm run audit:repository
       - name: Run unchanged module suite and capture TAP
         id: tests
@@ -70,11 +73,11 @@ jobs:
           set -e
           cat p15-16-module-tests.tap
           echo "exit_code=$code" >> "$GITHUB_OUTPUT"
-      - name: Upload requalified receipts and TAP
+      - name: Upload final requalification evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: p15-16-requalified-receipts-and-tap
+          name: p15-16-final-requalification
           path: |
             clean-room/evidence/phase-receipts/P15_6.json
             clean-room/evidence/phase-receipts/P15_7.json
@@ -86,7 +89,21 @@ jobs:
             clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json
             clean-room/p15-16-module-tests.tap
           if-no-files-found: error
-          retention-days: 1
+          retention-days: 7
+      - name: Commit verified receipt requalification and remove diagnostic
+        if: steps.tests.outputs.exit_code == '0'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git -C "$GITHUB_WORKSPACE" fetch origin build/spec-lock-v2-clean-room
+          test "$(git -C "$GITHUB_WORKSPACE" rev-parse origin/build/spec-lock-v2-clean-room)" = "$GITHUB_SHA"
+          git -C "$GITHUB_WORKSPACE" diff --check
+          git -C "$GITHUB_WORKSPACE" config user.name "github-actions[bot]"
+          git -C "$GITHUB_WORKSPACE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$GITHUB_WORKSPACE" add clean-room/evidence/phase-receipts/P15_{6,7,8,9,10,11,12}.json clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json
+          git -C "$GITHUB_WORKSPACE" add -u .github/workflows/p15-16-module-test-diagnostic.yml
+          git -C "$GITHUB_WORKSPACE" commit -m "fix: requalify P15.6-P15.12 receipt bindings"
+          git -C "$GITHUB_WORKSPACE" push origin HEAD:build/spec-lock-v2-clean-room
       - name: Preserve unchanged suite result
         if: always()
         shell: bash
