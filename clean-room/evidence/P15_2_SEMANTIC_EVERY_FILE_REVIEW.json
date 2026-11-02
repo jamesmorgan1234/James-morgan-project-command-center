@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "6fe4dfb76fbe21ce257200703bcfd0b7cefef34d",
+  "gitSha": "e364fe176e72fd9e7409c12e45afeab24f87f13b",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1997,
-  "inventoryDigest": "0e95a00afb1a83400cda5be1a15d46ec079f4a52ff586e2ab07d1f1569ee6e0b",
+  "reviewedFileCount": 1998,
+  "inventoryDigest": "11c8a95911e777358bfeec8c48c7a203dc337729b4768894a3e082549b677eeb",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1998,
-    "reviewedFileCount": 1997,
+    "trackedFileCount": 1999,
+    "reviewedFileCount": 1998,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,7 +45,7 @@
       "ROOTDOC": 30,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 193,
+      "EVID": 194,
       "APUB": 11,
       "SCRP": 136,
       "ASRC": 338,
@@ -682,7 +682,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 193,
+      "fileCount": 194,
       "roles": [
         "EVID"
       ]
@@ -2219,8 +2219,8 @@
       "path": ".github/workflows/p15-1-requalify-reviewed-mappings.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "b663dad1630f5d2c888b6480aa0c38cef3fb9eb7069af73456ba0ada26562d1b",
-      "bytes": 9725,
+      "sha256": "cfcb13e2827b3ba790911e2d66fb2ed936ff2464e79f1537cdd7b83df62c5301",
+      "bytes": 9853,
       "contentKind": "text",
       "findings": []
     },
@@ -3397,6 +3397,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "5ad8d1ba7f79b3cdd37382d89a20283947fedc70dd06e981d058f59df0aa04cc",
       "bytes": 6235,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "8831d8d46143ef98f8f5a396b3c6e2b156dd800f3310119bc1842fa96c3dc16a",
+      "bytes": 1262,
       "contentKind": "text",
       "findings": []
     },
