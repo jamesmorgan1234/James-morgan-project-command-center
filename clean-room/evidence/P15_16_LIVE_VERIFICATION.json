@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "phase": "P15.16",
   "status": "VERIFIED_COMPLETE",
-  "verifiedAtUtc": "2026-11-02T01:37:47Z",
+  "verifiedAtUtc": "2026-11-02T06:15:12Z",
   "authorization": {
     "path": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
     "status": "AUTHORIZED",
@@ -15,22 +15,22 @@
     "provider": "vercel",
     "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
     "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
-    "deploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
-    "deploymentUrl": "https://command-center-preview-j891910o8-crestven-holdings.vercel.app",
+    "deploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
+    "deploymentUrl": "https://command-center-preview-1s7hsqdgo-crestven-holdings.vercel.app",
     "stableDomain": "https://command-center-preview-alpha.vercel.app",
     "target": "production",
     "readyState": "READY",
     "readySubstate": "PROMOTED",
     "aliasAssigned": true,
-    "sourceSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
-    "previousProductionDeploymentId": "dpl_8Rbi3D27SmZp5Jrwb8NCVkfyTw2N",
-    "previousProductionReleaseId": "074dc65888149e5d5b0a31a034b6fbc763591000"
+    "sourceSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+    "previousProductionDeploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
+    "previousProductionReleaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b"
   },
   "releaseIdentity": {
-    "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
-    "sourceSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
-    "buildHash": "ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa",
-    "assetManifestHash": "2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff",
+    "releaseId": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+    "sourceSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+    "buildHash": "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
+    "assetManifestHash": "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
   },
   "identityDeterminism": {
@@ -47,7 +47,11 @@
       "matchesLiveDeployment": true
     },
     "candidatePayloadUnchanged": {
-      "applicationSourceRoots": ["clean-room/src", "clean-room/public", "clean-room/api"],
+      "applicationSourceRoots": [
+        "clean-room/src",
+        "clean-room/public",
+        "clean-room/api"
+      ],
       "filesChangedBetweenCandidateAndVerifiedHead": 0,
       "verifiedHead": "1fe4adebf3e6125fcc15331425a913bbbed15376"
     }
@@ -176,5 +180,43 @@
   },
   "knownBlockers": {
     "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"
+  },
+  "productionRepair": {
+    "commitSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+    "deploymentId": "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
+    "verifiedAtUtc": "2026-11-02T06:15:12Z",
+    "repaired": {
+      "mobileProjectHeroLayout": true,
+      "runtimeHealthAggregationPerSource": true,
+      "falseZeroPreventionForNeedsMe": true,
+      "optionalSourceFailureNoLongerBlanksCoreSurfaces": true
+    },
+    "liveVerification": {
+      "releaseJsonReleaseId": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+      "releaseJsonBuildHash": "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
+      "releaseJsonAssetManifestHash": "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
+      "indexEnvironment": "production",
+      "heroCssRuleServed": true,
+      "perSourceMessagesServed": true,
+      "allDeclaredRoutesHttp200": true,
+      "authProxyReturnsSupabase401Json": true
+    },
+    "missingCanonicalRelations": [
+      "command_center_project_roadmaps",
+      "command_center_project_work_units",
+      "command_center_project_roadmap_gates",
+      "command_center_project_checkpoints",
+      "command_center_project_detail_sections",
+      "command_center_project_type_detail_sections",
+      "command_center_agency_runs",
+      "command_center_agency_jobs",
+      "command_center_agency_tasks",
+      "command_center_brain_conversations",
+      "command_center_brain_conversation_turns",
+      "command_center_brain_project_workspaces",
+      "command_center_brain_improvement_proposals"
+    ],
+    "missingRelationEvidence": "PostgREST returned PGRST205/404 for each relation on the production project while command_center_project_profiles returned 401 (RLS-protected, present).",
+    "missingRelationBlocker": "Restoring these relations requires DDL in the production Supabase project; no database write credential is available to this session, so no migration was applied and no rows were invented."
   }
 }

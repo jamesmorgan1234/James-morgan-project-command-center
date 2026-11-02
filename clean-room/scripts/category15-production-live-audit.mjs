@@ -15,11 +15,11 @@ if (!existsSync(acceptanceRunbookPath)) throw new Error("P15.16/P15.17/P15.18 ac
 const evidence = JSON.parse(readFileSync(evidencePath, "utf8"));
 
 const expected = {
-  deploymentId: "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
+  deploymentId: "dpl_2NbSwaGRJWtgejqj2NK63LTP8ZKX",
   stableDomain: "https://command-center-preview-alpha.vercel.app",
-  releaseId: "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
-  buildHash: "ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa",
-  assetManifestHash: "2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff",
+  releaseId: "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
+  buildHash: "c107878bf47f410c04d3b40f55e22886d8cf78236cb302195fe7c320af65702d",
+  assetManifestHash: "de294f461c878a423b79dc5040ba8032243e1503630a3d3bb55de0063384acc6",
   schemaCompatibility: "cc-runtime-snapshot-v1",
   mainSha: "855a06b43d152df1bc3c7574cc3f584bf1b51892"
 };
