@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "f31c8f5af3b69207a7529d80cfc9224f3a58ca0f",
+  "gitSha": "9cb898f1bbbc33af26cc2d0c63aec1666f589896",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 1998,
-  "inventoryDigest": "212465f4be22af8ba306f4d9b189541be9b24adf02cfddeb3b5108ed6b417c81",
+  "inventoryDigest": "2e466e2bd9ad08ad1a960e62f6b7f77224edaf6f6042d1b4045874d9b0a0a588",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -4754,7 +4754,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "172ae2636c8f2eed426e4e98607cd1d3e17ce7613e42361dc31ea956a63b6256",
+      "sha256": "9c72a3efe0004249f1a72be0062c3968b8cac8aba246f66572095cf7141fcb37",
       "bytes": 13192758,
       "contentKind": "text",
       "findings": []
