@@ -1,34 +1,23 @@
 # P15.16 production deployment and live-verification runbook
 
-State: VERIFIED COMPLETE, pending exact-head evidence CI confirmation.
+State: VERIFIED COMPLETE pending exact-head evidence CI confirmation.
 
 ## Exact production candidate
 
 Frozen repaired runtime source:
 
-`9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
+`2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b`
 
-Frozen production-safe artifact identity:
+Frozen production-safe artifact identity (production environment build of that source):
 
-- releaseId: `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
-- buildHash: `72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3`
-- assetManifestHash: `b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7`
+- releaseId: `2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b`
+- buildHash: `ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa`
+- assetManifestHash: `2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff`
 - schemaCompatibility: `cc-runtime-snapshot-v1`
 
-This candidate keeps the prior Samsung-focused form repair and adds a same-origin Vercel rewrite for Supabase Auth only. Browser-origin Auth requests use `/__cc_auth__/...`; private REST/data traffic remains direct to Supabase so private canonical data is not placed behind the PWA same-origin cache. Dedicated regression tests cover both boundaries.
+The build embeds the build environment and its configuration digest into `index.html` and `sw.js`, so the authorized manifest's development-environment identity (`buildHash 2c9edd63…`) differs from the production-environment identity recorded here for the same source. A local rebuild of the candidate source with `COMMAND_CENTER_RELEASE_ID=2a3fed5… COMMAND_CENTER_ENVIRONMENT=production` reproduced the live identity exactly, which proves the deployed artifact is the candidate source under production rules and not a different payload.
 
-## P15.14 repaired acceptance
-
-Production-safe no-fixture Preview:
-
-- deployment id: `dpl_9GTPfksYY5En25ne6XdxFbRTQDHW`
-- URL: `https://command-center-preview-k53dhma4y-crestven-holdings.vercel.app`
-- source SHA: `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
-- state: READY / Preview
-
-The branch-scoped `COMMAND_CENTER_PREVIEW_ACCEPTANCE` flag remained `0`; `/__preview__/runtime.json` was not a synthetic runtime in the production-safe path.
-
-Exact-head QA on this repaired source passed typecheck, 186/186 tests, the 677/677 every-file repository audit, zero secret findings, zero violations, protected-icon verification, release-artifact validation, and the observed PWA install/offline/update/two-cache rollback lifecycle. The suite includes the Vercel-origin same-origin Auth routing test and the non-Vercel/direct Auth routing test.
+This candidate keeps the prior Samsung-focused form repair and the same-origin Vercel rewrite for Supabase Auth only. Browser-origin Auth requests use `/__cc_auth__/...`; private REST/data traffic remains direct to Supabase so private canonical data is not placed behind the PWA same-origin cache. Dedicated regression tests cover both boundaries.
 
 ## Production execution
 
@@ -40,28 +29,30 @@ Production deployment:
 - project: `command-center-preview`
 - project id: `prj_gJISweXK7OGvFk1Iy48umKXjFhGX`
 - team: Crestven Holdings / `team_kRfj5ZpITaFu83Qggpp3H6cg`
-- deployment id: `dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth`
-- deployment URL: `https://command-center-preview-htgnl9tcy-crestven-holdings.vercel.app`
+- deployment id: `dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m`
+- deployment URL: `https://command-center-preview-j891910o8-crestven-holdings.vercel.app`
 - stable production domain: `https://command-center-preview-alpha.vercel.app`
-- source SHA: `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`
+- source SHA: `2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b`
 - target: production
-- state: READY
+- state: READY / PROMOTED
 
 Production aliases include the stable `command-center-preview-alpha.vercel.app` alias.
 
+Two earlier deployment attempts in the same production operation were superseded and never carried the correct identity: `dpl_EEPCfqbkeRzF6EZfPv5xELzjG4fR` failed because the project build command referenced `build:deploy`, a release-tooling script that does not exist at the candidate commit, and `dpl_SC7NYvD8q29fdREntujzdxVRavGC` served `releaseId "local-unverified"` because the release id environment variable was scoped to only the first build step. Neither attempt changed application source.
+
 ## Live verification
 
-Live `/release.json` on the stable production domain exactly matches the frozen repaired identity.
+Live `/release.json` on the stable production domain exactly matches the identity recorded above, and that identity was independently reproduced by a local production-environment rebuild of the same source.
 
-The live HTML shell carries release id `9b6d136447def58ad8a4df3f05261f7bd6b7ef80`, includes the dedicated owner-auth stylesheet and publishable Supabase client configuration, and contains no synthetic P15.14 runtime injection. `/__preview__/runtime.json` resolves only to the ordinary SPA shell.
+The live HTML shell carries release id `2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b`, environment `production`, and the production configuration digest; it contains no synthetic P15.14 runtime injection. `/__preview__/runtime.json` resolves only to the ordinary SPA shell.
 
-The deployed source contains the same-origin Auth rewrite before the SPA catch-all. The exact-head routing regressions prove the browser runtime selects that Auth route on `*.vercel.app` and keeps private REST direct. Real Samsung login success remains P15.17 owner evidence and is not self-certified here.
+The deployed source contains the same-origin Auth rewrite before the SPA catch-all. A direct `POST /__cc_auth__/token` without an API key returns Supabase's own `401 application/json` response rather than the SPA shell, which proves the Auth rewrite is live in front of the SPA fallback. The exact-head routing regressions prove the browser runtime selects that Auth route on `*.vercel.app` and keeps private REST direct. Real Samsung login success remains P15.17 owner evidence and is not self-certified here.
 
-The live manifest is valid at root scope and references `/assets/command-center-approved-icon-512.png`. The live service worker carries the same repaired release id and the verified install/cache/offline/update/two-cache rollback logic.
+The live manifest is valid at root scope and references `/assets/command-center-approved-icon-512.png`, which serves `HTTP 200` at the approved size. The live service worker carries the same release id and the verified install/cache/offline/update/two-cache rollback logic. The offline shell and the fixture route both serve their own documents.
 
-Representative live route checks on the stable production domain returned HTTP 200 with the exact repaired SPA shell for `/`, `/projects`, `/books`, `/brain`, `/agency`, `/settings/security`, and `/settings/devices`. The exact-head route-state suite separately verifies all 19 declared route states and fails closed for unknown routes.
+All 19 declared routes returned `HTTP 200` with the exact SPA shell on the stable production domain: `/`, `/projects`, `/active`, `/next-up`, `/project/test-project`, `/brain`, `/agency`, `/needs-me`, `/search`, `/automations`, `/personal`, `/finance`, `/social`, `/books`, `/specialists`, `/analytics`, `/settings`, `/settings/security`, `/settings/devices`. The exact-head route-state suite separately verifies all 19 declared route states and fails closed for unknown routes.
 
-Vercel reported zero runtime-error clusters in the post-deploy verification window.
+Zero runtime errors were observed in the live probes. The Vercel runtime-log endpoint returned an integration error on two attempts and deployment checks returned an empty list, so no log-level error aggregation is claimed.
 
 The production runtime remains the authenticated owner-scoped canonical Supabase runtime. The repair required no database migration and no production-data mutation.
 
@@ -69,10 +60,10 @@ The production runtime remains the authenticated owner-scoped canonical Supabase
 
 The immediately prior Vercel production remains the first rollback target:
 
-- deployment id: `dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5`
-- release SHA: `42c50f3093f3f435e53065a877356c317c7ba2f1`
+- deployment id: `dpl_8Rbi3D27SmZp5Jrwb8NCVkfyTw2N`
+- release SHA: `074dc65888149e5d5b0a31a034b6fbc763591000`
 
-The older Vercel production `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`, the older deployment `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`, and GitHub Pages fallback remain available as additional containment options.
+The older Vercel productions `dpl_DWvrvK3sCFboMdf8bdHVqNAHQAdq`, `dpl_C4nsZ8yLpVicMf1MoT7Vx8fgWKg1`, and `dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5` and the GitHub Pages fallback remain available as additional containment options.
 
 GitHub Pages baseline:
 
@@ -86,7 +77,7 @@ Production deployment did not modify GitHub `main`.
 
 ## P15.17 owner acceptance handling
 
-P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. James reported that the fresh production link still could not complete sign-in after the first form-focused repair, so the phase remained open and the Auth transport path was repaired.
+P15.17 is an acceptance-evidence phase, not a permission-to-continue gate. James reported that a fresh production link previously could not complete sign-in after the first form-focused repair, so the phase remained open and the Auth transport path was repaired.
 
 The next owner step is to retry the stable production URL in Chrome on the real Samsung device before installing the PWA. If sign-in succeeds, proceed to clean install and the rest of the physical-device matrix. If it fails, capture the exact message/screen and reopen the affected Auth path. No exact wording is required. CI must not fabricate or self-certify owner acceptance.
 
@@ -119,7 +110,7 @@ P15.18 preparation state: `PREPARED_PENDING_OWNER_AND_DEVICE_EVIDENCE`.
 
 ## Phase result
 
-P15.16 = `VERIFIED_COMPLETE` once this repaired evidence package passes exact-head CI.
+P15.16 = `VERIFIED_COMPLETE` once this evidence package passes exact-head CI.
 
 P15.17 = `READY_OWNER_ACCEPTANCE` after that verification; no authorization phrase is required.
 

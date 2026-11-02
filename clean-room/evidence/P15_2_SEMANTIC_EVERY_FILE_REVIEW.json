@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "0aa8c459f7b48628d9774a475fac129b41f34bcf",
+  "gitSha": "1fe4adebf3e6125fcc15331425a913bbbed15376",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 1998,
-  "inventoryDigest": "61009fe9ef9f785a80d1e33afc7d55ed750847e0e8bd2b6ca24ee31e90b00a36",
+  "inventoryDigest": "6bb76ec7b540d721d3ce43a6b0e61ec2fe535a349a84b9c0a577a841756d6545",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -3620,8 +3620,8 @@
       "path": "clean-room/evidence/P15_16_LIVE_VERIFICATION.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "491a031ed2e9c0b53adf2c20645d8201864b75807a2818083ddc10ecc7ddfba6",
-      "bytes": 3445,
+      "sha256": "bd8b32e19583b02474c8ff4a8eb04eea4ff220e3430db7d3c9e1d107191bd263",
+      "bytes": 8249,
       "contentKind": "text",
       "findings": []
     },
@@ -3629,8 +3629,8 @@
       "path": "clean-room/evidence/P15_16_PRODUCTION_RUNBOOK.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "d3ff9aaf42a0acbb60fc8864c7a1c9b7c2b13d18f8c91eeaf309594e9f9b3892",
-      "bytes": 7538,
+      "sha256": "0e032fe2dd1454eab2878639a890b0959623cde63be10b35b457b09db1de4d57",
+      "bytes": 8493,
       "contentKind": "text",
       "findings": []
     },
@@ -5051,7 +5051,7 @@
       "path": "clean-room/scripts/category15-production-live-audit.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "57dab71436c88f205d5f8e6c795fcc402064eabf78044cd5094f686bf4e6a56d",
+      "sha256": "28f3d94e14963f98c221f206675849cfbc933618459b14b4a9b0b7227b233a01",
       "bytes": 7299,
       "contentKind": "text",
       "findings": []

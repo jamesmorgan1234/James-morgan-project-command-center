@@ -2,66 +2,146 @@
   "schemaVersion": 2,
   "phase": "P15.16",
   "status": "VERIFIED_COMPLETE",
-  "verifiedAtUtc": "2026-10-24T03:01:02Z",
+  "verifiedAtUtc": "2026-11-02T01:37:47Z",
+  "authorization": {
+    "path": "clean-room/evidence/CURRENT_PRODUCTION_AUTHORIZATION.json",
+    "status": "AUTHORIZED",
+    "authorizedBy": "James Morgan",
+    "releaseCandidateSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+    "releaseCandidateManifestHash": "8a0a42b17a231fe507fddbb923d860daa3e723eb4bf78a4ab65f71ffd5be0ff9",
+    "operationId": "cc-production-release:2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b:2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8"
+  },
   "production": {
     "provider": "vercel",
     "projectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
     "teamId": "team_kRfj5ZpITaFu83Qggpp3H6cg",
-    "deploymentId": "dpl_F7RFaYTTuVTxrYgCabp5XpZS3qth",
-    "deploymentUrl": "https://command-center-preview-htgnl9tcy-crestven-holdings.vercel.app",
+    "deploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
+    "deploymentUrl": "https://command-center-preview-j891910o8-crestven-holdings.vercel.app",
     "stableDomain": "https://command-center-preview-alpha.vercel.app",
     "target": "production",
-    "readyState": "READY"
+    "readyState": "READY",
+    "readySubstate": "PROMOTED",
+    "aliasAssigned": true,
+    "sourceSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+    "previousProductionDeploymentId": "dpl_8Rbi3D27SmZp5Jrwb8NCVkfyTw2N",
+    "previousProductionReleaseId": "074dc65888149e5d5b0a31a034b6fbc763591000"
   },
   "releaseIdentity": {
-    "releaseId": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
-    "sourceSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
-    "buildHash": "72918429817b12957178f4685f84b6a67ac895d5972517e1dc5b4969cdf301f3",
-    "assetManifestHash": "b9a76bb84da35231ac7dfc72d430b8372becaf27158dfa3a1fd1e352f00eb2a7",
+    "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+    "sourceSha": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+    "buildHash": "ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa",
+    "assetManifestHash": "2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
   },
-  "repair": {
-    "trigger": "P15.17 Samsung owner sign-in still failed on the fresh production URL after the form-focused repair",
-    "nativeValidationRestored": true,
-    "credentialAutocompleteSemanticsPresent": true,
-    "forcedInitialFocusRemoved": true,
-    "sameOriginAuthProxyAdded": true,
-    "privateRestRemainsDirect": true,
-    "supabaseOwnerAccountPreviouslyVerifiedHealthy": true,
-    "realSamsungAuthConfirmationPending": true
+  "identityDeterminism": {
+    "explanation": "The release manifest embeds the build environment and its configuration digest into index.html and sw.js, so the same source produces an environment-specific identity. The authorized candidate manifest records the development-environment artifact identity (buildHash 2c9edd6…); production builds under production environment rules and yields the identity recorded above.",
+    "authorizedManifestDevelopmentIdentity": {
+      "buildHash": "2c9edd632dadc662ab11eafa32cdd7b81056f55e08281ab96dd3ef0eec91bdd8",
+      "assetManifestHash": "0e6e1c1685b1c5fcbf5fec4dee80d4edc405ea41c97c57f4400948384146d641"
+    },
+    "localProductionEnvironmentRebuild": {
+      "command": "COMMAND_CENTER_RELEASE_ID=2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b COMMAND_CENTER_ENVIRONMENT=production npm run build:modules && COMMAND_CENTER_RELEASE_ID=2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b COMMAND_CENTER_ENVIRONMENT=production npm run build:browser",
+      "releaseId": "2a3fed52d4e1f6b2c20a5b0c933cfb422cd56c8b",
+      "buildHash": "ac184fba1ec2173826a82c858ad7f1590239d0dafb2df9ee9a3f92bf8e1292aa",
+      "assetManifestHash": "2bde1be08c57b1383f6d627fb32c44aa3379c5c6b39341b95bb3a3531a1ae2ff",
+      "matchesLiveDeployment": true
+    },
+    "candidatePayloadUnchanged": {
+      "applicationSourceRoots": ["clean-room/src", "clean-room/public", "clean-room/api"],
+      "filesChangedBetweenCandidateAndVerifiedHead": 0,
+      "verifiedHead": "1fe4adebf3e6125fcc15331425a913bbbed15376"
+    }
   },
-  "acceptancePreview": {
-    "deploymentId": "dpl_9GTPfksYY5En25ne6XdxFbRTQDHW",
-    "url": "https://command-center-preview-k53dhma4y-crestven-holdings.vercel.app",
-    "sourceSha": "9b6d136447def58ad8a4df3f05261f7bd6b7ef80",
-    "syntheticPreviewRuntimePresent": false
-  },
+  "deploymentHistory": [
+    {
+      "deploymentId": "dpl_EEPCfqbkeRzF6EZfPv5xELzjG4fR",
+      "state": "ERROR",
+      "cause": "The project build command runs `npm run build:deploy`, but that release-tooling script did not exist at the candidate commit; the build exited before any compilation and the deployment never reached the production alias.",
+      "superseded": true
+    },
+    {
+      "deploymentId": "dpl_SC7NYvD8q29fdREntujzdxVRavGC",
+      "state": "READY",
+      "cause": "The release id environment variable was scoped to only the first build step, so the served release.json reported releaseId \"local-unverified\" with a mismatched identity.",
+      "superseded": true
+    },
+    {
+      "deploymentId": "dpl_CdVrbDQ8d9rw1fnAyom1PNd1wC3m",
+      "state": "READY",
+      "cause": "Corrected build applies the deployed commit SHA to the artifact build step; live release.json matches the locally reproduced production identity exactly.",
+      "superseded": false
+    }
+  ],
   "liveChecks": {
     "releaseJsonMatched": true,
     "htmlReleaseMetaMatched": true,
+    "htmlEnvironmentMeta": "production",
+    "htmlConfigurationDigest": "49fa5b0ff3f148ffe99fb6e3d795770a031f67c164a82f5f9a41f5ab32b3d1c4",
     "authProxyRulePresentInDeployedSource": true,
     "authProxyRoutingRegressionPassed": true,
     "privateRestDirectRoutingRegressionPassed": true,
+    "routingRegressionTests": {
+      "command": "node --test --test-concurrency=1 --test-reporter=spec tests/owner-auth-proxy-routing.test.mjs tests/category4-offline-accessibility-security.test.mjs tests/p15-1-auth-shell-privacy.test.mjs tests/category2-p22-passkey-contract.test.mjs tests/owner-passkey-auth.test.mjs tests/supabase-passkeys.test.mjs tests/category1-p1-9-kernel-recovery-shell.test.mjs",
+      "tests": 31,
+      "pass": 31,
+      "fail": 0
+    },
+    "authProxyLiveResponse": {
+      "request": "POST /__cc_auth__/token?grant_type=password without apikey header",
+      "status": 401,
+      "contentType": "application/json",
+      "bodyPrefix": "{\"message\":\"No API key found in request\"",
+      "interpretation": "The path is routed to the Supabase Auth origin rather than the SPA catch-all."
+    },
     "manifestServed": true,
     "approvedManifestIconPathMatched": true,
     "serviceWorkerServed": true,
     "serviceWorkerReleaseIdMatched": true,
     "declaredRouteCount": 19,
     "exactHeadRouteContractPassed": true,
-    "liveRouteShellSpotCheckCount": 7,
+    "liveRouteShellSpotCheckCount": 19,
     "liveRouteShellSpotChecks": [
       "/",
       "/projects",
-      "/books",
+      "/active",
+      "/next-up",
+      "/project/test-project",
       "/brain",
       "/agency",
+      "/needs-me",
+      "/search",
+      "/automations",
+      "/personal",
+      "/finance",
+      "/social",
+      "/books",
+      "/specialists",
+      "/analytics",
+      "/settings",
       "/settings/security",
       "/settings/devices"
     ],
+    "offlineShellServed": true,
+    "offlineShellTitle": "Command Center — Offline",
+    "fixtureRouteServed": true,
+    "fixtureRouteTitle": "Command Center — UI Fixtures",
+    "approvedIconServed": true,
+    "approvedIconStatus": 200,
+    "approvedIconBytes": 421686,
     "syntheticPreviewRuntimePresent": false,
+    "syntheticPreviewProbe": {
+      "path": "/__preview__/runtime.json",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "interpretation": "Resolves to the ordinary SPA shell; no synthetic runtime fixture is deployed."
+    },
     "runtimeErrorsObserved": 0,
     "productionDataMutationRequired": false,
     "productionDataModified": false
+  },
+  "observabilityLimits": {
+    "vercelRuntimeLogs": "The Vercel runtime-log endpoint returned an integration service error on two attempts and deployment checks returned an empty list, so no log-level error scan was performed. The recorded runtimeErrorsObserved value counts runtime errors observed in the live HTTP probes above, not a log aggregation.",
+    "browserAutomation": "No browser automation was available in the release environment; owner sign-in and device acceptance remain P15.17/P15.18 evidence."
   },
   "routes": [
     "/",
@@ -91,8 +171,8 @@
     "workflowRun": "39977771162",
     "artifactId": "12512325850",
     "previousKnownGoodSha": "d40a7b2659400481c75f1de87d084b4d6cdce254",
-    "priorVercelDeploymentId": "dpl_BN93YBWTbTDttpXTDWDCwKBVVXp5",
-    "priorVercelReleaseId": "42c50f3093f3f435e53065a877356c317c7ba2f1"
+    "priorVercelDeploymentId": "dpl_8Rbi3D27SmZp5Jrwb8NCVkfyTw2N",
+    "priorVercelReleaseId": "074dc65888149e5d5b0a31a034b6fbc763591000"
   },
   "knownBlockers": {
     "P15.1": "BLOCKED_SOURCE_ARTIFACT: final reconciled individual CCR-00001 through CCR-05825 ledger absent"
