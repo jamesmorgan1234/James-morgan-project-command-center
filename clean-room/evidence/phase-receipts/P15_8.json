@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.8",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "e6287f3032f50586ebbade4b77ea25b92fb1cbe2",
+  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
   "inputs": [
     "clean-room/scripts/p15-8-scheduler-failover-replay-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.11",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "f101249159e4cf29178128f81785956f5fa7be93",
+  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
   "inputs": [
     "clean-room/scripts/p15-11-recovery-migration-provider-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",

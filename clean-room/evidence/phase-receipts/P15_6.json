@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.6",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "93f15e06a05a602860973e679c825afe6811ea96",
+  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
   "inputs": [
     "clean-room/scripts/p15-6-historical-recovery-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",

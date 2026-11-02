@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.10",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "945ee8f1e3c87781277048aa05df2412e73064b7",
+  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
   "inputs": [
     "clean-room/scripts/p15-10-needs-me-boundary-resume-audit.mjs",
     "clean-room/scripts/phase-receipt-binding.mjs",

@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "4a2e892a7f8c1b9540f5b0afe3f941d611362b74",
+  "gitSha": "0e11eb2c3fa219dd6dc8b64fd6077a82ed519d18",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2002,
-  "inventoryDigest": "c5a61dceb47529c567c8f49d717dcda8df28d8ad554badbe4da554e517f92bb6",
+  "reviewedFileCount": 2005,
+  "inventoryDigest": "48614831a1c2ef129eca5e6a3835274f59ee08c9060bdd08649c03a867c0f0e2",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2003,
-    "reviewedFileCount": 2002,
+    "trackedFileCount": 2006,
+    "reviewedFileCount": 2005,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -40,7 +40,7 @@
     },
     "filesByRole": {
       "SUPP": 1,
-      "CIWF": 8,
+      "CIWF": 9,
       "HIST": 272,
       "ROOTDOC": 30,
       "CONF": 6,
@@ -49,8 +49,8 @@
       "APUB": 11,
       "SCRP": 137,
       "ASRC": 338,
-      "TEST": 441,
-      "RDMAP": 289,
+      "TEST": 442,
+      "RDMAP": 290,
       "SBAS": 230,
       "HTST": 43
     },
@@ -80,7 +80,7 @@
     },
     {
       "directory": ".github/workflows",
-      "fileCount": 8,
+      "fileCount": 9,
       "roles": [
         "CIWF"
       ]
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 441,
+      "fileCount": 442,
       "roles": [
         "TEST"
       ]
@@ -1718,7 +1718,7 @@
     },
     {
       "directory": "roadmap/portfolio-future-architecture",
-      "fileCount": 249,
+      "fileCount": 250,
       "roles": [
         "RDMAP"
       ]
@@ -2219,8 +2219,8 @@
       "path": ".github/workflows/p15-1-requalify-reviewed-mappings.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "cfcb13e2827b3ba790911e2d66fb2ed936ff2464e79f1537cdd7b83df62c5301",
-      "bytes": 9853,
+      "sha256": "e0d8283b8bc542343ae4bf0044f68eb07cf9eb35d636308542f0158cc891f7f2",
+      "bytes": 9985,
       "contentKind": "text",
       "findings": []
     },
@@ -2230,6 +2230,15 @@
       "disposition": "retain-active",
       "sha256": "b422918c0aba07a8cc36032cde6737ddefa640aa5d69dbab42243044acf39bb8",
       "bytes": 3568,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/workflows/p15-16-module-test-diagnostic.yml",
+      "role": "CIWF",
+      "disposition": "retain-active",
+      "sha256": "bf6f5cf6d1ca8498287e71894db2013510c0a5461592a8c7fb58d82f054f7fd1",
+      "bytes": 4579,
       "contentKind": "text",
       "findings": []
     },
@@ -4772,7 +4781,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_10.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "74ac676eefe8567c9ae17ea7ed3be4b3c4661b42532ed4c6a42704fd32801f29",
+      "sha256": "4a9329e4195f19c37624302b959c18cdcea177d28d75a37bd79ab503b3abc48c",
       "bytes": 4541,
       "contentKind": "text",
       "findings": []
@@ -4781,7 +4790,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_11.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "4d1ba73a76d81dc25cd42f40cff61894aa9a85f3033098609633d8d875ba8f87",
+      "sha256": "d4aa2336d7a8d065707622f967925889a6635f015ff4c36eabb10cf130bb82b1",
       "bytes": 4760,
       "contentKind": "text",
       "findings": []
@@ -4790,7 +4799,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_12.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "69fd888ba492636efd32ca17d594cfc8b87e33a6516215b3ab75633679e4b1e6",
+      "sha256": "25f9e017ae03714866164d3ecc1b238b146af9978aedcb437cc714eba1156eb9",
       "bytes": 4602,
       "contentKind": "text",
       "findings": []
@@ -4844,7 +4853,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_6.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "fa11a3278663092ba75e5192f8381338a4abe6eaf5dfd2c5b4a0a2cc4ccc2d27",
+      "sha256": "9be2f81b6f03342ecb65a648e60b47749dffbcc34cf4a18f268145c79cfc9602",
       "bytes": 6387,
       "contentKind": "text",
       "findings": []
@@ -4853,7 +4862,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_7.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "366717db221e5b90836081a5a46323eab067af24777e1337fb286e4cd2fdb18a",
+      "sha256": "84de1ba0627b00ff4e1ab2cf0dba16ddb2819c16867d04ad96e6b42d99a390c6",
       "bytes": 5256,
       "contentKind": "text",
       "findings": []
@@ -4862,7 +4871,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_8.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "2adf7d4831f46b22341c1e02e29be8f88480803b717d6323696c62aa8c6b9663",
+      "sha256": "f394a525c832a06bddd2a45d29b857df5d915c5b710e9820dfd992c8539f29f1",
       "bytes": 4414,
       "contentKind": "text",
       "findings": []
@@ -4871,7 +4880,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_9.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "2740c54b1a32bc03995cbe6874b5089f862f100ba36231ea12ce209725f649a5",
+      "sha256": "4db6408e5da4685b0a2825280bbbc905d8866bcacd8863ef011b39d798ca2a05",
       "bytes": 3463,
       "contentKind": "text",
       "findings": []
@@ -8534,8 +8543,8 @@
       "path": "clean-room/src/runtime/project-screen.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "3edcf75624722d457c15f7f4ec1a537b8d05de484db9437c683b745446f85eaf",
-      "bytes": 5056,
+      "sha256": "d14b2a1e9494c83edd02f9ac647b01fe9d6aebe732c39d213f5c716a23d84219",
+      "bytes": 6770,
       "contentKind": "text",
       "findings": []
     },
@@ -12970,6 +12979,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/project-screen-activation-order.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "a4ba369f8cde0e09a06d47e8222119f7e80f53d28ddebe2a2f265dad9699ef72",
+      "bytes": 1604,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/projects-foundation.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
@@ -15472,6 +15490,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "15d40cd613141f10a4db5df53bde0e42d1ce44c929ff565c0c740ab3af0ba229",
       "bytes": 15422,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/06_PORTFOLIO_ACTIVATION_PHASE_FLOW.yaml",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "326319d8b021fd81904b851e8f02168f2444a86524d72feef8ecd0f0a6747ed8",
+      "bytes": 10888,
       "contentKind": "text",
       "findings": []
     },
