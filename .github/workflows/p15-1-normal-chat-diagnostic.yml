@@ -162,9 +162,9 @@ jobs:
             'clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json' \
             'clean-room/evidence/phase-receipts/P15_13.json' \
             'clean-room/evidence/phase-receipts/P15_14.json' | sort)"
-          actual="$(git diff --name-only | sort)"
+          actual="$(git diff HEAD --name-only | sort)"
           test "$actual" = "$expected"
-          git diff --check
+          git diff HEAD --check
           git fetch origin build/spec-lock-v2-clean-room
           remote="$(git rev-parse origin/build/spec-lock-v2-clean-room)"
           test "$remote" = "$GITHUB_SHA"
