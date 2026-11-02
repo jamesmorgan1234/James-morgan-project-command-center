@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "68fe05d2e144609c6b1e577ef293029fcaa9a8ec",
+  "gitSha": "5f0e65b25d9989f466166c9528118a9ddcfce98d",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2006,
-  "inventoryDigest": "7aceee9208ac5a9431f398f23ea9ee6f58e683272e7d2fbfb3697030c429ab79",
+  "reviewedFileCount": 2007,
+  "inventoryDigest": "16599780b00d42a6cd2004f67eaf0cd73c9606c49998212581d1d505de3f91db",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2007,
-    "reviewedFileCount": 2006,
+    "trackedFileCount": 2008,
+    "reviewedFileCount": 2007,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -49,7 +49,7 @@
       "APUB": 12,
       "SCRP": 137,
       "ASRC": 338,
-      "TEST": 443,
+      "TEST": 444,
       "RDMAP": 290,
       "SBAS": 230,
       "HTST": 43
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 443,
+      "fileCount": 444,
       "roles": [
         "TEST"
       ]
@@ -4763,8 +4763,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "fcf40f89650c36dfddc0f3a939bb3ed9104ac2c80a9aef0af667cc16de534ef7",
-      "bytes": 13193536,
+      "sha256": "e43627017981b32883e56448fa21edfd71275d5d23be81def2ebb138f9ead624",
+      "bytes": 13193656,
       "contentKind": "text",
       "findings": []
     },
@@ -5006,8 +5006,8 @@
       "path": "clean-room/scripts/build-browser.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "6a3ea08e8d0b4203f87592b268f68755eeb4ce29a1ba730eaaaaf03707b53602",
-      "bytes": 7656,
+      "sha256": "6cdaed89f39cb3d58bf1505723ebe6d996ee9c39f371d00e21bda2d1ce30c70b",
+      "bytes": 7693,
       "contentKind": "text",
       "findings": []
     },
@@ -9283,6 +9283,15 @@
       "disposition": "retain-active",
       "sha256": "fdf0d6424b1fa821acd50fb818488aa3682a272192007452141d8f24de5f37e1",
       "bytes": 9222,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/build-browser-release-id.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "3f289eacf89805c7ddf385b7d5ba0dc920093748f85a28996b78a26b993eead8",
+      "bytes": 1370,
       "contentKind": "text",
       "findings": []
     },
