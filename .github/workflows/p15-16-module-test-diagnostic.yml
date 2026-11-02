@@ -1,0 +1,53 @@
+name: P15.16 Module Test Diagnostic
+
+on:
+  push:
+    branches:
+      - build/spec-lock-v2-clean-room
+    paths:
+      - '.github/workflows/p15-16-module-test-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  module-test-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: clean-room
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: clean-room/package-lock.json
+      - name: Install locked zero-cost dependencies
+        run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Build modules
+        run: npm run build:modules
+      - name: Run unchanged module suite and capture TAP
+        id: tests
+        shell: bash
+        run: |
+          set +e
+          node --test --test-concurrency=1 --test-reporter=tap tests/*.test.mjs > p15-16-module-tests.tap 2>&1
+          code=$?
+          set -e
+          cat p15-16-module-tests.tap
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+      - name: Upload diagnostic TAP
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: p15-16-module-tests-tap
+          path: clean-room/p15-16-module-tests.tap
+          if-no-files-found: error
+          retention-days: 1
+      - name: Preserve unchanged suite result
+        if: always()
+        shell: bash
+        run: test "${{ steps.tests.outputs.exit_code }}" -eq 0
