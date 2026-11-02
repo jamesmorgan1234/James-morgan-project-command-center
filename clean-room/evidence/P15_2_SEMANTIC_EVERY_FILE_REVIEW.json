@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "cb94b771a71994f45d611c3206dac792b40753cd",
+  "gitSha": "4a2e892a7f8c1b9540f5b0afe3f941d611362b74",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 1998,
-  "inventoryDigest": "a5c00d1c4a7012450c35fe51e3e03e58d092572a1de54ad1dfc393c572c5169a",
+  "reviewedFileCount": 2002,
+  "inventoryDigest": "c5a61dceb47529c567c8f49d717dcda8df28d8ad554badbe4da554e517f92bb6",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 1999,
-    "reviewedFileCount": 1998,
+    "trackedFileCount": 2003,
+    "reviewedFileCount": 2002,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 30,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 194,
+      "EVID": 195,
       "APUB": 11,
-      "SCRP": 136,
+      "SCRP": 137,
       "ASRC": 338,
-      "TEST": 440,
+      "TEST": 441,
       "RDMAP": 289,
-      "SBAS": 229,
+      "SBAS": 230,
       "HTST": 43
     },
     "defectCount": 0,
@@ -682,7 +682,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 194,
+      "fileCount": 195,
       "roles": [
         "EVID"
       ]
@@ -710,7 +710,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 133,
+      "fileCount": 134,
       "roles": [
         "SCRP"
       ]
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 440,
+      "fileCount": 441,
       "roles": [
         "TEST"
       ]
@@ -1781,7 +1781,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 225,
+      "fileCount": 226,
       "roles": [
         "SBAS"
       ]
@@ -3613,6 +3613,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "25e79964934a58fd10e5e264fcd22b4e3d3d6a88c8b1734fd9e40b1479ccbd3a",
       "bytes": 4715,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/P15_16_COMPANY_PROJECT_BACKFILL.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "a38c89c90d64c16021341d794a9538e35317bf8724b5ef3e9863a0524555ffa5",
+      "bytes": 30407,
       "contentKind": "text",
       "findings": []
     },
@@ -6061,6 +6070,15 @@
       "disposition": "retain-active",
       "sha256": "304a4cc8d98246aad04e6117fd41cf7fa301d3ac8445624b60f9658e359e360e",
       "bytes": 7861,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/p15-16-company-project-backfill.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "7c46798054e482bd087e3ee20a097fc3601f71806aaf54c80f4719977e05e1cf",
+      "bytes": 8075,
       "contentKind": "text",
       "findings": []
     },
@@ -12498,6 +12516,15 @@
       "disposition": "retain-active",
       "sha256": "e4148c66b1e6b7a760a9d05f8e363754659db720561b0790b0d525cff07a148d",
       "bytes": 3002,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/p15-16-company-project-backfill.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "b39f480271ba806e39bb970e9b4f39d93036cd5fb80d2ab8fbdf793048f1f6ac",
+      "bytes": 7191,
       "contentKind": "text",
       "findings": []
     },
@@ -19767,6 +19794,15 @@
       "disposition": "retain-active",
       "sha256": "27203463aa04fcd9c500f26742b41786052c7d5129d046f2fb4cd29bd9b44ba0",
       "bytes": 21603,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261102090000_p15_16_authoritative_company_project_backfill.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "f1b351032cc5f8d8226519fbf023e3ce610f673487e6c360119158f34bdbbdae",
+      "bytes": 96149,
       "contentKind": "text",
       "findings": []
     },
