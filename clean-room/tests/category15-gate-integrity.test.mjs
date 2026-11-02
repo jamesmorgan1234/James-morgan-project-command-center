@@ -87,10 +87,23 @@ test("Task 4 integrity: a missing phase receipt still makes the required nonprod
   assert.notEqual(result.summary.p15_1_through_14_unverified_count, undefined);
 });
 
-test("Task 4 integrity: automation never self-certifies owner-authorized or live phases", () => {
+test("Task 4 integrity: only recorded exact-candidate owner authorization opens P15.15, never automation", () => {
+  const authorization = "evidence/CURRENT_PRODUCTION_AUTHORIZATION.json";
+  const parked = `${authorization}.integrity-parked`;
+  renameSync(authorization, parked);
+  let withoutAuthorization;
+  try {
+    withoutAuthorization = runGate();
+  } finally {
+    renameSync(parked, authorization);
+  }
+
+  assert.equal(withoutAuthorization.summary.p15_15, "BLOCKED_OWNER_AUTHORIZATION", "P15.15 must never be self-certified by automation when no owner authorization is recorded");
+  assert.equal(withoutAuthorization.summary.p15_16, "BLOCKED_DEPENDENCY", "P15.16 must stay dependent on real owner authorization");
+
   const { status, summary } = runGate();
-  assert.equal(summary.p15_15, "BLOCKED_OWNER_AUTHORIZATION", "P15.15 must never be self-certified by automation");
-  assert.equal(summary.p15_16, "BLOCKED_DEPENDENCY", "P15.16 must stay dependent on real owner authorization");
+  assert.equal(summary.p15_15, "VERIFIED_COMPLETE", "a recorded exact-candidate owner authorization must be reflected by the gate");
+  assert.notEqual(summary.p15_16, "VERIFIED_COMPLETE", "P15.16 live verification must not be certified by the phase gate");
   // The gate must be green exactly when no P15.1-P15.14 phase is open, and red
   // otherwise. This keeps the invariant stable while P15.1 requalification is
   // pending after any bound evidence input changes.
