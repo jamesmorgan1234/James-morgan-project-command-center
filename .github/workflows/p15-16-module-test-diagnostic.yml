@@ -20,6 +20,8 @@ jobs:
         working-directory: clean-room
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 50
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22'
@@ -31,6 +33,8 @@ jobs:
         run: node scripts/p15-2-semantic-every-file-review.mjs --write
       - name: Build modules
         run: npm run build:modules
+      - name: Build browser
+        run: npm run build:browser
       - name: Run unchanged module suite and capture TAP
         id: tests
         shell: bash
