@@ -10,7 +10,7 @@ const DIST = join(ROOT, "dist");
 const OUT = join(ROOT, "dist-web");
 const APPROVED_ICON = join(PUBLIC, "assets", "command-center-approved-icon-512.png");
 const APPROVED_ICON_SHA256 = "fa48e34b6240ca37ad74492dec150cfebaed60aed404707f79b68b9b3157b7aa";
-const releaseId = (process.env.COMMAND_CENTER_RELEASE_ID || process.env.GITHUB_SHA || "local-unverified").trim();
+const releaseId = (process.env.COMMAND_CENTER_RELEASE_ID || process.env.GITHUB_SHA || process.env.VERCEL_GIT_COMMIT_SHA || "local-unverified").trim();
 const schemaCompatibility = "cc-runtime-snapshot-v1";
 const previewAcceptance = process.env.COMMAND_CENTER_PREVIEW_ACCEPTANCE === "1";
 const VALID_ENVIRONMENTS = new Set(["development", "test", "preview", "staging", "production"]);
