@@ -7,6 +7,7 @@ import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfa
 import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
+import { renderProjectAgencyControls, renderProjectRecordSection } from "./project-workspace-view.js";
 import { SPECIALIST_ARCHETYPES } from "../specialists/archetypes.js";
 import { projectArtwork } from "./project-art.js";
 import { runtimeBookCatalogForProject } from "../books/runtime-catalog.js";
@@ -387,7 +388,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     snapshotMetrics.append(metric);
   }
   hero.append(snapshotMetrics);
-  section.append(hero);
+  section.append(hero, renderProjectAgencyControls(project, snapshot, activeProvider, () => renderApplication()));
 
   const ownerInputs = bevelCard("project-detail-section core-project-section owner-inputs-section");
   ownerInputs.dataset.sectionKey = "project-section:owner-inputs";
@@ -418,16 +419,15 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     el("dt", undefined, "Readiness"), el("dd", undefined, readiness ? (readiness.ready ? "Ready with evidence" : "Not ready") : "N/A")
   );
   roadmap.append(roadmapFacts);
+  for (const unit of project.workspace?.roadmap ?? []) {
+    const row = el("article", "project-workspace-record");
+    row.append(el("strong", undefined, unit.title), el("p", "muted", `${unit.state ?? "unknown"} · ${unit.detail}`));
+    roadmap.append(row);
+  }
   section.append(roadmap);
 
-  section.append(coreProjectDetailCard("assets", "ASSETS", "No verified project asset summary is available in the current canonical runtime snapshot.", "unavailable"));
-  section.append(coreProjectDetailCard("decisions", "DECISIONS", "No verified project decision summary is available in the current canonical runtime snapshot.", "unavailable"));
-
-  const integrations = bevelCard("project-detail-section core-project-section integrations-row");
-  integrations.dataset.sectionKey = "project-section:integrations";
-  integrations.append(el("h3", "section-title", "INTEGRATIONS"), el("p", "muted", "Integration data unavailable in the current canonical runtime snapshot."), statusPill("UNAVAILABLE", "unavailable"));
-  if (project.specialistKey) integrations.append(el("p", "specialist-note", `Specialist extension: ${project.specialistKey}`));
-  section.append(integrations);
+  const release = snapshot.release.releaseId.state === "known" ? snapshot.release.releaseId.value : "";
+  section.append(renderProjectRecordSection(project, "assets", activeProvider, () => renderApplication(), release), renderProjectRecordSection(project, "decisions", activeProvider, () => renderApplication(), release), renderProjectRecordSection(project, "integrations", activeProvider, () => renderApplication(), release));
 
   const brainHref = projectContextHref("brain", project.id);
   const agencyHref = projectContextHref("agency", project.id);
@@ -491,7 +491,13 @@ function renderCanonicalSurface(snapshot: CommandCenterRuntimeSnapshot, key: str
   return section;
 }
 function renderBrain(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderBrainView(snapshot, activeProvider, () => renderApplication()); }
-function renderAgency(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderAgencyView(snapshot); }
+function renderAgency(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const view = renderAgencyView(snapshot);
+  const projectId = new URLSearchParams(window.location.search).get("project");
+  const project = snapshot.projects.find(candidate => candidate.id === projectId);
+  if (project) view.prepend(renderProjectAgencyControls(project, snapshot, activeProvider, () => renderApplication()));
+  return view;
+}
 function renderNeedsMe(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "needs-me", "Needs Me", "Owner-attention queue state is unavailable in the current canonical snapshot."); }
 function renderSearch(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "search", "Search", "Search runtime state is not configured in the current canonical snapshot. No search results are inferred."); }
 function renderAutomations(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "automations", "Automations", "Automation runtime state is not configured in the current canonical snapshot. No automation status is inferred."); }
@@ -520,7 +526,21 @@ function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement 
   for (const [key, archetype] of Object.entries(SPECIALIST_ARCHETYPES)) section.append(genericCard(key.replaceAll("_", " "), archetype.brainCapabilities.map(value => value.replaceAll("_", " ")).join(" · ")));
   return section;
 }
-function renderAnalytics(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "analytics", "Analytics", "Analytics runtime state is not configured in the current canonical snapshot."); }
+function renderAnalytics(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const projectId = new URLSearchParams(window.location.search).get("project");
+  if (!projectId) return renderCanonicalSurface(snapshot, "analytics", "Analytics", "Analytics records could not be loaded.");
+  const project = snapshot.projects.find(candidate => candidate.id === projectId);
+  const view = el("section", "screen analytics-screen");
+  if (!project) { view.append(emptyState("Project not found", "This project is not available in the current owner account.", "unavailable")); return view; }
+  view.append(genericCard(`${project.name} — Analytics`, "Saved metrics for this project only."));
+  const records = snapshot.surfaceRecords?.analytics?.filter(record => record.projectId === projectId) ?? [];
+  if (!records.length) {
+    const available = snapshot.surfaces.find(surface => surface.key === "analytics")?.summary.state === "known";
+    view.append(genericCard(available ? "No saved analytics yet" : "Analytics records could not be loaded", available ? "No project metrics have been recorded in the canonical analytics source." : "Refresh the project before relying on these metrics."));
+  }
+  for (const record of records) view.append(genericCard(record.title, `${record.detail}${record.observedAt ? ` · Recorded ${record.observedAt.slice(0, 10)}` : ""}`));
+  return view;
+}
 function renderSettings(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "settings", "Settings", "Settings runtime state is not configured in the current canonical snapshot."); }
 function renderSecuritySettings(): HTMLElement {
   const section = el("section", "screen-stack");

@@ -63,6 +63,23 @@ export interface RuntimeProjectSnapshot {
   readonly companyId?: TruthValue<string>;
   readonly detailSections?: readonly RuntimeProjectDetailSection[];
   readonly specialistKey?: string;
+  readonly workspace?: RuntimeProjectWorkspace;
+
+}
+
+export interface RuntimeProjectRecord {
+  readonly id: string; readonly title: string; readonly detail: string;
+  readonly sourceRef?: string; readonly observedAt?: string; readonly state?: string;
+}
+export interface RuntimeProjectWorkspace {
+  readonly sourceRef?: string;
+  readonly assets: readonly RuntimeProjectRecord[];
+  readonly decisions: readonly RuntimeProjectRecord[];
+  readonly integrations: readonly RuntimeProjectRecord[];
+  readonly roadmap: readonly RuntimeProjectRecord[];
+  readonly sourceAvailability: Readonly<Record<string, "available" | "unavailable">>;
+  readonly executorCount: number;
+  readonly startBlockers: readonly string[];
 }
 
 export interface RuntimeAgencyRunSnapshot {

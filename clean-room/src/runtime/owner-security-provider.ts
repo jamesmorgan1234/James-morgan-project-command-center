@@ -35,6 +35,17 @@ export interface BrainConversationRuntimeProvider {
   convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
 
+export interface ProjectWorkspaceRuntimeProvider {
+  saveProjectRecord(projectId: string, kind: "decision" | "asset_reference" | "integration_request", title: string, detail: string, url?: string, requestId?: string): Promise<string>;
+  createProjectAgencyRun(projectId: string, objective: string, requestId?: string): Promise<string>;
+  stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void>;
+}
+export function isProjectWorkspaceRuntimeProvider(value: unknown): value is ProjectWorkspaceRuntimeProvider {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<ProjectWorkspaceRuntimeProvider>;
+  return typeof candidate.saveProjectRecord === "function" && typeof candidate.createProjectAgencyRun === "function" && typeof candidate.stopProjectAgencyRun === "function";
+}
+
 export interface OwnerSecurityRuntimeProvider extends BrainConversationRuntimeProvider {
   signIn(email: string, password: string): Promise<void>;
   signOut(): Promise<void>;
@@ -271,6 +282,63 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       p_evidence_refs: evidenceRefs
     });
     return this.#scalarId(payload, "Improvement scope request");
+  }
+
+  async #assertProject(projectId: string): Promise<StoredOwnerSession> {
+    const session = this.#currentSession();
+    const rows = await this.#selectRows("command_center_project_profiles", session, "project_id,lifecycle", { project_id: `eq.${projectId}`, limit: "1" });
+    if (!rows.some(row => row.project_id === projectId)) throw new Error("Project is not available in this owner account");
+    return session;
+  }
+
+  async saveProjectRecord(projectId: string, kind: "decision" | "asset_reference" | "integration_request", title: string, detail: string, url?: string, requestId?: string): Promise<string> {
+    if (!["decision", "asset_reference", "integration_request"].includes(kind)) throw new Error("Unsupported project record");
+    if (!projectId.trim() || !title.trim() || title.trim().length > 500 || detail.length > 12000) throw new Error("A project and title are required; details must be under 12,000 characters");
+    if (url?.trim()) {
+      const parsed = new URL(url.trim());
+      if (parsed.protocol !== "https:" || parsed.username || parsed.password || [...parsed.searchParams.keys()].some(key => /token|secret|password|api.?key/i.test(key))) throw new Error("Use a secure reference URL without credentials or secret query parameters");
+    }
+    const session = await this.#assertProject(projectId);
+    const nonce = requestId ?? this.#randomId();
+    if (!/^[a-f0-9-]{36}$/i.test(nonce)) throw new Error("Invalid request identity");
+    const id = `${kind}:${nonce}`;
+    const existing = await this.#selectRows("command_center_canonical_entities", session, "entity_id,project_id,payload", { entity_id: `eq.${id}`, limit: "1" });
+    if (existing.length) {
+      const record = existing[0]!; const payload = isRecord(record.payload) ? record.payload : {};
+      if (record.project_id !== projectId || payload.title !== title.trim() || payload.body !== detail.trim() || (payload.url ?? "") !== (url?.trim() ?? "")) throw new Error("Request identity is already bound to different project content");
+      return id;
+    }
+    await this.#rpcPayload("command_center_canonical_create_entity", session.accessToken, {
+      p_entity_id: id, p_entity_type: kind, p_project_id: projectId, p_schema_version: 1,
+      p_payload: { title: title.trim(), body: detail.trim(), ...(url?.trim() ? { url: url.trim() } : {}), state: kind === "integration_request" ? "setup_requested" : "recorded", execution_authorized: false },
+      p_source_ref: `owner:project-workspace:${id}`
+    });
+    return id;
+  }
+
+  async createProjectAgencyRun(projectId: string, objective: string, requestId?: string): Promise<string> {
+    if (!projectId.trim() || !objective.trim() || objective.length > 4000) throw new Error("A project and objective under 4,000 characters are required");
+    const session = await this.#assertProject(projectId);
+    const nonce = requestId ?? this.#randomId();
+    if (!/^[a-f0-9-]{36}$/i.test(nonce)) throw new Error("Invalid request identity");
+    const runId = `agency-run:${nonce}`;
+    const existing = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id,objective", { run_id: `eq.${runId}`, limit: "1" });
+    if (existing.length) {
+      if (existing[0]!.project_id !== projectId || existing[0]!.objective !== objective.trim()) throw new Error("Request identity is already bound to a different run");
+      return runId;
+    }
+    const ref = `owner:prepare-agency-run:${runId}`;
+    await this.#rpcPayload("command_center_agency_create_run", session.accessToken, {
+      p_project_id: projectId, p_run_id: runId, p_objective: objective.trim(), p_control_mode: "manual_task", p_authorization_ref: ref, p_priority: 0, p_checkpoint_id: null, p_evidence_refs: [ref], p_created_at: new Date().toISOString()
+    });
+    return runId;
+  }
+
+  async stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {
+    const session = await this.#assertProject(projectId);
+    const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
+    if (!rows.some(row => row.run_id === runId && row.project_id === projectId)) throw new Error("Run is outside this project");
+    await this.#rpcPayload("command_center_agency_transition_run", session.accessToken, { p_run_id: runId, p_expected_generation: generation, p_to_state: "stopped", p_blocker: null, p_verification_refs: [], p_evidence_refs: [`owner:stop-run:${this.#randomId()}`], p_occurred_at: new Date().toISOString() });
   }
 
   async listOwnerPasskeys(): Promise<readonly SupabasePasskeyDescriptor[]> {

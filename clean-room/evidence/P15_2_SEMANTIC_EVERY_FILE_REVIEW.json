@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "395ac3fb70394c67448282f9395b8218fc5c483c",
+  "gitSha": "64800262b6dc6e7b3fd7f23e6c337b8f8ec9de4f",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2011,
-  "inventoryDigest": "6c3d330a2f611210065dc758be7c3cda099aa6c3cfa21869d9d746cbc8bd0f73",
+  "reviewedFileCount": 2014,
+  "inventoryDigest": "06b112e7a54b1df85aa50d90a3aeff3793647dd617ff53a10070b7d832731f6f",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2012,
-    "reviewedFileCount": 2011,
+    "trackedFileCount": 2015,
+    "reviewedFileCount": 2014,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -48,10 +48,10 @@
       "EVID": 195,
       "APUB": 14,
       "SCRP": 137,
-      "ASRC": 339,
-      "TEST": 445,
+      "ASRC": 340,
+      "TEST": 446,
       "RDMAP": 290,
-      "SBAS": 230,
+      "SBAS": 231,
       "HTST": 43
     },
     "defectCount": 0,
@@ -717,14 +717,14 @@
     },
     {
       "directory": "clean-room/src",
-      "fileCount": 339,
+      "fileCount": 340,
       "roles": [
         "ASRC"
       ]
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 445,
+      "fileCount": 446,
       "roles": [
         "TEST"
       ]
@@ -1781,7 +1781,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 226,
+      "fileCount": 227,
       "roles": [
         "SBAS"
       ]
@@ -4835,7 +4835,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "e7affb3e2090bec96d258158afbffd339244fbde9e79086736f3768d6f6f65c9",
+      "sha256": "f2ebde7e9c753048830af77085f0e068384fdecfb9d60105af0ed8539c6cfd5d",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -5006,8 +5006,8 @@
       "path": "clean-room/public/project-system.css",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "236dac406ec6c37e138a61982062a146d29a9bd204aec5b5b7535b3594c8920b",
-      "bytes": 4583,
+      "sha256": "2ae53c5ddd8fdab57d21a6c8ce26bc5c9d5ab775f78c43b2aed337588755fa1d",
+      "bytes": 5388,
       "contentKind": "text",
       "findings": []
     },
@@ -5015,8 +5015,8 @@
       "path": "clean-room/public/sw.js",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "b84145b12ba45f39778533da52d58e13c012b033484b62f1aa8f809c723bf628",
-      "bytes": 9856,
+      "sha256": "4142425419c3b83a7eb5174038dc05c0d7df7c828f9d524a454964ac4f7fc364",
+      "bytes": 9898,
       "contentKind": "text",
       "findings": []
     },
@@ -8489,8 +8489,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "10b8f209735e58164a8a49e7a64108625b70a6b54d9a5b1fee5fc11d94cbc767",
-      "bytes": 43499,
+      "sha256": "78914c501fb87f500df1feb77eeb719688b8a45745e2a2d0a65d2752690d0b98",
+      "bytes": 44964,
       "contentKind": "text",
       "findings": []
     },
@@ -8534,8 +8534,8 @@
       "path": "clean-room/src/runtime/owner-security-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "75e9127aff9ea0742bd5f13c0a1f0ae342f3125d381fd055d449cc4954fde181",
-      "bytes": 34368,
+      "sha256": "7024b281cf691e7a443d03c1fef026741c7859201f688c31327386e9b9e3aa33",
+      "bytes": 39783,
       "contentKind": "text",
       "findings": []
     },
@@ -8572,6 +8572,15 @@
       "disposition": "retain-active",
       "sha256": "205231e26d0c115d32032deef6096b8c50ebf5f58bd0bd106afe4c3e53d51439",
       "bytes": 7275,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/src/runtime/project-workspace-view.ts",
+      "role": "ASRC",
+      "disposition": "retain-active",
+      "sha256": "13d68ab085cdf45d3f46c358cccac328a1831faff6c0c0527aa81a9cd9570ca6",
+      "bytes": 8664,
       "contentKind": "text",
       "findings": []
     },
@@ -8615,8 +8624,8 @@
       "path": "clean-room/src/runtime/snapshot.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "f458fe4a2e06b78c7128412cfbde5784427477c9a1e04fc019c19f45e19eac91",
-      "bytes": 10298,
+      "sha256": "12079443e2baf7159b0e88f5f1dfa4b401545da9d3fe0f4a2a94aa5b1ca9dbcc",
+      "bytes": 11007,
       "contentKind": "text",
       "findings": []
     },
@@ -8633,8 +8642,8 @@
       "path": "clean-room/src/runtime/supabase-owner-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "1b0b74062a7f2119f8a1533aa993480d5706ae21e066ed547b308caa2d4714cd",
-      "bytes": 36584,
+      "sha256": "2f758ca4cbd7fd575f756de02478c216c116cdddc140e3fc3389242d2a8a8c37",
+      "bytes": 41169,
       "contentKind": "text",
       "findings": []
     },
@@ -13042,6 +13051,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/project-workspace-runtime.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "0b8ba5c0dac7cd613662bdcdcce5d65a9e19c3bc06d5ce66523f0be1d1f1761f",
+      "bytes": 4563,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/projects-foundation.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
@@ -13198,8 +13216,8 @@
       "path": "clean-room/tests/supabase-runtime-provider.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "e76555553d4864b2c867c42e0a4c54f19616bbf32cdce05fbdee7a3e78a72cd4",
-      "bytes": 13946,
+      "sha256": "2b8554af6179554740e0f1b1996ab4d73120f860b8d0c8567a1b336071f1b344",
+      "bytes": 14449,
       "contentKind": "text",
       "findings": []
     },
@@ -19884,6 +19902,15 @@
       "disposition": "retain-active",
       "sha256": "f1b351032cc5f8d8226519fbf023e3ce610f673487e6c360119158f34bdbbdae",
       "bytes": 96149,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261103072724_project_workspace_runtime_alignment.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "592613dd9fd8d6c06b22fd1361f2b6a016aa19bac5ff8d326dfa4f3f49216128",
+      "bytes": 1144,
       "contentKind": "text",
       "findings": []
     },

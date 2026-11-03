@@ -149,7 +149,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       // Absence of this migrated source fails closed instead of silently falling back to cc7_projects.
       const projects = await this.#queryRows(
         "command_center_project_profiles",
-        "project_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,version,updated_at",
+        "project_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,version,source_ref,updated_at",
         session,
         { order: "name.asc" }
       );
@@ -160,7 +160,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, financialMetrics, connections, specialistBrains] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
@@ -182,7 +182,10 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at", { order: "catalogue_order.asc", limit: "500" }),
         safe("finance", "analytics_project_kpis", "project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,observed_at", { or: "(metric_key.ilike.*revenue*,metric_key.ilike.*sales*,metric_key.ilike.*balance*,metric_key.ilike.*income*)", order: "project_id.asc,observed_at.desc", limit: "500" }),
         safe("social", "integration_connections", "id,project_id,provider_key,provider_label,status,last_success_at", { archived_at: "is.null", order: "project_id.asc", limit: "500" }),
-        safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,updated_at", { order: "brain_key.asc", limit: "500" })
+        safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,updated_at", { order: "brain_key.asc", limit: "500" }),
+        safe("project-assets", "command_center_assets", "asset_id,project_id,name,sensitivity,original_state,approval_state,source_ref,updated_at", { sensitivity: "neq.secret", order: "updated_at.desc", limit: "1000" }),
+        safe("project-records", "command_center_canonical_entities", "entity_id,entity_type,project_id,payload,updated_at", { entity_type: "in.(decision,integration_request,asset_reference)", deleted_at: "is.null", order: "updated_at.desc", limit: "1000" }),
+        safe("executors", "command_center_agency_executors", "executor_key,enabled,cost_class,health,project_type_keys,capabilities,environments,retired_at", { retired_at: "is.null", order: "executor_key.asc", limit: "200" })
       ]);
 
       // Availability is tracked per source. A failed optional source must not
@@ -236,11 +239,35 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         owner: Object.freeze({ displayName: unknown<string>() }),
         books: Object.freeze(bookCatalogue.map(row => Object.freeze({ id: text(row.book_id)!, title: text(row.title)!, author: text(row.author_name) ?? "James Morgan", ...(numeric(row.cover_slot) !== undefined ? { coverSlot: numeric(row.cover_slot)! } : {}), coverApproved: row.cover_approved === true }))),
         surfaceRecords: Object.freeze({
+          analytics: Object.freeze(kpis.map(row => Object.freeze({ id: text(row.id)!, projectId: text(row.project_id) ?? "", title: text(row.label) ?? text(row.metric_key) ?? "Metric", detail: `${row.verified === true ? "Verified" : "Recorded"}: ${numeric(row.value_numeric) ?? text(row.value_text) ?? "N/A"} ${text(row.unit) ?? ""}`, observedAt: text(row.observed_at)! }))),
           finance: Object.freeze(financialMetrics.map(row => Object.freeze({ id: `${row.project_id}:${row.metric_key}`, projectId: text(row.project_id)!, title: text(row.label) ?? text(row.metric_key)!, detail: `${row.verified === true ? "Verified" : "Unverified"}: ${numeric(row.value_numeric) ?? text(row.value_text) ?? "Not recorded"} ${text(row.currency) ?? text(row.unit) ?? ""}`, observedAt: text(row.observed_at)! }))),
           social: Object.freeze(connections.map(row => Object.freeze({ id: text(row.id)!, projectId: text(row.project_id)!, title: text(row.provider_label) ?? text(row.provider_key)!, detail: text(row.status) ?? "Not connected", ...(text(row.last_success_at) ? { observedAt: text(row.last_success_at)! } : {}) }))),
           specialists: Object.freeze(specialistBrains.map(row => Object.freeze({ id: text(row.brain_key)!, ...(text(row.project_id) ? { projectId: text(row.project_id)! } : {}), title: text(row.brain_key)!, detail: `${row.enabled === true ? "Enabled" : "Disabled"} · ${text(row.scope)} · ${textArray(row.capabilities).join(", ")}`, observedAt: text(row.updated_at)! })))
         }),
-        projects: Object.freeze(projectSnapshots),
+        projects: Object.freeze(projectSnapshots.map(project => {
+          const profile = projects.find(row => row.project_id === project.id);
+          const entities = workspaceEntities.filter(row => row.project_id === project.id);
+          const records = (kind: string) => Object.freeze(entities.filter(row => row.entity_type === kind).map(row => {
+            const payload = isRecord(row.payload) ? row.payload : {};
+            return Object.freeze({ id: text(row.entity_id)!, title: text(payload.title) ?? text(payload.name) ?? text(payload.provider) ?? "Saved record", detail: text(payload.body) ?? text(payload.detail) ?? "", ...(text(payload.url) ? { sourceRef: text(payload.url)! } : {}), state: text(payload.state) ?? "recorded", observedAt: text(row.updated_at)! });
+          }));
+          const eligible = executors.filter(row => row.enabled === true && row.cost_class === "free" && ["available", "degraded"].includes(text(row.health) ?? "") && (textArray(row.project_type_keys).length === 0 || textArray(row.project_type_keys).includes(project.typeKey?.state === "known" ? project.typeKey.value : "")));
+          const currentRoadmap = roadmaps.find(row => row.project_id === project.id && row.state === "current");
+          const currentUnits = workUnits.filter(row => row.project_id === project.id && numeric(row.roadmap_version) === numeric(currentRoadmap?.version));
+          const blockers: string[] = [];
+          if (currentUnits.length === 0) blockers.push("This project has a business plan, but no executable work steps have been registered yet.");
+          if (currentRoadmap?.structure_verified !== true) blockers.push("The executable roadmap has not passed its structure/readiness checks.");
+          if (eligible.length === 0) blockers.push("No verified free execution worker is connected for this project type.");
+          return Object.freeze({ ...project, workspace: Object.freeze({
+            ...(text(profile?.source_ref) ? { sourceRef: text(profile?.source_ref)! } : {}),
+            assets: Object.freeze([...assets.filter(row => row.project_id === project.id).map(row => Object.freeze({ id: text(row.asset_id)!, title: text(row.name)!, detail: `${text(row.original_state)} · ${text(row.approval_state)}`, sourceRef: text(row.source_ref)!, observedAt: text(row.updated_at)! })), ...records("asset_reference")]),
+            decisions: records("decision"),
+            integrations: Object.freeze([...connections.filter(row => row.project_id === project.id).map(row => Object.freeze({ id: text(row.id)!, title: text(row.provider_label) ?? text(row.provider_key)!, detail: text(row.status) ?? "Not connected", state: text(row.status) ?? "unknown" })), ...records("integration_request")]),
+            roadmap: Object.freeze(currentUnits.map(row => Object.freeze({ id: text(row.work_unit_id)!, title: text(row.title)!, detail: textArray(row.acceptance_criteria).join(" · "), state: text(row.status) ?? "planned" }))),
+            sourceAvailability: Object.freeze({ assets: optionalErrors.has("project-assets") ? "unavailable" as const : "available" as const, records: optionalErrors.has("project-records") ? "unavailable" as const : "available" as const, integrations: optionalErrors.has("social") ? "unavailable" as const : "available" as const, executors: optionalErrors.has("executors") ? "unavailable" as const : "available" as const }),
+            executorCount: eligible.length, startBlockers: Object.freeze(blockers)
+          }) });
+        })),
         surfaces: Object.freeze(surfaceSnapshots),
         sources,
         agency,
