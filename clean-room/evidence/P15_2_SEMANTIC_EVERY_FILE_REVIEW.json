@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "8532b17378ef4e15b8854dc22fc57001bc07d097",
+  "gitSha": "db5fe9ca2a68e2e843687d515acc451a56323141",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2076,
-  "inventoryDigest": "eaffa0a93ba47fa45d2c497e9ececb5e28f8b32cc4dd7f2c514ad3fe31a3f856",
+  "inventoryDigest": "7bd27c0e39dcd0035f153ec361ab9555d64fc2f1f52524f9506340a4b87743d2",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -4860,7 +4860,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "8c4b3b3a31a82eebcc9469c20d5265be237ef9df00f84c98390666117f9f6cba",
+      "sha256": "b59a075d5595747d77b606f8b1f1cafcd034c141694ca6e439496906b1cfa819",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -8550,8 +8550,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "3c2f28f240a73d9020920678c2098743f404f3a35b9c1febebebad2f6708e0b3",
-      "bytes": 50003,
+      "sha256": "24a9c68c1399c2c6d156dd994a5f85977bff4c422f5ef3fe4db14f9c39b88eb4",
+      "bytes": 50135,
       "contentKind": "text",
       "findings": []
     },

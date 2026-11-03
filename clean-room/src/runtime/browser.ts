@@ -478,7 +478,10 @@ function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   for (const module of grid.modules) {
     const card = genericCard(module.title, module.supportingText, undefined, module.route);
     card.classList.add("home-primary-card");
-    if (module.verifiedCount !== undefined) card.dataset.verifiedCount = String(module.verifiedCount);
+    if (module.verifiedCount !== undefined) {
+      card.dataset.verifiedCount = String(module.verifiedCount);
+      card.querySelector(".card-heading")?.append(el("strong", "project-group-count", String(module.verifiedCount)));
+    }
     section.append(card);
   }
   return section;
