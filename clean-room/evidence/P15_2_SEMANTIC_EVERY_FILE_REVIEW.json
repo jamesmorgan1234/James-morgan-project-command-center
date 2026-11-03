@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "a6a4a24d30c6c1c9ebb8dfdf69b9b89265165877",
+  "gitSha": "649b8c26457a3ee8870780b00d4ce05525ed8775",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2007,
-  "inventoryDigest": "d60b8cdc9cf6ee8e3ef0921609839680f99a1109249d343fd9d402dc2a2a06c0",
+  "inventoryDigest": "4f43a19f4b3e82aecfe23cd465063ede21b97237698ee39a369d867083e157e7",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -2246,8 +2246,8 @@
       "path": ".github/workflows/spec-lock-v2-clean-room-qa.yml",
       "role": "CIWF",
       "disposition": "retain-active",
-      "sha256": "1abffbf58c5bf112cf34ec064269112b921510a0dcb62099dce8cf5216e2f49f",
-      "bytes": 5325,
+      "sha256": "f629757142dc3faa9ea26f04a8a5ab49408f2ddb46fbdac66bd986bff3157140",
+      "bytes": 5471,
       "contentKind": "text",
       "findings": []
     },
@@ -4763,7 +4763,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "0e8ea926529396460724bb09b426c0b4e78cecb59ce4321d70e971637fe6094f",
+      "sha256": "901df9ae85725ee3243e6176e0bea55aa62683eee58cec7a94b0f22a4a3127f6",
       "bytes": 13193656,
       "contentKind": "text",
       "findings": []
@@ -11441,8 +11441,8 @@
       "path": "clean-room/tests/p10-2-connection-hardening.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "57658ffc6eb3c731c0eb89c8b90b80667f6a772bb10dbb8d89b8e8d967a99a8d",
-      "bytes": 3451,
+      "sha256": "79e943af399ef23d14c04cf1c652f350e088960a3536c6a76d5917507c940396",
+      "bytes": 3539,
       "contentKind": "text",
       "findings": []
     },
