@@ -480,7 +480,7 @@ function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     card.classList.add("home-primary-card");
     if (module.verifiedCount !== undefined) {
       card.dataset.verifiedCount = String(module.verifiedCount);
-      card.querySelector(".card-heading")?.append(el("strong", "project-group-count", String(module.verifiedCount)));
+      if (module.key !== "projects") card.querySelector(".card-heading")?.append(el("strong", "project-group-count", String(module.verifiedCount)));
     }
     section.append(card);
   }

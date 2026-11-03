@@ -7,7 +7,7 @@ test('home count includes each individual book and grows from loaded records', (
  const base = createFixtureRuntimeSnapshot();
  const snapshot = {...base, projects:Array.from({length:146},(_,i)=>({id:`p${i}`})), books:Array.from({length:43},(_,i)=>({id:`b${i}`}))};
  assert.equal(projectCountCell(snapshot).verifiedCount,189);
- assert.match(projectCountCell(snapshot).supportingText,/146 project records \+ 43 individual books/);
+ assert.equal(projectCountCell(snapshot).supportingText,'189 projects');
  assert.equal(projectCountCell({...snapshot,books:[...snapshot.books,{id:'new-book'}]}).verifiedCount,190);
  assert.equal(projectCountCell({...snapshot,projects:[...snapshot.projects,{id:'new-project'}]}).verifiedCount,190);
 });

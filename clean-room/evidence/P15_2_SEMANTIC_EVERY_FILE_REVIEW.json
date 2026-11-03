@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "db5fe9ca2a68e2e843687d515acc451a56323141",
+  "gitSha": "0fdaa0a21e5080389faa012ffb99dabc2672b59d",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2076,
-  "inventoryDigest": "7bd27c0e39dcd0035f153ec361ab9555d64fc2f1f52524f9506340a4b87743d2",
+  "reviewedFileCount": 2077,
+  "inventoryDigest": "042f3514e6de952727f10cd33565f93fb6f7ec73a15341e248e069bf2bc638a1",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2077,
-    "reviewedFileCount": 2076,
+    "trackedFileCount": 2078,
+    "reviewedFileCount": 2077,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -46,7 +46,7 @@
       "CONF": 6,
       "ASRV": 1,
       "EVID": 197,
-      "APUB": 14,
+      "APUB": 15,
       "SCRP": 139,
       "ASRC": 342,
       "TEST": 452,
@@ -703,7 +703,7 @@
     },
     {
       "directory": "clean-room/public",
-      "fileCount": 14,
+      "fileCount": 15,
       "roles": [
         "APUB"
       ]
@@ -4860,7 +4860,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "b59a075d5595747d77b606f8b1f1cafcd034c141694ca6e439496906b1cfa819",
+      "sha256": "6119478048dadcc12fe0220220bbc1b4193a5b162ba10c38bee34022a9242cb1",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -4997,6 +4997,15 @@
       "disposition": "retain-active",
       "sha256": "a8fb38b7d45c916a6bcb9a7409e10644ec8bf0574396e9049db3c6d30243e33d",
       "bytes": 312,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/public/mobile-layout-check.html",
+      "role": "APUB",
+      "disposition": "retain-active",
+      "sha256": "04d1a66e13df71b83031696dfe58525462d19faf235b8a5fe7e5dce9c35442c0",
+      "bytes": 1468,
       "contentKind": "text",
       "findings": []
     },
@@ -8550,8 +8559,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "24a9c68c1399c2c6d156dd994a5f85977bff4c422f5ef3fe4db14f9c39b88eb4",
-      "bytes": 50135,
+      "sha256": "d4f4eafddb087f16baac4c0c83734529b950b3ab842c4d840a4c606b942316e4",
+      "bytes": 50166,
       "contentKind": "text",
       "findings": []
     },
@@ -8559,8 +8568,8 @@
       "path": "clean-room/src/runtime/home-modules.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "2a96bb0ca580288d4d8025e5cb441100bf56a20ace0519a99ad7182069ccefe8",
-      "bytes": 4209,
+      "sha256": "f71cb40bce718ad8331bb122acec5fd0eb470cd03aa1c0ff771cc5bf9a894dd8",
+      "bytes": 4177,
       "contentKind": "text",
       "findings": []
     },
@@ -13115,8 +13124,8 @@
       "path": "clean-room/tests/portfolio-counts.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "fb7bf50a67d4771dcaee6fce45af686586fa41b5e8e9987954fa95636f3fc1dc",
-      "bytes": 1258,
+      "sha256": "8d4bde4a62b13ea7428295a3d5d9f89ddcc52e7c8a7c8d8dd56404f57bc56159",
+      "bytes": 1228,
       "contentKind": "text",
       "findings": []
     },

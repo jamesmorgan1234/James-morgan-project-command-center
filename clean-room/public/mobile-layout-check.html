@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Command Center mobile layout verification</title>
+<style>body{margin:16px;font:16px system-ui;background:#eee;color:#111}label{display:inline-block;margin:0 12px 12px 0}iframe{display:block;border:1px solid #777;height:850px;max-width:none}select{font:inherit;padding:6px}</style>
+<h1>Mobile layout verification</h1>
+<p>The frame renders the live application at the selected phone width. Existing owner authentication still applies.</p>
+<label>Phone width <select id="width"><option>320</option><option>360</option><option selected>390</option><option>412</option><option>430</option></select></label>
+<label>Screen <select id="route"><option value="/">Home</option><option value="/projects">Projects</option><option value="/brain">Brain</option><option value="/agency">Agency</option><option value="/next-up">Next Up</option><option value="/books">Books</option><option value="/settings">Settings</option></select></label>
+<iframe title="Live phone layout" width="390" src="/"></iframe>
+<script>
+const frame = document.querySelector('iframe');
+document.querySelector('#width').addEventListener('change', event => { frame.width = event.target.value; });
+document.querySelector('#route').addEventListener('change', event => { frame.src = event.target.value; });
+</script>
+</html>
