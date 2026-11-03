@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "43e3f331bf14842991f2817965331c98ac4d6f2c",
+  "gitSha": "055b9dd7662c9ece73e393f604a81ff76227bb6c",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2026,
-  "inventoryDigest": "0f1fb1165416b41d78a9d9843ba005fcf019580793f14a6281f4c4788137a99b",
+  "reviewedFileCount": 2028,
+  "inventoryDigest": "2989eccf8ff63150afb24983b0f1ed034c303b0991341ac92ca197feeb579126",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2027,
-    "reviewedFileCount": 2026,
+    "trackedFileCount": 2029,
+    "reviewedFileCount": 2028,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -49,14 +49,14 @@
       "APUB": 14,
       "SCRP": 138,
       "ASRC": 342,
-      "TEST": 450,
+      "TEST": 451,
       "RDMAP": 290,
-      "SBAS": 235,
+      "SBAS": 236,
       "HTST": 43
     },
     "defectCount": 0,
     "noticeCount": 11,
-    "directoryCount": 289
+    "directoryCount": 290
   },
   "repairs": [
     {
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 450,
+      "fileCount": 451,
       "roles": [
         "TEST"
       ]
@@ -1782,6 +1782,13 @@
     {
       "directory": "supabase/migrations",
       "fileCount": 231,
+      "roles": [
+        "SBAS"
+      ]
+    },
+    {
+      "directory": "supabase/seeds",
+      "fileCount": 1,
       "roles": [
         "SBAS"
       ]
@@ -4484,8 +4491,8 @@
       "path": "clean-room/evidence/PROJECT_STATUS_SOURCE_AUDIT_2026_11_03.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "32c5a09b15692e5a7423c7e1dd526835b75f2ecd4040bef1edacb0145bfb72d4",
-      "bytes": 1079,
+      "sha256": "b33279e7d310143ff970ea08f57d06ea1d91b7bca0706f5e2c4593c229284f57",
+      "bytes": 1785,
       "contentKind": "text",
       "findings": []
     },
@@ -4844,7 +4851,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "060c4ecd537dd008cf2195b344593853358d3a05869bf521b6671f4130237cc6",
+      "sha256": "80ed107e71f99f2db487baa10a92bcedbd2ce68fdd59607eab31ccb1c7a8652d",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -8525,8 +8532,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "e0ebecb399970f8a037c68e09e75c5583c80c3baf118ea6626b3f83cf35f8cc6",
-      "bytes": 49009,
+      "sha256": "f00ec008b3c0b809903967f523f227f0188de643af4a94341fc0d61ba3b4f87a",
+      "bytes": 49650,
       "contentKind": "text",
       "findings": []
     },
@@ -8534,8 +8541,8 @@
       "path": "clean-room/src/runtime/home-modules.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "37d9880311535bb31288469284c5742e8df4245b69ca74c748a25009d70998f4",
-      "bytes": 4021,
+      "sha256": "2a96bb0ca580288d4d8025e5cb441100bf56a20ace0519a99ad7182069ccefe8",
+      "bytes": 4209,
       "contentKind": "text",
       "findings": []
     },
@@ -8678,8 +8685,8 @@
       "path": "clean-room/src/runtime/supabase-owner-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "3764a6eed71c03bc5dc99cfe59bcdeac401cd385281ad1503ac8c4858a4c7767",
-      "bytes": 43122,
+      "sha256": "d344c514b72b889669e53df2296d8ad5835efd00951bca1f3c5444c834c19df2",
+      "bytes": 43472,
       "contentKind": "text",
       "findings": []
     },
@@ -13078,6 +13085,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/portfolio-counts.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "fb7bf50a67d4771dcaee6fce45af686586fa41b5e8e9987954fa95636f3fc1dc",
+      "bytes": 1258,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/portfolio-progress-order.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
@@ -13117,8 +13133,8 @@
       "path": "clean-room/tests/project-status-database.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "1198f64b1d37a63122d15284138c6fed7e8804f457dbd9c840f8f55791a80c05",
-      "bytes": 5829,
+      "sha256": "83e0b48a197f36ce87052e1edefa7e96f95bbe4d5fd0a4896d281dfd55fb5a3a",
+      "bytes": 7932,
       "contentKind": "text",
       "findings": []
     },
@@ -20019,6 +20035,15 @@
       "disposition": "retain-active",
       "sha256": "6f79940b4d6a2958cc0ac78f07c6897b05653ecb185d9d2cd555387fe1d25c8a",
       "bytes": 1328,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/seeds/project_roadmap_readiness_reconciliation.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "85cd2c5e0578b3c60417ad8a0496e4373183c1982abbdff8382552625dc64413",
+      "bytes": 5143,
       "contentKind": "text",
       "findings": []
     },

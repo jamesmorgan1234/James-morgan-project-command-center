@@ -21,7 +21,9 @@ function sourceUnavailable(snapshot: CommandCenterRuntimeSnapshot, sourceKey: st
 
 export function projectCountCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
   if (sourceUnavailable(snapshot, "projects")) return Object.freeze({ supportingText: "Project count unavailable: the canonical project profile source did not load." });
-  return Object.freeze({ verifiedCount: snapshot.projects.length, supportingText: `${snapshot.projects.length} canonical project record${snapshot.projects.length === 1 ? "" : "s"} loaded.` });
+  if (sourceUnavailable(snapshot, "book-catalogue")) return Object.freeze({ supportingText: "Combined project count unavailable: the book catalogue did not load." });
+  const books = snapshot.books?.length ?? 0;
+  return Object.freeze({ verifiedCount: snapshot.projects.length + books, supportingText: `${snapshot.projects.length} project records + ${books} individual books.` });
 }
 
 function verifiedRuntimeCount(snapshot: CommandCenterRuntimeSnapshot, count: number, label: string, unavailable: string, sourceKey: string): HomeCell {

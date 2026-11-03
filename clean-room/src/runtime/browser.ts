@@ -155,12 +155,13 @@ function emptyState(title: string, body: string, status: string): HTMLElement {
   return card;
 }
 
-function renderPortfolioSummary(snapshot: CommandCenterRuntimeSnapshot, displayedCount = snapshot.projects.length): HTMLElement {
+function renderPortfolioSummary(snapshot: CommandCenterRuntimeSnapshot, displayedCount = snapshot.projects.length, bookTab = false): HTMLElement {
   const card = bevelCard("portfolio-summary");
   card.append(projectIcon());
   const count = el("div", "portfolio-count");
-  count.append(el("strong", undefined, String(snapshot.projects.length)), el("span", undefined, "TOTAL PROJECTS"));
-  const summary = displayedCount === snapshot.projects.length ? "Canonical project profiles loaded" : `${displayedCount} shown · ${snapshot.projects.length} canonical total`;
+  const total = bookTab ? snapshot.books?.length ?? 0 : snapshot.projects.length;
+  count.append(el("strong", undefined, String(total)), el("span", undefined, bookTab ? "TOTAL BOOKS" : "TOTAL PROJECTS"));
+  const summary = bookTab ? `${total} individual titles · ${displayedCount} book and series project groups shown` : displayedCount === total ? "Canonical project profiles loaded" : `${displayedCount} shown · ${total} canonical total`;
   card.append(count, el("div", "portfolio-breakdown", summary), artPanel());
   return card;
 }
@@ -253,7 +254,7 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   }
   section.append(tabs);
   if (bookTab) section.append(routeLink(`All ${snapshot.books?.length ?? 0} individual books and publication states`, "/books", "cc-button"));
-  section.append(renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
+  section.append(renderPortfolioSummary(snapshot, filtered.length, bookTab), renderProjectControls(snapshot, filter));
   section.append(el("p", "muted project-order-note", "Highest completion first. Last-recorded percentages show their observation date; projects without a verified percentage follow."));
   if (filtered.length === 0) {
     section.append(emptyState("No matching projects", "The canonical project registry is loaded, but no project matches the current filters. Reset the filters to show the full portfolio.", "available"));
@@ -322,8 +323,11 @@ function renderNextRow(project: RuntimeProjectSnapshot): HTMLElement {
   const row = bevelRouteCard(projectHref(project), "next-row project-navigation-card", `Open ${project.name}`);
   const text = el("div", "next-row__text");
   const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
-  const action = project.nextAction.state === "known" ? project.nextAction.value : readiness?.title ?? "N/A";
-  text.append(projectTitle(project), statusPill("READY", "ready"), el("p", "next-action", action));
+  const action = readiness?.title ?? (project.nextAction.state === "known" ? project.nextAction.value : "N/A");
+  const review = readiness?.workUnitId.endsWith(":01-reconcile-existing-roadmap") === true;
+  text.append(projectTitle(project), statusPill(review ? "REVIEW NEXT" : "READY", "ready"), el("p", "next-action", action));
+  text.append(el("p", "sync-note", review ? "Existing checkpoint preserved · roadmap and Brain evidence reconciliation is next" : "Verified roadmap structure and next-step prerequisites"));
+  if (readiness) text.append(el("p", "sync-note", `${readiness.evidence.length} next-step evidence references · execution resource checked separately`));
   row.append(projectIcon(), text, artPanel(project));
   return row;
 }

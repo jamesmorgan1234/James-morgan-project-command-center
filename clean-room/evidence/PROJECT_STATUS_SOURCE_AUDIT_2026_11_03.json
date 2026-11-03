@@ -5,6 +5,14 @@
   "plannedCompanyCount": 107,
   "originalProjectCount": 39,
   "preparationUnitCount": 214,
+  "originalProjectReconciliationUnitCount": 78,
+  "projectsWithValidNextStepGraph": 146,
+  "homeProjectAndBookTotal": 189,
+  "originalProjectFullRoadmapReconciliationPending": 39,
+  "recoveredSourceArchives": {
+    "loopwren": ["library:libfile_e85485de9a108191b09578442024ab10", "library:libfile_fee6323a5a6c81919e929f88a03f344d"],
+    "crowdskein": ["library:libfile_44704f4b55108191be13b0fffbd960ee", "library:libfile_6eb76104e1108191986ead3884e03b28"]
+  },
   "registeredAIProviders": 0,
   "unmeasuredProductionCount": 21,
   "registeredExecutionWorkers": 0,
@@ -19,11 +27,12 @@
   "plannedCompaniesWithValidPreparationGraph": 107,
   "reviewedAt": "2026-11-03",
   "sourceBranch": "build/spec-lock-v2-clean-room",
-  "scope": "Project/book status reconciliation and missing planned-company preparation",
+  "scope": "Project/book counts, original-project roadmap evidence reconciliation, status reconciliation and planned-company preparation",
   "limitations": [
     "Saved checkpoints are not fresh execution or platform proofs.",
     "No percentage inferred from a recovered label, absent value, near-completion description, approved cover, or preparation-only graph.",
     "Five original source checkpoints remain unrecovered.",
+    "Original-project next-step graphs start with existing-roadmap and Brain evidence reconciliation; structural validity does not mean the complete historic roadmap is recovered or certified.",
     "Unattended AI/Agency execution remains unavailable without an authenticated provider and real worker."
   ]
 }

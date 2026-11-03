@@ -204,7 +204,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         analytics: optionalErrors.has("analytics") ? "unavailable" as const : "available" as const,
         personal: optionalErrors.has("personal") ? "unavailable" as const : "available" as const,
         automations: optionalErrors.has("automations") ? "unavailable" as const : "available" as const,
-        books: optionalErrors.has("books") ? "unavailable" as const : "available" as const
+        books: optionalErrors.has("books") ? "unavailable" as const : "available" as const,
+        "book-catalogue": optionalErrors.has("book-catalogue") ? "unavailable" as const : "available" as const
       });
       const agency = buildRuntimeAgencySnapshot({ runs: agencyRuns, jobs: agencyJobs, tasks: agencyTasks, observedAt, unavailable: optionalErrors.has("agency") });
       const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available", recordedProgress);
@@ -271,7 +272,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
             assets: Object.freeze([...assets.filter(row => row.project_id === project.id).map(row => Object.freeze({ id: text(row.asset_id)!, title: text(row.name)!, detail: `${text(row.original_state)} · ${text(row.approval_state)}`, sourceRef: text(row.source_ref)!, observedAt: text(row.updated_at)! })), ...records("asset_reference")]),
             decisions: records("decision"),
             integrations: Object.freeze([...connections.filter(row => row.project_id === project.id).map(row => Object.freeze({ id: text(row.id)!, title: text(row.provider_label) ?? text(row.provider_key)!, detail: text(row.status) ?? "Not connected", state: text(row.status) ?? "unknown" })), ...records("integration_request")]),
-            roadmap: Object.freeze(currentUnits.map(row => Object.freeze({ id: text(row.work_unit_id)!, title: text(row.title)!, detail: textArray(row.acceptance_criteria).join(" · "), state: text(row.status) ?? "planned" }))),
+            roadmap: Object.freeze(currentUnits.map(row => Object.freeze({ id: text(row.work_unit_id)!, title: text(row.title)!, detail: [...textArray(row.acceptance_criteria), ...textArray(row.evidence_refs).map(ref => `Evidence: ${ref}`)].join(" · "), state: text(row.status) ?? "planned" }))),
             sourceAvailability: Object.freeze({ assets: optionalErrors.has("project-assets") ? "unavailable" as const : "available" as const, records: optionalErrors.has("project-records") ? "unavailable" as const : "available" as const, integrations: optionalErrors.has("social") ? "unavailable" as const : "available" as const, executors: optionalErrors.has("executors") ? "unavailable" as const : "available" as const }),
             executorCount: eligible.length, startBlockers: Object.freeze(blockers)
           }) });
@@ -468,7 +469,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
             ready: true as const,
             title: readyTitle,
             priorityRank,
-            evidence: evidence("supabase:command_center_project_work_units", readyObservedAt, `${id}:${roadmapVersion ?? "na"}:${readyId}`)
+            evidence: Object.freeze([...evidence("supabase:command_center_project_work_units", readyObservedAt, `${id}:${roadmapVersion ?? "na"}:${readyId}`), ...textArray(readyUnit?.evidence_refs).map(reference => Object.freeze({ source: "roadmap-step-evidence", observedAt: readyObservedAt, reference }))])
           }))
         : unknown<RuntimeNextWorkReadiness>();
 

@@ -37,5 +37,21 @@ test('production status repair preserves existing progress, restores ARO evidenc
  const flags=(await db.query("select bool_and(structure_verified) as valid,bool_or(denominator_trusted) as trusted from command_center_project_roadmaps where project_id like 'project:company:future:%'")).rows[0];assert.equal(flags.valid,true);assert.equal(flags.trusted,false);
  assert.equal((await db.query("select count(*)::integer as completed from command_center_project_work_units where project_id like 'project:company:future:%' and status in ('verified','skipped')")).rows[0].completed,0);
 
+ await db.exec("alter table command_center_project_profiles add column name text; update command_center_project_profiles set name=project_id; insert into command_center_project_profiles(owner_id,project_id,name,status) values('00000000-0000-4000-8000-000000000001','loopwren','LoopWren','Preserved existing build'),('00000000-0000-4000-8000-000000000001','crowdskein','CrowdSkein','Preserved existing build')");
+ const reconciliation=await readFile(new URL('supabase/seeds/project_roadmap_readiness_reconciliation.sql',root),'utf8');
+ await db.exec(reconciliation);await db.exec(reconciliation);
+ const restored=(await db.query("select project_id,structure_verified,denominator_trusted from command_center_project_roadmaps where project_id in ('aro','loopwren','crowdskein') order by project_id")).rows;
+ assert.equal(restored.length,3);assert.ok(restored.every(r=>r.structure_verified&&!r.denominator_trusted));
+ assert.equal((await db.query("select count(*)::integer as n from command_center_project_work_units where project_id in ('aro','loopwren','crowdskein')")).rows[0].n,6);
+ const loopUnits=(await db.query("select * from command_center_project_work_units where project_id='loopwren' order by work_unit_id")).rows;
+ assert.deepEqual(loopUnits[1].dependency_ids,[loopUnits[0].work_unit_id]);
+ assert.ok(loopUnits[0].evidence_refs.some(ref=>ref.startsWith('library:libfile_e85485')));
+ assert.equal((await db.query("select status from command_center_project_profiles where project_id='loopwren'")).rows[0].status,'Preserved existing build');
+ assert.equal((await db.query("select count(*)::integer as n from command_center_project_work_units where project_id='original'")).rows[0].n,2);
+ const readiness=(await db.query("select public.command_center_project_work_readiness('loopwren',1,'loopwren:01-reconcile-existing-roadmap') as result")).rows[0].result;
+ assert.equal(readiness.ready,true);
+ const resume=(await db.query("select public.command_center_project_work_readiness('loopwren',1,'loopwren:02-resume-existing-checkpoint') as result")).rows[0].result;
+ assert.equal(resume.ready,false);
+
  }finally{await db.close();}
 });
