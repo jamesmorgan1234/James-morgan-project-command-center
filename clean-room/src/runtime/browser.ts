@@ -432,10 +432,20 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     el("dt", undefined, "Readiness"), el("dd", undefined, readiness ? (readiness.ready ? "Ready with evidence" : "Not ready") : "N/A")
   );
   roadmap.append(roadmapFacts);
-  for (const unit of project.workspace?.roadmap ?? []) {
-    const row = el("article", "project-workspace-record");
-    row.append(el("strong", undefined, unit.title), el("p", "muted", `${unit.state ?? "unknown"} · ${unit.detail}`));
-    roadmap.append(row);
+  const units = project.workspace?.roadmap ?? [];
+  if (units.length) {
+    const allSteps = el("details", "project-roadmap-details");
+    allSteps.append(el("summary", "cc-button cc-button--secondary", `View complete roadmap (${units.length} steps)`));
+    const list = el("div", "project-roadmap-steps");
+    for (const unit of units) {
+      const row = el("details", "project-workspace-record project-roadmap-step");
+      const summary = el("summary", "project-roadmap-step__summary");
+      summary.append(el("strong", undefined, unit.title), el("span", "muted", unit.state ?? "unknown"));
+      row.append(summary, el("p", "muted", unit.detail));
+      list.append(row);
+    }
+    allSteps.append(list);
+    roadmap.append(allSteps);
   }
   section.append(roadmap);
 
