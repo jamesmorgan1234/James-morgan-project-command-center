@@ -48,6 +48,8 @@ export interface RuntimeProjectSnapshot {
   readonly stage: TruthValue<string>;
   readonly status: TruthValue<string>;
   readonly progressPercent: TruthValue<number>;
+  readonly progressSummary?: string;
+  readonly statusObservedAt?: string;
   readonly progressBasis?: "roadmap" | "last_recorded";
   readonly progressObservedAt?: string;
   readonly currentCheckpoint: TruthValue<string>;
@@ -208,6 +210,8 @@ export interface RuntimeBrainSnapshot {
 
 export interface RuntimeBookRecord {
   readonly id: string; readonly title: string; readonly author: string; readonly coverSlot?: number; readonly coverApproved: boolean;
+  readonly projectId?: string; readonly productionState?: string; readonly productionPercent?: number;
+  readonly publication?: Readonly<Record<string,string>>; readonly stateObservedAt?: string; readonly stateEvidenceRefs?: readonly string[];
 }
 
 export interface RuntimeSurfaceRecord {

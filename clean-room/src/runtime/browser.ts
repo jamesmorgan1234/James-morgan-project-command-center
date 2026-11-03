@@ -3,14 +3,13 @@ import { ApplicationShell, type ShellState } from "../ui/shell.js";
 import { createHomeGrid } from "../ui/home.js";
 import type { TruthValue } from "../data/canonical.js";
 import { providerFromDocument, type RuntimeSnapshotProvider } from "./provider.js";
-import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfaceSnapshot } from "./snapshot.js";
+import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfaceSnapshot, RuntimeBookRecord } from "./snapshot.js";
 import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
 import { renderProjectAgencyControls, renderProjectRecordSection } from "./project-workspace-view.js";
 import { SPECIALIST_ARCHETYPES } from "../specialists/archetypes.js";
 import { projectArtwork } from "./project-art.js";
-import { runtimeBookCatalogForProject } from "../books/runtime-catalog.js";
 import { renderBrainView } from "./brain-view.js";
 import { renderAgencyView } from "./agency-view.js";
 import { createDisconnectedRuntimeSnapshot } from "./snapshot.js";
@@ -141,9 +140,10 @@ function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
     ring.append(el("strong", undefined, `${project.progressPercent.value}%`));
   } else {
     ring.classList.add("progress-ring--unknown");
-    ring.append(el("strong", undefined, "N/A"));
+    ring.append(el("strong", undefined, project.progressSummary ?? "Unmeasured"));
   }
-  wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : "Scope"));
+  wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : project.progressPercent.state === "known" ? "Scope" : "Progress"));
+  if (project.statusObservedAt) wrap.append(el("span", "sync-note", `Status ${project.statusObservedAt.slice(0, 10)}`));
   if (project.progressObservedAt) wrap.append(el("span", "sync-note", project.progressObservedAt.slice(0, 10)));
   return wrap;
 }
@@ -174,6 +174,7 @@ function renderProjectRow(project: RuntimeProjectSnapshot): HTMLElement {
     el("span", "project-meta__item", `Priority: ${truthText(project.priority)}`)
   );
   text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), metadata, statusPill(statusLabel(project), statusTone(project)));
+  if (project.stage.state === "known") text.append(el("p", "project-stage-note muted", project.stage.value));
   row.append(projectIcon(), text, artPanel(project), progressRing(project));
   return row;
 }
@@ -376,7 +377,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   hero.append(projectIcon(), heroText, artPanel(project));
   const snapshotMetrics = el("div", "performance-grid");
   const metrics: readonly [string, string][] = [
-    [project.progressBasis === "last_recorded" ? `Last recorded progress (${project.progressObservedAt?.slice(0, 10) ?? "date unknown"})` : "Progress", truthText(project.progressPercent, (value) => `${value}%`)],
+    [project.progressBasis === "last_recorded" ? `Last recorded progress (${project.progressObservedAt?.slice(0, 10) ?? "date unknown"})` : "Progress", project.progressPercent.state === "known" ? `${project.progressPercent.value}%` : project.progressSummary ?? "Unmeasured"],
     ["Status", truthText(project.status)],
     ["Stage", truthText(project.stage)],
     ["Priority", truthText(project.priority)],
@@ -388,7 +389,12 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     snapshotMetrics.append(metric);
   }
   hero.append(snapshotMetrics);
-  section.append(hero, renderProjectAgencyControls(project, snapshot, activeProvider, () => renderApplication()));
+  section.append(hero);
+  const relatedBooks = snapshot.books?.filter(book => book.projectId === project.id) ?? [];
+  if (relatedBooks.length) {
+    const books = bevelCard("project-detail-section"); books.append(el("h3", "section-title", "BOOKS IN THIS PROJECT"),bookGrid(relatedBooks)); section.append(books);
+  }
+  section.append(renderProjectAgencyControls(project, snapshot, activeProvider, () => renderApplication()));
 
   const ownerInputs = bevelCard("project-detail-section core-project-section owner-inputs-section");
   ownerInputs.dataset.sectionKey = "project-section:owner-inputs";
@@ -413,7 +419,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   const roadmapFacts = el("dl", "history-facts");
   const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
   roadmapFacts.append(
-    el("dt", undefined, "Progress"), el("dd", undefined, truthText(project.progressPercent, (value) => `${value}%`)),
+    el("dt", undefined, "Progress"), el("dd", undefined, project.progressPercent.state === "known" ? `${project.progressPercent.value}%` : project.progressSummary ?? "Unmeasured"),
     el("dt", undefined, "Checkpoint"), el("dd", undefined, truthText(project.currentCheckpoint)),
     el("dt", undefined, "Next action"), el("dd", undefined, truthText(project.nextAction)),
     el("dt", undefined, "Readiness"), el("dd", undefined, readiness ? (readiness.ready ? "Ready with evidence" : "Not ready") : "N/A")
@@ -504,22 +510,43 @@ function renderAutomations(snapshot: CommandCenterRuntimeSnapshot): HTMLElement 
 function renderPersonal(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "personal", "Personal", "Personal-operations runtime state is not configured in the current canonical snapshot."); }
 function renderFinance(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "finance", "Finance", "Finance runtime state is not configured in the current canonical snapshot."); }
 function renderSocial(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "social", "Social & Communications", "Social runtime state is not configured in the current canonical snapshot."); }
-function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
-  const section = renderCanonicalSurface(snapshot, "books", "Books", "Your book catalogue could not be loaded.");
-  section.append(routeLink("Amazon KDP book projects", "/projects?type=project-type%3Abook", "cc-button"));
+function bookTruth(node: HTMLElement, book: RuntimeBookRecord, detail = false): void {
+  node.append(el("p", "muted", `Production: ${book.productionState ?? "No production checkpoint recovered"}${book.productionPercent !== undefined ? ` · ${book.productionPercent}% of production scope` : ""}`));
+  if (detail) {
+    const publication = bevelCard("project-detail-section"); publication.append(el("h3", "section-title", "PUBLICATION STATUS"));
+    const entries = Object.entries(book.publication ?? {});
+    if (!entries.length) publication.append(el("p", "muted", "No title-level publication checkpoint recovered. Cover approval is recorded separately."));
+    for (const [format,state] of entries) publication.append(el("p", "muted", `${format}: ${state}`));
+    node.append(publication);
+    node.append(el("p", "muted", `Cover: ${book.coverApproved ? "Approved artwork saved" : "No approved cover linked"}. Production and publication are independent states.`));
+    node.append(el("p", "muted", `${book.stateEvidenceRefs?.length ?? 0} saved state evidence references. These are recovered checkpoint states, not a fresh platform inspection.`));
+  }
+  if (book.stateObservedAt) node.append(el("p", "sync-note", `State recorded ${book.stateObservedAt.slice(0,10)}`));
+}
+function bookGrid(books: readonly RuntimeBookRecord[]): HTMLElement {
   const grid = el("div", "book-catalogue");
-  for (const book of snapshot.books ?? []) {
-    const project = snapshot.projects.find(p => runtimeBookCatalogForProject(p.id)?.titles.some(t => normalizeBookTitle(t) === normalizeBookTitle(book.title)) || normalizeBookTitle(p.name) === normalizeBookTitle(book.title));
-    const item = project ? bevelRouteCard(projectHref(project), "book-catalogue-card", `Open ${book.title}`) : bevelCard("book-catalogue-card");
+  for (const book of books) {
+    const item = bevelRouteCard(`/books?book=${encodeURIComponent(book.id)}`, "book-catalogue-card", `Open ${book.title}`);
     if (book.coverApproved && book.coverSlot !== undefined && book.coverSlot >= 0 && book.coverSlot < 41) {
       const cover = el("div", "book-catalogue-cover"); cover.setAttribute("aria-hidden", "true"); cover.style.backgroundPosition = `${book.coverSlot / 40 * 100}% center`; item.append(cover);
     }
-    item.append(el("h3", "section-title", book.title), el("p", "muted", book.author));
-    if (project) item.append(el("p", "muted", statusLabel(project))); grid.append(item);
+    item.append(el("h3", "section-title", book.title), el("p", "muted", book.author)); bookTruth(item,book); grid.append(item);
   }
-  section.append(grid); return section;
+  return grid;
 }
-function normalizeBookTitle(title: string): string { return title.toLowerCase().replace(/[^a-z0-9]/g, "").replace(/^meltedcosmos/, ""); }
+function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const bookId = new URLSearchParams(window.location.search).get("book");
+  if (bookId) {
+    const section = el("section", "screen-stack"); const book = snapshot.books?.find(candidate => candidate.id === bookId);
+    if (!book) { section.append(emptyState("Book not found", "This title is not available in the current owner catalogue.", "unavailable")); return section; }
+    section.append(genericCard(book.title, `Author: ${book.author}`)); bookTruth(section,book,true);
+    section.append(routeLink("All books", "/books", "cc-button"));
+    if (book.projectId && snapshot.projects.some(project => project.id === book.projectId)) section.append(routeLink("Open book / series project", `/project/${encodeURIComponent(book.projectId)}`, "cc-button"));
+    return section;
+  }
+  const section = renderCanonicalSurface(snapshot, "books", "Books", "Your book catalogue could not be loaded.");
+  section.append(routeLink("Amazon KDP book projects", "/projects?type=project-type%3Abook", "cc-button"),bookGrid(snapshot.books ?? [])); return section;
+}
 function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = renderCanonicalSurface(snapshot, "specialists", "Specialists", "Your specialist registry could not be loaded.");
   section.append(genericCard("Available specialist types", "These built-in capabilities are available for scoped project configuration. Listing a type does not activate an agent or grant access."));

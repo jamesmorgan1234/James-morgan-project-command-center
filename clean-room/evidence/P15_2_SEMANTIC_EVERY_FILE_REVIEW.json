@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "64800262b6dc6e7b3fd7f23e6c337b8f8ec9de4f",
+  "gitSha": "3e8adf59ab77358fa367cdbda8a3401173de7eff",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2014,
-  "inventoryDigest": "06b112e7a54b1df85aa50d90a3aeff3793647dd617ff53a10070b7d832731f6f",
+  "reviewedFileCount": 2024,
+  "inventoryDigest": "2f2390362f971e125af3d126db2bcc5d485c44a19c26247ce67fdf0642e51b5e",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2015,
-    "reviewedFileCount": 2014,
+    "trackedFileCount": 2025,
+    "reviewedFileCount": 2024,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 30,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 195,
+      "EVID": 196,
       "APUB": 14,
-      "SCRP": 137,
-      "ASRC": 340,
-      "TEST": 446,
+      "SCRP": 138,
+      "ASRC": 341,
+      "TEST": 449,
       "RDMAP": 290,
-      "SBAS": 231,
+      "SBAS": 235,
       "HTST": 43
     },
     "defectCount": 0,
@@ -682,7 +682,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 195,
+      "fileCount": 196,
       "roles": [
         "EVID"
       ]
@@ -710,21 +710,21 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 134,
+      "fileCount": 135,
       "roles": [
         "SCRP"
       ]
     },
     {
       "directory": "clean-room/src",
-      "fileCount": 340,
+      "fileCount": 341,
       "roles": [
         "ASRC"
       ]
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 446,
+      "fileCount": 449,
       "roles": [
         "TEST"
       ]
@@ -1781,7 +1781,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 227,
+      "fileCount": 231,
       "roles": [
         "SBAS"
       ]
@@ -4481,6 +4481,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/PROJECT_STATUS_SOURCE_AUDIT_2026_11_03.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "32c5a09b15692e5a7423c7e1dd526835b75f2ecd4040bef1edacb0145bfb72d4",
+      "bytes": 1079,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/WHOLE_SYSTEM_FINAL_VERIFICATION.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -4835,7 +4844,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "f2ebde7e9c753048830af77085f0e068384fdecfb9d60105af0ed8539c6cfd5d",
+      "sha256": "e9895e5b937d20a2a5dcbcd847a71501c23c21df0086cf88f5a2de1e3b6a5402",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -5006,8 +5015,8 @@
       "path": "clean-room/public/project-system.css",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "2ae53c5ddd8fdab57d21a6c8ce26bc5c9d5ab775f78c43b2aed337588755fa1d",
-      "bytes": 5388,
+      "sha256": "2aa5a515b868fbc4c6082ac75d65a0bb270faf87b8d047e75d8459aeb5cbbfae",
+      "bytes": 5651,
       "contentKind": "text",
       "findings": []
     },
@@ -5161,6 +5170,15 @@
       "disposition": "retain-active",
       "sha256": "614e90aef651d004854d06e4a950055f70297c2c6729c6a89eaf77f26af79631",
       "bytes": 2838,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/compile-planned-company-preparation.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "9193f7cab5565a169517a7a7fa1c28d48f6ad7cde57d002e1d414a919119b5a6",
+      "bytes": 1331,
       "contentKind": "text",
       "findings": []
     },
@@ -8108,6 +8126,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/src/projects/planned-company-roadmap.ts",
+      "role": "ASRC",
+      "disposition": "retain-active",
+      "sha256": "c69638ea0dae12a3c94b68f657c222d551e70b67dc2753318acc411624b266f0",
+      "bytes": 2960,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/src/projects/progress.ts",
       "role": "ASRC",
       "disposition": "retain-active",
@@ -8489,8 +8516,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "78914c501fb87f500df1feb77eeb719688b8a45745e2a2d0a65d2752690d0b98",
-      "bytes": 44964,
+      "sha256": "9568cba87c54d4ecf9fd6526521ca2bf468d43fe270caeb477506524f76df39c",
+      "bytes": 47359,
       "contentKind": "text",
       "findings": []
     },
@@ -8624,8 +8651,8 @@
       "path": "clean-room/src/runtime/snapshot.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "12079443e2baf7159b0e88f5f1dfa4b401545da9d3fe0f4a2a94aa5b1ca9dbcc",
-      "bytes": 11007,
+      "sha256": "1ce20903f3ee6506192d205f6aeb91a3ca584079bd1fc1726735c8b5d92814c8",
+      "bytes": 11326,
       "contentKind": "text",
       "findings": []
     },
@@ -8642,8 +8669,8 @@
       "path": "clean-room/src/runtime/supabase-owner-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "2f758ca4cbd7fd575f756de02478c216c116cdddc140e3fc3389242d2a8a8c37",
-      "bytes": 41169,
+      "sha256": "15a4a0d49589795ac0451f5946f740e8045d1054cfa18dbc7110e7ebf70c37b0",
+      "bytes": 42573,
       "contentKind": "text",
       "findings": []
     },
@@ -9301,6 +9328,15 @@
       "disposition": "retain-active",
       "sha256": "8a4e8adf2d60a4d083ab08253b389407ff18e06e4e597457fb35b0dcc03466e2",
       "bytes": 6017,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/book-catalogue-state.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "0e91e235717733e73658ea0866fd7453a04e02f35b1984b247b3f687d5b213d2",
+      "bytes": 2745,
       "contentKind": "text",
       "findings": []
     },
@@ -13015,11 +13051,20 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/planned-company-preparation.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "05ca8131042cb3348437d351009edfa5346dba9c98a0ce800fdbf46ecb4f5088",
+      "bytes": 1871,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/portfolio-progress-order.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "cfa11f0c1335740e85459554a96c6e658bad985055fce8bdc02278a33b3d8671",
-      "bytes": 5147,
+      "sha256": "a0191c13d942b1298c7c3a57de3e80cafb8d0917de3346ab942512b6ddd0e32d",
+      "bytes": 6881,
       "contentKind": "text",
       "findings": []
     },
@@ -13047,6 +13092,15 @@
       "disposition": "retain-active",
       "sha256": "a4ba369f8cde0e09a06d47e8222119f7e80f53d28ddebe2a2f265dad9699ef72",
       "bytes": 1604,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/project-status-database.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "1198f64b1d37a63122d15284138c6fed7e8804f457dbd9c840f8f55791a80c05",
+      "bytes": 5829,
       "contentKind": "text",
       "findings": []
     },
@@ -19911,6 +19965,42 @@
       "disposition": "retain-active",
       "sha256": "592613dd9fd8d6c06b22fd1361f2b6a016aa19bac5ff8d326dfa4f3f49216128",
       "bytes": 1144,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261103124336_project_status_evidence_and_roadmap_alignment.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "49201f0cc3685d3d3079a7bd4b12a799ca4b52300e65440dc89e4a93f24f0ce3",
+      "bytes": 5619,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261103124714_register_planned_company_preparation.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "628eb26b5110b4b5e70be6e4e72f68e017ca0045c161ccef161323945f735ab6",
+      "bytes": 292743,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261103131134_book_catalogue_state_reconciliation.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "83f52c5033884102e92d8407163a78731be44686f2c41859e0aa859d68d7c32f",
+      "bytes": 17033,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261103131418_book_project_status_reconciliation.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "6f79940b4d6a2958cc0ac78f07c6897b05653ecb185d9d2cd555387fe1d25c8a",
+      "bytes": 1328,
       "contentKind": "text",
       "findings": []
     },

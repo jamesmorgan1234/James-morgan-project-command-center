@@ -149,7 +149,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       // Absence of this migrated source fails closed instead of silently falling back to cc7_projects.
       const projects = await this.#queryRows(
         "command_center_project_profiles",
-        "project_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,version,source_ref,updated_at",
+        "project_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,version,source_ref,updated_at,stage,next_action,blocker,status_observed_at,status_source_refs,progress_summary",
         session,
         { order: "name.asc" }
       );
@@ -179,7 +179,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_owner_reviews", "id,project_id,status,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("recorded-progress", "analytics_project_kpis", "project_id,metric_key,value_numeric,value_text,verified,observed_at", { metric_key: "eq.current_scope_progress_percent", order: "observed_at.desc", limit: "500" }),
-        safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at", { order: "catalogue_order.asc", limit: "500" }),
+        safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at,project_id,production_state,production_percent,publication,state_evidence_refs,state_observed_at", { order: "catalogue_order.asc", limit: "500" }),
         safe("finance", "analytics_project_kpis", "project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,observed_at", { or: "(metric_key.ilike.*revenue*,metric_key.ilike.*sales*,metric_key.ilike.*balance*,metric_key.ilike.*income*)", order: "project_id.asc,observed_at.desc", limit: "500" }),
         safe("social", "integration_connections", "id,project_id,provider_key,provider_label,status,last_success_at", { archived_at: "is.null", order: "project_id.asc", limit: "500" }),
         safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,updated_at", { order: "brain_key.asc", limit: "500" }),
@@ -237,7 +237,12 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
           lastSuccessfulSyncAt: known(observedAt)
         }),
         owner: Object.freeze({ displayName: unknown<string>() }),
-        books: Object.freeze(bookCatalogue.map(row => Object.freeze({ id: text(row.book_id)!, title: text(row.title)!, author: text(row.author_name) ?? "James Morgan", ...(numeric(row.cover_slot) !== undefined ? { coverSlot: numeric(row.cover_slot)! } : {}), coverApproved: row.cover_approved === true }))),
+        books: Object.freeze(bookCatalogue.map(row => Object.freeze({ id: text(row.book_id)!, title: text(row.title)!, author: text(row.author_name) ?? "James Morgan", ...(numeric(row.cover_slot) !== undefined ? { coverSlot: numeric(row.cover_slot)! } : {}), coverApproved: row.cover_approved === true,
+          ...(text(row.project_id) ? { projectId: text(row.project_id)! } : {}),
+          ...(text(row.production_state) ? { productionState: text(row.production_state)! } : {}),
+          ...(numeric(row.production_percent) !== undefined && numeric(row.production_percent)! >= 0 && numeric(row.production_percent)! <= 100 ? { productionPercent: numeric(row.production_percent)! } : {}),
+          publication: Object.freeze(isRecord(row.publication) ? Object.fromEntries(Object.entries(row.publication).filter((entry): entry is [string,string] => typeof entry[1] === "string")) : {}),
+          ...(text(row.state_observed_at) ? { stateObservedAt: text(row.state_observed_at)! } : {}), stateEvidenceRefs: Object.freeze(textArray(row.state_evidence_refs)) }))),
         surfaceRecords: Object.freeze({
           analytics: Object.freeze(kpis.map(row => Object.freeze({ id: text(row.id)!, projectId: text(row.project_id) ?? "", title: text(row.label) ?? text(row.metric_key) ?? "Metric", detail: `${row.verified === true ? "Verified" : "Recorded"}: ${numeric(row.value_numeric) ?? text(row.value_text) ?? "N/A"} ${text(row.unit) ?? ""}`, observedAt: text(row.observed_at)! }))),
           finance: Object.freeze(financialMetrics.map(row => Object.freeze({ id: `${row.project_id}:${row.metric_key}`, projectId: text(row.project_id)!, title: text(row.label) ?? text(row.metric_key)!, detail: `${row.verified === true ? "Verified" : "Unverified"}: ${numeric(row.value_numeric) ?? text(row.value_text) ?? "Not recorded"} ${text(row.currency) ?? text(row.unit) ?? ""}`, observedAt: text(row.observed_at)! }))),
@@ -447,7 +452,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       }
       const checkpoint = checkpoints.find((row) => row.project_id === id && (roadmapVersion === undefined || numeric(row.roadmap_version) === roadmapVersion));
       const recent = activity.filter((item) => item.project_id === id).slice(0, 5).map((item) => text(item.headline)).filter((value): value is string => !!value);
-      const blocker = text(checkpoint?.blocker);
+      const blocker = text(checkpoint?.blocker) ?? text(project.blocker);
       const ownerAction = text(checkpoint?.owner_action);
       const priority = text(project.priority);
       const priorityRank = PROJECT_PRIORITY_RANK[priority ?? ""] ?? 9;
@@ -498,19 +503,21 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         lifecycle: truthText(project.lifecycle),
         verification: truthText(project.verification),
         priority: truthText(project.priority),
-        stage: truthText(readyUnit?.phase_id),
+        stage: truthText(readyUnit?.phase_id ?? project.stage),
         status: truthText(project.status),
         progressPercent,
         ...(progressBasis ? { progressBasis } : {}),
         ...(progressBasis === "last_recorded" && text(recorded?.observed_at) ? { progressObservedAt: text(recorded?.observed_at)! } : {}),
         currentCheckpoint: checkpoint ? truthText(checkpoint.checkpoint_id) : unknown<string>(),
-        nextAction: readyTitle ? known(readyTitle) : unknown<string>(),
+        nextAction: readyTitle ? known(readyTitle) : truthText(project.next_action),
         blockers: blocker ? known(Object.freeze([blocker])) : known(Object.freeze([]) as readonly string[]),
         // "0 owner actions" is only provable when the checkpoint source loaded.
         needsMeCount: checkpointsAvailable ? known(ownerAction ? 1 : 0) : unknown<number>(),
         agencyState: unknown<string>(),
         recentActivity: known(Object.freeze(recent) as readonly string[]),
-        evidence: evidence("supabase:command_center_project_profiles", updatedAt, id),
+        evidence: Object.freeze([...evidence("supabase:command_center_project_profiles", text(project.status_observed_at) ?? updatedAt, id), ...textArray(project.status_source_refs).map(source => Object.freeze({ source, observedAt: text(project.status_observed_at) ?? updatedAt }))]),
+        ...(text(project.progress_summary) ? { progressSummary: text(project.progress_summary)! } : {}),
+        ...(text(project.status_observed_at) ? { statusObservedAt: text(project.status_observed_at)! } : {}),
         liveExecution: unknown<RuntimeLiveExecution>(),
         nextWorkReadiness,
         typeKey: truthText(project.type_key),

@@ -1,0 +1,29 @@
+{
+  "bookCount": 43,
+  "projectCount": 146,
+  "approvedCoverCount": 41,
+  "plannedCompanyCount": 107,
+  "originalProjectCount": 39,
+  "preparationUnitCount": 214,
+  "registeredAIProviders": 0,
+  "unmeasuredProductionCount": 21,
+  "registeredExecutionWorkers": 0,
+  "missingOriginalCheckpointIds": [
+    "blog-series",
+    "crestven",
+    "documentary-series",
+    "james-morgan-home-renovation",
+    "wealth"
+  ],
+  "recordedCompleteProductionCount": 22,
+  "plannedCompaniesWithValidPreparationGraph": 107,
+  "reviewedAt": "2026-11-03",
+  "sourceBranch": "build/spec-lock-v2-clean-room",
+  "scope": "Project/book status reconciliation and missing planned-company preparation",
+  "limitations": [
+    "Saved checkpoints are not fresh execution or platform proofs.",
+    "No percentage inferred from a recovered label, absent value, near-completion description, approved cover, or preparation-only graph.",
+    "Five original source checkpoints remain unrecovered.",
+    "Unattended AI/Agency execution remains unavailable without an authenticated provider and real worker."
+  ]
+}
