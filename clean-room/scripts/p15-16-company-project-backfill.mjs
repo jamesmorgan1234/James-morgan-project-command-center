@@ -39,7 +39,8 @@ function sqlText(value) {
 }
 
 const files = readdirSync(companiesDir)
-  .filter((name) => /^\d{3}_[A-Z0-9_]+\.md$/.test(name))
+  // This generator owns the frozen 001–107 migration. Later additions have separate imports.
+  .filter((name) => /^\d{3}_[A-Z0-9_]+\.md$/.test(name) && Number(name.slice(0, 3)) <= 107)
   .sort();
 
 if (files.length === 0) fail("no company source files found");

@@ -87,6 +87,10 @@ function isRuntimeProject(value: unknown): boolean {
     if (value[field] !== undefined && !isTruthValue(value[field], (item) => typeof item === "string")) return false;
   }
   if (value.specialistKey !== undefined && typeof value.specialistKey !== "string") return false;
+  if (value.specialistPlan !== undefined && (!isObject(value.specialistPlan)
+    || typeof value.specialistPlan.key !== "string" || typeof value.specialistPlan.enabled !== "boolean"
+    || !Array.isArray(value.specialistPlan.capabilities) || !value.specialistPlan.capabilities.every((item) => typeof item === "string")
+    || (value.specialistPlan.configurationRef !== undefined && typeof value.specialistPlan.configurationRef !== "string"))) return false;
   if (value.detailSections !== undefined && (!Array.isArray(value.detailSections) || !value.detailSections.every((section) => isObject(section)
     && typeof section.key === "string" && section.key.trim().length > 0
     && typeof section.title === "string" && Number.isSafeInteger(section.sortOrder)

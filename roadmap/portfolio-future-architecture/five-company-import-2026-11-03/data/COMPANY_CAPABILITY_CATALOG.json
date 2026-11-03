@@ -1,0 +1,4325 @@
+{
+  "status": "PROPOSED_UNBUILT",
+  "capabilities": [
+    {
+      "id": "cap:company:108:product:001",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall feed dashboard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:002",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Catalog onboarding assistant",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:003",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "SKU and identifier matching engine",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:004",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "UPC/EAN/GTIN normalization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:005",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Brand and model resolver",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:006",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Variant/lot/serial/date-range matcher",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:007",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall watchlists",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:008",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Seller-specific impact map",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:009",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Regulatory source registry",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:010",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Manufacturer notice monitor",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:011",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall amendments and remedy updates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:012",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multi-location stock-impact dashboard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:013",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Sold-customer trace candidate reports",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:014",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall timeline visualization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:015",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall source evidence bundle",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:016",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Safety severity display with official classification context",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:017",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Unclassified/uncertain notice queue",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:018",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Remedy and return-process reference sheet",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:019",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Affected-not-affected review workspace",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:020",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Product quarantine recommendation queue",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:021",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Merchant compliance task assignments",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:022",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multi-jurisdiction recall coverage pack",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:023",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Executive/operations briefings",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:024",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall notification subscriptions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:025",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "API and webhooks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:026",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "ERP/catalog connector kits",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:027",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Marketplace catalog adapters",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:028",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Inventory and order-history matching",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:029",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Batch CSV and spreadsheet import",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:030",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall incident audit reports",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:031",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "White-label retailer notification portal",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:032",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Supplier/brand diligence signals",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:033",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Coverage and freshness dashboard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:034",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "False-positive review workflow",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:035",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Optional category-specific rule packs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:product:036",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Training and response playbooks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:001",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Official source timestamp and URL per assertion",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:002",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Per-source rate limit and ETag/cursor support",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:003",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Immutable source snapshot and change hash",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:004",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Notice supersession and version tracking",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:005",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Duplicate notice clustering",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:006",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Canonical entity registry",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:007",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Identifier checksum validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:008",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Lot/batch date interval algebra",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:009",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Fuzzy token and phonetic brand candidates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:010",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Image/OCR model-number extraction only with uncertainty",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:011",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multilingual notice normalization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:012",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Conservative exact/fuzzy confidence levels",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:013",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Threshold tuning per product category",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:014",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Manual match approval, override with rationale",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:015",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Reviewed false-positive/false-negative corpus",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:016",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Inventory quantity estimates vs verified quantity separation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:017",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Distinct stock, sold, returned and recalled status",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:018",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Bulk catalog feeds and delta sync",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:019",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Missing catalog field explanations",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:020",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Daily source freshness report",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:021",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Backfill and replay to historical catalog version",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:022",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Product family/variant inheritance with guardrails",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:023",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Region/locale/jurisdiction tagging",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:024",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Priority queue by officially stated hazard and actual exposure",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:025",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Escalation when regulator source unavailable",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:026",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Quarantine mode for corrupt feeds",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:027",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Duty/consent aware notification templates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:028",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Customer communication draft only, never default send",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:029",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Deduplicated notice and alerts",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:030",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Emergency source override with evidence",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:031",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Release-note and backward-compatible APIs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:032",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Accessibility/mobile view",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:033",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multi-user RBAC with tenant isolation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:034",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Source-coverage gaps clearly visible",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:035",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Export API with evidence refs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:036",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Retention/legal hold support",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:feature:037",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "No claims of comprehensive recall coverage",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:001",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Barcode/mobile scan support",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:002",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Official imagery and product label OCR",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:003",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Supplier attestations and signed risk feeds",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:004",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multi-country regulatory ontologies",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:005",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Recall-related workflow simulation",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:006",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "POS and warehouse linkage",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:007",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Multilingual consumer-safe draft templates",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:008",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Privacy-preserving fleetwide false-positive lessons",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:009",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Differential data quality analytics",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:010",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Zero-trust product data exchange",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:011",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "AI source-change anomaly discovery",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:108:future:012",
+      "company_id": "company:future:108",
+      "project_id": "project:company:future:108",
+      "name": "Enterprise procurement and supplier governance adjacency",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:001",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier tracking unification",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:002",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Shipment import and dedupe",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:003",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier-service rule registry",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:004",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Delivery exception dashboard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:005",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Lost/stalled parcel detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:006",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Late-delivery eligibility assessment",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:007",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Guaranteed-service eligibility check",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:008",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Preliminary refund/credit opportunity queue",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:009",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Claims evidence packet generator",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:010",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Claim submission approval workflow",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:011",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Claim deadline and clock monitor",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:012",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier credit ledger reconciliation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:013",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Shipping invoice audit",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:014",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Customer support response drafting",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:015",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Warehouse/escalation task routing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:016",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Delivery promise/ETA deviation analytics",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:017",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Address correction exception analyzer",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:018",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Damage claim evidence intake",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:019",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Proof-of-delivery management",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:020",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Insurance/declared-value evidence manager",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:021",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Return-to-sender workflows",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:022",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier dispute timeline",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:023",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier account/contract registry",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:024",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier-specific terms versioning",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:025",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Package-not-received triage",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:026",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Duplicate shipment/claim detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:027",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier feed outage alert",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:028",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Authorized webhook/API notifications",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:029",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Store/3PL connectors",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:030",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Support desk handoff",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:031",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Customer communication preference gate",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:032",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Operational analytics and carrier scorecards",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:033",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Shipping label cost audit only with evidence",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:034",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Cost-per-shipment and net-recovery dashboards",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:035",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Cohort/root-cause analysis",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:036",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Private-label carrier exception dashboard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:product:037",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Multi-carrier reconciliation export",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:001",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Event normalization with source event IDs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:002",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Out-of-order and delayed event handling",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:003",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Tracking number checksum/format validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:004",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Shipment/carrier/account identity pinning",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:005",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Canonical status state machine with terminal state monotonicity",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:006",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Multi-package/multi-piece shipment linkage",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:007",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Merchant order/parcel mapping",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:008",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier service class and guarantee versioning",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:009",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Delivery promises vs service standards separation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:010",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Timezone/holiday/weekend calendar logic",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:011",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Different missing-scan detection windows by service",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:012",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Exceptions: delay, damage, refusal, address, customs, weather, attempted delivery",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:013",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Exception code translation with raw event preserved",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:014",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Reroute/hold/redelivery flags",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:015",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "ETA uncertainty ranges not invented guarantees",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:016",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier service advisories and exclusions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:017",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Guarantee suspension detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:018",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Case evidence requirements per carrier",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:019",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Invoice/charge line-item matching",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:020",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Deadline from carrier rules with source URL/date",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:021",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Prepare-draft-only default",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:022",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Owner/client approval and identity before submissions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:023",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Idempotency token for claim attempts",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:024",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Carrier claim status updates and reconciliation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:025",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Denial reason taxonomy",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:026",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Recoveries shown only as verified credits/refunds",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:027",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Customer refund ledger distinct from carrier credits",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:028",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Data sensitivity/PII minimization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:029",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "No automatic label purchase or surcharge payment",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:030",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Dormant credential and account revocation monitoring",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:031",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Rate-limit/cost governor",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:032",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Customer suppression and quiet hours",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:033",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Operational drill-down and downloadable export",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:feature:034",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Abuse/fraud and false-delivery-claim screening",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:001",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Natural-language carrier policy questions with citations",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:002",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Multimodal package damage assessment as suggestion only",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:003",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Shipment risk forecasting with uncertainty",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:004",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Support intent automation with consent",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:005",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Tracking webhook failover and event broker",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:006",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Multi-country customs handoff",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:007",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Customer-side estimated delivery communication templates",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:008",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Multi-carrier package insurance comparison only as recommendations",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:009",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Warehouse pick/pack root-cause linkage",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:010",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Contract negotiation evidence reports",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:011",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Privacy-preserving industry benchmarks",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:012",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Smart carrier-route selection suggestions without label purchases",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:109:future:013",
+      "company_id": "company:future:109",
+      "project_id": "project:company:future:109",
+      "name": "Signed claim evidence exports",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:001",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Manuscript intake and readiness review",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:002",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Style-guide intake",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:003",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "DOCX-to-EPUB conversion",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:004",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "DOCX-to-print-PDF conversion",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:005",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "EPUB reflowable typography",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:006",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Fixed-layout assessment and separate quote",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:007",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Paperback interiors",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:008",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Hardcover interiors",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:009",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "KDP-compliant cover mechanical sizing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:010",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Customer-supplied cover preflight",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:011",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Chapter and heading hierarchy repair",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:012",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Navigation table of contents",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:013",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Front/back matter templates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:014",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Page numbering and running heads",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:015",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Widow/orphan control",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:016",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Paragraph styles and scene breaks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:017",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Poetry stanza handling",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:018",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Footnotes/endnotes conversion",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:019",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Hyperlink/URL/reference checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:020",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Image placement and caption management",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:021",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Table and list formatting",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:022",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Illustration bleed and image quality checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:023",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Workbook form/line layout",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:024",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Cookbook recipe page templates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:025",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Large-print accessibility format",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:026",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "EPUB accessibility report",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:027",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "KDP dry-run preflight checklist",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:028",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Edition/format metadata consistency",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:029",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Version/revision history",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:030",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Page proof generation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:031",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Print-ready single-page PDF validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:032",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Bibliography/citation formatting as separate scoped service",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:033",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Series template packs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:034",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Publisher imprint template pack",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:035",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Multi-retailer export profiles",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:036",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Font/license and embedding checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:037",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Color space and resolution inspection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:038",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Orphaned asset detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:039",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Print-spine/back cover mechanical template",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:040",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Metadata/ISBN ownership checklist",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:041",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Files delivery portal",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:042",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Author correction/revision workflow",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:043",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Author approval/signoff packet",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:044",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Final source/archive export",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:045",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Bulk series edition processing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:046",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Human-reviewed complex layout option",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:product:047",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "White-label formatting for editors",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:001",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Input malware and file integrity scan",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:002",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Author-owned source and rights attestation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:003",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Text structure and heading inference with review",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:004",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Preserve original prose; no silent substantive rewrites",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:005",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Source-to-output paragraph/bookmark trace",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:006",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Unified semantic manuscript model",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:007",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Page-template versioning",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:008",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Typography/kerning/leading preset library",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:009",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Multilingual/hyphenation/language tag controls",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:010",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Right-to-left and complex script feasibility check",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:011",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Book trim/bleed/gutter selection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:012",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Page count-driven gutter sizing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:013",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Paperback/hardcover difference recognition",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:014",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Single-page print PDFs not printer spreads",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:015",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Embed fonts and license validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:016",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Print graphic 300-DPI check where required",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:017",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Transparency flattening where needed",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:018",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Color and black-ink mode check",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:019",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "No comments/crop marks/invisible objects in final PDFs",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:020",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Precise spine width based on current specs and paper selection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:021",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Cover art and title legibility preflight",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:022",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "EPUB 3 manifest/TOC/nav landmarks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:023",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Alt-text request workflow for illustrations",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:024",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "ARIA/semantic headings and reading order",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:025",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Footnotes and math accessibility",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:026",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Automated epubcheck and PDF structural checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:027",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Manual visual rendering sample checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:028",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Proofbook review and approval",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:029",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Real word/page count and metadata sync",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:030",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Missing copyright/permissions warning",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:031",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Customer-controlled publishing credentials excluded",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:032",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Project per edition/format with stable ID",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:033",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Corrections diff report with rollback",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:034",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "File hash and deterministic build receipts",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:035",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Deliver signed off final package and reversible source",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:036",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Error classification and client-friendly remediation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:037",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "No platform acceptance guarantee",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:038",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Private client data per project",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:039",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Secure deletion/retention policies",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:040",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Client editor comments separate from published output",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:feature:041",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Layout performance budget on local laptop",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:001",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Print-on-demand retailer profile library",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:002",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Accessible audiobook script exports only with rights",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:003",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Automated indexes and concordance proposals with author review",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:004",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Collaborative structured author proof annotations",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:005",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Language-specific hyphenation packs",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:006",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Illustrated book screen/print parity previews",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:007",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Color proof simulations with caveats",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:008",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Reference/footnote cross-platform auditing",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:009",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Series template consistency AI",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:010",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Book typography A/B proof proposals",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:011",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Secure client self-service status portal",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:012",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Print economics calculator as recommendation only",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:013",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Publisher editorial workflow handoffs",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:110:future:014",
+      "company_id": "company:future:110",
+      "project_id": "project:company:future:110",
+      "name": "Multilingual typesetting and translation-ready packaging",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:001",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "One-page starter website",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:002",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Two-to-five-page business website",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:003",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Mobile-first design system",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:004",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Trade-specific home/service templates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:005",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Location/service-area pages",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:006",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Contact and estimate-request forms",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:007",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Appointment request wizard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:008",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Business hours and holiday schedule",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:009",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Call/text/email link buttons",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:010",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Portfolio and before-after galleries",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:011",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Photo upload with rights authorization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:012",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer-supplied testimonials",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:013",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Accessible navigation and forms",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:014",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "FAQ/knowledge base section",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:015",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Service pricing explanation sections",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:016",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Emergency-service inquiry prompt with safety disclaimers",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:017",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer review platform link",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:018",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer-owned domain connection instructions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:019",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Free subdomain launch option",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:020",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Owner edit/update interface",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:021",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Basic structured-data markup",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:022",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "XML sitemap and robots basics",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:023",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Privacy/terms template review boundary",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:024",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Spam-resistant forms",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:025",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Accessible thank-you pages",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:026",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Calendar availability display integration",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:027",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Reschedule/cancel request flows",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:028",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Lead-delivery status log",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:029",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Spam and bot filtering",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:030",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Secure form-to-email routing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:031",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Estimate request qualification fields",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:032",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Service area zip/radius rules",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:033",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Performance/Core Web Vitals report",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:034",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Basic search-engine indexing checklist",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:035",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Image optimization and alt text",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:036",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Social account links",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:037",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Google Business Profile link integration",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:038",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Basic local search information consistency report",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:039",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Multi-language/translation-ready pages",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:040",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "ADA/WCAG improvement checks without certification",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:041",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Maintenance monitor and backup",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:042",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Template revision/update manager",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:043",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Independent customer handoff bundle",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:044",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "RevoCapture optional opt-in integration seam",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:product:045",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "White-label contractor site packages",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:001",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Semantic HTML and appropriate headings",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:002",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Color contrast validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:003",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Keyboard navigation and visible focus",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:004",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Responsive typography and image srcset",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:005",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Largest-contentful-paint and CLS optimization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:006",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Content security policy and HTTP headers where host supports",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:007",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Form input validation server-side and client-side",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:008",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Honeypot and rate limiting",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:009",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "CAPTCHA only when a suitable free privacy-respecting option exists",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:010",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Consent checkbox and purpose-specific form retention",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:011",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Timezone and operating-hours selection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:012",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "No fake availability: request ≠ confirmed booking",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:013",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Calendar conflict detection for connected read-only schedule",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:014",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Explicit provider token scope and tenant isolation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:015",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Accurate service-area and licensing claims supplied by owner",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:016",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Review authenticity and attribution",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:017",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Photos before/after ownership releases",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:018",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Image geo metadata removal",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:019",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Business license/insurance claims only if substantiated",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:020",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Alternate contact when third-party form is down",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:021",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Delivery proof/log without exposing lead PII",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:022",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Per-customer deployment pipeline and rollback",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:023",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Preview/customer approval gate",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:024",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Client-owned content and exportable source",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:025",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "SEO sitemap/robots/canonical link validation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:026",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Redirect and broken-link checker",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:027",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Analytics only after appropriate consent",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:028",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Access level: editor vs site owner vs support",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:029",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "No cross-business message or domain reuse",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:030",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer document/credentials not mixed with Morgan’s Garage Doors",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:031",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Machine-readable forms schema and configurable custom fields",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:032",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Local preview before customer-approved publication",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:033",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Page backup and version restore",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:feature:034",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Automatic free hosting quota awareness and graceful hold",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:001",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer-editable CMS with no vendor lock-in",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:002",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Read-only capacity and scheduling availability integrations",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:003",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Multi-location dispatch/booking routes",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:004",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Consent-based web chat",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:005",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Voice intake as separately controlled domain capability",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:006",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Multilingual service sites",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:007",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Accessible progressive-web-app features only where useful",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:008",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Local SEO structured data refinements",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:009",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Seasonal service page automation",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:010",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Real booking conversion optimization",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:011",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Trade-specific quote configuration modules",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:012",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Customer portal for updates and status",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:013",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Performance anomaly monitoring",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:014",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Multi-device visual regression",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:015",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Analytics attribution with real evidence",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:111:future:016",
+      "company_id": "company:future:111",
+      "project_id": "project:company:future:111",
+      "name": "Agency white label distribution",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:001",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Source upload or authorized file import",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:002",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Rights/intake questionnaire",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:003",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Source transcoding",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:004",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Speech-to-text transcript",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:005",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Speaker diarization",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:006",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Language identification",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:007",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Semantic topic chapter detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:008",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Highlight candidate mining",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:009",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Question-and-answer clip detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:010",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Hook and context scoring",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:011",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Clip boundary editing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:012",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Silence and dead-air cleanup",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:013",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Remove filler words only with customer approval and sense checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:014",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Vertical 9:16 reframing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:015",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Square 1:1 reframing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:016",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Landscape 16:9 clips",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:017",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Smart face/speaker tracking with consent",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:018",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Multi-person split-layout framing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:019",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Subtitle generation and styling",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:020",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Word-level timing correction",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:021",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Profanity policy configurable per client",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:022",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Caption readability/contrast checks",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:023",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Brand logo/lower third overlays",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:024",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Audio denoise and leveling",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:025",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Noise/music separation optional and tested",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:026",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Pause/breath naturalness guard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:027",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "B-roll import from customer-owned assets",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:028",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Graphic overlays from client library",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:029",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Client-approved licensed music",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:030",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Intro/outro templates",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:031",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Brand style kit and safe margins",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:032",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Thumbnail still extraction",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:033",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Short title/description suggestions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:034",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Multi-platform output profiles",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:035",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Clip package delivery with filename convention",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:036",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Client revision/proof portal",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:037",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Transcript and caption sidecars",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:038",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Burned-in versus separate captions",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:039",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Text-only quote/social caption pack",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:040",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Background processing queue",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:041",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Private workspace/retention control",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:042",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Performance/failure report",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:043",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Metadata/clip manifest",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:044",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Batch project processing",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:045",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Long-form to newsletter/blog outline only as optional related derivative",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:046",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Optional review-and-publish staging, no auto-publication",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:047",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Client-approved language translation/subtitles",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:048",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Video accessibility support",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:049",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "No customer analytics fabricated",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:050",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Portfolio and before-after examples using owned footage",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:product:051",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Customer request tracking and support",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:001",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Probe source codecs/frame rates/rotation/colorspaces",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:002",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Check media license and source publication permission",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:003",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "No extraction from unauthorized livestreams",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:004",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Video size and duration limits configurable",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:005",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Resume interrupted upload with integrity hash",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:006",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Audio/video sync validator",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:007",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Frame-level edit decision list",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:008",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Timecode traceability source-to-output",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:009",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Speaker and topic boundaries preserved",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:010",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "No misleading quote splices",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:011",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Speaker identification cannot infer real identities without permission",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:012",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Transcription confidence and uncertain words flagged",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:013",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Word-level caption manual edit",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:014",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Automatic profanity/copyright flagging as heuristic not legal clearance",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:015",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Vertical crop subject tracking with fallback",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:016",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Face blur/redaction with subject rights and consent",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:017",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Sensitive info/nameplate/plate screening",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:018",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Graphic safe zones and overlays",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:019",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Text overlap safe area QA",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:020",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Caption max lines/speed readable per device",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:021",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Loudness normalization and peak clipping guard",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:022",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Audio intelligibility preservation",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:023",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Avoid watermark removal and deceptive edits",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:024",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Duplicate clip semantic similarity detection",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:025",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Highlight diversity vs repetitions scoring",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:026",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Customer target-audience and tone settings",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:027",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Source clip quality minimum",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:028",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Thumbnail legibility and frame choice",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:029",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Render profiles versioned per platform",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:030",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "CPU/GPU capability autodetection, CPU fallback",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:031",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Local processing queue and concurrency cap",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:032",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Disk quota/retention cleanup approvals",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:033",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Checkpoint/restart after power loss",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:034",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "No pay-per-token or paid speech API by default",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:035",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Multiple audio languages when model supported",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:036",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Review and approve before client delivery by default",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:037",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Brand template versions and isolated customer assets",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:038",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "No automatic customer channel access",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:039",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Email/download delivery links with expiry/access control",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:040",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Portal disabled until owner approves hosting",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:041",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Privacy and data export/delete",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:042",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Provenance/watermark where useful not fake authorship",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:043",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "QC sampling all critical sections and selected frames",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:feature:044",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "AI-voice/deepfake features excluded unless separate lawful scope",
+      "tier": "candidate_now_or_later",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:001",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Scene-aware multicamera podcast cuts",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:002",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Automatic speaker-focused split layouts",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:003",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "More robust offline multilingual ASR",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:004",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Source-based fact checking via provided material",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:005",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Customer-approved animated graphics",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:006",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Customer-approved accessible descriptions",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:007",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Internal frame-based cut suggestions",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:008",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Transcript-based search/editor UI",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:009",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Customer self-service review with controlled hosting",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:010",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Consent-based subject redaction",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:011",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Brand kit per social platform",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:012",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Asset licensing automation",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:013",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Long-form video trailer packages",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:014",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Semantically diverse clip batches",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:015",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Robust local GPU acceleration when hardware available",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:016",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Caption language/translation packs",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:017",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Queue distributed to separately approved compute",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:018",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Selective human-in-loop review only where confidence warrants",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    },
+    {
+      "id": "cap:company:112:future:019",
+      "company_id": "company:future:112",
+      "project_id": "project:company:future:112",
+      "name": "Client analytics via separately authorized read-only links",
+      "tier": "future_optional_relevance_gate",
+      "require_relevance_economics_and_safety_review": true,
+      "ready_to_execute": false
+    }
+  ]
+}

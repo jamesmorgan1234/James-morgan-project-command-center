@@ -161,7 +161,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors, bookPerformance] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, bookPerformance, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
@@ -184,7 +184,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("book-performance", "command_center_book_performance_truth_history", "owner_id,metric_id,project_id,book_id,edition,format,provider_key,marketplace,metric,value,currency,truth,source,source_date,observed_at,source_refs", { provider_key: "eq.owner_report", format: "eq.all_formats", edition: "eq.current", order: "source_date.desc,observed_at.desc", limit: "5000" }),
         safe("finance", "analytics_project_kpis", "project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,observed_at", { or: "(metric_key.ilike.*revenue*,metric_key.ilike.*sales*,metric_key.ilike.*balance*,metric_key.ilike.*income*)", order: "project_id.asc,observed_at.desc", limit: "500" }),
         safe("social", "integration_connections", "id,project_id,provider_key,provider_label,status,last_success_at", { archived_at: "is.null", order: "project_id.asc", limit: "500" }),
-        safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,updated_at", { order: "brain_key.asc", limit: "500" }),
+        safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,configuration_ref,updated_at", { order: "brain_key.asc", limit: "500" }),
         safe("project-assets", "command_center_assets", "asset_id,project_id,name,sensitivity,original_state,approval_state,source_ref,updated_at", { sensitivity: "neq.secret", order: "updated_at.desc", limit: "1000" }),
         safe("project-records", "command_center_canonical_entities", "entity_id,entity_type,project_id,payload,updated_at", { entity_type: "in.(decision,integration_request,asset_reference)", deleted_at: "is.null", order: "updated_at.desc", limit: "1000" }),
         safe("executors", "command_center_agency_executors", "executor_key,enabled,cost_class,health,project_type_keys,capabilities,environments,retired_at", { retired_at: "is.null", order: "executor_key.asc", limit: "200" })
@@ -255,6 +255,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         }),
         projects: Object.freeze(projectSnapshots.map(project => {
           const profile = projects.find(row => row.project_id === project.id);
+          const specialist = specialistBrains.find(row => row.project_id === project.id && row.scope === "project");
           const entities = workspaceEntities.filter(row => row.project_id === project.id);
           const records = (kind: string) => Object.freeze(entities.filter(row => row.entity_type === kind).map(row => {
             const payload = isRecord(row.payload) ? row.payload : {};
@@ -267,7 +268,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
           if (currentUnits.length === 0) blockers.push("This project has a business plan, but no executable work steps have been registered yet.");
           if (currentRoadmap?.structure_verified !== true) blockers.push("The executable roadmap has not passed its structure/readiness checks.");
           if (eligible.length === 0) blockers.push("No verified free execution worker is connected for this project type.");
-          return Object.freeze({ ...project, workspace: Object.freeze({
+          return Object.freeze({ ...project,
+            ...(specialist && text(specialist.brain_key) ? { specialistKey: text(specialist.brain_key)!, specialistPlan: Object.freeze({ key: text(specialist.brain_key)!, enabled: specialist.enabled === true, capabilities: Object.freeze(textArray(specialist.capabilities)), ...(text(specialist.configuration_ref) ? { configurationRef: text(specialist.configuration_ref)! } : {}) }) } : {}),
+            workspace: Object.freeze({
             ...(text(profile?.source_ref) ? { sourceRef: text(profile?.source_ref)! } : {}),
             assets: Object.freeze([...assets.filter(row => row.project_id === project.id).map(row => Object.freeze({ id: text(row.asset_id)!, title: text(row.name)!, detail: `${text(row.original_state)} · ${text(row.approval_state)}`, sourceRef: text(row.source_ref)!, observedAt: text(row.updated_at)! })), ...records("asset_reference")]),
             decisions: records("decision"),

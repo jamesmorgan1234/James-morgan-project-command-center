@@ -1,0 +1,187 @@
+{
+  "artifact_scope": "LOCAL_DRAFT_ONLY",
+  "prepared_at": "2026-11-03",
+  "source_repo_head_read_only": "055b9dd7662c9ece73e393f604a81ff76227bb6c",
+  "files": [
+    {
+      "path": "00_AUTHORITY_AND_PROTECTED_SCOPE.md",
+      "bytes": 4023,
+      "sha256": "90bfe034da8e15f31be4c916ae137c2d22a4d1a62ab77511b97c4731fbf558ee"
+    },
+    {
+      "path": "01_IMPLEMENTATION_AND_BUTTON_ACCEPTANCE.md",
+      "bytes": 6019,
+      "sha256": "cbf4f396db933eea4d8f6b2a5ecb3e649487fe5a1192bef55b338db255e8ee02"
+    },
+    {
+      "path": "02_CROSS_PORTFOLIO_OVERLAP.md",
+      "bytes": 3120,
+      "sha256": "69741eea09d47353f41c9aeb4e31c966a6bcb210a548183fe15d7c94605266b2"
+    },
+    {
+      "path": "03_RESEARCH_AND_VALIDATION.md",
+      "bytes": 3658,
+      "sha256": "685086032c8327b5f1af1ad10c9e65434e91d1a666ab64f4f786072ec9919786"
+    },
+    {
+      "path": "04_FUTURE_WORK_HANDOFF.md",
+      "bytes": 5850,
+      "sha256": "b4b116feda566c1a12c3a50ec79baa4a321e3e5e8c4b412e6b877229dea19346"
+    },
+    {
+      "path": "05_LOCAL_QA_REPORT.json",
+      "bytes": 215,
+      "sha256": "0eee8c59906fd9970fe52e2c8e962263b43f0ba9b9db130c47d0a3f38ec482c7"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3791,
+      "sha256": "4faf66beab20f04cca5f3b98d9989e32fe803464fb070d0fe3494608f953c3cc"
+    },
+    {
+      "path": "companies/108_product_recall_intelligence/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 8599,
+      "sha256": "9a6be1ee2fd796a1d926400c0fc556c6088926d7fe9e979e2b4e863ddf1c6cb1"
+    },
+    {
+      "path": "companies/108_product_recall_intelligence/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 72629,
+      "sha256": "dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275"
+    },
+    {
+      "path": "companies/108_product_recall_intelligence/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 6807,
+      "sha256": "7e29e19d16162d6e0c54738b8589d8dc883c73bc21dc595c61be2f9b5903a53c"
+    },
+    {
+      "path": "companies/108_product_recall_intelligence/SPECIALIZED_BRAIN.md",
+      "bytes": 9380,
+      "sha256": "512a6f224de4b1c762f2f1c026cca0b85bf84f25e3426e9aa4a04585fc41e71d"
+    },
+    {
+      "path": "companies/109_shipping_exception_recovery/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 8650,
+      "sha256": "55c20eb6ea4a9fcc8a203952f8bdf150e00a0f7564ddf9104bfefa5d75e955d3"
+    },
+    {
+      "path": "companies/109_shipping_exception_recovery/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 73405,
+      "sha256": "6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec"
+    },
+    {
+      "path": "companies/109_shipping_exception_recovery/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 7068,
+      "sha256": "756b131437174992fe9d2fa891f1e4af429956e3dc977f95215ea7cd7ddece35"
+    },
+    {
+      "path": "companies/109_shipping_exception_recovery/SPECIALIZED_BRAIN.md",
+      "bytes": 9103,
+      "sha256": "70e4063b1fa5ca8f59a6ab5d518945e5a19e53cc186bb7fb8df02dfd9f376531"
+    },
+    {
+      "path": "companies/110_book_formatting_publishing_preparation/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 8828,
+      "sha256": "642d219991531c986df50975110fdac89ee6243dffdb9243aff838cfce6df011"
+    },
+    {
+      "path": "companies/110_book_formatting_publishing_preparation/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 73476,
+      "sha256": "b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229"
+    },
+    {
+      "path": "companies/110_book_formatting_publishing_preparation/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 7049,
+      "sha256": "baaead5888752caeff24d95858ef5d065a1ecbd4831a8c15bb9e00d4b31aa33d"
+    },
+    {
+      "path": "companies/110_book_formatting_publishing_preparation/SPECIALIZED_BRAIN.md",
+      "bytes": 9373,
+      "sha256": "19b19aaec9e113f1d591f98917697c783d0458035f2b14d568375317a3480d18"
+    },
+    {
+      "path": "companies/111_contractor_websites_online_booking/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 8876,
+      "sha256": "8710a59f398819ae2028c4092a2e6085fead7bb4fe29e39dc8e7a21729d845fb"
+    },
+    {
+      "path": "companies/111_contractor_websites_online_booking/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 74608,
+      "sha256": "254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3"
+    },
+    {
+      "path": "companies/111_contractor_websites_online_booking/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 6702,
+      "sha256": "a1e2f46bb9329ff5bedf6ba84302d6096d0444e21b6031694a9bdc1af195a0e1"
+    },
+    {
+      "path": "companies/111_contractor_websites_online_booking/SPECIALIZED_BRAIN.md",
+      "bytes": 9531,
+      "sha256": "c70709953f4327b6c5c5775e9b4059494a514a356a79382b12fc2ec82956f029"
+    },
+    {
+      "path": "companies/112_automated_video_repurposing/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 9331,
+      "sha256": "e1d12e05638a73fe78986b40e129df97e4f5f3b5e450cda0d295e50fd937963f"
+    },
+    {
+      "path": "companies/112_automated_video_repurposing/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 75479,
+      "sha256": "6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b"
+    },
+    {
+      "path": "companies/112_automated_video_repurposing/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 7243,
+      "sha256": "f4fdd175c2663857ea740816bb1fc38bcec9f6a8653ffb5ccdeab1cc6ae84b77"
+    },
+    {
+      "path": "companies/112_automated_video_repurposing/SPECIALIZED_BRAIN.md",
+      "bytes": 9489,
+      "sha256": "5834818c7d7dc4d5bae70ef764b6e3b8400c3e0abb39b8108021e0ba805ffce1"
+    },
+    {
+      "path": "data/AGENCY_TASK_GRAPH.json",
+      "bytes": 521636,
+      "sha256": "cab32ba30fe8ed13eaf3aac638343c1f307616d78080b53fe74cb6012558839d"
+    },
+    {
+      "path": "data/COMPANY_CAPABILITY_CATALOG.json",
+      "bytes": 162054,
+      "sha256": "fda27a2b760d3696c964987be605198e71d5544647bf892446549864a7f26394"
+    },
+    {
+      "path": "data/COMPANY_REGISTRY_PROPOSALS.json",
+      "bytes": 9101,
+      "sha256": "75828c2dbdae62cd47192f557c4cd2749dfb643ba61a94c80dd2453c8a86ae28"
+    },
+    {
+      "path": "data/CONFORMANCE_106_CHECK_DRAFT.json",
+      "bytes": 417072,
+      "sha256": "a51a070a10b235cf377cf1f4f642c65ae2d5b0ba55f1fe6c443d3832a71d8161"
+    },
+    {
+      "path": "data/EXTERNAL_SOURCES_AND_VALIDATION.json",
+      "bytes": 5286,
+      "sha256": "1db0267f4ade3588412e8533f3a2ad5fe2f12243dfa4dd5f6042870b4c3cdf30"
+    },
+    {
+      "path": "data/ROADMAP_PHASES.json",
+      "bytes": 16258,
+      "sha256": "4cba12c70f746866d9160e953eac1ec1407f3285de489fc8610e5d14aaa2209c"
+    },
+    {
+      "path": "data/SPECIALIST_BRAIN_PROPOSALS.json",
+      "bytes": 18471,
+      "sha256": "108e0d598f243997fac8a9433f54294b12496842976f3979f7769ed223d12e90"
+    },
+    {
+      "path": "scripts/build_package.py",
+      "bytes": 151410,
+      "sha256": "1d64fc638d9a99036f3541688f4b7d20fc5f0f5360c3573a43e89ccf03b02216"
+    },
+    {
+      "path": "scripts/validate.py",
+      "bytes": 7119,
+      "sha256": "689603e14b4c38820d5004e44c83d8c43dca1dff58c999eb0c80868c10e6e64b"
+    }
+  ]
+}

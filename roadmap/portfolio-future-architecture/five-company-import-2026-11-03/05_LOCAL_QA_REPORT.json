@@ -1,0 +1,11 @@
+{
+  "state": "PASS",
+  "checks_per_company": 106,
+  "companies": 5,
+  "brain_manifests": 5,
+  "work_units": 530,
+  "capability_candidates": 480,
+  "conformance_entries": 530,
+  "phase_gates": 40,
+  "problems": []
+}

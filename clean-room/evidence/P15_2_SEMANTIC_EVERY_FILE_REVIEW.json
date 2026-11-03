@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "055b9dd7662c9ece73e393f604a81ff76227bb6c",
+  "gitSha": "8532b17378ef4e15b8854dc22fc57001bc07d097",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2028,
-  "inventoryDigest": "2989eccf8ff63150afb24983b0f1ed034c303b0991341ac92ca197feeb579126",
+  "reviewedFileCount": 2076,
+  "inventoryDigest": "eaffa0a93ba47fa45d2c497e9ececb5e28f8b32cc4dd7f2c514ad3fe31a3f856",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2029,
-    "reviewedFileCount": 2028,
+    "trackedFileCount": 2077,
+    "reviewedFileCount": 2076,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 30,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 196,
+      "EVID": 197,
       "APUB": 14,
-      "SCRP": 138,
+      "SCRP": 139,
       "ASRC": 342,
-      "TEST": 451,
-      "RDMAP": 290,
-      "SBAS": 236,
+      "TEST": 452,
+      "RDMAP": 333,
+      "SBAS": 238,
       "HTST": 43
     },
     "defectCount": 0,
@@ -682,7 +682,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 196,
+      "fileCount": 197,
       "roles": [
         "EVID"
       ]
@@ -710,7 +710,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 135,
+      "fileCount": 136,
       "roles": [
         "SCRP"
       ]
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 451,
+      "fileCount": 452,
       "roles": [
         "TEST"
       ]
@@ -1718,7 +1718,7 @@
     },
     {
       "directory": "roadmap/portfolio-future-architecture",
-      "fileCount": 250,
+      "fileCount": 293,
       "roles": [
         "RDMAP"
       ]
@@ -1788,7 +1788,7 @@
     },
     {
       "directory": "supabase/seeds",
-      "fileCount": 1,
+      "fileCount": 3,
       "roles": [
         "SBAS"
       ]
@@ -3426,6 +3426,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/FIVE_COMPANY_NATIVE_IMPORT.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "1a426761bc3ef7df96468e1f360369891484530f70537313a7b345b37096bd35",
+      "bytes": 1303385,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/P10_1_IDENTITY_MAP_VERIFICATION.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -4851,7 +4860,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "80ed107e71f99f2db487baa10a92bcedbd2ce68fdd59607eab31ccb1c7a8652d",
+      "sha256": "8c4b3b3a31a82eebcc9469c20d5265be237ef9df00f84c98390666117f9f6cba",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -5184,8 +5193,8 @@
       "path": "clean-room/scripts/compile-planned-company-preparation.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "9193f7cab5565a169517a7a7fa1c28d48f6ad7cde57d002e1d414a919119b5a6",
-      "bytes": 1331,
+      "sha256": "ed1b98922afe837e305ed3932ff17e170e3385097345883a0ab9ea227adbe3e4",
+      "bytes": 1457,
       "contentKind": "text",
       "findings": []
     },
@@ -6129,8 +6138,8 @@
       "path": "clean-room/scripts/p15-16-company-project-backfill.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "7c46798054e482bd087e3ee20a097fc3601f71806aaf54c80f4719977e05e1cf",
-      "bytes": 8075,
+      "sha256": "98c0a78c5326f0086ccdfe27ee27f1c9f6e75254fce30654aaa9b998ecec4d67",
+      "bytes": 8206,
       "contentKind": "text",
       "findings": []
     },
@@ -6221,6 +6230,15 @@
       "disposition": "retain-active",
       "sha256": "004fdd5309629822caa96866ec1129e7f8c15de0b1f1e907851a0d2b815e3e6f",
       "bytes": 2824,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/prepare-five-company-import.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "cf9f444c08e0c4b66f4cb3daf66ca52d7c233d734948efacfa9bb8d4cc8b5325",
+      "bytes": 14216,
       "contentKind": "text",
       "findings": []
     },
@@ -8532,8 +8550,8 @@
       "path": "clean-room/src/runtime/browser.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "f00ec008b3c0b809903967f523f227f0188de643af4a94341fc0d61ba3b4f87a",
-      "bytes": 49650,
+      "sha256": "3c2f28f240a73d9020920678c2098743f404f3a35b9c1febebebad2f6708e0b3",
+      "bytes": 50003,
       "contentKind": "text",
       "findings": []
     },
@@ -8640,8 +8658,8 @@
       "path": "clean-room/src/runtime/provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "75658dfa0faf8526ae29705ef5e7b3e80bdd9598ff6f93198485fb872de8097b",
-      "bytes": 18068,
+      "sha256": "95ffd7d22271d2d567b3578aac72f62ab15ebc79dd22ee191d34a83c186c1ec4",
+      "bytes": 18525,
       "contentKind": "text",
       "findings": []
     },
@@ -8667,8 +8685,8 @@
       "path": "clean-room/src/runtime/snapshot.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "538720bf78344ee3f019df29485ff7584ec784bd108464960ffc7a3d7485685b",
-      "bytes": 11455,
+      "sha256": "389b83ec7ea3f0eb15cb49c2d27edba217bb9fa7f73ac78551752f5b7c744622",
+      "bytes": 11588,
       "contentKind": "text",
       "findings": []
     },
@@ -8685,8 +8703,8 @@
       "path": "clean-room/src/runtime/supabase-owner-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "d344c514b72b889669e53df2296d8ad5835efd00951bca1f3c5444c834c19df2",
-      "bytes": 43472,
+      "sha256": "6ad417974de2bc8710ec00ab0af44be9e3515b9870784fd57f92e9cd605630b3",
+      "bytes": 44010,
       "contentKind": "text",
       "findings": []
     },
@@ -11418,6 +11436,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/tests/five-company-import.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "2c20fa2ddd37fd2ea416002863eb750ff6d2889f15cbfed098618d444ff514db",
+      "bytes": 12283,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/tests/helpers/analytics-contracts.mjs",
       "role": "TEST",
       "disposition": "retain-active",
@@ -13079,8 +13106,8 @@
       "path": "clean-room/tests/planned-company-preparation.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "05ca8131042cb3348437d351009edfa5346dba9c98a0ce800fdbf46ecb4f5088",
-      "bytes": 1871,
+      "sha256": "104ec23a0fe6ad7e81a0b12604f92870f79a72b4d0f68a230edd3314e9fb056f",
+      "bytes": 1898,
       "contentKind": "text",
       "findings": []
     },
@@ -15942,6 +15969,15 @@
       "findings": []
     },
     {
+      "path": "roadmap/portfolio-future-architecture/132_FIVE_COMPANY_IMPORT_STATUS.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "45331af5a29e93e16ed721b428a9449ce8dceedcf2c43e1a7356912c4da0dbc3",
+      "bytes": 3898,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "roadmap/portfolio-future-architecture/40_CANONICAL_100_COMPANY_PROJECT_REGISTRY.md",
       "role": "RDMAP",
       "disposition": "retain-authority-evidence",
@@ -16932,6 +16968,51 @@
       "findings": []
     },
     {
+      "path": "roadmap/portfolio-future-architecture/companies/108_PRODUCT_RECALL_INTELLIGENCE.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275",
+      "bytes": 72629,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/companies/109_SHIPPING_EXCEPTION_RECOVERY.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec",
+      "bytes": 73405,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/companies/110_BOOK_FORMATTING_PUBLISHING_PREPARATION.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229",
+      "bytes": 73476,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/companies/111_CONTRACTOR_WEBSITES_ONLINE_BOOKING.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3",
+      "bytes": 74608,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/companies/112_AUTOMATED_VIDEO_REPURPOSING.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b",
+      "bytes": 75479,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "roadmap/portfolio-future-architecture/companies/conformance/001_API_AS_A_BUSINESS_FACTORY_CURRENT_STANDARD.md",
       "role": "RDMAP",
       "disposition": "retain-authority-evidence",
@@ -17837,6 +17918,339 @@
       "disposition": "retain-authority-evidence",
       "sha256": "27ab65f2f321d093f5b2ad67a7204033a728d2cc1d47519b6b5d7377a08af33b",
       "bytes": 4307,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/00_AUTHORITY_AND_PROTECTED_SCOPE.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "90bfe034da8e15f31be4c916ae137c2d22a4d1a62ab77511b97c4731fbf558ee",
+      "bytes": 4023,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/01_IMPLEMENTATION_AND_BUTTON_ACCEPTANCE.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "cbf4f396db933eea4d8f6b2a5ecb3e649487fe5a1192bef55b338db255e8ee02",
+      "bytes": 6019,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/02_CROSS_PORTFOLIO_OVERLAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "69741eea09d47353f41c9aeb4e31c966a6bcb210a548183fe15d7c94605266b2",
+      "bytes": 3120,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/03_RESEARCH_AND_VALIDATION.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "685086032c8327b5f1af1ad10c9e65434e91d1a666ab64f4f786072ec9919786",
+      "bytes": 3658,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/04_FUTURE_WORK_HANDOFF.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "b4b116feda566c1a12c3a50ec79baa4a321e3e5e8c4b412e6b877229dea19346",
+      "bytes": 5850,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/05_LOCAL_QA_REPORT.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "0eee8c59906fd9970fe52e2c8e962263b43f0ba9b9db130c47d0a3f38ec482c7",
+      "bytes": 215,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/README.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4faf66beab20f04cca5f3b98d9989e32fe803464fb070d0fe3494608f953c3cc",
+      "bytes": 3791,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/AGENCY_EXECUTION_PLAN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "9a6be1ee2fd796a1d926400c0fc556c6088926d7fe9e979e2b4e863ddf1c6cb1",
+      "bytes": 8599,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275",
+      "bytes": 72629,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/RISKS_QA_AND_GATE_MATRIX.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "7e29e19d16162d6e0c54738b8589d8dc883c73bc21dc595c61be2f9b5903a53c",
+      "bytes": 6807,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/SPECIALIZED_BRAIN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "512a6f224de4b1c762f2f1c026cca0b85bf84f25e3426e9aa4a04585fc41e71d",
+      "bytes": 9380,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/AGENCY_EXECUTION_PLAN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "55c20eb6ea4a9fcc8a203952f8bdf150e00a0f7564ddf9104bfefa5d75e955d3",
+      "bytes": 8650,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec",
+      "bytes": 73405,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/RISKS_QA_AND_GATE_MATRIX.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "756b131437174992fe9d2fa891f1e4af429956e3dc977f95215ea7cd7ddece35",
+      "bytes": 7068,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/SPECIALIZED_BRAIN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "70e4063b1fa5ca8f59a6ab5d518945e5a19e53cc186bb7fb8df02dfd9f376531",
+      "bytes": 9103,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/AGENCY_EXECUTION_PLAN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "642d219991531c986df50975110fdac89ee6243dffdb9243aff838cfce6df011",
+      "bytes": 8828,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229",
+      "bytes": 73476,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/RISKS_QA_AND_GATE_MATRIX.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "baaead5888752caeff24d95858ef5d065a1ecbd4831a8c15bb9e00d4b31aa33d",
+      "bytes": 7049,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/SPECIALIZED_BRAIN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "19b19aaec9e113f1d591f98917697c783d0458035f2b14d568375317a3480d18",
+      "bytes": 9373,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/AGENCY_EXECUTION_PLAN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "8710a59f398819ae2028c4092a2e6085fead7bb4fe29e39dc8e7a21729d845fb",
+      "bytes": 8876,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3",
+      "bytes": 74608,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/RISKS_QA_AND_GATE_MATRIX.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "a1e2f46bb9329ff5bedf6ba84302d6096d0444e21b6031694a9bdc1af195a0e1",
+      "bytes": 6702,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/SPECIALIZED_BRAIN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "c70709953f4327b6c5c5775e9b4059494a514a356a79382b12fc2ec82956f029",
+      "bytes": 9531,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/AGENCY_EXECUTION_PLAN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "e1d12e05638a73fe78986b40e129df97e4f5f3b5e450cda0d295e50fd937963f",
+      "bytes": 9331,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b",
+      "bytes": 75479,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/RISKS_QA_AND_GATE_MATRIX.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "f4fdd175c2663857ea740816bb1fc38bcec9f6a8653ffb5ccdeab1cc6ae84b77",
+      "bytes": 7243,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/SPECIALIZED_BRAIN.md",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "5834818c7d7dc4d5bae70ef764b6e3b8400c3e0abb39b8108021e0ba805ffce1",
+      "bytes": 9489,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/AGENCY_TASK_GRAPH.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "cab32ba30fe8ed13eaf3aac638343c1f307616d78080b53fe74cb6012558839d",
+      "bytes": 521636,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/COMPANY_CAPABILITY_CATALOG.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "fda27a2b760d3696c964987be605198e71d5544647bf892446549864a7f26394",
+      "bytes": 162054,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/COMPANY_REGISTRY_PROPOSALS.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "75828c2dbdae62cd47192f557c4cd2749dfb643ba61a94c80dd2453c8a86ae28",
+      "bytes": 9101,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/CONFORMANCE_106_CHECK_DRAFT.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "a51a070a10b235cf377cf1f4f642c65ae2d5b0ba55f1fe6c443d3832a71d8161",
+      "bytes": 417072,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/EXTERNAL_SOURCES_AND_VALIDATION.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "1db0267f4ade3588412e8533f3a2ad5fe2f12243dfa4dd5f6042870b4c3cdf30",
+      "bytes": 5286,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/PACKAGE_FILE_MANIFEST.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "ed1fddd7490a8579a2d25a9679d47370fb5873095569661ee1ae5728338c1087",
+      "bytes": 6925,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/ROADMAP_PHASES.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4cba12c70f746866d9160e953eac1ec1407f3285de489fc8610e5d14aaa2209c",
+      "bytes": 16258,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/data/SPECIALIST_BRAIN_PROPOSALS.json",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "108e0d598f243997fac8a9433f54294b12496842976f3979f7769ed223d12e90",
+      "bytes": 18471,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/scripts/build_package.py",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "1d64fc638d9a99036f3541688f4b7d20fc5f0f5360c3573a43e89ccf03b02216",
+      "bytes": 151410,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/scripts/validate.py",
+      "role": "RDMAP",
+      "disposition": "retain-authority-evidence",
+      "sha256": "689603e14b4c38820d5004e44c83d8c43dca1dff58c999eb0c80868c10e6e64b",
+      "bytes": 7119,
       "contentKind": "text",
       "findings": []
     },
@@ -20035,6 +20449,24 @@
       "disposition": "retain-active",
       "sha256": "6f79940b4d6a2958cc0ac78f07c6897b05653ecb185d9d2cd555387fe1d25c8a",
       "bytes": 1328,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/seeds/five_company_import.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "aa618a620d429989e2c9e6da0edeabbded7b424794cd196209ec8d536aa9bc3c",
+      "bytes": 593118,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/seeds/five_company_specialist_prerequisite.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "85489d0af2f82b82d32040551a966ab2a761b9e1ff458268fc0fae655d4bd1b7",
+      "bytes": 967,
       "contentKind": "text",
       "findings": []
     },

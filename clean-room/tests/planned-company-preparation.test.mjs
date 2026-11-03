@@ -5,7 +5,7 @@ import {createHash} from 'node:crypto';
 import {plannedCompanyPreparation} from '../dist/projects/planned-company-roadmap.js';
 import {validateRoadmap,workReadiness} from '../dist/projects/roadmap.js';
 test('all 107 actual company plans compile to scoped, evidence-bound preparatory work without marking any work complete',async()=>{
- const dir=new URL('../../roadmap/portfolio-future-architecture/companies/',import.meta.url);const files=(await readdir(dir)).filter(f=>/^\d{3}_[A-Z0-9_]+\.md$/.test(f));assert.equal(files.length,107);
+ const dir=new URL('../../roadmap/portfolio-future-architecture/companies/',import.meta.url);const files=(await readdir(dir)).filter(f=>/^\d{3}_[A-Z0-9_]+\.md$/.test(f)&&Number(f.slice(0,3))<=107);assert.equal(files.length,107);
  for(const file of files){const source=await readFile(new URL(file,dir),'utf8');const [,number,name]=source.match(/^# Company (\d{3}) — (.+)$/m);const hash=createHash('sha256').update(source).digest('hex');const plan=plannedCompanyPreparation('project:company:future:'+number,name,'roadmap/portfolio-future-architecture/companies/'+file,hash);validateRoadmap(plan);
  assert.equal(plan.workUnits.length,2);assert.ok(plan.workUnits.every(u=>u.status==='planned'&&u.id.startsWith(plan.projectId)&&u.evidenceRefs.some(ref=>ref.includes(hash))));assert.equal(workReadiness(plan,plan.workUnits[0].id).ready,true);assert.equal(workReadiness(plan,plan.workUnits[1].id).ready,false);
  }

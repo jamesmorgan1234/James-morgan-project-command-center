@@ -1,0 +1,365 @@
+{
+  "status": "PLANNED",
+  "phases": [
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P0",
+      "title": "Authority and demand validation",
+      "description": "Confirm distinct company scope; validate three retailer pain scenarios using publicly available recalls and synthetic catalogs.",
+      "exit_gate": "Source/license review, no-cost prototype, documented customer assumptions, no customer outreach without authorization.",
+      "predecessor": null,
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P1",
+      "title": "Identity, source and safety foundation",
+      "description": "Company/project/Brain boundaries, official-source adapters, normalized recall schema, staleness/versioning, tenant isolation.",
+      "exit_gate": "Source fixtures, schema drift tests, explicit unknown; no sensitive data or outbound alerts.",
+      "predecessor": "P0",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P2",
+      "title": "Catalog matching core",
+      "description": "SKU import, exact GTIN/model matching, lot/date predicates, confidence and explanation, manual review queue.",
+      "exit_gate": "Labeled evaluation set; high-consequence false negatives measured; ambiguous cases abstain.",
+      "predecessor": "P1",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P3",
+      "title": "Evidence alerts and operations",
+      "description": "Source-linked alert workflow, correction/retraction tracking, audit exports, notifications with consent and dedupe.",
+      "exit_gate": "Safe dry-run, zero duplicate sends, notification approval tests and outage handling.",
+      "predecessor": "P2",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P4",
+      "title": "First paid customer validation",
+      "description": "Customer authorization, trial-to-paid evidence, merchant workflow fit, retention and support cost measurement.",
+      "exit_gate": "Real customer opt-in and verified payment; no synthetic revenue.",
+      "predecessor": "P3",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P5",
+      "title": "Coverage and vertical depth",
+      "description": "CPSC/FDA category packs, manufacturer notices, multilingual notices and multi-location rules.",
+      "exit_gate": "Per-source completeness and legal review, calibrated match performance.",
+      "predecessor": "P4",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P6",
+      "title": "Integrations, API, OEM",
+      "description": "Catalog/ERP/PIM connectors, signed customer webhooks, reusable scopes, white label.",
+      "exit_gate": "Connector permissions, sandbox tests, backpressure and version contract.",
+      "predecessor": "P5",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:108",
+      "phase": "P7",
+      "title": "Scaling, recovery, improvement",
+      "description": "Multi-customer operating evidence, data lifecycle, drift monitoring, horizontal capacity and approved future innovation.",
+      "exit_gate": "SLO and restoration drills; cost proposal only; no automatic paid scale.",
+      "predecessor": "P6",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P0",
+      "title": "Carrier/market feasibility",
+      "description": "Choose carrier and service under known free/licensed access; document guarantee policies and actual account eligibility.",
+      "exit_gate": "No code relies on unverified API/refund eligibility; synthetic examples only.",
+      "predecessor": null,
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P1",
+      "title": "Shipment/event state foundation",
+      "description": "First-class project/Brain; shipping entity and event journal; idempotent tracking adapter; authorization boundaries.",
+      "exit_gate": "Out-of-order/replayed tracking tests and no credential exposure.",
+      "predecessor": "P0",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P2",
+      "title": "Exception classification",
+      "description": "Service-specific exception logic, delivery clocks, advisory versions, evidence and uncertainty.",
+      "exit_gate": "False-positive case evaluation and time-zone/holiday tests.",
+      "predecessor": "P1",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P3",
+      "title": "Eligibility/claim preparation",
+      "description": "Current carrier policy citations, deadline system, evidence packet and separate claim approval gate.",
+      "exit_gate": "No automatic filing or financial action; policy change rejects stale rules.",
+      "predecessor": "P2",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P4",
+      "title": "Actual-credit reconciliation",
+      "description": "Claim receipt tracking, credits verified against statements, distinct customer refunds, accurate reporting.",
+      "exit_gate": "Zero synthetic revenue, zero duplicate claim IDs and equal-credit reconciliation.",
+      "predecessor": "P3",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P5",
+      "title": "First merchant validation",
+      "description": "Authorized merchant trial with shipment volume, exception burden, policy eligibility and service value evidence.",
+      "exit_gate": "Actual operator feedback and first real paid evidence before scaling.",
+      "predecessor": "P4",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P6",
+      "title": "Carrier and platform expansion",
+      "description": "More account-scoped carrier adapters, ecommerce and 3PL connectors, support desk integration.",
+      "exit_gate": "Each carrier has separate legality, credentials, replay/coverage and financial gates.",
+      "predecessor": "P5",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:109",
+      "phase": "P7",
+      "title": "Optimization and scale",
+      "description": "Versioned event analytics, policy drift, enterprise dashboards, recovery/migration, low-cost capacity design.",
+      "exit_gate": "Measured unit economics; capacity cost proposals only, never auto-spend.",
+      "predecessor": "P6",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P0",
+      "title": "Evidence, product and demo",
+      "description": "Verify current KDP/EPUB requirements and author scope; generate sample public-domain book and sample QA report.",
+      "exit_gate": "Real source formats verified, customer ownership rules and free tools licensed.",
+      "predecessor": null,
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P1",
+      "title": "Secure intake and semantic engine",
+      "description": "Client isolation, source scanning, structure tree, metadata, style presets, versioning and author approval.",
+      "exit_gate": "Source diff preserves 100% original text except approved changes.",
+      "predecessor": "P0",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P2",
+      "title": "EPUB workflow",
+      "description": "EPUB3 generation, navigation, accessibility, image/footnote validation and device proof set.",
+      "exit_gate": "EPUBCheck passing and independent visual QA.",
+      "predecessor": "P1",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P3",
+      "title": "Print production workflow",
+      "description": "Trim/bleed/gutter, typography, paperback/hardcover interior PDF, image/font QC, mechanical cover check.",
+      "exit_gate": "Current KDP rules, no trim/bleed violations and manual proof pass.",
+      "predecessor": "P2",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P4",
+      "title": "Customer production workflow",
+      "description": "Quote/scope, revision approvals, secure delivery, source rebuild receipts and support.",
+      "exit_gate": "One complete mock customer order, secure file separation and no auto-publishing.",
+      "predecessor": "P3",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P5",
+      "title": "First authorized paid customers",
+      "description": "Validate quality, price, turnaround, rework/refund policy and customer satisfaction.",
+      "exit_gate": "Actual payment and final deliverables; no fabricated sales.",
+      "predecessor": "P4",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P6",
+      "title": "Expanded genre and channel profiles",
+      "description": "Workbooks, cookbooks, poetry, picture books, large-print, additional retailers with official specs.",
+      "exit_gate": "Each profile independently accepted with realistic specimen tests.",
+      "predecessor": "P5",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:110",
+      "phase": "P7",
+      "title": "Automation and scale",
+      "description": "Background job queue, genre QA/evals, author portal, series templates, no-cost capacity/recovery.",
+      "exit_gate": "Demand/cost/quality evidence; owner approves any paid scaling separately.",
+      "predecessor": "P6",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P0",
+      "title": "Demand and scope",
+      "description": "Validate contractor niches, client willingness to pay, separate from RevoCapture and existing #029.",
+      "exit_gate": "Clear owner-approved product boundaries and owned demo data.",
+      "predecessor": null,
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P1",
+      "title": "Template/data/privacy foundation",
+      "description": "One static trade template, intake schema, approved content/image rights, per-client site isolation.",
+      "exit_gate": "Zero unintended use of garage company assets or data; access and mobile QA.",
+      "predecessor": "P0",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P2",
+      "title": "Contact and booking request workflow",
+      "description": "Functional form, secure receiver, request status, calendar read integration optional, anti-spam.",
+      "exit_gate": "End-to-end synthetic lead delivered to correct owner; never fake confirmed appointment.",
+      "predecessor": "P1",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P3",
+      "title": "Multi-device and public readiness QA",
+      "description": "Accessibility, performance, HTTPS, responsive screenshots, SEO markup, content truth, backup.",
+      "exit_gate": "Automated + human functional/visual checklist passes.",
+      "predecessor": "P2",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P4",
+      "title": "First customer service delivery",
+      "description": "Client quote/approval, template customization, deploy under authorized account, handoff source and docs.",
+      "exit_gate": "Real client signoff, no unauthorized domain purchase or spend.",
+      "predecessor": "P3",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P5",
+      "title": "Maintenance and analytics",
+      "description": "Broken forms/links monitors, approved updates, consented analytics, routine incident recovery.",
+      "exit_gate": "Verified maintenance run with owner notification on failure.",
+      "predecessor": "P4",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P6",
+      "title": "Cross-vertical and optional integrations",
+      "description": "Expand to 5+ trades, multi-location, CRM/read-only booking, RevoCapture opt-in.",
+      "exit_gate": "No scope/credential leakage and reuse tests for each trade pack.",
+      "predecessor": "P5",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:111",
+      "phase": "P7",
+      "title": "Agency/operator scale",
+      "description": "Independent customer build jobs, bounded concurrent builds, release governance, customer offboarding.",
+      "exit_gate": "Measured quality/support effort and free-tier capacity; owner-only spending decisions.",
+      "predecessor": "P6",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P0",
+      "title": "Scope/rights/hardware feasibility",
+      "description": "Company isolation, owned demo footage, legal processing consent; inspect laptop CPU/RAM/disk and no-cost tools.",
+      "exit_gate": "One full sample can be processed locally without server or spend.",
+      "predecessor": null,
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P1",
+      "title": "Local media ingestion and transcription",
+      "description": "FFprobe/FFmpeg, checksum vault, offline ASR and transcript/timecode trace.",
+      "exit_gate": "Hardware benchmark, corrupt/multiple format tests, no file leakage.",
+      "predecessor": "P0",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P2",
+      "title": "Highlight and editorial selection",
+      "description": "Topic/speaker segmentation, hook/context scoring, reviewable candidate clips, no misleading splice.",
+      "exit_gate": "Human-labeled clip rubric and high-confidence abstain cases.",
+      "predecessor": "P1",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P3",
+      "title": "Video/caption render and QA",
+      "description": "Aspect ratio reframing, captions/audio, platform profiles, encoder/retry, automated visual/audio QC.",
+      "exit_gate": "SRT accuracy, caption legibility, A/V sync, no clipping/black frames.",
+      "predecessor": "P2",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P4",
+      "title": "Client delivery and service operation",
+      "description": "Package design, review/revisions, private delivery, consent/rights receipts, customer support.",
+      "exit_gate": "One synthetic client order end-to-end and clean offboarding.",
+      "predecessor": "P3",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P5",
+      "title": "First authorized paid customers",
+      "description": "Validate repeat demand and real deliverable quality on existing laptop within capacity.",
+      "exit_gate": "Verified payments, customer approval and no manual workload overclaim.",
+      "predecessor": "P4",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P6",
+      "title": "Local automation and vertical templates",
+      "description": "Queue/recovery/scheduled tasks, client style kits, podcast/webinar/education/commerce variants.",
+      "exit_gate": "Continuous regression with no performance/quality regression or paid features.",
+      "predecessor": "P5",
+      "state": "PLANNED"
+    },
+    {
+      "project_id": "project:company:future:112",
+      "phase": "P7",
+      "title": "Optional approved infrastructure scale",
+      "description": "Serverless/cloud/hardware alternatives evaluated only after real demand; optional client portal and capacity.",
+      "exit_gate": "Cost/quality proposal to owner; no purchase, deployment or paid action automatically.",
+      "predecessor": "P6",
+      "state": "PLANNED"
+    }
+  ]
+}

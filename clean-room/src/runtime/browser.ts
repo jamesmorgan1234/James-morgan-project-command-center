@@ -447,7 +447,7 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   const analyticsHref = projectContextHref("analytics", project.id);
   const conversationHref = projectContextHref("brain", project.id, "conversation");
   section.append(
-    coreProjectDetailCard("brain", "BRAIN", "Open this project in Brain context. Current Brain availability remains governed by the canonical Brain runtime.", undefined, brainHref),
+    coreProjectDetailCard("brain", "BRAIN", project.specialistPlan ? `Project-specific Brain plan registered. ${project.specialistPlan.enabled ? "Provider and execution availability are checked separately." : "The plan is disabled for execution; no connected provider or worker is claimed."} ${project.specialistPlan.capabilities.length} scoped capabilities. Open this project's Brain context.` : "Open this project in Brain context. Current Brain availability remains governed by the canonical Brain runtime.", undefined, brainHref),
     coreProjectDetailCard("agency", "AGENCY", `Current project Agency state: ${truthText(project.agencyState)}. Open the project-scoped Agency surface for canonical execution state.`, undefined, agencyHref),
     coreProjectDetailCard("analytics", "ANALYTICS", "Open project-scoped analytics. No metric is inferred when the canonical analytics surface has no current evidence.", undefined, analyticsHref),
     coreProjectDetailCard("conversation", "CONVERSATION", "Open project-scoped Brain conversation context. Conversation availability and history are determined by the canonical Brain runtime.", undefined, conversationHref)

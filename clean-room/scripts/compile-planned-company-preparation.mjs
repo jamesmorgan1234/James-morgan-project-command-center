@@ -3,7 +3,8 @@ import { createHash } from 'node:crypto';
 import { plannedCompanyPreparation } from '../dist/projects/planned-company-roadmap.js';
 const root=new URL('../../',import.meta.url), dir=new URL('roadmap/portfolio-future-architecture/companies/',root);
 const plans=[];
-for(const file of (await readdir(dir)).filter(f=>/^\d{3}_[A-Z0-9_]+\.md$/.test(f)).sort()){
+// Preserve the original preparation import; later companies carry their own complete native DAGs.
+for(const file of (await readdir(dir)).filter(f=>/^\d{3}_[A-Z0-9_]+\.md$/.test(f)&&Number(f.slice(0,3))<=107).sort()){
  const content=await readFile(new URL(file,dir),'utf8'); const match=content.match(/^# Company (\d{3}) — (.+)$/m);
  if(!match||match[1]!==file.slice(0,3))throw Error('Company source identity mismatch '+file);
  const sourceRef='roadmap/portfolio-future-architecture/companies/'+file;

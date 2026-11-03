@@ -66,6 +66,7 @@ export interface RuntimeProjectSnapshot {
   readonly companyId?: TruthValue<string>;
   readonly detailSections?: readonly RuntimeProjectDetailSection[];
   readonly specialistKey?: string;
+  readonly specialistPlan?: Readonly<{ key: string; enabled: boolean; capabilities: readonly string[]; configurationRef?: string }>;
   readonly workspace?: RuntimeProjectWorkspace;
 
 }

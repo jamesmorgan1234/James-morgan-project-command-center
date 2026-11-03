@@ -1,0 +1,85 @@
+{
+  "status": "PUBLIC_REFERENCE_SNAPSHOT",
+  "date": "2026-11-03",
+  "sources": [
+    {
+      "title": "CPSC Recalls API",
+      "url": "https://www.cpsc.gov/Recalls/CPSC-Recalls-Application-Program-Interface-API-Information",
+      "note": "CPSC provides machine-readable recall notices; source freshness and the exact product identifiers available vary.",
+      "company_id": "company:future:108",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "CPSC Recalls Dataset",
+      "url": "https://www.cpsc.gov/Recalls",
+      "note": "CPSC notes weekly recall listings and changing remedy data; product identification is not universal.",
+      "company_id": "company:future:108",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "FDA Enforcement Reports",
+      "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/enforcement-reports",
+      "note": "FDA explicitly warns that firms often warn customers before formal report classification; do not claim this API alone gives earliest warning.",
+      "company_id": "company:future:108",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "USPS Developer Portal status",
+      "url": "https://devs.usps.com/status",
+      "note": "Tracking API exists but each carrier, account, guarantee and eligibility requires current review; live server status is not a pricing guarantee.",
+      "company_id": "company:future:109",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "KDP Prepare Your Manuscript",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G202187840",
+      "note": "Paperback and hardcover interiors may use same source interior, but cover files differ; exact current specifications must be followed.",
+      "company_id": "company:future:110",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "KDP Trim Bleed Margins",
+      "url": "https://kdp.amazon.com/en_US/help/topic/GVBQ3CMEQW3W2VL6/",
+      "note": "Correct trim, bleed and page-dependent gutter are necessary; future retailer changes require revalidation.",
+      "company_id": "company:future:110",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "KDP Paperback Submission Guidelines",
+      "url": "https://kdp.amazon.com/en_US/help/topic/G201857950",
+      "note": "KDP provides PDF/font/image requirements and publishing review; file validator cannot guarantee retailer acceptance.",
+      "company_id": "company:future:110",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "W3C WCAG 2.2",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "note": "Accessibility design and audits do not confer legal certification.",
+      "company_id": "company:future:111",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "FTC Endorsements FAQ",
+      "url": "https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking",
+      "note": "Do not fabricate testimonials or reviews, and endorsements/disclosures must be truthful.",
+      "company_id": "company:future:111",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "YouTube Monetization Original Content",
+      "url": "https://support.google.com/youtube/answer/2490020?hl=en",
+      "note": "Video commercial use needs rights to both audio and visual materials; uploading/public availability alone does not grant clipping rights.",
+      "company_id": "company:future:112",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    },
+    {
+      "title": "FFmpeg",
+      "url": "https://ffmpeg.org/",
+      "note": "Local open-source media processing framework; licensing must be checked for chosen binary/build and redistribution.",
+      "company_id": "company:future:112",
+      "verified_requirement": "re-check current API, terms, law and platform specs at actual build/launch; a 2026-11-03 source read is not launch approval"
+    }
+  ],
+  "reference_repo": "https://github.com/jamesmorgan1234/James-morgan-project-command-center/tree/build/spec-lock-v2-clean-room",
+  "repo_commit_sha": "055b9dd7662c9ece73e393f604a81ff76227bb6c"
+}

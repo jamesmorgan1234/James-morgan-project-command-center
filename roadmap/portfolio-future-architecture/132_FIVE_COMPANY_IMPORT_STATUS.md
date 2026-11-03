@@ -1,0 +1,19 @@
+# Five additive company plans — prepared native integration
+
+Companies 108–112 are Product Recall Intelligence; Shipping Exception & Refund Recovery; Book Formatting & Publishing Preparation; Contractor Websites & Online Booking; and Automated Video Repurposing. Names remain working names pending public branding approval.
+
+The original supplied package is preserved in `five-company-import-2026-11-03/`. Each complete source roadmap is also copied, byte-identical, into `companies/108_*.md` through `companies/112_*.md`. All five retain 28 narrative passes, 78 dimension maps, eight phases, separate Brain/Agency/risk documents, and source-file hashes.
+
+Native preparation uses `clean-room/scripts/prepare-five-company-import.mjs`. It validates current ProjectTypeRegistry/ProjectRegistry, ProjectRoadmap and PIF.3 SpecialistModelContract shapes. The generated `clean-room/evidence/FIVE_COMPANY_NATIVE_IMPORT.json` contains five independent projects, five disabled/suspended project-scoped Brain configurations, all 530 original tasks, 40 closed gates and all 530 source-mapped conformance entries. Source-map validation is not a claim that implementation, market assumptions, external facts, model quality or substantive independent conformance has passed.
+
+The SQL artifact `supabase/seeds/five_company_import.sql` is prepared and unapplied. It targets only the existing owner resolved from Command Center, aborts on identity/source collisions, preserves existing progress and customer/book data, validates each dependency graph with the existing repository validator and writes the existing canonical specialist version history. Retrying a completed import preserves subsequent work. Completion denominators remain untrusted. All outgoing spending, execution permissions, tool/provider grants and account access remain absent.
+
+Production schema inspection found the 12-column C6 specialist table without the PIF.3 specialist ID/version history and without its array-validation helper. Before an authorized import, apply the exact helper preserved in `supabase/seeds/five_company_specialist_prerequisite.sql`, then the existing authoritative migration `supabase/migrations/20261026010000_pif3_specialist_model_registry.sql`. No replacement specialist schema is invented, and no unrelated Category 3 migration is replayed. Both prerequisites remain unapplied in production.
+
+Production remains 107 planned companies, 146 total project records and 43 individual books until a separately authorized import succeeds. Successful import would yield 112 planned companies, 151 project records and a combined Home count of 194. The supplied handoff explicitly excludes production activation without separate authorization; no new company is claimed live merely because its files are prepared.
+
+The frozen 001–107 generators continue to own their historical migration/preparation artifacts. They exclude later ordinals so adding these source plans cannot silently rewrite old migrations or replace the new complete task graphs with generic two-step preparation.
+
+Separation: 108 does not certify product safety; 109 does not autonomously issue refunds or financial transfers; 110 does not publish personal KDP titles or assume client rights; 111 does not alter RevoCapture or Morgan’s Garage Doors; 112 does not turn VeloClip into a commercial service or absorb CrowdSkein. No protected original project code or approved art/cover is imported into a new company.
+
+Recovery before activation: the production database is unchanged by this prepared package. After an authorized activation, retain source hashes and version history, stop/disable the five scopes and restore the prior verified application deployment if needed. Archive rather than delete new records; preserve any later user context and evidence. Recovery itself requires the applicable owner authorization and a fresh state check.
