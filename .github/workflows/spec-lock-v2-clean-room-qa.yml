@@ -104,10 +104,12 @@ jobs:
       - name: P15.14 observed PWA lifecycle
         run: bash scripts/category15-pwa-lifecycle.sh
       - name: Final Category 15 nonproduction phase gate
+        id: category15_nonproduction_gate
         env:
           CATEGORY15_PWA_LIFECYCLE_VERIFIED: 'true'
         run: npm run audit:category15
       - name: P15.16 production live evidence gate
+        if: ${{ success() || (failure() && steps.category15_nonproduction_gate.outcome == 'failure') }}
         run: npm run audit:production-live
       - name: Publish audit summaries
         if: always()
