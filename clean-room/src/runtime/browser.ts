@@ -1,3 +1,4 @@
+import { completeOwnerBookTotals } from "../books/runtime-performance.js";
 import { createCoreRouteRegistry, type ResolvedRoute } from "../ui/routes.js";
 import { ApplicationShell, type ShellState } from "../ui/shell.js";
 import { createHomeGrid } from "../ui/home.js";
@@ -515,6 +516,15 @@ function renderSocial(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { ret
 function bookTruth(node: HTMLElement, book: RuntimeBookRecord, detail = false): void {
   node.append(el("p", "muted", `Production: ${book.productionState ?? "No production checkpoint recovered"}${book.productionPercent !== undefined ? ` · ${book.productionPercent}% of production scope` : ""}`));
   if (detail) {
+    const performance = bevelCard("project-detail-section"); performance.append(el("h3", "section-title", "KDP PERFORMANCE"));
+    const labels = {royalties:"KDP total",sales:"Book sales",pages_read:"Pages read"};
+    for (const kind of ["royalties","sales","pages_read"] as const) {
+      const metric = book.performance?.find(value => value.kind === kind);
+      const amount = metric ? kind === "royalties" ? `${metric.currency === "USD" ? "$" : `${metric.currency} `}${metric.value.toFixed(2)}` : String(metric.value) : "Not reported";
+      performance.append(el("p", "muted", `${labels[kind]}: ${amount}`));
+    }
+    if (book.performance?.length) performance.append(el("p", "sync-note", `Owner-reported cumulative totals · ${book.performance[0]!.observedAt.slice(0,10)}. KDP account verification pending.`));
+    node.append(performance);
     const publication = bevelCard("project-detail-section"); publication.append(el("h3", "section-title", "PUBLICATION STATUS"));
     const entries = Object.entries(book.publication ?? {});
     if (!entries.length) publication.append(el("p", "muted", "No title-level publication checkpoint recovered. Cover approval is recorded separately."));
@@ -547,6 +557,8 @@ function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     return section;
   }
   const section = renderCanonicalSurface(snapshot, "books", "Books", "Your book catalogue could not be loaded.");
+  const totals = completeOwnerBookTotals(snapshot.books ?? []);
+  if (totals) section.append(genericCard("KDP performance — owner reported", `KDP total: ${totals.currency === "USD" ? "$" : `${totals.currency} `}${totals.royalties.toFixed(2)} · Book sales: ${totals.sales} · Pages read: ${totals.pagesRead}. Cumulative saved reports; not independently verified with KDP.`));
   section.append(routeLink("Amazon KDP book projects", "/projects?type=project-type%3Abook", "cc-button"),bookGrid(snapshot.books ?? [])); return section;
 }
 function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {

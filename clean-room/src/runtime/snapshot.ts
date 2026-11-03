@@ -1,3 +1,4 @@
+import type { RuntimeBookMetric } from "../books/runtime-performance.js";
 import { known, unknown, type TruthValue } from "../data/canonical.js";
 
 export type RuntimeConnectionState = "connected" | "disconnected" | "degraded" | "stale";
@@ -211,6 +212,7 @@ export interface RuntimeBrainSnapshot {
 export interface RuntimeBookRecord {
   readonly id: string; readonly title: string; readonly author: string; readonly coverSlot?: number; readonly coverApproved: boolean;
   readonly projectId?: string; readonly productionState?: string; readonly productionPercent?: number;
+  readonly performance?: readonly RuntimeBookMetric[];
   readonly publication?: Readonly<Record<string,string>>; readonly stateObservedAt?: string; readonly stateEvidenceRefs?: readonly string[];
 }
 
