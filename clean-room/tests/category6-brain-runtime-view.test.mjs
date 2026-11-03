@@ -154,7 +154,7 @@ test("P6.7/P6.13 shipped Brain route uses dedicated conversation and Improvement
   assert.match(view, /project context/i);
   assert.match(view, /isBrainConversationRuntimeProvider/);
   assert.match(view, /Protected-action intent recorded only/);
-  assert.match(view, /no local substitute record/i);
+  assert.match(view, /Your message could not be saved/i);
   assert.match(view, /IMPROVEMENTS CENTER/);
   assert.match(view, /Improvements never self-install/);
   assert.match(view, /decideBrainImprovement/);

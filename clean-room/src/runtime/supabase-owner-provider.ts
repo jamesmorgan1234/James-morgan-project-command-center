@@ -160,7 +160,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, financialMetrics, connections, specialistBrains] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
@@ -177,7 +177,12 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("analytics", "cc7_analytics_kpis", "id,project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,source_count,observed_at,updated_at", { order: "observed_at.desc", limit: "400" }),
         safe("release", "cc7_deployment_releases", "release_key,environment,provider,source_commit,status,known_good,deployed_at,verified_at,created_at", { order: "created_at.desc", limit: "100" }),
         safe("books", "book_owner_reviews", "id,project_id,status,updated_at", { order: "updated_at.desc", limit: "200" }),
-        safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" })
+        safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" }),
+        safe("recorded-progress", "analytics_project_kpis", "project_id,metric_key,value_numeric,value_text,verified,observed_at", { metric_key: "eq.current_scope_progress_percent", order: "observed_at.desc", limit: "500" }),
+        safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at", { order: "catalogue_order.asc", limit: "500" }),
+        safe("finance", "analytics_project_kpis", "project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,observed_at", { or: "(metric_key.ilike.*revenue*,metric_key.ilike.*sales*,metric_key.ilike.*balance*,metric_key.ilike.*income*)", order: "project_id.asc,observed_at.desc", limit: "500" }),
+        safe("social", "integration_connections", "id,project_id,provider_key,provider_label,status,last_success_at", { archived_at: "is.null", order: "project_id.asc", limit: "500" }),
+        safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,updated_at", { order: "brain_key.asc", limit: "500" })
       ]);
 
       // Availability is tracked per source. A failed optional source must not
@@ -197,7 +202,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         books: optionalErrors.has("books") ? "unavailable" as const : "available" as const
       });
       const agency = buildRuntimeAgencySnapshot({ runs: agencyRuns, jobs: agencyJobs, tasks: agencyTasks, observedAt, unavailable: optionalErrors.has("agency") });
-      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available");
+      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available", recordedProgress);
       const attentionCount = projectSnapshots.filter((project) => project.needsMeCount.state === "known" && project.needsMeCount.value > 0).length;
       const surfaceSnapshots = this.#surfaceSnapshots({
         observedAt,
@@ -211,6 +216,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         kpis,
         bookReviews,
         publicationStates,
+        catalogueCount: bookCatalogue.length, financeCount: financialMetrics.length, socialCount: connections.length, specialistCount: specialistBrains.length,
         optionalErrors
       });
       const knownGood = releases.find((row) => row.known_good === true);
@@ -228,6 +234,12 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
           lastSuccessfulSyncAt: known(observedAt)
         }),
         owner: Object.freeze({ displayName: unknown<string>() }),
+        books: Object.freeze(bookCatalogue.map(row => Object.freeze({ id: text(row.book_id)!, title: text(row.title)!, author: text(row.author_name) ?? "James Morgan", ...(numeric(row.cover_slot) !== undefined ? { coverSlot: numeric(row.cover_slot)! } : {}), coverApproved: row.cover_approved === true }))),
+        surfaceRecords: Object.freeze({
+          finance: Object.freeze(financialMetrics.map(row => Object.freeze({ id: `${row.project_id}:${row.metric_key}`, projectId: text(row.project_id)!, title: text(row.label) ?? text(row.metric_key)!, detail: `${row.verified === true ? "Verified" : "Unverified"}: ${numeric(row.value_numeric) ?? text(row.value_text) ?? "Not recorded"} ${text(row.currency) ?? text(row.unit) ?? ""}`, observedAt: text(row.observed_at)! }))),
+          social: Object.freeze(connections.map(row => Object.freeze({ id: text(row.id)!, projectId: text(row.project_id)!, title: text(row.provider_label) ?? text(row.provider_key)!, detail: text(row.status) ?? "Not connected", ...(text(row.last_success_at) ? { observedAt: text(row.last_success_at)! } : {}) }))),
+          specialists: Object.freeze(specialistBrains.map(row => Object.freeze({ id: text(row.brain_key)!, ...(text(row.project_id) ? { projectId: text(row.project_id)! } : {}), title: text(row.brain_key)!, detail: `${row.enabled === true ? "Enabled" : "Disabled"} · ${text(row.scope)} · ${textArray(row.capabilities).join(", ")}`, observedAt: text(row.updated_at)! })))
+        }),
         projects: Object.freeze(projectSnapshots),
         surfaces: Object.freeze(surfaceSnapshots),
         sources,
@@ -362,7 +374,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     typeDetailSections: readonly JsonRecord[],
     activity: readonly JsonRecord[],
     observedAt: string,
-    checkpointsAvailable = true
+    checkpointsAvailable = true,
+    recordedProgress: readonly JsonRecord[] = []
   ): readonly RuntimeProjectSnapshot[] {
     return Object.freeze(projects.map((project) => {
       const id = text(project.project_id) as string;
@@ -398,6 +411,13 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         }
       }
 
+      const recorded = recordedProgress.find(row => row.project_id === id && row.verified === true);
+      const recordedPercent = numeric(recorded?.value_numeric);
+      let progressBasis: "roadmap" | "last_recorded" | undefined = progressPercent.state === "known" ? "roadmap" : undefined;
+      if (progressPercent.state !== "known" && recordedPercent !== undefined && recordedPercent >= 0 && recordedPercent <= 100) {
+        progressPercent = known(recordedPercent);
+        progressBasis = "last_recorded";
+      }
       const checkpoint = checkpoints.find((row) => row.project_id === id && (roadmapVersion === undefined || numeric(row.roadmap_version) === roadmapVersion));
       const recent = activity.filter((item) => item.project_id === id).slice(0, 5).map((item) => text(item.headline)).filter((value): value is string => !!value);
       const blocker = text(checkpoint?.blocker);
@@ -454,6 +474,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         stage: truthText(readyUnit?.phase_id),
         status: truthText(project.status),
         progressPercent,
+        ...(progressBasis ? { progressBasis } : {}),
+        ...(progressBasis === "last_recorded" && text(recorded?.observed_at) ? { progressObservedAt: text(recorded?.observed_at)! } : {}),
         currentCheckpoint: checkpoint ? truthText(checkpoint.checkpoint_id) : unknown<string>(),
         nextAction: readyTitle ? known(readyTitle) : unknown<string>(),
         blockers: blocker ? known(Object.freeze([blocker])) : known(Object.freeze([]) as readonly string[]),
@@ -483,6 +505,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     bookReviews: readonly JsonRecord[];
     publicationStates: readonly JsonRecord[];
     checkpointsAvailable: boolean;
+    catalogueCount: number; financeCount: number; socialCount: number; specialistCount: number;
     optionalErrors: ReadonlySet<string>;
   }>): readonly RuntimeSurfaceSnapshot[] {
     const available = (key: string, label: string, summary: string, source: string): RuntimeSurfaceSnapshot => Object.freeze({ key, label, availability: "available" as const, summary: known(summary), evidence: evidence(source, input.observedAt) });
@@ -508,10 +531,10 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       available("search", "Search", `${input.projectCount} canonical project profile${input.projectCount === 1 ? "" : "s"} available to search.`, "supabase:command_center_project_profiles"),
       safeSurface("automations", "automations", "Automations", `${activeAutomations} active automation${activeAutomations === 1 ? "" : "s"} of ${input.automations.length} loaded.`, "supabase:cc7_automations"),
       safeSurface("personal", "personal", "Personal", `${unreadNotifications} unread owner notification${unreadNotifications === 1 ? "" : "s"} of ${input.notifications.length} loaded.`, "supabase:cc7_notifications"),
-      unavailable("finance", "Finance"),
-      unavailable("social", "Social & Communications"),
-      safeSurface("books", "books", "Books", `${bookRecordCount} owner-review/publication state record${bookRecordCount === 1 ? "" : "s"} loaded.`, "supabase:book_owner_reviews+book_publication_states"),
-      unavailable("specialists", "Specialists"),
+      safeSurface("finance", "finance", "Finance", `${input.financeCount} recorded financial metrics. Values retain their verification state and observation date; they are not a live bank balance.`, "supabase:analytics_project_kpis"),
+      safeSurface("social", "social", "Social & Communications", `${input.socialCount} saved account connection records. Account connectivity is shown separately from this page loading successfully.`, "supabase:integration_connections"),
+      safeSurface("book-catalogue", "books", "Books", `${input.catalogueCount} books in your catalogue. ${bookRecordCount} separate review/publication records.`, "supabase:command_center_book_catalogue"),
+      safeSurface("specialists", "specialists", "Specialists", `${input.specialistCount} specialist Brain profiles registered.`, "supabase:command_center_specialist_brains"),
       safeSurface("analytics", "analytics", "Analytics", `${verifiedKpis} verified KPI record${verifiedKpis === 1 ? "" : "s"} of ${input.kpis.length} loaded.`, "supabase:cc7_analytics_kpis"),
       available("settings", "Settings", "Owner session authenticated and canonical runtime connected.", "supabase:cc7_owner_access")
     ]);

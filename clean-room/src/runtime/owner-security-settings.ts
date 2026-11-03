@@ -28,7 +28,7 @@ function errorMessage(reason: unknown): string {
 
 export function installOwnerPasskeySettings(actions: OwnerPasskeySettingsActions): void {
   if (typeof window === "undefined" || typeof document === "undefined") return;
-  if (window.location.pathname !== "/settings") return;
+  if (!["/settings", "/settings/security"].includes(window.location.pathname)) return;
   const screen = document.querySelector<HTMLElement>("main.screen");
   if (!screen || document.querySelector("#command-center-passkey-settings")) return;
 

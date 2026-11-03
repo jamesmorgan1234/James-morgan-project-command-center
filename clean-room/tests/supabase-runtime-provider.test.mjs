@@ -72,6 +72,7 @@ function ownerRuntimeFetch({ authorized = true } = {}) {
     if (table === "cc7_analytics_kpis") return json([{ id: "kpi-1", project_id: "project-1", metric_key: "verified", label: "Verified KPI", value_numeric: 1, value_text: null, unit: "count", currency: null, verified: true, source_count: 1, observed_at: "2026-10-24T20:00:00Z", updated_at: "2026-10-24T20:00:00Z" }]);
     if (table === "cc7_deployment_releases") return json([{ release_key: "release-1", environment: "production", provider: "vercel", source_commit: "known-good-sha", status: "verified", known_good: true, deployed_at: "2026-10-24T20:00:00Z", verified_at: "2026-10-24T20:00:00Z", created_at: "2026-10-24T20:00:00Z" }]);
     if (table === "book_owner_reviews" || table === "book_publication_states") return json([]);
+    if (["analytics_project_kpis", "command_center_book_catalogue", "integration_connections", "command_center_specialist_brains"].includes(table)) return json([]);
     throw new Error(`Unexpected test request: ${url}`);
   };
   return { fetcher, calls };
@@ -174,7 +175,7 @@ test("production shell contains only publishable Supabase configuration, a dedic
   assert.match(browser, /import \{ renderAgencyView \} from "\.\/agency-view\.js"/);
   assert.match(browser, /function renderAgency\(snapshot: CommandCenterRuntimeSnapshot\): HTMLElement \{ return renderAgencyView\(snapshot\); \}/);
   assert.doesNotMatch(browser, /function renderAgency\([^\n]+renderCanonicalSurface/);
-  assert.match(agencyView, /DURABLE EXECUTION TRUTH/);
+  assert.match(agencyView, /AGENCY OVERVIEW/);
   assert.match(agencyView, /Partial or legacy execution state is not substituted/);
   assert.match(agencyView, /does not authorize protected actions/);
   assert.match(agencyView, /claimed executor and fresh verified heartbeat/);

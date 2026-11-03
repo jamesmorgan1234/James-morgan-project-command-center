@@ -7,6 +7,9 @@ import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfa
 import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
+import { SPECIALIST_ARCHETYPES } from "../specialists/archetypes.js";
+import { projectArtwork } from "./project-art.js";
+import { runtimeBookCatalogForProject } from "../books/runtime-catalog.js";
 import { renderBrainView } from "./brain-view.js";
 import { renderAgencyView } from "./agency-view.js";
 import { createDisconnectedRuntimeSnapshot } from "./snapshot.js";
@@ -78,11 +81,18 @@ function headerSubtitle(route: ResolvedRoute): string {
     case "route:next-up": return "Priority queue";
     case "route:project-detail": return "Project Details";
     case "route:brain": return "Persistent intelligence workspace";
-    case "route:agency": return "Durable execution and autonomy truth";
+    case "route:agency": return "Work, tasks, and progress";
     default: return "Private owner command system";
   }
 }
-function statusLabel(project: RuntimeProjectSnapshot): string { return project.lifecycle.state === "known" ? project.lifecycle.value.replaceAll("_", " ") : truthText(project.status); }
+function statusLabel(project: RuntimeProjectSnapshot): string { return project.status.state === "known" ? project.status.value.replaceAll("_", " ") : truthText(project.lifecycle); }
+function statusTone(project: RuntimeProjectSnapshot): string {
+  const label = statusLabel(project).toLowerCase();
+  if (/blocked|failed|hold/.test(label)) return "blocked";
+  if (/paused|unverified|review|rebuild|progress/.test(label)) return "in-progress";
+  if (/complete|published|active|ready|implemented/.test(label)) return "active";
+  return project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable";
+}
 function projectHref(project: RuntimeProjectSnapshot): string { return `/project/${encodeURIComponent(project.id)}`; }
 function projectContextHref(surface: "brain" | "agency" | "analytics", projectId: string, mode?: string): string {
   const params = new URLSearchParams({ project: projectId });
@@ -110,7 +120,17 @@ function statusPill(label: string, status: string): HTMLElement {
   return pill;
 }
 function projectIcon(): HTMLElement { const icon = el("div", "project-icon"); icon.setAttribute("aria-hidden", "true"); return icon; }
-function artPanel(): HTMLElement { const art = el("div", "project-art"); art.setAttribute("aria-hidden", "true"); return art; }
+function artPanel(project?: RuntimeProjectSnapshot): HTMLElement {
+  const art = el("div", "project-art"); art.setAttribute("aria-hidden", "true");
+  if (project) {
+    const visual = projectArtwork(project, latestSnapshot?.books ?? []);
+    art.classList.add("project-art--specific");
+    art.style.backgroundImage = `url("${visual.url}")`;
+    art.style.backgroundSize = visual.size; art.style.backgroundPosition = visual.position;
+    art.dataset.subject = visual.subject;
+  }
+  return art;
+}
 function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
   const wrap = el("div", "progress-wrap");
   const ring = el("div", "progress-ring");
@@ -121,7 +141,8 @@ function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
     ring.classList.add("progress-ring--unknown");
     ring.append(el("strong", undefined, "N/A"));
   }
-  wrap.append(ring, el("span", "metric-label", "Scope"));
+  wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : "Scope"));
+  if (project.progressObservedAt) wrap.append(el("span", "sync-note", project.progressObservedAt.slice(0, 10)));
   return wrap;
 }
 function projectTitle(project: RuntimeProjectSnapshot): HTMLSpanElement { return el("span", "project-title", project.name); }
@@ -150,8 +171,8 @@ function renderProjectRow(project: RuntimeProjectSnapshot): HTMLElement {
     el("span", "project-meta__item", `Company: ${runtimeTruthValue(project.companyId)}`),
     el("span", "project-meta__item", `Priority: ${truthText(project.priority)}`)
   );
-  text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), metadata, statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable"));
-  row.append(projectIcon(), text, artPanel(), progressRing(project));
+  text.append(projectTitle(project), el("p", "project-subtitle", truthText(project.mission)), metadata, statusPill(statusLabel(project), statusTone(project)));
+  row.append(projectIcon(), text, artPanel(project), progressRing(project));
   return row;
 }
 function projectSelect(labelText: string, queryKey: string, values: readonly string[], current: string | undefined): HTMLLabelElement {
@@ -205,7 +226,9 @@ function renderProjectControls(snapshot: CommandCenterRuntimeSnapshot, filter: R
   reset.addEventListener("click", () => updateProjectQuery({ q: undefined, lifecycle: undefined, priority: undefined, type: undefined, company: undefined, group: undefined }));
   const footer = el("div", "project-toolbar__footer");
   footer.append(grouping, reset);
-  toolbar.append(search, filters, footer);
+  const refresh = el("button", "project-filter-button project-filter-button--secondary", "Refresh progress");
+  refresh.type = "button"; refresh.addEventListener("click", () => { void renderApplication(); });
+  toolbar.append(search, filters, footer, refresh);
   return toolbar;
 }
 function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
@@ -215,9 +238,17 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     return section;
   }
   const filter = projectFilterFromSearch(window.location.search);
-  const filtered = filterRuntimeProjects(snapshot.projects, filter);
+  const bookTab = filter.typeKey === "project-type:book";
+  const tabProjects = snapshot.projects.filter(p => bookTab ? p.typeKey?.state === "known" && p.typeKey.value === "project-type:book" : !(p.typeKey?.state === "known" && p.typeKey.value === "project-type:book"));
+  const filtered = filterRuntimeProjects(tabProjects, filter);
   const groups = groupRuntimeProjects(filtered, filter.groupBy ?? "none");
-  section.append(renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
+  const tabs = el("nav", "project-tabs"); tabs.setAttribute("aria-label", "Project collections");
+  for (const [label, path, selected] of [["Businesses & projects", "/projects", !bookTab], ["Amazon KDP Books", "/projects?type=project-type%3Abook", bookTab]] as const) {
+    const link = routeLink(label, path, "cc-button cc-button--secondary");
+    if (selected) link.setAttribute("aria-current", "page"); tabs.append(link);
+  }
+  section.append(tabs, renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
+  section.append(el("p", "muted project-order-note", "Highest completion first. Last-recorded percentages show their observation date; projects without a verified percentage follow."));
   if (filtered.length === 0) {
     section.append(emptyState("No matching projects", "The canonical project registry is loaded, but no project matches the current filters. Reset the filters to show the full portfolio.", "available"));
     return section;
@@ -257,7 +288,7 @@ function renderActiveRow(project: RuntimeProjectSnapshot): HTMLElement {
     el("span", "metric-label", "Scope"),
     el("span", "sync-note", live ? `Heartbeat ${live.lastHeartbeatAt}` : "Execution evidence unavailable")
   );
-  row.append(projectIcon(), text, el("div", "vertical-divider"), scope, artPanel());
+  row.append(projectIcon(), text, el("div", "vertical-divider"), scope, artPanel(project));
   return row;
 }
 function renderActive(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
@@ -287,7 +318,7 @@ function renderNextRow(project: RuntimeProjectSnapshot): HTMLElement {
   const readiness = project.nextWorkReadiness?.state === "known" ? project.nextWorkReadiness.value : undefined;
   const action = project.nextAction.state === "known" ? project.nextAction.value : readiness?.title ?? "N/A";
   text.append(projectTitle(project), statusPill("READY", "ready"), el("p", "next-action", action));
-  row.append(projectIcon(), text, artPanel());
+  row.append(projectIcon(), text, artPanel(project));
   return row;
 }
 function renderNextUp(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
@@ -338,12 +369,13 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
     el("span", "eyebrow", truthText(project.priority, (value) => `${value} priority`).toUpperCase()),
     el("h2", "project-hero__title", project.name),
     el("p", "project-description", truthText(project.mission)),
-    statusPill(statusLabel(project), project.lifecycle.state === "known" ? project.lifecycle.value : "unavailable")
+    statusPill(statusLabel(project), statusTone(project))
   );
-  hero.append(projectIcon(), heroText, artPanel());
+  hero.append(projectIcon(), heroText, artPanel(project));
   const snapshotMetrics = el("div", "performance-grid");
   const metrics: readonly [string, string][] = [
-    ["Progress", truthText(project.progressPercent, (value) => `${value}%`)],
+    [project.progressBasis === "last_recorded" ? `Last recorded progress (${project.progressObservedAt?.slice(0, 10) ?? "date unknown"})` : "Progress", truthText(project.progressPercent, (value) => `${value}%`)],
+    ["Status", truthText(project.status)],
     ["Stage", truthText(project.stage)],
     ["Priority", truthText(project.priority)],
     ["Verification", truthText(project.verification)]
@@ -450,7 +482,11 @@ function renderCanonicalSurface(snapshot: CommandCenterRuntimeSnapshot, key: str
   } else {
     section.append(genericCard(surface.label, truthText(surface.summary), surface.availability));
   }
-  if (surface.evidence.length === 0) section.append(genericCard("Evidence", "No current evidence is loaded for this surface.", "unavailable"));
+  for (const record of snapshot.surfaceRecords?.[key] ?? []) {
+    const projectName = snapshot.projects.find(p => p.id === record.projectId)?.name ?? record.projectId;
+    section.append(genericCard(record.title, `${projectName ? `${projectName} · ` : ""}${record.detail}${record.observedAt ? ` · Recorded ${record.observedAt.slice(0, 10)}` : ""}`, undefined, record.projectId ? `/project/${encodeURIComponent(record.projectId)}` : undefined));
+  }
+  if (surface.evidence.length > 0) section.append(genericCard("Data source", surface.evidence.map(ref => `${ref.source}${ref.observedAt ? ` · Loaded ${ref.observedAt}` : ""}`).join("; ")));
   return section;
 }
 function renderBrain(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderBrainView(snapshot, activeProvider, () => renderApplication()); }
@@ -461,18 +497,38 @@ function renderAutomations(snapshot: CommandCenterRuntimeSnapshot): HTMLElement 
 function renderPersonal(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "personal", "Personal", "Personal-operations runtime state is not configured in the current canonical snapshot."); }
 function renderFinance(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "finance", "Finance", "Finance runtime state is not configured in the current canonical snapshot."); }
 function renderSocial(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "social", "Social & Communications", "Social runtime state is not configured in the current canonical snapshot."); }
-function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "books", "Books", "Books runtime state is not configured in the current canonical snapshot."); }
-function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "specialists", "Specialists", "Specialist runtime state is not configured in the current canonical snapshot."); }
+function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const section = renderCanonicalSurface(snapshot, "books", "Books", "Your book catalogue could not be loaded.");
+  section.append(routeLink("Amazon KDP book projects", "/projects?type=project-type%3Abook", "cc-button"));
+  const grid = el("div", "book-catalogue");
+  for (const book of snapshot.books ?? []) {
+    const project = snapshot.projects.find(p => runtimeBookCatalogForProject(p.id)?.titles.some(t => normalizeBookTitle(t) === normalizeBookTitle(book.title)) || normalizeBookTitle(p.name) === normalizeBookTitle(book.title));
+    const item = project ? bevelRouteCard(projectHref(project), "book-catalogue-card", `Open ${book.title}`) : bevelCard("book-catalogue-card");
+    if (book.coverApproved && book.coverSlot !== undefined && book.coverSlot >= 0 && book.coverSlot < 41) {
+      const cover = el("div", "book-catalogue-cover"); cover.setAttribute("aria-hidden", "true"); cover.style.backgroundPosition = `${book.coverSlot / 40 * 100}% center`; item.append(cover);
+    }
+    item.append(el("h3", "section-title", book.title), el("p", "muted", book.author));
+    if (project) item.append(el("p", "muted", statusLabel(project))); grid.append(item);
+  }
+  section.append(grid); return section;
+}
+function normalizeBookTitle(title: string): string { return title.toLowerCase().replace(/[^a-z0-9]/g, "").replace(/^meltedcosmos/, ""); }
+function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const section = renderCanonicalSurface(snapshot, "specialists", "Specialists", "Your specialist registry could not be loaded.");
+  section.append(genericCard("Available specialist types", "These built-in capabilities are available for scoped project configuration. Listing a type does not activate an agent or grant access."));
+  for (const [key, archetype] of Object.entries(SPECIALIST_ARCHETYPES)) section.append(genericCard(key.replaceAll("_", " "), archetype.brainCapabilities.map(value => value.replaceAll("_", " ")).join(" · ")));
+  return section;
+}
 function renderAnalytics(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "analytics", "Analytics", "Analytics runtime state is not configured in the current canonical snapshot."); }
 function renderSettings(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "settings", "Settings", "Settings runtime state is not configured in the current canonical snapshot."); }
 function renderSecuritySettings(): HTMLElement {
   const section = el("section", "screen-stack");
-  section.append(emptyState("Security settings unavailable", "The clean-room security domain exists, but no dedicated security-settings runtime reader is exposed in the current canonical snapshot. General settings are not substituted for security state.", "unavailable"));
+  section.append(genericCard("Security", "Manage your owner passkeys below. Changes still require the existing verification steps."));
   return section;
 }
 function renderDeviceSettings(): HTMLElement {
   const section = el("section", "screen-stack");
-  section.append(emptyState("Device settings unavailable", "The clean-room device/session domain exists, but no dedicated device-settings runtime reader is exposed in the current canonical snapshot. Device state is not inferred.", "unavailable"));
+  section.append(genericCard("Devices & sessions", "Review your signed-in devices and sessions below."));
   return section;
 }
 function renderKnownRoute(snapshot: CommandCenterRuntimeSnapshot, resolution: Extract<BrowserRouteResolution, { state: "known" }>): HTMLElement {
@@ -567,6 +623,7 @@ function renderUnknownHeader(path: string): HTMLElement {
   return header;
 }
 
+let latestSnapshot: CommandCenterRuntimeSnapshot | undefined;
 let activeProvider: RuntimeSnapshotProvider | undefined;
 let renderGeneration = 0;
 let signedOut = false;
@@ -618,6 +675,7 @@ export async function renderApplication(provider?: RuntimeSnapshotProvider): Pro
   try { snapshot = await activeProvider.load(); }
   catch { snapshot = createDisconnectedRuntimeSnapshot(); }
   if (signedOut || startupFailed() || generation !== renderGeneration) return;
+  latestSnapshot = snapshot;
   syncShell(snapshot);
   if (snapshot.connection.state === "disconnected") {
     document.title = "Command Center";
@@ -641,3 +699,5 @@ window.addEventListener("online", () => { void renderApplication(); });
 window.addEventListener("offline", () => { void renderApplication(); });
 startPwaUpdates();
 void renderApplication();
+
+window.addEventListener("focus", () => { if (!signedOut && ["/projects", "/books"].includes(window.location.pathname) && !document.querySelector(".boot-state__message")) void renderApplication(); });

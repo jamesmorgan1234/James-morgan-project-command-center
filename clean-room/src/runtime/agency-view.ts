@@ -99,7 +99,7 @@ export function renderAgencyView(snapshot: CommandCenterRuntimeSnapshot): HTMLEl
 
   const overview = card("agency-overview");
   const heading = el("div", "card-heading");
-  heading.append(el("h2", "section-title", "DURABLE EXECUTION TRUTH"), pill("CANONICAL", "available"));
+  heading.append(el("h2", "section-title", "AGENCY OVERVIEW"), pill("SAVED ACTIVITY", "available"));
   overview.append(heading);
   if (queryProject) {
     overview.append(el("p", "muted", project ? `Project scope: ${project.name} · ${queryProject}` : `Project scope: ${queryProject}. No project profile is present in the current canonical snapshot.`));
@@ -109,11 +109,11 @@ export function renderAgencyView(snapshot: CommandCenterRuntimeSnapshot): HTMLEl
   const metrics = el("div", "performance-grid");
   for (const [label, value] of [
     ["Runs", runs.length],
-    ["Nonterminal", nonterminalRuns.length],
-    ["Jobs", jobs.length],
+    ["In progress", nonterminalRuns.length],
+    ["Work groups", jobs.length],
     ["Tasks", tasks.length],
     ["Working tasks", workingTasks],
-    ["Needs handling", attentionTasks.length],
+    ["Needs attention", attentionTasks.length],
     ["Verified tasks", verifiedTasks]
   ] as const) {
     const metric = el("div", "performance-metric");
@@ -125,7 +125,7 @@ export function renderAgencyView(snapshot: CommandCenterRuntimeSnapshot): HTMLEl
 
   if (attentionTasks.length > 0) {
     const attention = card("agency-attention");
-    attention.append(el("h2", "section-title", "BLOCKED / OWNER / WORK-BOUNDARY TASKS"), el("p", "muted", `${attentionTasks.length} canonical task${attentionTasks.length === 1 ? "" : "s"} currently require explicit handling.`));
+    attention.append(el("h2", "section-title", "NEEDS YOUR ATTENTION"), el("p", "muted", `${attentionTasks.length} canonical task${attentionTasks.length === 1 ? "" : "s"} currently require explicit handling.`));
     section.append(attention);
     for (const task of attentionTasks.slice(0, 20)) section.append(attentionTaskCard(task));
     if (attentionTasks.length > 20) {

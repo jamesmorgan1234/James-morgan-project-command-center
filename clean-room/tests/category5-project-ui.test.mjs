@@ -52,7 +52,9 @@ test("P5.6 runtime project screen filters and groups generically without project
 test("P5.6 browser exposes generic project search/filter/group controls and project metadata", async () => {
   const browser = await read("src/runtime/browser.ts");
   assert.match(browser, /projectFilterFromSearch\(window\.location\.search\)/);
-  assert.match(browser, /filterRuntimeProjects\(snapshot\.projects, filter\)/);
+  assert.match(browser, /filterRuntimeProjects\(tabProjects, filter\)/);
+  assert.match(browser, /Amazon KDP Books/);
+  assert.match(browser, /project-type:book/);
   assert.match(browser, /groupRuntimeProjects\(filtered, filter\.groupBy/);
   for (const key of ["lifecycle", "priority", "type", "company", "group"]) assert.match(browser, new RegExp(`"${key}"`));
   assert.match(browser, /Type: \$\{runtimeTruthValue\(project\.typeKey\)\}/);

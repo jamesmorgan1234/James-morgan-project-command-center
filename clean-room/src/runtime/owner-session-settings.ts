@@ -40,7 +40,7 @@ function message(reason: unknown): string {
 
 export function installOwnerSessionSettings(actions: OwnerSessionSettingsActions): void {
   if (typeof window === "undefined" || typeof document === "undefined") return;
-  if (window.location.pathname !== "/settings") return;
+  if (!["/settings", "/settings/devices"].includes(window.location.pathname)) return;
   const screen = document.querySelector<HTMLElement>("main.screen");
   if (!screen || document.querySelector("#command-center-session-settings")) return;
 

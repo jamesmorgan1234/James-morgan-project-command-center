@@ -4,7 +4,7 @@ const CURRENT_CACHE = `${CACHE_PREFIX}${RELEASE_ID}`;
 const META_PATH = "/__cc-release-meta__";
 const RECOVERY_CONTROL_CACHE = "command-center-recovery-control:v1";
 const RECOVERY_STATE_PATH = "/__cc-recovery-state__";
-const CORE = ["/", "/index.html", "/app.css", "/primitive-system.css", "/project-system.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser-entrypoint.js", "/app/runtime/startup-config.js", "/app/runtime/browser-startup-runtime.js", "/app/runtime/browser-startup.js", "/app/runtime/browser-recovery.js", "/app/kernel/recovery.js", "/app/kernel/config.js", "/app/kernel/trusted-environment.mjs", "/app/runtime/browser-navigation-runtime.js", "/app/runtime/browser-navigation.js", "/app/runtime/browser.js", "/app/runtime/brain-view.js", "/app/runtime/browser-voice.js"];
+const CORE = ["/app/specialists/archetypes.js", "/home-approved-imagery.css", "/assets/project-business-atlas.png", "/assets/book-cover-atlas-v2.webp", "/app/runtime/project-art.js", "/app/books/runtime-catalog.js", "/", "/index.html", "/app.css", "/primitive-system.css", "/project-system.css", "/owner-auth.css", "/manifest.webmanifest", "/release.json", "/app/runtime/browser-entrypoint.js", "/app/runtime/startup-config.js", "/app/runtime/browser-startup-runtime.js", "/app/runtime/browser-startup.js", "/app/runtime/browser-recovery.js", "/app/kernel/recovery.js", "/app/kernel/config.js", "/app/kernel/trusted-environment.mjs", "/app/runtime/browser-navigation-runtime.js", "/app/runtime/browser-navigation.js", "/app/runtime/browser.js", "/app/runtime/brain-view.js", "/app/runtime/browser-voice.js"];
 const SHELL_PATHS = new Set(CORE);
 
 function shellCacheName(releaseId) { return `${CACHE_PREFIX}${releaseId}`; }

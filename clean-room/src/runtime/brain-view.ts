@@ -67,7 +67,7 @@ function conversationTurn(turn: RuntimeBrainConversationTurn): HTMLElement {
 
 function workspaceCard(workspace: RuntimeBrainProjectWorkspace | undefined): HTMLElement {
   const node = card("brain-workspace");
-  node.append(el("h2", "section-title", "PROJECT WORKSPACE"));
+  node.append(el("h2", "section-title", "PROJECT CONTEXT"));
   if (!workspace) {
     node.append(el("p", "muted", "No durable Brain workspace exists for this project yet. The first persisted project conversation can create one without reconstructing state from chat history."));
     return node;
@@ -213,7 +213,7 @@ function composer(
   rerender: () => Promise<void>
 ): HTMLElement {
   const node = card("brain-composer");
-  node.append(el("h2", "section-title", "OWNER INPUT"));
+  node.append(el("h2", "section-title", "YOUR MESSAGE"));
   const writable = !!provider
     && isBrainConversationRuntimeProvider(provider)
     && snapshot.brain?.availability === "available"
@@ -226,7 +226,7 @@ function composer(
   input.placeholder = projectId ? "Ask, decide, research, propose, or steer work for this project…" : "Ask, decide, research, propose, or steer Command Center…";
   input.setAttribute("aria-label", "Brain conversation input");
   input.disabled = !writable;
-  const submit = el("button", "cc-button brain-composer__submit", "Persist owner turn");
+  const submit = el("button", "cc-button brain-composer__submit", "Save message");
   submit.type = "submit";
   submit.disabled = !writable;
   const voiceControls = el("div", "brain-voice-controls");
@@ -238,7 +238,7 @@ function composer(
   const voiceStatus = el("span", "brain-voice-status muted", "Text input is always available.");
   voiceControls.append(voiceButton, cancelVoice, voiceStatus);
   const message = el("p", "brain-composer__message muted", writable
-    ? "This stores an owner conversation turn in the canonical Brain record. Protected-action language is recognized as a request only and cannot bypass Command Center authorization."
+    ? "Save a message in this conversation. Saving a request does not approve or execute an action."
     : "Persistent Brain input is unavailable because the authenticated canonical Brain provider is not currently writable. Nothing will be stored locally as a substitute.");
   form.append(input, voiceControls, submit);
   node.append(form, message);
@@ -316,8 +316,8 @@ function composer(
       voiceButton.disabled = true;
       cancelVoice.disabled = true;
       submit.disabled = true;
-      submit.textContent = "Persisting…";
-      message.textContent = "Persisting through the authenticated canonical Brain RPC…";
+      submit.textContent = "Saving…";
+      message.textContent = "Saving your message…";
       try {
         let conversationId = selected?.id;
         if (!conversationId) {
@@ -332,8 +332,8 @@ function composer(
         voiceButton.disabled = !voiceAdapter;
         cancelVoice.disabled = false;
         submit.disabled = false;
-        submit.textContent = "Persist owner turn";
-        message.textContent = "Brain input could not be persisted. No protected action was executed and no local substitute record was created.";
+        submit.textContent = "Save message";
+        message.textContent = "Your message could not be saved. Please try again.";
       }
     })();
   });
@@ -375,7 +375,7 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
 
   const overview = card("brain-overview");
   const overviewHeading = el("div", "brain-card__heading");
-  overviewHeading.append(el("h2", "section-title", "BRAIN"), pill("CANONICAL", "available"));
+  overviewHeading.append(el("h2", "section-title", "BRAIN"), pill("SAVED WORKSPACE", "available"));
   overview.append(
     overviewHeading,
     el("p", "brain-overview__scope", project ? `Project context: ${project.name}` : "Command Center-wide intelligence context"),

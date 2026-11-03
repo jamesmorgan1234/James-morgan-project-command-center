@@ -48,6 +48,8 @@ export interface RuntimeProjectSnapshot {
   readonly stage: TruthValue<string>;
   readonly status: TruthValue<string>;
   readonly progressPercent: TruthValue<number>;
+  readonly progressBasis?: "roadmap" | "last_recorded";
+  readonly progressObservedAt?: string;
   readonly currentCheckpoint: TruthValue<string>;
   readonly nextAction: TruthValue<string>;
   readonly blockers: TruthValue<readonly string[]>;
@@ -187,6 +189,14 @@ export interface RuntimeBrainSnapshot {
   readonly evidence: readonly RuntimeEvidenceRef[];
 }
 
+export interface RuntimeBookRecord {
+  readonly id: string; readonly title: string; readonly author: string; readonly coverSlot?: number; readonly coverApproved: boolean;
+}
+
+export interface RuntimeSurfaceRecord {
+  readonly id: string; readonly title: string; readonly detail: string; readonly projectId?: string; readonly observedAt?: string;
+}
+
 export interface RuntimeSurfaceSnapshot {
   readonly key: string;
   readonly label: string;
@@ -211,6 +221,8 @@ export interface CommandCenterRuntimeSnapshot {
   readonly surfaces: readonly RuntimeSurfaceSnapshot[];
   readonly agency?: RuntimeAgencySnapshot;
   readonly brain?: RuntimeBrainSnapshot;
+  readonly books?: readonly RuntimeBookRecord[];
+  readonly surfaceRecords?: Readonly<Record<string, readonly RuntimeSurfaceRecord[]>>;
   // Per-source availability. Core surfaces must derive availability from the
   // sources they actually require instead of one global connection flag.
   readonly sources?: Readonly<Record<string, "available" | "unavailable">>;

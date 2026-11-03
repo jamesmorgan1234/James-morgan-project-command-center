@@ -18,9 +18,8 @@ export interface RuntimeProjectGroup {
 }
 
 // Mirrors roadmap/portfolio-future-architecture/06_PORTFOLIO_ACTIVATION_PHASE_FLOW.yaml.
-// Canonical companies are ordered by locked activation rank. Any project that is
-// not part of the locked 001-107 company flow is preserved after them and sorted
-// alphabetically by display name.
+// Completion percentage takes precedence. Ties and projects without percentages
+// retain the locked activation order, then alphabetical display order.
 const ACTIVATION_COMPANY_NUMBERS = Object.freeze([
   14, 13, 83, 21,
   85, 27, 84, 96,
@@ -77,6 +76,11 @@ function activationRank(project: RuntimeProjectSnapshot): number | undefined {
 }
 
 function comparePortfolioOrder(a: RuntimeProjectSnapshot, b: RuntimeProjectSnapshot): number {
+  const percent = (p: RuntimeProjectSnapshot): number | undefined => p.progressPercent?.state === "known" && Number.isFinite(p.progressPercent.value) && p.progressPercent.value >= 0 && p.progressPercent.value <= 100 ? p.progressPercent.value : undefined;
+  const aPercent = percent(a), bPercent = percent(b);
+  if (aPercent !== undefined && bPercent !== undefined && aPercent !== bPercent) return bPercent - aPercent;
+  if (aPercent !== undefined && bPercent === undefined) return -1;
+  if (bPercent !== undefined && aPercent === undefined) return 1;
   const aRank = activationRank(a);
   const bRank = activationRank(b);
   if (aRank !== undefined && bRank !== undefined) return aRank - bRank;
