@@ -28,7 +28,7 @@ test('Home cards retain the protected imagery and use the newly owner-approved b
   assert.equal(gitBlobSha(asset), EXPECTED_GIT_BLOB_SHA);
   assert.match(index, /<link rel="stylesheet" href="\/home-approved-imagery\.css">/);
   assert.match(browser, /home-primary-card/);
-  assert.match(css, /\.home-primary-card::before\s*\{[\s\S]*url\('\/assets\/project-business-atlas\.png'\)/);
+  assert.match(css, /\.home-primary-card::after\s*\{[\s\S]*url\('\/assets\/project-business-atlas\.png'\)/);
   assert.ok(readFileSync(join(ROOT, 'public/assets/project-business-atlas.png')).length > 0);
   assert.doesNotMatch(css, /data:image|https?:\/\//i);
 });

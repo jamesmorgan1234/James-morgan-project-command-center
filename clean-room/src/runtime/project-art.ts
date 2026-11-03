@@ -23,6 +23,10 @@ export function projectArtwork(project: RuntimeProjectSnapshot, books: readonly 
     [/brain|aro|command center|loopwren|ai|reason/, 13, "Intelligence"],
     [/automat|workflow|operation|process|business/, 15, "Operations & automation"]
   ];
-  const [, index, subject] = subjects.find(([pattern]) => pattern.test(text)) ?? [/./, 0, "Software & technology"];
+  const named: readonly [RegExp, number, string][] = [
+    [/fanvue|veyla/, 2, "Creator media"], [/margincraft/, 3, "Digital products"], [/edge finder/, 5, "Sports analysis"], [/torevi/, 12, "Careers"]
+  ];
+  const name = project.name.toLowerCase();
+  const [, index, subject] = named.find(([pattern]) => pattern.test(name)) ?? subjects.find(([pattern]) => pattern.test(name)) ?? subjects.find(([pattern]) => pattern.test(text)) ?? [/./, 0, "Software & technology"];
   return { url: "/assets/project-business-atlas.png", size: "400% 400%", position: `${index % 4 / 3 * 100}% ${Math.floor(index / 4) / 3 * 100}%`, subject };
 }

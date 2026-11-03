@@ -125,6 +125,7 @@ function artPanel(project?: RuntimeProjectSnapshot): HTMLElement {
   if (project) {
     const visual = projectArtwork(project, latestSnapshot?.books ?? []);
     art.classList.add("project-art--specific");
+    if (visual.size === "4100% 100%") art.classList.add("project-art--cover");
     art.style.backgroundImage = `url("${visual.url}")`;
     art.style.backgroundSize = visual.size; art.style.backgroundPosition = visual.position;
     art.dataset.subject = visual.subject;
