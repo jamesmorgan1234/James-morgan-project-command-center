@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "4f186de2a5782bcdd477755cccac55167831e2dc",
+  "gitSha": "d9a37455d111b0e40ec34e53305aeaf159ba3781",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2011,
-  "inventoryDigest": "e1ed0c96583cda1da6057f2be4670cd15986e018d8c4f14459edddda7aa58bbd",
+  "inventoryDigest": "4a817ffd89899a5f520820fdff7d17138b808cb5217b4a8e1dc9bf05fda5069a",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -4835,7 +4835,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "865974b76d93d55314abe36af0ef87132c1e947a93f571e7b137153ed7c7b38a",
+      "sha256": "e7affb3e2090bec96d258158afbffd339244fbde9e79086736f3768d6f6f65c9",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -4997,8 +4997,8 @@
       "path": "clean-room/public/primitive-system.css",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "cdbf87175e91ac15fa5a3d124fd3937b5fba5600102f7b5cc996572e7b44c288",
-      "bytes": 7620,
+      "sha256": "ca001c1a170a6bfc4f8daba5a02fe0edc0515925817fbf8b245f0757b1ea15b9",
+      "bytes": 8659,
       "contentKind": "text",
       "findings": []
     },
