@@ -11,7 +11,7 @@ function setup({project=true,existing=[],runs=[]}={}) {
  else if(url.pathname.endsWith('/command_center_agency_runs'))data=runs;
  else if(url.pathname.includes('/rpc/'))data={ok:true};
  else throw Error('Unexpected '+url.pathname);
- return new Response(JSON.stringify(data),{status:200,headers:{'content-type':'application/json'}});
+ return new Response(JSON.stringify(data),{status:200,headers:{'content-type':'application/json','content-range':Array.isArray(data)?(data.length?'0-'+(data.length-1)+'/'+data.length:'*/0'):'*/0'}});
  };
  const inner={id:'test',async load(){return {};},async signIn(){},async signOut(){}};
  return {calls,provider:new ManagedOwnerRuntimeProvider({inner,storage,supabaseUrl:'https://example.supabase.co',publishableKey:'sb_publishable_test',fetcher})};
@@ -48,4 +48,15 @@ test('Agency prepare creates manual draft through canonical function without que
 test('Agency stop rejects a run outside the selected project',async()=>{
  const {provider,calls}=setup({runs:[{project_id:'other-project',run_id:'agency-run:'+nonce}]});
  await assert.rejects(provider.stopProjectAgencyRun('project-1','agency-run:'+nonce,1),/outside this project/); assert.equal(calls.some(c=>c.init.method==='POST'),false);
+});
+
+test('source-hashed company roadmaps open at the verified branch commit without weakening reference-link checks',async()=>{
+ const {safeProjectReferenceLink}=await import('../dist/runtime/project-workspace-view.js');
+ const sha='f'.repeat(40),path='roadmap/portfolio-future-architecture/companies/113_ULTIMATE_COMMERCE_PLATFORM.md';
+ assert.equal(safeProjectReferenceLink(path+'#sha256='+'a'.repeat(64),sha),'https://github.com/jamesmorgan1234/James-morgan-project-command-center/blob/'+sha+'/'+path);
+ assert.ok(safeProjectReferenceLink(path,'local').includes('/blob/build/spec-lock-v2-clean-room/'));
+ assert.equal(safeProjectReferenceLink('roadmap/../secret.md',sha),undefined);
+ assert.equal(safeProjectReferenceLink(path+'#sha256=invalid',sha),undefined);
+ assert.equal(safeProjectReferenceLink('https://example.invalid/?api_key=synthetic',sha),undefined);
+ assert.equal(safeProjectReferenceLink('javascript:alert(1)',sha),undefined);
 });

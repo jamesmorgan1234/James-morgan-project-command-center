@@ -1,0 +1,87 @@
+{
+  "created_utc": "2026-11-03T19:47:08.438639+00:00",
+  "archive_type": "conversation-accessible reconstructed planning preservation, NOT verbatim export",
+  "documents": [
+    {
+      "name": "00_READ_ME_FIRST.md",
+      "bytes": 3016,
+      "sha256": "21153e34597cd4fc788ee5f8f8d8081090335d588c8eb29764ebcab193e88a15"
+    },
+    {
+      "name": "01_CONVERSATION_CHRONOLOGY.md",
+      "bytes": 8078,
+      "sha256": "7747f6ab32f33ce1747146e4997ada473fabf0665ec3223f76801c09f663773c"
+    },
+    {
+      "name": "02_MASTER_ARCHITECTURE_AND_FEATURES.md",
+      "bytes": 7245,
+      "sha256": "9aa9660d47f687a6aab3ce1a85676afd560bb4a78f5e854534ce85554f9aa7e8"
+    },
+    {
+      "name": "03_ROADMAP_PHASES.md",
+      "bytes": 5160,
+      "sha256": "93ddee63609b142ac76a47ce824c4afa0bd60c47e294367752f3e35d9b171205"
+    },
+    {
+      "name": "04_CANONICAL_SCHEMAS_AND_RELATIONSHIPS.md",
+      "bytes": 19834,
+      "sha256": "13ecd1459ffc1c6ba5366d60b53eae9ff57eae60c29fd4093f2f7ea7323dd762"
+    },
+    {
+      "name": "05_STATE_MACHINES.md",
+      "bytes": 7437,
+      "sha256": "86691468b0c71a77277c661b48d8d5a6a6d04cf21e71d59134809e920b08dcf1"
+    },
+    {
+      "name": "06_ERROR_CATALOG.md",
+      "bytes": 11193,
+      "sha256": "5ddb9684a92b7b8b0330d30a89b5d56eaecb480af53a99bc3596dd9a64dbca92"
+    },
+    {
+      "name": "07_SIMULATIONS_310.md",
+      "bytes": 10573,
+      "sha256": "99627492f4a3b3401659d6b9a2dfdb6609a347512a2f79333a013b8552f09977"
+    },
+    {
+      "name": "08_CERTIFICATION_AND_TESTING.md",
+      "bytes": 6549,
+      "sha256": "10bfcbd8333697e05e2be8c4d31e4530cc7993d9831fcb8d9f3e0f8448cc5a22"
+    },
+    {
+      "name": "09_CONNECTOR_CONTRACTS.md",
+      "bytes": 7331,
+      "sha256": "62cbf2aa7f46212b36b31087f850b70e8c90e02ed68d66824798bff1af25ca0c"
+    },
+    {
+      "name": "10_ECONOMICS_INVENTORY_ORDER_EDGE_CASES.md",
+      "bytes": 7584,
+      "sha256": "ac947dea7d9e9f17fa83bad3d212c18653c91aba9e392cd171b5bc7e94a6c6d2"
+    },
+    {
+      "name": "11_SECURITY_DASHBOARDS_RUNBOOKS.md",
+      "bytes": 8943,
+      "sha256": "14dfeebbfdf3e219d3bcc56529c77d385d12be7fc7e448016af1e4e702d4c852"
+    },
+    {
+      "name": "12_IMPLEMENTATION_BACKLOG.md",
+      "bytes": 6669,
+      "sha256": "1cabbd9f6ffda863355ea9e2350ad3ee698634caf0a8bd2ca4a7e5d8cb08b607"
+    },
+    {
+      "name": "13_COMMAND_CENTER_BOUNDARIES_AND_CHECKLIST.md",
+      "bytes": 3409,
+      "sha256": "d62e0831c3e578b8893bce78bdc9c1fe3a30b7667639b4315a1379d9d262ded0"
+    },
+    {
+      "name": "14_PREBUILD_READINESS_AND_GLOSSARY.md",
+      "bytes": 5376,
+      "sha256": "50ed21b77392393e6967cf95f44a36e0599eeb255d89f3dcec7791a82bc9c453"
+    },
+    {
+      "name": "15_CURRENT_STATUS_AND_UNRESOLVED.md",
+      "bytes": 2590,
+      "sha256": "02a15e5220659368e8bd8e3af9c6f78f9176df281eafd189aaadd7cbe3d9ce8b"
+    }
+  ],
+  "video_included": true
+}

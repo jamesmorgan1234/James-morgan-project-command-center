@@ -24,6 +24,10 @@ export function projectArtwork(project: RuntimeProjectSnapshot, books: readonly 
     [/automat|workflow|operation|process|business/, 15, "Operations & automation"]
   ];
   const named: readonly [RegExp, number, string][] = [
+    [/shipping exception/, 10, "Shipping & logistics"],
+    [/contractor websites/, 4, "Contractor services"],
+    [/real estate|building permit|inspection intelligence/, 4, "Property & buildings"],
+    [/industrial maintenance|downtime intelligence/, 15, "Industrial operations"],
     [/fanvue|veyla/, 2, "Creator media"], [/margincraft/, 3, "Digital products"], [/edge finder/, 5, "Sports analysis"], [/torevi/, 12, "Careers"]
   ];
   const name = project.name.toLowerCase();

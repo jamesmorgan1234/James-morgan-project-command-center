@@ -12,7 +12,7 @@ class MemoryStorage {
 }
 
 function json(value, status = 200) {
-  return new Response(JSON.stringify(value), { status, headers: { "content-type": "application/json" } });
+  return new Response(JSON.stringify(value), { status, headers: { "content-type": "application/json", "content-range": Array.isArray(value) ? (value.length ? `0-${value.length-1}/${value.length}` : "*/0") : "*/0" } });
 }
 
 function ownerRuntimeFetch({ authorized = true } = {}) {

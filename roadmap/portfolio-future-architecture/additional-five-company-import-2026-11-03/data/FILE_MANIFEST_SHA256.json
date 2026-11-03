@@ -1,0 +1,341 @@
+{
+  "prepared_utc": "2026-11-03",
+  "file_count": 67,
+  "files": [
+    {
+      "file": "00_SCOPE_AUTHORITY.md",
+      "bytes": 2712,
+      "sha256": "6ed08cf6e1aecb4807a45b3d6f6b81891c9d125aaf6981be873b1ee94a8cbae0"
+    },
+    {
+      "file": "01_REGISTRATION_AND_LIVE_UI_ACCEPTANCE.md",
+      "bytes": 4384,
+      "sha256": "e41035b7bba5cc2eb95b1dbedf131a1f76010ee2229fff9aed78012d5379cd65"
+    },
+    {
+      "file": "02_EXPANSIONS_RECOMMENDATION_ONLY.md",
+      "bytes": 1848,
+      "sha256": "9e33caf4fa6d3ecf7c57959bee254bfd18030062467c163dc427946ae63ae5ec"
+    },
+    {
+      "file": "03_EVIDENCE_AND_RESEARCH.md",
+      "bytes": 2822,
+      "sha256": "2616aa629f751d3ee91bcdcdbee9274062d7c311bc852ffa6238983eb0774824"
+    },
+    {
+      "file": "04_WORK_HANDOFF_REGISTER_AND_ENABLE.md",
+      "bytes": 7749,
+      "sha256": "b60080b2f42e007b7eacbec4b4cd6dc1fdf4c0f1c2b93c25ef4933939b053c4b"
+    },
+    {
+      "file": "README.md",
+      "bytes": 4545,
+      "sha256": "4ea70e72bd03cc31cffbb9bedd688dd54bae0cb8477850f3fd12bfce8f576e01"
+    },
+    {
+      "file": "companies/113_ultimate_commerce_platform/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 43315,
+      "sha256": "223f9aa62aa11491b20db1914fe348d08b4ee3788a4fdccc6b6c01ba85236593"
+    },
+    {
+      "file": "companies/113_ultimate_commerce_platform/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 68060,
+      "sha256": "e54fbba0d9beca3d20bac6ef2cb10e7ae098b8544d5ef8c8383d317c16757f04"
+    },
+    {
+      "file": "companies/113_ultimate_commerce_platform/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 9003,
+      "sha256": "e4e32c43b33f8e254fcab0605273c38f11ab4c6daf76197bd1b63bf4e082abca"
+    },
+    {
+      "file": "companies/113_ultimate_commerce_platform/SPECIALIZED_BRAIN.md",
+      "bytes": 16387,
+      "sha256": "b5c610efa2930ceedba948b5beb0275f5a4d2ec8f22122787839e5579590c0b4"
+    },
+    {
+      "file": "companies/114_real_estate_wholesaling_acquisition/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 45946,
+      "sha256": "a83272a8e8ba1b05ea61fdfec4a658f0291cb40c3c8242172945cfdcca84cf76"
+    },
+    {
+      "file": "companies/114_real_estate_wholesaling_acquisition/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 68901,
+      "sha256": "e63d4a29d5833fee32e16c673c9bb21da176d2de03c8449524b76fd29229045d"
+    },
+    {
+      "file": "companies/114_real_estate_wholesaling_acquisition/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 9593,
+      "sha256": "d67fd8d7fc53dddfd5175ae8fa4deec0e8a96c236a1942662efdd0bf5c6fc709"
+    },
+    {
+      "file": "companies/114_real_estate_wholesaling_acquisition/SPECIALIZED_BRAIN.md",
+      "bytes": 15969,
+      "sha256": "05c6dd998f02a1c0cb5cd4515a1105b5b9c39021f0f22bfd3b1228dba75b36b7"
+    },
+    {
+      "file": "companies/115_contract_opportunity_discovery_matching/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 45357,
+      "sha256": "b853388c7d1ce0746bf4f3e4c066ee93fa1f207b0e5f414fd9a6c75dc1f55eb4"
+    },
+    {
+      "file": "companies/115_contract_opportunity_discovery_matching/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 69264,
+      "sha256": "b8fb50d25ed8908101e5ea5c8308759dfab7dbc5488116a60f8bf7f92c59f6fe"
+    },
+    {
+      "file": "companies/115_contract_opportunity_discovery_matching/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 8912,
+      "sha256": "143c0b07e247ee324cb5a429532c3f0ea694ab11b2e9bfd2f6e7e761ccb4c819"
+    },
+    {
+      "file": "companies/115_contract_opportunity_discovery_matching/SPECIALIZED_BRAIN.md",
+      "bytes": 15642,
+      "sha256": "e1a79f9a92b66f389369811bf7efb01d445a6a156c6e685fc9497e3b41c51ee9"
+    },
+    {
+      "file": "companies/116_building_permit_inspection_intelligence/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 45405,
+      "sha256": "48793756371880e58c7f91b1a10e44a2b717dd1813808ea43c4dcb5d18447535"
+    },
+    {
+      "file": "companies/116_building_permit_inspection_intelligence/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 69178,
+      "sha256": "feb98d39c26aefc3d88355aa55b9653225cb9b821208cd55433c3dd8ba725c46"
+    },
+    {
+      "file": "companies/116_building_permit_inspection_intelligence/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 9323,
+      "sha256": "9fa0d519f0951920b55d3d5b8893198c4ae8019e066ca7e207db87225d26c4e9"
+    },
+    {
+      "file": "companies/116_building_permit_inspection_intelligence/SPECIALIZED_BRAIN.md",
+      "bytes": 15503,
+      "sha256": "bb70064c4bcb5f3824576138982b218674794082f01fb213e8fe848ada9f1885"
+    },
+    {
+      "file": "companies/117_industrial_maintenance_downtime_intelligence/AGENCY_EXECUTION_PLAN.md",
+      "bytes": 45623,
+      "sha256": "33df53bf3ed2b34968fd9dc53ac6bfa4ef9c9c0390c7711e834f981ea2ea2924"
+    },
+    {
+      "file": "companies/117_industrial_maintenance_downtime_intelligence/EXHAUSTIVE_COMPANY_ROADMAP.md",
+      "bytes": 69980,
+      "sha256": "958a4b4da4307e2dfe3febb1641e554db25d2c60368daceaf64c3b6151a624ec"
+    },
+    {
+      "file": "companies/117_industrial_maintenance_downtime_intelligence/RISKS_QA_AND_GATE_MATRIX.md",
+      "bytes": 9595,
+      "sha256": "a5020c1301b5c6ae272f96b97d655fe12c940816b8caf5e76dd34d2b03a54bf7"
+    },
+    {
+      "file": "companies/117_industrial_maintenance_downtime_intelligence/SPECIALIZED_BRAIN.md",
+      "bytes": 15470,
+      "sha256": "934a0a614894ac0edadcea3dfafc89af708cf693458f23cf69769a022d64bceb"
+    },
+    {
+      "file": "data/AGENCY_EXECUTABLE_TASK_PROPOSALS.json",
+      "bytes": 676542,
+      "sha256": "072eab4675059eacfe0d373bb90aa984eec6d51c736062e0b8707b571f1f9b96"
+    },
+    {
+      "file": "data/CAPABILITY_CATALOG.json",
+      "bytes": 569961,
+      "sha256": "72bd4f30b709276a06f2ca30e59bb685c12a0658c217aee481975a7daf70685a"
+    },
+    {
+      "file": "data/CONFORMANCE_106_X_5_DRAFT.json",
+      "bytes": 415666,
+      "sha256": "74e56c320d6e22e5eb537ebb5a47a70a335482ba441b4043cdfefb9eb7060b3f"
+    },
+    {
+      "file": "data/OFFICIAL_SOURCES_AND_VALIDATION.json",
+      "bytes": 5299,
+      "sha256": "d849dcba065fd0ad5dd5b7325c703dee26a504ea95b36c365f2179a8c88eb5ac"
+    },
+    {
+      "file": "data/PROPOSED_COMPANY_REGISTRY.json",
+      "bytes": 5762,
+      "sha256": "670f45f21f66f4aead60a06fb9638cf6841e4044cdc897d5862d3698f5aed070"
+    },
+    {
+      "file": "data/ROADMAP_PHASE_GATES.json",
+      "bytes": 18150,
+      "sha256": "b47a1bef1926685ef2706deaa9aba3cf86fb1f9cf846bc5d9d77391b6debaee0"
+    },
+    {
+      "file": "data/SOURCE_ARCHIVE_TEXT_INDEX.json",
+      "bytes": 11920,
+      "sha256": "2a3ee6ab7c97974bb4bbf850afbac96477f7cd2b874df73dd9e4279d4cebd659"
+    },
+    {
+      "file": "data/SPECIALIST_BRAIN_CATALOG.json",
+      "bytes": 19820,
+      "sha256": "cb034d04432ced757f6db89a9890da11f78ad9c14923728790bc9e43d562fc4d"
+    },
+    {
+      "file": "scripts/validate.py",
+      "bytes": 4047,
+      "sha256": "556e3b226f253a5fc9b11f98722998d89431fd4bcde8fc696274464356e4e6cd"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/00_READ_ME_FIRST.md",
+      "bytes": 3016,
+      "sha256": "21153e34597cd4fc788ee5f8f8d8081090335d588c8eb29764ebcab193e88a15"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/01_CONVERSATION_CHRONOLOGY.md",
+      "bytes": 8078,
+      "sha256": "7747f6ab32f33ce1747146e4997ada473fabf0665ec3223f76801c09f663773c"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/02_MASTER_ARCHITECTURE_AND_FEATURES.md",
+      "bytes": 7245,
+      "sha256": "9aa9660d47f687a6aab3ce1a85676afd560bb4a78f5e854534ce85554f9aa7e8"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/03_ROADMAP_PHASES.md",
+      "bytes": 5160,
+      "sha256": "93ddee63609b142ac76a47ce824c4afa0bd60c47e294367752f3e35d9b171205"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/04_CANONICAL_SCHEMAS_AND_RELATIONSHIPS.md",
+      "bytes": 19834,
+      "sha256": "13ecd1459ffc1c6ba5366d60b53eae9ff57eae60c29fd4093f2f7ea7323dd762"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/05_STATE_MACHINES.md",
+      "bytes": 7437,
+      "sha256": "86691468b0c71a77277c661b48d8d5a6a6d04cf21e71d59134809e920b08dcf1"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/06_ERROR_CATALOG.md",
+      "bytes": 11193,
+      "sha256": "5ddb9684a92b7b8b0330d30a89b5d56eaecb480af53a99bc3596dd9a64dbca92"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/07_SIMULATIONS_310.md",
+      "bytes": 10573,
+      "sha256": "99627492f4a3b3401659d6b9a2dfdb6609a347512a2f79333a013b8552f09977"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/08_CERTIFICATION_AND_TESTING.md",
+      "bytes": 6549,
+      "sha256": "10bfcbd8333697e05e2be8c4d31e4530cc7993d9831fcb8d9f3e0f8448cc5a22"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/09_CONNECTOR_CONTRACTS.md",
+      "bytes": 7331,
+      "sha256": "62cbf2aa7f46212b36b31087f850b70e8c90e02ed68d66824798bff1af25ca0c"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/10_ECONOMICS_INVENTORY_ORDER_EDGE_CASES.md",
+      "bytes": 7584,
+      "sha256": "ac947dea7d9e9f17fa83bad3d212c18653c91aba9e392cd171b5bc7e94a6c6d2"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/11_SECURITY_DASHBOARDS_RUNBOOKS.md",
+      "bytes": 8943,
+      "sha256": "14dfeebbfdf3e219d3bcc56529c77d385d12be7fc7e448016af1e4e702d4c852"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/12_IMPLEMENTATION_BACKLOG.md",
+      "bytes": 6669,
+      "sha256": "1cabbd9f6ffda863355ea9e2350ad3ee698634caf0a8bd2ca4a7e5d8cb08b607"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/13_COMMAND_CENTER_BOUNDARIES_AND_CHECKLIST.md",
+      "bytes": 3409,
+      "sha256": "d62e0831c3e578b8893bce78bdc9c1fe3a30b7667639b4315a1379d9d262ded0"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/14_PREBUILD_READINESS_AND_GLOSSARY.md",
+      "bytes": 5376,
+      "sha256": "50ed21b77392393e6967cf95f44a36e0599eeb255d89f3dcec7791a82bc9c453"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/15_CURRENT_STATUS_AND_UNRESOLVED.md",
+      "bytes": 2590,
+      "sha256": "02a15e5220659368e8bd8e3af9c6f78f9176df281eafd189aaadd7cbe3d9ce8b"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/ALL_COMMERCE_PLANNING_IN_ONE_FILE.md",
+      "bytes": 121951,
+      "sha256": "18e009000f7843a0aaab29380b737937389b291a884f0f6443a2b0a4711bd878"
+    },
+    {
+      "file": "source_archives/original_commerce_archive/MANIFEST.json",
+      "bytes": 2851,
+      "sha256": "40267755c84033b4ada113c3eba5bb75c6ed6d21d3737d6e9f68dcd101c443f2"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveARCHITECTURE/brain_and_specialists.md",
+      "bytes": 3593,
+      "sha256": "5d203ead930b93194c29bdf8b23b3dab5fbcd30fdf79bfa3c6d0556960f5ac02"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveARCHITECTURE/master_blueprint.md",
+      "bytes": 12339,
+      "sha256": "48fb947a273cb50ab6af58f94a657e5f2facc9deb52ca5a4bb2922413b2735a4"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveDECISIONS/approved_rules.md",
+      "bytes": 4087,
+      "sha256": "eaac61c7ad67a7ed17164a6b5e5b624917da5a3f1de0a84dfbf86b564af4d349"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveDECISIONS/authorization_state.md",
+      "bytes": 1119,
+      "sha256": "5e85c7a7383ca3c433bb74d6fe26d1d088fcbeda752fae7bd1ad0a74179efb81"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveDECISIONS/command_center_dependency_prompt.md",
+      "bytes": 3460,
+      "sha256": "4d1b2c2d3cd78e705a51bb6921b6db82019fe057bdf48af15c05e8ed99d30658"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveMANIFEST.json",
+      "bytes": 4559,
+      "sha256": "01f616772bc8a8b147e282f1f565fe64aea9033708aa751733fb8ec3f39f7c16"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveQA/simulations_and_certification.md",
+      "bytes": 6802,
+      "sha256": "5f7eb3f30e1256fd73eb52ffd7632b19d0891b36aa90f3024e237aec11d2bd51"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveREADME_START_HERE.md",
+      "bytes": 3829,
+      "sha256": "f9115b4f4b579c563165b1520ec0a2ad57e4347afb2551ce252bbde5340fa43d"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveREFERENCES/sources_mentioned.md",
+      "bytes": 2640,
+      "sha256": "157594cf0e87f18ffab58fa7ba3b3f0d831a423ef88b686c8168d334fafbbf49"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveROADMAP/phase_plan.md",
+      "bytes": 3477,
+      "sha256": "1c7ff94f25aea9c594d10c37d9dd5bf19863df395c701a1703512b84510a4fac"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveSCHEMAS/project_local_data_model.md",
+      "bytes": 16757,
+      "sha256": "6a361729f531510f7594151a72fa151863f8614e182a921e7a4178044064445d"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveSCHEMAS/workflow_and_financial_rules.md",
+      "bytes": 4884,
+      "sha256": "d50535623852ccc460a991ce97daf51fa9fd145db9629e00e5d2d2a0d7fd19b4"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveTRANSCRIPT/chat_chronology.md",
+      "bytes": 8735,
+      "sha256": "9ef0a5353213fda9e1f0e68034443adb7cc595ddd0ff403b66e763e5767edbfa"
+    },
+    {
+      "file": "source_archives/original_real_estate_archiveTRANSCRIPT/user_messages.md",
+      "bytes": 6055,
+      "sha256": "e1401f1d3c9ed4d95d21cb6fe8d3ff46dda3b28b6ea692b5ebb113f4e5424d83"
+    }
+  ]
+}

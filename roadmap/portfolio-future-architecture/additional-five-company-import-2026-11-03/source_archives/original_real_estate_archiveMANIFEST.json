@@ -1,0 +1,133 @@
+{
+  "archive_name": "Real_Estate_Wholesaling_Chat_Archive",
+  "prepared_at_utc": "2026-11-03T19:49:36.453154+00:00",
+  "source_type": "original uploaded media + reconstructed transcript + local project specification",
+  "not_official_chat_export": true,
+  "entries": [
+    {
+      "path": "ARCHITECTURE/brain_and_specialists.md",
+      "size_bytes": 3593,
+      "sha256": "5d203ead930b93194c29bdf8b23b3dab5fbcd30fdf79bfa3c6d0556960f5ac02"
+    },
+    {
+      "path": "ARCHITECTURE/master_blueprint.md",
+      "size_bytes": 12339,
+      "sha256": "48fb947a273cb50ab6af58f94a657e5f2facc9deb52ca5a4bb2922413b2735a4"
+    },
+    {
+      "path": "DECISIONS/approved_rules.md",
+      "size_bytes": 4087,
+      "sha256": "eaac61c7ad67a7ed17164a6b5e5b624917da5a3f1de0a84dfbf86b564af4d349"
+    },
+    {
+      "path": "DECISIONS/authorization_state.md",
+      "size_bytes": 1119,
+      "sha256": "5e85c7a7383ca3c433bb74d6fe26d1d088fcbeda752fae7bd1ad0a74179efb81"
+    },
+    {
+      "path": "DECISIONS/command_center_dependency_prompt.md",
+      "size_bytes": 3460,
+      "sha256": "4d1b2c2d3cd78e705a51bb6921b6db82019fe057bdf48af15c05e8ed99d30658"
+    },
+    {
+      "path": "MEDIA/6238_original_uploaded_video.mp4",
+      "size_bytes": 78946510,
+      "sha256": "9ada23171b38e969d63581c0aec25d9a75f29dcb831addb8d34ee537de768a72"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_001.jpg",
+      "size_bytes": 91576,
+      "sha256": "91e861aec96065ef86e25b31d18cbfc8972b99826efd34f3e74cc97cdc745bf7"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_002.jpg",
+      "size_bytes": 49196,
+      "sha256": "df7370da3566ef58bcad7a4d7e012981dc4e726ae5e744664e333e3127fadfed"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_003.jpg",
+      "size_bytes": 86745,
+      "sha256": "5f15e3e835e33a04888ac1b3422e5e93dd4495a411ec74a4e0ccf01a56d8a2af"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_004.jpg",
+      "size_bytes": 49623,
+      "sha256": "151844d4c54024bd4c50c3a96f35e216e37dfeb2571e21df7ca3702307f109e0"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_005.jpg",
+      "size_bytes": 94288,
+      "sha256": "f45047994dc17217ccf362a691981db23a9306fa85f122bdddcbbd53220701fc"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_006.jpg",
+      "size_bytes": 68101,
+      "sha256": "e9f16275f1109459651804a4e28d3571ea9e9b44e2a05a6a029ebe34b1a76b5b"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_007.jpg",
+      "size_bytes": 82306,
+      "sha256": "2e09319b6c613846b1db79f79a9cb8cf8a0d5c7e9f24bd7ecafbe92c9e2f80d0"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_008.jpg",
+      "size_bytes": 60829,
+      "sha256": "bb10f6799499c3329073015d47ef6413d0d61d23c7386e9b7d5f7e543d5372b3"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_009.jpg",
+      "size_bytes": 82782,
+      "sha256": "7e49ff38a97f4e05cfb1886897f9f73b723210b524abaf36cf2312f3ece36d11"
+    },
+    {
+      "path": "MEDIA/keyframes/frame_010.jpg",
+      "size_bytes": 72595,
+      "sha256": "a5d5db4f4bd97d900d3de44b3ed17e44859d3913bdfdaba32bb940889ae6e162"
+    },
+    {
+      "path": "MEDIA/video_contact_sheet.jpg",
+      "size_bytes": 331953,
+      "sha256": "95052fbf14d4fc9d42529050de1d63eb9accb4749c6ff72706b4035207df392f"
+    },
+    {
+      "path": "QA/simulations_and_certification.md",
+      "size_bytes": 6802,
+      "sha256": "5f7eb3f30e1256fd73eb52ffd7632b19d0891b36aa90f3024e237aec11d2bd51"
+    },
+    {
+      "path": "README_START_HERE.md",
+      "size_bytes": 3829,
+      "sha256": "f9115b4f4b579c563165b1520ec0a2ad57e4347afb2551ce252bbde5340fa43d"
+    },
+    {
+      "path": "REFERENCES/sources_mentioned.md",
+      "size_bytes": 2640,
+      "sha256": "157594cf0e87f18ffab58fa7ba3b3f0d831a423ef88b686c8168d334fafbbf49"
+    },
+    {
+      "path": "ROADMAP/phase_plan.md",
+      "size_bytes": 3477,
+      "sha256": "1c7ff94f25aea9c594d10c37d9dd5bf19863df395c701a1703512b84510a4fac"
+    },
+    {
+      "path": "SCHEMAS/project_local_data_model.md",
+      "size_bytes": 16757,
+      "sha256": "6a361729f531510f7594151a72fa151863f8614e182a921e7a4178044064445d"
+    },
+    {
+      "path": "SCHEMAS/workflow_and_financial_rules.md",
+      "size_bytes": 4884,
+      "sha256": "d50535623852ccc460a991ce97daf51fa9fd145db9629e00e5d2d2a0d7fd19b4"
+    },
+    {
+      "path": "TRANSCRIPT/chat_chronology.md",
+      "size_bytes": 8735,
+      "sha256": "9ef0a5353213fda9e1f0e68034443adb7cc595ddd0ff403b66e763e5767edbfa"
+    },
+    {
+      "path": "TRANSCRIPT/user_messages.md",
+      "size_bytes": 6055,
+      "sha256": "e1401f1d3c9ed4d95d21cb6fe8d3ff46dda3b28b6ea692b5ebb113f4e5424d83"
+    }
+  ]
+}

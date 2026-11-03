@@ -107,7 +107,7 @@ export class BrowserPwaUpdateClient {
       if (!isReleaseIdentity(identity)) throw new Error("Release identity malformed");
       this.#coordinator.setCandidate(identity);
       this.#coordinator.transition("verified");
-      this.#message = `Verified update ${identity.releaseId} is ready. Activation remains explicit.`;
+      this.#message = "A verified app update is ready.";
       this.#emit();
     } catch {
       if (this.#coordinator.state === "downloading") this.#coordinator.transition("failed");

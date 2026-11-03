@@ -1,0 +1,9 @@
+# Portfolio expansion candidates — do not auto-mutate
+
+These are NOT three more companies and NOT automatic scope additions to this Work handoff. A properly functioning Command Center Brain should inspect each company's roadmap and real evidence, propose expansion with commercial case, economics, quality, isolation, risks, work required and existing coverage; James Morgan decides whether to approve.
+
+1. **AI Search Visibility & GEO** — evaluate for **#111 Contractor Websites & Online Booking** plus candidate expertise from **#014 Website Change Intelligence** and **#055 Product Catalog Intelligence**. Validate buyer query visibility measurement limitations; no promise AI search placement. Status: IDEA FOR RECOMMENDATION ONLY.
+2. **Construction Change-Order Revenue Recovery** — evaluate as a special vertical inside **#085 Revenue Leakage Detection**, possible supporting contracts from **#023 Contract Obligations** and **#030 Invoice Recovery**. Financial evidence and owner/legal approvals required for claims. Status: IDEA FOR RECOMMENDATION ONLY.
+3. **Packaging Extended Producer Responsibility Compliance & Reporting** — evaluate inside **#012 AI Compliance Autopilot**, with candidate tools from **#016 Regulation Change Monitor** and **#055 Product Catalog Intelligence**. Each state/country compliance rule and legal review distinct. Status: IDEA FOR RECOMMENDATION ONLY.
+
+Recommendation packet fields: existing capability coverage proof, external/current demand evidence, impacted customers, incremental revenue hypothesis and service costs, execution cost ($0-first), legal/contract and information boundary, roadmap delta, test gates, draft milestone, independent owner APPROVE/SKIP/DEFER decision. Proposals must not self-authorize any changes. Reuse of a source company is not reuse of its private accounts or data.

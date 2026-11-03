@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "company_id": "company:future:113",
+      "url": "https://www.cpsc.gov/Recalls",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:113",
+      "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:114",
+      "url": "https://codes.ohio.gov/ohio-revised-code/section-5301.95",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:114",
+      "url": "https://com.ohio.gov/about-us/media-center/news/REPL-SB155",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:115",
+      "url": "https://sam.gov/opportunities",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:115",
+      "url": "https://open.gsa.gov/api/get-opportunities-public-api/",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:115",
+      "url": "https://api.usaspending.gov/",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:115",
+      "url": "https://www.sba.gov/counseling/how-to-win-contracts/",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:116",
+      "url": "https://www.columbus.gov/Business-Development/Get-a-Permit/Get-or-Track-a-Building-Permit",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:116",
+      "url": "https://www.columbus.gov/Business-Development/Building-Zoning-Services/Online-Services",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:116",
+      "url": "https://com.ohio.gov/divisions-and-programs/industrial-compliance/boards/board-of-building-standards/building-codes-and-interpretations/2024-ohio-building-mechanical-and-plumbing-code-rules",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:117",
+      "url": "https://www.getmaintainx.com/state-of-industrial-maintenance-report",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    },
+    {
+      "company_id": "company:future:117",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147",
+      "state": "REFERENCE_VERIFIED_DURING_RESEARCH_2026_11_03",
+      "required_before_external_use": [
+        "recheck freshness",
+        "access permission and cost",
+        "data license",
+        "jurisdiction/context",
+        "owner authorization"
+      ]
+    }
+  ]
+}

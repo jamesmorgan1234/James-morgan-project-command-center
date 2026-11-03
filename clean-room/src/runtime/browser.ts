@@ -141,9 +141,10 @@ function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
     ring.append(el("strong", undefined, `${project.progressPercent.value}%`));
   } else {
     ring.classList.add("progress-ring--unknown");
-    ring.append(el("strong", undefined, project.progressSummary ?? "Unmeasured"));
+    ring.setAttribute("aria-label", project.progressSummary ?? "Completion percentage unmeasured");
+    ring.append(el("strong", undefined, "—"));
   }
-  wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : project.progressPercent.state === "known" ? "Scope" : "Progress"));
+  wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : project.progressPercent.state === "known" ? "Scope" : "Unmeasured"));
   if (project.statusObservedAt) wrap.append(el("span", "sync-note", `Status ${project.statusObservedAt.slice(0, 10)}`));
   if (project.progressObservedAt) wrap.append(el("span", "sync-note", project.progressObservedAt.slice(0, 10)));
   return wrap;
@@ -723,7 +724,7 @@ function renderPwaUpdateControl(): HTMLElement {
   const area = el("div", "pwa-update");
   area.append(el("span", "pwa-update__message", pwaView.message));
   if (pwaView.state === "verified" && pwaView.candidate) {
-    const button = el("button", "pwa-update__button", `Activate ${pwaView.candidate.releaseId}`);
+    const button = el("button", "pwa-update__button", "Update app");
     button.type = "button";
     button.addEventListener("click", () => { void PWA_UPDATES.activateVerifiedUpdate(); });
     area.append(button);

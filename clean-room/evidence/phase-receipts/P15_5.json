@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.5",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "673100639046c3609dd674d51acda0980ba8117c",
+  "gitSha": "f06f8b7a3e5f4d151f99447bf1461b791df4b49d",
   "inputs": [
     "clean-room/public/app.css",
     "clean-room/public/project-system.css",
@@ -26,7 +26,7 @@
     "clean-room/tests/runtime-visual-structure.test.mjs",
     "clean-room/tests/ui-shell-foundation.test.mjs"
   ],
-  "inputsDigest": "9e501105f3856292f4a4598e196496d81cb5884c26ae5bed7b0efcf0f4d85030",
+  "inputsDigest": "d8d849c5d5a21368cc70ef05bab502a15cb7d216147b09ee9981024860a08efe",
   "evidence": [
     "clean-room/scripts/p15-5-visual-ux-device-audit.mjs",
     "clean-room/tests/p15-5-visual-ux-device-audit.test.mjs",

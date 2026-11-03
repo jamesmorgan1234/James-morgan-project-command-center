@@ -14,8 +14,9 @@ function field(form: HTMLElement, label: string, multiline = false): HTMLInputEl
   else { input.type = "text"; input.maxLength = 500; }
   wrap.append(input); form.append(wrap); return input;
 }
-function safeLink(ref: string, release: string): string | undefined {
-  if (ref.startsWith("roadmap/") && !ref.split("/").some(part => part === "..") && /^[a-zA-Z0-9_./-]+$/.test(ref)) return `https://github.com/jamesmorgan1234/James-morgan-project-command-center/blob/${/^[a-f0-9]{40}$/.test(release) ? release : "build/spec-lock-v2-clean-room"}/${ref}`;
+export function safeProjectReferenceLink(ref: string, release: string): string | undefined {
+  const [path, fragment, ...extra] = ref.split("#");
+  if (path?.startsWith("roadmap/") && !path.split("/").some(part => part === "..") && /^[a-zA-Z0-9_./-]+$/.test(path) && extra.length === 0 && (fragment === undefined || /^sha256=[a-f0-9]{64}$/.test(fragment))) return `https://github.com/jamesmorgan1234/James-morgan-project-command-center/blob/${/^[a-f0-9]{40}$/.test(release) ? release : "build/spec-lock-v2-clean-room"}/${path}`;
   try { const url = new URL(ref); if (url.protocol === "https:" && !url.username && !url.password && ![...url.searchParams.keys()].some(key => /token|secret|password|api.?key/i.test(key))) return url.href; } catch {}
   return undefined;
 }
@@ -30,7 +31,7 @@ function recordList(node: HTMLElement, records: readonly RuntimeProjectRecord[],
     if (record.detail) row.append(el("p", "muted", record.detail));
     if (record.state) row.append(el("span", "muted", record.state.replaceAll("_", " ")));
     if (record.observedAt) row.append(el("span", "muted", `Recorded ${record.observedAt.slice(0, 10)}`));
-    const href = record.sourceRef ? safeLink(record.sourceRef, release) : undefined;
+    const href = record.sourceRef ? safeProjectReferenceLink(record.sourceRef, release) : undefined;
     if (href) row.append(link("Open reference", href)); node.append(row);
   }
 }
@@ -58,7 +59,7 @@ export function renderProjectRecordSection(project: RuntimeProjectSnapshot, kind
 export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, snapshot: CommandCenterRuntimeSnapshot, provider: unknown, rerender: () => Promise<void>): HTMLElement {
   const node = card("Start project / Agency setup"); node.classList.add("project-start-controls");
   const release = snapshot.release.releaseId.state === "known" ? snapshot.release.releaseId.value : "";
-  const plan = project.workspace?.sourceRef ? safeLink(project.workspace.sourceRef, release) : undefined;
+  const plan = project.workspace?.sourceRef ? safeProjectReferenceLink(project.workspace.sourceRef, release) : undefined;
   if (plan) node.append(link("Open full business plan", plan));
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
   node.append(el("p", "muted", "Prepare a saved Agency run for this project. A draft does not launch a company, enable paid services, or bypass project approval."));

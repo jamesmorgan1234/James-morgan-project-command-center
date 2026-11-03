@@ -1,0 +1,405 @@
+{
+  "schemaVersion": 1,
+  "phases": [
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P0",
+      "name": "P0 Identity, approved commercial scope and no-spend policy",
+      "exit_criteria": "No money use, legal/terms review, exact company identity and commercial offer documented; owner authority and scope preserved.",
+      "gate_task_id": "project:company:future:113:P0:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P1",
+      "name": "P1 Source registry, data model and evidence",
+      "exit_criteria": "Versioned local schemas and source test fixtures, with provenance, confidence, isolation and stale flags; no unreviewed external writes.",
+      "gate_task_id": "project:company:future:113:P1:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P2",
+      "name": "P2 Supplier/product matching and eligibility",
+      "exit_criteria": "Key deterministic truth/eligibility invariants pass critical adversarial tests; all ambiguous cases abstain.",
+      "gate_task_id": "project:company:future:113:P2:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P3",
+      "name": "P3 Demand, economics and opportunity intelligence",
+      "exit_criteria": "Evidence-backed Brain recommendations with confidence, reason codes, domain test set and independent critique.",
+      "gate_task_id": "project:company:future:113:P3:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P4",
+      "name": "P4 Listing, pricing and ATP simulation",
+      "exit_criteria": "Usable local workflow/UI and task documents, with approvals and user-visible exception handling.",
+      "gate_task_id": "project:company:future:113:P4:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P5",
+      "name": "P5 Synthetic orders, fulfillment, refunds and finance",
+      "exit_criteria": "Idempotent event and state transitions, safe degraded modes, and correct financial truth; no paid integration.",
+      "gate_task_id": "project:company:future:113:P5:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P6",
+      "name": "P6 Security, 310-case simulation and independent certifications",
+      "exit_criteria": "Independent negative tests and source drift/recovery/permissions evaluation with no critical failures.",
+      "gate_task_id": "project:company:future:113:P6:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:113",
+      "project_id": "project:company:future:113",
+      "phase": "P7",
+      "name": "P7 Shadow-to-canary preparations and future owner gates",
+      "exit_criteria": "First company project build sequence/Need Me/Brain/Agency UI verified in CC; any real-world launch remains separately authorized.",
+      "gate_task_id": "project:company:future:113:P7:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P0",
+      "name": "P0 Confirm no-start supersession for build-only and current Ohio rules",
+      "exit_criteria": "No money use, legal/terms review, exact company identity and commercial offer documented; owner authority and scope preserved.",
+      "gate_task_id": "project:company:future:114:P0:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P1",
+      "name": "P1 Public-source map, parcel and provenance schema",
+      "exit_criteria": "Versioned local schemas and source test fixtures, with provenance, confidence, isolation and stale flags; no unreviewed external writes.",
+      "gate_task_id": "project:company:future:114:P1:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P2",
+      "name": "P2 Ownership, comparable, rehab and buyer eligibility",
+      "exit_criteria": "Key deterministic truth/eligibility invariants pass critical adversarial tests; all ambiguous cases abstain.",
+      "gate_task_id": "project:company:future:114:P2:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P3",
+      "name": "P3 Conservative spread and ethics/legal hold Brain",
+      "exit_criteria": "Evidence-backed Brain recommendations with confidence, reason codes, domain test set and independent critique.",
+      "gate_task_id": "project:company:future:114:P3:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P4",
+      "name": "P4 Read-only deal workflows and buyer fit simulation",
+      "exit_criteria": "Usable local workflow/UI and task documents, with approvals and user-visible exception handling.",
+      "gate_task_id": "project:company:future:114:P4:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P5",
+      "name": "P5 Consent, disclosure and legal review readiness",
+      "exit_criteria": "Idempotent event and state transitions, safe degraded modes, and correct financial truth; no paid integration.",
+      "gate_task_id": "project:company:future:114:P5:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P6",
+      "name": "P6 125+ scenario matrix and end-to-end tests",
+      "exit_criteria": "Independent negative tests and source drift/recovery/permissions evaluation with no critical failures.",
+      "gate_task_id": "project:company:future:114:P6:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:114",
+      "project_id": "project:company:future:114",
+      "phase": "P7",
+      "name": "P7 Owner-controlled live transaction gates only later",
+      "exit_criteria": "First company project build sequence/Need Me/Brain/Agency UI verified in CC; any real-world launch remains separately authorized.",
+      "gate_task_id": "project:company:future:114:P7:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P0",
+      "name": "P0 Procurement-source rights and customer demand proof",
+      "exit_criteria": "No money use, legal/terms review, exact company identity and commercial offer documented; owner authority and scope preserved.",
+      "gate_task_id": "project:company:future:115:P0:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P1",
+      "name": "P1 Source registry, solicitation parser, amendment graph",
+      "exit_criteria": "Versioned local schemas and source test fixtures, with provenance, confidence, isolation and stale flags; no unreviewed external writes.",
+      "gate_task_id": "project:company:future:115:P1:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P2",
+      "name": "P2 Vendor capability and eligibility rules",
+      "exit_criteria": "Key deterministic truth/eligibility invariants pass critical adversarial tests; all ambiguous cases abstain.",
+      "gate_task_id": "project:company:future:115:P2:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P3",
+      "name": "P3 Match Brain and evidence-dossier outputs",
+      "exit_criteria": "Evidence-backed Brain recommendations with confidence, reason codes, domain test set and independent critique.",
+      "gate_task_id": "project:company:future:115:P3:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P4",
+      "name": "P4 Weekly report and owner-approved notifications",
+      "exit_criteria": "Usable local workflow/UI and task documents, with approvals and user-visible exception handling.",
+      "gate_task_id": "project:company:future:115:P4:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P5",
+      "name": "P5 Amendment, deadline, rebid watch and subscriptions",
+      "exit_criteria": "Idempotent event and state transitions, safe degraded modes, and correct financial truth; no paid integration.",
+      "gate_task_id": "project:company:future:115:P5:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P6",
+      "name": "P6 Adversarial tests, public-source failover and isolated pilots",
+      "exit_criteria": "Independent negative tests and source drift/recovery/permissions evaluation with no critical failures.",
+      "gate_task_id": "project:company:future:115:P6:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:115",
+      "project_id": "project:company:future:115",
+      "phase": "P7",
+      "name": "P7 Certified customer-facing paid subscription readiness",
+      "exit_criteria": "First company project build sequence/Need Me/Brain/Agency UI verified in CC; any real-world launch remains separately authorized.",
+      "gate_task_id": "project:company:future:115:P7:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P0",
+      "name": "P0 Choose one city, one permit type and official rule verification",
+      "exit_criteria": "No money use, legal/terms review, exact company identity and commercial offer documented; owner authority and scope preserved.",
+      "gate_task_id": "project:company:future:116:P0:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P1",
+      "name": "P1 Jurisdiction, address, code and source registry",
+      "exit_criteria": "Versioned local schemas and source test fixtures, with provenance, confidence, isolation and stale flags; no unreviewed external writes.",
+      "gate_task_id": "project:company:future:116:P1:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P2",
+      "name": "P2 Project scope, contractor and document requirement schema",
+      "exit_criteria": "Key deterministic truth/eligibility invariants pass critical adversarial tests; all ambiguous cases abstain.",
+      "gate_task_id": "project:company:future:116:P2:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P3",
+      "name": "P3 Cited checklist and missing document Brain",
+      "exit_criteria": "Evidence-backed Brain recommendations with confidence, reason codes, domain test set and independent critique.",
+      "gate_task_id": "project:company:future:116:P3:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P4",
+      "name": "P4 Permit project dashboard and printable packet",
+      "exit_criteria": "Usable local workflow/UI and task documents, with approvals and user-visible exception handling.",
+      "gate_task_id": "project:company:future:116:P4:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P5",
+      "name": "P5 Corrections, plan revisions and inspection readiness",
+      "exit_criteria": "Idempotent event and state transitions, safe degraded modes, and correct financial truth; no paid integration.",
+      "gate_task_id": "project:company:future:116:P5:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P6",
+      "name": "P6 Domain professional QA, legal, permissions and tests",
+      "exit_criteria": "Independent negative tests and source drift/recovery/permissions evaluation with no critical failures.",
+      "gate_task_id": "project:company:future:116:P6:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:116",
+      "project_id": "project:company:future:116",
+      "phase": "P7",
+      "name": "P7 Customer paid packet delivery with no authority to file/pay",
+      "exit_criteria": "First company project build sequence/Need Me/Brain/Agency UI verified in CC; any real-world launch remains separately authorized.",
+      "gate_task_id": "project:company:future:116:P7:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P0",
+      "name": "P0 One-industry one-CSV customer offer and safety scope",
+      "exit_criteria": "No money use, legal/terms review, exact company identity and commercial offer documented; owner authority and scope preserved.",
+      "gate_task_id": "project:company:future:117:P0:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P1",
+      "name": "P1 Read-only CMMS import and source provenance",
+      "exit_criteria": "Versioned local schemas and source test fixtures, with provenance, confidence, isolation and stale flags; no unreviewed external writes.",
+      "gate_task_id": "project:company:future:117:P1:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P2",
+      "name": "P2 Asset registry, downtime and KPI engine",
+      "exit_criteria": "Key deterministic truth/eligibility invariants pass critical adversarial tests; all ambiguous cases abstain.",
+      "gate_task_id": "project:company:future:117:P2:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P3",
+      "name": "P3 Failure clustering and maintenance Brain",
+      "exit_criteria": "Evidence-backed Brain recommendations with confidence, reason codes, domain test set and independent critique.",
+      "gate_task_id": "project:company:future:117:P3:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P4",
+      "name": "P4 Backlog/PM/parts reports and owner queue",
+      "exit_criteria": "Usable local workflow/UI and task documents, with approvals and user-visible exception handling.",
+      "gate_task_id": "project:company:future:117:P4:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P5",
+      "name": "P5 Prediction eligibility, backtests and uncertainty",
+      "exit_criteria": "Idempotent event and state transitions, safe degraded modes, and correct financial truth; no paid integration.",
+      "gate_task_id": "project:company:future:117:P5:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P6",
+      "name": "P6 OT isolation, adversarial safety QA and customer privacy",
+      "exit_criteria": "Independent negative tests and source drift/recovery/permissions evaluation with no critical failures.",
+      "gate_task_id": "project:company:future:117:P6:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    },
+    {
+      "company_id": "company:future:117",
+      "project_id": "project:company:future:117",
+      "phase": "P7",
+      "name": "P7 Paid read-only pilot and monitored subscription readiness",
+      "exit_criteria": "First company project build sequence/Need Me/Brain/Agency UI verified in CC; any real-world launch remains separately authorized.",
+      "gate_task_id": "project:company:future:117:P7:gate",
+      "task_count": 13,
+      "status": "not_executed"
+    }
+  ]
+}

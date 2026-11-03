@@ -41,6 +41,7 @@ async function database(){
  const quote=v=>"'"+v.replaceAll("'","''")+"'";
  await db.exec('alter table public.command_center_project_profiles drop constraint command_center_project_profiles_name_check; create type public.command_center_activation_name as enum ('+names.map(quote).join(',')+'); alter table public.command_center_project_profiles alter column name type public.command_center_activation_name using name::text::public.command_center_activation_name;');
  await db.exec(await readFile(new URL('supabase/seeds/five_company_name_prerequisite.sql',root),'utf8'));
+ await db.exec(await readFile(new URL('supabase/seeds/project_roadmap_cycle_validation_bounded.sql',root),'utf8'));
  return db;
  }catch(e){await db.close();throw e;}
 }
@@ -89,7 +90,7 @@ test('runtime projects keep each disabled specialized Brain plan and source isol
   else if(u.pathname.endsWith('/integration_connections'))data=[{id:'synthetic-connection',project_id:b.items[0].project.id,provider_label:'Synthetic connection',status:'not_connected'}];
   else if(u.pathname.endsWith('/command_center_assets'))data=[{asset_id:'synthetic-asset',project_id:b.items[1].project.id,name:'Synthetic asset',sensitivity:'internal',original_state:'recorded',approval_state:'unreviewed'}];
   else if(u.pathname.endsWith('/command_center_agency_executors'))data=[{executor_key:'synthetic-disabled',enabled:false,cost_class:'free',health:'unavailable',project_type_keys:[]}];
-  return new Response(JSON.stringify(data),{status:200,headers:{'content-type':'application/json'}});
+  return new Response(JSON.stringify(data),{status:200,headers:{'content-type':'application/json','content-range':Array.isArray(data)?(data.length?'0-'+(data.length-1)+'/'+data.length:'*/0'):'*/0'}});
  };
  const p=new SupabaseOwnerRuntimeSnapshotProvider({supabaseUrl:'https://example.supabase.co',publishableKey:'sb_publishable_synthetic',releaseId:'synthetic',storage,fetcher,promptForCredentials:async submit=>submit('test@example.com','synthetic-only')});
  const snapshot=await p.load();assert.equal(snapshot.projects.length,5);

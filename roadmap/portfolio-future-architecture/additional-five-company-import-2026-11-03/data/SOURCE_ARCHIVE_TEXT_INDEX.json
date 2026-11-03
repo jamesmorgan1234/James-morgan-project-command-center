@@ -1,0 +1,229 @@
+{
+  "source_index": [
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "00_READ_ME_FIRST.md",
+      "package_path": "source_archives/original_commerce_archive/00_READ_ME_FIRST.md",
+      "sha256": "21153e34597cd4fc788ee5f8f8d8081090335d588c8eb29764ebcab193e88a15"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "01_CONVERSATION_CHRONOLOGY.md",
+      "package_path": "source_archives/original_commerce_archive/01_CONVERSATION_CHRONOLOGY.md",
+      "sha256": "7747f6ab32f33ce1747146e4997ada473fabf0665ec3223f76801c09f663773c"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "02_MASTER_ARCHITECTURE_AND_FEATURES.md",
+      "package_path": "source_archives/original_commerce_archive/02_MASTER_ARCHITECTURE_AND_FEATURES.md",
+      "sha256": "9aa9660d47f687a6aab3ce1a85676afd560bb4a78f5e854534ce85554f9aa7e8"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "03_ROADMAP_PHASES.md",
+      "package_path": "source_archives/original_commerce_archive/03_ROADMAP_PHASES.md",
+      "sha256": "93ddee63609b142ac76a47ce824c4afa0bd60c47e294367752f3e35d9b171205"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "04_CANONICAL_SCHEMAS_AND_RELATIONSHIPS.md",
+      "package_path": "source_archives/original_commerce_archive/04_CANONICAL_SCHEMAS_AND_RELATIONSHIPS.md",
+      "sha256": "13ecd1459ffc1c6ba5366d60b53eae9ff57eae60c29fd4093f2f7ea7323dd762"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "05_STATE_MACHINES.md",
+      "package_path": "source_archives/original_commerce_archive/05_STATE_MACHINES.md",
+      "sha256": "86691468b0c71a77277c661b48d8d5a6a6d04cf21e71d59134809e920b08dcf1"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "06_ERROR_CATALOG.md",
+      "package_path": "source_archives/original_commerce_archive/06_ERROR_CATALOG.md",
+      "sha256": "5ddb9684a92b7b8b0330d30a89b5d56eaecb480af53a99bc3596dd9a64dbca92"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "07_SIMULATIONS_310.md",
+      "package_path": "source_archives/original_commerce_archive/07_SIMULATIONS_310.md",
+      "sha256": "99627492f4a3b3401659d6b9a2dfdb6609a347512a2f79333a013b8552f09977"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "08_CERTIFICATION_AND_TESTING.md",
+      "package_path": "source_archives/original_commerce_archive/08_CERTIFICATION_AND_TESTING.md",
+      "sha256": "10bfcbd8333697e05e2be8c4d31e4530cc7993d9831fcb8d9f3e0f8448cc5a22"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "09_CONNECTOR_CONTRACTS.md",
+      "package_path": "source_archives/original_commerce_archive/09_CONNECTOR_CONTRACTS.md",
+      "sha256": "62cbf2aa7f46212b36b31087f850b70e8c90e02ed68d66824798bff1af25ca0c"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "10_ECONOMICS_INVENTORY_ORDER_EDGE_CASES.md",
+      "package_path": "source_archives/original_commerce_archive/10_ECONOMICS_INVENTORY_ORDER_EDGE_CASES.md",
+      "sha256": "ac947dea7d9e9f17fa83bad3d212c18653c91aba9e392cd171b5bc7e94a6c6d2"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "11_SECURITY_DASHBOARDS_RUNBOOKS.md",
+      "package_path": "source_archives/original_commerce_archive/11_SECURITY_DASHBOARDS_RUNBOOKS.md",
+      "sha256": "14dfeebbfdf3e219d3bcc56529c77d385d12be7fc7e448016af1e4e702d4c852"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "12_IMPLEMENTATION_BACKLOG.md",
+      "package_path": "source_archives/original_commerce_archive/12_IMPLEMENTATION_BACKLOG.md",
+      "sha256": "1cabbd9f6ffda863355ea9e2350ad3ee698634caf0a8bd2ca4a7e5d8cb08b607"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "13_COMMAND_CENTER_BOUNDARIES_AND_CHECKLIST.md",
+      "package_path": "source_archives/original_commerce_archive/13_COMMAND_CENTER_BOUNDARIES_AND_CHECKLIST.md",
+      "sha256": "d62e0831c3e578b8893bce78bdc9c1fe3a30b7667639b4315a1379d9d262ded0"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "14_PREBUILD_READINESS_AND_GLOSSARY.md",
+      "package_path": "source_archives/original_commerce_archive/14_PREBUILD_READINESS_AND_GLOSSARY.md",
+      "sha256": "50ed21b77392393e6967cf95f44a36e0599eeb255d89f3dcec7791a82bc9c453"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "15_CURRENT_STATUS_AND_UNRESOLVED.md",
+      "package_path": "source_archives/original_commerce_archive/15_CURRENT_STATUS_AND_UNRESOLVED.md",
+      "sha256": "02a15e5220659368e8bd8e3af9c6f78f9176df281eafd189aaadd7cbe3d9ce8b"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "ALL_COMMERCE_PLANNING_IN_ONE_FILE.md",
+      "package_path": "source_archives/original_commerce_archive/ALL_COMMERCE_PLANNING_IN_ONE_FILE.md",
+      "sha256": "18e009000f7843a0aaab29380b737937389b291a884f0f6443a2b0a4711bd878"
+    },
+    {
+      "company": 113,
+      "zip_original": "Ultimate_Commerce_Platform_Chat_Archive(1).zip",
+      "original_member": "MANIFEST.json",
+      "package_path": "source_archives/original_commerce_archive/MANIFEST.json",
+      "sha256": "40267755c84033b4ada113c3eba5bb75c6ed6d21d3737d6e9f68dcd101c443f2"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/ARCHITECTURE/brain_and_specialists.md",
+      "package_path": "source_archives/original_real_estate_archiveARCHITECTURE/brain_and_specialists.md",
+      "sha256": "5d203ead930b93194c29bdf8b23b3dab5fbcd30fdf79bfa3c6d0556960f5ac02"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/ARCHITECTURE/master_blueprint.md",
+      "package_path": "source_archives/original_real_estate_archiveARCHITECTURE/master_blueprint.md",
+      "sha256": "48fb947a273cb50ab6af58f94a657e5f2facc9deb52ca5a4bb2922413b2735a4"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/DECISIONS/approved_rules.md",
+      "package_path": "source_archives/original_real_estate_archiveDECISIONS/approved_rules.md",
+      "sha256": "eaac61c7ad67a7ed17164a6b5e5b624917da5a3f1de0a84dfbf86b564af4d349"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/DECISIONS/authorization_state.md",
+      "package_path": "source_archives/original_real_estate_archiveDECISIONS/authorization_state.md",
+      "sha256": "5e85c7a7383ca3c433bb74d6fe26d1d088fcbeda752fae7bd1ad0a74179efb81"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/DECISIONS/command_center_dependency_prompt.md",
+      "package_path": "source_archives/original_real_estate_archiveDECISIONS/command_center_dependency_prompt.md",
+      "sha256": "4d1b2c2d3cd78e705a51bb6921b6db82019fe057bdf48af15c05e8ed99d30658"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/MANIFEST.json",
+      "package_path": "source_archives/original_real_estate_archiveMANIFEST.json",
+      "sha256": "01f616772bc8a8b147e282f1f565fe64aea9033708aa751733fb8ec3f39f7c16"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/QA/simulations_and_certification.md",
+      "package_path": "source_archives/original_real_estate_archiveQA/simulations_and_certification.md",
+      "sha256": "5f7eb3f30e1256fd73eb52ffd7632b19d0891b36aa90f3024e237aec11d2bd51"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/README_START_HERE.md",
+      "package_path": "source_archives/original_real_estate_archiveREADME_START_HERE.md",
+      "sha256": "f9115b4f4b579c563165b1520ec0a2ad57e4347afb2551ce252bbde5340fa43d"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/REFERENCES/sources_mentioned.md",
+      "package_path": "source_archives/original_real_estate_archiveREFERENCES/sources_mentioned.md",
+      "sha256": "157594cf0e87f18ffab58fa7ba3b3f0d831a423ef88b686c8168d334fafbbf49"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/ROADMAP/phase_plan.md",
+      "package_path": "source_archives/original_real_estate_archiveROADMAP/phase_plan.md",
+      "sha256": "1c7ff94f25aea9c594d10c37d9dd5bf19863df395c701a1703512b84510a4fac"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/SCHEMAS/project_local_data_model.md",
+      "package_path": "source_archives/original_real_estate_archiveSCHEMAS/project_local_data_model.md",
+      "sha256": "6a361729f531510f7594151a72fa151863f8614e182a921e7a4178044064445d"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/SCHEMAS/workflow_and_financial_rules.md",
+      "package_path": "source_archives/original_real_estate_archiveSCHEMAS/workflow_and_financial_rules.md",
+      "sha256": "d50535623852ccc460a991ce97daf51fa9fd145db9629e00e5d2d2a0d7fd19b4"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/TRANSCRIPT/chat_chronology.md",
+      "package_path": "source_archives/original_real_estate_archiveTRANSCRIPT/chat_chronology.md",
+      "sha256": "9ef0a5353213fda9e1f0e68034443adb7cc595ddd0ff403b66e763e5767edbfa"
+    },
+    {
+      "company": 114,
+      "zip_original": "Real_Estate_Wholesaling_Full_Chat_Archive(1).zip",
+      "original_member": "Real_Estate_Wholesaling_Chat_Archive/TRANSCRIPT/user_messages.md",
+      "package_path": "source_archives/original_real_estate_archiveTRANSCRIPT/user_messages.md",
+      "sha256": "e1401f1d3c9ed4d95d21cb6fe8d3ff46dda3b28b6ea692b5ebb113f4e5424d83"
+    }
+  ],
+  "limitation": "Original prior chat archives are documented reconstructions, not guaranteed full verbatim chat exports. Original video/media excluded to avoid unnecessary 138 MB duplication; preserve separate originals."
+}

@@ -152,19 +152,19 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         "command_center_project_profiles",
         "project_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,version,source_ref,updated_at,stage,next_action,blocker,status_observed_at,status_source_refs,progress_summary",
         session,
-        { order: "name.asc" }
+        { order: "name.asc,project_id.asc" }, true
       );
 
       const optionalErrors = new Set<string>();
-      const safe = async (key: string, table: string, select: string, params: Readonly<Record<string, string>> = {}): Promise<readonly JsonRecord[]> => {
-        try { return await this.#queryRows(table, select, session as StoredSession, params); }
+      const safe = async (key: string, table: string, select: string, params: Readonly<Record<string, string>> = {}, allPages = false): Promise<readonly JsonRecord[]> => {
+        try { return await this.#queryRows(table, select, session as StoredSession, params, allPages); }
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
       const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, bookCatalogue, bookPerformance, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors] = await Promise.all([
-        safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc" }),
-        safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }),
-        safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }),
+        safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc,version.desc" }, true),
+        safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }, true),
+        safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }, true),
         safe("project-checkpoints", "command_center_project_checkpoints", "checkpoint_id,project_id,roadmap_version,exact_next_work_unit_id,blocker,required_environment,owner_action,verification_method,evidence_refs,resume_state_hash,created_at", { order: "created_at.desc", limit: "1200" }),
         safe("project-details", "command_center_project_detail_sections", "section_key,title,sort_order,capability_key,active,updated_at", { active: "eq.true", order: "sort_order.asc,section_key.asc" }),
         safe("project-details", "command_center_project_type_detail_sections", "type_key,section_key,required,source_ref,created_at", { order: "type_key.asc,section_key.asc" }),
@@ -180,8 +180,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_owner_reviews", "id,project_id,status,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("recorded-progress", "analytics_project_kpis", "project_id,metric_key,value_numeric,value_text,verified,observed_at", { metric_key: "eq.current_scope_progress_percent", order: "observed_at.desc", limit: "500" }),
-        safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at,project_id,production_state,production_percent,publication,state_evidence_refs,state_observed_at", { order: "catalogue_order.asc", limit: "500" }),
-        safe("book-performance", "command_center_book_performance_truth_history", "owner_id,metric_id,project_id,book_id,edition,format,provider_key,marketplace,metric,value,currency,truth,source,source_date,observed_at,source_refs", { provider_key: "eq.owner_report", format: "eq.all_formats", edition: "eq.current", order: "source_date.desc,observed_at.desc", limit: "5000" }),
+        safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at,project_id,production_state,production_percent,publication,state_evidence_refs,state_observed_at", { order: "catalogue_order.asc,book_id.asc" }, true),
+        safe("book-performance", "command_center_book_performance_truth_history", "owner_id,metric_id,project_id,book_id,edition,format,provider_key,marketplace,metric,value,currency,truth,source,source_date,observed_at,source_refs", { provider_key: "eq.owner_report", format: "eq.all_formats", edition: "eq.current", order: "source_date.desc,observed_at.desc,metric_id.asc" }, true),
         safe("finance", "analytics_project_kpis", "project_id,metric_key,label,value_numeric,value_text,unit,currency,verified,observed_at", { or: "(metric_key.ilike.*revenue*,metric_key.ilike.*sales*,metric_key.ilike.*balance*,metric_key.ilike.*income*)", order: "project_id.asc,observed_at.desc", limit: "500" }),
         safe("social", "integration_connections", "id,project_id,provider_key,provider_label,status,last_success_at", { archived_at: "is.null", order: "project_id.asc", limit: "500" }),
         safe("specialists", "command_center_specialist_brains", "brain_key,scope,project_id,enabled,capabilities,configuration_ref,updated_at", { order: "brain_key.asc", limit: "500" }),
@@ -368,30 +368,44 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     return rows.some((row) => row.enabled === true);
   }
 
-  async #queryRows(table: string, select: string, session: StoredSession, params: Readonly<Record<string, string>> = {}): Promise<readonly JsonRecord[]> {
+  async #queryRows(table: string, select: string, session: StoredSession, params: Readonly<Record<string, string>> = {}, allPages = false): Promise<readonly JsonRecord[]> {
     const url = new URL(`${this.#supabaseUrl}/rest/v1/${table}`);
     url.searchParams.set("select", select);
     url.searchParams.set("owner_id", `eq.${session.userId}`);
     for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
-    const response = await this.#requestJson(url, {
-      method: "GET",
-      headers: { apikey: this.#publishableKey, authorization: `Bearer ${session.accessToken}`, accept: "application/json" },
-      cache: "no-store"
-    });
-    if (!response.ok) throw new Error(`Canonical source ${table} is unavailable`);
-    const payload: unknown = response.payload;
-    if (!Array.isArray(payload)) throw new Error(`Canonical source ${table} returned an invalid payload`);
-    return Object.freeze(payload.filter(isRecord));
+    const rows: JsonRecord[] = [];
+    let expectedTotal: number | undefined;
+    for (let page = 0; page < (allPages ? 200 : 1); page += 1) {
+      if (allPages) { url.searchParams.set("limit", "500"); url.searchParams.set("offset", String(rows.length)); }
+      const response = await this.#requestJson(url, {
+        method: "GET",
+        headers: { apikey: this.#publishableKey, authorization: `Bearer ${session.accessToken}`, accept: "application/json", ...(allPages ? { prefer: "count=exact" } : {}) },
+        cache: "no-store"
+      });
+      if (!response.ok) throw new Error(`Canonical source ${table} is unavailable`);
+      const payload: unknown = response.payload;
+      if (!Array.isArray(payload)) throw new Error(`Canonical source ${table} returned an invalid payload`);
+      if (!allPages) return Object.freeze(payload.filter(isRecord));
+      if (response.totalCount === undefined || payload.some(row => !isRecord(row))) throw new Error(`Canonical source ${table} returned incomplete paging evidence`);
+      if (expectedTotal !== undefined && expectedTotal !== response.totalCount) throw new Error(`Canonical source ${table} changed during paging`);
+      expectedTotal = response.totalCount;
+      rows.push(...payload as JsonRecord[]);
+      if (rows.length === expectedTotal) return Object.freeze(rows);
+      if (payload.length === 0 || rows.length > expectedTotal) throw new Error(`Canonical source ${table} returned an incomplete page`);
+    }
+    throw new Error(`Canonical source ${table} exceeded its paging budget`);
   }
 
-  async #requestJson(input: string | URL, init: RequestInit): Promise<Readonly<{ ok: boolean; payload: unknown }>> {
+  async #requestJson(input: string | URL, init: RequestInit): Promise<Readonly<{ ok: boolean; payload: unknown; totalCount?: number }>> {
     const controller = new AbortController();
     let timer: ReturnType<typeof setTimeout> | undefined;
     try {
       return await Promise.race([
         Promise.resolve().then(async () => {
           const response = await this.#fetcher(input, { ...init, signal: controller.signal });
-          return { ok: response.ok, payload: response.ok ? await response.json() : undefined };
+          const countText = response.headers?.get("content-range")?.split("/").at(-1);
+          const count = countText && /^\d+$/.test(countText) ? Number(countText) : undefined;
+          return { ok: response.ok, payload: response.ok ? await response.json() : undefined, ...(count !== undefined && Number.isSafeInteger(count) ? { totalCount: count } : {}) };
         }),
         new Promise<never>((_resolve, reject) => {
           timer = setTimeout(() => {

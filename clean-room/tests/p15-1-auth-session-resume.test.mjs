@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {SupabaseOwnerRuntimeSnapshotProvider} from '../dist/runtime/supabase-owner-provider.js';
 import {providerFromDocument} from '../dist/runtime/provider.js';
 const KEY='command-center:owner-session:v1';
-const json=(v,status=200)=>new Response(JSON.stringify(v),{status});
+const json=(v,status=200)=>new Response(JSON.stringify(v),{status,headers:{'content-range':Array.isArray(v)?(v.length?'0-'+(v.length-1)+'/'+v.length:'*/0'):'*/0'}});
 class MemoryStorage{
  values=new Map();writes=0;
  getItem(k){return this.values.get(k)??null;}setItem(k,v){this.values.set(k,v);this.writes++;}removeItem(k){this.values.delete(k);}

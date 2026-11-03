@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "errors": [],
+  "companies": 5,
+  "brains": 5,
+  "work_packets": 520,
+  "capabilities": 1061,
+  "conformance_mappings": 530,
+  "phase_gates": 40,
+  "truth": "PREPARATION_QA_ONLY_NO_EXTERNAL_CHANGES"
+}

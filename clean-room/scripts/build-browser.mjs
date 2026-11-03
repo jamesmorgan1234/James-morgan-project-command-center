@@ -40,6 +40,8 @@ const configurationDigest = sha256(JSON.stringify(runtimeConfigurationIdentity))
 async function walk(dir) {
   const result = [];
   for (const entry of await readdir(dir, { withFileTypes: true })) {
+    // Atomic file copies can briefly expose .name.XXXXXX siblings.
+    if (!entry.isDirectory() && /^\..+\.[A-Za-z0-9]{6}$/.test(entry.name)) continue;
     const path = join(dir, entry.name);
     if (entry.isDirectory()) result.push(...await walk(path));
     else result.push(path);
@@ -51,6 +53,10 @@ await rm(OUT, { recursive: true, force: true });
 await mkdir(join(OUT, "app"), { recursive: true });
 await cp(DIST, join(OUT, "app"), { recursive: true });
 await cp(PUBLIC, OUT, { recursive: true });
+for (const asset of ["command-center-approved-icon-512.png", "approved-projects-visual-reference.png", "project-business-atlas.png", "book-cover-atlas-v2.webp"]) {
+  const original = join(PUBLIC, "assets", asset);
+  if (await exists(original) && sha256(await readFile(original)) !== sha256(await readFile(join(OUT, "assets", asset)))) throw new Error(`Protected asset copy differs: ${asset}`);
+}
 
 for (const file of [join(OUT, "index.html"), join(OUT, "sw.js")]) {
   const text = await readFile(file, "utf8");

@@ -42,7 +42,7 @@ function providerFixture({ roadmap = false, metric = 38, verified = true, profil
     if (roadmap && table === 'command_center_project_roadmaps') result = [{ project_id:'velo-clip', version:2, state:'current', structure_verified:true, denominator_trusted:true }];
     if (roadmap && table === 'command_center_project_work_units') result = [{ project_id:'velo-clip', roadmap_version:2, work_unit_id:'done', status:'verified', applicable:true }];
     if (table === 'command_center_book_catalogue') result = [{ book_id:'book-1', title:'Repeat Button', author_name:'James Morgan', cover_slot:25, cover_approved:true, ...bookOverride }];
-    return new Response(JSON.stringify(result), { status:200 });
+    return new Response(JSON.stringify(result), { status:200, headers:{'content-range':Array.isArray(result)?(result.length?'0-'+(result.length-1)+'/'+result.length:'*/0'):'*/0'} });
   };
   return new SupabaseOwnerRuntimeSnapshotProvider({ supabaseUrl:'https://test.supabase.co', publishableKey:'sb_publishable_test', storage:{ getItem:k=>values.get(k)??null, setItem:(k,v)=>values.set(k,v), removeItem:k=>values.delete(k) }, fetcher });
 }
