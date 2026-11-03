@@ -551,7 +551,6 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     const activeAutomations = input.automations.filter((item) => ["active", "enabled", "scheduled", "watching"].includes(text(item.status)?.toLowerCase() ?? "")).length;
     const unreadNotifications = input.notifications.filter((item) => !item.read_at && text(item.status)?.toLowerCase() !== "dismissed").length;
     const verifiedKpis = input.kpis.filter((item) => item.verified === true).length;
-    const bookRecordCount = input.bookReviews.length + input.publicationStates.length;
     return Object.freeze([
       available("home", "Home", "Canonical Command Center runtime connected.", "supabase:owner-runtime"),
       available("projects", "Projects", `${input.projectCount} canonical project profile${input.projectCount === 1 ? "" : "s"} loaded.`, "supabase:command_center_project_profiles"),
@@ -567,7 +566,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       safeSurface("personal", "personal", "Personal", `${unreadNotifications} unread owner notification${unreadNotifications === 1 ? "" : "s"} of ${input.notifications.length} loaded.`, "supabase:cc7_notifications"),
       safeSurface("finance", "finance", "Finance", `${input.financeCount} recorded financial metrics. Values retain their verification state and observation date; they are not a live bank balance.`, "supabase:analytics_project_kpis"),
       safeSurface("social", "social", "Social & Communications", `${input.socialCount} saved account connection records. Account connectivity is shown separately from this page loading successfully.`, "supabase:integration_connections"),
-      safeSurface("book-catalogue", "books", "Books", `${input.catalogueCount} books in your catalogue. ${bookRecordCount} separate review/publication records.`, "supabase:command_center_book_catalogue"),
+      safeSurface("book-catalogue", "books", "Books", `${input.catalogueCount} books in your catalogue. Open a title for its recorded production and publication states.`, "supabase:command_center_book_catalogue"),
       safeSurface("specialists", "specialists", "Specialists", `${input.specialistCount} specialist Brain profiles registered.`, "supabase:command_center_specialist_brains"),
       safeSurface("analytics", "analytics", "Analytics", `${verifiedKpis} verified KPI record${verifiedKpis === 1 ? "" : "s"} of ${input.kpis.length} loaded.`, "supabase:cc7_analytics_kpis"),
       available("settings", "Settings", "Owner session authenticated and canonical runtime connected.", "supabase:cc7_owner_access")

@@ -250,7 +250,9 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     const link = routeLink(label, path, "cc-button cc-button--secondary");
     if (selected) link.setAttribute("aria-current", "page"); tabs.append(link);
   }
-  section.append(tabs, renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
+  section.append(tabs);
+  if (bookTab) section.append(routeLink(`All ${snapshot.books?.length ?? 0} individual books and publication states`, "/books", "cc-button"));
+  section.append(renderPortfolioSummary(snapshot, filtered.length), renderProjectControls(snapshot, filter));
   section.append(el("p", "muted project-order-note", "Highest completion first. Last-recorded percentages show their observation date; projects without a verified percentage follow."));
   if (filtered.length === 0) {
     section.append(emptyState("No matching projects", "The canonical project registry is loaded, but no project matches the current filters. Reset the filters to show the full portfolio.", "available"));
@@ -379,16 +381,16 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   const metrics: readonly [string, string][] = [
     [project.progressBasis === "last_recorded" ? `Last recorded progress (${project.progressObservedAt?.slice(0, 10) ?? "date unknown"})` : "Progress", project.progressPercent.state === "known" ? `${project.progressPercent.value}%` : project.progressSummary ?? "Unmeasured"],
     ["Status", truthText(project.status)],
-    ["Stage", truthText(project.stage)],
-    ["Priority", truthText(project.priority)],
-    ["Verification", truthText(project.verification)]
+    ["Priority", truthText(project.priority)]
   ];
   for (const [label, value] of metrics) {
     const metric = el("div", "performance-metric");
     metric.append(el("span", "performance-metric__label", label), el("strong", "performance-metric__value", value));
     snapshotMetrics.append(metric);
   }
-  hero.append(snapshotMetrics);
+  const checkpointFacts = el("dl", "history-facts project-checkpoint-facts");
+  checkpointFacts.append(el("dt", undefined, "Stage"),el("dd", undefined, truthText(project.stage)),el("dt", undefined, "Verification"),el("dd", undefined, truthText(project.verification)));
+  hero.append(snapshotMetrics,checkpointFacts);
   section.append(hero);
   const relatedBooks = snapshot.books?.filter(book => book.projectId === project.id) ?? [];
   if (relatedBooks.length) {
