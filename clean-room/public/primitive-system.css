@@ -21,4 +21,5 @@
 .brain-conversation-link{flex-wrap:wrap;min-width:0;max-width:100%}
 .brain-conversation-link__text{flex:1 1 140px}.brain-conversation-link__time{flex:0 1 auto}
 .agency-card .history-facts{grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr)}
+.pwa-update{flex-wrap:wrap;min-width:0}.pwa-update__message{min-width:0;overflow-wrap:anywhere}.pwa-update__button{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center;line-height:1.35}
 @media(max-width:480px){.brain-card,.agency-card{padding:16px}.brain-voice-controls .cc-button,.brain-improvement__actions .cc-button{flex:1 1 140px}.brain-voice-status{flex-basis:100%}}

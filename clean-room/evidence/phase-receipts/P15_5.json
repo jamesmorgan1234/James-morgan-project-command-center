@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.5",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "0fdaa0a21e5080389faa012ffb99dabc2672b59d",
+  "gitSha": "eb6e160457724b7036694f895e6e1acf9b5accfb",
   "inputs": [
     "clean-room/public/app.css",
     "clean-room/public/project-system.css",

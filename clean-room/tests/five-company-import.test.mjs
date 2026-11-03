@@ -36,7 +36,12 @@ async function database(){
  insert into command_center_project_types(owner_id,type_key,version,label,domain_playbook_key,default_capabilities,required_detail_sections,active,source_ref) values('${owner}','project-type:company-build',1,'Company','portfolio-company-build','{}','{}',true,'fixture');
  insert into command_center_canonical_entities select '${owner}',case when n=0 then 'command-center' when n<=107 then 'project:company:future:'||lpad(n::text,3,'0') else 'original:'||n end,null,'fixture','{}','hash' from generate_series(0,145) n;
  insert into command_center_project_profiles(owner_id,project_id,canonical_entity_id,type_key,company_id,name,mission,lifecycle,status,verification,priority,source_ref) select owner_id,entity_id,entity_id,'project-type:company-build',replace(entity_id,'project:',''),entity_id,'Existing saved mission','active','Existing saved status','unknown','normal','fixture' from command_center_canonical_entities;
- create table command_center_book_catalogue(book_id text primary key,title text);insert into command_center_book_catalogue select 'book:'||n,'Existing book '||n from generate_series(1,43) n;`);return db;
+ create table command_center_book_catalogue(book_id text primary key,title text);insert into command_center_book_catalogue select 'book:'||n,'Existing book '||n from generate_series(1,43) n;`);
+ const names=(await db.query('select name from command_center_project_profiles')).rows.map(r=>r.name);
+ const quote=v=>"'"+v.replaceAll("'","''")+"'";
+ await db.exec('alter table public.command_center_project_profiles drop constraint command_center_project_profiles_name_check; create type public.command_center_activation_name as enum ('+names.map(quote).join(',')+'); alter table public.command_center_project_profiles alter column name type public.command_center_activation_name using name::text::public.command_center_activation_name;');
+ await db.exec(await readFile(new URL('supabase/seeds/five_company_name_prerequisite.sql',root),'utf8'));
+ return db;
  }catch(e){await db.close();throw e;}
 }
 

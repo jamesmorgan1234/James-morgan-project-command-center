@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "0fdaa0a21e5080389faa012ffb99dabc2672b59d",
+  "gitSha": "eb6e160457724b7036694f895e6e1acf9b5accfb",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2077,
-  "inventoryDigest": "042f3514e6de952727f10cd33565f93fb6f7ec73a15341e248e069bf2bc638a1",
+  "reviewedFileCount": 2078,
+  "inventoryDigest": "636c200b1109b8cdbfb431260475361225f8bd3e6ac8ea4cb1bf0c39a260f188",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2078,
-    "reviewedFileCount": 2077,
+    "trackedFileCount": 2079,
+    "reviewedFileCount": 2078,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -51,7 +51,7 @@
       "ASRC": 342,
       "TEST": 452,
       "RDMAP": 333,
-      "SBAS": 238,
+      "SBAS": 239,
       "HTST": 43
     },
     "defectCount": 0,
@@ -1788,7 +1788,7 @@
     },
     {
       "directory": "supabase/seeds",
-      "fileCount": 3,
+      "fileCount": 4,
       "roles": [
         "SBAS"
       ]
@@ -4860,7 +4860,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_5.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "6119478048dadcc12fe0220220bbc1b4193a5b162ba10c38bee34022a9242cb1",
+      "sha256": "5cdacc62216f8660568365c8f67a7e04947bf092d0c2cf0b32fa50e8b4ace5a4",
       "bytes": 8376,
       "contentKind": "text",
       "findings": []
@@ -5031,8 +5031,8 @@
       "path": "clean-room/public/primitive-system.css",
       "role": "APUB",
       "disposition": "retain-active",
-      "sha256": "ca001c1a170a6bfc4f8daba5a02fe0edc0515925817fbf8b245f0757b1ea15b9",
-      "bytes": 8659,
+      "sha256": "8c6b702fb16695554ebc4801b6448e779bd4e0554bb306ce4b090782024d91d0",
+      "bytes": 8879,
       "contentKind": "text",
       "findings": []
     },
@@ -6246,8 +6246,8 @@
       "path": "clean-room/scripts/prepare-five-company-import.mjs",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "cf9f444c08e0c4b66f4cb3daf66ca52d7c233d734948efacfa9bb8d4cc8b5325",
-      "bytes": 14216,
+      "sha256": "549a95692f628f2bacf7b0181a89b3e30b086858768d5c6e0cd67d13dde0dfa5",
+      "bytes": 14222,
       "contentKind": "text",
       "findings": []
     },
@@ -11448,8 +11448,8 @@
       "path": "clean-room/tests/five-company-import.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "2c20fa2ddd37fd2ea416002863eb750ff6d2889f15cbfed098618d444ff514db",
-      "bytes": 12283,
+      "sha256": "eb6e728869b0a8eef05d08b6b0035f5bb778cbb9eab8ab15ca1a3e4de7ca9fa9",
+      "bytes": 12933,
       "contentKind": "text",
       "findings": []
     },
@@ -20465,8 +20465,17 @@
       "path": "supabase/seeds/five_company_import.sql",
       "role": "SBAS",
       "disposition": "retain-active",
-      "sha256": "aa618a620d429989e2c9e6da0edeabbded7b424794cd196209ec8d536aa9bc3c",
-      "bytes": 593118,
+      "sha256": "6845d8cfb5b428bbaac62d31eb729c5513474b897d690e48bc1791f26ca9517a",
+      "bytes": 593124,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/seeds/five_company_name_prerequisite.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "2af753d770a170fccb936585f256f3c3f19dad2c969cdafee1ed5a91ef96d927",
+      "bytes": 733,
       "contentKind": "text",
       "findings": []
     },
