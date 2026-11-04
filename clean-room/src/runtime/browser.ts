@@ -14,7 +14,7 @@ import { projectArtwork } from "./project-art.js";
 import { renderBrainView } from "./brain-view.js";
 import { renderAgencyView } from "./agency-view.js";
 import { createDisconnectedRuntimeSnapshot } from "./snapshot.js";
-import { activeLiveCell, needsMeCell, nextUpCell, projectCountCell } from "./home-modules.js";
+import { activeLiveCell, needsMeCell, nextUpCell, projectCountCell, revenueCell } from "./home-modules.js";
 
 const ROUTES = createCoreRouteRegistry();
 const APP_SHELL = new ApplicationShell();
@@ -484,11 +484,23 @@ function renderHome(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
     { key: "projects", title: "Projects", route: "/projects", ...projectCountCell(snapshot) },
     { key: "active_live", title: "Active / Live", route: "/active", ...activeLiveCell(snapshot, activeProjects(snapshot).length) },
     { key: "next_up", title: "Next Up", route: "/next-up", ...nextUpCell(snapshot, nextProjects(snapshot).length) },
-    { key: "owner_attention", title: "Needs Me", route: "/needs-me", ...needsMeCell(snapshot) }
+    { key: "owner_attention", title: "Needs Me", route: "/needs-me", ...needsMeCell(snapshot) },
+    { key: "revenue", title: "Revenue", route: "/finance", ...revenueCell(snapshot) }
   ]);
   for (const module of grid.modules) {
     const card = genericCard(module.title, module.supportingText, undefined, module.route);
     card.classList.add("home-primary-card");
+    if (module.key === "revenue") {
+      card.classList.add("home-primary-card--revenue");
+      const amount = snapshot.revenue && snapshot.connection.state !== "disconnected"
+        ? new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(snapshot.revenue.amountUsd)
+        : "N/A";
+      const caption = card.querySelector(".muted");
+      const figure = el("strong", "home-revenue__amount", amount);
+      figure.setAttribute("aria-label", `Recorded, verified revenue: ${amount}`);
+      if (caption) card.insertBefore(figure, caption);
+      else card.append(figure);
+    }
     if (module.verifiedCount !== undefined) {
       card.dataset.verifiedCount = String(module.verifiedCount);
       if (module.key !== "projects") card.querySelector(".card-heading")?.append(el("strong", "project-group-count", String(module.verifiedCount)));
