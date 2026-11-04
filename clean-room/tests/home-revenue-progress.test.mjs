@@ -92,3 +92,13 @@ test("Owner-approved Home keeps Brain and Agency under More, never adds duplicat
   assert.doesNotMatch(modules, /registry\.register\(\{ key: "(?:brain|agent|agency|work_barriers)"/);
   assert.match(homeSection, /key: "revenue", title: "Revenue"/);
 });
+
+test("Existing Refresh control reloads saved project progress and revenue without changing the owner-approved Home", () => {
+  const browser = readFileSync(new URL("../src/runtime/browser.ts", import.meta.url), "utf8");
+  const provider = readFileSync(new URL("../src/runtime/supabase-owner-provider.ts", import.meta.url), "utf8");
+  assert.match(browser, /Refresh progress & revenue/);
+  assert.match(browser, /void renderApplication\(undefined, true\)/);
+  assert.match(provider, /safe\("revenue", "analytics_project_kpis"/);
+  assert.match(provider, /safe\("recorded-progress", "analytics_project_kpis"/);
+  assert.match(provider, /safe\("live-progress", "metrics"/);
+});
