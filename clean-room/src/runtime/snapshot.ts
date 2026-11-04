@@ -246,6 +246,14 @@ export interface CommandCenterRuntimeSnapshot {
   readonly agency?: RuntimeAgencySnapshot;
   readonly brain?: RuntimeBrainSnapshot;
   readonly books?: readonly RuntimeBookRecord[];
+  // Only a recorded, evidence-backed subset of owner revenue; never implicitly
+  // treats absent accounts or projects as $0 or claims a live provider total.
+  readonly revenue?: Readonly<{
+    amountUsd: number;
+    projectCount: number;
+    latestObservedAt: string;
+    basis: "verified_recorded_projects";
+  }>;
   readonly surfaceRecords?: Readonly<Record<string, readonly RuntimeSurfaceRecord[]>>;
   // Per-source availability. Core surfaces must derive availability from the
   // sources they actually require instead of one global connection flag.
