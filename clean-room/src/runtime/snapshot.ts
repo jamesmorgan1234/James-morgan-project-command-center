@@ -49,6 +49,13 @@ export interface RuntimeProjectSnapshot {
   readonly stage: TruthValue<string>;
   readonly status: TruthValue<string>;
   readonly progressPercent: TruthValue<number>;
+  /** Evidence-backed counts are still meaningful before full-scope percentage
+   * certification; these counts are NOT a trustworthy total-company percent. */
+  readonly workUnitProgress?: Readonly<{
+    verified: number;
+    applicable: number;
+    latestObservedAt?: string;
+  }>;
   readonly progressSummary?: string;
   readonly statusObservedAt?: string;
   readonly progressBasis?: "roadmap" | "last_recorded";
