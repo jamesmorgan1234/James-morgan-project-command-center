@@ -28,6 +28,10 @@
 .project-roadmap-details{margin-top:12px;min-width:0}.project-roadmap-details>summary{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}.project-roadmap-steps{display:grid;gap:8px;margin-top:10px;min-width:0}.project-roadmap-step>summary{cursor:pointer;min-height:var(--cc-tap);line-height:1.4;overflow-wrap:anywhere}.project-roadmap-step>summary strong{font-size:13px}.project-roadmap-step>summary .muted{display:block;margin-top:4px}.project-roadmap-step:not([open])>:not(summary){display:none}.project-roadmap-step[open]>p{margin-top:10px}
 .project-roadmap-step:not([open])>summary strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;max-height:4.2em}
 
+/* Work-unit count is evidence-backed even when a total-company percentage is
+   intentionally unmeasured because its full roadmap scope is not certified. */
+.project-verified-count{font-size:8px;line-height:1.1;white-space:nowrap;color:var(--cc-muted);text-align:center}
+
 /* Mobile Projects list: preserve compact navigation-card geometry.
    Extra record metadata and observation timestamps remain on project detail
    instead of making each list button grow into a long vertical panel. */
