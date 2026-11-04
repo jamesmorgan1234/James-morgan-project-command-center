@@ -1,0 +1,54 @@
+name: Compile Source-Exact Company Integration Batches
+on:
+  push:
+    branches: [build/spec-lock-v2-clean-room]
+    paths:
+      - 'clean-room/scripts/compile-company-integration.mjs'
+      - 'clean-room/scripts/write-company-integration-batches.mjs'
+      - 'roadmap/portfolio-future-architecture/companies/**'
+      - '.github/workflows/compile-company-integration.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: clean-room/package-lock.json
+      - name: Install locked dependencies
+        working-directory: clean-room
+        run: npm ci --no-audit --no-fund --ignore-scripts
+      - name: Build authoritative type contracts
+        working-directory: clean-room
+        run: npm run build:modules
+      - name: Compile and validate all 117 source companies
+        working-directory: clean-room
+        run: node scripts/write-company-integration-batches.mjs --write
+      - name: Preserve source payloads without database mutation
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: command-center-company-integration-${{ github.sha }}
+          path: .github/compiled-company-sources/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Commit generated, source-exact payloads
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "command-center-source-compiler[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/compiled-company-sources/
+          if git diff --cached --quiet; then
+            echo "Generated payloads unchanged"
+            exit 0
+          fi
+          git commit -m "chore: refresh verified 117-company source integration payloads"
+          git push origin HEAD:build/spec-lock-v2-clean-room
