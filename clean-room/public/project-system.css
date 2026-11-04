@@ -19,6 +19,12 @@
 .progress-ring--unknown strong{font-size:12px;line-height:1.2;max-width:80px;text-align:center;overflow-wrap:anywhere}.project-stage-note{max-width:100%;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
 .project-checkpoint-facts{width:100%;box-sizing:border-box;padding:12px;grid-template-columns:minmax(80px,.25fr) minmax(0,1fr);font-size:14px;line-height:1.5}.project-checkpoint-facts dd{min-width:0;overflow-wrap:anywhere}
+/* Project detail snapshot: Stage/Verification are full-width information,
+   never placed into the narrow icon column of the hero grid. */
+.project-hero>.project-checkpoint-facts{grid-column:1/-1;min-width:0;max-width:100%;grid-template-columns:minmax(96px,.35fr) minmax(0,1fr);gap:9px 12px;margin:6px 0 0}
+.project-hero>.project-checkpoint-facts dt{min-width:0;line-height:1.4}
+.project-hero>.project-checkpoint-facts dd{min-width:0;font-size:14px;line-height:1.5;overflow-wrap:break-word;word-break:normal}
+
 .project-roadmap-details{margin-top:12px;min-width:0}.project-roadmap-details>summary{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}.project-roadmap-steps{display:grid;gap:8px;margin-top:10px;min-width:0}.project-roadmap-step>summary{cursor:pointer;min-height:var(--cc-tap);line-height:1.4;overflow-wrap:anywhere}.project-roadmap-step>summary strong{font-size:13px}.project-roadmap-step>summary .muted{display:block;margin-top:4px}.project-roadmap-step:not([open])>:not(summary){display:none}.project-roadmap-step[open]>p{margin-top:10px}
 .project-roadmap-step:not([open])>summary strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;max-height:4.2em}
 
@@ -26,8 +32,8 @@
    Extra record metadata and observation timestamps remain on project detail
    instead of making each list button grow into a long vertical panel. */
 @media(max-width:699px){
-  .project-row.project-navigation-card{grid-template-columns:48px minmax(0,1fr) 44px;gap:8px;padding:8px 9px;min-height:76px}
-  .project-row.project-navigation-card>.project-icon{width:48px;height:48px}
+  .project-row.project-navigation-card{grid-template-columns:52px minmax(0,1fr) 44px;gap:9px;padding:10px 10px;min-height:88px}
+  .project-row.project-navigation-card>.project-icon{width:52px;height:52px}
   .project-row.project-navigation-card .project-row__text{display:grid;align-content:center;gap:3px;min-width:0}
   .project-row.project-navigation-card .project-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
   .project-row.project-navigation-card .project-subtitle{margin:0;-webkit-line-clamp:1}
@@ -39,5 +45,5 @@
   .project-row.project-navigation-card .progress-wrap{gap:0}
 }
 @media(max-width:360px){
-  .project-row.project-navigation-card{grid-template-columns:48px minmax(0,1fr) 40px;gap:6px}
+  .project-row.project-navigation-card{grid-template-columns:52px minmax(0,1fr) 40px;gap:7px}
 }
