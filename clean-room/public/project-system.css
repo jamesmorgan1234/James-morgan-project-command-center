@@ -21,3 +21,23 @@
 .project-checkpoint-facts{width:100%;box-sizing:border-box;padding:12px;grid-template-columns:minmax(80px,.25fr) minmax(0,1fr);font-size:14px;line-height:1.5}.project-checkpoint-facts dd{min-width:0;overflow-wrap:anywhere}
 .project-roadmap-details{margin-top:12px;min-width:0}.project-roadmap-details>summary{max-width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}.project-roadmap-steps{display:grid;gap:8px;margin-top:10px;min-width:0}.project-roadmap-step>summary{cursor:pointer;min-height:var(--cc-tap);line-height:1.4;overflow-wrap:anywhere}.project-roadmap-step>summary strong{font-size:13px}.project-roadmap-step>summary .muted{display:block;margin-top:4px}.project-roadmap-step:not([open])>:not(summary){display:none}.project-roadmap-step[open]>p{margin-top:10px}
 .project-roadmap-step:not([open])>summary strong{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden;max-height:4.2em}
+
+/* Mobile Projects list: preserve compact navigation-card geometry.
+   Extra record metadata and observation timestamps remain on project detail
+   instead of making each list button grow into a long vertical panel. */
+@media(max-width:699px){
+  .project-row.project-navigation-card{grid-template-columns:48px minmax(0,1fr) 44px;gap:8px;padding:8px 9px;min-height:76px}
+  .project-row.project-navigation-card>.project-icon{width:48px;height:48px}
+  .project-row.project-navigation-card .project-row__text{display:grid;align-content:center;gap:3px;min-width:0}
+  .project-row.project-navigation-card .project-title{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  .project-row.project-navigation-card .project-subtitle{margin:0;-webkit-line-clamp:1}
+  .project-row.project-navigation-card .project-meta,
+  .project-row.project-navigation-card .project-stage-note,
+  .project-row.project-navigation-card .metric-label,
+  .project-row.project-navigation-card .sync-note{display:none}
+  .project-row.project-navigation-card .status{margin:0}
+  .project-row.project-navigation-card .progress-wrap{gap:0}
+}
+@media(max-width:360px){
+  .project-row.project-navigation-card{grid-template-columns:48px minmax(0,1fr) 40px;gap:6px}
+}
