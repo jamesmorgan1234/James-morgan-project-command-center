@@ -459,6 +459,9 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       const roadmapVersion = numeric(roadmap?.version);
       const projectUnits = roadmapVersion === undefined ? [] : workUnits.filter((row) => row.project_id === id && numeric(row.roadmap_version) === roadmapVersion);
       const projectGates = roadmapVersion === undefined ? [] : gates.filter((row) => row.project_id === id && numeric(row.roadmap_version) === roadmapVersion);
+      const applicableUnits = projectUnits.filter((unit) => unit.applicable === true);
+      const verifiedUnits = applicableUnits.filter((unit) => ["verified", "skipped"].includes(text(unit.status) ?? ""));
+      const latestUnitUpdate = projectUnits.map((unit) => text(unit.updated_at)).filter((value): value is string => !!value).sort().at(-1);
       const unitById = new Map(projectUnits.map((row) => [text(row.work_unit_id), row]));
       const gateById = new Map(projectGates.map((row) => [text(row.gate_id), row]));
       const roadmapStructureVerified = roadmap?.structure_verified === true;
@@ -553,6 +556,13 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         stage: truthText(readyUnit?.phase_id ?? project.stage),
         status: truthText(project.status),
         progressPercent,
+        ...(roadmapStructureVerified && applicableUnits.length > 0 ? {
+          workUnitProgress: Object.freeze({
+            verified: verifiedUnits.length,
+            applicable: applicableUnits.length,
+            ...(latestUnitUpdate ? { latestObservedAt: latestUnitUpdate } : {})
+          })
+        } : {}),
         ...(progressBasis ? { progressBasis } : {}),
         ...(progressBasis === "last_recorded" && text(recorded?.observed_at ?? recorded?.updated_at) ? { progressObservedAt: text(recorded?.observed_at ?? recorded?.updated_at)! } : {}),
         currentCheckpoint: checkpoint ? truthText(checkpoint.checkpoint_id) : unknown<string>(),
