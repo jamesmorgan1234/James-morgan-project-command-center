@@ -3,6 +3,7 @@ import { known, unknown, type TruthValue } from "../data/canonical.js";
 import { buildRuntimeAgencySnapshot } from "./agency-runtime-projection.js";
 import { summarizeRecordedRevenue } from "./revenue-summary.js";
 import { verifiedWorkUnitPercent } from "./progress-precision.js";
+import { watchOwnerRealtime } from "./owner-realtime.js";
 import {
   createDisconnectedRuntimeSnapshot,
   type CommandCenterRuntimeSnapshot,
@@ -130,6 +131,19 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         cache: "no-store"
       });
     } catch {}
+  }
+
+  watchChanges(onChanged: () => void): () => void {
+    return watchOwnerRealtime({
+      supabaseUrl: this.#supabaseUrl,
+      publishableKey: this.#publishableKey,
+      accessToken: async () => {
+        const session = await this.#ensureSession(false);
+        if (!session || !await this.#isAuthorized(session)) return undefined;
+        return session.accessToken;
+      },
+      onChanged
+    });
   }
 
   async load(): Promise<CommandCenterRuntimeSnapshot> {
