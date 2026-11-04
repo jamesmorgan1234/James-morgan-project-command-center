@@ -79,7 +79,7 @@ test('P15.1 shipped startup watchdog transitions to Recovery and fences late run
 test('P15.1 timed-out data initialization cannot overwrite Recovery on late completion or connectivity retry',async()=>{
  let complete;const pending=new Promise(r=>complete=r),handlers={},root={textContent:'',replaceChildren(node){this.textContent=node?.textContent??'';}};
  const window={location:{pathname:'/'},addEventListener:(k,v)=>handlers[k]=v};
- const document={querySelector:s=>s==='#app'?root:null,createElement:()=>({dataset:{},textContent:''})};
+ const document={querySelector:s=>s==='#app'?root:null,addEventListener(){},visibilityState:'visible',activeElement:null,createElement:()=>({dataset:{},textContent:''})};
  const context={window,document,createCoreRouteRegistry:()=>({}),ApplicationShell:class{},providerFromDocument:()=>({load:()=>pending}),BrowserPwaUpdateClient:class{view={state:'idle'};subscribe(fn){fn(this.view);}async registerAndCheck(){}}};
  const code=readFileSync(new URL('../dist/runtime/browser.js',import.meta.url),'utf8').replace(/^import .*;\r?\n/gm,'').replace(/^export /gm,'');
  vm.createContext(context);vm.runInContext(code,context);assert.match(root.textContent,/Starting/);

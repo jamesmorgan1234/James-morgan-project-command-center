@@ -73,10 +73,10 @@ test("Realtime subscription contains only authenticated Postgres Change filters 
 test("Live screen updates use owner-authenticated event subscription and safe fallback", () => {
   const browser = readFileSync(new URL("../src/runtime/browser.ts", import.meta.url), "utf8");
   const managed = readFileSync(new URL("../src/runtime/owner-security-provider.ts", import.meta.url), "utf8");
-  assert.match(browser, /activeProvider\\?\\.watchChanges/);
-  assert.match(browser, /startOwnerLiveRefresh\\(snapshot\\)/);
+  assert.match(browser, /activeProvider\?\.watchChanges/);
+  assert.match(browser, /startOwnerLiveRefresh\(snapshot\)/);
   assert.match(browser, /queueOwnerLiveRefresh/);
-  assert.match(managed, /watchChanges\\(onChanged:/);
+  assert.match(managed, /watchChanges\(onChanged:/);
 });
 
 test("Owner-approved Home keeps Brain and Agency under More, never adds duplicate Home tiles", () => {

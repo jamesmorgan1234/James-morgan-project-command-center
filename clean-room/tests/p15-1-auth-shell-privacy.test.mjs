@@ -18,7 +18,7 @@ class Node {
 }
 function dom(path='/project/private-project'){
  const root=new Node(),grid=new Node(),events=new EventTarget();
- const document={title:'Private title',createElement:t=>new Node(t),createElementNS:(_ns,t)=>new Node(t),querySelector:s=>s==='#app'?root:s==='.navigation-grid'?grid:null};
+ const document={title:'Private title',visibilityState:'visible',activeElement:null,addEventListener(){},removeEventListener(){},createElement:t=>new Node(t),createElementNS:(_ns,t)=>new Node(t),querySelector:s=>s==='#app'?root:s==='.navigation-grid'?grid:null};
  const window={location:{pathname:path,search:'',href:'https://example.invalid'+path,assign(){}},history:{length:1},addEventListener:events.addEventListener.bind(events),dispatchEvent:events.dispatchEvent.bind(events)};
  return {root,grid,document,window};
 }

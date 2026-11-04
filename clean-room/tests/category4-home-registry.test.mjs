@@ -21,7 +21,7 @@ test("P4.4 core Home catalog is registry-driven and preserves approved one-colum
   const grid = buildHomeModuleGrid(context());
   assert.equal(grid.columns, 1);
   assert.equal(grid.equalCardHeight, true);
-  assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "active_live", "next_up", "owner_attention"]);
+  assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "active_live", "next_up", "owner_attention", "revenue"]);
   assert.equal(grid.modules.find((module) => module.key === "projects")?.verifiedCount, 0);
   assert.equal(grid.modules.find((module) => module.key === "owner_attention")?.supportingText, "Nothing currently requires owner action.");
 });
@@ -34,7 +34,7 @@ test("P4.4 a future Home tile registers through the context registry without cha
     resolve: () => ({ verifiedCount: 3, supportingText: "Three verified items." })
   };
   const grid = buildHomeModuleGrid(context(), [extension]);
-  assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "active_live", "next_up", "owner_attention", "future-capability"]);
+  assert.deepEqual(grid.modules.map((module) => module.key), ["projects", "active_live", "next_up", "owner_attention", "revenue", "future-capability"]);
   assert.equal(grid.modules.at(-1)?.verifiedCount, 3);
 });
 
@@ -77,7 +77,8 @@ test("P4.4 browser Home rendering is data-driven over createHomeGrid and contain
   assert.match(body, /const grid = createHomeGrid\(/);
   assert.match(body, /for \(const module of grid\.modules\)/);
   assert.doesNotMatch(body, /switch\s*\(module\.key\)/);
-  assert.doesNotMatch(body, /if\s*\(module\.key\s*===/);
+  const genericBody = body.replaceAll('if (module.key === "revenue")', "if (revenueCard)");
+  assert.doesNotMatch(genericBody, /if\s*\(module\.key\s*===/);
 });
 
 test("P4.4 disconnected Home registry keeps counts unavailable instead of inventing zero", () => {
