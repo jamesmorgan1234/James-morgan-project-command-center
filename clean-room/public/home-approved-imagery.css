@@ -6,6 +6,14 @@
 .home-primary-card:nth-child(3)::after{background-position:100% 33.333%}
 .home-primary-card:nth-child(4)::after{background-position:66.667% 33.333%}
 .home-primary-card>*{position:relative;z-index:1}.home-primary-card .section-title{font-size:20px}.home-primary-card .muted{max-width:65%;color:#e0e8ee}
+/* Revenue is a real owner-only Finance link. Put the dollar amount in the
+   centre of the tile; do not disguise missing coverage as a live $0 total. */
+.home-primary-card--revenue{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:150px;gap:6px;text-align:center}
+.home-primary-card--revenue::after{background-image:none;opacity:0}
+.home-primary-card--revenue .card-heading{width:100%;justify-content:center}
+.home-revenue__amount{display:block;font-size:clamp(32px,9vw,54px);font-weight:900;line-height:1.1;letter-spacing:-.025em;font-variant-numeric:tabular-nums;color:#ffc12e;text-shadow:0 0 12px #ff6a0077;white-space:nowrap}
+.home-primary-card--revenue .muted{width:100%;max-width:95%;margin:4px auto 0;text-align:center;font-size:11px}
+
 .project-art--specific{width:220px;height:220px;right:3px;top:50%;bottom:auto;transform:translateY(-50%);opacity:.84;mask-image:linear-gradient(90deg,transparent,#000 60%);background-repeat:no-repeat}
 .project-art--cover{width:90px;height:135px;opacity:.95;mask-image:linear-gradient(90deg,transparent,#000 20%)}
 .project-tabs{display:flex;gap:8px;flex-wrap:wrap}.project-tabs [aria-current=page]{border-color:var(--cc-gold);color:var(--cc-gold)}
