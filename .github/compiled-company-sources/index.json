@@ -1,0 +1,343 @@
+{
+  "schemaVersion": 1,
+  "portfolioSourceCount": 117,
+  "sourceCompiled": 107,
+  "nativeGraphPreserved": 10,
+  "productionApplied": false,
+  "operationalBrainVerified": false,
+  "denominatorCertified": false,
+  "individualOwnerAuthorizationStillRequiredForProtectedActions": true,
+  "batches": [
+    {
+      "filename": "001-004.json",
+      "sha256": "ab6f365e0bc64204e4d19b128eaa073682cbc945b81c71b1563b80f0ecc373c1",
+      "companies": [
+        "project:company:future:001",
+        "project:company:future:002",
+        "project:company:future:003",
+        "project:company:future:004"
+      ]
+    },
+    {
+      "filename": "005-008.json",
+      "sha256": "b153d57a67dd823cc2768e8e1a584a0f06376fc0d6db9ae65bed5e9d0ceb6b3f",
+      "companies": [
+        "project:company:future:005",
+        "project:company:future:006",
+        "project:company:future:007",
+        "project:company:future:008"
+      ]
+    },
+    {
+      "filename": "009-012.json",
+      "sha256": "975b8789a357c9bd123b563317351f60ad06742b688d0bfb4ee9b94daa783269",
+      "companies": [
+        "project:company:future:009",
+        "project:company:future:010",
+        "project:company:future:011",
+        "project:company:future:012"
+      ]
+    },
+    {
+      "filename": "013-016.json",
+      "sha256": "4de388fdd009065acb03db02cce3aec05eff27ee6e0f136028cf154b0c4f54af",
+      "companies": [
+        "project:company:future:013",
+        "project:company:future:014",
+        "project:company:future:015",
+        "project:company:future:016"
+      ]
+    },
+    {
+      "filename": "017-020.json",
+      "sha256": "5331cbda6fb9405446dd5b23cdfc2e2f3b2f2e9c9ee311c95e7dd61d464127c2",
+      "companies": [
+        "project:company:future:017",
+        "project:company:future:018",
+        "project:company:future:019",
+        "project:company:future:020"
+      ]
+    },
+    {
+      "filename": "021-024.json",
+      "sha256": "3b4efb5d87935abe6dbc061f4b6ca872ad20706555f9da088318fdd427f5c75f",
+      "companies": [
+        "project:company:future:021",
+        "project:company:future:022",
+        "project:company:future:023",
+        "project:company:future:024"
+      ]
+    },
+    {
+      "filename": "025-028.json",
+      "sha256": "f653f5e9b8b28a16d2c780cdae476d9e4b74de22d0a7d392e0b2d336e8966173",
+      "companies": [
+        "project:company:future:025",
+        "project:company:future:026",
+        "project:company:future:027",
+        "project:company:future:028"
+      ]
+    },
+    {
+      "filename": "029-032.json",
+      "sha256": "c3c527d718770dae51965aeafe85f7c6d3ad0bee993ef818515949948a2bd9b2",
+      "companies": [
+        "project:company:future:029",
+        "project:company:future:030",
+        "project:company:future:031",
+        "project:company:future:032"
+      ]
+    },
+    {
+      "filename": "033-036.json",
+      "sha256": "d07954103642356b0856c3e36bb93c78c05730a473dae3f167ad976f8a0acfd6",
+      "companies": [
+        "project:company:future:033",
+        "project:company:future:034",
+        "project:company:future:035",
+        "project:company:future:036"
+      ]
+    },
+    {
+      "filename": "037-040.json",
+      "sha256": "4c21f2fdeef2e262bca79a8051ee2ba134c2ae6ee71bf0714e675f717778f534",
+      "companies": [
+        "project:company:future:037",
+        "project:company:future:038",
+        "project:company:future:039",
+        "project:company:future:040"
+      ]
+    },
+    {
+      "filename": "041-044.json",
+      "sha256": "f930067e8aa938983f1c865ffc983631ec1c1b2c884e31cb3c90dfc59b098ad3",
+      "companies": [
+        "project:company:future:041",
+        "project:company:future:042",
+        "project:company:future:043",
+        "project:company:future:044"
+      ]
+    },
+    {
+      "filename": "045-048.json",
+      "sha256": "970b935d1b7bc6f805ebb39c13b1e3bce2852a07399851ee3eed736b625d963b",
+      "companies": [
+        "project:company:future:045",
+        "project:company:future:046",
+        "project:company:future:047",
+        "project:company:future:048"
+      ]
+    },
+    {
+      "filename": "049-052.json",
+      "sha256": "9ffc70b5609ee7a5faf2d8cadaec505e929d0b90c33dd5fb988b6b9f5b65b219",
+      "companies": [
+        "project:company:future:049",
+        "project:company:future:050",
+        "project:company:future:051",
+        "project:company:future:052"
+      ]
+    },
+    {
+      "filename": "053-056.json",
+      "sha256": "ad0d2f7579cf1858c5592e3d328659b221b2121dc9cfe08ffaef61cd3c2058b1",
+      "companies": [
+        "project:company:future:053",
+        "project:company:future:054",
+        "project:company:future:055",
+        "project:company:future:056"
+      ]
+    },
+    {
+      "filename": "057-060.json",
+      "sha256": "07c1a2283127f648fcd28cb109c66db72a184790411439c97baf0e187ee6d303",
+      "companies": [
+        "project:company:future:057",
+        "project:company:future:058",
+        "project:company:future:059",
+        "project:company:future:060"
+      ]
+    },
+    {
+      "filename": "061-064.json",
+      "sha256": "3c8bbf5abaaf132e75b99f5d1525ef8b834b1bcec73cc7cf47c02702661f072d",
+      "companies": [
+        "project:company:future:061",
+        "project:company:future:062",
+        "project:company:future:063",
+        "project:company:future:064"
+      ]
+    },
+    {
+      "filename": "065-068.json",
+      "sha256": "8ebd84484ddaee321d2450b5f39e16c9084c024b5eebb7b223d29351dcc5d240",
+      "companies": [
+        "project:company:future:065",
+        "project:company:future:066",
+        "project:company:future:067",
+        "project:company:future:068"
+      ]
+    },
+    {
+      "filename": "069-072.json",
+      "sha256": "784f0bdd3181b6d50973506dcfdcf5aea1c32bcb646d3678fa8fde51fb35e544",
+      "companies": [
+        "project:company:future:069",
+        "project:company:future:070",
+        "project:company:future:071",
+        "project:company:future:072"
+      ]
+    },
+    {
+      "filename": "073-076.json",
+      "sha256": "1c2d9d2fc03a36f352cdcdba766a05b6ce7c37ebc92f035a59c273d6f5a85759",
+      "companies": [
+        "project:company:future:073",
+        "project:company:future:074",
+        "project:company:future:075",
+        "project:company:future:076"
+      ]
+    },
+    {
+      "filename": "077-080.json",
+      "sha256": "9cba12816692e5c848402c1c7c8f98ab5bd6966dc8b58785a17d8f6597c8580d",
+      "companies": [
+        "project:company:future:077",
+        "project:company:future:078",
+        "project:company:future:079",
+        "project:company:future:080"
+      ]
+    },
+    {
+      "filename": "081-084.json",
+      "sha256": "3b34abbf5ad74976789925d4b349426d09a3a97281ffd03f051e4a899d9c2368",
+      "companies": [
+        "project:company:future:081",
+        "project:company:future:082",
+        "project:company:future:083",
+        "project:company:future:084"
+      ]
+    },
+    {
+      "filename": "085-088.json",
+      "sha256": "38690678437e0bf34d15478993e2993aed93a0a80c881ba644c473bf93eb36d0",
+      "companies": [
+        "project:company:future:085",
+        "project:company:future:086",
+        "project:company:future:087",
+        "project:company:future:088"
+      ]
+    },
+    {
+      "filename": "089-092.json",
+      "sha256": "e00d3ce0add4f9eecf3e4fdcaf721b649e5e90f1e102dcdb2ac1ebbf4a2641fa",
+      "companies": [
+        "project:company:future:089",
+        "project:company:future:090",
+        "project:company:future:091",
+        "project:company:future:092"
+      ]
+    },
+    {
+      "filename": "093-096.json",
+      "sha256": "ff4a37528d362392ef92022496980c29efc92387261c13fdfc44682aad782322",
+      "companies": [
+        "project:company:future:093",
+        "project:company:future:094",
+        "project:company:future:095",
+        "project:company:future:096"
+      ]
+    },
+    {
+      "filename": "097-100.json",
+      "sha256": "69af747463988e1493422eb391d7b1f8215ed0f300065f96f276883f70634c2d",
+      "companies": [
+        "project:company:future:097",
+        "project:company:future:098",
+        "project:company:future:099",
+        "project:company:future:100"
+      ]
+    },
+    {
+      "filename": "101-104.json",
+      "sha256": "858cf3a9f0183e2ba00606b214757964e5d316105f043d5113419bc532ef782d",
+      "companies": [
+        "project:company:future:101",
+        "project:company:future:102",
+        "project:company:future:103",
+        "project:company:future:104"
+      ]
+    },
+    {
+      "filename": "105-107.json",
+      "sha256": "32bcab16c373d7309fcaa59ce9411ace9965986132fec6dad552f38251169ced",
+      "companies": [
+        "project:company:future:105",
+        "project:company:future:106",
+        "project:company:future:107"
+      ]
+    }
+  ],
+  "native": [
+    {
+      "projectId": "project:company:future:108",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/108_PRODUCT_RECALL_INTELLIGENCE.md",
+      "sourceSha256": "dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275",
+      "specialistSource": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:109",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/109_SHIPPING_EXCEPTION_RECOVERY.md",
+      "sourceSha256": "6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec",
+      "specialistSource": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:110",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/110_BOOK_FORMATTING_PUBLISHING_PREPARATION.md",
+      "sourceSha256": "b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229",
+      "specialistSource": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:111",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/111_CONTRACTOR_WEBSITES_ONLINE_BOOKING.md",
+      "sourceSha256": "254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3",
+      "specialistSource": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:112",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/112_AUTOMATED_VIDEO_REPURPOSING.md",
+      "sourceSha256": "6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b",
+      "specialistSource": "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:113",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/113_ULTIMATE_COMMERCE_PLATFORM.md",
+      "sourceSha256": "e54fbba0d9beca3d20bac6ef2cb10e7ae098b8544d5ef8c8383d317c16757f04",
+      "specialistSource": "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/113_ultimate_commerce_platform/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:114",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/114_REAL_ESTATE_WHOLESALING_ACQUISITION.md",
+      "sourceSha256": "e63d4a29d5833fee32e16c673c9bb21da176d2de03c8449524b76fd29229045d",
+      "specialistSource": "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/114_real_estate_wholesaling_acquisition/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:115",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/115_CONTRACT_OPPORTUNITY_DISCOVERY_MATCHING.md",
+      "sourceSha256": "b8fb50d25ed8908101e5ea5c8308759dfab7dbc5488116a60f8bf7f92c59f6fe",
+      "specialistSource": "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/115_contract_opportunity_discovery_matching/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:116",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/116_BUILDING_PERMIT_INSPECTION_INTELLIGENCE.md",
+      "sourceSha256": "feb98d39c26aefc3d88355aa55b9653225cb9b821208cd55433c3dd8ba725c46",
+      "specialistSource": "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/116_building_permit_inspection_intelligence/SPECIALIZED_BRAIN.md"
+    },
+    {
+      "projectId": "project:company:future:117",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/117_INDUSTRIAL_MAINTENANCE_DOWNTIME_INTELLIGENCE.md",
+      "sourceSha256": "958a4b4da4307e2dfe3febb1641e554db25d2c60368daceaf64c3b6151a624ec",
+      "specialistSource": "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/117_industrial_maintenance_downtime_intelligence/SPECIALIZED_BRAIN.md"
+    }
+  ]
+}
