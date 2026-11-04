@@ -61,12 +61,57 @@ export function revenueCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
   });
 }
 
+export function agentCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
+  const agency = snapshot.agency;
+  if (!agency || agency.availability !== "available") return Object.freeze({
+    supportingText: "Agent execution status unavailable. No queued or working run is assumed."
+  });
+  const running = agency.runs.filter((run) => ["queued", "working", "paused", "blocked", "needs_user"].includes(run.state));
+  const current = running.slice().sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+  if (!current) return Object.freeze({ supportingText: "No currently active Agent run was recorded in the loaded canonical snapshot." });
+  const task = agency.tasks
+    .filter((entry) => entry.runId === current.runId && ["queued", "working", "blocked", "needs_user"].includes(entry.state))
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+  const next = task?.title ?? current.blocker ?? current.objective;
+  return Object.freeze({
+    verifiedCount: running.length,
+    supportingText: `Agent ${current.state.replaceAll("_", " ")} · ${next.slice(0, 155)}`
+  });
+}
+
+export function brainCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
+  if (!snapshot.brain || snapshot.brain.availability !== "available") return Object.freeze({
+    supportingText: "Brain status unavailable. No recommendations are inferred."
+  });
+  const recommendations = snapshot.brain.improvements.filter((item) => item.state === "proposed").length;
+  return Object.freeze({
+    verifiedCount: recommendations,
+    supportingText: `${recommendations} proposed improvement${recommendations === 1 ? "" : "s"} · ${snapshot.brain.workspaces.length} project workspaces recorded.`
+  });
+}
+
+export function workBarriersCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
+  if (!snapshot.agency || snapshot.agency.availability !== "available") return Object.freeze({
+    supportingText: "Work-boundary inventory unavailable. No zero is inferred."
+  });
+  const runs = snapshot.agency.runs.filter((run) => ["blocked", "needs_user", "work_boundary"].includes(run.state));
+  const tasks = snapshot.agency.tasks.filter((task) => ["blocked", "needs_user", "work_boundary", "parked"].includes(task.state));
+  const newest = runs.slice().sort((a,b) => b.updatedAt.localeCompare(a.updatedAt))[0];
+  return Object.freeze({
+    supportingText: `${runs.length} blocked/owner-action runs · ${tasks.length} blocked/parked tasks${newest ? ` · most recent: ${newest.projectId}` : ""}. Counts are not completion percentages.`
+  });
+}
+
 export function createCoreHomeModuleRegistry(extensions: readonly HomeModuleRegistration<HomeRuntimeContext>[] = []): HomeModuleRegistry<HomeRuntimeContext> {
   const registry = new HomeModuleRegistry<HomeRuntimeContext>();
   registry.register({ key: "projects", title: "Projects", route: "/projects", resolve: ({ snapshot }) => projectCountCell(snapshot) });
   registry.register({ key: "active_live", title: "Active / Live", route: "/active", resolve: ({ snapshot, activeCount }) => activeLiveCell(snapshot, activeCount) });
   registry.register({ key: "next_up", title: "Next Up", route: "/next-up", resolve: ({ snapshot, nextCount }) => nextUpCell(snapshot, nextCount) });
   registry.register({ key: "owner_attention", title: "Needs Me", route: "/needs-me", resolve: ({ snapshot }) => needsMeCell(snapshot) });
+  registry.register({ key: "agent", title: "Agent", route: "/agency", resolve: ({ snapshot }) => agentCell(snapshot) });
+  registry.register({ key: "brain", title: "Brain", route: "/brain", resolve: ({ snapshot }) => brainCell(snapshot) });
+  registry.register({ key: "work_barriers", title: "To Work Barriers", route: "/agency", resolve: ({ snapshot }) => workBarriersCell(snapshot) });
+  registry.register({ key: "revenue", title: "Revenue", route: "/finance", resolve: ({ snapshot }) => revenueCell(snapshot) });
   for (const extension of extensions) registry.register(extension);
   return registry;
 }
