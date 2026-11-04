@@ -189,6 +189,67 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     return realtime.watchChanges?.(onChanged) ?? (() => undefined);
   }
 
+  /** Owner-scoped, status-only progress write. Existing scope and denominator
+   * are never changed; accepted evidence is preserved and read back. */
+  async recordVerifiedProjectWorkUnit(
+    projectId: string, roadmapVersion: number, workUnitId: string, evidenceRefs: readonly string[]
+  ): Promise<void> {
+    const project = projectId.trim();
+    const unit = workUnitId.trim();
+    const evidence = [...new Set(evidenceRefs.map((value) => value.trim()).filter(Boolean))];
+    if (!project || !unit || !Number.isSafeInteger(roadmapVersion) || roadmapVersion < 1 || evidence.length === 0)
+      throw new Error("Verified work unit requires existing project, current roadmap, work-unit ID and evidence");
+    const session = this.#currentSession();
+    const headers = {
+      apikey: this.#publishableKey,
+      authorization: `Bearer ${session.accessToken}`,
+      accept: "application/json"
+    };
+    const roadmapParams = new URLSearchParams({
+      owner_id: `eq.${session.userId}`,
+      project_id: `eq.${project}`,
+      version: `eq.${roadmapVersion}`,
+      state: "eq.current",
+      select: "project_id,version,state"
+    });
+    const roadmapResponse = await this.#fetcher(
+      `${this.#supabaseUrl}/rest/v1/command_center_project_roadmaps?${roadmapParams}`,
+      { headers, cache: "no-store" }
+    );
+    const roadmapRows: unknown = roadmapResponse.ok ? await roadmapResponse.json() : null;
+    if (!Array.isArray(roadmapRows) || roadmapRows.length !== 1)
+      throw new Error("The requested roadmap is not the owner's current canonical version");
+
+    const unitParams = new URLSearchParams({
+      owner_id: `eq.${session.userId}`,
+      project_id: `eq.${project}`,
+      roadmap_version: `eq.${roadmapVersion}`,
+      work_unit_id: `eq.${unit}`,
+      select: "work_unit_id,status,evidence_refs"
+    });
+    const url = `${this.#supabaseUrl}/rest/v1/command_center_project_work_units?${unitParams}`;
+    const getRows = async (): Promise<JsonRecord[]> => {
+      const response = await this.#fetcher(url, { headers, cache: "no-store" });
+      if (!response.ok) throw new Error("Canonical project work-unit read failed");
+      const payload: unknown = await response.json();
+      if (!Array.isArray(payload) || payload.length !== 1 || !isRecord(payload[0]))
+        throw new Error("Canonical work unit is missing or ambiguous");
+      return payload as JsonRecord[];
+    };
+    const existing = (await getRows())[0]!;
+    const merged = [...new Set([...stringArray(existing.evidence_refs), ...evidence])];
+    const patch = await this.#fetcher(url.replace("select=work_unit_id%2Cstatus%2Cevidence_refs", "select=work_unit_id%2Cstatus%2Cevidence_refs"), {
+      method: "PATCH",
+      headers: { ...headers, "content-type": "application/json", prefer: "return=representation" },
+      body: JSON.stringify({ status: "verified", evidence_refs: merged, updated_at: new Date().toISOString() }),
+      cache: "no-store"
+    });
+    if (!patch.ok) throw new Error("Authenticated work-unit progress write was rejected");
+    const persisted = (await getRows())[0]!;
+    if (persisted.status !== "verified" || !merged.every((reference) => stringArray(persisted.evidence_refs).includes(reference)))
+      throw new Error("Verified work-unit progress did not persist with all evidence");
+  }
+
   signIn(email: string, password: string): Promise<void> {
     return this.#inner.signIn(email, password);
   }
