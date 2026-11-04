@@ -41,3 +41,40 @@ test("Home revenue card remains a real link with a centrally positioned dollar a
   assert.match(css, /\.home-revenue__amount\{/);
   assert.match(provider, /summarizeRecordedRevenue\(revenueRecords\)/);
 });
+
+import { verifiedWorkUnitPercent, formatProgressPercent } from "../dist/runtime/progress-precision.js";
+import { ownerRealtimeJoin, OWNER_REALTIME_TABLES } from "../dist/runtime/owner-realtime.js";
+
+test("Verified work-unit progress retains two decimal places and does not use whole-percent rounding", () => {
+  const units = [
+    { applicable: true, status: "verified" },
+    { applicable: true, status: "planned" },
+    { applicable: true, status: "planned" },
+    { applicable: false, status: "planned" }
+  ];
+  assert.equal(verifiedWorkUnitPercent(units), 33.33);
+  assert.equal(formatProgressPercent(33.33), "33.33%");
+  assert.equal(verifiedWorkUnitPercent([{ applicable: true, status: "planned" }]), 0);
+  assert.equal(verifiedWorkUnitPercent([{ applicable: false, status: "verified" }]), undefined);
+});
+
+test("Realtime subscription contains only authenticated Postgres Change filters and no generic public channel", () => {
+  const join = JSON.parse(ownerRealtimeJoin("test-owner-jwt"));
+  assert.equal(join.event, "phx_join");
+  assert.equal(join.payload.access_token, "test-owner-jwt");
+  assert.equal(join.payload.config.private, false);
+  assert.ok(OWNER_REALTIME_TABLES.includes("command_center_project_work_units"));
+  assert.ok(OWNER_REALTIME_TABLES.includes("analytics_metric_history"));
+  assert.equal(join.payload.config.postgres_changes.length, OWNER_REALTIME_TABLES.length);
+  assert.ok(join.payload.config.postgres_changes.every((filter) => filter.schema === "public" && filter.event === "*"));
+  assert.throws(() => ownerRealtimeJoin(""));
+});
+
+test("Live screen updates use owner-authenticated event subscription and safe fallback", () => {
+  const browser = readFileSync(new URL("../src/runtime/browser.ts", import.meta.url), "utf8");
+  const managed = readFileSync(new URL("../src/runtime/owner-security-provider.ts", import.meta.url), "utf8");
+  assert.match(browser, /activeProvider\\?\\.watchChanges/);
+  assert.match(browser, /startOwnerLiveRefresh\\(snapshot\\)/);
+  assert.match(browser, /queueOwnerLiveRefresh/);
+  assert.match(managed, /watchChanges\\(onChanged:/);
+});
