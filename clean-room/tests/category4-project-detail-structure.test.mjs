@@ -16,9 +16,10 @@ test("P4.8 approved book-specific Project Detail authority remains explicitly re
 test("P4.8 generic Project Detail preserves shared approved structure without forcing book-only regions", async () => {
   const browser = await source("src/runtime/browser.ts");
   const detail = browser.match(/function renderProjectDetail\([\s\S]*?\n\}/)?.[0] ?? "";
-  for (const region of ["performance-grid", "history-row", "integrations-row", "owner-inputs-section", "roadmap-section"]) {
+  for (const region of ["performance-grid", "history-row", "owner-inputs-section", "roadmap-section"]) {
     assert.match(detail, new RegExp(region));
   }
+  assert.match(detail, /renderProjectRecordSection\(project, "integrations"/);
   assert.match(detail, /project\.progressPercent/);
   assert.match(detail, /project\.stage/);
   assert.match(detail, /project\.priority/);
