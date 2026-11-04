@@ -25,7 +25,9 @@ test("P4.8 generic Project Detail preserves shared approved structure without fo
   assert.match(detail, /project\.priority/);
   assert.match(detail, /project\.needsMeCount/);
   assert.match(detail, /project\.recentActivity/);
-  assert.match(detail, /Integration data unavailable/);
+  const recordSection = await source("src/runtime/project-workspace-view.ts");
+  assert.match(recordSection, /These project records could not be loaded\. Refresh before making changes\./);
+  assert.match(recordSection, /project-section:\$\{kind\}/);
   assert.match(detail, /appendDynamicProjectDetailSections/);
   assert.doesNotMatch(detail, /series-strip|publication-status|Series data unavailable|Publication data unavailable/);
 });
