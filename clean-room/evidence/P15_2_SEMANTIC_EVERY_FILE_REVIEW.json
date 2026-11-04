@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "25987169d15067fcbaf380b0effaccec9d3f22fd",
+  "gitSha": "767a108499c735c535dabc2ad5bbbeadc9747665",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2171,
-  "inventoryDigest": "49172ff519b501695588671b3ca9b2b69b08662ccae4c48cdde1580dc8b70ef3",
+  "reviewedFileCount": 2206,
+  "inventoryDigest": "3c6cee616f0dd6a47f121fb47e7e12a62aad8c3b182cb11d5cb4ae335be8d335",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2172,
-    "reviewedFileCount": 2171,
+    "trackedFileCount": 2207,
+    "reviewedFileCount": 2206,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -39,24 +39,24 @@
       "SUPP": "repository-support"
     },
     "filesByRole": {
-      "SUPP": 1,
-      "CIWF": 8,
+      "SUPP": 29,
+      "CIWF": 9,
       "HIST": 272,
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
       "EVID": 199,
       "APUB": 15,
-      "SCRP": 140,
+      "SCRP": 142,
       "ASRC": 346,
-      "TEST": 457,
+      "TEST": 459,
       "RDMAP": 407,
-      "SBAS": 245,
+      "SBAS": 247,
       "HTST": 43
     },
     "defectCount": 0,
     "noticeCount": 11,
-    "directoryCount": 291
+    "directoryCount": 292
   },
   "repairs": [
     {
@@ -79,8 +79,15 @@
       ]
     },
     {
+      "directory": ".github/compiled-company-sources",
+      "fileCount": 28,
+      "roles": [
+        "SUPP"
+      ]
+    },
+    {
       "directory": ".github/workflows",
-      "fileCount": 8,
+      "fileCount": 9,
       "roles": [
         "CIWF"
       ]
@@ -717,7 +724,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 137,
+      "fileCount": 139,
       "roles": [
         "SCRP"
       ]
@@ -731,7 +738,7 @@
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 457,
+      "fileCount": 459,
       "roles": [
         "TEST"
       ]
@@ -1788,7 +1795,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 232,
+      "fileCount": 234,
       "roles": [
         "SBAS"
       ]
@@ -2188,6 +2195,258 @@
       "findings": []
     },
     {
+      "path": ".github/compiled-company-sources/001-004.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "ab6f365e0bc64204e4d19b128eaa073682cbc945b81c71b1563b80f0ecc373c1",
+      "bytes": 958323,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/005-008.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "b153d57a67dd823cc2768e8e1a584a0f06376fc0d6db9ae65bed5e9d0ceb6b3f",
+      "bytes": 623190,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/009-012.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "975b8789a357c9bd123b563317351f60ad06742b688d0bfb4ee9b94daa783269",
+      "bytes": 458971,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/013-016.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "4de388fdd009065acb03db02cce3aec05eff27ee6e0f136028cf154b0c4f54af",
+      "bytes": 420354,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/017-020.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "5331cbda6fb9405446dd5b23cdfc2e2f3b2f2e9c9ee311c95e7dd61d464127c2",
+      "bytes": 406586,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/021-024.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "3b4efb5d87935abe6dbc061f4b6ca872ad20706555f9da088318fdd427f5c75f",
+      "bytes": 395007,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/025-028.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "f653f5e9b8b28a16d2c780cdae476d9e4b74de22d0a7d392e0b2d336e8966173",
+      "bytes": 393835,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/029-032.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "c3c527d718770dae51965aeafe85f7c6d3ad0bee993ef818515949948a2bd9b2",
+      "bytes": 416994,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/033-036.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "d07954103642356b0856c3e36bb93c78c05730a473dae3f167ad976f8a0acfd6",
+      "bytes": 432543,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/037-040.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "4c21f2fdeef2e262bca79a8051ee2ba134c2ae6ee71bf0714e675f717778f534",
+      "bytes": 392444,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/041-044.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "f930067e8aa938983f1c865ffc983631ec1c1b2c884e31cb3c90dfc59b098ad3",
+      "bytes": 437281,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/045-048.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "970b935d1b7bc6f805ebb39c13b1e3bce2852a07399851ee3eed736b625d963b",
+      "bytes": 435713,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/049-052.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "9ffc70b5609ee7a5faf2d8cadaec505e929d0b90c33dd5fb988b6b9f5b65b219",
+      "bytes": 467595,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/053-056.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "ad0d2f7579cf1858c5592e3d328659b221b2121dc9cfe08ffaef61cd3c2058b1",
+      "bytes": 453622,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/057-060.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "07c1a2283127f648fcd28cb109c66db72a184790411439c97baf0e187ee6d303",
+      "bytes": 464884,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/061-064.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "3c8bbf5abaaf132e75b99f5d1525ef8b834b1bcec73cc7cf47c02702661f072d",
+      "bytes": 455328,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/065-068.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "8ebd84484ddaee321d2450b5f39e16c9084c024b5eebb7b223d29351dcc5d240",
+      "bytes": 459060,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/069-072.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "784f0bdd3181b6d50973506dcfdcf5aea1c32bcb646d3678fa8fde51fb35e544",
+      "bytes": 421377,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/073-076.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "1c2d9d2fc03a36f352cdcdba766a05b6ce7c37ebc92f035a59c273d6f5a85759",
+      "bytes": 425724,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/077-080.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "9cba12816692e5c848402c1c7c8f98ab5bd6966dc8b58785a17d8f6597c8580d",
+      "bytes": 429532,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/081-084.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "3b34abbf5ad74976789925d4b349426d09a3a97281ffd03f051e4a899d9c2368",
+      "bytes": 429885,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/085-088.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "38690678437e0bf34d15478993e2993aed93a0a80c881ba644c473bf93eb36d0",
+      "bytes": 431944,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/089-092.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "e00d3ce0add4f9eecf3e4fdcaf721b649e5e90f1e102dcdb2ac1ebbf4a2641fa",
+      "bytes": 452215,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/093-096.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "ff4a37528d362392ef92022496980c29efc92387261c13fdfc44682aad782322",
+      "bytes": 432162,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/097-100.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "69af747463988e1493422eb391d7b1f8215ed0f300065f96f276883f70634c2d",
+      "bytes": 491640,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/101-104.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "858cf3a9f0183e2ba00606b214757964e5d316105f043d5113419bc532ef782d",
+      "bytes": 2068031,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/105-107.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "32bcab16c373d7309fcaa59ce9411ace9965986132fec6dad552f38251169ced",
+      "bytes": 1645493,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": ".github/compiled-company-sources/index.json",
+      "role": "SUPP",
+      "disposition": "retain-active",
+      "sha256": "f6a264a0ba1c457bdec6375d90eb979fcea17e1ad9beeae4e194595ee25e625e",
+      "bytes": 13046,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": ".github/workflows/cc7-agent-native-rebuild-qa.yml",
       "role": "CIWF",
       "disposition": "retain-active",
@@ -2219,6 +2478,15 @@
       "findings": [
         "workflow_action_not_sha_pinned"
       ]
+    },
+    {
+      "path": ".github/workflows/compile-company-integration.yml",
+      "role": "CIWF",
+      "disposition": "retain-active",
+      "sha256": "b748c0a32951d61ee494f194a5951b48c06787ca813779e89cb913c707d95f2f",
+      "bytes": 2189,
+      "contentKind": "text",
+      "findings": []
     },
     {
       "path": ".github/workflows/p15-1-normal-chat-diagnostic.yml",
@@ -4813,8 +5081,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "1585ceffca9d6a4e6d07c0c90b57c0340b9d695c9608537887c6d713f2679d56",
-      "bytes": 13197713,
+      "sha256": "d7ef6b0ba7af649bf8d7edf7c244483b1fd71ffa6af23a1390ffcc51482d6519",
+      "bytes": 13198498,
       "contentKind": "text",
       "findings": []
     },
@@ -5229,6 +5497,15 @@
       "disposition": "retain-active",
       "sha256": "614e90aef651d004854d06e4a950055f70297c2c6729c6a89eaf77f26af79631",
       "bytes": 2838,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/compile-company-integration.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "951925818ee565c21995b4af45f2ffe9939ca9fc001cbeb8f2ee2130a031dd17",
+      "bytes": 9925,
       "contentKind": "text",
       "findings": []
     },
@@ -6318,6 +6595,15 @@
       "disposition": "retain-active",
       "sha256": "c11ee4de73e0e98f8adbefb6540ecee7f9dbc00e20848bc07c5a378cc19543f4",
       "bytes": 13587,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/write-company-integration-batches.mjs",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "e6cffbfb6ef8252d9f11d958c577601c8fb2730934dbc3a403cc84eaceecdfd5",
+      "bytes": 4142,
       "contentKind": "text",
       "findings": []
     },
@@ -11475,6 +11761,24 @@
       "disposition": "retain-active",
       "sha256": "e67a4eda489d9933e1b90014079dc6d18a739a522be108b2bf70cd0ed10009b8",
       "bytes": 13446,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/company-integration-batches.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "1031c580485123afbe2ce2898a7778d4f6c11f8079ab874b26d3206f46b4f246",
+      "bytes": 1036,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/company-integration-portfolio.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "44410c8137601450d1c4ba865228b7344d07249218a688f499eab0f3a8b75041",
+      "bytes": 2319,
       "contentKind": "text",
       "findings": []
     },
@@ -21275,6 +21579,24 @@
       "disposition": "retain-active",
       "sha256": "d30065ab263b3485fd8f0bc5182086dc47cc6d8ff5c6d8c2f24e9f269d7e6db8",
       "bytes": 3062,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261104234500_central_company_source_reconciliation.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "b652906348f78e61907e77e547084d49da262e028466e3322a25c1a17a059358",
+      "bytes": 10245,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261104235500_central_company_source_json_case_fix.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "2852c062abda0057d58364d1584db78d02062553a1676e5cd13cc5027e01ac3c",
+      "bytes": 10269,
       "contentKind": "text",
       "findings": []
     },
