@@ -50,6 +50,7 @@ const roleRules = [
   [/^clean-room\/tests\//, "TEST"],
   [/^clean-room\/scripts\//, "SCRP"],
   [/^clean-room\/evidence\//, "EVID"],
+  [/^clean-room\/operations\/[^/]+\.md$/, "ROOTDOC"],
   [/^clean-room\/api\//, "ASRV"],
   [/^clean-room\/vercel\.json$/, "CONF"],
   [/^docs\//, "ROOTDOC"],
