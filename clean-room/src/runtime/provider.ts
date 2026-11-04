@@ -6,6 +6,8 @@ import { SupabaseOwnerRuntimeSnapshotProvider, type SessionStorageLike } from ".
 export interface RuntimeSnapshotProvider {
   readonly id: string;
   load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot>;
+  /** Optional owner-authenticated database-change subscription. */
+  watchChanges?(onChanged: () => void): () => void;
 }
 
 export class DisconnectedRuntimeSnapshotProvider implements RuntimeSnapshotProvider {
