@@ -1,3 +1,4 @@
+import { invokeExecutionGateway } from "./execution-gateway.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
 import { SupabasePasskeyClient, type SupabasePasskeyDescriptor } from "../security/supabase-passkeys.js";
@@ -31,6 +32,7 @@ export interface BrainConversationRuntimeProvider {
   load(signal?: AbortSignal): Promise<CommandCenterRuntimeSnapshot>;
   createBrainConversation(projectId: string | undefined, title: string): Promise<string>;
   recordBrainOwnerTurn(conversationId: string, text: string): Promise<BrainTurnWriteResult>;
+  requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string>;
   decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void>;
   convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
@@ -129,6 +131,7 @@ export function isBrainConversationRuntimeProvider(value: Readonly<{ id: string;
   const candidate = value as Partial<BrainConversationRuntimeProvider>;
   return typeof candidate.createBrainConversation === "function"
     && typeof candidate.recordBrainOwnerTurn === "function"
+    && typeof candidate.requestBrainResponse === "function"
     && typeof candidate.decideBrainImprovement === "function"
     && typeof candidate.convertBrainImprovementToScopeRequest === "function";
 }
@@ -146,6 +149,7 @@ export function isOwnerSecurityRuntimeProvider(value: RuntimeProviderLike): valu
     && typeof candidate.revokeOwnerDevice === "function"
     && typeof candidate.createBrainConversation === "function"
     && typeof candidate.recordBrainOwnerTurn === "function"
+    && typeof candidate.requestBrainResponse === "function"
     && typeof candidate.decideBrainImprovement === "function"
     && typeof candidate.convertBrainImprovementToScopeRequest === "function";
 }
@@ -322,16 +326,21 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const nonce = requestId ?? this.#randomId();
     if (!/^[a-f0-9-]{36}$/i.test(nonce)) throw new Error("Invalid request identity");
     const runId = `agency-run:${nonce}`;
-    const existing = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id,objective", { run_id: `eq.${runId}`, limit: "1" });
-    if (existing.length) {
-      if (existing[0]!.project_id !== projectId || existing[0]!.objective !== objective.trim()) throw new Error("Request identity is already bound to a different run");
-      return runId;
-    }
-    const ref = `owner:prepare-agency-run:${runId}`;
-    await this.#rpcPayload("command_center_agency_create_run", session.accessToken, {
-      p_project_id: projectId, p_run_id: runId, p_objective: objective.trim(), p_control_mode: "manual_task", p_authorization_ref: ref, p_priority: 0, p_checkpoint_id: null, p_evidence_refs: [ref], p_created_at: new Date().toISOString()
+    const receipt = await invokeExecutionGateway({ supabaseUrl: this.#supabaseUrl, publishableKey: this.#publishableKey, accessToken: session.accessToken, fetcher: this.#fetcher }, {
+      action: "agency_start", projectId, objective: objective.trim(), requestId: nonce
     });
+    if (receipt.runId !== runId || receipt.state !== "working" || typeof receipt.taskId !== "string" || !receipt.taskId.trim() || typeof receipt.executorKey !== "string" || !receipt.executorKey.trim()) throw new Error("Start did not confirm a claimed execution task");
     return runId;
+  }
+
+  async requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string> {
+    if (!conversationId.trim() || !ownerTurnId.trim()) throw new Error("A saved conversation and owner turn are required");
+    const session = this.#currentSession();
+    const receipt = await invokeExecutionGateway({ supabaseUrl: this.#supabaseUrl, publishableKey: this.#publishableKey, accessToken: session.accessToken, fetcher: this.#fetcher }, {
+      action: "brain_response", conversationId, ownerTurnId
+    });
+    if (typeof receipt.brainTurnId !== "string" || !receipt.brainTurnId.trim()) throw new Error("Brain did not confirm a saved response");
+    return receipt.brainTurnId;
   }
 
   async stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {

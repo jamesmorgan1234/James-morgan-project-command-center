@@ -9,6 +9,7 @@ function setup({project=true,existing=[],runs=[]}={}) {
  if(url.pathname.endsWith('/command_center_project_profiles'))data=project?[{project_id:'project-1'}]:[];
  else if(url.pathname.endsWith('/command_center_canonical_entities'))data=existing;
  else if(url.pathname.endsWith('/command_center_agency_runs'))data=runs;
+ else if(url.pathname.endsWith('/functions/v1/command-center-execution'))data={runId:'agency-run:'+nonce,state:'working',taskId:'agency-task:1',executorKey:'executor:test'};
  else if(url.pathname.includes('/rpc/'))data={ok:true};
  else throw Error('Unexpected '+url.pathname);
  return new Response(JSON.stringify(data),{status:200,headers:{'content-type':'application/json','content-range':Array.isArray(data)?(data.length?'0-'+(data.length-1)+'/'+data.length:'*/0'):'*/0'}});
@@ -40,10 +41,11 @@ test('saved record retries are idempotent and cannot reuse an identity across pr
  existing[0].project_id='other-project'; await assert.rejects(provider.saveProjectRecord('project-1','decision','Test','Test',undefined,nonce),/different project/);
  assert.equal(calls.some(c=>c.init.method==='POST'),false);
 });
-test('Agency prepare creates manual draft through canonical function without queueing or executor calls',async()=>{
- const {provider,calls}=setup(); assert.equal(await provider.createProjectAgencyRun('project-1','Prepare diagnostic only',nonce),'agency-run:'+nonce);
- const writes=calls.filter(c=>c.init.method==='POST'); assert.equal(writes.length,1);assert.equal(writes[0].url.pathname,'/rest/v1/rpc/command_center_agency_create_run');
- assert.equal(writes[0].body.p_control_mode,'manual_task'); assert.equal(writes[0].body.p_checkpoint_id,null);assert.equal(writes[0].body.p_priority,0);
+test('Agency Start invokes on-demand execution and never writes a draft through the browser',async()=>{
+ const {provider,calls}=setup(); assert.equal(await provider.createProjectAgencyRun('project-1','Build next authorized task',nonce),'agency-run:'+nonce);
+ const writes=calls.filter(c=>c.init.method==='POST'); assert.equal(writes.length,1);assert.equal(writes[0].url.pathname,'/functions/v1/command-center-execution');
+ assert.equal(writes[0].body.action,'agency_start'); assert.equal(writes[0].body.projectId,'project-1'); assert.equal(writes[0].body.requestId,nonce);
+ assert.equal(writes[0].init.headers.authorization,'Bearer test-token');
 });
 test('Agency stop rejects a run outside the selected project',async()=>{
  const {provider,calls}=setup({runs:[{project_id:'other-project',run_id:'agency-run:'+nonce}]});

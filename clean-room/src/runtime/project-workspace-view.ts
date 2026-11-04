@@ -57,22 +57,22 @@ export function renderProjectRecordSection(project: RuntimeProjectSnapshot, kind
   return node;
 }
 export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, snapshot: CommandCenterRuntimeSnapshot, provider: unknown, rerender: () => Promise<void>): HTMLElement {
-  const node = card("Start project / Agency setup"); node.classList.add("project-start-controls");
+  const node = card("Start project"); node.classList.add("project-start-controls");
   const release = snapshot.release.releaseId.state === "known" ? snapshot.release.releaseId.value : "";
   const plan = project.workspace?.sourceRef ? safeProjectReferenceLink(project.workspace.sourceRef, release) : undefined;
   if (plan) node.append(link("Open full business plan", plan));
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
-  node.append(el("p", "muted", "Prepare a saved Agency run for this project. A draft does not launch a company, enable paid services, or bypass project approval."));
+  node.append(el("p", "muted", "Start the next authorized project task with a connected free worker. Paid services and protected actions remain blocked."));
   if (blockers.length) {
     node.append(el("strong", undefined, "Required before unattended execution")); const list = el("ul", "project-start-blockers"); for (const reason of blockers) list.append(el("li", undefined, reason)); node.append(list);
   }
-  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = `Prepare ${project.name} from its approved business plan. Preserve project isolation and the $0 limit.`;
-  const requestId = crypto.randomUUID(); const submit = el("button", "cc-button", "Prepare Agency run"); submit.type = "submit"; const status = el("p", "muted"); status.setAttribute("role", "status");
+  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = `Execute the next ready task for ${project.name} from its approved roadmap. Preserve project isolation and the $0 limit.`;
+  const requestId = crypto.randomUUID(); const submit = el("button", "cc-button", "Start project"); submit.type = "submit"; const status = el("p", "muted"); status.setAttribute("role", "status");
   submit.disabled = !isProjectWorkspaceRuntimeProvider(provider); form.append(submit, status); node.append(form);
   if (isProjectWorkspaceRuntimeProvider(provider)) form.addEventListener("submit", event => { event.preventDefault(); void (async () => {
-    submit.disabled = true; status.textContent = "Preparing a draft run…";
+    submit.disabled = true; status.textContent = "Requesting immediate execution…";
     try { await provider.createProjectAgencyRun(project.id, objective.value, requestId); await rerender(); }
-    catch (reason) { status.textContent = reason instanceof Error ? reason.message : "Run could not be prepared"; submit.disabled = false; }
+    catch (reason) { status.textContent = reason instanceof Error ? reason.message : "Execution could not be confirmed"; submit.disabled = false; }
   })(); });
   const runs = snapshot.agency?.runs.filter(run => run.projectId === project.id) ?? [];
   for (const run of runs) {

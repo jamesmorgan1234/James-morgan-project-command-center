@@ -226,7 +226,7 @@ function composer(
   input.placeholder = projectId ? "Ask, decide, research, propose, or steer work for this project…" : "Ask, decide, research, propose, or steer Command Center…";
   input.setAttribute("aria-label", "Brain conversation input");
   input.disabled = !writable;
-  const submit = el("button", "cc-button brain-composer__submit", "Save message");
+  const submit = el("button", "cc-button brain-composer__submit", "Send message");
   submit.type = "submit";
   submit.disabled = !writable;
   const voiceControls = el("div", "brain-voice-controls");
@@ -238,7 +238,7 @@ function composer(
   const voiceStatus = el("span", "brain-voice-status muted", "Text input is always available.");
   voiceControls.append(voiceButton, cancelVoice, voiceStatus);
   const message = el("p", "brain-composer__message muted", writable
-    ? "Save a message in this conversation. Saving a request does not approve or execute an action."
+    ? "Send a message to Brain. Protected actions require their own authorization."
     : "Persistent Brain input is unavailable because the authenticated canonical Brain provider is not currently writable. Nothing will be stored locally as a substitute.");
   form.append(input, voiceControls, submit);
   node.append(form, message);
@@ -306,6 +306,7 @@ function composer(
 
   if (!writable || !provider || !isBrainConversationRuntimeProvider(provider)) return node;
 
+  let pendingResponse: { conversationId: string; turnId: string } | undefined;
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     if (voiceCapture) return;
@@ -319,21 +320,28 @@ function composer(
       submit.textContent = "Saving…";
       message.textContent = "Saving your message…";
       try {
-        let conversationId = selected?.id;
+        let conversationId = pendingResponse?.conversationId ?? selected?.id;
         if (!conversationId) {
           const project = projectId ? snapshot.projects.find((candidate) => candidate.id === projectId) : undefined;
           conversationId = await provider.createBrainConversation(projectId, project ? `${project.name} — Brain` : "Command Center Brain");
         }
-        await provider.recordBrainOwnerTurn(conversationId, value);
+        if (!pendingResponse) {
+          const saved = await provider.recordBrainOwnerTurn(conversationId, value);
+          pendingResponse = { conversationId, turnId: saved.turnId };
+        }
         window.history.replaceState({}, "", brainHref(projectId, conversationId));
+        submit.textContent = "Waiting for Brain…";
+        message.textContent = "Your message is saved. Requesting a Brain response…";
+        await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+        pendingResponse = undefined;
         await rerender();
-      } catch {
-        input.disabled = false;
-        voiceButton.disabled = !voiceAdapter;
-        cancelVoice.disabled = false;
+      } catch (reason) {
+        input.disabled = !!pendingResponse;
+        voiceButton.disabled = !!pendingResponse || !voiceAdapter;
+        cancelVoice.disabled = !!pendingResponse;
         submit.disabled = false;
-        submit.textContent = "Save message";
-        message.textContent = "Your message could not be saved. Please try again.";
+        submit.textContent = pendingResponse ? "Retry Brain response" : "Send message";
+        message.textContent = reason instanceof Error ? reason.message : pendingResponse ? "Your message is saved, but the Brain response is unavailable." : "Your message could not be saved.";
       }
     })();
   });
