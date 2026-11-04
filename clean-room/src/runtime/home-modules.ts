@@ -51,6 +51,16 @@ export function needsMeCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
   return Object.freeze({ supportingText: surface.summary.value });
 }
 
+export function revenueCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
+  const revenue = snapshot.revenue;
+  if (!revenue || sourceUnavailable(snapshot, "revenue")) {
+    return Object.freeze({ supportingText: "No verified recorded revenue is available. A missing measurement is not zero." });
+  }
+  return Object.freeze({
+    supportingText: `Recorded for ${revenue.projectCount} project${revenue.projectCount === 1 ? "" : "s"} · last verified ${revenue.latestObservedAt.slice(0, 10)} · not a live portfolio total.`
+  });
+}
+
 export function createCoreHomeModuleRegistry(extensions: readonly HomeModuleRegistration<HomeRuntimeContext>[] = []): HomeModuleRegistry<HomeRuntimeContext> {
   const registry = new HomeModuleRegistry<HomeRuntimeContext>();
   registry.register({ key: "projects", title: "Projects", route: "/projects", resolve: ({ snapshot }) => projectCountCell(snapshot) });
