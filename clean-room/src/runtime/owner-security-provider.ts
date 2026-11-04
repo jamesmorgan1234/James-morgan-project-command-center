@@ -238,7 +238,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     };
     const existing = (await getRows())[0]!;
     const merged = [...new Set([...stringArray(existing.evidence_refs), ...evidence])];
-    const patch = await this.#fetcher(url.replace("select=work_unit_id%2Cstatus%2Cevidence_refs", "select=work_unit_id%2Cstatus%2Cevidence_refs"), {
+    const patch = await this.#fetcher(url, {
       method: "PATCH",
       headers: { ...headers, "content-type": "application/json", prefer: "return=representation" },
       body: JSON.stringify({ status: "verified", evidence_refs: merged, updated_at: new Date().toISOString() }),
