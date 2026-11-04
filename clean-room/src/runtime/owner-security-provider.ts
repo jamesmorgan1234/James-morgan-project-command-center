@@ -184,6 +184,11 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
   }
 
+  watchChanges(onChanged: () => void): () => void {
+    const realtime = this.#inner as RuntimeProviderLike & { watchChanges?: (listener: () => void) => () => void };
+    return realtime.watchChanges?.(onChanged) ?? (() => undefined);
+  }
+
   signIn(email: string, password: string): Promise<void> {
     return this.#inner.signIn(email, password);
   }
