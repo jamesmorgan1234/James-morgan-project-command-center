@@ -71,12 +71,23 @@ export function watchOwnerRealtime(options: OwnerRealtimeOptions): () => void {
     sequence += 1;
     socket.send(packet(topic, event, payload, String(sequence), joinRef));
   };
+  const reconnect = (): void => {
+    if (stopped || retry) return;
+    retry = setTimeout(() => {
+      retry = undefined;
+      void connect();
+    }, delayMs);
+    delayMs = Math.min(30_000, delayMs * 2);
+  };
   const connect = async (): Promise<void> => {
     if (stopped) return;
     const token = await options.accessToken().catch(() => undefined);
-    if (stopped || !token) return;
+    if (stopped) return;
+    if (!token) { reconnect(); return; }
     let currentToken = token;
-    const nextSocket = new WebSocket(endpoint.toString());
+    let nextSocket: WebSocket;
+    try { nextSocket = new WebSocket(endpoint.toString()); }
+    catch { reconnect(); return; }
     socket = nextSocket;
     let joined = false;
 
@@ -120,9 +131,7 @@ export function watchOwnerRealtime(options: OwnerRealtimeOptions): () => void {
       if (socket !== nextSocket) return;
       clearTimers();
       socket = undefined;
-      if (stopped) return;
-      retry = setTimeout(() => { void connect(); }, delayMs);
-      delayMs = Math.min(30_000, delayMs * 2);
+      reconnect();
     };
     nextSocket.onerror = () => { nextSocket.close(); };
   };
