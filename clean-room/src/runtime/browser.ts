@@ -233,8 +233,10 @@ function renderProjectControls(snapshot: CommandCenterRuntimeSnapshot, filter: R
   reset.addEventListener("click", () => updateProjectQuery({ q: undefined, lifecycle: undefined, priority: undefined, type: undefined, company: undefined, group: undefined }));
   const footer = el("div", "project-toolbar__footer");
   footer.append(grouping, reset);
-  const refresh = el("button", "project-filter-button project-filter-button--secondary", "Refresh progress");
-  refresh.type = "button"; refresh.addEventListener("click", () => { void renderApplication(); });
+  const refresh = el("button", "project-filter-button project-filter-button--secondary", "Refresh progress & revenue");
+  refresh.type = "button";
+  refresh.title = "Reload the latest saved canonical progress and revenue. No unconnected external account is assumed refreshed.";
+  refresh.addEventListener("click", () => { void renderApplication(undefined, true); });
   toolbar.append(search, filters, footer, refresh);
   return toolbar;
 }
