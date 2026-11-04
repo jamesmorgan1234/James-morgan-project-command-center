@@ -12,8 +12,9 @@ const quote=x=>String(x).replace(/\s+/g,' ').trim();
 const requireState=(good,message)=>{if(!good)throw new Error(message);};
 const category=title=>{
  const s=title.toLowerCase();
+ if(/^\s*(?:brain|velobrain)\b/.test(s))return 'brain';
+ if(/\bagents?\b|specialist|orchestrat/.test(s))return 'agent';
  if(/brain|reasoning|intelligence/.test(s))return 'brain';
- if(/\bagent\b|specialist|orchestrat/.test(s))return 'agent';
  if(/product|feature/.test(s))return 'product';
  if(/service|worker/.test(s))return 'service';
  if(/workflow|pipeline|input|output|integration|api|data/.test(s))return 'integration';
