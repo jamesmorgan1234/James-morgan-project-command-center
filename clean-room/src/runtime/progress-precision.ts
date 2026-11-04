@@ -1,6 +1,6 @@
 /** Precise, evidence-gated canonical work-unit progress. The caller must
  * separately prove that the full roadmap denominator is trusted. */
-export function verifiedWorkUnitPercent(units: readonly Readonly<{ applicable: unknown; status: unknown }>[]): number | undefined {
+export function verifiedWorkUnitPercent(units: readonly Readonly<{ applicable?: unknown; status?: unknown }>[]): number | undefined {
   const applicable = units.filter((unit) => unit.applicable === true);
   if (applicable.length === 0) return undefined;
   const complete = applicable.filter((unit) => unit.status === "verified" || unit.status === "skipped").length;
