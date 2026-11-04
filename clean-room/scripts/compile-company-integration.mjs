@@ -97,7 +97,7 @@ export function compileCompanySource(n,filename,source,conformance='',conformanc
  const brain=sourceParts.find(x=>/brain/i.test(x.heading));
  const agent=sourceParts.find(x=>/agent/i.test(x.heading));
  const capabilities=[...new Set([...atoms(brain.body),...atoms(agent.body)])].slice(0,100);
- return {identity,sourcePath,sourceSha256:digest(source),sourceRef:ref,conformanceRef:supplementalRef??null,
+ return {identity,projectId:identity.projectId,companyId:identity.companyId,sourcePath,sourceSha256:digest(source),sourceRef:ref,conformanceRef:supplementalRef??null,
   graph:roadmap,brain:{specialistId:'brn_company-future-'+id,brainKey:'brain:company:future:'+id+':v1',
    sourceSection:brain.heading,sourceText:brain.body,agentSection:agent.heading,agentText:agent.body,
    capabilities,enabled:false,health:'unavailable',verificationState:'experimental'},
