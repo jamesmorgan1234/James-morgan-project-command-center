@@ -41,6 +41,7 @@ export interface ProjectWorkspaceRuntimeProvider {
   saveProjectRecord(projectId: string, kind: "decision" | "asset_reference" | "integration_request", title: string, detail: string, url?: string, requestId?: string): Promise<string>;
   createProjectAgencyRun(projectId: string, objective: string, requestId?: string): Promise<string>;
   stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void>;
+  continueProjectAgencyRun?(projectId: string, runId: string, generation: number): Promise<void>;
 }
 export function isProjectWorkspaceRuntimeProvider(value: unknown): value is ProjectWorkspaceRuntimeProvider {
   if (!value || typeof value !== "object") return false;
@@ -326,10 +327,10 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const nonce = requestId ?? this.#randomId();
     if (!/^[a-f0-9-]{36}$/i.test(nonce)) throw new Error("Invalid request identity");
     const runId = `agency-run:${nonce}`;
-    const receipt = await invokeExecutionGateway({ supabaseUrl: this.#supabaseUrl, publishableKey: this.#publishableKey, accessToken: session.accessToken, fetcher: this.#fetcher }, {
-      action: "agency_start", projectId, objective: objective.trim(), requestId: nonce
+    const receipt = await this.#rpcPayload("command_center_agency_start_normal_chat", session.accessToken, {
+      p_project_id: projectId, p_run_id: runId, p_objective: objective.trim()
     });
-    if (receipt.runId !== runId || receipt.state !== "working" || typeof receipt.taskId !== "string" || !receipt.taskId.trim() || typeof receipt.executorKey !== "string" || !receipt.executorKey.trim()) throw new Error("Start did not confirm a claimed execution task");
+    if (!isRecord(receipt) || receipt.run_id !== runId || !["queued", "working", "needs_user", "blocked", "paused", "completed"].includes(String(receipt.state))) throw new Error("Start did not confirm a durable normal-chat run");
     return runId;
   }
 
@@ -348,6 +349,14 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
     if (!rows.some(row => row.run_id === runId && row.project_id === projectId)) throw new Error("Run is outside this project");
     await this.#rpcPayload("command_center_agency_transition_run", session.accessToken, { p_run_id: runId, p_expected_generation: generation, p_to_state: "stopped", p_blocker: null, p_verification_refs: [], p_evidence_refs: [`owner:stop-run:${this.#randomId()}`], p_occurred_at: new Date().toISOString() });
+  }
+
+  async continueProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {
+    const session = await this.#assertProject(projectId);
+    const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id,control_mode,authorization_ref,state", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
+    const run = rows[0];
+    if (!run || run.project_id !== projectId || run.control_mode !== "until_work" || run.authorization_ref !== `owner:normal-chat-start:${runId}` || !["needs_user", "blocked"].includes(String(run.state))) throw new Error("This run cannot be continued as normal-chat work");
+    await this.#rpcPayload("command_center_agency_transition_run", session.accessToken, { p_run_id: runId, p_expected_generation: generation, p_to_state: "queued", p_blocker: null, p_verification_refs: [], p_evidence_refs: [`owner:normal-chat-continue:${this.#randomId()}`], p_occurred_at: new Date().toISOString() });
   }
 
   async listOwnerPasskeys(): Promise<readonly SupabasePasskeyDescriptor[]> {

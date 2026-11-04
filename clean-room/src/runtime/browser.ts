@@ -525,7 +525,14 @@ function renderAgency(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   if (project) view.prepend(renderProjectAgencyControls(project, snapshot, activeProvider, () => renderApplication()));
   return view;
 }
-function renderNeedsMe(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "needs-me", "Needs Me", "Owner-attention queue state is unavailable in the current canonical snapshot."); }
+function renderNeedsMe(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
+  const view = renderCanonicalSurface(snapshot, "needs-me", "Needs Me", "Owner-attention queue state is unavailable in the current canonical snapshot.");
+  if (snapshot.agency?.availability === "available") for (const run of snapshot.agency.runs.filter(run => run.state === "needs_user")) {
+    const project = snapshot.projects.find(item => item.id === run.projectId);
+    view.append(genericCard(`${project?.name ?? run.projectId} — needs you`, run.blocker ?? "Open this project's run for its saved checkpoint and required action.", undefined, `/project/${encodeURIComponent(run.projectId)}`));
+  }
+  return view;
+}
 function renderSearch(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "search", "Search", "Search runtime state is not configured in the current canonical snapshot. No search results are inferred."); }
 function renderAutomations(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "automations", "Automations", "Automation runtime state is not configured in the current canonical snapshot. No automation status is inferred."); }
 function renderPersonal(snapshot: CommandCenterRuntimeSnapshot): HTMLElement { return renderCanonicalSurface(snapshot, "personal", "Personal", "Personal-operations runtime state is not configured in the current canonical snapshot."); }

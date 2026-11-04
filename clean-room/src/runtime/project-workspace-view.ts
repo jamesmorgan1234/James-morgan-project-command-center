@@ -62,21 +62,28 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
   const plan = project.workspace?.sourceRef ? safeProjectReferenceLink(project.workspace.sourceRef, release) : undefined;
   if (plan) node.append(link("Open full business plan", plan));
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
-  node.append(el("p", "muted", "Start the next authorized project task with a connected free worker. Paid services and protected actions remain blocked."));
+  node.append(el("p", "muted", "Start normal-chat work for this project. The worker saves its progress and stops when it needs you or Work. Paid services and protected actions require separate authorization."));
   if (blockers.length) {
     node.append(el("strong", undefined, "Required before unattended execution")); const list = el("ul", "project-start-blockers"); for (const reason of blockers) list.append(el("li", undefined, reason)); node.append(list);
   }
-  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = `Execute the next ready task for ${project.name} from its approved roadmap. Preserve project isolation and the $0 limit.`;
+  const runs = snapshot.agency?.runs.filter(run => run.projectId === project.id) ?? [];
+  const activeRun = runs.some(run => ["queued", "working", "paused", "blocked", "needs_user"].includes(run.state));
+  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = `Build ${project.name} through all safe normal-chat work in its approved roadmap. Produce and verify actual artifacts, preserve project isolation and the $0 limit, and stop when Work or owner action is genuinely required.`;
   const requestId = crypto.randomUUID(); const submit = el("button", "cc-button", "Start project"); submit.type = "submit"; const status = el("p", "muted"); status.setAttribute("role", "status");
-  submit.disabled = !isProjectWorkspaceRuntimeProvider(provider); form.append(submit, status); node.append(form);
+  submit.disabled = !isProjectWorkspaceRuntimeProvider(provider) || activeRun; form.append(submit, status); node.append(form);
+  if (activeRun) status.textContent = "This project already has an active run. Its progress is shown below.";
   if (isProjectWorkspaceRuntimeProvider(provider)) form.addEventListener("submit", event => { event.preventDefault(); void (async () => {
-    submit.disabled = true; status.textContent = "Requesting immediate execution…";
+    submit.disabled = true; status.textContent = "Submitting normal-chat work…";
     try { await provider.createProjectAgencyRun(project.id, objective.value, requestId); await rerender(); }
     catch (reason) { status.textContent = reason instanceof Error ? reason.message : "Execution could not be confirmed"; submit.disabled = false; }
   })(); });
-  const runs = snapshot.agency?.runs.filter(run => run.projectId === project.id) ?? [];
   for (const run of runs) {
-    const row = el("article", "project-workspace-record"); row.append(el("strong", undefined, run.objective), el("p", "muted", `Run state: ${run.state}. ${run.state === "draft" ? "Saved, awaiting execution setup; no worker has started." : ""}`));
+    const row = el("article", "project-workspace-record"); row.append(el("strong", undefined, run.objective), el("p", "muted", `Run state: ${run.state}. ${run.state === "queued" ? "Waiting for the connected ChatGPT worker; execution has not yet been claimed." : run.state === "draft" ? "Saved, awaiting execution setup; no worker has started." : ""}`));
+    if (run.blocker) row.append(el("p", "muted", run.blocker));
+    if (["needs_user", "blocked"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider) && provider.continueProjectAgencyRun) {
+      const resume = el("button", "cc-button", "Continue normal-chat work"); resume.type = "button";
+      resume.addEventListener("click", () => { resume.disabled = true; void provider.continueProjectAgencyRun!(project.id, run.runId, run.generation).then(rerender).catch(reason => { status.textContent = reason instanceof Error ? reason.message : "Run could not be continued"; resume.disabled = false; }); }); row.append(resume);
+    }
     if (!["stopped", "failed", "completed"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider)) {
       const stop = el("button", "cc-button cc-button--secondary", "Stop this run"); stop.type = "button";
       stop.addEventListener("click", () => { stop.disabled = true; void provider.stopProjectAgencyRun(project.id, run.runId, run.generation).then(rerender).catch(reason => { status.textContent = reason instanceof Error ? reason.message : "Run could not be stopped"; stop.disabled = false; }); }); row.append(stop);

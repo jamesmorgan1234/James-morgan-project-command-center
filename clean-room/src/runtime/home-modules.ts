@@ -45,6 +45,8 @@ export function nextUpCell(snapshot: CommandCenterRuntimeSnapshot, count: number
 
 export function needsMeCell(snapshot: CommandCenterRuntimeSnapshot): HomeCell {
   const surface = snapshot.surfaces.find((candidate) => candidate.key === "needs-me");
+  const agencyCount = snapshot.agency?.availability === "available" ? snapshot.agency.runs.filter(run => run.state === "needs_user").length : undefined;
+  if (agencyCount) return Object.freeze({ supportingText: `${agencyCount} Agency run${agencyCount === 1 ? "" : "s"} need${agencyCount === 1 ? "s" : ""} your action.${surface?.summary.state === "known" ? ` ${surface.summary.value}` : " Project checkpoint attention is unavailable."}` });
   if (!surface || surface.summary.state !== "known") return Object.freeze({ supportingText: "Owner-attention queue unavailable: the canonical checkpoint source did not load, so zero cannot be proven." });
   return Object.freeze({ supportingText: surface.summary.value });
 }

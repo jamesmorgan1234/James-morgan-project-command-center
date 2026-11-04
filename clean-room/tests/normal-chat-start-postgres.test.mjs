@@ -1,0 +1,40 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {PGlite} from '@electric-sql/pglite';
+const root=new URL('../../supabase/migrations/',import.meta.url);
+const owner='00000000-0000-4000-8000-000000000001';
+const other='00000000-0000-4000-8000-000000000002';
+test('normal-chat Start is atomic, owner-scoped, idempotent, until-Work only and refuses duplicate live runs',async()=>{
+ const db=new PGlite();try{
+  await db.exec(`create role anon;create role authenticated;create schema auth;create schema command_center_private;
+   create table auth.users(id uuid primary key);
+   insert into auth.users values('${owner}'),('${other}');
+   create function auth.uid() returns uuid language sql as $$select nullif(current_setting('test.owner',true),'')::uuid$$;
+   create function public.is_command_center_authorized() returns boolean language sql as $$select auth.uid() is not null$$;
+   create function command_center_private.c3_assert_unique_text_array(text[],text) returns void language plpgsql as $$begin if cardinality($1)<>(select count(distinct v) from unnest($1)v) then raise exception 'duplicate';end if;end$$;
+   create table command_center_project_profiles(owner_id uuid,project_id text,primary key(owner_id,project_id));
+   insert into command_center_project_profiles values('${owner}','selected'),('${other}','private');
+   create table command_center_project_checkpoints(checkpoint_id uuid primary key,owner_id uuid,project_id text);`);
+  for(const file of ['20261024152500_category7_run_job_task_state.sql','20261024153500_category7_executor_registry.sql','20261104103719_normal_chat_owner_start.sql'])await db.exec(await readFile(new URL(file,root),'utf8'));
+  const start=(project,id,objective='Build normal-chat work')=>db.query('select command_center_agency_start_normal_chat($1,$2,$3) as result',[project,id,objective]);
+  await assert.rejects(start('selected','agency-run:one'),/Unauthorized/);
+  await db.query("select set_config('test.owner',$1,false)",[owner]);
+  await assert.rejects(start('private','agency-run:one'),/project not found/);
+  await assert.rejects(start('selected','agency-run:one'),/not configured/);
+  assert.equal((await db.query('select count(*)::int as n from command_center_agency_runs')).rows[0].n,0);
+  await db.query(`select command_center_agency_register_executor('executor:chatgpt-task',true,array['normal_chat'],array['project.execute'],'{}','{}','{}','execute_reversible','free','degraded','self_evidence','low','chatgpt-task:6ada7af0b254819184456ca1246e3f69',array['artifact','tests'],array['test:connection'],'test:registration')`);
+  assert.equal((await start('selected','agency-run:one')).rows[0].result.state,'queued');
+  const run=(await db.query('select * from command_center_agency_runs')).rows[0];
+  assert.equal(run.control_mode,'until_work');assert.equal(run.authorization_ref,'owner:normal-chat-start:agency-run:one');assert.equal(run.state,'queued');
+  assert.equal((await db.query('select count(*)::int as n from command_center_agency_tasks')).rows[0].n,0,'queue acceptance must not fabricate worker execution');
+  assert.equal((await start('selected','agency-run:one')).rows[0].result.duplicate,true);
+  await assert.rejects(start('selected','agency-run:one','different objective'),/different work/);
+  await assert.rejects(start('selected','agency-run:two'),/already has an active run/);
+  await db.query("select command_center_agency_transition_run('agency-run:one',1,'stopped',null,'{}',array['owner:stop'],now())");
+  assert.equal((await start('selected','agency-run:one')).rows[0].result.state,'stopped','a repeated Start must not resurrect stopped work');
+  assert.equal((await start('selected','agency-run:two')).rows[0].result.state,'queued');
+  const events=(await db.query("select to_state from command_center_agency_state_events where entity_id='agency-run:two' order by recorded_at,event_id")).rows;
+  assert.deepEqual(events.map(e=>e.to_state).sort(),['draft','queued']);
+ }finally{await db.close();}
+});
