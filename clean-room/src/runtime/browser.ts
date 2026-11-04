@@ -145,6 +145,7 @@ function progressRing(project: RuntimeProjectSnapshot): HTMLElement {
     ring.append(el("strong", undefined, "—"));
   }
   wrap.append(ring, el("span", "metric-label", project.progressBasis === "last_recorded" ? "Last recorded" : project.progressPercent.state === "known" ? "Scope" : "Unmeasured"));
+  if (project.workUnitProgress) wrap.append(el("span", "project-verified-count", `${project.workUnitProgress.verified}/${project.workUnitProgress.applicable} steps`));
   if (project.statusObservedAt) wrap.append(el("span", "sync-note", `Status ${project.statusObservedAt.slice(0, 10)}`));
   if (project.progressObservedAt) wrap.append(el("span", "sync-note", project.progressObservedAt.slice(0, 10)));
   return wrap;
@@ -387,7 +388,8 @@ function renderProjectDetail(snapshot: CommandCenterRuntimeSnapshot, projectId: 
   const metrics: readonly [string, string][] = [
     [project.progressBasis === "last_recorded" ? `Last recorded progress (${project.progressObservedAt?.slice(0, 10) ?? "date unknown"})` : "Progress", project.progressPercent.state === "known" ? `${project.progressPercent.value}%` : project.progressSummary ?? "Unmeasured"],
     ["Status", truthText(project.status)],
-    ["Priority", truthText(project.priority)]
+    ["Priority", truthText(project.priority)],
+    ...(project.workUnitProgress ? [["Verified roadmap steps", `${project.workUnitProgress.verified} / ${project.workUnitProgress.applicable}`] as [string, string]] : [])
   ];
   for (const [label, value] of metrics) {
     const metric = el("div", "performance-metric");
