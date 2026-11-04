@@ -726,12 +726,49 @@ let latestSnapshot: CommandCenterRuntimeSnapshot | undefined;
 let activeProvider: RuntimeSnapshotProvider | undefined;
 let renderGeneration = 0;
 let signedOut = false;
+let stopOwnerLiveChanges: (() => void) | undefined;
+let ownerRecoveryInterval: ReturnType<typeof setInterval> | undefined;
+let liveRefreshDelay: ReturnType<typeof setTimeout> | undefined;
+let liveRefreshDeferred = false;
+
+function queueOwnerLiveRefresh(): void {
+  if (signedOut || startupFailed() || document.visibilityState === "hidden" || liveRefreshDelay) return;
+  liveRefreshDelay = setTimeout(() => {
+    liveRefreshDelay = undefined;
+    if (signedOut || startupFailed() || document.visibilityState === "hidden") return;
+    const editing = document.activeElement?.closest("input,textarea,select,[contenteditable='true']");
+    if (editing) { liveRefreshDeferred = true; return; }
+    liveRefreshDeferred = false;
+    void renderApplication(undefined, true);
+  }, 350);
+}
+function stopOwnerLiveRefresh(): void {
+  stopOwnerLiveChanges?.();
+  stopOwnerLiveChanges = undefined;
+  if (ownerRecoveryInterval) clearInterval(ownerRecoveryInterval);
+  ownerRecoveryInterval = undefined;
+  if (liveRefreshDelay) clearTimeout(liveRefreshDelay);
+  liveRefreshDelay = undefined;
+}
+function startOwnerLiveRefresh(snapshot: CommandCenterRuntimeSnapshot): void {
+  if (snapshot.connection.state === "disconnected") { stopOwnerLiveRefresh(); return; }
+  if (!stopOwnerLiveChanges && activeProvider?.watchChanges) {
+    stopOwnerLiveChanges = activeProvider.watchChanges(queueOwnerLiveRefresh);
+  }
+  // Reconcile missed WebSocket events, service-worker sleeps and offline periods.
+  // This is a safety refresh, not the primary progress-update mechanism.
+  if (!ownerRecoveryInterval) ownerRecoveryInterval = setInterval(queueOwnerLiveRefresh, 90_000);
+}
+document.addEventListener("focusout", () => {
+  if (liveRefreshDeferred) queueOwnerLiveRefresh();
+}, true);
 function startupFailed(): boolean {
   return (window as Window & { __commandCenterStartupFailed?: boolean }).__commandCenterStartupFailed === true;
 }
 window.addEventListener("command-center-startup-failed", () => { renderGeneration += 1; });
 window.addEventListener("command-center-owner-signout", () => {
   signedOut = true;
+  stopOwnerLiveRefresh();
   renderGeneration += 1;
   document.querySelector<HTMLElement>("#app")?.replaceChildren();
   document.title = "Command Center";
@@ -761,14 +798,15 @@ function startPwaUpdates(): void {
   }
   void PWA_UPDATES.registerAndCheck();
 }
-export async function renderApplication(provider?: RuntimeSnapshotProvider): Promise<void> {
+export async function renderApplication(provider?: RuntimeSnapshotProvider, background = false): Promise<void> {
   const root = document.querySelector<HTMLElement>("#app");
   if (!root) throw new Error("Missing #app root");
   if (signedOut || startupFailed()) return;
   const generation = ++renderGeneration;
   const pending = el("p", "boot-state__message", "Starting Command Center.");
   pending.dataset.commandCenterBootstrap = "";
-  root.replaceChildren(pending);
+  const savedScroll = background ? window.scrollY : undefined;
+  if (!background) root.replaceChildren(pending);
   activeProvider ??= provider ?? providerFromDocument(document);
   let snapshot: CommandCenterRuntimeSnapshot;
   try { snapshot = await activeProvider.load(); }
@@ -776,6 +814,7 @@ export async function renderApplication(provider?: RuntimeSnapshotProvider): Pro
   if (signedOut || startupFailed() || generation !== renderGeneration) return;
   latestSnapshot = snapshot;
   syncShell(snapshot);
+  startOwnerLiveRefresh(snapshot);
   if (snapshot.connection.state === "disconnected") {
     document.title = "Command Center";
     const shell = el("div", "app-shell owner-auth-shell");
@@ -792,6 +831,7 @@ export async function renderApplication(provider?: RuntimeSnapshotProvider): Pro
   main.append(resolution.state === "known" ? renderKnownRoute(snapshot, resolution) : renderUnknownRoute(resolution));
   shell.append(main, navigation());
   root.append(shell);
+  if (savedScroll !== undefined) window.scrollTo(0, savedScroll);
 }
 window.addEventListener("popstate", () => { void renderApplication(); });
 window.addEventListener("online", () => { void renderApplication(); });
@@ -799,4 +839,9 @@ window.addEventListener("offline", () => { void renderApplication(); });
 startPwaUpdates();
 void renderApplication();
 
-window.addEventListener("focus", () => { if (!signedOut && ["/projects", "/books"].includes(window.location.pathname) && !document.querySelector(".boot-state__message")) void renderApplication(); });
+window.addEventListener("focus", () => {
+  if (!signedOut && !document.querySelector(".boot-state__message")) queueOwnerLiveRefresh();
+});
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && !signedOut) queueOwnerLiveRefresh();
+});
