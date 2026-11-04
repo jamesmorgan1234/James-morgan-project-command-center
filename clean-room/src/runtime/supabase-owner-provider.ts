@@ -2,6 +2,7 @@ import { latestOwnerBookMetrics } from "../books/runtime-performance.js";
 import { known, unknown, type TruthValue } from "../data/canonical.js";
 import { buildRuntimeAgencySnapshot } from "./agency-runtime-projection.js";
 import { summarizeRecordedRevenue } from "./revenue-summary.js";
+import { verifiedWorkUnitPercent } from "./progress-precision.js";
 import {
   createDisconnectedRuntimeSnapshot,
   type CommandCenterRuntimeSnapshot,
@@ -162,7 +163,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         catch { optionalErrors.add(key); return Object.freeze([]); }
       };
 
-      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, revenueRecords, bookCatalogue, bookPerformance, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors] = await Promise.all([
+      const [roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, agencyRuns, agencyJobs, agencyTasks, brainItems, automations, notifications, kpis, releases, bookReviews, publicationStates, recordedProgress, legacyProgress, revenueRecords, bookCatalogue, bookPerformance, financialMetrics, connections, specialistBrains, assets, workspaceEntities, executors] = await Promise.all([
         safe("project-roadmaps", "command_center_project_roadmaps", "project_id,version,state,structure_verified,denominator_trusted,denominator_evidence_refs,source_ref,created_at", { state: "eq.current", order: "project_id.asc,version.desc" }, true),
         safe("project-roadmaps", "command_center_project_work_units", "project_id,roadmap_version,work_unit_id,category_id,phase_id,title,status,applicable,dependency_ids,gate_ids,acceptance_criteria,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,work_unit_id.asc" }, true),
         safe("project-roadmaps", "command_center_project_roadmap_gates", "project_id,roadmap_version,gate_id,satisfied,evidence_refs,updated_at", { order: "project_id.asc,roadmap_version.desc,gate_id.asc" }, true),
@@ -181,6 +182,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         safe("books", "book_owner_reviews", "id,project_id,status,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("books", "book_publication_states", "id,project_id,state,confirmed_at,updated_at", { order: "updated_at.desc", limit: "200" }),
         safe("recorded-progress", "analytics_project_kpis", "project_id,metric_key,value_numeric,value_text,verified,observed_at", { metric_key: "eq.current_scope_progress_percent", order: "observed_at.desc", limit: "500" }),
+        safe("live-progress", "metrics", "project_id,key,value_numeric,verified,updated_at", { key: "in.(current_scope_progress_percent,roadmap.current_progress_percent)", order: "updated_at.desc" }, true),
         safe("revenue", "analytics_project_kpis", "project_id,metric_key,value_numeric,verified,currency,observed_at", { metric_key: "eq.verified_revenue_usd", verified: "eq.true", order: "observed_at.desc" }, true),
         safe("book-catalogue", "command_center_book_catalogue", "book_id,title,author_name,cover_slot,cover_approved,updated_at,project_id,production_state,production_percent,publication,state_evidence_refs,state_observed_at", { order: "catalogue_order.asc,book_id.asc" }, true),
         safe("book-performance", "command_center_book_performance_truth_history", "owner_id,metric_id,project_id,book_id,edition,format,provider_key,marketplace,metric,value,currency,truth,source,source_date,observed_at,source_refs", { provider_key: "eq.owner_report", format: "eq.all_formats", edition: "eq.current", order: "source_date.desc,observed_at.desc,metric_id.asc" }, true),
@@ -210,7 +212,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         "book-catalogue": optionalErrors.has("book-catalogue") ? "unavailable" as const : "available" as const
       });
       const agency = buildRuntimeAgencySnapshot({ runs: agencyRuns, jobs: agencyJobs, tasks: agencyTasks, observedAt, unavailable: optionalErrors.has("agency") });
-      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available", recordedProgress);
+      const projectSnapshots = this.#projectSnapshots(projects, roadmaps, workUnits, gates, projectCheckpoints, detailSections, typeDetailSections, activity, observedAt, sources.checkpoints === "available", recordedProgress, legacyProgress);
       const attentionCount = projectSnapshots.filter((project) => project.needsMeCount.state === "known" && project.needsMeCount.value > 0).length;
       const surfaceSnapshots = this.#surfaceSnapshots({
         observedAt,
@@ -432,7 +434,8 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
     activity: readonly JsonRecord[],
     observedAt: string,
     checkpointsAvailable = true,
-    recordedProgress: readonly JsonRecord[] = []
+    recordedProgress: readonly JsonRecord[] = [],
+    legacyProgress: readonly JsonRecord[] = []
   ): readonly RuntimeProjectSnapshot[] {
     return Object.freeze(projects.map((project) => {
       const id = text(project.project_id) as string;
@@ -463,12 +466,17 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
       if (roadmapStructureVerified && roadmap?.denominator_trusted === true) {
         const applicable = projectUnits.filter((row) => row.applicable === true);
         if (applicable.length > 0) {
-          const completed = applicable.filter((row) => ["verified", "skipped"].includes(text(row.status) ?? "")).length;
-          progressPercent = known(Math.round((completed / applicable.length) * 100));
+          const exact = verifiedWorkUnitPercent(applicable);
+          if (exact !== undefined) progressPercent = known(exact);
         }
       }
 
-      const recorded = recordedProgress.find(row => row.project_id === id && row.verified === true);
+      const currentAnalytics = recordedProgress.find(row => row.project_id === id && row.verified === true);
+      const currentLegacy = legacyProgress.find(row => row.project_id === id && row.verified === true);
+      const analyticsAt = Date.parse(text(currentAnalytics?.observed_at) ?? "");
+      const legacyAt = Date.parse(text(currentLegacy?.updated_at) ?? "");
+      const recorded = currentLegacy && (Number.isNaN(analyticsAt) || legacyAt > analyticsAt)
+        ? currentLegacy : currentAnalytics;
       const recordedPercent = numeric(recorded?.value_numeric);
       let progressBasis: "roadmap" | "last_recorded" | undefined = progressPercent.state === "known" ? "roadmap" : undefined;
       if (progressPercent.state !== "known" && recordedPercent !== undefined && recordedPercent >= 0 && recordedPercent <= 100) {
@@ -532,7 +540,7 @@ export class SupabaseOwnerRuntimeSnapshotProvider implements RuntimeSnapshotProv
         status: truthText(project.status),
         progressPercent,
         ...(progressBasis ? { progressBasis } : {}),
-        ...(progressBasis === "last_recorded" && text(recorded?.observed_at) ? { progressObservedAt: text(recorded?.observed_at)! } : {}),
+        ...(progressBasis === "last_recorded" && text(recorded?.observed_at ?? recorded?.updated_at) ? { progressObservedAt: text(recorded?.observed_at ?? recorded?.updated_at)! } : {}),
         currentCheckpoint: checkpoint ? truthText(checkpoint.checkpoint_id) : unknown<string>(),
         nextAction: readyTitle ? known(readyTitle) : truthText(project.next_action),
         blockers: blocker ? known(Object.freeze([blocker])) : known(Object.freeze([]) as readonly string[]),
