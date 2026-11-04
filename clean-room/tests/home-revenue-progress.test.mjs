@@ -78,3 +78,17 @@ test("Live screen updates use owner-authenticated event subscription and safe fa
   assert.match(browser, /queueOwnerLiveRefresh/);
   assert.match(managed, /watchChanges\\(onChanged:/);
 });
+
+test("Owner-approved Home keeps Brain and Agency under More, never adds duplicate Home tiles", () => {
+  const routes = readFileSync(new URL("../src/ui/routes.ts", import.meta.url), "utf8");
+  const browser = readFileSync(new URL("../src/runtime/browser.ts", import.meta.url), "utf8");
+  const modules = readFileSync(new URL("../src/runtime/home-modules.ts", import.meta.url), "utf8");
+  assert.match(routes, /route\("route:brain", "\/brain", "Brain"/);
+  assert.match(routes, /route\("route:agency", "\/agency", "Agency"/);
+  assert.match(browser, /el\("summary", "navigation-toggle", "More"\)/);
+  assert.match(browser, /for \(const route of ROUTES\.list\(\)\)/);
+  const homeSection = browser.split("function renderHome(")[1]?.split("function renderCanonicalSurface(")[0] ?? "";
+  assert.doesNotMatch(homeSection, /key: "(?:brain|agent|agency|work_barriers)"/);
+  assert.doesNotMatch(modules, /registry\.register\(\{ key: "(?:brain|agent|agency|work_barriers)"/);
+  assert.match(homeSection, /key: "revenue", title: "Revenue"/);
+});
