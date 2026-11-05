@@ -1,5 +1,6 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError } from './preparation-read.mjs';
+import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -63,6 +64,18 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
 
       if (body.action === 'agency_start') {
         if (typeof body.projectId !== 'string' || !body.projectId.trim() || body.projectId.length > 240 || typeof body.objective !== 'string' || !body.objective.trim() || body.objective.length > 4000 || !UUID.test(body.requestId ?? '')) throw new GatewayError('invalid_start',400);
+        // Existing owner-controlled worker uses an authenticated, durable Supabase
+        // queue, not a synchronous Supabase Function executor. Never report a
+        // queued task as executed. This branch is STRICTLY for the in-scope 116.
+        if (body.projectId.startsWith('project:company:future:')) {
+          const receipt = await queueOnExistingNormalChatWorker({
+            projectId:body.projectId,objective:body.objective,requestId:body.requestId,
+            readRows:(table,params)=>rows(table,user.id,params),
+            rpc:(name,payload)=>upstream('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(payload)})
+          });
+          return reply(receipt,receipt.duplicate?200:202);
+        }
+
         const projects = await rows('command_center_project_profiles',user.id,{project_id:`eq.${body.projectId}`,select:'project_id,type_key',limit:'1'});
         const project = projects[0];
         if (!project) throw new GatewayError('project_not_available',404);
