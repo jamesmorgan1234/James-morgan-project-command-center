@@ -9,7 +9,7 @@ function setup({project=true,existing=[],runs=[]}={}) {
  if(url.pathname.endsWith('/command_center_project_profiles'))data=project?[{project_id:'project-1'}]:[];
  else if(url.pathname.endsWith('/command_center_canonical_entities'))data=existing;
  else if(url.pathname.endsWith('/command_center_agency_runs'))data=runs;
- else if(url.pathname.endsWith('/functions/v1/command-center-execution'))data={runId:'agency-run:'+nonce,state:'working',taskId:'agency-task:1',executorKey:'executor:test'};
+ else if(url.pathname.endsWith('/functions/v1/command-center-execution'))data={runId:'agency-run:'+nonce,state:'working',taskId:'agency-task:1',executorKey:'executor:test',immediateExecutionVerified:true,scheduledFallback:false};
  else if(url.pathname.endsWith('/command_center_agency_start_normal_chat'))data={run_id:'agency-run:'+nonce,state:'queued',generation:1};
  else if(url.pathname.includes('/rpc/'))data={ok:true};
  else throw Error('Unexpected '+url.pathname);
@@ -42,23 +42,34 @@ test('saved record retries are idempotent and cannot reuse an identity across pr
  existing[0].project_id='other-project'; await assert.rejects(provider.saveProjectRecord('project-1','decision','Test','Test',undefined,nonce),/different project/);
  assert.equal(calls.some(c=>c.init.method==='POST'),false);
 });
-test('Agency Start submits an authenticated normal-chat run without requiring a synchronous inference callback',async()=>{
- const {provider,calls}=setup(); assert.equal(await provider.createProjectAgencyRun('project-1','Build next authorized task',nonce),'agency-run:'+nonce);
- const writes=calls.filter(c=>c.init.method==='POST'); assert.equal(writes.length,1);assert.equal(writes[0].url.pathname,'/rest/v1/rpc/command_center_agency_start_normal_chat');
- assert.equal(writes[0].body.p_project_id,'project-1'); assert.equal(writes[0].body.p_run_id,'agency-run:'+nonce); assert.equal(writes[0].body.p_objective,'Build next authorized task');
+test('Agency Start requests immediate authenticated execution, not an hourly queue',async()=>{
+ const {provider,calls}=setup();
+ assert.equal(await provider.createProjectAgencyRun('project-1','Build next authorized task',nonce),'agency-run:'+nonce);
+ const writes=calls.filter(c=>c.init.method==='POST');
+ assert.equal(writes.length,1);
+ assert.equal(writes[0].url.pathname,'/functions/v1/command-center-execution');
+ assert.equal(writes[0].body.action,'agency_start');
+ assert.equal(writes[0].body.projectId,'project-1');
+ assert.equal(writes[0].body.objective,'Build next authorized task');
+ assert.equal(writes[0].body.requestId,nonce);
  assert.equal(writes[0].init.headers.authorization,'Bearer test-token');
+ assert.equal(calls.some(c=>c.url.pathname.includes('command_center_agency_start_normal_chat')),false);
 });
 test('Agency stop rejects a run outside the selected project',async()=>{
  const {provider,calls}=setup({runs:[{project_id:'other-project',run_id:'agency-run:'+nonce}]});
  await assert.rejects(provider.stopProjectAgencyRun('project-1','agency-run:'+nonce,1),/outside this project/); assert.equal(calls.some(c=>c.init.method==='POST'),false);
 });
-test('Continue requeues only the owner-selected normal-chat boundary and keeps generation fencing',async()=>{
- const run={project_id:'project-1',run_id:'agency-run:'+nonce,state:'needs_user',control_mode:'until_work',authorization_ref:'owner:normal-chat-start:agency-run:'+nonce};
- const {provider,calls}=setup({runs:[run]});
- await provider.continueProjectAgencyRun('project-1',run.run_id,4);
- const write=calls.find(c=>c.init.method==='POST');assert.equal(write.body.p_to_state,'queued');assert.equal(write.body.p_expected_generation,4);
- run.state='stopped';await assert.rejects(provider.continueProjectAgencyRun('project-1',run.run_id,4),/cannot be continued/);
- run.state='needs_user';run.control_mode='project_auto';await assert.rejects(provider.continueProjectAgencyRun('project-1',run.run_id,4),/cannot be continued/);
+test('Agency Continue requests immediate verified execution rather than requeueing hourly',async()=>{
+ const {provider,calls}=setup();
+ await provider.continueProjectAgencyRun('project-1','agency-run:'+nonce,4);
+ const writes=calls.filter(c=>c.init.method==='POST');
+ assert.equal(writes.length,1);
+ assert.equal(writes[0].url.pathname,'/functions/v1/command-center-execution');
+ assert.equal(writes[0].body.action,'agency_continue');
+ assert.equal(writes[0].body.projectId,'project-1');
+ assert.equal(writes[0].body.runId,'agency-run:'+nonce);
+ assert.equal(writes[0].body.expectedGeneration,4);
+ assert.equal(calls.some(c=>c.url.pathname.endsWith('/command_center_agency_transition_run')),false);
 });
 
 test('source-hashed company roadmaps open at the verified branch commit without weakening reference-link checks',async()=>{
