@@ -9,7 +9,7 @@ import {execFileSync} from 'node:child_process';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-const root = resolve(fileURLToPath(new URL('../../../', import.meta.url)));
+const root = resolve(fileURLToPath(new URL('../../', import.meta.url)));
 const paths = Object.freeze([
   'supabase/functions/command-center-execution/handler.mjs',
   'supabase/functions/command-center-execution/immediate-dispatch.mjs'
