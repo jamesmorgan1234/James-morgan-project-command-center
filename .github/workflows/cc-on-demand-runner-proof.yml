@@ -10,6 +10,7 @@ on:
       - 'clean-room/scripts/github-runner-proof.mjs'
       - 'clean-room/tests/github-runner-proof.test.mjs'
       - 'clean-room/tests/github-actions-dispatch.test.mjs'
+      - 'clean-room/tests/on-demand-github-probe-gateway.test.mjs'
       - 'supabase/functions/command-center-execution/github-actions-dispatch.mjs'
   workflow_dispatch:
     inputs:
@@ -36,7 +37,7 @@ jobs:
           persist-credentials: false
           fetch-depth: 1
       - name: Run transport and integrity tests with existing Node
-        run: node --test clean-room/tests/github-actions-dispatch.test.mjs clean-room/tests/github-runner-proof.test.mjs
+        run: node --test clean-room/tests/github-actions-dispatch.test.mjs clean-room/tests/github-runner-proof.test.mjs clean-room/tests/on-demand-github-probe-gateway.test.mjs
       - name: Generate real runner proof without project changes
         env:
           CC_EXPECTED_SHA: ${{ inputs.source_sha || github.sha }}
