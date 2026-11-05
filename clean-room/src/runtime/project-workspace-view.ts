@@ -93,6 +93,20 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
   const immediateScope = preparedCompanyId(project.id) !== null ||
     !/^project:company:future:[0-9]{3}$/.test(project.id);
   const isBook = project.typeKey?.state === "known" && project.typeKey.value === "project-type:book";
+  if (immediateScope) {
+    const recorded = project.progressPercent;
+    const valid = recorded?.state === "known" && Number.isFinite(recorded.value) &&
+      recorded.value >= 0 && recorded.value <= 100;
+    const label = valid
+      ? (project.progressBasis === "roadmap" ? "Verified roadmap: " : "Last recorded, not necessarily current: ") +
+        (Math.round(recorded.value * 100) / 100).toString() + "% complete"
+      : project.workUnitProgress
+        ? project.workUnitProgress.verified + " verified of " +
+          project.workUnitProgress.applicable +
+          " applicable units; total percent not certified"
+        : "Completion percent not verified";
+    node.append(el("p", "project-progress-precision", label));
+  }
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
   node.append(el("p", "muted", immediateScope
     ? "Start invokes an eligible free on-demand worker immediately, without scheduling. If none is connected, it will report the missing connection and start nothing. Paid services, cover approval, publishing and protected actions require separate authorization."
