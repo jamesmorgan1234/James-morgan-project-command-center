@@ -217,6 +217,7 @@ function composer(
   const writable = !!provider
     && isBrainConversationRuntimeProvider(provider)
     && snapshot.brain?.availability === "available"
+    && (projectId ? snapshot.brain?.specialistReadiness?.[projectId] === "available" : snapshot.brain?.workerOnline === true)
     && (snapshot.connection.state === "connected" || snapshot.connection.state === "degraded");
   const form = el("form", "brain-composer__form");
   const input = el("textarea", "cc-input brain-composer__input");
@@ -332,7 +333,16 @@ function composer(
         window.history.replaceState({}, "", brainHref(projectId, conversationId));
         submit.textContent = "Waiting for Brain…";
         message.textContent = "Your message is saved. Requesting a Brain response…";
-        await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+        if (typeof provider.enqueuePcBrainResponse === "function" && !projectId) {
+          const queued = await provider.enqueuePcBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+          if (!queued.requestId || !["queued", "claimed", "completed"].includes(queued.state))
+            throw new Error("The PC did not return a verified queue receipt");
+          message.textContent = queued.state === "completed"
+            ? "Response saved. Loading the canonical conversation…"
+            : "Your message is queued for your Windows PC. It will remain queued if you close the app.";
+        } else {
+          await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+        }
         pendingResponse = undefined;
         await rerender();
       } catch (reason) {
@@ -383,7 +393,13 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
 
   const overview = card("brain-overview");
   const overviewHeading = el("div", "brain-card__heading");
-  overviewHeading.append(el("h2", "section-title", "BRAIN"), pill("SAVED WORKSPACE", "available"));
+  const live = projectId
+    ? brain.specialistReadiness?.[projectId] === "available"
+    : brain.workerOnline === true && brain.verifiedCentralInference === true;
+  const pcConnected = !projectId && brain.workerOnline === true;
+  overviewHeading.append(el("h2", "section-title", "BRAIN"), pill(
+    live ? "VERIFIED AI RESPONSE" : pcConnected ? "PC CONNECTED · FIRST REPLY PENDING" : "INFERENCE OFFLINE",
+    live ? "available" : pcConnected ? "candidate" : "unavailable"));
   overview.append(
     overviewHeading,
     el("p", "brain-overview__scope", project ? `Project context: ${project.name}` : "Command Center-wide intelligence context"),
@@ -394,6 +410,11 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   if (selected || scopedConversations.length > 0) actions.append(routeLink("New conversation", brainHref(projectId, undefined, true), "cc-button", rerender));
   overview.append(actions);
   section.append(overview, improvementsCenter(brain.improvements, projectId, provider, rerender));
+  if (!live) section.append(emptyState(
+    pcConnected ? "Waiting for the first verified Brain response" : "AI inference not connected",
+    pcConnected ? "Your Windows PC has connected. Send a read-only central Brain question to verify an actual local response."
+      : "Saved conversations remain readable, but no verified free model is responding for this scope.",
+    pcConnected ? "stale" : "unavailable"));
 
   if (requestedConversationId && !selected && !forceNew) {
     section.append(emptyState("Conversation scope mismatch", "The requested conversation is not available inside the current project scope. Command Center did not substitute another conversation.", "unavailable"));
@@ -403,7 +424,28 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   layout.append(conversationList(scopedConversations, selected?.id, projectId, rerender));
   const main = el("div", "brain-main");
   if (projectId) main.append(workspaceCard(workspace));
-  main.append(conversationPanel(selected), composer(snapshot, provider, projectId, selected, rerender));
+  main.append(conversationPanel(selected));
+  const requests = (brain.pcRequests ?? []).filter(r => r.conversationId === selected?.id);
+  const latest = requests[0];
+  if (latest) {
+    const status = card("brain-pc-request-status");
+    const descriptions: Readonly<Record<string, string>> = {
+      queued: "Waiting for your Windows PC to claim the read-only request.",
+      claimed: "Your Windows PC has claimed the request.",
+      completed: "Canonical response saved; refresh to view the reply.",
+      failed: "The read-only request failed. No company build was started.",
+      cancelled: "The read-only request was cancelled."
+    };
+    status.append(el("h2", "section-title", "PC WORKER REQUEST"),
+      pill(latest.state.toUpperCase(), latest.state === "completed" ? "available" : "candidate"),
+      el("p", "muted", descriptions[latest.state] ?? "Unverified request state."));
+    const refresh = el("button", "cc-button cc-button--secondary", "Refresh response status");
+    refresh.type = "button";
+    refresh.addEventListener("click", () => { refresh.disabled = true; void rerender(); });
+    status.append(refresh);
+    main.append(status);
+  }
+  main.append(composer(snapshot, provider, projectId, selected, rerender));
   layout.append(main);
   section.append(layout);
   return section;
