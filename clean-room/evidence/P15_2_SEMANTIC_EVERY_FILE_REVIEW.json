@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "ce00d9a4ff00c4dbac123d242472a1709114cb28",
+  "gitSha": "681d778ffa1be8182493c5e9f51f22bb05f0636f",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2210,
-  "inventoryDigest": "d80242033119fe253c230992514b9e76349c9208d63a521f7fbe0663c35860c6",
+  "reviewedFileCount": 2212,
+  "inventoryDigest": "a87368cda73b93d25f1aef5ad27c687f1adcda5d69a1a54ac95e70640d878658",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2211,
-    "reviewedFileCount": 2210,
+    "trackedFileCount": 2213,
+    "reviewedFileCount": 2212,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -48,8 +48,8 @@
       "EVID": 199,
       "APUB": 15,
       "SCRP": 142,
-      "ASRC": 346,
-      "TEST": 461,
+      "ASRC": 347,
+      "TEST": 462,
       "RDMAP": 407,
       "SBAS": 249,
       "HTST": 43
@@ -731,14 +731,14 @@
     },
     {
       "directory": "clean-room/src",
-      "fileCount": 346,
+      "fileCount": 347,
       "roles": [
         "ASRC"
       ]
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 461,
+      "fileCount": 462,
       "roles": [
         "TEST"
       ]
@@ -5081,8 +5081,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "a0844766cc2a3f52fb4ea1df0b0d305af01861d416c9736e35af1b790602fef9",
-      "bytes": 13198741,
+      "sha256": "d62b42736290bc8c402b527e18010ff3038a1226bf4992cb7ebd1153aaaac8be",
+      "bytes": 13198974,
       "contentKind": "text",
       "findings": []
     },
@@ -8894,6 +8894,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/src/runtime/company-build-start.ts",
+      "role": "ASRC",
+      "disposition": "retain-active",
+      "sha256": "f3768e5aeac83b826772cf1dc165b89e62be50985ea60122b1c8b4c30f487bb2",
+      "bytes": 6581,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/src/runtime/execution-gateway.ts",
       "role": "ASRC",
       "disposition": "retain-active",
@@ -8951,8 +8960,8 @@
       "path": "clean-room/src/runtime/owner-security-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "cc9880c81f00ff98b0d9ddddcd4f5d24aa6fd03f3100a654f60b24ab28e46ab2",
-      "bytes": 44948,
+      "sha256": "a8af63f428b78aa5ba0ff57d1a3a0a61885db5df27a6bb97b23081b5ef0966b0",
+      "bytes": 47474,
       "contentKind": "text",
       "findings": []
     },
@@ -9005,8 +9014,8 @@
       "path": "clean-room/src/runtime/project-workspace-view.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "9f8ce89ac0cf2b404cf301e41fead6eabeab82568275ebe7c917900769afb0b3",
-      "bytes": 10015,
+      "sha256": "65940787ae023bd0b6e8e987913aa7426f3284b539b3205cb8c28d92de32fd0f",
+      "bytes": 11601,
       "contentKind": "text",
       "findings": []
     },
@@ -11761,6 +11770,15 @@
       "disposition": "retain-active",
       "sha256": "e67a4eda489d9933e1b90014079dc6d18a739a522be108b2bf70cd0ed10009b8",
       "bytes": 13446,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/company-build-start-ui.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "9ec7ca31bae98bc2d04e6d03cef00121a48502490a48bf56e9a982f393946336",
+      "bytes": 6199,
       "contentKind": "text",
       "findings": []
     },
@@ -19462,8 +19480,8 @@
       "path": "supabase/functions/command-center-execution/handler.mjs",
       "role": "SBAS",
       "disposition": "retain-active",
-      "sha256": "77a9ea3e2091de49d8740c63a9ef61d7694f58dfe84c2b12d0e3121793c0ea3a",
-      "bytes": 11382,
+      "sha256": "785123ab8b135e9bb353e70c38228262c1597436575d859334fd28a7cffe0854",
+      "bytes": 11378,
       "contentKind": "text",
       "findings": []
     },
