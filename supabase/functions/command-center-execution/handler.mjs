@@ -1,5 +1,5 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
-import { readCompanyBuildPreparation, PreparationReadError } from './preparation-read.mjs';
+import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
 import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
@@ -67,7 +67,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         // Existing owner-controlled worker uses an authenticated, durable Supabase
         // queue, not a synchronous Supabase Function executor. Never report a
         // queued task as executed. This branch is STRICTLY for the in-scope 116.
-        if (body.projectId.startsWith('project:company:future:')) {
+        if (scopedCompanyId(body.projectId)) {
           const receipt = await queueOnExistingNormalChatWorker({
             projectId:body.projectId,objective:body.objective,requestId:body.requestId,
             readRows:(table,params)=>rows(table,user.id,params),
