@@ -14,6 +14,7 @@ function fixture(opts={}){
  const tables={
   command_center_project_profiles:[{project_id:projectId,type_key:type,status:opts.status??'Active'}],
   command_center_agency_runs:[{run_id:runId,project_id:projectId,state:opts.previousState??'needs_user',
+   authorization_ref:'owner:normal-chat-start:'+runId,
    control_mode:'until_work',generation:7,objective:'Continue approved build',
    stop_requested:false,pause_requested:false}],
   command_center_agency_executors:opts.executors??[worker],
@@ -60,6 +61,12 @@ test('stopped or already working run cannot be resumed',async()=>{
   await assert.rejects(f.execute(),/run_not_eligible_to_continue/);
   assert.equal(f.calls.filter(x=>x.kind==='direct-invoke').length,0);
  }
+});
+test('Continue rejects a run without exact owner authorization',async()=>{
+ const f=fixture();
+ f.tables.command_center_agency_runs[0].authorization_ref='owner:someone-else';
+ await assert.rejects(f.execute(),/run_not_eligible_to_continue/);
+ assert.equal(f.calls.filter(x=>x.kind==='direct-invoke').length,0);
 });
 test('provider accepted but no durable working run fails closed',async()=>{
  const f=fixture({finalState:'blocked'});
