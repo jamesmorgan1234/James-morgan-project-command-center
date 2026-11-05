@@ -607,7 +607,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const session = this.#currentSession();
     const [conversationRows, turnRows, workspaceRows, improvementRows] = await Promise.all([
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
-      this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
+      this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
       this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
       this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc", limit: "500" })
     ]);

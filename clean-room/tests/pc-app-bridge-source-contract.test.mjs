@@ -40,3 +40,14 @@ test("optional PC telemetry errors never hide canonical saved Brain records",()=
  assert.match(provider,/pcRequests = Object.freeze\(\[\]\);/);
  assert.match(provider,/inferenceAvailability: workerOnline \? "available" as const : "unavailable" as const/);
 });
+
+test("verified central inference checks the saved canonical no-write flag",()=>{
+ assert.match(provider,/evidence_refs,canonical_writes_authorized,created_at,recorded_at/);
+ assert.match(provider,/row\.canonical_writes_authorized === false/);
+});
+const builder=readFileSync(new URL("../scripts/build-browser.mjs",import.meta.url),"utf8");
+test("synthetic preview strips production auth metadata before injecting fixture endpoint",()=>{
+ assert.match(builder,/Synthetic preview retained a protected backend binding/);
+ assert.match(builder,/command-center-runtime-endpoint/);
+ assert.match(builder,/const isolatedPreview = entry/);
+});

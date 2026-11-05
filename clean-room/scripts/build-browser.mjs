@@ -109,7 +109,17 @@ if (previewAcceptance) {
   await writeFile(join(OUT, "__preview__", "runtime.json"), JSON.stringify(fixture, null, 2) + "\n");
   const entryPath = join(OUT, "index.html");
   const entry = await readFile(entryPath, "utf8");
-  await writeFile(entryPath, entry.replace("</head>", '  <meta name="command-center-runtime-endpoint" content="/__preview__/runtime.json">\n</head>'));
+  // Synthetic preview acceptance is isolated: browser HTML must not offer the
+  // protected production backend as an alternate provider or auth route.
+  const isolatedPreview = entry
+    .replace(/^\s*<meta name="command-center-backend-environment"[^\n]*\n/gm, "")
+    .replace(/^\s*<meta name="command-center-supabase-url"[^\n]*\n/gm, "")
+    .replace(/^\s*<meta name="command-center-supabase-publishable-key"[^\n]*\n/gm, "");
+  if (/name="command-center-(?:backend-environment|supabase-url|supabase-publishable-key)"/.test(isolatedPreview)) {
+    throw new Error("Synthetic preview retained a protected backend binding");
+  }
+  await writeFile(entryPath, isolatedPreview.replace("</head>",
+    '  <meta name="command-center-runtime-endpoint" content="/__preview__/runtime.json">\n</head>'));
 }
 
 const files = (await walk(OUT)).filter((path) => !path.endsWith("release.json") && !path.endsWith("pwa-assets.json"));
