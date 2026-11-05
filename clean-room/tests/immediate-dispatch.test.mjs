@@ -22,8 +22,9 @@ function fixture(options={}){
  command_center_project_roadmaps:[{version:2,state:'current',structure_verified:true}],
  command_center_project_checkpoints:[{checkpoint_id:'00000000-0000-4000-8000-000000000011',
    exact_next_work_unit_id:projectId+':recovery:source-check'}],
- command_center_agency_runs:[{run_id:expectedRun,project_id:projectId,objective,state:options.runState??'working',
-   generation:1,stop_requested:false,pause_requested:false}],
+ command_center_agency_runs:[{run_id:expectedRun,project_id:projectId,objective,
+   authorization_ref:'owner:on-demand-start:'+expectedRun,control_mode:'next_step',
+   state:options.runState??'working',generation:1,stop_requested:false,pause_requested:false}],
  command_center_agency_tasks:[{task_id:'task:source-check',run_id:expectedRun,state:options.taskState??'working',
    evidence_refs:['unit:source-check']}],
  command_center_agency_task_claims:[{task_id:'task:source-check',worker_id:worker.executor_key,
@@ -116,6 +117,17 @@ test('no false success from queued run or missing live worker claim',async()=>{
  await assert.rejects(without.execute(),/worker_claim_not_verified/);
  const stale=fixture();stale.tables.command_center_agency_task_claims[0].expires_at=new Date(now-1).toISOString();
  await assert.rejects(stale.execute(),/worker_claim_not_verified/);
+});
+test('owner authorization must match exact run, even if a worker claims the task',async()=>{
+ const f=fixture();f.tables.command_center_agency_runs[0].authorization_ref='owner:other-run';
+ await assert.rejects(f.execute(),/execution_receipt_invalid/);
+});
+test('catalogue or mixed book groups cannot be silently rewritten as unpublished manuscripts',async()=>{
+ for(const status of ['Book catalogue / publication tracking','Mixed — five ready / one on hold','Production complete / publication unconfirmed']){
+  const f=fixture({projectId:'kdp-a-calmer-mind',type:'project-type:book',status});
+  await assert.rejects(f.execute(),/book_unpublished_scope_not_verified/);
+  assert.equal(f.invocations.length,0);
+ }
 });
 test('completed result requires verified task and durable evidence commit',async()=>{
  const complete=fixture({runState:'completed',taskState:'verified'});
