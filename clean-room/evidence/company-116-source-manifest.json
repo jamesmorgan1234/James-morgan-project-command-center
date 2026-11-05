@@ -1,0 +1,707 @@
+{
+  "schemaVersion": 1,
+  "scope": "116 new automated companies only",
+  "sourceAuthorityCommit": "e5069834ecb8d44aeb687bd74a04d929dc515cbc",
+  "hashType": "SHA-256 expected from existing owner-scoped database evidence",
+  "sourceVerificationCompleted": false,
+  "workerExecutionAuthorized": false,
+  "productionApplied": false,
+  "entries": [
+    {
+      "companyId": "company:future:001",
+      "projectId": "project:company:future:001",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/001_API_AS_A_BUSINESS_FACTORY.md",
+      "expectedSha256": "3912da73d2e49d831ccd8196592a907918b2509158a02cf142d2e066130848e3"
+    },
+    {
+      "companyId": "company:future:002",
+      "projectId": "project:company:future:002",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/002_AI_AGENT_CONTROL_CENTER.md",
+      "expectedSha256": "a32c68ecc51efea13635d1418955995b96a4cdb5d3bef6c4ec63e08f5d3e6001"
+    },
+    {
+      "companyId": "company:future:003",
+      "projectId": "project:company:future:003",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/003_AI_QUALITY_CONTROL_PLATFORM.md",
+      "expectedSha256": "3e80c3c82f4f2f5a508cbbd5d7fd9ef7161d1641f757f7e5b21b189a18076b31"
+    },
+    {
+      "companyId": "company:future:004",
+      "projectId": "project:company:future:004",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/004_AI_PERMISSION_GOVERNANCE_PLATFORM.md",
+      "expectedSha256": "ef599ac90c48a419e6c515cb571b0c7d182b99a4fbe9913a12de342e9f616725"
+    },
+    {
+      "companyId": "company:future:005",
+      "projectId": "project:company:future:005",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/005_AI_AUDIT_TRAIL_INFRASTRUCTURE.md",
+      "expectedSha256": "5e957d688fda9379a1d8a898e462d1464a2bc444839373a875692e920f0e5690"
+    },
+    {
+      "companyId": "company:future:006",
+      "projectId": "project:company:future:006",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/006_DATA_SUBSCRIPTION_COMPANY.md",
+      "expectedSha256": "340286d68daaabb2330b426e875153850d3c3f8018eebaddc9d693e6daf9cf8e"
+    },
+    {
+      "companyId": "company:future:007",
+      "projectId": "project:company:future:007",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/007_PRICING_INTELLIGENCE_ENGINE.md",
+      "expectedSha256": "9e02ca601258cc1b67fac36a1d4e11f609705d1f2e9d7c2eba9de82c640821e0"
+    },
+    {
+      "companyId": "company:future:008",
+      "projectId": "project:company:future:008",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/008_BUSINESS_WORKFLOW_AUTOPILOT.md",
+      "expectedSha256": "093cd4d7149a09d7121b7ac063f4ec8e570becad90ff847d6536427f0693e387"
+    },
+    {
+      "companyId": "company:future:009",
+      "projectId": "project:company:future:009",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/009_DOCUMENT_TO_WORKFLOW_ENGINE.md",
+      "expectedSha256": "fefd6e8ea38c79ce4189b04b073058b706958a7f150f19c72a3fde592a232346"
+    },
+    {
+      "companyId": "company:future:010",
+      "projectId": "project:company:future:010",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/010_SUBSCRIPTION_REVENUE_RECOVERY_PLATFORM.md",
+      "expectedSha256": "4ed622a1f92a8083e0c0b25046ed2c980f6c9e024f5d6ee497a9e4c43d501489"
+    },
+    {
+      "companyId": "company:future:011",
+      "projectId": "project:company:future:011",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/011_AUTOMATED_BENCHMARKING_PLATFORM.md",
+      "expectedSha256": "9a2b619f69572b1b599b5a20d78372d631bc90aff7bf405a8bba7e2949b09e3e"
+    },
+    {
+      "companyId": "company:future:012",
+      "projectId": "project:company:future:012",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/012_AI_COMPLIANCE_AUTOPILOT.md",
+      "expectedSha256": "230668197034e330f32fef662d762be47b2e5c340137d6ff2e2e048910b24953"
+    },
+    {
+      "companyId": "company:future:013",
+      "projectId": "project:company:future:013",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/013_COMPETITIVE_INTELLIGENCE_SUBSCRIPTION.md",
+      "expectedSha256": "b63b5442ae6281db6cdc4f87487289679394d8057cbaadd7bc52d878cfad7838"
+    },
+    {
+      "companyId": "company:future:015",
+      "projectId": "project:company:future:015",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/015_BUSINESS_INTELLIGENCE_AUTOPILOT.md",
+      "expectedSha256": "b167346464512c9760e42803ab1ddb94db1458db945e96ce402ce212e622ee99"
+    },
+    {
+      "companyId": "company:future:016",
+      "projectId": "project:company:future:016",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/016_REGULATION_CHANGE_MONITOR.md",
+      "expectedSha256": "215e3db1bf9d60ae24300bf8059e66d511ddd1930467303a58a9896d771f60b2"
+    },
+    {
+      "companyId": "company:future:017",
+      "projectId": "project:company:future:017",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/017_SAAS_SPEND_AUTOPILOT.md",
+      "expectedSha256": "effe131ee56d08b5c65b94d43243c3abcb880985bab4da941353fe74fe47b014"
+    },
+    {
+      "companyId": "company:future:018",
+      "projectId": "project:company:future:018",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/018_CUSTOMER_CHURN_PREVENTION_AI.md",
+      "expectedSha256": "66f58b83a732d77348fe6f8023166f3579fa5f29f7a13da7214bee6b1f87a797"
+    },
+    {
+      "companyId": "company:future:019",
+      "projectId": "project:company:future:019",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/019_INVENTORY_FORECASTING_API.md",
+      "expectedSha256": "bd1b9e1c622744e1a74917a392a0122125d5087e346bcb9d2a6725bd72aeefea"
+    },
+    {
+      "companyId": "company:future:020",
+      "projectId": "project:company:future:020",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/020_DATA_CLEANUP_AUTOPILOT.md",
+      "expectedSha256": "98cbb9a40b4867ddd7f2394af4e14c789a83109f1cfcdb255de6378748720d34"
+    },
+    {
+      "companyId": "company:future:021",
+      "projectId": "project:company:future:021",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/021_LEAD_QUALIFICATION_INFRASTRUCTURE.md",
+      "expectedSha256": "04b7ff7fa6038a86d3889808661992864131fd154ece64aa1b99a590a4416aaf"
+    },
+    {
+      "companyId": "company:future:022",
+      "projectId": "project:company:future:022",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/022_CYBERSECURITY_HYGIENE_AUTOPILOT_FOR_SMBS.md",
+      "expectedSha256": "46baa2643168a6c139bd1e65c9356891d32c7cddea044703600014b9222626be"
+    },
+    {
+      "companyId": "company:future:023",
+      "projectId": "project:company:future:023",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/023_CONTRACT_OBLIGATION_TRACKER.md",
+      "expectedSha256": "844799e3e70900950b3cea43856771eb29880c18ee0107e85ea852b6213dafb5"
+    },
+    {
+      "companyId": "company:future:024",
+      "projectId": "project:company:future:024",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/024_VENDOR_RISK_AUTOPILOT.md",
+      "expectedSha256": "d920eebc02d5fe197da58d2c894bbfc5d7ffacfe40463c09c3ad8fb896010cd6"
+    },
+    {
+      "companyId": "company:future:025",
+      "projectId": "project:company:future:025",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/025_NICHE_RESEARCH_SUBSCRIPTION.md",
+      "expectedSha256": "2dd7b772b2d259b92afb0ddb80e8984df82de51c3b58d8ddd31778f2e90ee8b9"
+    },
+    {
+      "companyId": "company:future:026",
+      "projectId": "project:company:future:026",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/026_LICENSE_CERTIFICATION_TRACKER.md",
+      "expectedSha256": "4250f61ba8d3a30c2a2e07779411903273ead1f832d823a7a155a3b4c1444bd2"
+    },
+    {
+      "companyId": "company:future:027",
+      "projectId": "project:company:future:027",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/027_REVIEW_REPUTATION_AUTOPILOT.md",
+      "expectedSha256": "e63f61c959776f4a5083b6b54ee86d16c7281a25580bcec080cca248756db149"
+    },
+    {
+      "companyId": "company:future:028",
+      "projectId": "project:company:future:028",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/028_AI_KNOWLEDGE_BASE_MAINTAINER.md",
+      "expectedSha256": "bc5784a77f50dc99aebe36591bb603501ad4af44b0d44516d3c5bb0dd1fccadd"
+    },
+    {
+      "companyId": "company:future:029",
+      "projectId": "project:company:future:029",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/029_VERTICAL_BUSINESS_OS_GENERATOR.md",
+      "expectedSha256": "3138b02cd3a71c558c1b0955bd923559f9a74a1cd5124f773a4da1af6b4c0ded"
+    },
+    {
+      "companyId": "company:future:030",
+      "projectId": "project:company:future:030",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/030_INVOICE_PAYMENT_RECOVERY_AI.md",
+      "expectedSha256": "4782614dac70775c963c625caab1ec69c4d0f3337d2be7e48bd1239496d5e24f"
+    },
+    {
+      "companyId": "company:future:031",
+      "projectId": "project:company:future:031",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/031_BUSINESS_FORM_AUTOMATION_PLATFORM.md",
+      "expectedSha256": "1f703701cc61a0d2dc4df2b5434a23a4cc4bc59f5a596cdd3a7062eb7dc49cb5"
+    },
+    {
+      "companyId": "company:future:032",
+      "projectId": "project:company:future:032",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/032_AI_PROCUREMENT_ASSISTANT.md",
+      "expectedSha256": "e9914aa38c0357708f2332a4fbfede22f2d1595e1bc7a9442bb05b18372416b6"
+    },
+    {
+      "companyId": "company:future:033",
+      "projectId": "project:company:future:033",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/033_ACCESSIBILITY_COMPLIANCE_MONITOR.md",
+      "expectedSha256": "6ac3f29157ebd8f9e7326b92396b617fd61b2d69fb8eecb74d50e96783de1ab9"
+    },
+    {
+      "companyId": "company:future:034",
+      "projectId": "project:company:future:034",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/034_RETURNS_INTELLIGENCE_PLATFORM.md",
+      "expectedSha256": "40cc211ce172d56ec343562bb70e66ce3c0f6a825f11b0e0aebb73a6933c904d"
+    },
+    {
+      "companyId": "company:future:035",
+      "projectId": "project:company:future:035",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/035_WARRANTY_CLAIMS_AUTOMATION_PLATFORM.md",
+      "expectedSha256": "cc54bdc6b42f17b3ac9afdfc6e141f38a23c5613b8c65b3245ee319fb5d3cec2"
+    },
+    {
+      "companyId": "company:future:036",
+      "projectId": "project:company:future:036",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/036_RFP_TENDER_INTELLIGENCE_SAAS.md",
+      "expectedSha256": "c12b197fd28772dfeef73eefccfb7fabc1f3b1e7d172b6a39fc02c791bdf26ac"
+    },
+    {
+      "companyId": "company:future:037",
+      "projectId": "project:company:future:037",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/037_INTERNAL_POLICY_AUTOPILOT.md",
+      "expectedSha256": "47acc427725f3c23d332ac3b8052623456967e2335d247689236a3d05d4fb0bd"
+    },
+    {
+      "companyId": "company:future:038",
+      "projectId": "project:company:future:038",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/038_GRANT_MANAGEMENT_SOFTWARE.md",
+      "expectedSha256": "ac70dfe66afee71792aea880e96a4c5fe9fe79ab059c9c3dc4f102b36b28ffbb"
+    },
+    {
+      "companyId": "company:future:039",
+      "projectId": "project:company:future:039",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/039_DIGITAL_ASSET_LICENSING_MARKETPLACE.md",
+      "expectedSha256": "2c873bd00d58d4be715d824d7af77973da0a5e8b7a6ccdac371c157883f02c1c"
+    },
+    {
+      "companyId": "company:future:040",
+      "projectId": "project:company:future:040",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/040_DIGITAL_ESTATE_ACCOUNT_ORGANIZER.md",
+      "expectedSha256": "fea9f4b9d7329d69671fb4562c23b02a2a5953a74f6600d5cc9c476c92f37cbf"
+    },
+    {
+      "companyId": "company:future:041",
+      "projectId": "project:company:future:041",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/041_AUTONOMOUS_MICRO_SAAS_FACTORY.md",
+      "expectedSha256": "95ddc0560aca791f0000d8df158c96241e89bfc0946781b27030bf9f899db75a"
+    },
+    {
+      "companyId": "company:future:042",
+      "projectId": "project:company:future:042",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/042_LEGACY_BROWSER_WORKER_PLATFORM.md",
+      "expectedSha256": "c7c0f9c7845c562af6e0b8164eeac417291080f1bf01ecc7402f283b6a7eed22"
+    },
+    {
+      "companyId": "company:future:043",
+      "projectId": "project:company:future:043",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/043_CLOUD_COST_OPTIMIZATION_AUTOPILOT.md",
+      "expectedSha256": "ada6fed3d7671662604b51f11c37eb43290de2f3ca338dd1913873c1fa4e97d3"
+    },
+    {
+      "companyId": "company:future:044",
+      "projectId": "project:company:future:044",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/044_CHARGEBACK_DISPUTE_RECOVERY_AUTOPILOT.md",
+      "expectedSha256": "14e72e25e47dc529431d149c53e16ee9706ac3e35cbf3c4e836f9e552b4463f4"
+    },
+    {
+      "companyId": "company:future:045",
+      "projectId": "project:company:future:045",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/045_AUTONOMOUS_CUSTOMER_SUPPORT_COMPANY.md",
+      "expectedSha256": "ca9684ab6652e0943cc89c01bbe76f87b6163891b4258b1c03f9bdf3e87aa17d"
+    },
+    {
+      "companyId": "company:future:046",
+      "projectId": "project:company:future:046",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/046_CUSTOMER_ONBOARDING_AUTOPILOT.md",
+      "expectedSha256": "5bb224628ad7d96ad4ea5c3af3a864884736bb6c11ea248098ffe8695d59e222"
+    },
+    {
+      "companyId": "company:future:047",
+      "projectId": "project:company:future:047",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/047_PRIVACY_REQUEST_DSAR_AUTOPILOT.md",
+      "expectedSha256": "052deba05e40e40eecbedb19ba03bcf4012f47dd51caf7dc6d17ec1ff18ae387"
+    },
+    {
+      "companyId": "company:future:048",
+      "projectId": "project:company:future:048",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/048_ACCOUNTS_PAYABLE_VERIFICATION_BRAIN.md",
+      "expectedSha256": "145eae6a528ca65d2e459f2455669ffa81c831edf84a302c55ded415b37c8716"
+    },
+    {
+      "companyId": "company:future:049",
+      "projectId": "project:company:future:049",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/049_CLOUD_SOFTWARE_RELIABILITY_AUTOPILOT.md",
+      "expectedSha256": "9e68a1bad709be5a8d0247ca07cd1e7578fe22b6ae512405565859f0e59fdc0b"
+    },
+    {
+      "companyId": "company:future:050",
+      "projectId": "project:company:future:050",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/050_AI_FRONT_DESK_PLATFORM.md",
+      "expectedSha256": "4b710a7e19067f248a6e8376006891d518c9fe89f61e309434396655039a37b8"
+    },
+    {
+      "companyId": "company:future:051",
+      "projectId": "project:company:future:051",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/051_DATA_PIPELINE_WATCHDOG.md",
+      "expectedSha256": "d435d671bedfffe720d2020c37a4875c01885c6a5a8dbf02df2b8807579712fd"
+    },
+    {
+      "companyId": "company:future:052",
+      "projectId": "project:company:future:052",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/052_CERTIFICATE_OF_INSURANCE_AUTOPILOT.md",
+      "expectedSha256": "1284799fbf11475d3da99bbd25ae51ef883d6793e30b19a8973d672d9b1f1b59"
+    },
+    {
+      "companyId": "company:future:053",
+      "projectId": "project:company:future:053",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/053_SOFTWARE_RELEASE_AUTOPILOT.md",
+      "expectedSha256": "f8070696936710eea571f0b424e7bb6d7e7866d9aa7a5fbeab2f361f714f09ba"
+    },
+    {
+      "companyId": "company:future:054",
+      "projectId": "project:company:future:054",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/054_LOCALIZATION_AUTOPILOT.md",
+      "expectedSha256": "b30e9e784e846eb90aeaba6372c33ed605e46f1004600ebf80a916b0b54cabe1"
+    },
+    {
+      "companyId": "company:future:055",
+      "projectId": "project:company:future:055",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/055_PRODUCT_CATALOG_INTELLIGENCE_ENGINE.md",
+      "expectedSha256": "f5e1e85c006ced0bc4e13e26f20a7b60ac665dd1ece26768e83976356bef4135"
+    },
+    {
+      "companyId": "company:future:056",
+      "projectId": "project:company:future:056",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/056_SYNTHETIC_DATA_PLATFORM.md",
+      "expectedSha256": "51b0b0db1123c3d3977d4b2178dc467c40af61e40140d144c950773dc75b2da0"
+    },
+    {
+      "companyId": "company:future:057",
+      "projectId": "project:company:future:057",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/057_FRAUD_DETECTION_API.md",
+      "expectedSha256": "d43cf24edf1e06af4d5b8ffce2f29c750943dbbb47cb0c1ab60b9786f0b2cc07"
+    },
+    {
+      "companyId": "company:future:058",
+      "projectId": "project:company:future:058",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/058_EMPLOYEE_ONBOARDING_OFFBOARDING_AUTOPILOT.md",
+      "expectedSha256": "db21021b33d77cc776043ba011c2e5dec786e228ba0a5d613260575cdc11d674"
+    },
+    {
+      "companyId": "company:future:059",
+      "projectId": "project:company:future:059",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/059_MARKETPLACE_LISTING_AUTOPILOT.md",
+      "expectedSha256": "86c8ae368200649d8c4772b29769900d94d24ee93e8f145ba5dd5dadade2673e"
+    },
+    {
+      "companyId": "company:future:060",
+      "projectId": "project:company:future:060",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/060_SOFTWARE_MIGRATION_AUTOPILOT.md",
+      "expectedSha256": "2750963a7d21ef8289d25a4db7e8695e8a5f88cd1b930800ec45d6d76e0f36a0"
+    },
+    {
+      "companyId": "company:future:061",
+      "projectId": "project:company:future:061",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/061_AUTONOMOUS_COLLECTIONS_PLATFORM.md",
+      "expectedSha256": "893b9d1f5f7242b46d2ee801ff86be881a7728586003e1806fc824bd6985161e"
+    },
+    {
+      "companyId": "company:future:062",
+      "projectId": "project:company:future:062",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/062_CREDENTIALING_AUTOPILOT.md",
+      "expectedSha256": "ee9a6ace3376e5f6f032d231f0eabde6dbc741adbd6f1cea148bc1da8e90f7c1"
+    },
+    {
+      "companyId": "company:future:063",
+      "projectId": "project:company:future:063",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/063_VENDOR_ONBOARDING_AUTOPILOT.md",
+      "expectedSha256": "012793b757049d1b96e7389238523e659a4d8972f86c9e487d321244999b27c9"
+    },
+    {
+      "companyId": "company:future:064",
+      "projectId": "project:company:future:064",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/064_BUSINESS_INBOX_AUTOPILOT.md",
+      "expectedSha256": "ea89b231495e2e2f429fe305f0281cb94e12f1edc445cc3da14362e711d18725"
+    },
+    {
+      "companyId": "company:future:065",
+      "projectId": "project:company:future:065",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/065_AUTONOMOUS_QA_AS_A_SERVICE.md",
+      "expectedSha256": "cbcb5a10f9cf8d20c2e41a1277f85a427abdeb3a242a8a719702a4395503bd60"
+    },
+    {
+      "companyId": "company:future:066",
+      "projectId": "project:company:future:066",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/066_AI_RUNTIME_SECURITY_GATEWAY.md",
+      "expectedSha256": "bff721856d992e8677af4eb033e705d9436501431841797f1bc4eb306ad6bd66"
+    },
+    {
+      "companyId": "company:future:067",
+      "projectId": "project:company:future:067",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/067_PROMPT_INJECTION_FIREWALL_API.md",
+      "expectedSha256": "547436fe553d9c7a42775e2b5e9857be038ed7cfff28e54607e7a8a2924a9def"
+    },
+    {
+      "companyId": "company:future:068",
+      "projectId": "project:company:future:068",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/068_AI_COST_MODEL_ROUTING_OPTIMIZER.md",
+      "expectedSha256": "fa9fb34abe891d39b616e23b6a79e20c23ad31aecf20c24eef03fedeb0af312f"
+    },
+    {
+      "companyId": "company:future:069",
+      "projectId": "project:company:future:069",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/069_USAGE_BILLING_INFRASTRUCTURE.md",
+      "expectedSha256": "9269e430738eb4cf7aa6fa8af3d69ae67b9384f78bcc6b783899e4dd1e495325"
+    },
+    {
+      "companyId": "company:future:070",
+      "projectId": "project:company:future:070",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/070_ENTITLEMENT_MANAGEMENT_API.md",
+      "expectedSha256": "99c4a568a3c748d4a62db55b5965e96beac614071886cd41d6902511104b268f"
+    },
+    {
+      "companyId": "company:future:071",
+      "projectId": "project:company:future:071",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/071_WEBHOOK_RELIABILITY_PLATFORM.md",
+      "expectedSha256": "1da889b415747bd45c734157d0408fe7b51cffa0017fbafa416e268eafe4c61d"
+    },
+    {
+      "companyId": "company:future:072",
+      "projectId": "project:company:future:072",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/072_API_CONTRACT_DRIFT_MONITOR.md",
+      "expectedSha256": "086753f5175d3fd2747d640b5a4fa6e4d6be063488847aa63508d37825610adf"
+    },
+    {
+      "companyId": "company:future:073",
+      "projectId": "project:company:future:073",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/073_SECRETS_CREDENTIAL_ROTATION_AUTOPILOT.md",
+      "expectedSha256": "63263b45779102f3c603debb4be2b11a8b04ea8fc06e3a722e5f54d0c6ead0d1"
+    },
+    {
+      "companyId": "company:future:074",
+      "projectId": "project:company:future:074",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/074_CLOUD_PERMISSION_OPTIMIZER.md",
+      "expectedSha256": "555c74c3a31364079c27ce78e6efb60b8307bb7024f268f8322244b87760409d"
+    },
+    {
+      "companyId": "company:future:075",
+      "projectId": "project:company:future:075",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/075_IDENTITY_ACCESS_REVIEW_AUTOPILOT.md",
+      "expectedSha256": "f317bc1953dfdb2c7ef9e9c915dceeda98221414dc2263f2eec06f289e17503b"
+    },
+    {
+      "companyId": "company:future:076",
+      "projectId": "project:company:future:076",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/076_PII_DISCOVERY_CLASSIFICATION_API.md",
+      "expectedSha256": "2d965b9348d1e92303755c2e329e9df916de46d59de005f28561e40fe56ae857"
+    },
+    {
+      "companyId": "company:future:077",
+      "projectId": "project:company:future:077",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/077_DATA_REDACTION_TOKENIZATION_API.md",
+      "expectedSha256": "0d8c7e3c74147724dffb7283c9f3a0e0dcdbdc70b0c16c7d23e52acfb6cc40e1"
+    },
+    {
+      "companyId": "company:future:078",
+      "projectId": "project:company:future:078",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/078_DATA_RETENTION_DELETION_AUTOPILOT.md",
+      "expectedSha256": "cbf57dfe745d8c10ecf30436a9814e8db90aebd8ee650f4ccb42fa0b16f45fce"
+    },
+    {
+      "companyId": "company:future:079",
+      "projectId": "project:company:future:079",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/079_DIGITAL_PROVENANCE_AUTHENTICITY_PLATFORM.md",
+      "expectedSha256": "723854a8c2d05302b90134a3b95c1708aab90a59769c2c48d658c1567775c093"
+    },
+    {
+      "companyId": "company:future:080",
+      "projectId": "project:company:future:080",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/080_SOFTWARE_DEPENDENCY_RISK_AUTOPILOT.md",
+      "expectedSha256": "a2f32c36bec2cbfab2d3e00168c414b7d4a016473897d94b14dff9e59eb2edef"
+    },
+    {
+      "companyId": "company:future:081",
+      "projectId": "project:company:future:081",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/081_OPEN_SOURCE_LICENSE_COMPLIANCE_API.md",
+      "expectedSha256": "2f68a31bda4d131c798673430d59816a4fe653b4c9f1f62fdef1d163bc6453df"
+    },
+    {
+      "companyId": "company:future:082",
+      "projectId": "project:company:future:082",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/082_BACKUP_INTEGRITY_VERIFICATION_SERVICE.md",
+      "expectedSha256": "61ad8106dc81a4a4a28bd232be7c4990000922908dfc6f5fe04bb03e1d9a7272"
+    },
+    {
+      "companyId": "company:future:083",
+      "projectId": "project:company:future:083",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/083_DOMAIN_DNS_SSL_AUTOPILOT.md",
+      "expectedSha256": "3e36bc2f4a71c48cfef7b93ee07576316e40a709ce67cc0a95e29b784facae81"
+    },
+    {
+      "companyId": "company:future:084",
+      "projectId": "project:company:future:084",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/084_EMAIL_DELIVERABILITY_AUTOPILOT.md",
+      "expectedSha256": "93e9506e315b5a91396454510bc254c5f965689c74eae149cc12198051ea28e4"
+    },
+    {
+      "companyId": "company:future:085",
+      "projectId": "project:company:future:085",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/085_REVENUE_LEAKAGE_DETECTION_ENGINE.md",
+      "expectedSha256": "163d64ded3e3ac513297a8dd724eeb247146b9e77c826339bfef88be2281cb75"
+    },
+    {
+      "companyId": "company:future:086",
+      "projectId": "project:company:future:086",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/086_PAYMENT_RECONCILIATION_AUTOPILOT.md",
+      "expectedSha256": "520f63ebe9dc522d9cc553575dd64b3f4b146686194abd4289854440ec67b6d9"
+    },
+    {
+      "companyId": "company:future:087",
+      "projectId": "project:company:future:087",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/087_MARKETPLACE_PAYOUT_RECONCILIATION_ENGINE.md",
+      "expectedSha256": "3349786e8532f86b524a1b740a9814eb36802234965bc7f8a0405e81cc50e70d"
+    },
+    {
+      "companyId": "company:future:088",
+      "projectId": "project:company:future:088",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/088_COMMISSION_CALCULATION_AUDIT_ENGINE.md",
+      "expectedSha256": "94cb55d7b7c8a12bbcefe1c1558af3c9d510dcff5d9fc3c121c099e5763f2d4c"
+    },
+    {
+      "companyId": "company:future:089",
+      "projectId": "project:company:future:089",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/089_AUTOMATED_SUPPORT_QA_PLATFORM.md",
+      "expectedSha256": "5f3cbd832ff9b84a8514461c9d50fa8ad104cd46b033f3c959ad971c19159dd2"
+    },
+    {
+      "companyId": "company:future:090",
+      "projectId": "project:company:future:090",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/090_CONTENT_MODERATION_INFRASTRUCTURE_API.md",
+      "expectedSha256": "5d4756b2e05d34c216f3e9e079c8276c3bb9643769e3c40e5d8775b4a8862675"
+    },
+    {
+      "companyId": "company:future:091",
+      "projectId": "project:company:future:091",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/091_AI_AGENT_IDENTITY_TRUST_AUTHORITY.md",
+      "expectedSha256": "e5f806d815b7f9358eb5eceaafa576a0e6465b8b044bcb28c16dc36b493962ec"
+    },
+    {
+      "companyId": "company:future:092",
+      "projectId": "project:company:future:092",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/092_AGENTIC_COMMERCE_TRANSACTION_GATEWAY.md",
+      "expectedSha256": "77b5f9863b47ddf8709ed8d935250f6eab089178a76542d238dca933806689a2"
+    },
+    {
+      "companyId": "company:future:093",
+      "projectId": "project:company:future:093",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/093_CONSENT_PREFERENCE_MANAGEMENT_AUTOPILOT.md",
+      "expectedSha256": "b96d1d979b7790462b145b110478c21b91af3faaddcf33b3b6ac89173959ed9f"
+    },
+    {
+      "companyId": "company:future:094",
+      "projectId": "project:company:future:094",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/094_ENTERPRISE_DATA_LINEAGE_PROVENANCE_GRAPH.md",
+      "expectedSha256": "6c8eb0b7d7c9e174e389b20eadfbf62e39226f8a04da1fe19c1bae09bf46aee4"
+    },
+    {
+      "companyId": "company:future:095",
+      "projectId": "project:company:future:095",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/095_AI_ROI_VALUE_ATTRIBUTION_PLATFORM.md",
+      "expectedSha256": "0af80e9997477c6870d6e2432104c3099fbb81aa5a848cbce0efd870572fe716"
+    },
+    {
+      "companyId": "company:future:096",
+      "projectId": "project:company:future:096",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/096_EXPENSE_AUDIT_RECOVERY_ENGINE.md",
+      "expectedSha256": "efba01caaba6a70ffc835d3937e9d03ef6a4b26add30af8da0dc7e8c83a1db8a"
+    },
+    {
+      "companyId": "company:future:097",
+      "projectId": "project:company:future:097",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/097_INDIRECT_TAX_SALES_TAX_COMPLIANCE_AUTOPILOT.md",
+      "expectedSha256": "c859af24bdbc2efb5af063bfb2914fa768b271161ad04448cc743727b29a2ddb"
+    },
+    {
+      "companyId": "company:future:098",
+      "projectId": "project:company:future:098",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/098_DATA_SOVEREIGNTY_WORKLOAD_ROUTING_PLATFORM.md",
+      "expectedSha256": "3897a7f2a3638792ce5933d566c5260068b20e13cd970b5cdc1de405c534eb16"
+    },
+    {
+      "companyId": "company:future:099",
+      "projectId": "project:company:future:099",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/099_MACHINE_ENFORCED_DATA_CONTRACT_PLATFORM.md",
+      "expectedSha256": "a56345f9868b7d2e290127bd3d92a63377e3b81065aa91e4348ff066535dd2dd"
+    },
+    {
+      "companyId": "company:future:100",
+      "projectId": "project:company:future:100",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/100_LEGACY_SOFTWARE_MODERNIZATION_AUTOPILOT.md",
+      "expectedSha256": "e6069dc906d41bc98e4b05adbd6bb1c3e5021868025b651912740fe7c5fce9bd"
+    },
+    {
+      "companyId": "company:future:101",
+      "projectId": "project:company:future:101",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/101_HEALTHCARE_ADMINISTRATIVE_AUTOMATION_OS.md",
+      "expectedSha256": "728383236246d6d4baea62c87f4d61e2378378e66eb07ec6a54f56fe30b10a0b"
+    },
+    {
+      "companyId": "company:future:102",
+      "projectId": "project:company:future:102",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/102_E_DISCOVERY_AND_LITIGATION_EVIDENCE_INTELLIGENCE_PLATFORM.md",
+      "expectedSha256": "6d25070a768563b9ec13575b852be6fe586306dcf377c59fa78faac0d5e31c5b"
+    },
+    {
+      "companyId": "company:future:103",
+      "projectId": "project:company:future:103",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/103_KYC_KYB_AML_COMPLIANCE_INFRASTRUCTURE.md",
+      "expectedSha256": "5e76209c75bfa1395c485710ae375e5a7610a816234d59a870cbed116bd720ca"
+    },
+    {
+      "companyId": "company:future:104",
+      "projectId": "project:company:future:104",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/104_PRIVACY_PRESERVING_DATA_COLLABORATION_PLATFORM.md",
+      "expectedSha256": "ebd8b91ca5ac9939f929a1229ef4e9ffd101ecdd372669d3eaf06af3e85c48cf"
+    },
+    {
+      "companyId": "company:future:105",
+      "projectId": "project:company:future:105",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/105_GLOBAL_TRADE_AND_CUSTOMS_COMPLIANCE_AUTOPILOT.md",
+      "expectedSha256": "3991880c45772b99f48d1cb4fe418db40ab333aac3fee58aac18dfe356a85582"
+    },
+    {
+      "companyId": "company:future:106",
+      "projectId": "project:company:future:106",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/106_INSURANCE_CLAIMS_AUTOMATION_AND_CLAIMS_INTELLIGENCE_PLATFORM.md",
+      "expectedSha256": "409246890b5354e7730c014816e491394d8df1e48251ee8c67da9c2b36c21cc4"
+    },
+    {
+      "companyId": "company:future:107",
+      "projectId": "project:company:future:107",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/107_RIGHTS_ROYALTIES_AND_LICENSING_OPERATIONS_PLATFORM.md",
+      "expectedSha256": "c18577dfd2710b071c7eb8cb024eaa90cda2d6a85753fb33ddf9f8b755fa4cdd"
+    },
+    {
+      "companyId": "company:future:108",
+      "projectId": "project:company:future:108",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/108_PRODUCT_RECALL_INTELLIGENCE.md",
+      "expectedSha256": "dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275"
+    },
+    {
+      "companyId": "company:future:109",
+      "projectId": "project:company:future:109",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/109_SHIPPING_EXCEPTION_RECOVERY.md",
+      "expectedSha256": "6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec"
+    },
+    {
+      "companyId": "company:future:110",
+      "projectId": "project:company:future:110",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/110_BOOK_FORMATTING_PUBLISHING_PREPARATION.md",
+      "expectedSha256": "b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229"
+    },
+    {
+      "companyId": "company:future:111",
+      "projectId": "project:company:future:111",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/111_CONTRACTOR_WEBSITES_ONLINE_BOOKING.md",
+      "expectedSha256": "254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3"
+    },
+    {
+      "companyId": "company:future:112",
+      "projectId": "project:company:future:112",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/112_AUTOMATED_VIDEO_REPURPOSING.md",
+      "expectedSha256": "6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b"
+    },
+    {
+      "companyId": "company:future:113",
+      "projectId": "project:company:future:113",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/113_ULTIMATE_COMMERCE_PLATFORM.md",
+      "expectedSha256": "e54fbba0d9beca3d20bac6ef2cb10e7ae098b8544d5ef8c8383d317c16757f04"
+    },
+    {
+      "companyId": "company:future:114",
+      "projectId": "project:company:future:114",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/114_REAL_ESTATE_WHOLESALING_ACQUISITION.md",
+      "expectedSha256": "e63d4a29d5833fee32e16c673c9bb21da176d2de03c8449524b76fd29229045d"
+    },
+    {
+      "companyId": "company:future:115",
+      "projectId": "project:company:future:115",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/115_CONTRACT_OPPORTUNITY_DISCOVERY_MATCHING.md",
+      "expectedSha256": "b8fb50d25ed8908101e5ea5c8308759dfab7dbc5488116a60f8bf7f92c59f6fe"
+    },
+    {
+      "companyId": "company:future:116",
+      "projectId": "project:company:future:116",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/116_BUILDING_PERMIT_INSPECTION_INTELLIGENCE.md",
+      "expectedSha256": "feb98d39c26aefc3d88355aa55b9653225cb9b821208cd55433c3dd8ba725c46"
+    },
+    {
+      "companyId": "company:future:117",
+      "projectId": "project:company:future:117",
+      "sourcePath": "roadmap/portfolio-future-architecture/companies/117_INDUSTRIAL_MAINTENANCE_DOWNTIME_INTELLIGENCE.md",
+      "expectedSha256": "958a4b4da4307e2dfe3febb1641e554db25d2c60368daceaf64c3b6151a624ec"
+    }
+  ]
+}
