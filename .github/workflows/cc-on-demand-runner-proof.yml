@@ -1,0 +1,44 @@
+name: COMMAND CENTER on-demand runner transport proof
+
+# PR execution verifies the isolated proof without touching the default branch.
+# Manual dispatch is only available after this workflow exists on the default
+# branch, which is NOT authorized by the isolated PR.
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cc-on-demand-runner-proof.yml'
+      - 'clean-room/scripts/github-runner-proof.mjs'
+      - 'clean-room/tests/github-runner-proof.test.mjs'
+      - 'clean-room/tests/github-actions-dispatch.test.mjs'
+      - 'supabase/functions/command-center-execution/github-actions-dispatch.mjs'
+  workflow_dispatch:
+    inputs:
+      request_id:
+        description: 'Opaque proof request only; never a project objective'
+        required: true
+        type: string
+      source_sha:
+        description: 'Exact 40-character Git commit SHA'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  source-attestation-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout isolated source (read-only)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9f
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+      - name: Run transport and integrity tests with existing Node
+        run: node --test clean-room/tests/github-actions-dispatch.test.mjs clean-room/tests/github-runner-proof.test.mjs
+      - name: Generate real runner proof without project changes
+        env:
+          CC_EXPECTED_SHA: ${{ inputs.source_sha || github.sha }}
+          CC_PROOF_REQUEST_ID: ${{ inputs.request_id || github.run_id }}
+        run: node clean-room/scripts/github-runner-proof.mjs
