@@ -493,7 +493,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       throw new Error("Owner Brain conversation is unavailable");
     const projectId = stringValue(record.project_id) ?? null;
     if (projectId !== null) {
-      const match = /^project:company:future:(d{3})$/u.exec(projectId);
+      const match = /^project:company:future:(\d{3})$/u.exec(projectId);
       if (!match || Number(match[1]) < 1 || Number(match[1]) > 117)
         throw new Error("PC Brain responses are currently limited to the central Brain and future company catalogue");
     }

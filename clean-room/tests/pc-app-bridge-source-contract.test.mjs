@@ -23,3 +23,7 @@ test("no browser worker token or payment execution in the PC composer",()=>{
  assert.doesNotMatch(ui,/CC_PC_WORKER_TOKEN|SERVICE_ROLE_KEY|stripe_api_write/);
  assert.match(snapshot,/readonly pcRequests\?/);
 });
+test("company scope parser retains numeric 001..117 project identifiers",()=>{
+ assert.ok(provider.includes("/^project:company:future:(\\d{3})$/u.exec(projectId)"));
+ assert.doesNotMatch(provider,/project:company:future:\(d\{3\}\)/);
+});
