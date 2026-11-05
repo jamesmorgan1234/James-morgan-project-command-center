@@ -605,15 +605,11 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
 
   async #loadBrainSnapshot(): Promise<RuntimeBrainSnapshot> {
     const session = this.#currentSession();
-    const [conversationRows, turnRows, workspaceRows, improvementRows, workerStatusRows, pcQueueRows] = await Promise.all([
+    const [conversationRows, turnRows, workspaceRows, improvementRows] = await Promise.all([
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
       this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
       this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
-      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" }),
-      this.#rpcRows("command_center_pc_owner_worker_status", session.accessToken, {}),
-      this.#selectRows("command_center_pc_inference_requests", session,
-        "request_id,conversation_id,owner_turn_id,project_id,state,brain_turn_id,content_hash,created_at,updated_at",
-        { order: "created_at.desc", limit: "500" })
+      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc", limit: "500" })
     ]);
 
     const turnsByConversation = new Map<string, RuntimeBrainConversationTurn[]>();
@@ -745,9 +741,20 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
 
 
-    const workerOnline = workerStatusRows.some(row =>
-      row.enabled === true && row.revoked !== true && row.online === true);
-    const pcRequests = Object.freeze(pcQueueRows.map(row => {
+    // PC telemetry is auxiliary: its failure cannot erase persisted Brain history.
+    let workerOnline = false;
+    let verifiedCentralInference = false;
+    let pcRequests: NonNullable<RuntimeBrainSnapshot["pcRequests"]> = Object.freeze([]);
+    try {
+      const [workerStatusRows, pcQueueRows] = await Promise.all([
+        this.#rpcRows("command_center_pc_owner_worker_status", session.accessToken, {}),
+        this.#selectRows("command_center_pc_inference_requests", session,
+          "request_id,conversation_id,owner_turn_id,project_id,state,brain_turn_id,content_hash,created_at,updated_at",
+          { order: "created_at.desc", limit: "500" })
+      ]);
+      workerOnline = workerStatusRows.some(row =>
+        row.enabled === true && row.revoked !== true && row.online === true);
+      pcRequests = Object.freeze(pcQueueRows.map(row => {
       const requestId = stringValue(row.request_id);
       const conversationId = stringValue(row.conversation_id);
       const ownerTurnId = stringValue(row.owner_turn_id);
@@ -765,9 +772,8 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
         createdAt: stringValue(row.created_at) ?? "",
         updatedAt: stringValue(row.updated_at) ?? ""
       });
-    }));
-    let verifiedCentralInference = false;
-    for (const request of pcQueueRows) {
+      }));
+      for (const request of pcQueueRows) {
       if (request.project_id !== null || request.state !== "completed") continue;
       const turn = turnRows.find(row =>
         row.turn_id === request.brain_turn_id &&
@@ -783,6 +789,12 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
         verifiedCentralInference = true;
         break;
       }
+      }
+    } catch {
+      // Fail closed on missing, untrusted, or unavailable PC state. Keep canonical history.
+      workerOnline = false;
+      verifiedCentralInference = false;
+      pcRequests = Object.freeze([]);
     }
     return Object.freeze({
       availability: "available" as const,

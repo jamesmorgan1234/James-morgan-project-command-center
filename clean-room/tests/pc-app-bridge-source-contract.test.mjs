@@ -33,3 +33,10 @@ test("saved Brain workspace remains navigable when inference is offline",()=>{
  assert.match(provider,/inferenceAvailability: workerOnline \? "available" as const : "unavailable" as const/);
  assert.match(ui,/brain\.workerOnline === true && brain\.verifiedCentralInference === true/);
 });
+
+test("optional PC telemetry errors never hide canonical saved Brain records",()=>{
+ assert.match(provider,/PC telemetry is auxiliary/);
+ assert.match(provider,/workerOnline = false;/);
+ assert.match(provider,/pcRequests = Object.freeze\(\[\]\);/);
+ assert.match(provider,/inferenceAvailability: workerOnline \? "available" as const : "unavailable" as const/);
+});

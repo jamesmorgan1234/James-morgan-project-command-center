@@ -63,7 +63,11 @@ test("P6.7/P6.8/P6.13 managed owner runtime reads canonical Brain conversations,
   assert.equal(snapshot.brain?.improvements[0].installsAutomatically, false);
   assert.equal(snapshot.brain?.improvements[0].detailHash, "c".repeat(64));
   assert.equal(snapshot.surfaces.find((surface) => surface.key === "brain")?.summary.state, "known");
-  assert.equal(calls.filter((call) => call.method === "GET").length, 4);
+  assert.equal(calls.filter((call) => call.method === "GET").length, 5);
+  assert.equal(snapshot.brain?.workerOnline, false);
+  assert.equal(snapshot.brain?.verifiedCentralInference, false);
+  assert.deepEqual(snapshot.brain?.pcRequests, []);
+  // PC status is unavailable in this fixture; canonical saved history must survive.
 });
 
 test("P6.7 protected-looking owner input is persisted as a request only and never acquires execution authority", async () => {
