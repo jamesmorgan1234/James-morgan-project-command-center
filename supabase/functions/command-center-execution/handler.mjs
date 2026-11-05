@@ -1,6 +1,6 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
-import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
+import { dispatchImmediately, ImmediateDispatchError } from './immediate-dispatch.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -64,16 +64,18 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
 
       if (body.action === 'agency_start') {
         if (typeof body.projectId !== 'string' || !body.projectId.trim() || body.projectId.length > 240 || typeof body.objective !== 'string' || !body.objective.trim() || body.objective.length > 4000 || !UUID.test(body.requestId ?? '')) throw new GatewayError('invalid_start',400);
-        // Existing owner-controlled worker uses an authenticated, durable Supabase
-        // queue, not a synchronous Supabase Function executor. Never report a
-        // queued task as executed. This branch is STRICTLY for the in-scope 116.
-        if (scopedCompanyId(body.projectId)) {
-          const receipt = await queueOnExistingNormalChatWorker({
-            projectId:body.projectId,objective:body.objective,requestId:body.requestId,
+        // Modern Agency: do not queue for an hourly Task. All new in-scope
+        // projects use a directly invoked free executor with real claim proof.
+        // Leave the excluded future-company legacy route exactly as it was.
+        if (scopedCompanyId(body.projectId) || !/^project:company:future:[0-9]{3}$/.test(body.projectId)) {
+          const receipt = await dispatchImmediately({
+            projectId:body.projectId, objective:body.objective,requestId:body.requestId,
             readRows:(table,params)=>rows(table,user.id,params),
-            rpc:(name,payload)=>upstream('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(payload)})
+            readiness:(payload)=>upstream('/rest/v1/rpc/command_center_project_work_readiness',
+              {method:'POST',body:JSON.stringify(payload)}),
+            invoke,now
           });
-          return reply(receipt,receipt.duplicate?200:202);
+          return reply(receipt);
         }
 
         const projects = await rows('command_center_project_profiles',user.id,{project_id:`eq.${body.projectId}`,select:'project_id,type_key',limit:'1'});
@@ -117,7 +119,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!response || response.project_id !== turns[0].project_id || response.redaction_state !== 'safe_text' || !response.safe_text?.trim() || response.canonical_writes_authorized !== false || !response.evidence_refs?.includes(`brain:response-to:${body.ownerTurnId}`)) throw new GatewayError('response_not_verified');
       return reply({brainTurnId:response.turn_id});
     } catch (error) {
-      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError ? error.status : 503);
+      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError ? error.status : 503);
     }
   };
 }
