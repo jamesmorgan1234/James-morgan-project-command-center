@@ -478,6 +478,24 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   }
 
   async continueProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {
+    const immediateScope = preparedCompanyId(projectId) !== null ||
+      !/^project:company:future:[0-9]{3}$/.test(projectId);
+    if (immediateScope) {
+      const session = await this.#assertProject(projectId);
+      const receipt = await invokeExecutionGateway({
+        supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+        accessToken:session.accessToken,fetcher:this.#fetcher
+      }, {action:"agency_continue",projectId,runId,expectedGeneration:generation,
+        requestId:this.#randomId()});
+      if (receipt.runId !== runId ||
+          !["working","completed"].includes(String(receipt.state)) ||
+          receipt.immediateExecutionVerified !== true ||
+          receipt.scheduledFallback !== false ||
+          typeof receipt.taskId !== "string" || !receipt.taskId.trim())
+        throw new Error("Continue did not confirm a live on-demand worker");
+      return;
+    }
+    // Preserve the existing separately controlled route without changing it.
     const session = await this.#assertProject(projectId);
     const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id,control_mode,authorization_ref,state", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
     const run = rows[0];
