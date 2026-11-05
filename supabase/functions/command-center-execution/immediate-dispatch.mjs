@@ -64,9 +64,15 @@ export async function dispatchImmediately({
   if(isFuture)check(project.company_id==='company:future:'+COMPANY.exec(projectId)[1]&&
     project.status==='active','company_not_prepared',409);
   const isBook=project.type_key==='project-type:book';
-  // Existing publication is never an instruction to rewrite or re-publish.
-  if(isBook)check(!/\bpublished\b/i.test(project.status??''),'published_book_requires_separate_scope',409);
-  check(!/^(paused|blocked)$/i.test(project.status??''),'project_hold_requires_owner_review',409);
+  // The book must be explicitly unpublished (or a manuscript still being written);
+  // mixed/published catalogs are not safe implicit editorial scope.
+  if(isBook){
+    check(!/\bpublished\b/i.test(project.status??''),'published_book_requires_separate_scope',409);
+    check(/unpublished|writing in progress/i.test(project.status??''),
+      'book_unpublished_scope_not_verified',409);
+  }
+  check(!/(^paused$|^blocked$|owner review required|compliance.gated)/i.test(project.status??''),
+    'project_hold_requires_owner_review',409);
 
   const capabilities=isBook?['project.execute','book.editorial.review']:['project.execute'];
   const all=await readRows('command_center_agency_executors',{
@@ -176,9 +182,13 @@ export async function resumeImmediately({
   check(project.project_id===projectId&&typeof project.type_key==='string',
     'project_identity_mismatch',403);
   const isBook=project.type_key==='project-type:book';
-  if(isBook)check(!/\bpublished\b/i.test(project.status??''),
-    'published_book_requires_separate_scope',409);
-  check(!/^(paused|blocked)$/i.test(project.status??''),
+  if(isBook){
+    check(!/\bpublished\b/i.test(project.status??''),
+      'published_book_requires_separate_scope',409);
+    check(/unpublished|writing in progress/i.test(project.status??''),
+      'book_unpublished_scope_not_verified',409);
+  }
+  check(!/(^paused$|^blocked$|owner review required|compliance.gated)/i.test(project.status??''),
     'project_hold_requires_owner_review',409);
   const previous=await one(readRows,'command_center_agency_runs',{
     project_id:'eq.'+projectId,run_id:'eq.'+runId,
