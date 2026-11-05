@@ -20,7 +20,7 @@ export function isOnDemandScopedProject(projectId){
     const n=Number(COMPANY.exec(projectId)[1]);
     return n>=1&&n<=117&&n!==14;
   }
-  return !projectId.startsWith('project:company:future:')&&/^[a-z][a-z0-9-_]{0,120}$/.test(projectId);
+  return !projectId.startsWith('project:company:future:')&&/^[a-z][a-z0-9_-]{0,120}$/.test(projectId);
 }
 const bookReviewPolicy=Object.freeze({
   workflow:'book_editorial_quality_review',
