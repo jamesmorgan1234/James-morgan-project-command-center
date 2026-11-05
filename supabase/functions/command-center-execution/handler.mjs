@@ -1,12 +1,13 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
 import { dispatchImmediately, resumeImmediately, ImmediateDispatchError } from './immediate-dispatch.mjs';
+import { requestGitHubRunnerProof, GitHubDispatchUnavailable } from './github-actions-dispatch.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
 class GatewayError extends Error { constructor(code, status = 503) { super(code); this.status = status; } }
 
-export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = fetch, now = () => Date.now()}) {
+export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = fetch, githubFetcher = fetch, githubActionsToken = '', now = () => Date.now()}) {
   const base = new URL(supabaseUrl);
   if (base.protocol !== 'https:' || base.hostname !== 'gmlsucpwliegwlxymjvp.supabase.co') throw Error('Execution backend binding mismatch');
   return async request => {
@@ -51,11 +52,21 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         text += decoder.decode();
       }
       let body; try { body = JSON.parse(text); } catch { throw new GatewayError('invalid_json',400); }
-      if (!object(body) || !['agency_start','agency_continue','brain_response','preparation_read'].includes(body.action)) throw new GatewayError('invalid_action',400);
+      if (!object(body) || !['agency_start','agency_continue','brain_response','preparation_read','runner_probe'].includes(body.action)) throw new GatewayError('invalid_action',400);
       const user = await upstream('/auth/v1/user');
       if (!user?.id) throw new GatewayError('unauthorized',401);
       const authorized = await upstream('/rest/v1/rpc/is_command_center_authorized',{method:'POST',body:'{}'});
       if (authorized !== true) throw new GatewayError('unauthorized',403);
+
+      // Owner-authenticated, isolated transport probe. This never creates a
+      // canonical Agency run or claims that source attestation is project work.
+      if (body.action === 'runner_probe') {
+        const receipt = await requestGitHubRunnerProof({
+          token:githubActionsToken, requestId:body.requestId,
+          sourceSha:body.sourceSha, fetcher:githubFetcher
+        });
+        return reply(receipt,202);
+      }
 
       if (body.action === 'preparation_read') {
         const result = await readCompanyBuildPreparation(body.projectId, (table, params) => rows(table, user.id, params));
@@ -132,7 +143,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!response || response.project_id !== turns[0].project_id || response.redaction_state !== 'safe_text' || !response.safe_text?.trim() || response.canonical_writes_authorized !== false || !response.evidence_refs?.includes(`brain:response-to:${body.ownerTurnId}`)) throw new GatewayError('response_not_verified');
       return reply({brainTurnId:response.turn_id});
     } catch (error) {
-      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError ? error.status : 503);
+      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError || error instanceof GitHubDispatchUnavailable ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError || error instanceof GitHubDispatchUnavailable ? (error.status ?? 503) : 503);
     }
   };
 }
