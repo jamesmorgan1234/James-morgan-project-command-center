@@ -117,7 +117,7 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
     const row = el("article", "project-workspace-record"); row.append(el("strong", undefined, run.objective), el("p", "muted", `Run state: ${run.state}. ${run.state === "queued" ? "Waiting for the connected ChatGPT worker; execution has not yet been claimed." : run.state === "draft" ? "Saved, awaiting execution setup; no worker has started." : ""}`));
     if (run.blocker) row.append(el("p", "muted", run.blocker));
     if (["needs_user", "blocked"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider) && provider.continueProjectAgencyRun) {
-      const resume = el("button", "cc-button", "Continue normal-chat work"); resume.type = "button";
+      const resume = el("button", "cc-button", immediateScope ? "Continue on-demand work" : "Continue normal-chat work"); resume.type = "button";
       resume.addEventListener("click", () => { resume.disabled = true; void provider.continueProjectAgencyRun!(project.id, run.runId, run.generation).then(rerender).catch(reason => { status.textContent = reason instanceof Error ? reason.message : "Run could not be continued"; resume.disabled = false; }); }); row.append(resume);
     }
     if (!["stopped", "failed", "completed"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider)) {
