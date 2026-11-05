@@ -1,5 +1,6 @@
 import type { CommandCenterRuntimeSnapshot, RuntimeProjectRecord, RuntimeProjectSnapshot } from "./snapshot.js";
 import { isProjectWorkspaceRuntimeProvider } from "./owner-security-provider.js";
+import { preparedCompanyId } from "./company-build-start.js";
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag); if (className) node.className = className; if (text !== undefined) node.textContent = text; return node;
@@ -61,6 +62,34 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
   const release = snapshot.release.releaseId.state === "known" ? snapshot.release.releaseId.value : "";
   const plan = project.workspace?.sourceRef ? safeProjectReferenceLink(project.workspace.sourceRef, release) : undefined;
   if (plan) node.append(link("Open full business plan", plan));
+  // The packet is read through the existing authenticated owner session.
+  // Do not enable this UI for Company #014 or any non-company project.
+  if (preparedCompanyId(project.id) && isProjectWorkspaceRuntimeProvider(provider) && provider.readCompanyBuildStart) {
+    const read = el("button", "cc-button cc-button--secondary", "Read verified build-start instructions");
+    read.type = "button";
+    const readStatus = el("p", "muted");
+    readStatus.setAttribute("role", "status");
+    const display = el("article", "project-workspace-record");
+    display.hidden = true;
+    display.style.whiteSpace = "pre-wrap";
+    read.addEventListener("click", () => { void (async () => {
+      read.disabled = true;
+      readStatus.textContent = "Checking the saved company packet…";
+      try {
+        const packet = await provider.readCompanyBuildStart!(project.id);
+        // textContent, not HTML: never render untrusted instructions as markup.
+        display.textContent = packet.instructions;
+        display.hidden = false;
+        readStatus.textContent = `Verified source and reconciliation records. Roadmap version ${packet.roadmapVersion}; first task ${packet.firstWorkUnitId}. This does not start a company build.`;
+      } catch (reason) {
+        display.hidden = true;
+        readStatus.textContent = reason instanceof Error ? reason.message : "Build-start instructions are unavailable";
+      } finally {
+        read.disabled = false;
+      }
+    })(); });
+    node.append(read, readStatus, display);
+  }
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
   node.append(el("p", "muted", "Start normal-chat work for this project. The worker saves its progress and stops when it needs you or Work. Paid services and protected actions require separate authorization."));
   if (blockers.length) {

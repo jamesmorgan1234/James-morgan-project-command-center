@@ -1,4 +1,5 @@
 import { invokeExecutionGateway } from "./execution-gateway.js";
+import { preparedCompanyId, validateCompanyBuildStart, type CompanyBuildStartView } from "./company-build-start.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
 import { SupabasePasskeyClient, type SupabasePasskeyDescriptor } from "../security/supabase-passkeys.js";
@@ -40,6 +41,7 @@ export interface BrainConversationRuntimeProvider {
 export interface ProjectWorkspaceRuntimeProvider {
   saveProjectRecord(projectId: string, kind: "decision" | "asset_reference" | "integration_request", title: string, detail: string, url?: string, requestId?: string): Promise<string>;
   createProjectAgencyRun(projectId: string, objective: string, requestId?: string): Promise<string>;
+  readCompanyBuildStart?(projectId: string): Promise<CompanyBuildStartView>;
   stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void>;
   continueProjectAgencyRun?(projectId: string, runId: string, generation: number): Promise<void>;
 }
@@ -385,6 +387,45 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       p_source_ref: `owner:project-workspace:${id}`
     });
     return id;
+  }
+
+  async readCompanyBuildStart(projectId: string): Promise<CompanyBuildStartView> {
+    // Scope is checked before any owner/project read. Never enter Company #014.
+    if (!preparedCompanyId(projectId)) throw new Error("Company is outside this 116-company preparation scope");
+    const session = await this.#assertProject(projectId);
+    const [projects, roadmaps] = await Promise.all([
+      this.#selectRows("command_center_project_profiles", session, "project_id,company_id,status", {
+        project_id: `eq.${projectId}`, limit: "1"
+      }),
+      this.#selectRows("command_center_project_roadmaps", session, "project_id,version,state,structure_verified", {
+        project_id: `eq.${projectId}`, state: "eq.current", limit: "1"
+      })
+    ]);
+    if (projects.length !== 1 || roadmaps.length !== 1) throw new Error("Company preparation is not available");
+    const version = roadmaps[0]?.version;
+    if (typeof version !== "number" || !Number.isSafeInteger(version)) throw new Error("Roadmap version is not verified");
+    const companyId = preparedCompanyId(projectId)!;
+    const [checkpoints, packets, reconciliations] = await Promise.all([
+      this.#selectRows("command_center_project_checkpoints", session,
+        "checkpoint_id,roadmap_version,exact_next_work_unit_id,resume_state_hash", {
+        project_id: `eq.${projectId}`, roadmap_version: `eq.${version}`,
+        order: "created_at.desc", limit: "1"
+      }),
+      this.#selectRows("command_center_knowledge_claims", session,
+        "claim_id,project_id,state,truth_state,value_jsonb,source_refs", {
+        project_id: `eq.${projectId}`, claim_id: `eq.company-build-start:${companyId}:v1`, limit: "1"
+      }),
+      this.#selectRows("command_center_knowledge_claims", session,
+        "claim_id,project_id,state,truth_state,value_jsonb,source_refs", {
+        project_id: `eq.${projectId}`, claim_id: `eq.company-reconciliation:${companyId}:v1`, limit: "1"
+      })
+    ]);
+    if (checkpoints.length !== 1 || packets.length !== 1 || reconciliations.length !== 1)
+      throw new Error("The verified starting packet is missing from this project");
+    return validateCompanyBuildStart(projectId, {
+      project: projects[0], roadmap: roadmaps[0], checkpoint: checkpoints[0],
+      start: packets[0], reconciliation: reconciliations[0]
+    });
   }
 
   async createProjectAgencyRun(projectId: string, objective: string, requestId?: string): Promise<string> {
