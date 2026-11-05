@@ -27,3 +27,9 @@ test("company scope parser retains numeric 001..117 project identifiers",()=>{
  assert.ok(provider.includes("/^project:company:future:(\\d{3})$/u.exec(projectId)"));
  assert.doesNotMatch(provider,/project:company:future:\(d\{3\}\)/);
 });
+
+test("saved Brain workspace remains navigable when inference is offline",()=>{
+ assert.match(provider,/brainSurface: RuntimeSurfaceSnapshot = brain\.availability === "available"/);
+ assert.match(provider,/inferenceAvailability: workerOnline \? "available" as const : "unavailable" as const/);
+ assert.match(ui,/brain\.workerOnline === true && brain\.verifiedCentralInference === true/);
+});

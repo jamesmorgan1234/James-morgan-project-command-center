@@ -803,7 +803,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   }
 
   #withBrainSnapshot(snapshot: CommandCenterRuntimeSnapshot, brain: RuntimeBrainSnapshot): CommandCenterRuntimeSnapshot {
-    const brainSurface: RuntimeSurfaceSnapshot = brain.inferenceAvailability === "available"
+    const brainSurface: RuntimeSurfaceSnapshot = brain.availability === "available"
       ? Object.freeze({
           key: "brain",
           label: "Brain",
