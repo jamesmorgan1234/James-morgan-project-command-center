@@ -176,7 +176,7 @@ export async function resumeImmediately({
   check(project.project_id===projectId&&typeof project.type_key==='string',
     'project_identity_mismatch',403);
   const isBook=project.type_key==='project-type:book';
-  if(isBook)check(!/\\bpublished\\b/i.test(project.status??''),
+  if(isBook)check(!/\bpublished\b/i.test(project.status??''),
     'published_book_requires_separate_scope',409);
   check(!/^(paused|blocked)$/i.test(project.status??''),
     'project_hold_requires_owner_review',409);
