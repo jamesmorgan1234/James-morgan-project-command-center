@@ -434,6 +434,25 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const nonce = requestId ?? this.#randomId();
     if (!/^[a-f0-9-]{36}$/i.test(nonce)) throw new Error("Invalid request identity");
     const runId = `agency-run:${nonce}`;
+    // Start synchronously when a genuine free on-demand executor is ready.
+    // Both the future catalog and legacy project/book records are in scope.
+    // The separately protected future-company route remains unchanged below.
+    const isImmediateScope = preparedCompanyId(projectId) !== null ||
+      !/^project:company:future:[0-9]{3}$/.test(projectId);
+    if (isImmediateScope) {
+      const started = await invokeExecutionGateway({
+        supabaseUrl:this.#supabaseUrl, publishableKey:this.#publishableKey,
+        accessToken:session.accessToken, fetcher:this.#fetcher
+      }, {action:"agency_start",projectId,objective:objective.trim(),requestId:nonce});
+      if (started.runId !== runId ||
+          !["working","completed"].includes(String(started.state)) ||
+          started.immediateExecutionVerified !== true ||
+          started.scheduledFallback !== false ||
+          typeof started.taskId !== "string" || !started.taskId.trim())
+        throw new Error("Immediate execution did not provide a verified worker claim");
+      return runId;
+    }
+    // Existing separate route is intentionally preserved unchanged.
     const receipt = await this.#rpcPayload("command_center_agency_start_normal_chat", session.accessToken, {
       p_project_id: projectId, p_run_id: runId, p_objective: objective.trim()
     });
