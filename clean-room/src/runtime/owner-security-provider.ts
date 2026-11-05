@@ -34,6 +34,10 @@ export interface BrainConversationRuntimeProvider {
   createBrainConversation(projectId: string | undefined, title: string): Promise<string>;
   recordBrainOwnerTurn(conversationId: string, text: string): Promise<BrainTurnWriteResult>;
   requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string>;
+  /** Read-only PC queue; does not authorize company development. */
+  enqueuePcBrainResponse?(conversationId: string, ownerTurnId: string): Promise<{
+    readonly requestId: string; readonly state: "queued" | "claimed" | "completed";
+  }>;
   decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void>;
   convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
@@ -470,6 +474,42 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     return receipt.brainTurnId;
   }
 
+
+  /**
+   * Queue an authenticated, already-saved owner turn for the local Windows AI.
+   * No GitHub operation, payment, company build, or protected action is authorized.
+   * Stable owner-turn UUID prevents duplicate work when the phone reconnects.
+   */
+  async enqueuePcBrainResponse(conversationId: string, ownerTurnId: string): Promise<{
+    readonly requestId: string; readonly state: "queued" | "claimed" | "completed";
+  }> {
+    const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/iu;
+    if (!uuid.test(conversationId) || !uuid.test(ownerTurnId)) throw new Error("A saved conversation and owner turn are required");
+    const session = this.#currentSession();
+    const conversations = await this.#selectRows("command_center_brain_conversations", session,
+      "conversation_id,project_id,state", { conversation_id: `eq.${conversationId}`, limit: "1" });
+    const record = conversations[0];
+    if (!record || record.conversation_id !== conversationId || record.state !== "active")
+      throw new Error("Owner Brain conversation is unavailable");
+    const projectId = stringValue(record.project_id) ?? null;
+    if (projectId !== null) {
+      const match = /^project:company:future:(d{3})$/u.exec(projectId);
+      if (!match || Number(match[1]) < 1 || Number(match[1]) > 117)
+        throw new Error("PC Brain responses are currently limited to the central Brain and future company catalogue");
+    }
+    const saved = await this.#rpcPayload("command_center_pc_enqueue_inference", session.accessToken, {
+      p_request_id: ownerTurnId,
+      p_conversation_id: conversationId,
+      p_owner_turn_id: ownerTurnId,
+      p_project_id: projectId
+    });
+    if (!isRecord(saved) || saved.request_id !== ownerTurnId ||
+      saved.owner_turn_id !== ownerTurnId || (saved.project_id ?? null) !== projectId ||
+      !["queued", "claimed", "completed"].includes(String(saved.state)))
+      throw new Error("The PC queue did not verify the exact authenticated owner request");
+    return Object.freeze({requestId: ownerTurnId, state: saved.state as "queued" | "claimed" | "completed"});
+  }
+
   async stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {
     const session = await this.#assertProject(projectId);
     const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
@@ -565,11 +605,15 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
 
   async #loadBrainSnapshot(): Promise<RuntimeBrainSnapshot> {
     const session = this.#currentSession();
-    const [conversationRows, turnRows, workspaceRows, improvementRows] = await Promise.all([
+    const [conversationRows, turnRows, workspaceRows, improvementRows, workerStatusRows, pcQueueRows] = await Promise.all([
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
       this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
       this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
-      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" })
+      this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" }),
+      this.#rpcRows("command_center_pc_owner_worker_status", session.accessToken, {}),
+      this.#selectRows("command_center_pc_inference_requests", session,
+        "request_id,conversation_id,owner_turn_id,project_id,state,brain_turn_id,content_hash,created_at,updated_at",
+        { order: "created_at.desc", limit: "500" })
     ]);
 
     const turnsByConversation = new Map<string, RuntimeBrainConversationTurn[]>();
@@ -700,8 +744,53 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       });
     });
 
+
+    const workerOnline = workerStatusRows.some(row =>
+      row.enabled === true && row.revoked !== true && row.online === true);
+    const pcRequests = Object.freeze(pcQueueRows.map(row => {
+      const requestId = stringValue(row.request_id);
+      const conversationId = stringValue(row.conversation_id);
+      const ownerTurnId = stringValue(row.owner_turn_id);
+      const projectId = stringValue(row.project_id);
+      const state = stringValue(row.state);
+      const brainTurnId = stringValue(row.brain_turn_id);
+      if (!requestId || !conversationId || !ownerTurnId ||
+        !["queued", "claimed", "completed", "failed", "cancelled"].includes(state ?? ""))
+        throw new Error("PC queue contains an invalid state");
+      return Object.freeze({
+        requestId, conversationId, ownerTurnId,
+        ...(projectId ? {projectId} : {}),
+        state: state as "queued" | "claimed" | "completed" | "failed" | "cancelled",
+        ...(brainTurnId ? {brainTurnId} : {}),
+        createdAt: stringValue(row.created_at) ?? "",
+        updatedAt: stringValue(row.updated_at) ?? ""
+      });
+    }));
+    let verifiedCentralInference = false;
+    for (const request of pcQueueRows) {
+      if (request.project_id !== null || request.state !== "completed") continue;
+      const turn = turnRows.find(row =>
+        row.turn_id === request.brain_turn_id &&
+        row.conversation_id === request.conversation_id &&
+        row.project_id === null && row.role === "brain" &&
+        row.redaction_state === "safe_text" &&
+        row.canonical_writes_authorized === false &&
+        row.content_hash === request.content_hash &&
+        stringArray(row.evidence_refs).includes(`brain:response-to:${request.owner_turn_id}`) &&
+        stringArray(row.evidence_refs).includes(`brain:workstation-claim:${request.request_id}`));
+      if (turn && typeof turn.safe_text === "string" &&
+        await this.#sha256(turn.safe_text.trim()) === request.content_hash) {
+        verifiedCentralInference = true;
+        break;
+      }
+    }
     return Object.freeze({
       availability: "available" as const,
+      inferenceAvailability: workerOnline ? "available" as const : "unavailable" as const,
+      specialistReadiness: Object.freeze({}) as Readonly<Record<string, "available" | "unavailable">>,
+      workerOnline,
+      verifiedCentralInference,
+      pcRequests,
       conversations: Object.freeze(conversations),
       workspaces: Object.freeze(workspaces),
       improvements: Object.freeze(improvements),
@@ -714,7 +803,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   }
 
   #withBrainSnapshot(snapshot: CommandCenterRuntimeSnapshot, brain: RuntimeBrainSnapshot): CommandCenterRuntimeSnapshot {
-    const brainSurface: RuntimeSurfaceSnapshot = brain.availability === "available"
+    const brainSurface: RuntimeSurfaceSnapshot = brain.inferenceAvailability === "available"
       ? Object.freeze({
           key: "brain",
           label: "Brain",
@@ -722,7 +811,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
           summary: known(`${brain.conversations.length} persistent Brain conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} project workspace${brain.workspaces.length === 1 ? "" : "s"} · ${brain.improvements.length} evidence-backed improvement proposal${brain.improvements.length === 1 ? "" : "s"}.`),
           evidence: brain.evidence
         })
-      : Object.freeze({ key: "brain", label: "Brain", availability: brain.availability, summary: unknown<string>(), evidence: brain.evidence });
+      : Object.freeze({ key: "brain", label: "Brain", availability: "unavailable" as const, summary: known("Saved Brain conversations remain readable; live AI requires a connected PC worker."), evidence: brain.evidence });
     const surfaces = snapshot.surfaces.map((surface) => surface.key === "brain" ? brainSurface : surface);
     return Object.freeze({ ...snapshot, brain, surfaces: Object.freeze(surfaces) });
   }

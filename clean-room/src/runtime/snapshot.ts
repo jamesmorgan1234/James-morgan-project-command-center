@@ -211,6 +211,17 @@ export interface RuntimeBrainImprovementProposal {
 
 export interface RuntimeBrainSnapshot {
   readonly availability: SurfaceAvailability;
+  readonly inferenceAvailability?: "available" | "unavailable";
+  readonly specialistReadiness?: Readonly<Record<string, "available" | "unavailable">>;
+  /** A fresh owner worker heartbeat proves transport, not model inference. */
+  readonly workerOnline?: boolean;
+  readonly verifiedCentralInference?: boolean;
+  readonly pcRequests?: readonly Readonly<{
+    requestId: string; conversationId: string; ownerTurnId: string;
+    projectId?: string;
+    state: "queued" | "claimed" | "completed" | "failed" | "cancelled";
+    brainTurnId?: string; createdAt: string; updatedAt: string;
+  }>[];
   readonly conversations: readonly RuntimeBrainConversation[];
   readonly workspaces: readonly RuntimeBrainProjectWorkspace[];
   readonly improvements: readonly RuntimeBrainImprovementProposal[];
