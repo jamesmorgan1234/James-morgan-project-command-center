@@ -60,10 +60,15 @@ test('spoofed free executor ref fails closed',async()=>{
 });
 test('paid, retired, or disabled worker cannot be selected',async()=>{
  for(const change of [{cost_class:'paid'},{retired_at:'2026-11-04T00:00:00Z'},{enabled:false},{environments:['work']},{capabilities:[]}]){
-   const f=fixture();Object.assign(fixWorker(f),change);
-   await assert.rejects(f.invoke(),/existing_worker_unavailable/);assert.equal(f.calls.filter(c=>c.kind==='rpc').length,0);
+   const original=fixture();
+   const originalRead=original.readRows;
+   const readRows=async(table,params)=>{
+     const rows=await originalRead(table,params);
+     return table==='command_center_agency_executors' ? rows.map(row=>({...row,...change})) : rows;
+   };
+   await assert.rejects(original.invoke({readRows}),/existing_worker_unavailable/);
+   assert.equal(original.calls.filter(c=>c.kind==='rpc').length,0);
  }
- function fixWorker(f){const original=f.readRows;f.readRows=async(...x)=>{const a=await original(...x);return x[0]==='command_center_agency_executors'?a.map(y=>({...y,...change})):a};return {}}
 });
 test('roadmap or checkpoint failure cannot create a run',async()=>{
  for(const change of [{command_center_project_roadmaps:[{version:2,state:'current',structure_verified:false}]},{command_center_project_checkpoints:[]}]){
@@ -79,7 +84,6 @@ test('wrong durable run or unauthorized binding cannot be reported queued',async
   {state:'queued',stop_requested:true},
   {state:'queued',generation:2}
  ]) {
-   const f=fixture();
    const run={run_id:runId,project_id:projectId,objective,control_mode:'until_work',authorization_ref:'owner:normal-chat-start:'+runId,state:'queued',generation:1,stop_requested:false,pause_requested:false,...over};
    const x=fixture({command_center_agency_runs:[run]});
    await assert.rejects(x.invoke(),/queue_not_persisted|run_stopped/);
