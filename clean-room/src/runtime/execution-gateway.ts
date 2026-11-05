@@ -19,6 +19,12 @@ export async function invokeExecutionGateway(options: ExecutionGatewayOptions, r
     const code = payload && typeof payload === "object" && "error" in payload ? String(payload.error) : "execution_unavailable";
     const messages: Record<string, string> = {
       no_eligible_executor: "No connected free execution worker is available. No draft was created and no work was reported as running.",
+      no_verified_free_immediate_executor: "No verified free on-demand executor is connected for this project. Nothing was started, queued, or scheduled.",
+      published_book_requires_separate_scope: "This project includes published material. Choose a specific unpublished manuscript before starting an editorial review.",
+      project_hold_requires_owner_review: "This project is on hold. Review its existing blocker before requesting execution.",
+      worker_claim_not_verified: "The executor did not provide a live worker claim; execution is not confirmed.",
+      execution_task_not_persisted: "No durable task record was found for this start request; do not retry until its state is checked.",
+      completion_evidence_not_verified: "A completed task has no independently verifiable result record.",
       no_eligible_inference: "Your message is saved, but no connected free Brain inference provider is available.",
       execution_not_verified: "The worker did not provide verifiable execution evidence. Execution is not confirmed.",
       response_not_verified: "The Brain provider did not save a verifiable response. Your message remains saved."

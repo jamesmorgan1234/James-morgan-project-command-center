@@ -1,12 +1,13 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
-import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
+import { dispatchImmediately, resumeImmediately, ImmediateDispatchError } from './immediate-dispatch.mjs';
+import { requestGitHubRunnerProof, GitHubDispatchUnavailable } from './github-actions-dispatch.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
 class GatewayError extends Error { constructor(code, status = 503) { super(code); this.status = status; } }
 
-export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = fetch, now = () => Date.now()}) {
+export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = fetch, githubFetcher = fetch, githubActionsToken = '', now = () => Date.now()}) {
   const base = new URL(supabaseUrl);
   if (base.protocol !== 'https:' || base.hostname !== 'gmlsucpwliegwlxymjvp.supabase.co') throw Error('Execution backend binding mismatch');
   return async request => {
@@ -51,11 +52,21 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         text += decoder.decode();
       }
       let body; try { body = JSON.parse(text); } catch { throw new GatewayError('invalid_json',400); }
-      if (!object(body) || !['agency_start','brain_response','preparation_read'].includes(body.action)) throw new GatewayError('invalid_action',400);
+      if (!object(body) || !['agency_start','agency_continue','brain_response','preparation_read','runner_probe'].includes(body.action)) throw new GatewayError('invalid_action',400);
       const user = await upstream('/auth/v1/user');
       if (!user?.id) throw new GatewayError('unauthorized',401);
       const authorized = await upstream('/rest/v1/rpc/is_command_center_authorized',{method:'POST',body:'{}'});
       if (authorized !== true) throw new GatewayError('unauthorized',403);
+
+      // Owner-authenticated, isolated transport probe. This never creates a
+      // canonical Agency run or claims that source attestation is project work.
+      if (body.action === 'runner_probe') {
+        const receipt = await requestGitHubRunnerProof({
+          token:githubActionsToken, requestId:body.requestId,
+          sourceSha:body.sourceSha, fetcher:githubFetcher
+        });
+        return reply(receipt,202);
+      }
 
       if (body.action === 'preparation_read') {
         const result = await readCompanyBuildPreparation(body.projectId, (table, params) => rows(table, user.id, params));
@@ -64,16 +75,18 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
 
       if (body.action === 'agency_start') {
         if (typeof body.projectId !== 'string' || !body.projectId.trim() || body.projectId.length > 240 || typeof body.objective !== 'string' || !body.objective.trim() || body.objective.length > 4000 || !UUID.test(body.requestId ?? '')) throw new GatewayError('invalid_start',400);
-        // Existing owner-controlled worker uses an authenticated, durable Supabase
-        // queue, not a synchronous Supabase Function executor. Never report a
-        // queued task as executed. This branch is STRICTLY for the in-scope 116.
-        if (scopedCompanyId(body.projectId)) {
-          const receipt = await queueOnExistingNormalChatWorker({
-            projectId:body.projectId,objective:body.objective,requestId:body.requestId,
+        // Modern Agency: do not queue for an hourly Task. All new in-scope
+        // projects use a directly invoked free executor with real claim proof.
+        // Leave the excluded future-company legacy route exactly as it was.
+        if (scopedCompanyId(body.projectId) || !/^project:company:future:[0-9]{3}$/.test(body.projectId)) {
+          const receipt = await dispatchImmediately({
+            projectId:body.projectId, objective:body.objective,requestId:body.requestId,
             readRows:(table,params)=>rows(table,user.id,params),
-            rpc:(name,payload)=>upstream('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(payload)})
+            readiness:(payload)=>upstream('/rest/v1/rpc/command_center_project_work_readiness',
+              {method:'POST',body:JSON.stringify(payload)}),
+            invoke,now
           });
-          return reply(receipt,receipt.duplicate?200:202);
+          return reply(receipt);
         }
 
         const projects = await rows('command_center_project_profiles',user.id,{project_id:`eq.${body.projectId}`,select:'project_id,type_key',limit:'1'});
@@ -104,6 +117,19 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         return reply({runId,state:'working',taskId:claim.task_id,executorKey:executor.executor_key});
       }
 
+      if (body.action === 'agency_continue') {
+        if (typeof body.projectId !== 'string' || typeof body.runId !== 'string' ||
+          !UUID.test(body.requestId ?? '') ||
+          !Number.isSafeInteger(body.expectedGeneration) || body.expectedGeneration < 1)
+          throw new GatewayError('invalid_continue',400);
+        const receipt = await resumeImmediately({
+          projectId:body.projectId,runId:body.runId,
+          expectedGeneration:body.expectedGeneration,requestId:body.requestId,
+          readRows:(table,params)=>rows(table,user.id,params),invoke,now
+        });
+        return reply(receipt);
+      }
+
       if (!UUID.test(body.conversationId ?? '') || !UUID.test(body.ownerTurnId ?? '')) throw new GatewayError('invalid_conversation',400);
       const turns = await rows('command_center_brain_conversation_turns',user.id,{conversation_id:`eq.${body.conversationId}`,turn_id:`eq.${body.ownerTurnId}`,role:'eq.owner',select:'turn_id,project_id',limit:'1'});
       if (!turns.length) throw new GatewayError('conversation_not_available',404);
@@ -117,7 +143,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!response || response.project_id !== turns[0].project_id || response.redaction_state !== 'safe_text' || !response.safe_text?.trim() || response.canonical_writes_authorized !== false || !response.evidence_refs?.includes(`brain:response-to:${body.ownerTurnId}`)) throw new GatewayError('response_not_verified');
       return reply({brainTurnId:response.turn_id});
     } catch (error) {
-      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError ? error.status : 503);
+      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError || error instanceof GitHubDispatchUnavailable ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof ImmediateDispatchError || error instanceof GitHubDispatchUnavailable ? (error.status ?? 503) : 503);
     }
   };
 }

@@ -90,19 +90,40 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
     })(); });
     node.append(read, readStatus, display);
   }
+  const immediateScope = preparedCompanyId(project.id) !== null ||
+    !/^project:company:future:[0-9]{3}$/.test(project.id);
+  const isBook = project.typeKey?.state === "known" && project.typeKey.value === "project-type:book";
+  if (immediateScope) {
+    const recorded = project.progressPercent;
+    const valid = recorded?.state === "known" && Number.isFinite(recorded.value) &&
+      recorded.value >= 0 && recorded.value <= 100;
+    const label = valid
+      ? (project.progressBasis === "roadmap" ? "Verified roadmap: " : "Last recorded, not necessarily current: ") +
+        (Math.round(recorded.value * 100) / 100).toString() + "% complete"
+      : project.workUnitProgress
+        ? project.workUnitProgress.verified + " verified of " +
+          project.workUnitProgress.applicable +
+          " applicable units; total percent not certified"
+        : "Completion percent not verified";
+    node.append(el("p", "project-progress-precision", label));
+  }
   const blockers = project.workspace?.startBlockers ?? ["Execution readiness has not been loaded."];
-  node.append(el("p", "muted", "Start normal-chat work for this project. The worker saves its progress and stops when it needs you or Work. Paid services and protected actions require separate authorization."));
+  node.append(el("p", "muted", immediateScope
+    ? "Start invokes an eligible free on-demand worker immediately, without scheduling. If none is connected, it will report the missing connection and start nothing. Paid services, cover approval, publishing and protected actions require separate authorization."
+    : "Start normal-chat work for this project. The worker saves its progress and stops when it needs you or Work. Paid services and protected actions require separate authorization."));
   if (blockers.length) {
     node.append(el("strong", undefined, "Required before unattended execution")); const list = el("ul", "project-start-blockers"); for (const reason of blockers) list.append(el("li", undefined, reason)); node.append(list);
   }
   const runs = snapshot.agency?.runs.filter(run => run.projectId === project.id) ?? [];
   const activeRun = runs.some(run => ["queued", "working", "paused", "blocked", "needs_user"].includes(run.state));
-  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = `Build ${project.name} through all safe normal-chat work in its approved roadmap. Produce and verify actual artifacts, preserve project isolation and the $0 limit, and stop when Work or owner action is genuinely required.`;
+  const form = el("form", "project-record-form"); const objective = field(form, "Agency objective", true); objective.maxLength = 4000; objective.value = immediateScope && isBook
+    ? `Independently review the UNPUBLISHED manuscript for ${project.name}. Preserve the original files and James Morgan as the default author. Humanize the prose, perform substantive editorial QA, proofread, check continuity, claims, structure, and publication formatting, with evidence and before/after results. Do not publish, spend money, change a cover, or alter published volumes without separate owner approval.`
+    : `Build ${project.name} through all safe normal-chat work in its approved roadmap. Produce and verify actual artifacts, preserve project isolation and the $0 limit, and stop when Work or owner action is genuinely required.`;
   const requestId = crypto.randomUUID(); const submit = el("button", "cc-button", "Start project"); submit.type = "submit"; const status = el("p", "muted"); status.setAttribute("role", "status");
   submit.disabled = !isProjectWorkspaceRuntimeProvider(provider) || activeRun; form.append(submit, status); node.append(form);
   if (activeRun) status.textContent = "This project already has an active run. Its progress is shown below.";
   if (isProjectWorkspaceRuntimeProvider(provider)) form.addEventListener("submit", event => { event.preventDefault(); void (async () => {
-    submit.disabled = true; status.textContent = "Submitting normal-chat work…";
+    submit.disabled = true; status.textContent = immediateScope ? "Starting the verified on-demand worker…" : "Submitting normal-chat work…";
     try { await provider.createProjectAgencyRun(project.id, objective.value, requestId); await rerender(); }
     catch (reason) { status.textContent = reason instanceof Error ? reason.message : "Execution could not be confirmed"; submit.disabled = false; }
   })(); });
@@ -110,7 +131,7 @@ export function renderProjectAgencyControls(project: RuntimeProjectSnapshot, sna
     const row = el("article", "project-workspace-record"); row.append(el("strong", undefined, run.objective), el("p", "muted", `Run state: ${run.state}. ${run.state === "queued" ? "Waiting for the connected ChatGPT worker; execution has not yet been claimed." : run.state === "draft" ? "Saved, awaiting execution setup; no worker has started." : ""}`));
     if (run.blocker) row.append(el("p", "muted", run.blocker));
     if (["needs_user", "blocked"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider) && provider.continueProjectAgencyRun) {
-      const resume = el("button", "cc-button", "Continue normal-chat work"); resume.type = "button";
+      const resume = el("button", "cc-button", immediateScope ? "Continue on-demand work" : "Continue normal-chat work"); resume.type = "button";
       resume.addEventListener("click", () => { resume.disabled = true; void provider.continueProjectAgencyRun!(project.id, run.runId, run.generation).then(rerender).catch(reason => { status.textContent = reason instanceof Error ? reason.message : "Run could not be continued"; resume.disabled = false; }); }); row.append(resume);
     }
     if (!["stopped", "failed", "completed"].includes(run.state) && isProjectWorkspaceRuntimeProvider(provider)) {
