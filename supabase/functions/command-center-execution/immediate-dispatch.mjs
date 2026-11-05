@@ -158,3 +158,98 @@ export async function dispatchImmediately({
   }
   throw new ImmediateDispatchError('execution_not_verified',503);
 }
+
+/** Resume an existing owner-authorized run immediately. Never create another
+ * run or queue it for a schedule; retain its original run identity and state.
+ */
+export async function resumeImmediately({
+  projectId,runId,expectedGeneration,requestId,readRows,invoke,now=()=>Date.now()
+}){
+  check(isOnDemandScopedProject(projectId),'project_outside_immediate_scope',403);
+  check(typeof runId==='string'&&/^agency-run:[a-zA-Z0-9._:-]{1,220}$/.test(runId)&&
+    Number.isSafeInteger(expectedGeneration)&&expectedGeneration>=1&&
+    UUID.test(requestId??''),'invalid_continue',400);
+  check(typeof readRows==='function'&&typeof invoke==='function','execution_adapter_missing',503);
+  const project=await one(readRows,'command_center_project_profiles',{
+    project_id:'eq.'+projectId,select:'project_id,company_id,type_key,status'
+  },'project_not_available');
+  check(project.project_id===projectId&&typeof project.type_key==='string',
+    'project_identity_mismatch',403);
+  const isBook=project.type_key==='project-type:book';
+  if(isBook)check(!/\\bpublished\\b/i.test(project.status??''),
+    'published_book_requires_separate_scope',409);
+  check(!/^(paused|blocked)$/i.test(project.status??''),
+    'project_hold_requires_owner_review',409);
+  const previous=await one(readRows,'command_center_agency_runs',{
+    project_id:'eq.'+projectId,run_id:'eq.'+runId,
+    select:'run_id,project_id,state,control_mode,generation,stop_requested,pause_requested,objective'
+  },'run_not_available');
+  check(previous.project_id===projectId&&previous.run_id===runId&&
+    ['blocked','needs_user'].includes(previous.state)&&
+    ['next_step','until_work'].includes(previous.control_mode)&&
+    Number(previous.generation)===expectedGeneration&&
+    previous.stop_requested!==true&&previous.pause_requested!==true,
+    'run_not_eligible_to_continue',409);
+  const workerList=await readRows('command_center_agency_executors',{
+    enabled:'eq.true',cost_class:'eq.free',health:'eq.available',retired_at:'is.null',
+    select:'executor_key,executor_ref,enabled,health,cost_class,retired_at,environments,capabilities,project_type_keys,authority_class',
+    order:'executor_key.asc',limit:'200'
+  });
+  const needed=isBook?['project.execute','book.editorial.review']:['project.execute'];
+  const worker=Array.isArray(workerList)?
+    workerList.find(e=>matchingExecutor(e,project.type_key,needed)):null;
+  check(worker,'no_verified_free_immediate_executor',503);
+  await invoke(worker.executor_ref,{
+    action:'agency_continue',projectId,projectType:project.type_key,runId,
+    expectedGeneration,requestId,executorKey:worker.executor_key,
+    originalControlMode:previous.control_mode,allowPaid:false,
+    allowProtected:false,ownerMayPublish:false,ownerMayApproveCover:false,
+    ...(isBook?{bookReviewPolicy}:{})
+  });
+  // Re-read canonical durable state after the direct worker call.
+  const current=await one(readRows,'command_center_agency_runs',{
+    project_id:'eq.'+projectId,run_id:'eq.'+runId,
+    select:'run_id,project_id,state,generation,stop_requested,pause_requested'
+  },'continued_run_not_persisted');
+  check(current.project_id===projectId&&current.run_id===runId&&
+    ['working','completed'].includes(current.state)&&
+    Number(current.generation)>=expectedGeneration&&
+    current.stop_requested!==true&&current.pause_requested!==true,
+    'continue_not_verified',503);
+  const tasks=await readRows('command_center_agency_tasks',{
+    project_id:'eq.'+projectId,run_id:'eq.'+runId,
+    select:'task_id,state',limit:'200'
+  });
+  check(Array.isArray(tasks)&&tasks.length>0,'continue_task_missing',503);
+  const t=now();
+  if(current.state==='working'){
+    const claims=await readRows('command_center_agency_task_claims',{
+      project_id:'eq.'+projectId,status:'eq.claimed',
+      select:'task_id,worker_id,expires_at,heartbeat_at',limit:'200'
+    });
+    const matched=Array.isArray(claims)?claims.find(c=>
+      tasks.some(t=>t.task_id===c.task_id&&t.state==='working')&&
+      c.worker_id===worker.executor_key&&
+      Date.parse(c.expires_at)>t&&Date.parse(c.heartbeat_at)<=t&&
+      t-Date.parse(c.heartbeat_at)<60000):null;
+    check(matched,'continued_claim_not_verified',503);
+    return Object.freeze({projectId,runId,state:'working',taskId:matched.task_id,
+      executorKey:worker.executor_key,immediateExecutionVerified:true,
+      scheduledFallback:false,publishAuthorized:false});
+  }
+  const verified=tasks.filter(task=>task.state==='verified');
+  check(verified.length>0,'continue_completion_unverified',503);
+  const commits=await readRows('command_center_agency_task_commits',{
+    project_id:'eq.'+projectId,
+    select:'task_id,worker_id,result_ref,result_hash,evidence_refs',limit:'200'
+  });
+  const receipt=Array.isArray(commits)?commits.find(c=>
+    verified.some(t=>t.task_id===c.task_id)&&
+    c.worker_id===worker.executor_key&&
+    typeof c.result_ref==='string'&&c.result_ref.length>0&&
+    DIGEST.test(c.result_hash??'')&&Array.isArray(c.evidence_refs)&&c.evidence_refs.length>0):null;
+  check(receipt,'continue_completion_unverified',503);
+  return Object.freeze({projectId,runId,state:'completed',taskId:receipt.task_id,
+    executorKey:worker.executor_key,immediateExecutionVerified:true,
+    scheduledFallback:false,publishAuthorized:false});
+}
