@@ -109,6 +109,7 @@ export async function dispatchImmediately({
   const payload={
     action:'agency_start',projectId,projectType:project.type_key,
     runId,requestId,objective:objective.trim(),executorKey:worker.executor_key,
+    authorizationRef:'owner:on-demand-start:'+runId,
     controlMode:'next_step',next,allowPaid:false,allowProtected:false,
     ownerMayPublish:false,ownerMayApproveCover:false,
     ...(isBook?{bookReviewPolicy}:{})
@@ -117,10 +118,13 @@ export async function dispatchImmediately({
   await invoke(worker.executor_ref,payload);
   const run=await one(readRows,'command_center_agency_runs',{
     project_id:'eq.'+projectId,run_id:'eq.'+runId,
-    select:'run_id,project_id,objective,state,generation,stop_requested,pause_requested'
+    select:'run_id,project_id,objective,authorization_ref,control_mode,state,generation,stop_requested,pause_requested'
   },'execution_receipt_missing');
   check(run.project_id===projectId&&run.run_id===runId&&
-    run.objective===objective.trim()&&run.stop_requested!==true&&run.pause_requested!==true,
+    run.objective===objective.trim()&&
+    run.authorization_ref==='owner:on-demand-start:'+runId&&
+    run.control_mode==='next_step'&&
+    run.stop_requested!==true&&run.pause_requested!==true,
     'execution_receipt_invalid',503);
   const tasks=await readRows('command_center_agency_tasks',{
     project_id:'eq.'+projectId,run_id:'eq.'+runId,
@@ -192,11 +196,12 @@ export async function resumeImmediately({
     'project_hold_requires_owner_review',409);
   const previous=await one(readRows,'command_center_agency_runs',{
     project_id:'eq.'+projectId,run_id:'eq.'+runId,
-    select:'run_id,project_id,state,control_mode,generation,stop_requested,pause_requested,objective'
+    select:'run_id,project_id,state,control_mode,authorization_ref,generation,stop_requested,pause_requested,objective'
   },'run_not_available');
   check(previous.project_id===projectId&&previous.run_id===runId&&
     ['blocked','needs_user'].includes(previous.state)&&
     ['next_step','until_work'].includes(previous.control_mode)&&
+    ['owner:on-demand-start:'+runId,'owner:normal-chat-start:'+runId].includes(previous.authorization_ref)&&
     Number(previous.generation)===expectedGeneration&&
     previous.stop_requested!==true&&previous.pause_requested!==true,
     'run_not_eligible_to_continue',409);
