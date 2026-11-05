@@ -1,6 +1,6 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
-import { dispatchImmediately, ImmediateDispatchError } from './immediate-dispatch.mjs';
+import { dispatchImmediately, resumeImmediately, ImmediateDispatchError } from './immediate-dispatch.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -51,7 +51,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         text += decoder.decode();
       }
       let body; try { body = JSON.parse(text); } catch { throw new GatewayError('invalid_json',400); }
-      if (!object(body) || !['agency_start','brain_response','preparation_read'].includes(body.action)) throw new GatewayError('invalid_action',400);
+      if (!object(body) || !['agency_start','agency_continue','brain_response','preparation_read'].includes(body.action)) throw new GatewayError('invalid_action',400);
       const user = await upstream('/auth/v1/user');
       if (!user?.id) throw new GatewayError('unauthorized',401);
       const authorized = await upstream('/rest/v1/rpc/is_command_center_authorized',{method:'POST',body:'{}'});
@@ -104,6 +104,19 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         const claim = claims.find(c => tasks.some(t => t.task_id === c.task_id) && c.worker_id === executor.executor_key && Date.parse(c.expires_at) > now() && Date.parse(c.heartbeat_at) <= now() && now() - Date.parse(c.heartbeat_at) < 60_000);
         if (!claim) throw new GatewayError('execution_not_verified');
         return reply({runId,state:'working',taskId:claim.task_id,executorKey:executor.executor_key});
+      }
+
+      if (body.action === 'agency_continue') {
+        if (typeof body.projectId !== 'string' || typeof body.runId !== 'string' ||
+          !UUID.test(body.requestId ?? '') ||
+          !Number.isSafeInteger(body.expectedGeneration) || body.expectedGeneration < 1)
+          throw new GatewayError('invalid_continue',400);
+        const receipt = await resumeImmediately({
+          projectId:body.projectId,runId:body.runId,
+          expectedGeneration:body.expectedGeneration,requestId:body.requestId,
+          readRows:(table,params)=>rows(table,user.id,params),invoke,now
+        });
+        return reply(receipt);
       }
 
       if (!UUID.test(body.conversationId ?? '') || !UUID.test(body.ownerTurnId ?? '')) throw new GatewayError('invalid_conversation',400);
