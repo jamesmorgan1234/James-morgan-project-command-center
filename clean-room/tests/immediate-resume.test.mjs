@@ -13,7 +13,7 @@ function fixture(opts={}){
   project_type_keys:[],authority_class:'execute_reversible'};
  const tables={
   command_center_project_profiles:[{project_id:projectId,type_key:type,status:opts.status??'Active'}],
-  command_center_agency_runs:[{run_id,project_id:projectId,state:opts.previousState??'needs_user',
+  command_center_agency_runs:[{run_id:runId,project_id:projectId,state:opts.previousState??'needs_user',
    control_mode:'until_work',generation:7,objective:'Continue approved build',
    stop_requested:false,pause_requested:false}],
   command_center_agency_executors:opts.executors??[worker],
