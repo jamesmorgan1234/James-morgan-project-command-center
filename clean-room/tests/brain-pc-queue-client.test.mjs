@@ -26,10 +26,10 @@ function fixture(projectId,change={}) {
  return {provider,calls};
 }
 test('client queues exact saved owner identity for central and all 128 canonical project IDs; pending never claims a model response',async()=>{
- const projects=[null,...Array.from({length:117},(_,i)=>'project:company:future:'+String(i+1).padStart(3,'0')),...legacy];
+ const projects=[null,...Array.from({length:117},(_,i)=>'project:company:future:'+String(i+1).padStart(3,'0')),...legacy,'project:company:future:118','project:company:future:1000','new-company'];
  for(const project of projects){const{provider,calls}=fixture(project);const result=await provider.enqueuePcBrainResponse(conversationId,turnId);assert.deepEqual(result,{requestId:turnId,state:'queued'});assert.equal('brainTurnId' in result,false);assert.equal(calls.length,2)}
 });
 test('client rejects wrong identity, malformed scope and nonactive conversations before trusting a queue receipt',async()=>{
  for(const change of [{receipt:{project_id:'other'}},{receipt:{owner_turn_id:conversationId}},{receipt:{request_id:conversationId}},{receipt:{state:'invented'}},{conversationState:'archived'}]){const{provider}=fixture('aro',change);await assert.rejects(provider.enqueuePcBrainResponse(conversationId,turnId))}
- for(const project of ['../aro','project:company:future:118','company:legacy:aro','ARO']){const{provider,calls}=fixture(project);await assert.rejects(provider.enqueuePcBrainResponse(conversationId,turnId));assert.equal(calls.length,1)}
+ for(const project of ['../aro','project:company:future:000','company:legacy:aro','ARO']){const{provider,calls}=fixture(project);await assert.rejects(provider.enqueuePcBrainResponse(conversationId,turnId));assert.equal(calls.length,1)}
 });

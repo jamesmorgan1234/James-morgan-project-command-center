@@ -1,4 +1,5 @@
 // Bind the existing local worker queue; this is not an inference engine.
+import {projectIdentity} from './brain-readiness.mjs';
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 export class PcInferenceError extends Error { constructor(code, status=503) { super(code); this.status=status; } }
 export async function requestPcInference({provider, conversationId, ownerTurnId, projectId, readRows, rpc}) {
@@ -13,13 +14,16 @@ export async function requestPcInference({provider, conversationId, ownerTurnId,
     throw new PcInferenceError('local_provider_not_eligible');
   if (!UUID.test(conversationId)||!UUID.test(ownerTurnId)) throw new PcInferenceError('invalid_conversation',400);
   if (projectId!==null) {
-    const m=/^project:company:future:(\d{3})$/.exec(projectId);
-    if (!m||Number(m[1])<1||Number(m[1])>117) throw new PcInferenceError('local_project_route_not_deployed',409);
-    const companyId=`company:future:${m[1]}`;
+    let companyId;
+    try { companyId=projectIdentity(projectId).companyId; }
+    catch { throw new PcInferenceError('invalid_registered_project_identity',403); }
     const brains=await readRows('command_center_specialist_brains',{project_id:`eq.${projectId}`,select:'brain_key,enabled,lifecycle,health,verification_state,control_plane,supported_project_ids,supported_company_ids,provider_keys',limit:'2'});
     const b=brains[0];
     if (brains.length!==1||b.brain_key!==`brain:${companyId}:v1`||b.control_plane!=='command_center'||b.enabled!==true||b.lifecycle!=='active'||b.health!=='healthy'||b.verification_state!=='verified'||!b.supported_project_ids?.includes(projectId)||!b.supported_company_ids?.includes(companyId)||!b.provider_keys?.includes(provider.provider_key)||!provider.scopes?.includes('company-brain-read-only'))
       throw new PcInferenceError('specialist_activation_not_verified',409);
+    const profiles=await readRows('command_center_project_profiles',{project_id:`eq.${projectId}`,select:'project_id,company_id',limit:'2'});
+    if(profiles.length!==1||profiles[0].project_id!==projectId||profiles[0].company_id!==companyId)
+      throw new PcInferenceError('project_identity_mismatch',403);
   } else if (!provider.scopes?.includes('owner-central-brain')) throw new PcInferenceError('local_provider_scope_mismatch',403);
   const params={conversation_id:`eq.${conversationId}`,owner_turn_id:`eq.${ownerTurnId}`,select:'request_id,conversation_id,owner_turn_id,project_id,state,brain_turn_id,worker_id,model_id,content_hash',limit:'2'};
   let requests=await readRows('command_center_pc_inference_requests',params);

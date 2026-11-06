@@ -41,10 +41,10 @@ test("scope parser recognizes 11 exact legacy registry identities without rewrit
   assert.equal(canonicalCompanyId(projectId),"company:legacy:"+projectId);
  }
 });
-test("scope parser rejects ambiguous, future-out-of-range and path-like identifiers",()=>{
+test("scope parser rejects ambiguous, malformed numbered and path-like identifiers",()=>{
  const {projectIdOk,canonicalCompanyId}=scopeFunctionsFromCandidate();
  const bad=["","ARO","margin craft","margincrafttools/../aro","project:company:future:000",
-  "project:company:future:118","project:company:future:999","company:legacy:aro",
+  "project:company:future:01","project:company:future:0001","company:legacy:aro",
   "project:legacy:aro","../margincrafttools","other_project","x:aro"];
  for(const v of bad){
   assert.equal(projectIdOk(v),false,v);
@@ -81,4 +81,15 @@ test("client parser is expanded, but UI specialist execution stays closed",()=>{
  assert.match(ui,/specialistReadiness\?\.\[projectId\] === "available"/);
  assert.match(app,/specialistReadiness = projected\.readiness/);
  assert.match(app,/projectSpecialistBindings/);
+});
+
+test('company identifier syntax scales beyond the original batch without granting registry membership',()=>{
+ const {projectIdOk,canonicalCompanyId}=scopeFunctionsFromCandidate();
+ for(const suffix of ['118','999','1000','1000000']){
+  assert.equal(projectIdOk('project:company:future:'+suffix),true);
+  assert.equal(canonicalCompanyId('project:company:future:'+suffix),'company:future:'+suffix);
+ }
+ assert.doesNotMatch(gateway,/of 117 expected|like\("project_id","project:company:future:%"\)/);
+ assert.match(gateway,/count:"exact",head:true/);
+ assert.doesNotMatch(sql,/between 1 and 117|right\(b.project_id,3\)/i);
 });

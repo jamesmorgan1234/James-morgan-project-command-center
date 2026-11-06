@@ -1,0 +1,10 @@
+COMMAND CENTER SECURE PAIRING QA — November 5, 2026
+Cloud: deployed command-center-pc-worker function version 2 ACTIVE; safe /health endpoint confirmed in deployed source.
+Uploaded local AI report: qwen3:4b-instruct; real local inference verified; cloud not used.
+Node tests in package: 14 passed, 0 failed.
+Windows PowerShell: static structure and operation scope verified; cannot execute Windows-only installer in this Linux container.
+Windows first-run runtime: NOT YET TESTED ON OWNER COMPUTER.
+Worker pairing: NOT YET REGISTERED. No credentials embedded in ZIP.
+Background start: Requires owner to double-click step 2 after cloud-side hash enrollment.
+Worker polls approximately once per minute when idle; no paid fallback, no company execution or payments.
+Company 014 remains paused. Personal finance features excluded.

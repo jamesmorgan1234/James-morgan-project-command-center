@@ -8,6 +8,7 @@ import type { CommandCenterRuntimeSnapshot, RuntimeProjectSnapshot, RuntimeSurfa
 import { BrowserPwaUpdateClient, type PwaUpdateView } from "./pwa-client.js";
 import { resolveBrowserRoute, type BrowserRouteResolution } from "./route-state.js";
 import { filterRuntimeProjects, groupRuntimeProjects, projectFacetValues, projectFilterFromSearch, type RuntimeProjectFilter } from "./project-screen.js";
+import { portfolioProjects } from "./portfolio-list.js";
 import { renderProjectAgencyControls, renderProjectRecordSection } from "./project-workspace-view.js";
 import { SPECIALIST_ARCHETYPES } from "../specialists/archetypes.js";
 import { projectArtwork } from "./project-art.js";
@@ -248,11 +249,13 @@ function renderProjects(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   }
   const filter = projectFilterFromSearch(window.location.search);
   const bookTab = filter.typeKey === "project-type:book";
-  const tabProjects = snapshot.projects.filter(p => bookTab ? p.typeKey?.state === "known" && p.typeKey.value === "project-type:book" : !(p.typeKey?.state === "known" && p.typeKey.value === "project-type:book"));
+  // The default portfolio includes every canonical project. The optional book
+  // filter narrows that same list; it does not hide books from the portfolio.
+  const tabProjects = portfolioProjects(snapshot.projects, bookTab);
   const filtered = filterRuntimeProjects(tabProjects, filter);
   const groups = groupRuntimeProjects(filtered, filter.groupBy ?? "none");
   const tabs = el("nav", "project-tabs"); tabs.setAttribute("aria-label", "Project collections");
-  for (const [label, path, selected] of [["Businesses & projects", "/projects", !bookTab], ["Amazon KDP Books", "/projects?type=project-type%3Abook", bookTab]] as const) {
+  for (const [label, path, selected] of [["All companies & projects", "/projects", !bookTab], ["Amazon KDP Books", "/projects?type=project-type%3Abook", bookTab]] as const) {
     const link = routeLink(label, path, "cc-button cc-button--secondary");
     if (selected) link.setAttribute("aria-current", "page"); tabs.append(link);
   }
@@ -604,6 +607,12 @@ function renderBooks(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
 }
 function renderSpecialists(snapshot: CommandCenterRuntimeSnapshot): HTMLElement {
   const section = renderCanonicalSurface(snapshot, "specialists", "Specialists", "Your specialist registry could not be loaded.");
+  const registryAvailable = snapshot.surfaces.some(surface => surface.key === "specialists" && surface.summary.state === "known");
+  if (registryAvailable) {
+    const count = (snapshot.surfaceRecords?.specialists ?? []).filter(record => !!record.projectId).length;
+    section.prepend(genericCard("COMMAND CENTER", "Governs delegation, routing, verification and stop conditions for the complete specialist registry.", undefined, "/brain"));
+    section.prepend(genericCard("Complete Brain registry", `${count} registered specialist Brains · ${count + 1} including COMMAND CENTER. Registration and enabled flags do not prove operational readiness.`));
+  }
   section.append(genericCard("Available specialist types", "These built-in capabilities are available for scoped project configuration. Listing a type does not activate an agent or grant access."));
   for (const [key, archetype] of Object.entries(SPECIALIST_ARCHETYPES)) section.append(genericCard(key.replaceAll("_", " "), archetype.brainCapabilities.map(value => value.replaceAll("_", " ")).join(" · ")));
   return section;

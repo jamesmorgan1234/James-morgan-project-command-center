@@ -9,11 +9,11 @@ if (!origins.every(s => {try {const u=new URL(s);return u.protocol==="https:"&&u
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 const TOKEN = /^ccpc_[a-f0-9]{64}$/;
 const MODEL = /^[A-Za-z0-9][A-Za-z0-9._:/-]{0,130}$/;
-const CC_PROJECT = /^project:company:future:(\d{3})$/;
+const CC_PROJECT = /^project:company:future:(00[1-9]|0[1-9][0-9]|[1-9][0-9]{2,96})$/;
 const LEGACY_PROJECT = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 function canonicalCompanyId(projectId:string):string {
  const future=CC_PROJECT.exec(projectId);
- if(future&&Number(future[1])>=1&&Number(future[1])<=117)return "company:future:"+future[1];
+ if(future)return "company:future:"+future[1];
  if(LEGACY_PROJECT.test(projectId))return "company:legacy:"+projectId;
  throw failure("project_outside_scope",403);
 }
@@ -24,7 +24,7 @@ function projectIdOk(p:any){
  if(p===null)return true;
  if(typeof p!=="string")return false;
  const future=CC_PROJECT.exec(p);
- if(future)return Number(future[1])>=1&&Number(future[1])<=117;
+ if(future)return true;
  return LEGACY_PROJECT.test(p);
 }
 const json = (obj:any,status=200,extra:Record<string,string>={}) => new Response(JSON.stringify(obj),{status,headers:{"content-type":"application/json","cache-control":"no-store",...extra}});
@@ -62,12 +62,14 @@ async function worker(req:Request){
 }
 async function context(ownerId:string,workerId:string,projectId:string|null){
  if(projectId===null){
-  const companies=err(await admin.from("command_center_project_profiles").select("project_id,status")
-   .eq("owner_id",ownerId).like("project_id","project:company:future:%").limit(200))??[];
-  const n=companies.filter((x:any)=>projectIdOk(x.project_id)).length;
+  const catalogue=await admin.from("command_center_specialist_brains").select("brain_key",{count:"exact",head:true})
+   .eq("owner_id",ownerId).eq("scope","project").eq("control_plane","command_center");
+  err(catalogue);
+  if(!Number.isSafeInteger(catalogue.count))throw failure("catalogue_count_unavailable",503);
+  const n=catalogue.count;
   return {verified:true,projectId:null,companyId:null,
    system:"You are COMMAND CENTER's central AI Brain. Provide read-only advice, coordination, and recommendations. "+
-     "The canonical catalogue currently has "+n+" of 117 expected future company registrations. "+
+     "The complete canonical catalogue currently has "+n+" specialist Brain registrations governed by COMMAND CENTER. "+
      "Do not invent progress or claim that specialist AI models are live. Never execute, spend, publish, deploy, modify data, "+
      "or reveal any other company's private records. Current responses are advisory only."};
  }

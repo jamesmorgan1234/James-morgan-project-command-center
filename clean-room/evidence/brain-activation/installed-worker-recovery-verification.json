@@ -1,0 +1,47 @@
+{
+  "sourceArchive": "COMMAND_CENTER_EXISTING_WORKER_SOURCE_9027_7148.zip",
+  "sourceArchiveSha256": "c4a49151004c69b048b3a9c0aef593f03cc67c3b85aeab4c686360b43f907ad4",
+  "archiveIntegrity": "passed",
+  "files": [
+    {
+      "path": "COMMAND_CENTER_PC_WINDOWS.ps1",
+      "sha256": "828ef8e8311ebc489c3354492fac25593b17fc48d9455d46ddcfeb5698361cae",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-transport.mjs",
+      "sha256": "ee50cbebc677c79004656b97447275b69d24d1806bb81a4c06523b7bc0d7d57a",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-cli.mjs",
+      "sha256": "121a91a8e914ade055b114d5c701b180a09666c4c91822e0cc5223f6b89d8ebd",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-supervisor.mjs",
+      "sha256": "16d460eb2fe317ffb4c70745f86778e036edb122d9b4ff81dce821bb63119dd9",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "clean-room/src/brain/pc-owner-inference-worker.mjs",
+      "sha256": "37c838e25aefcd77652ba026fbcd46afefe821e82838f6a8454f01664ad640b6",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "clean-room/src/brain/pc-local-ollama.mjs",
+      "sha256": "3f2edd17b8370723807eb4197c87aac38f4fe19ba34a92999da828ad6674c3a4",
+      "originalManifestMatches": true
+    },
+    {
+      "path": "supabase/functions/command-center-execution/brain-readiness.mjs",
+      "sha256": "fb17188d248a2b009031d4808c1a0ee76451e5f3839c26a5f93a714815f171eb",
+      "originalManifestMatches": true
+    }
+  ],
+  "registeredWorkerFingerprintMatches": true,
+  "credentialsImported": false,
+  "originalWindowsInstallerExecuted": false,
+  "sourceRecoveryBlockerResolved": true,
+  "operationalSpecialistsClaimed": 0
+}

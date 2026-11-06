@@ -473,8 +473,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     if (projectId !== null) {
       // These are syntactic bounds only. The server must verify exact owner,
       // project/company/specialist identity and live-read-only permissions.
-      const match = /^project:company:future:(\d{3})$/u.exec(projectId);
-      const validFuture = !!match && Number(match[1]) >= 1 && Number(match[1]) <= 117;
+      const validFuture = /^project:company:future:(00[1-9]|0[1-9][0-9]|[1-9][0-9]{2,96})$/u.test(projectId);
       const validLegacy = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(projectId);
       if (!validFuture && !validLegacy)
         throw new Error("PC Brain responses require a canonical company project ID");
@@ -764,8 +763,8 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     }
     try {
       const [specialists, profiles, providers, executors, tools] = await Promise.all([
-        this.#selectRows("command_center_specialist_brains", session, "brain_key,project_id,version,enabled,lifecycle,health,verification_state,control_plane,supported_project_ids,supported_company_ids,provider_keys,model_assignments,permission_keys,tool_keys,revalidate_after", {limit:"500"}),
-        this.#selectRows("command_center_project_profiles", session, "project_id,company_id", {limit:"500"}),
+        this.#selectRows("command_center_specialist_brains", session, "brain_key,project_id,version,enabled,lifecycle,health,verification_state,control_plane,supported_project_ids,supported_company_ids,provider_keys,model_assignments,permission_keys,tool_keys,revalidate_after", {order:"brain_key.asc"},true),
+        this.#selectRows("command_center_project_profiles", session, "project_id,company_id", {order:"project_id.asc"},true),
         this.#selectRows("command_center_provider_registry", session, "provider_key,enabled,cost,health,verification,scopes,model_id:configuration->>model_id", {limit:"200"}),
         this.#selectRows("command_center_agency_executors", session, "executor_key,enabled,health,cost_class,retired_at,capabilities,evidence_refs", {limit:"200"}),
         this.#selectRows("agent_tool_registry", session, "tool_key,availability,free_status,auth_state,action_scope", {limit:"2000"})
@@ -844,20 +843,32 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
   }
 
-  async #selectRows(table: string, session: StoredOwnerSession, select: string, params: Readonly<Record<string, string>> = {}): Promise<readonly JsonRecord[]> {
+  async #selectRows(table: string, session: StoredOwnerSession, select: string, params: Readonly<Record<string, string>> = {}, allPages=false): Promise<readonly JsonRecord[]> {
     const url = new URL(`${this.#supabaseUrl}/rest/v1/${table}`);
     url.searchParams.set("select", select);
     url.searchParams.set("owner_id", `eq.${session.userId}`);
     for (const [key, value] of Object.entries(params)) url.searchParams.set(key, value);
+    const rows: JsonRecord[] = [];
+    let total: number | undefined;
+    for (let page=0;page<(allPages?200:1);page++) {
+    if(allPages){url.searchParams.set("limit","500");url.searchParams.set("offset",String(rows.length));}
     const response = await this.#fetcher(url, {
       method: "GET",
-      headers: { apikey: this.#publishableKey, authorization: `Bearer ${session.accessToken}`, accept: "application/json" },
+      headers: { apikey: this.#publishableKey, authorization: `Bearer ${session.accessToken}`, accept: "application/json", ...(allPages?{prefer:"count=exact"}:{}) },
       cache: "no-store"
     });
     if (!response.ok) throw new Error(`Brain source ${table} is unavailable`);
     const payload: unknown = await response.json();
     if (!Array.isArray(payload) || !payload.every(isRecord)) throw new Error(`Brain source ${table} returned an invalid payload`);
-    return Object.freeze(payload);
+    if(!allPages)return Object.freeze(payload);
+    const countText=response.headers.get("content-range")?.split("/").at(-1);
+    const count=countText && /^\d+$/.test(countText)?Number(countText):NaN;
+    if(!Number.isSafeInteger(count)||count<0||(total!==undefined&&total!==count))throw new Error(`Brain source ${table} returned incomplete paging evidence`);
+    total=count;rows.push(...payload);
+    if(rows.length===total)return Object.freeze(rows);
+    if(payload.length===0||rows.length>total)throw new Error(`Brain source ${table} returned an incomplete page`);
+    }
+    throw new Error(`Brain source ${table} exceeded its paging budget`);
   }
 
   async #freshProtectedAuthorization(action: string, resourceType: string, resourceId: string, riskLevel: "high" | "critical", reason: string): Promise<FreshAuthorization> {

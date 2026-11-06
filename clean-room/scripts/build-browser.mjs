@@ -52,6 +52,12 @@ async function walk(dir) {
 await rm(OUT, { recursive: true, force: true });
 await mkdir(join(OUT, "app"), { recursive: true });
 await cp(DIST, join(OUT, "app"), { recursive: true });
+// The existing owner-PC executable and its dependencies are not browser assets.
+// Keep them typechecked and tested; exclude only their platform-specific delivery.
+for (const module of ["worker/pc-worker-cli", "worker/pc-worker-supervisor", "worker/pc-worker-transport", "brain/pc-local-ollama", "brain/pc-owner-inference-worker", "brain/pc-brain-readiness", "brain/pc-activation-contract"]) {
+  for (const suffix of [".mjs", ".mjs.map", ".d.mts"]) await rm(join(OUT, "app", module + suffix), {force:true});
+}
+
 await cp(PUBLIC, OUT, { recursive: true });
 for (const asset of ["command-center-approved-icon-512.png", "approved-projects-visual-reference.png", "project-business-atlas.png", "book-cover-atlas-v2.webp"]) {
   const original = join(PUBLIC, "assets", asset);

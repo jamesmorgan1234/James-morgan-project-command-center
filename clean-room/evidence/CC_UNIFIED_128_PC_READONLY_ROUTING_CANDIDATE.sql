@@ -9,8 +9,7 @@ alter table public.command_center_pc_inference_requests
  add constraint cc_pc_scope check(
    project_id is null or
    (
-     (project_id ~ '^project:company:future:[0-9]{3}$'
-       and substring(project_id from 24 for 3)::integer between 1 and 117)
+     project_id ~ '^project:company:future:(00[1-9]|0[1-9][0-9]|[1-9][0-9]{2,96})$'
      or project_id ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
    )
  );
@@ -26,23 +25,21 @@ declare u uuid:=auth.uid(); c public.command_center_brain_conversations%rowtype;
 begin
  if u is null or not public.is_command_center_authorized() then raise exception 'Owner authorization required'; end if;
  if p_request_id is null or p_conversation_id is null or p_owner_turn_id is null then raise exception 'Complete request identity required'; end if;
- -- Accept only canonical 001..117 IDs or an existing, exact, project-scoped legacy Brain.
- -- This is queue eligibility, never execution authorization.
- if p_project_id is not null and not (
-   (p_project_id ~ '^project:company:future:[0-9]{3}$'
-      and substring(p_project_id from 24 for 3)::integer between 1 and 117)
-   or
-   (p_project_id ~ '^[a-z0-9]+(-[a-z0-9]+)*$' and exists (
+ -- Every company must resolve through the same owner-scoped registry join.
+ -- Identifier syntax never grants access, and company counts are not limits.
+ if p_project_id is not null and not exists (
      select 1 from public.command_center_project_profiles p
      join public.command_center_specialist_brains b
        on b.owner_id=p.owner_id and b.project_id=p.project_id
-     where p.owner_id=u and p.project_id=p_project_id and p.protected
-       and p.company_id='company:legacy:'||p_project_id
+     where p.owner_id=u and p.project_id=p_project_id
+       and ((p_project_id ~ '^project:company:future:(00[1-9]|0[1-9][0-9]|[1-9][0-9]{2,96})$'
+             and p.company_id=substring(p_project_id from 9))
+         or (p_project_id ~ '^[a-z0-9]+(-[a-z0-9]+)*$' and p.protected
+             and p.company_id='company:legacy:'||p_project_id))
        and b.brain_key='brain:'||p.company_id||':v1'
        and p.project_id=any(b.supported_project_ids)
        and p.company_id=any(b.supported_company_ids)
        and b.control_plane='command_center' and b.cost_class='free'
-   ))
  ) then raise exception 'Company project outside registered scope'; end if;
  select * into c from public.command_center_brain_conversations
    where owner_id=u and conversation_id=p_conversation_id and state='active';
@@ -87,9 +84,8 @@ begin
     where b.owner_id=p_owner_id and b.project_id=public.command_center_pc_inference_requests.project_id
       and b.brain_key='brain:'||p.company_id||':v1'
       and (
-       (b.project_id ~ '^project:company:future:[0-9]{3}$'
-         and substring(b.project_id from 24 for 3)::integer between 1 and 117
-         and p.company_id='company:future:'||right(b.project_id,3))
+       (b.project_id ~ '^project:company:future:(00[1-9]|0[1-9][0-9]|[1-9][0-9]{2,96})$'
+         and p.company_id=substring(b.project_id from 9))
        or
        (b.project_id ~ '^[a-z0-9]+(-[a-z0-9]+)*$' and p.protected
          and p.company_id='company:legacy:'||b.project_id)

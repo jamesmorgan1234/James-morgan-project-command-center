@@ -186,3 +186,27 @@ test("production shell contains only publishable Supabase configuration, a dedic
   assert.match(agencyView, /does not authorize protected actions/);
   assert.match(agencyView, /claimed executor and fresh verified heartbeat/);
 });
+
+test('complete Brain registry loads across page boundaries and includes newly registered companies on refresh',async()=>{
+ const storage=new MemoryStorage();const base=ownerRuntimeFetch();
+ const rows=Array.from({length:501},(_,i)=>({brain_key:'brain:company:future:'+String(i+1).padStart(3,'0')+':v1',scope:'project',project_id:'project:company:future:'+String(i+1).padStart(3,'0'),enabled:false,capabilities:[],updated_at:'2026-11-06T10:00:00Z'}));
+ const offsets=[];
+ const provider=new SupabaseOwnerRuntimeSnapshotProvider({supabaseUrl:'https://example.supabase.co',publishableKey:'sb_publishable_public-test-key',storage,
+  promptForCredentials:async submit=>submit('owner@example.com','test-password'),
+  fetcher:async(input,init)=>{
+   const url=new URL(String(input));
+   if(!url.pathname.endsWith('/command_center_specialist_brains'))return base.fetcher(input,init);
+   assert.equal(url.searchParams.get('owner_id'),'eq.owner-1');
+   assert.equal(new Headers(init.headers).get('prefer'),'count=exact');
+   const offset=Number(url.searchParams.get('offset'));offsets.push(offset);
+   const page=rows.slice(offset,offset+Number(url.searchParams.get('limit')));
+   return new Response(JSON.stringify(page),{headers:{'content-type':'application/json','content-range':`${offset}-${offset+page.length-1}/${rows.length}`}});
+  }});
+ const first=await provider.load();
+ assert.equal(first.surfaceRecords.specialists.length,501);assert.deepEqual(offsets,[0,500]);
+ rows.push({...rows[500],brain_key:'brain:company:future:1000:v1',project_id:'project:company:future:1000'});
+ const next=await provider.load();
+ assert.equal(next.surfaceRecords.specialists.length,502);
+ assert.ok(next.surfaceRecords.specialists.some(r=>r.projectId==='project:company:future:1000'));
+ assert.deepEqual(offsets,[0,500,0,500]);
+});

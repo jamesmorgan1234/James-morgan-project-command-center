@@ -74,6 +74,18 @@ test("real candidate SQL runs in disposable PGlite, enqueues both scopes, denies
   assert.equal(await claim(),null,"the other unverified company stays queued");
   assert.equal((await db.query("select count(*)::int as n from public.command_center_pc_inference_requests where state='claimed'")).rows[0].n,1);
 
+  // A later registry addition needs no list/code edit or limit increase.
+  const newer='project:company:future:1000',company='company:future:1000';
+  const nc='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa1',nt='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa2',nr='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaa3';
+  await db.query("insert into public.command_center_project_profiles values ($1,$2,$3,false)",[owner,newer,company]);
+  await db.query("insert into public.command_center_brain_conversations values($1,$2,$3,'active')",[owner,nc,newer]);
+  await db.query("insert into public.command_center_brain_conversation_turns values($1,$2,$3,$4,'owner','safe_text','Read only routing verification',$5)",[owner,nc,nt,newer,hash]);
+  await assert.rejects(queue(nr,nc,nt,newer),/outside registered scope/i,'syntax alone is not registration');
+  await db.query("insert into public.command_center_specialist_brains(owner_id,project_id,brain_key,provider_keys,supported_project_ids,supported_company_ids,enabled,health,verification_state,lifecycle) values($1,$2,$3,array[$4],array[$2],array[$5],true,'healthy','verified','active')",[owner,newer,'brain:'+company+':v1',provider,company]);
+  assert.equal((await queue(nr,nc,nt,newer)).state,'queued');
+  assert.equal((await claim()).projectId,newer);
+  await db.query("delete from public.command_center_pc_inference_requests where request_id=$1",[nr]);
+
   // A real rollback must NOT erase or silently strand a legacy in-flight request.
   await assert.rejects(db.exec(rollbackCandidate),/Cannot rollback: preserved legacy requests require reconciliation/i);
   await db.exec("ROLLBACK;");

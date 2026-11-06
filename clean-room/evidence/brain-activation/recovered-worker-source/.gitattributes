@@ -1,0 +1,2 @@
+# Preserve independently hashed original Windows bytes, including CRLF and BOM.
+COMMAND_CENTER_PC_WINDOWS.ps1 -text whitespace=cr-at-eol
