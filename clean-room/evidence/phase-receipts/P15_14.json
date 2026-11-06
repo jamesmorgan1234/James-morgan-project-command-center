@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.14",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "68fe05d2e144609c6b1e577ef293029fcaa9a8ec",
+  "gitSha": "e969660ce25fe69e8da15b24cb62607c711b5aef",
   "inputs": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/public/sw.js",
@@ -12,7 +12,7 @@
     "clean-room/tests/owner-auth-proxy-routing.test.mjs",
     "clean-room/tests/p15-14-nonproduction-acceptance.test.mjs"
   ],
-  "inputsDigest": "cd0cb51a9b8e0a22ce9c2f3be0fbfb378ea7a6fbfd7d95acc96e79f3a07eaa8d",
+  "inputsDigest": "8d533e677e6c72cf0d43c63491af10abc369040e8962882264f454ca7706dbd4",
   "evidence": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs",
@@ -23,8 +23,12 @@
   ],
   "summary": {
     "phaseId": "P15.14",
-    "checkCount": 9,
-    "failedCheckCount": 0,
+    "schemaVersion": "cc-p15-14-nonproduction-acceptance-v1",
+    "headSha": "e969660ce25fe69e8da15b24cb62607c711b5aef",
+    "contractSuites": [
+      "tests/category15-nonproduction-contract-acceptance.test.mjs",
+      "tests/owner-auth-proxy-routing.test.mjs"
+    ],
     "contractResults": {
       "tests": 5,
       "pass": 5,
@@ -34,6 +38,7 @@
       "binary": "/usr/bin/google-chrome",
       "lifecycleVerified": true
     },
+    "lifecycleTranscriptTail": "P15.14 PWA lifecycle verified: install, same-session offline cache replay, waiting-worker activation, two-cache rollback retention\n",
     "checks": [
       {
         "name": "nonproduction contract suites execute and exit zero",
@@ -84,6 +89,9 @@
         "name": "service worker keeps a known-good rollback path",
         "passed": true
       }
-    ]
+    ],
+    "checkCount": 9,
+    "failedCheckCount": 0,
+    "verified": true
   }
 }
