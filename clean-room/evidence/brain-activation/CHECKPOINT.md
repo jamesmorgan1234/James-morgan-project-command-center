@@ -1,3 +1,11 @@
+# Installer ready for the actual Windows-only action
+
+Self-contained installer EXISTING_PC_CLIENT_IN_PLACE.ps1 is 95,075 bytes, SHA256 1daf137aba9a687e4cd64bf9c71afe001e2c7e29c995607f37e00f3087796e00, generated from committed source 41f46935f8524c47355199ca02651b5d4ecc6dce. Candidate state source-committed. Seven isolated PowerShell scenarios and parser check passed. No native Windows verification claimed. No ZIP/extraction needed; installer removes staging.
+
+128 exact delegated activation artifact checks are queued, no company builds or paid actions. New-client status signal is deployed. Next action: publish installer with immutable source URL and independently verify fetched bytes; supply one hash-verified PowerShell command for the existing Windows session. Then observe new-client status and per-project real result proofs from Supabase. No authorization phrase or extra download/extraction workflow. Continue automatically when the real device signal arrives; do not require a new continue message. Full activation is still unfinished and must not be inferred from client installation alone.
+
+---
+
 # Concrete in-place client update prepared
 
 Corrected real updater defect: manifest contained 14 files while updater still allowed 7. Validator now requires the exact 14 unique whitelisted paths. Payload dependency closure is explicit ESM. Self-contained installer builder avoids ZIP/extraction and cleans temporary staging. Seven Linux PowerShell fixture scenarios passed, including actual file copies, forced rollback, corrupt payload, disabled task, repeat install, and outer-wrapper success/failure cleanup. This is not native Windows acceptance.

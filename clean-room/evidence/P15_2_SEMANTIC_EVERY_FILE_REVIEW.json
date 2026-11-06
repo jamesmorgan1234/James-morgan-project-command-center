@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "48828eb99ed0adb5e99411d4b7bef3cfb8126090",
+  "gitSha": "e9509f241a4339ff57e43a5d2b03e79c630e9cc9",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2316,
-  "inventoryDigest": "054c474fb894a6b216e4ebd8d4538001675ec0318661dd9a8dc0239fdf41bb71",
+  "reviewedFileCount": 2322,
+  "inventoryDigest": "8c222e02b851a02610dc5f90cf05926f3aa55acbf8447ab9f96ce0727fe7a93b",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2317,
-    "reviewedFileCount": 2316,
+    "trackedFileCount": 2323,
+    "reviewedFileCount": 2322,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 255,
+      "EVID": 258,
       "APUB": 15,
-      "SCRP": 147,
+      "SCRP": 149,
       "ASRC": 364,
       "TEST": 482,
       "RDMAP": 407,
-      "SBAS": 255,
+      "SBAS": 256,
       "HTST": 43
     },
     "defectCount": 0,
@@ -689,7 +689,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 255,
+      "fileCount": 258,
       "roles": [
         "EVID"
       ]
@@ -724,7 +724,7 @@
     },
     {
       "directory": "clean-room/scripts",
-      "fileCount": 144,
+      "fileCount": 146,
       "roles": [
         "SCRP"
       ]
@@ -1795,7 +1795,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 235,
+      "fileCount": 236,
       "roles": [
         "SBAS"
       ]
@@ -5027,8 +5027,17 @@
       "path": "clean-room/evidence/brain-activation/CHECKPOINT.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "2ddc991b2d44f529e30d318c8cbc2d2b9a2f69b03dea1164b9e52faa6b62d0fb",
-      "bytes": 40609,
+      "sha256": "b10aeb21b4186d35ddd96504843334d28223f780c04f54fbbaa48c3adcc3e531",
+      "bytes": 43108,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/EXISTING_PC_CLIENT_IN_PLACE.ps1",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "1daf137aba9a687e4cd64bf9c71afe001e2c7e29c995607f37e00f3087796e00",
+      "bytes": 95075,
       "contentKind": "text",
       "findings": []
     },
@@ -5173,6 +5182,24 @@
       "disposition": "retain-authority-evidence",
       "sha256": "558291b5d28fd189da2cbacf46294b36e12534e69fdaae13accedaf85ddf917a",
       "bytes": 534217,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/inplace-installer-release.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "865ca86181e894643188970511a21cda327c5734f52eec8ea07229d46cc61389",
+      "bytes": 331,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/inplace-update-verification.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "0ad89a52ef1a37a3a688936efe5dbc43af2a25fb4a841c6a51ee718933990b96",
+      "bytes": 1632,
       "contentKind": "text",
       "findings": []
     },
@@ -7079,8 +7106,17 @@
       "path": "clean-room/scripts/pc-worker-update/UPDATE_EXISTING_WORKER.ps1",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "92efb5ae5844a188db85281f1b9b9958bcac6bcca3d6af2d80152da6e8a21d5b",
-      "bytes": 7885,
+      "sha256": "603bda827cafdc988c0695b1d51dbc93b8ff8a8cd59f138d3d283c5dc919993c",
+      "bytes": 8506,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/pc-worker-update/build-inplace-update.py",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "ea77036d75927d54fe1771a0844368c8f122d96698f3ef141767385e80499328",
+      "bytes": 3486,
       "contentKind": "text",
       "findings": []
     },
@@ -7088,8 +7124,17 @@
       "path": "clean-room/scripts/pc-worker-update/build-package.py",
       "role": "SCRP",
       "disposition": "retain-active",
-      "sha256": "cbbd664eacc4e2137aa54ac198113c05ef9f9c137966fd5ef0e08dc50757286f",
-      "bytes": 3277,
+      "sha256": "3b6e4372267cdab009a79f0b8adbf96e2a73ad4beacb4fc58041e80a19ce3b0e",
+      "bytes": 3985,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/scripts/pc-worker-update/verify-inplace-update.py",
+      "role": "SCRP",
+      "disposition": "retain-active",
+      "sha256": "06fb2ba92f6bdc132857091aefc42e0d188fa5f7eb7679988f4200670c47c15f",
+      "bytes": 7932,
       "contentKind": "text",
       "findings": []
     },
@@ -10364,8 +10409,8 @@
       "path": "clean-room/src/worker/pc-artifact-job-runner.mjs",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "dcb3ac5cc45efbe87a07966b7c54190fa2fe10c4d353d9bf86fb3168d2acad5b",
-      "bytes": 3178,
+      "sha256": "0d75969d549d51e5403e7d6e3ca7e381bed455d8bdc373f474c9ab668fdcbf13",
+      "bytes": 3313,
       "contentKind": "text",
       "findings": []
     },
@@ -10391,8 +10436,8 @@
       "path": "clean-room/src/worker/pc-tool-job-transport.mjs",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "b184458c13cb1947c75cc179f64d4f9f9497d701d50279361fc1737f149175fb",
-      "bytes": 2996,
+      "sha256": "272f18beaff201edf173e91726d459ce507f5f404da95e5f8477ac3c7842e673",
+      "bytes": 3543,
       "contentKind": "text",
       "findings": []
     },
@@ -10418,8 +10463,8 @@
       "path": "clean-room/src/worker/pc-worker-supervisor.mjs",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "d0fe58d5162bb28450f2c84148e521f151820ed243fb182714feb9db6f076594",
-      "bytes": 4052,
+      "sha256": "e066348f89aeaf61b8c33e3b3fecde4dd512bdd72ae2429a79695fb0d2123e8f",
+      "bytes": 4188,
       "contentKind": "text",
       "findings": []
     },
@@ -14263,8 +14308,8 @@
       "path": "clean-room/tests/pc-tool-job-postgres.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "e0148edf17c948886482086cc981bd56fd7a831630021113d06ddfde74f0e23c",
-      "bytes": 11903,
+      "sha256": "74fb3ef230468fae33367c54eb5506e6db5933fc95f4e97cbfafdb18853bc4c7",
+      "bytes": 15818,
       "contentKind": "text",
       "findings": []
     },
@@ -14290,8 +14335,8 @@
       "path": "clean-room/tests/pc-worker-update-package.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "5a08ff5af90f1d7f5e2ff7e2fd0a7d5f257bd0e9e646b75b63323a06ecbd7bb8",
-      "bytes": 3227,
+      "sha256": "208a8a2685caefbb66712ff4e6d05a02a3b58db4121250fba54aadf80d43b859",
+      "bytes": 3802,
       "contentKind": "text",
       "findings": []
     },
@@ -22587,6 +22632,15 @@
       "disposition": "retain-active",
       "sha256": "c7f7b4003b8b4dfad7944a23ea62aa8b1b27e2be7110d8e289b770d991aab5ad",
       "bytes": 12703,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261106203000_pc_artifact_activation_status.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "b458bc3668bd161a7580dd8c7bf0182ae2988baa51c6d00e4a67126da4ab7e8e",
+      "bytes": 13654,
       "contentKind": "text",
       "findings": []
     },

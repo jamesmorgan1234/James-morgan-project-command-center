@@ -1,0 +1,9 @@
+{
+  "file": "clean-room/evidence/brain-activation/EXISTING_PC_CLIENT_IN_PLACE.ps1",
+  "sha256": "1daf137aba9a687e4cd64bf9c71afe001e2c7e29c995607f37e00f3087796e00",
+  "bytes": 95075,
+  "payloadFiles": 14,
+  "sourceCommit": "41f46935f8524c47355199ca02651b5d4ecc6dce",
+  "candidateState": "source-committed",
+  "zipRequired": false
+}
