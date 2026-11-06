@@ -218,4 +218,25 @@ const report = {
 };
 if (writeReport) writeFileSync(resolve(cleanRoom, "category15-phase-status.json"), JSON.stringify(report, null, 2) + "\n");
 console.log(JSON.stringify({ headSha, exactHeadCiVerified, authorityAuditVerified, canonicalTotalsValid, currentPhaseCount: phaseIds.length, originalHistoricalLedgerRecovered, requirementTraceabilityStructureValid, requirementTraceabilityClosureComplete, requirementTraceabilityValid, requirementTraceabilityRepositoryEvidenceValid: requirementTraceabilityRepositoryEvidence.valid, repositoryEvidenceErrorCount: requirementTraceabilityRepositoryEvidence.errors.length, traceabilityCounts: requirementTraceabilitySummary, p15_1: phases["P15.1"].status, p15_2: phases["P15.2"].status, p15_1_through_14_unverified_count: nonproductionFailures.length, p15_15: phases["P15.15"].status, p15_16: phases["P15.16"].status }));
+// P15.1 repository evidence diagnostics: make exact failing proof bindings visible in CI
+// without weakening a gate, changing any truth state, or exposing requirement source text.
+if (requirementTraceabilityRepositoryEvidence.errors.length) {
+  const errors = requirementTraceabilityRepositoryEvidence.errors;
+  const byReason = {};
+  for (const {message} of errors) {
+    const category = message.startsWith("Changed/unqualified evidence input:") ? "CHANGED_SOURCE_INPUT"
+      : message.startsWith("Missing repository reference:") ? "MISSING_REPOSITORY_REFERENCE"
+      : message.startsWith("Missing named test:") ? "MISSING_NAMED_TEST"
+      : message.startsWith("Missing implementation/test anchor:") ? "MISSING_ANCHOR"
+      : message.startsWith("No individually reviewed semantic mapping") ? "MISSING_SEMANTIC_MAPPING"
+      : message.startsWith("Verified/N/A row has no valid requalification proof") ? "REQUALIFICATION_PROOF_MISSING"
+      : "OTHER";
+    byReason[category] = (byReason[category] ?? 0) + 1;
+  }
+  console.error("P15.1 repository evidence diagnostics", JSON.stringify({
+    total:errors.length,
+    byReason,
+    firstErrors:errors.slice(0,20).map(({id,message})=>({id,message}))
+  }));
+}
 if (!canonicalTotalsValid || !allCategory15DefinitionsPresent || !authorityAuditVerified || (requireNonproduction && nonproductionFailures.length)) process.exit(1);

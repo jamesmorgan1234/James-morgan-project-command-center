@@ -17,7 +17,15 @@ test("worker heartbeat alone is not presented as verified inference",()=>{
 });
 test("specialist responses require explicit verified readiness",()=>{
  assert.match(ui,/specialistReadiness\?\.\[projectId\] === "available"/);
- assert.match(provider,/specialistReadiness: Object\.freeze\(\{\}\)/);
+ assert.match(provider,/specialistReadiness = Object\.freeze\(readiness\)/);
+ assert.match(provider,/stringArray\(row\.scopes\)\.includes\("company-brain-read-only"\)/);
+ assert.match(provider,/specialist\.verification_state !== "verified"/);
+ assert.match(provider,/checkpointReady/);
+});
+test("verified specialist messages use PC queue without Agency execution fallback",()=>{
+ assert.match(ui,/if \(typeof provider\.enqueuePcBrainResponse === "function"\)/);
+ assert.match(ui,/snapshot\.brain\?\.specialistReadiness\?\.\[projectId\] !== "available"/);
+ assert.match(ui,/No verified specialist PC inference provider is available/);
 });
 test("no browser worker token or payment execution in the PC composer",()=>{
  assert.doesNotMatch(ui,/CC_PC_WORKER_TOKEN|SERVICE_ROLE_KEY|stripe_api_write/);

@@ -493,9 +493,13 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       throw new Error("Owner Brain conversation is unavailable");
     const projectId = stringValue(record.project_id) ?? null;
     if (projectId !== null) {
+      // These are syntactic bounds only. The server must verify exact owner,
+      // project/company/specialist identity and live-read-only permissions.
       const match = /^project:company:future:(\d{3})$/u.exec(projectId);
-      if (!match || Number(match[1]) < 1 || Number(match[1]) > 117)
-        throw new Error("PC Brain responses are currently limited to the central Brain and future company catalogue");
+      const validFuture = !!match && Number(match[1]) >= 1 && Number(match[1]) <= 117;
+      const validLegacy = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(projectId);
+      if (!validFuture && !validLegacy)
+        throw new Error("PC Brain responses require a canonical company project ID");
     }
     const saved = await this.#rpcPayload("command_center_pc_enqueue_inference", session.accessToken, {
       p_request_id: ownerTurnId,
@@ -744,6 +748,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     // PC telemetry is auxiliary: its failure cannot erase persisted Brain history.
     let workerOnline = false;
     let verifiedCentralInference = false;
+    let specialistReadiness: Readonly<Record<string, "available" | "unavailable">> = Object.freeze({});
     let pcRequests: NonNullable<RuntimeBrainSnapshot["pcRequests"]> = Object.freeze([]);
     try {
       const [workerStatusRows, pcQueueRows] = await Promise.all([
@@ -754,6 +759,64 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       ]);
       workerOnline = workerStatusRows.some(row =>
         row.enabled === true && row.revoked !== true && row.online === true);
+      // Specialist availability is derived from current, independent owner-readable
+      // identity, roadmap, checkpoint, verified provider and live worker evidence.
+      // A mere provider mapping or historical heartbeat is never sufficient.
+      try {
+      const [specialistRows, projectRows, roadmapRows, checkpointRows, providerRows] = await Promise.all([
+        this.#selectRows("command_center_specialist_brains", session,
+          "project_id,brain_key,enabled,health,verification_state,lifecycle,cost_class,control_plane,provider_keys,supported_project_ids,supported_company_ids",
+          { limit: "200" }),
+        this.#selectRows("command_center_project_profiles", session,
+          "project_id,company_id,protected", { limit: "200" }),
+        this.#selectRows("command_center_project_roadmaps", session,
+          "project_id,version,state,structure_verified", { limit: "200" }),
+        this.#selectRows("command_center_project_checkpoints", session,
+          "project_id,roadmap_version", { limit: "200" }),
+        this.#selectRows("command_center_provider_registry", session,
+          "provider_key,enabled,health,verification,cost,capabilities,scopes", { limit: "200" })
+      ]);
+      const profilesById = new Map(projectRows.map(row => [String(row.project_id), row] as const));
+      const roadmapById = new Map(roadmapRows.filter(row => row.state === "current")
+        .map(row => [String(row.project_id), row] as const));
+      const onlineProviders = new Set(workerStatusRows
+        .filter(row => row.enabled === true && row.revoked !== true && row.online === true)
+        .map(row => "provider:owner-pc:" + String(row.workerId)));
+      const readyProviders = new Set(providerRows.filter(row =>
+        row.enabled === true && row.health === "available" && row.verification === "live_verified"
+        && row.cost === "free" && stringArray(row.capabilities).includes("brain.respond.read_only")
+        && stringArray(row.scopes).includes("company-brain-read-only")
+        && onlineProviders.has(String(row.provider_key)))
+        .map(row => String(row.provider_key)));
+      const readiness: Record<string, "available" | "unavailable"> = Object.create(null);
+      for (const specialist of specialistRows) {
+        const projectId = stringValue(specialist.project_id);
+        if (!projectId) continue;
+        const future = /^project:company:future:(\d{3})$/u.exec(projectId);
+        const futureValid = !!future && Number(future[1]) >= 1 && Number(future[1]) <= 117;
+        const legacyValid = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(projectId);
+        if (!futureValid && !legacyValid) continue;
+        const expectedCompanyId = futureValid ? "company:future:" + future![1] : "company:legacy:" + projectId;
+        const profile = profilesById.get(projectId);
+        const roadmap = roadmapById.get(projectId);
+        const checkpointReady = !!roadmap && checkpointRows.some(row =>
+          row.project_id === projectId && Number(row.roadmap_version) === Number(roadmap.version));
+        if (profile?.company_id !== expectedCompanyId || (legacyValid && profile.protected !== true)
+          || specialist.brain_key !== "brain:" + expectedCompanyId + ":v1"
+          || specialist.enabled !== true || specialist.health !== "healthy"
+          || specialist.verification_state !== "verified" || specialist.lifecycle !== "active"
+          || specialist.cost_class !== "free" || specialist.control_plane !== "command_center"
+          || !stringArray(specialist.supported_project_ids).includes(projectId)
+          || !stringArray(specialist.supported_company_ids).includes(expectedCompanyId)
+          || roadmap?.structure_verified !== true || !checkpointReady
+          || !stringArray(specialist.provider_keys).some(key => readyProviders.has(key))) continue;
+        readiness[projectId] = "available";
+      }
+      specialistReadiness = Object.freeze(readiness);
+      } catch {
+        // Specialist telemetry is independent; it cannot take central Brain inference offline.
+        specialistReadiness = Object.freeze({});
+      }
       pcRequests = Object.freeze(pcQueueRows.map(row => {
       const requestId = stringValue(row.request_id);
       const conversationId = stringValue(row.conversation_id);
@@ -795,11 +858,12 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       workerOnline = false;
       verifiedCentralInference = false;
       pcRequests = Object.freeze([]);
+      specialistReadiness = Object.freeze({});
     }
     return Object.freeze({
       availability: "available" as const,
       inferenceAvailability: workerOnline ? "available" as const : "unavailable" as const,
-      specialistReadiness: Object.freeze({}) as Readonly<Record<string, "available" | "unavailable">>,
+      specialistReadiness,
       workerOnline,
       verifiedCentralInference,
       pcRequests,
