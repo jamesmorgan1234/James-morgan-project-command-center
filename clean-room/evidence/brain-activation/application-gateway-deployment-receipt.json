@@ -1,0 +1,48 @@
+{
+  "sourceCommit": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
+  "projectId": "gmlsucpwliegwlxymjvp",
+  "functionName": "command-center-execution",
+  "functionId": "40743823-5529-432f-9ddb-51fe7d4eb9a7",
+  "version": 1,
+  "status": "ACTIVE",
+  "verifyJwt": true,
+  "deployedBundleSha256": "151c5da069a624cdc5c401324bb57d462f6e037553cfe5705a477115223a81f8",
+  "allSevenSourceFilesMatch": true,
+  "unauthenticatedHttpStatus": 401,
+  "exactSourceQa": {
+    "passed": 2651,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "coreRun": 42243202595,
+    "fullRun": 42243202502,
+    "bothSucceeded": true
+  },
+  "runtime": {
+    "observedAt": "2026-11-06T15:46:43.787989+00:00",
+    "registered": 128,
+    "diagnostics": [
+      {
+        "count": 51,
+        "state": "completed"
+      },
+      {
+        "count": 1,
+        "state": "claimed"
+      },
+      {
+        "count": 76,
+        "state": "queued"
+      }
+    ],
+    "workerLastSeen": "2026-11-06T15:46:23.92+00:00",
+    "stoppedAgencyRuns": 7,
+    "enabledSpecialists": 0
+  },
+  "ownerUiTest": {
+    "state": "blocked_at_owner_sign_in",
+    "url": "https://command-center-preview-alpha.vercel.app",
+    "ownerCredentialsRead": false
+  },
+  "operationalActivationClaimed": false
+}

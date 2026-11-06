@@ -1,3 +1,13 @@
+# Gateway deployed under renewed owner authorization — November 6, 2026
+
+James explicitly authorized finishing the gateway deployment; do not request that same permission again. command-center-execution v1 is ACTIVE in the exact existing Supabase project with JWT verification enabled. Retrieved deployed source and confirmed all seven files match tested source candidate a311ab8dfbe95552208a6c20c040e42b2ffef16a. Actual unauthenticated HTTP request returned 401. Existing PC gateway remains v4. No Vercel release, alias promotion, company workflow or spending occurred. Both source QA workflows succeeded; 2651 tests passed with zero failures/skips/cancellations.
+
+PC diagnostics continue autonomously, saving each actual response in the canonical queue/conversation/workspace. Latest count and exact deployment bundle/source/QA references are in application-gateway-deployment-receipt.json. Fully operational activation remains unverified, not implied by deployment or diagnostic completion. Do not change pending probe snapshots' Brain/provider/context bindings or repeat Windows setup. Seven stopped Agency runs remain stopped, and the hosted Task remains paused. Real tool/job execution connection is still unverified; do not label the inference-only worker a tool executor.
+
+Connected Edge owner UI test opened https://command-center-preview-alpha.vercel.app and reached the Secure owner sign in page. No credentials were read, guessed or exported. Browser tab is marked for owner handoff. Authenticated UI verification needs the owner's sign-in; all other read-only/background diagnostics continue independently.
+
+---
+
 # Live Windows connection and specialist diagnostics — November 6, 2026
 
 The owner completed the existing Windows update after the exact updater hash was verified and its downloaded-file block was removed. The existing enabled Task was Ready, not Running; starting only that already-enabled worker allowed the unchanged updater to proceed. Real protocol-v1 specialist evidence now proves that the deployed gateway and updated client work together. Do not repeat downloads, extraction, policy changes, pairing, or updater instructions. Keep the existing worker running.
