@@ -493,9 +493,13 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       throw new Error("Owner Brain conversation is unavailable");
     const projectId = stringValue(record.project_id) ?? null;
     if (projectId !== null) {
+      // These are syntactic bounds only. The server must verify exact owner,
+      // project/company/specialist identity and live-read-only permissions.
       const match = /^project:company:future:(\d{3})$/u.exec(projectId);
-      if (!match || Number(match[1]) < 1 || Number(match[1]) > 117)
-        throw new Error("PC Brain responses are currently limited to the central Brain and future company catalogue");
+      const validFuture = !!match && Number(match[1]) >= 1 && Number(match[1]) <= 117;
+      const validLegacy = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(projectId);
+      if (!validFuture && !validLegacy)
+        throw new Error("PC Brain responses require a canonical company project ID");
     }
     const saved = await this.#rpcPayload("command_center_pc_enqueue_inference", session.accessToken, {
       p_request_id: ownerTurnId,
