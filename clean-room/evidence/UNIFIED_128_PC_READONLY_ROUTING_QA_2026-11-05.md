@@ -27,11 +27,12 @@
 
 ## QA performed and evidence limitations
 
-- Current live DB: **128/128 canonical identity matches**; **0** company provider scopes, **0** enabled specialist records, **0** requests admitted under live-ready gates, **117** completed basic roadmap checkpoint records / **11** missing legacy checkpoints.
+- Current live DB: **128/128 canonical identity matches**; **0** company provider scopes, **0** enabled specialist records, **0** requests admitted under live-ready gates, **117** recorded roadmap checkpoints (future companies only) / **11** missing legacy checkpoints. Checkpoint presence alone does not prove any task completed.
 - Staged Deno scope parser evaluated against **128 positive identifiers** (001–117 + exact 11 legacy) and **11 invalid identifiers**, all correctly accepted/rejected.
 - Staged source reviewed for owner turn authorization, company/project binding, provider scope, exact worker, disabled state, checkpoint, and unsafe execution fallback.
 - GitHub exact-head staged changes are isolated to gateway candidate, SQL candidate, app parser/readiness/queue, and two test files.
 - Existing **Vercel preview build** returned **READY** at commit `120c7204523a416fdb5be0fdeb08c33ffdec824e`. That preview result **is not** evidence of production deployment, end-to-end specialist inference, or running the full standalone Node test suite.
+- The two staged source-contract suites were fetched from this isolated branch and their assertions executed in an isolated JavaScript runtime: **16 passing / 0 failing checks**. This validates pure scope functions and source contracts, **not** a full Node/TypeScript end-to-end integration run.
 - The end-to-end database/gateway integration and full Node test suite **have not been run on the staged branch in an independently deployed integration environment**. No false PASS is claimed.
 
 ## Before operational promotion
