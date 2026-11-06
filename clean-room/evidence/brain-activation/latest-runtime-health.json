@@ -4,7 +4,7 @@
       "enabled": true,
       "revoked": false,
       "worker_id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
-      "last_seen_at": "2026-11-06T04:43:53.641+00:00"
+      "last_seen_at": "2026-11-06T08:52:28.859+00:00"
     }
   ],
   "executors": [
@@ -35,7 +35,7 @@
       "verification": "live_verified"
     }
   ],
-  "observedAt": "2026-11-06T04:44:22.05676+00:00",
+  "observedAt": "2026-11-06T08:53:05.488043+00:00",
   "queueStates": {
     "completed": 2
   }

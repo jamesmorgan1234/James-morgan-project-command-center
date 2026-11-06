@@ -169,6 +169,31 @@ jobs:
           if(!receipt.ci.jobId||!receipt.ci.testPass||receipt.ci.testFail!==0||receipt.ci.testSkipped!==0)throw Error('Invalid source-bound qualification receipt');
           fs.writeFileSync('clean-room/p15-1-qualification.json',JSON.stringify(receipt)+'\n');
           NODE
+      - name: Refresh real nonproduction artifact and browser receipts
+        working-directory: clean-room
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run build:deploy
+          node scripts/p15-13-release-artifact-audit.mjs --write
+          unset DBUS_SESSION_BUS_ADDRESS DBUS_SYSTEM_BUS_ADDRESS || true
+          node scripts/p15-14-nonproduction-acceptance-audit.mjs --write
+          node --input-type=module <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          import {buildPhaseReceipt,validateReceiptBinding} from './scripts/phase-receipt-binding.mjs';
+          for (const [phaseId,name] of [['P15.13','P15_13_RELEASE_ARTIFACT_AUDIT'],['P15.14','P15_14_NONPRODUCTION_ACCEPTANCE']]) {
+            const path='evidence/phase-receipts/'+phaseId.replaceAll('.','_')+'.json';
+            const previous=JSON.parse(readFileSync(path,'utf8'));
+            const report=JSON.parse(readFileSync('evidence/'+name+'.json','utf8'));
+            if(report.headSha!==process.env.GITHUB_SHA || report.verified!==true || report.failedCheckCount!==0) throw Error('Actual exact-head nonproduction audit must pass: '+phaseId);
+            if(phaseId==='P15.14' && (report.browser?.lifecycleVerified!==true || report.contractResults?.fail!==0 || report.contractResults?.pass<5)) throw Error('Real browser and contract assertions required');
+            const receipt=buildPhaseReceipt({phaseId,headSha:process.env.GITHUB_SHA,inputs:previous.inputs,evidence:previous.evidence,summary:{phaseId,...report}});
+            if(!validateReceiptBinding(receipt,{repoRoot:'..',headSha:process.env.GITHUB_SHA})) throw Error('Invalid nonproduction evidence binding');
+            writeFileSync(path,JSON.stringify(receipt,null,2)+'\n');
+          }
+          NODE
+          node scripts/p15-2-semantic-every-file-review.mjs --write
+          node scripts/category15-repository-audit.mjs --write
       - name: Assemble guarded P15.1 traceability
         id: assemble
         shell: bash
@@ -207,6 +232,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add clean-room/evidence/category15-requirement-traceability.json
+          git add clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json
+          git add clean-room/evidence/phase-receipts/P15_13.json clean-room/evidence/phase-receipts/P15_14.json
           # The P15.2 every-file review digests the whole tracked inventory, so the
           # ledger this job rewrites must be re-reviewed in the same commit. Without
           # this, every guarded promotion leaves HEAD with stale P15.2 evidence,

@@ -68,31 +68,49 @@ jobs:
         run: npm run build:modules
       - name: Build browser
         run: npm run build:browser
-      - name: Wait for exact-head P15.1 core qualification
+      - name: Load completed exact-head source and nonproduction qualification
         if: github.event_name == 'push'
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           set -euo pipefail
+          qualification_run=""
           for attempt in $(seq 1 120); do
-            run_id="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/p15-1-requalify-reviewed-mappings.yml/runs?head_sha=${GITHUB_SHA}&event=push&per_page=10" --jq '.workflow_runs | sort_by(.run_number) | last | .id // empty')"
-            if [ -n "$run_id" ]; then
-              row="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${run_id}/jobs?per_page=100" --jq '.jobs[] | select(.name=="core-qa") | [.status,(.conclusion // "")] | @tsv' | head -n 1)"
-              if [ -n "$row" ]; then
-                status="${row%%$'\t'*}"
-                conclusion="${row#*$'\t'}"
-                if [ "$status" = "completed" ]; then
-                  test "$conclusion" = "success"
-                  echo "exact-head P15.1 core qualification succeeded: run=$run_id sha=$GITHUB_SHA"
-                  exit 0
-                fi
-              fi
+            row="$(gh api "repos/${GITHUB_REPOSITORY}/actions/workflows/p15-1-requalify-reviewed-mappings.yml/runs?head_sha=${GITHUB_SHA}&event=push&per_page=10" --jq '.workflow_runs | sort_by(.run_number) | last | [.id // "",.status // "",.conclusion // ""] | @tsv')"
+            IFS=$'\t' read -r run_id status conclusion <<< "$row"
+            if [ -n "$run_id" ] && [ "$status" = "completed" ]; then
+              test "$conclusion" = "success"
+              qualification_run="$run_id"
+              break
             fi
             sleep 5
           done
-          echo "Timed out waiting for exact-head P15.1 core qualification for $GITHUB_SHA" >&2
-          exit 1
+          test -n "$qualification_run"
+          git fetch origin build/spec-lock-v2-clean-room
+          QUALIFICATION_RUN="$qualification_run" node --input-type=module <<'NODE'
+          import {execFileSync} from 'node:child_process';
+          import {writeFileSync} from 'node:fs';
+          import {validateReceiptBinding} from './scripts/phase-receipt-binding.mjs';
+          const root='..',ref='origin/build/spec-lock-v2-clean-room',source=process.env.GITHUB_SHA;
+          const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+          if(git('rev-parse','HEAD')!==source)throw Error('QA must retain the exact source HEAD');
+          git('merge-base','--is-ancestor',source,ref);
+          const files=['clean-room/evidence/category15-requirement-traceability.json','clean-room/evidence/P15_2_SEMANTIC_EVERY_FILE_REVIEW.json','clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json','clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json','clean-room/evidence/phase-receipts/P15_13.json','clean-room/evidence/phase-receipts/P15_14.json'];
+          const changed=git('diff','--name-only',source,ref).split('\n').filter(Boolean);
+          if(changed.some(path=>!files.includes(path)))throw Error('Refusing qualification from a different runtime/configuration source');
+          const contents=new Map(files.map(path=>[path,git('show',ref+':'+path)+'\n']));
+          const ledger=JSON.parse(contents.get(files[0])),v=ledger.verification,ci=v?.ci;
+          if(v?.sourceCommit!==source||ci?.runId!==Number(process.env.QUALIFICATION_RUN)||ci?.status!=='completed'||ci?.conclusion!=='success'||ci?.coreQaConclusion!=='success'||!Number.isSafeInteger(ci?.testPass)||ci.testPass<1||ci?.testFail!==0||ci?.testSkipped!==0||ledger.repositoryEvidence?.valid!==true)throw Error('Source-bound completed QA evidence required');
+          for(const path of files.slice(2,4)){const report=JSON.parse(contents.get(path));if(report.headSha!==source||report.verified!==true||report.failedCheckCount!==0)throw Error('Actual exact-head nonproduction audit required');}
+          const browserReport=JSON.parse(contents.get(files[3]));if(browserReport.browser?.lifecycleVerified!==true||browserReport.contractResults?.fail!==0||!Number.isSafeInteger(browserReport.contractResults?.pass)||browserReport.contractResults.pass<5)throw Error('Actual browser and contract results required');
+          for(const path of files.slice(4)){if(JSON.parse(contents.get(path)).gitSha!==source)throw Error('Phase receipt must name the qualified source');}
+          for(const [path,content]of contents)writeFileSync('../'+path,content);
+          for(const path of files.slice(4)){const receipt=JSON.parse(contents.get(path));if(!validateReceiptBinding(receipt,{repoRoot:root,headSha:source}))throw Error('Phase receipt inputs do not match audited source');}
+          console.log('Imported only validated qualification evidence for '+source);
+          NODE
+          npm run audit:authority
+          npm run audit:repository
       - name: Embedded module tests
         run: npm run test:modules
       - name: Artifact audit gate

@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "45b6a91c3297ee8c2eaf2f0e7e5ad143f36abe48",
+  "qualificationCommit": "ce4ca080ab93f35240facf97c902c15e54562d50",
+  "workflowRunId": 42164689089,
+  "coreJobId": 127718294303,
+  "conclusion": "success",
+  "tests": 2578,
+  "passed": 2578,
+  "failed": 0,
+  "skipped": 0,
+  "realPwaLifecyclePassed": true,
+  "sourceEvidence": {
+    "requirements": 5852,
+    "repositoryErrors": 0
+  },
+  "scope": "repository QA only, not specialist operational execution"
+}
