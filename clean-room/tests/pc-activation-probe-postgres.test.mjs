@@ -37,7 +37,13 @@ async function database(){
  create function immutable_turn() returns trigger language plpgsql as $$begin raise exception 'conversation turns immutable';end$$;
  create trigger immutable_turn before update or delete on command_center_brain_conversation_turns for each row execute function immutable_turn();
  `);
- await db.exec(liveSql);await db.exec(unifiedSql);await db.exec(candidate);
+ await db.exec(liveSql);await db.exec(unifiedSql);
+ // Match independently inspected LIVE service_role table privileges: workspace
+ // tables grant no direct access; row-lock checks also require owner privileges.
+ await db.exec(`grant select on command_center_members,command_center_pc_worker_registrations,command_center_project_profiles,command_center_specialist_brains,command_center_specialist_brain_versions,command_center_provider_registry,command_center_brain_conversations,command_center_brain_conversation_turns,command_center_pc_inference_requests,command_center_project_roadmaps,command_center_project_checkpoints to service_role;
+ grant insert on command_center_specialist_brains,command_center_specialist_brain_versions,command_center_brain_conversation_turns,command_center_pc_inference_requests to service_role;
+ grant update on command_center_specialist_brains,command_center_brain_conversations,command_center_pc_inference_requests,command_center_pc_worker_registrations to service_role;`);
+ await db.exec(candidate);
  await db.query(`insert into command_center_members values($1,'active',null);`,[owner]);
  await db.query(`insert into command_center_pc_worker_registrations(worker_id,owner_id,enabled,revoked_at,last_seen_at) values($1,$2,true,null,now())`,[worker,owner]);
  await db.query(`insert into command_center_project_profiles values($1,$2,$3,1,'Existing project mission',true)`,[owner,project,company]);
@@ -57,7 +63,12 @@ async function database(){
 }
 test('bounded activation SQL executes real PostgreSQL state transitions without enabling Brains or business runs',async suite=>{
  const db=await database();
- const scalar=async(q,args=[])=>Object.values((await db.query(q,args)).rows[0])[0];
+ const scalar=async(q,args=[])=>{
+  const workerCall=/^select command_center_pc_/.test(q);
+  if(workerCall)await db.exec('set role service_role');
+  try{return Object.values((await db.query(q,args)).rows[0])[0]}
+  finally{if(workerCall){try{await db.exec('reset role')}catch{ /* caller rolls back its failed savepoint */ }}}
+ };
  const seed=()=>scalar('select command_center_pc_seed_activation_probe_service($1,$2,$3,2,1,$4)',[owner,worker,project,authority]);
  const claim=(client='cc-pc-inference-activation-v1')=>scalar('select command_center_pc_claim_v4_service($1,$2,$3)',[owner,worker,client]);
  const complete=(task,text,digest='a'.repeat(64))=>scalar('select command_center_pc_complete_v4_service($1,$2,$3,$4,$5,$6,$7)',[owner,worker,task.requestId,task.fencingToken,model,digest,text]);
@@ -69,6 +80,15 @@ test('bounded activation SQL executes real PostgreSQL state transitions without 
     assert.equal(await scalar("select has_function_privilege($1,'command_center_pc_claim_v4_service(uuid,uuid,text)','execute')",[role]),false);
    }
    assert.equal(await scalar("select has_function_privilege('service_role','command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text)','execute')"),true);
+  });
+  await suite.test('service invokes bounded private operations without gaining raw workspace or identity-table authority',async()=>{
+   for(const role of ['anon','authenticated'])assert.equal(await scalar("select has_schema_privilege($1,'command_center_pc_private','USAGE')",[role]),false);
+   assert.equal(await scalar("select has_table_privilege('service_role','command_center_brain_project_workspaces','SELECT')"),false);
+   assert.equal(await scalar("select has_table_privilege('service_role','command_center_brain_project_workspace_versions','INSERT')"),false);
+   assert.equal(await scalar("select has_table_privilege('service_role','command_center_members','UPDATE')"),false);
+   const functions=(await db.query("select n.nspname,p.proname,p.prosecdef from pg_proc p join pg_namespace n on n.oid=p.pronamespace where p.proname='command_center_pc_activation_snapshot_service'")).rows;
+   assert.equal(functions.find(f=>f.nspname==='public').prosecdef,false);
+   assert.equal(functions.find(f=>f.nspname==='command_center_pc_private').prosecdef,true);
   });
   await suite.test('seed is idempotent, exact and available while real specialist remains suspended',async()=>{
    const first=await seed(),again=await seed();assert.equal(first.state,'queued');assert.equal(again.requestId,first.requestId);assert.equal(again.duplicate,true);
@@ -164,6 +184,8 @@ test('bounded activation SQL executes real PostgreSQL state transitions without 
    assert.equal(Number(await scalar("select count(*) from command_center_pc_inference_requests where state='completed'")),doneBefore);
    assert.equal(Number(await scalar("select count(*) from command_center_pc_inference_requests where error_code='activation_diagnostic_rollback' and state='cancelled'")),1);
    await assert.rejects(seed(),/disabled by rollback/);
+   assert.equal(await scalar("select has_function_privilege('service_role','command_center_pc_private.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text)','EXECUTE')"),false);
+   assert.equal(await scalar("select has_function_privilege('service_role','command_center_pc_private.command_center_pc_claim_v4_service(uuid,uuid,text)','EXECUTE')"),false);
    assert.equal(await claim(),null);
    assert.equal(await scalar('select state from command_center_agency_runs'),'stopped');
   });

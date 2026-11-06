@@ -10,4 +10,7 @@ begin return public.command_center_pc_claim_service(p_owner,p_worker);end $f$;
 create or replace function public.command_center_pc_seed_activation_probe_service(p_owner uuid,p_worker uuid,p_project text,p_brain_version bigint,p_provider_version bigint,p_authority text)
 returns jsonb language plpgsql set search_path='' as $f$
 begin raise exception 'Activation diagnostics disabled by rollback';end $f$;
+-- Stop direct internal service entrypoints as well as the public facades.
+revoke execute on function command_center_pc_private.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) from service_role;
+revoke execute on function command_center_pc_private.command_center_pc_claim_v4_service(uuid,uuid,text) from service_role;
 commit;

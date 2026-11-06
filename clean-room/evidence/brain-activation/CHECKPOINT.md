@@ -1,3 +1,13 @@
+# Live-role preflight correction — 2026-11-06
+
+Candidate source `68ebed1420a725de4b271a0e183aaf0845e04e71` passed exact-source GitHub QA (2647/2647, zero failed/skipped/cancelled), 5852 requirement mappings, artifact checks and real nonproduction browser lifecycle. Qualification evidence was saved by `700df2df3fc4e04f8ede5182c4886d65602c3399`. A subsequent live permission preflight caught an actual deployment gap: service_role has no direct read/write access to either Brain workspace table, and share-row locks also need privileges not present on read-only provider/profile/member records. No migration or deployment was attempted before discovering this.
+
+The corrected diagnostic candidate preserves those raw table privileges. The bounded operations now use a private, service-only privilege boundary with public invoker facades. Internal functions retain exact registered worker/active owner, explicit version-bound activation authority, company/project/Brain/model/context, fencing, expiry and revocation checks. The private schema and functions deny anon/authenticated use; no public definer function or broad workspace/member/provider write grant is added. Existing ordinary-chat RPCs and all Brain state/identities are preserved. Rollback disables private diagnostic entrypoints in addition to public dispatch while retaining evidence.
+
+The focused PostgreSQL fixture now applies the independently inspected live service_role privileges and actually invokes worker RPCs as service_role, rather than assuming PostgreSQL-owner access. It proves successful end-to-end diagnostic persistence through the bounded procedures while direct workspace/table authority stays absent. The 27 role-aware cases pass; the exact corrected source needs its normal CI requalification. Windows client bytes/protocol and verified archive from `68ebed14` remain unchanged by this SQL-only correction.
+
+---
+
 # Verified QA update — 2026-11-06
 
 The refreshed authority/repository/every-file metadata and full module suite passed **2643 tests, 0 failures, 0 skipped/cancelled**. Four additional focused SQL null-boundary cases were then added for missing lease/fence and unknown provider health/permissions; the updated 26-case PostgreSQL probe suite passed. No general test assertion or release gate was relaxed. The exact new source will also require its normal CI qualification. Source/new evidence is not a production release.

@@ -102,10 +102,14 @@ begin
   'scheduleAuthorized',false,'executionAuthorized',false);
 end $function$;
 
--- Invoker-only helper; caller must be service_role. All mutable inputs are locked
--- during the transaction so a concurrent revocation cannot race completion.
-create function public.command_center_pc_activation_snapshot_service(p_owner uuid,p_worker uuid,p_project text)
-returns jsonb language plpgsql set search_path='' as $f$
+-- Private privilege boundary: explicit service-only callers, exact registered
+-- owner/worker/project/task authority, immutable context and fenced result checks.
+-- Row locks require privileges beyond read access; raw table rights stay unchanged.
+create schema if not exists command_center_pc_private;
+revoke all on schema command_center_pc_private from public,anon,authenticated;
+grant usage on schema command_center_pc_private to service_role;
+create function command_center_pc_private.command_center_pc_activation_snapshot_service(p_owner uuid,p_worker uuid,p_project text)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare b public.command_center_specialist_brains%rowtype;
  p public.command_center_project_profiles%rowtype;
  pr public.command_center_provider_registry%rowtype;
@@ -185,8 +189,8 @@ begin
  'roadmapVersion',rm.version,'checkpointId',cp.checkpoint_id,'contextTurnId',t.turn_id,'contextHash',t.content_hash,'system',sys);
 end $f$;
 
-create function public.command_center_pc_seed_activation_probe_service(p_owner uuid,p_worker uuid,p_project text,p_brain_version bigint,p_provider_version bigint,p_authority text)
-returns jsonb language plpgsql set search_path='' as $f$
+create function command_center_pc_private.command_center_pc_seed_activation_probe_service(p_owner uuid,p_worker uuid,p_project text,p_brain_version bigint,p_provider_version bigint,p_authority text)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare s jsonb;ac jsonb;rid uuid;tid uuid;question text;existing public.command_center_pc_inference_requests%rowtype;
 begin
  if p_authority is distinct from 'evd_owner-command-center-brain-activation-20261105' then raise exception 'Exact activation task authority required';end if;
@@ -195,7 +199,7 @@ begin
  select * into existing from public.command_center_pc_inference_requests where owner_id=p_owner and project_id=p_project
  and activation_contract is not null and route_snapshot->>'brainVersion'=p_brain_version::text;
  if found then return jsonb_build_object('requestId',existing.request_id,'state',existing.state,'duplicate',true);end if;
- s:=public.command_center_pc_activation_snapshot_service(p_owner,p_worker,p_project);
+ s:=command_center_pc_private.command_center_pc_activation_snapshot_service(p_owner,p_worker,p_project);
  if s->>'brainVersion' is distinct from p_brain_version::text or s->>'providerVersion' is distinct from p_provider_version::text
  then raise exception 'Activation binding version changed';end if;
  rid:=gen_random_uuid();tid:=gen_random_uuid();
@@ -215,8 +219,8 @@ begin
  return jsonb_build_object('requestId',rid,'state','queued','duplicate',false);
 end $f$;
 
-create function public.command_center_pc_claim_v4_service(p_owner uuid,p_worker uuid,p_client text)
-returns jsonb language plpgsql set search_path='' as $f$
+create function command_center_pc_private.command_center_pc_claim_v4_service(p_owner uuid,p_worker uuid,p_client text)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare q public.command_center_pc_inference_requests%rowtype;t public.command_center_brain_conversation_turns%rowtype;s jsonb;
 begin
  if p_client is distinct from 'cc-pc-inference-activation-v1' then return public.command_center_pc_claim_service(p_owner,p_worker);end if;
@@ -227,7 +231,7 @@ begin
  and (state='queued' or (state='claimed' and lease_expires_at<now())) order by created_at,request_id limit 1 for update skip locked;
  if not found then return public.command_center_pc_claim_service(p_owner,p_worker);end if;
  begin
-  s:=public.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
+  s:=command_center_pc_private.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
  exception when others then
   update public.command_center_pc_inference_requests set state='failed',error_code='activation_route_not_eligible',lease_expires_at=null,updated_at=now() where request_id=q.request_id;
   return public.command_center_pc_claim_service(p_owner,p_worker);
@@ -248,15 +252,15 @@ begin
  'activationContractHash',encode(sha256(convert_to(q.activation_contract::text,'UTF8')),'hex'));
 end $f$;
 
-create function public.command_center_pc_complete_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint,p_model text,p_digest text,p_text text)
-returns jsonb language plpgsql set search_path='' as $f$
+create function command_center_pc_private.command_center_pc_complete_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint,p_model text,p_digest text,p_text text)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare q public.command_center_pc_inference_requests%rowtype;s jsonb;actual jsonb;expected jsonb;receipt jsonb;new_turn uuid;
 begin
  select * into strict q from public.command_center_pc_inference_requests where owner_id=p_owner and request_id=p_request for update;
  if q.activation_contract is null then return public.command_center_pc_complete_service(p_owner,p_worker,p_request,p_fence,p_model,p_text);end if;
  if q.state is distinct from 'claimed' or q.worker_id is distinct from p_worker or q.fencing_token is distinct from p_fence or q.lease_expires_at is null or q.lease_expires_at<=now()
  or (q.activation_contract->>'expiresAt')::timestamptz<=now() then raise exception 'Activation claim stale, cancelled or expired';end if;
- s:=public.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
+ s:=command_center_pc_private.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
  if s is distinct from q.route_snapshot or p_model is distinct from s->>'modelId' or coalesce(p_digest,'') !~ '^[a-f0-9]{64}$'
  then raise exception 'Activation route, configuration or model not verified';end if;
  actual:=btrim(p_text)::jsonb;
@@ -287,22 +291,22 @@ begin
  return receipt||jsonb_build_object('modelDigest',p_digest,'activationContractHash',encode(sha256(convert_to(q.activation_contract::text,'UTF8')),'hex'),'diagnosticOnly',true);
 end $f$;
 
-create function public.command_center_pc_heartbeat_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
-returns jsonb language plpgsql set search_path='' as $f$
+create function command_center_pc_private.command_center_pc_heartbeat_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare q public.command_center_pc_inference_requests%rowtype;s jsonb;
 begin
  select * into strict q from public.command_center_pc_inference_requests where owner_id=p_owner and request_id=p_request for update;
  if q.activation_contract is not null then
   if q.state is distinct from 'claimed' or q.worker_id is distinct from p_worker or q.fencing_token is distinct from p_fence or q.lease_expires_at is null or q.lease_expires_at<=now()
   or (q.activation_contract->>'expiresAt')::timestamptz<=now() then raise exception 'Activation claim no longer authorized';end if;
-  s:=public.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
+  s:=command_center_pc_private.command_center_pc_activation_snapshot_service(p_owner,p_worker,q.project_id);
   if s is distinct from q.route_snapshot then raise exception 'Activation context or authority changed';end if;
  end if;
  return public.command_center_pc_heartbeat_service(p_owner,p_worker,p_request,p_fence);
 end $f$;
 
-create function public.command_center_pc_activation_contract_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
-returns jsonb language plpgsql set search_path='' as $f$
+create function command_center_pc_private.command_center_pc_activation_contract_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
+returns jsonb language plpgsql security definer set search_path='' as $f$
 declare q public.command_center_pc_inference_requests%rowtype;
 begin
  if not exists(select 1 from public.command_center_pc_worker_registrations w join public.command_center_members m on m.user_id=w.owner_id
@@ -315,15 +319,57 @@ begin
  'resultHash',q.content_hash,'modelDigest',q.model_digest,'diagnosticOnly',true);
 end $f$;
 
+create function public.command_center_pc_activation_snapshot_service(p_owner uuid,p_worker uuid,p_project text)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_activation_snapshot_service($1,$2,$3);
+$facade$;
+
+create function public.command_center_pc_seed_activation_probe_service(p_owner uuid,p_worker uuid,p_project text,p_brain_version bigint,p_provider_version bigint,p_authority text)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_seed_activation_probe_service($1,$2,$3,$4,$5,$6);
+$facade$;
+
+create function public.command_center_pc_claim_v4_service(p_owner uuid,p_worker uuid,p_client text)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_claim_v4_service($1,$2,$3);
+$facade$;
+
+create function public.command_center_pc_complete_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint,p_model text,p_digest text,p_text text)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_complete_v4_service($1,$2,$3,$4,$5,$6,$7);
+$facade$;
+
+create function public.command_center_pc_heartbeat_v4_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_heartbeat_v4_service($1,$2,$3,$4);
+$facade$;
+
+create function public.command_center_pc_activation_contract_service(p_owner uuid,p_worker uuid,p_request uuid,p_fence bigint)
+returns jsonb language sql security invoker set search_path='' as $facade$
+ select command_center_pc_private.command_center_pc_activation_contract_service($1,$2,$3,$4);
+$facade$;
+
+revoke all on function command_center_pc_private.command_center_pc_activation_snapshot_service(uuid,uuid,text) from public,anon,authenticated;
+revoke all on function command_center_pc_private.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) from public,anon,authenticated;
+revoke all on function command_center_pc_private.command_center_pc_claim_v4_service(uuid,uuid,text) from public,anon,authenticated;
+revoke all on function command_center_pc_private.command_center_pc_complete_v4_service(uuid,uuid,uuid,bigint,text,text,text) from public,anon,authenticated;
+revoke all on function command_center_pc_private.command_center_pc_heartbeat_v4_service(uuid,uuid,uuid,bigint) from public,anon,authenticated;
+grant execute on function command_center_pc_private.command_center_pc_activation_snapshot_service(uuid,uuid,text) to service_role;
+grant execute on function command_center_pc_private.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) to service_role;
+grant execute on function command_center_pc_private.command_center_pc_claim_v4_service(uuid,uuid,text) to service_role;
+grant execute on function command_center_pc_private.command_center_pc_complete_v4_service(uuid,uuid,uuid,bigint,text,text,text) to service_role;
+grant execute on function command_center_pc_private.command_center_pc_heartbeat_v4_service(uuid,uuid,uuid,bigint) to service_role;
+revoke all on function command_center_pc_private.command_center_pc_activation_contract_service(uuid,uuid,uuid,bigint) from public,anon,authenticated;
+grant execute on function command_center_pc_private.command_center_pc_activation_contract_service(uuid,uuid,uuid,bigint) to service_role;
 revoke all on function public.command_center_pc_activation_snapshot_service(uuid,uuid,text) from public,anon,authenticated;
-revoke all on function public.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) from public,anon,authenticated;
-revoke all on function public.command_center_pc_claim_v4_service(uuid,uuid,text) from public,anon,authenticated;
-revoke all on function public.command_center_pc_complete_v4_service(uuid,uuid,uuid,bigint,text,text,text) from public,anon,authenticated;
-revoke all on function public.command_center_pc_heartbeat_v4_service(uuid,uuid,uuid,bigint) from public,anon,authenticated;
 grant execute on function public.command_center_pc_activation_snapshot_service(uuid,uuid,text) to service_role;
+revoke all on function public.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) from public,anon,authenticated;
 grant execute on function public.command_center_pc_seed_activation_probe_service(uuid,uuid,text,bigint,bigint,text) to service_role;
+revoke all on function public.command_center_pc_claim_v4_service(uuid,uuid,text) from public,anon,authenticated;
 grant execute on function public.command_center_pc_claim_v4_service(uuid,uuid,text) to service_role;
+revoke all on function public.command_center_pc_complete_v4_service(uuid,uuid,uuid,bigint,text,text,text) from public,anon,authenticated;
 grant execute on function public.command_center_pc_complete_v4_service(uuid,uuid,uuid,bigint,text,text,text) to service_role;
+revoke all on function public.command_center_pc_heartbeat_v4_service(uuid,uuid,uuid,bigint) from public,anon,authenticated;
 grant execute on function public.command_center_pc_heartbeat_v4_service(uuid,uuid,uuid,bigint) to service_role;
 revoke all on function public.command_center_pc_activation_contract_service(uuid,uuid,uuid,bigint) from public,anon,authenticated;
 grant execute on function public.command_center_pc_activation_contract_service(uuid,uuid,uuid,bigint) to service_role;
