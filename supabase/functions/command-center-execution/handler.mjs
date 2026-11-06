@@ -1,6 +1,7 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
 import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
 import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
+import { requestPcInference, PcInferenceError } from './pc-inference-adapter.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -107,7 +108,13 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!UUID.test(body.conversationId ?? '') || !UUID.test(body.ownerTurnId ?? '')) throw new GatewayError('invalid_conversation',400);
       const turns = await rows('command_center_brain_conversation_turns',user.id,{conversation_id:`eq.${body.conversationId}`,turn_id:`eq.${body.ownerTurnId}`,role:'eq.owner',select:'turn_id,project_id',limit:'1'});
       if (!turns.length) throw new GatewayError('conversation_not_available',404);
-      const providers = await rows('command_center_provider_registry',user.id,{enabled:'eq.true',cost:'eq.free',health:'eq.available',verification:'eq.live_verified',select:'provider_key,configuration,capabilities',order:'provider_key.asc',limit:'200'});
+      const providers = await rows('command_center_provider_registry',user.id,{enabled:'eq.true',cost:'eq.free',health:'eq.available',verification:'eq.live_verified',select:'provider_key,configuration,capabilities,enabled,cost,health,verification,scopes',order:'provider_key.asc',limit:'200'});
+      const localProvider = providers.find(p => p.configuration?.gateway_ref === 'supabase:functions:command-center-pc-worker' && p.capabilities?.includes('brain.respond.read_only'));
+      if (localProvider) {
+        const receipt = await requestPcInference({provider:localProvider,conversationId:body.conversationId,ownerTurnId:body.ownerTurnId,projectId:turns[0].project_id,
+          readRows:(table,params)=>rows(table,user.id,params),rpc:(name,payload)=>upstream('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(payload)})});
+        return reply(receipt,receipt.inferenceVerified?200:202);
+      }
       const provider = providers.find(p => Array.isArray(p.capabilities) && p.capabilities.includes('brain.respond') && object(p.configuration) && p.configuration.execution_ref);
       if (!provider) throw new GatewayError('no_eligible_inference');
       const result = await invoke(provider.configuration.execution_ref,{...body,projectId:turns[0].project_id,allowPaid:false,canonicalWritesAuthorized:false});
@@ -117,7 +124,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!response || response.project_id !== turns[0].project_id || response.redaction_state !== 'safe_text' || !response.safe_text?.trim() || response.canonical_writes_authorized !== false || !response.evidence_refs?.includes(`brain:response-to:${body.ownerTurnId}`)) throw new GatewayError('response_not_verified');
       return reply({brainTurnId:response.turn_id});
     } catch (error) {
-      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError ? error.status : 503);
+      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError ? error.status : 503);
     }
   };
 }

@@ -1,0 +1,97 @@
+{
+  "probe": {
+    "request_id": "3ba37fbd-5ffe-4f17-9d6f-5575d90ab84a",
+    "state": "completed",
+    "attempts": 1,
+    "model_id": "qwen3:4b-instruct",
+    "error_code": null,
+    "content_hash": "e6dd5b7a7b56bf10d4d7e01ad62656012099298edddb90b91ea71f5a490957bf",
+    "completed_at": "2026-11-06 03:27:43.171057+00",
+    "safe_text": "19 plus 23 equals 42.\n\nThis read-only diagnostic does not authorize company work, spending, publication, or deployment. All actions within COMMAND CENTER remain strictly advisory and non-executive. No private data is accessed, modified, or disclosed.",
+    "evidence_refs": [
+      "brain:response-to:3872fcf7-1ec0-4006-a7e1-67c69e91ab89",
+      "brain:pc-worker:737f5e7c-3884-4c61-81ac-634bdfc4828f",
+      "brain:model:qwen3:4b-instruct",
+      "brain:workstation-claim:3ba37fbd-5ffe-4f17-9d6f-5575d90ab84a"
+    ],
+    "persistence_verified": true
+  },
+  "security": {
+    "rls": [
+      {
+        "table": "command_center_specialist_brains",
+        "enabled": true,
+        "anon_select": false,
+        "authenticated_select": true,
+        "authenticated_update": false
+      },
+      {
+        "table": "command_center_pc_worker_registrations",
+        "enabled": true,
+        "anon_select": false,
+        "authenticated_select": false,
+        "authenticated_update": false
+      },
+      {
+        "table": "command_center_pc_inference_requests",
+        "enabled": true,
+        "anon_select": false,
+        "authenticated_select": true,
+        "authenticated_update": false
+      }
+    ],
+    "checks": [
+      {
+        "qual": "((owner_id = ( SELECT auth.uid() AS uid)) AND ( SELECT is_command_center_authorized() AS is_command_center_authorized))",
+        "roles": [
+          "authenticated"
+        ],
+        "table": "command_center_pc_inference_requests",
+        "policy": "cc_pc_owner_read",
+        "with_check": null
+      },
+      {
+        "qual": "((owner_id = ( SELECT auth.uid() AS uid)) AND ( SELECT is_command_center_authorized() AS is_command_center_authorized))",
+        "roles": [
+          "authenticated"
+        ],
+        "table": "command_center_specialist_brains",
+        "policy": "c6_owner_select_command_center_specialist_brains",
+        "with_check": null
+      }
+    ],
+    "service_privileges": [
+      {
+        "function": "command_center_pc_claim_service",
+        "anon_execute": false,
+        "service_execute": true,
+        "authenticated_execute": false
+      },
+      {
+        "function": "command_center_pc_complete_service",
+        "anon_execute": false,
+        "service_execute": true,
+        "authenticated_execute": false
+      },
+      {
+        "function": "command_center_pc_heartbeat_service",
+        "anon_execute": false,
+        "service_execute": true,
+        "authenticated_execute": false
+      }
+    ]
+  },
+  "hostedExecutor": {
+    "taskId": "6ada7af0b254819184456ca1246e3f69",
+    "isEnabled": false,
+    "lastRun": "completed",
+    "lastResult": "The live Command Center database check confirmed that `executor:chatgpt-tasks-normal-chat` is enabled, free, non-retired, and scoped to owner-started normal-chat execution. Its recorded health remains degraded. The exact owner-scoped eligibility query returned **zero queued or working runs** satisfying the required authorization, `until_work` control mode, and Stop/Pause checks. Consequently, no task was claimed or executed. Previously completed Company 014 work was not restarted, and no database records, artifacts, infrastructure, or schedules were changed. The existing worker remains available for eligible runs.",
+    "nextRunTime": null
+  },
+  "deployedFunctions": [
+    "command-center-refresh:v1",
+    "command-center-integration-webhook:v1",
+    "command-center-pc-worker:v3"
+  ],
+  "applicationGatewayDeployed": false
+}
