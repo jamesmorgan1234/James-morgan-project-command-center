@@ -3,7 +3,7 @@ import {createOwnerPcInferenceWorker} from '../brain/pc-owner-inference-worker.m
 import {createPcWorkerTransport} from './pc-worker-transport.mjs';
 import {createPcLocalOllama} from '../brain/pc-local-ollama.mjs';
 export function createPcWorkstationRunner({workerToken,modelId,fetcher=fetch,log=()=>{},sleep=ms=>new Promise(r=>setTimeout(r,ms)),
-  pollMs=60000,maxConsecutiveFailures=5,timeoutMs=120000}={}){
+  pollMs=60000,maxConsecutiveFailures=5,timeoutMs=120000,artifactJobs=null}={}){
  if(!Number.isSafeInteger(pollMs)||pollMs<10000||pollMs>120000)throw Error('poll_outside_free_safe_range');
  if(!Number.isSafeInteger(maxConsecutiveFailures)||maxConsecutiveFailures<1||maxConsecutiveFailures>12)throw Error('failure_limit_invalid');
  const transport=createPcWorkerTransport({workerToken,fetcher});
@@ -33,7 +33,7 @@ export function createPcWorkstationRunner({workerToken,modelId,fetcher=fetch,log
  });
  return Object.freeze({
   get state(){return Object.freeze({stopping,consecutiveFailures:failures,busy,realInferenceVerified:model.readiness.actualInferenceVerified})},
-  stop(){stopping=true;activeAbort?.abort()},
+  stop(){stopping=true;activeAbort?.abort();if(typeof artifactJobs?.stop==='function')artifactJobs.stop()},
   async selfTest({system='You are a read-only local AI.',user='Respond with the word ready.'}={}){
     return model.generate({system,user});
   },
@@ -41,7 +41,11 @@ export function createPcWorkstationRunner({workerToken,modelId,fetcher=fetch,log
    if(stopping)return Object.freeze({state:'stopped',executed:false});
    if(busy)throw Error('workstation_busy');busy=true;
    try{
-    const result=await worker.processOne();failures=0;
+    let result=await worker.processOne();
+    // Ordinary owner messages keep priority. Optional artifact jobs require
+    // their separate exact-owner queue contract, never inference authority.
+    if(result.state==='idle'&&artifactJobs!==null){if(typeof artifactJobs.once!=='function')throw Error('artifact_job_adapter_missing');result=await artifactJobs.once()}
+    failures=0;
     if(result.state==='verified_response')log({event:'response_verified',requestId:result.requestId});
     return result;
    }catch(e){failures++;

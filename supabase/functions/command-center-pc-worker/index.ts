@@ -29,9 +29,9 @@ function projectIdOk(p:any){
  return LEGACY_PROJECT.test(p);
 }
 const json = (obj:any,status=200,extra:Record<string,string>={}) => new Response(JSON.stringify(obj),{status,headers:{"content-type":"application/json","cache-control":"no-store",...extra}});
-async function body(req:Request){
+async function body(req:Request,maximum=12000){
  const text=await req.text();
- if(text.length>12000)throw failure("body_too_large",413);
+ if(text.length>maximum)throw failure("body_too_large",413);
  try{const b=JSON.parse(text);if(b&&typeof b==="object"&&!Array.isArray(b))return b;}catch{}
  throw failure("invalid_json",400);
 }
@@ -125,9 +125,20 @@ Deno.serve(async (req:Request)=>{
   if(req.method==="OPTIONS")return new Response(null,{status:204,headers:cors});
   if(req.method!=="POST")throw failure("method_not_allowed",405);
   const action=new URL(req.url).pathname.split("/").filter(Boolean).at(-1);
-  if(!["enroll","revoke","claim","heartbeat","complete","readback","health"].includes(action??""))throw failure("unknown_action",404);
-  const input=await body(req);
+  if(!["enroll","revoke","claim","heartbeat","complete","readback","health","tool-next","tool-current","tool-commit","tool-readback"].includes(action??""))throw failure("unknown_action",404);
+  const input=await body(req,action?.startsWith("tool-")?750000:12000);
   if(input.allowPaid!==false||input.allowProtected!==false)throw failure("scope_expansion_refused",403);
+  if(action?.startsWith("tool-")){
+   // New clients may execute only exact owner-queued immutable artifact jobs.
+   // Existing inference clients never receive these jobs or gain shell access.
+   if(input.clientContract!=="cc-pc-tools-v1"||input.executionAuthorized!==true)throw failure("tool_client_contract_required",403);
+   const w=await worker(req);
+   const operation=action.slice(5);
+   if(operation!=="next"&&(!UUID.test(input.invocationId??"")||!Number.isSafeInteger(input.fencingToken)||input.fencingToken<1))throw failure("tool_fence_invalid",400);
+   const result=err(await admin.rpc("command_center_pc_tool_exchange_service",{p_owner:w.ownerId,p_worker:w.workerId,p_action:operation,
+    p_id:operation==="next"?null:input.invocationId,p_fence:operation==="next"?null:input.fencingToken,p_result:operation==="commit"?input.result??null:null}));
+   return json({result},200,cors);
+  }
   if(action==="enroll"||action==="revoke"){
    const ownerId=await owner(req);
    if(action==="enroll"){

@@ -1,5 +1,5 @@
 {
-  "status": "implemented_isolated_verified_not_installed",
+  "status": "server_deployed_client_implemented_not_installed",
   "controlPlane": "command_center",
   "scope": "existing_brain_activation_no_company_builds",
   "focusedTests": {
@@ -52,20 +52,37 @@
     "clean-room/src/worker/pc-tool-execution-lane.mjs"
   ],
   "liveInstalled": false,
-  "liveTransportBound": false,
+  "liveTransportBound": true,
   "liveSpecialistToolBindingsChanged": false,
   "workerCredentialScopeExpanded": false,
   "companyRunsStarted": false,
   "paidActions": false,
   "remaining": [
-    "Bind exact saved tool invocations and leases to authenticated canonical job transport; read-only inference token is not job authority.",
-    "Install verified execution lane through a controllable authenticated PC update channel. No remote update channel is currently exposed by the installed client.",
-    "Connect and verify additional project-required browser, research, coding, memory and account tools; artifact handlers do not establish those connections."
+    "Install updated client code on the existing Windows worker using an authenticated device-control channel. This session exposes no Windows OS execution/control channel; the installed inference client cannot install new code.",
+    "Verify actual owner-PC artifact jobs through the deployed canonical transport and register only the proven tool bindings.",
+    "Implement/connect and verify the remaining project-required browser, research, coding, memory and account tools; artifact jobs alone do not establish full activation.",
+    "Connect explicit owner tool-job admission to the application dispatcher; the owner RPC is deployed, but the existing company Start route still uses its preserved Agency worker path."
   ],
   "limitations": [
     "Filesystem tests executed on Linux, not Windows.",
     "Journal directories must be trusted and isolated from untrusted local writers.",
     "Handlers must honor AbortSignal; uncertain effects are blocked from automatic retry.",
     "Local journal proof is not by itself a canonical Agency commit; lane requires canonical commit and matching readback adapters."
-  ]
+  ],
+  "gatewayVersion": 5,
+  "affectedAcceptanceTests": {
+    "tests": 130,
+    "pass": 130,
+    "fail": 0
+  },
+  "clientPackagingTests": {
+    "tests": 23,
+    "pass": 23,
+    "fail": 0
+  },
+  "finalClientAndPostgresChecks": {
+    "tests": 35,
+    "pass": 35,
+    "fail": 0
+  }
 }

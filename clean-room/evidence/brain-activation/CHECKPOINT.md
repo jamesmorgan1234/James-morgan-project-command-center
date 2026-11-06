@@ -1,3 +1,11 @@
+# Deployed exact owner-job connection
+
+Gateway command-center-pc-worker v5 ACTIVE; deployed source independently matched. Additive pc_exact_artifact_jobs migration applied. Owner admission is authenticated and exact-project scoped; service routines are unavailable to anon/authenticated; raw service table writes denied. Live unauthenticated inference/tool HTTP requests denied401. Existing paired PC still online. 130 affected tests and 23 packaging/legacy client checks pass. No live tool job queued, no worker installed, no Brain enabled, no company run resumed, no paid action.
+
+Client integration exists in pc-artifact-job-runner, optional supervisor lane and Windows CLI. Update packaging includes required compiled modules and targets the exact previously installed 3dd050c9 source baseline. No new archive was delivered/requested from the owner. Next genuine boundary: install client code on Windows; current exposed connections cannot control or execute on that OS. Full browser/research/coding/account runtime verification remains unfinished.
+
+---
+
 # Tool execution implementation checkpoint
 
 Implemented exact-action runtime, persistent uncertain-effect journal, immutable project-artifact handlers, and execution lane with canonical commit/readback requirement. 68 focused tests pass with real local file effects. Full regression: 2,697/2,699 initially passed; two stale inventory/audit checks corrected by refreshing existing evidence, then all 7 affected audit tests passed. Latest-source focused checks: 68/68 passed. This code is not installed on the owner PC and has no live canonical job transport binding. No worker credential scope, registry enabled flags, seven stopped Agency runs, or paid infrastructure changed. Next boundary is canonical job transport plus actual PC installation, not more inference tests. Artifact-only handlers do not cover the remaining browser/research/coding/account tools.

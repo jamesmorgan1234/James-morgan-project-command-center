@@ -1,0 +1,34 @@
+{
+  "sourceCommit": "3dd050c9be98407e0640a38742b540598557a84f",
+  "files": [
+    {
+      "path": "clean-room/src/worker/pc-worker-cli.mjs",
+      "sha256": "2b8612ea873188f8ec99e3a8d81d3d1f1f81478c0c16627b90087c0c513a60b1"
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-supervisor.mjs",
+      "sha256": "21afa207133635b09325f650ce1cd65b67d831eb91820ea7d5e83db5150341ce"
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-transport.mjs",
+      "sha256": "572fd5f28efa9c65d59260de14a00faa0dec813f2beaa390b87827aff91758e0"
+    },
+    {
+      "path": "clean-room/src/brain/pc-local-ollama.mjs",
+      "sha256": "16c4a0c79a78a5103e06ec669610f18a9651900da4e799d2fbd819e4890d6994"
+    },
+    {
+      "path": "clean-room/src/brain/pc-owner-inference-worker.mjs",
+      "sha256": "eaff92020cae4a0e1155cbd20a8520de0818ce6e9d916478963a2c84721dae41"
+    },
+    {
+      "path": "clean-room/src/brain/pc-brain-readiness.mjs",
+      "sha256": "9aedb4292e97c768643c886ac853d72cc6514381eb2c9ebf4f77e3aed859d6e6"
+    },
+    {
+      "path": "clean-room/src/brain/pc-activation-contract.mjs",
+      "sha256": "674b9ef0f50b9898336785732218494e6aa538890d31a40989c46c1132202062"
+    }
+  ],
+  "evidence": "Exact earlier update archive; its updater and live activation-client handshake were verified. New update must match this installed baseline."
+}

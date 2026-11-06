@@ -2,6 +2,8 @@
 /** Owner's local PC only. Never run within Edge Functions, GitHub Actions, Vercel. */
 import {createPcWorkstationRunner} from './pc-worker-supervisor.mjs';
 import {createPcLocalOllama} from '../brain/pc-local-ollama.mjs';
+import {createPcArtifactJobRunner} from './pc-artifact-job-runner.mjs';
+import {resolve} from 'node:path';
 const {CC_PC_WORKER_TOKEN:workerToken,CC_PC_LOCAL_MODEL:modelId}=process.env;
 const onlySelfTest=process.argv.includes('--self-test');
 if(!modelId || (!workerToken && !onlySelfTest)){
@@ -13,9 +15,11 @@ if(!modelId || (!workerToken && !onlySelfTest)){
     const result=await createPcLocalOllama({modelId}).generate({system:'You are a read-only local AI.',user:'Respond with the word ready.'});
     console.log(JSON.stringify({localModelId:result.modelId,modelDigest:result.modelDigest,realInferenceVerified:result.verifiedInference,remoteInference:false}));
   }else{
-    const runner=createPcWorkstationRunner({workerToken,modelId,log:v=>console.log(JSON.stringify(v))});
+    const artifactJobs=process.platform==='win32'&&process.env.LOCALAPPDATA
+      ?createPcArtifactJobRunner({workerToken,baseDirectory:resolve(process.env.LOCALAPPDATA,'COMMAND_CENTER_PC_WORKER','project-artifacts')}):null;
+    const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,log:v=>console.log(JSON.stringify(v))});
     process.on('SIGINT',()=>runner.stop());process.on('SIGTERM',()=>runner.stop());
-    console.log(JSON.stringify({event:'worker_started',mode:'read_only',destination:'existing_supabase',noPaidFallback:true}));
+    console.log(JSON.stringify({event:'worker_started',mode:artifactJobs?'read_only_inference_and_explicit_artifact_jobs':'read_only',destination:'existing_supabase',noPaidFallback:true}));
     await runner.loop();
   }
  }catch(e){console.error('Workstation initialization failed (no work was claimed).');process.exitCode=1}

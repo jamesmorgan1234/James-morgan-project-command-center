@@ -1,0 +1,54 @@
+{
+  "databaseMigrationApplied": true,
+  "gateway": {
+    "id": "959a93f9-9da3-4587-8e01-6879bee9cfe9",
+    "slug": "command-center-pc-worker",
+    "name": "command-center-pc-worker",
+    "status": "ACTIVE",
+    "version": 5,
+    "created_at": 1793911423957,
+    "updated_at": 1793994849603,
+    "verify_jwt": false,
+    "import_map": false,
+    "entrypoint_path": "file:///tmp/user_fn_gmlsucpwliegwlxymjvp_959a93f9-9da3-4587-8e01-6879bee9cfe9_5/source/index.ts",
+    "ezbr_sha256": "06fb14841777c5e6ecd2b6e48e5ba24d3b4bf2ec4a5adc2c46355e9f5134a91f"
+  },
+  "deployedFilesIndependentlyMatched": true,
+  "liveAcl": {
+    "toolJobs": 0,
+    "observedAt": "2026-11-06T19:54:56.943514+00:00",
+    "enabledBrains": 0,
+    "serviceExecute": true,
+    "workerLastSeen": "2026-11-06T19:54:06.161+00:00",
+    "rawServiceWrite": false,
+    "anonServiceExecute": false,
+    "rawAuthenticatedWrite": false,
+    "authenticatedServiceExecute": false
+  },
+  "unauthenticatedHttpChecks": {
+    "claim": 401,
+    "toolNext": 401
+  },
+  "affectedTests": {
+    "tests": 130,
+    "pass": 130,
+    "fail": 0
+  },
+  "packagingAndLegacyClientChecks": {
+    "tests": 23,
+    "pass": 23,
+    "fail": 0
+  },
+  "newTableSecurityAdvisory": false,
+  "installedOnOwnerPc": false,
+  "fullOperationalActivation": false,
+  "companyBuildsStarted": false,
+  "paidActions": false,
+  "finalClientAndPostgresChecks": {
+    "tests": 35,
+    "pass": 35,
+    "fail": 0
+  },
+  "existingGatewayVersionBefore": 4,
+  "windowsClientInstallationAttempted": false
+}

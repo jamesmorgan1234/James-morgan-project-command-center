@@ -11,17 +11,18 @@ test('worker update archive contains exactly the scoped source payload, helper a
  try{
   const output=join(dir,'worker.zip');
   const built=JSON.parse(execFileSync('python',['scripts/pc-worker-update/build-package.py',output,'--allow-working-tree'],{encoding:'utf8'}));
-  assert.equal(built.files,11);
+  assert.equal(built.files,18);
   const inspected=JSON.parse(execFileSync('python',['-c',`import zipfile,json,hashlib,sys
 with zipfile.ZipFile(sys.argv[1]) as z:
  m=json.loads(z.read('UPDATE_MANIFEST.json')); names=z.namelist()
  assert z.testzip() is None
  for f in m['files']: assert hashlib.sha256(z.read('payload/'+f['path'])).hexdigest()==f['sha256']
- assert len(names)==len(set(names))==11
+ assert len(names)==len(set(names))==18
  assert all(not x.startswith('/') and '..' not in x.split('/') for x in names)
  print(json.dumps({'names':names,'manifest':m}))`,output],{encoding:'utf8'}));
   assert.equal(inspected.manifest.workerId,'737f5e7c-3884-4c61-81ac-634bdfc4828f');
-  assert.equal(inspected.manifest.files.length,7);assert.equal(inspected.manifest.originalFiles.length,7);
+  assert.equal(inspected.manifest.installedBaselineCommit,'3dd050c9be98407e0640a38742b540598557a84f');
+  assert.equal(inspected.manifest.files.length,14);assert.equal(inspected.manifest.originalFiles.length,7);
   assert.equal(inspected.manifest.spendingAuthorized,false);assert.equal(inspected.manifest.companyBuildAuthorized,false);
   assert.ok(inspected.names.every(n=>!/(dpapi|worker-id\.txt|token-digest|pairing_request|worker-events|node_modules)/i.test(n)));
   if(inspected.manifest.candidateState==='working-tree-unapproved'){
