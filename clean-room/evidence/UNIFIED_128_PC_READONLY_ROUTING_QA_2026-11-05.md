@@ -53,3 +53,19 @@
 9. Record proof in central checkpoints and only then report operational readiness, not merely registry/provider mapping.
 
 **State: isolated preview candidate staged and source-checked; live specialist inference still disabled.**
+
+
+## 2026-11-05 21:35 EST live connection preflight (read-only)
+
+Recovery observation only; **no live updates, specialist activation, production deployment, provider-scope change, or tool permission grant** occurred during this check.
+
+- Branch head before this evidence note: `267b9b9450d48165b5bc0db2495d2643c6559a1f`; PR #90 remains open, unmerged, and isolated.
+- Existing production PC worker: **1 registered and enabled**, with a recent observed heartbeat. This is an already-built worker and must not be rebuilt.
+- Existing owner-central provider: **1 enabled/live-verified/free/read-only**. Central inference receipts: **1 completed**.
+- Live specialist registrations: **128** = 117 future + 11 protected legacy. The complete per-row read-only relational preflight found **128/128** passing exact owner/project/company/Brain identity, binding presence, current verified roadmap + matching checkpoint version, and active worker + free verified provider linkage.
+- Existing provider-key and worker references match **128/128** specialists. The company-only `company-brain-read-only` provider scope remains **absent**; **0/128** specialists are enabled or live verified; **0** company-specific completions.
+- Live `cc_pc_scope` remains **future-only** and does not yet admit legacy company slugs. The candidate SQL and Edge gateway remain staged, not deployed.
+- Release gate remains blocked by pre-existing P15.1 requirement-traceability/repository-evidence deficiencies. A passing module/build stage is not production authorization or proof of specialist inference.
+- Required continuation is **not worker reconstruction**: independently resolve remaining release prerequisites, then exact-candidate protected rollout, company-read-only provider scope, and per-specialist real response/readback verification under bounded authorization, never company-building or broader tool grants by implication.
+
+**Recovery invariant:** if interrupted, read this note and the current branch head first, then verify live state before acting. Never reset/duplicate the 128 registrations, 128 checkpoints, or the already existing worker.
