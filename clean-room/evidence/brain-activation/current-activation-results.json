@@ -1,5 +1,5 @@
 {
-  "observedAt": "2026-11-06 13:03:36.669068+00",
+  "observedAt": "2026-11-06T15:21:29.613428+00:00",
   "registered": 128,
   "modelBound": 128,
   "contextBound": 128,
@@ -42,18 +42,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Accessibility Compliance Monitor",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "8a3f94a2-67ea-4a6b-b033-6099bd95e1ba",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:048:v1",
@@ -87,18 +89,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Accounts-Payable Verification Brain",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5440d651-f002-436b-94c2-5ff6243dae01",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:092:v1",
@@ -132,18 +136,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Agentic Commerce Transaction Gateway",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b5cf32ab-d927-4208-9fd3-3f59eb026a22",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:002:v1",
@@ -177,18 +183,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Agent Control Center",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "142b7b37-6ad1-43a5-bb73-7b8fd08d580a",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:091:v1",
@@ -222,18 +230,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Agent Identity & Trust Authority",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b04335fd-a1c6-46b6-bfc9-5848f8ac1a2f",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:005:v1",
@@ -267,18 +277,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Audit-Trail Infrastructure",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "7f2e694c-cb28-4057-b859-3786e601d3a2",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:012:v1",
@@ -312,18 +324,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Compliance Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "69339b01-3336-4f6b-81b8-118b50848c21",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:068:v1",
@@ -357,18 +371,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Cost & Model Routing Optimizer",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5ae7e7be-50d2-4fa9-97f3-92e7fbe8c001",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:050:v1",
@@ -402,18 +418,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Front-Desk Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "12b1276d-9bb2-4468-bf6f-d30e7c1ae599",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:028:v1",
@@ -447,18 +465,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Knowledge-Base Maintainer",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5d561857-b167-4345-b283-fb747976aa85",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:004:v1",
@@ -492,18 +512,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Permission / Governance Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "93266a71-b7e0-4163-8c94-738de403bc71",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:032:v1",
@@ -537,18 +559,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Procurement Assistant",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "41bcd52d-9a7e-4216-a05a-43dcfc8bcc3a",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:003:v1",
@@ -582,18 +606,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Quality-Control Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f35e8aac-dca0-4120-ba85-67d5885d2759",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:095:v1",
@@ -627,18 +653,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI ROI & Value Attribution Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "46b85e77-a1c9-4b16-955a-179a4841add9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:066:v1",
@@ -672,18 +700,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "AI Runtime Security Gateway",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ba5b38f6-b326-4bde-bda3-5cb53c0398b9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:072:v1",
@@ -717,18 +747,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "API Contract Drift Monitor",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ebc3f856-3f10-46b5-ae11-8ee94e9c6287",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:001:v1",
@@ -759,21 +791,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "API-as-a-Business Factory",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "2e7909d7-eebf-439c-8f7b-87a6c6f061d5",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "c204ac29f3f0d5dc05658a5957267e69777a82655a43ce74846af7de30faa1ae"
     },
     {
       "brainKey": "brain:company:legacy:aro:v1",
@@ -807,20 +841,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "ARO \u2014 Autonomous Revenue Organization",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "4c5e765f-c7da-4c26-a349-273fd059750e",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:011:v1",
@@ -854,18 +890,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Automated Benchmarking Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ba0d6949-1834-45b0-aabe-51eeb9e9d3ac",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:089:v1",
@@ -899,18 +937,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Automated Support-QA Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6ef73edc-8b20-494b-bc22-5d8a67206995",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:112:v1",
@@ -944,18 +984,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Automated Video Repurposing",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "d5832753-3969-48b4-b92d-54dc8900bdf8",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:061:v1",
@@ -989,18 +1031,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Autonomous Collections Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "1468fccd-b02b-493b-9028-da83c51a547f",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:045:v1",
@@ -1034,18 +1078,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Autonomous Customer Support Company",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "4af11f90-5545-49ae-8370-a1016c1622c2",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:041:v1",
@@ -1079,18 +1125,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Autonomous Micro-SaaS Factory",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "44879e60-1061-49df-abcd-50c70aaef3fd",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:065:v1",
@@ -1124,18 +1172,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Autonomous QA-as-a-Service",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "35da0bd8-4357-4913-816d-1f82f0ba8dd5",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:082:v1",
@@ -1169,18 +1219,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Backup Integrity Verification Service",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5d284267-b6a2-40dc-87b9-051429356672",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:110:v1",
@@ -1214,18 +1266,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Book Formatting & Publishing Preparation",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "df22be92-9245-41ee-9eb8-f5dc5fa86dad",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:116:v1",
@@ -1259,18 +1313,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Building Permit & Inspection Intelligence",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "8964b6e6-8005-4902-bc16-18008fe858a7",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:031:v1",
@@ -1304,18 +1360,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Business Form Automation Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5d988f11-0c94-4871-a9e5-510a726763f3",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:064:v1",
@@ -1349,18 +1407,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Business Inbox Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b12c5c2c-e57a-4972-9795-7db61945263e",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:015:v1",
@@ -1394,18 +1454,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Business Intelligence Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5800d8e4-a7e5-4efd-a124-6e8734ab6b05",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:008:v1",
@@ -1439,18 +1501,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Business Workflow Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "34f0da96-7b0e-436e-82e8-5e1fb7abe0d9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:052:v1",
@@ -1484,18 +1548,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Certificate-of-Insurance Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "c8f9643e-35a9-4286-a42f-0a5691866484",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:044:v1",
@@ -1529,18 +1595,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Chargeback & Dispute Recovery Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "7b0ed69e-b853-41ce-a8d9-213e924d182b",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:049:v1",
@@ -1574,18 +1642,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Cloud / Software Reliability Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6945341d-6fb3-44ed-a192-9e09cf3444b6",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:043:v1",
@@ -1619,18 +1689,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Cloud Cost Optimization Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "2b3e56db-9cb8-41ff-99ec-d33abae505f1",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:074:v1",
@@ -1664,18 +1736,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Cloud Permission Optimizer",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "bf035b6c-1480-4f2c-a7df-09dd18b7df9c",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:088:v1",
@@ -1709,18 +1783,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Commission Calculation & Audit Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6ef40278-ad29-4001-ab0c-53c6d6e386dc",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:013:v1",
@@ -1754,18 +1830,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Competitive Intelligence Subscription",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "95f978d2-006c-466e-a6d6-60c3118e33ca",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:093:v1",
@@ -1799,18 +1877,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Consent & Preference Management Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "cc4a1d75-1a53-461c-a6ce-ecec4093dad6",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:090:v1",
@@ -1844,18 +1924,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Content Moderation Infrastructure API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "200c5e0e-47f1-4519-a10a-ecdea0386661",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:023:v1",
@@ -1889,18 +1971,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Contract Obligation Tracker",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6b5da494-a52d-46ef-842a-248e5d93feee",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:115:v1",
@@ -1931,21 +2015,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Contract Opportunity Discovery & Matching",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "064a4ab0-5345-4996-bfed-06e20a42b128",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "bea8b6634032c6e4e053677da9f1097c8c3043f154a14790bc02461be36f7aec"
     },
     {
       "brainKey": "brain:company:future:111:v1",
@@ -1979,18 +2065,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Contractor Websites & Online Booking",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f4a2e143-6fe4-4d95-8213-7b492c3942d0",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:coupon-autopilot:v1",
@@ -2021,23 +2109,25 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Coupon AutoPilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "0bc9fe0d-d9cf-461c-9a5c-44a165ad782a",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "e7f923b69737eea36f271d83af1b4e68fc6df2c4486dd25676b1972581ec31f8"
     },
     {
       "brainKey": "brain:company:future:062:v1",
@@ -2071,18 +2161,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Credentialing Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ab9f4b41-7528-4d5f-8ef7-e75236d0df7b",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:crowdskein:v1",
@@ -2116,20 +2208,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "CrowdSkein",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "a1754e67-aed9-4faa-9779-b9a717c25abb",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:018:v1",
@@ -2163,18 +2257,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Customer Churn Prevention AI",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5d0f1812-9961-4a9d-a26d-f6a2562519bb",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:046:v1",
@@ -2208,18 +2304,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Customer Onboarding Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "159e9178-8ee2-43d8-af30-3b8c4890f3f2",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:022:v1",
@@ -2253,18 +2351,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Cybersecurity Hygiene Autopilot for SMBs",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "cde5c959-b2d3-40dc-b9a7-12c2cbe4a7d6",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:020:v1",
@@ -2298,18 +2398,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data Cleanup Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "4103664b-f58d-4625-8898-c758943d7364",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:077:v1",
@@ -2343,18 +2445,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data Redaction / Tokenization API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "60b4a207-e717-43b7-9cc2-f55c0a6e3694",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:078:v1",
@@ -2388,18 +2492,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data Retention & Deletion Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "d2c2f671-a541-482f-93c4-24b2b7c74ea3",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:098:v1",
@@ -2433,18 +2539,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data Sovereignty & Workload Routing Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "83cf0e96-a7ab-4d90-bb6c-66a39cb26b80",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:006:v1",
@@ -2478,18 +2586,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data Subscription Company",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "a1f8db1c-ff0a-4fc6-aae2-82325c131b35",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:051:v1",
@@ -2523,18 +2633,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Data-Pipeline Watchdog",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "3fd66455-f293-40e0-82fd-a7470a5b84d0",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:039:v1",
@@ -2568,18 +2680,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Digital Asset Licensing Marketplace",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "2a5ca026-d957-4bbb-a7a2-5392ec23d393",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:040:v1",
@@ -2613,18 +2727,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Digital Estate / Account Organizer",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "93491565-cd3c-4844-b020-2a8cc747f5ca",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:079:v1",
@@ -2658,18 +2774,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Digital Provenance / Authenticity Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "62dfea84-2559-4953-89c2-af23e493fd93",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:009:v1",
@@ -2703,18 +2821,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Document-to-Workflow Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "25c22b46-5211-48de-b979-5012622431e2",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:083:v1",
@@ -2748,18 +2868,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Domain / DNS / SSL Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "c1b09db7-533b-4615-93c5-14c2b0a744cc",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:102:v1",
@@ -2793,18 +2915,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "E-Discovery & Litigation Evidence Intelligence Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b0ce50ad-4412-4429-a023-97fc25014541",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:edge-finder:v1",
@@ -2838,20 +2962,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Edge Finder",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "9a1cea68-1d2c-4337-a710-e49d52c8c0db",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:084:v1",
@@ -2885,18 +3011,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Email Deliverability Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "afba2d46-fa2e-4760-b267-366bc4188168",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:058:v1",
@@ -2930,18 +3058,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Employee Onboarding / Offboarding Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "cde2a4e6-c598-45f0-8e57-e89fad73f6ee",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:094:v1",
@@ -2975,18 +3105,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Enterprise Data Lineage & Provenance Graph",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b655da51-c4f9-4f5f-9ea5-9e43c3484dd4",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:070:v1",
@@ -3020,18 +3152,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Entitlement Management API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6beb4f4c-43ec-464d-b746-025e1b38f737",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:096:v1",
@@ -3065,18 +3199,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Expense Audit & Recovery Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "88c772c5-fb04-4b62-8f85-bda427c60285",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:fanvue-veyla:v1",
@@ -3110,20 +3246,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Fanvue / Veyla Serin",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "d9769948-e80d-4bc8-b5d8-713214d60522",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:057:v1",
@@ -3154,21 +3292,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Fraud Detection API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "09ee1aad-ac52-49cd-bd43-bbf9dd05c355",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "7ebf3f26a49316c82de1d714e302e9014517b46345fa1d4ca9c0753158dc3f0b"
     },
     {
       "brainKey": "brain:company:future:105:v1",
@@ -3202,18 +3342,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Global Trade & Customs Compliance Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "69d8ae30-7861-4775-a594-dc329d620532",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:038:v1",
@@ -3247,18 +3389,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Grant Management Software",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "11baeda5-af9c-441d-9391-eab5863c9a89",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:101:v1",
@@ -3292,18 +3436,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Healthcare Administrative Automation OS",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "e2e77568-14de-46e8-9f95-b294f7de5ab4",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:075:v1",
@@ -3337,18 +3483,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Identity Access Review Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6fed8125-58fc-4096-9f93-734d6e1ae8da",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:097:v1",
@@ -3382,18 +3530,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Indirect Tax / Sales-Tax Compliance Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b235b920-a7df-4ef2-b7e9-40ba1054112f",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:117:v1",
@@ -3427,18 +3577,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Industrial Maintenance & Downtime Intelligence",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "89617907-85fe-40fb-8f18-cdc73611dcba",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:106:v1",
@@ -3469,21 +3621,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Insurance Claims Automation & Claims Intelligence Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "02676ad8-f5c3-43a6-9282-ed5aceebb44a",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "c1dfd4a0bda58dd97137eabe4311dfeee6babc197c65034caf46f889edae041b"
     },
     {
       "brainKey": "brain:company:future:037:v1",
@@ -3517,18 +3671,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Internal Policy Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "190841b5-c717-4e34-b841-f6a4f939fdcc",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:019:v1",
@@ -3562,18 +3718,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Inventory Forecasting API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "762a5055-5279-4abf-a200-bad0d9e39ae0",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:030:v1",
@@ -3607,18 +3765,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Invoice / Payment Recovery AI",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "7c80c2e5-d095-4141-bf27-d6d54cfc3e2d",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:103:v1",
@@ -3652,18 +3812,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "KYC / KYB / AML Compliance Infrastructure",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "7abb1d8b-f42d-4914-b616-232be39bace7",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:021:v1",
@@ -3697,18 +3859,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Lead Qualification Infrastructure",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "c8de1f11-ea07-4557-a535-f5ffa1a64ad5",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:042:v1",
@@ -3742,18 +3906,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Legacy Browser Worker Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "1c1534e5-a25e-4d7f-9dc9-57683eb31f0a",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:100:v1",
@@ -3787,18 +3953,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Legacy Software Modernization Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "4d5e59a2-6ca8-4368-b13f-254a03d8d5cd",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:026:v1",
@@ -3829,21 +3997,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "License & Certification Tracker",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "042c8d94-0d41-4858-9c8a-65d3993b5fd1",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "ed23fddbded12aef36c70fd845a3ec87f7a0db769ab4c2f0aca42996a88066ad"
     },
     {
       "brainKey": "brain:company:future:054:v1",
@@ -3877,18 +4047,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Localization Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ca9642ec-6cb6-4f17-af29-c7aa341fd31b",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:loopwren:v1",
@@ -3922,20 +4094,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "LoopWren",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "9383010a-ab2e-402e-847e-34d6672ab06c",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:099:v1",
@@ -3966,21 +4140,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Machine-Enforced Data Contract Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "013138ff-f827-42fe-8068-c01c3bd1c67f",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "01e6e3734bb5e6bd84b0bd39faf2f7da2044e747d8a60d99751ec2ae7812ead2"
     },
     {
       "brainKey": "brain:company:legacy:margincrafttools:v1",
@@ -4014,20 +4190,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "MarginCraftTools",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "c9b65ed6-e4e7-4b75-b68a-faee7fe6bceb",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:059:v1",
@@ -4061,18 +4239,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Marketplace Listing Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "claimed",
+      "diagnosticRequestId": "0c5d8609-d6b7-4224-89e7-ed9711785aa9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:087:v1",
@@ -4106,18 +4286,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Marketplace Payout Reconciliation Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "0dbc1426-733d-4ab7-b155-6ee30306cdc9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:mini-movies:v1",
@@ -4151,20 +4333,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Mini Movies",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "a26e274d-9acd-4d13-90a6-588f4839370e",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:025:v1",
@@ -4198,18 +4382,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Niche Research Subscription",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "7076a30a-9616-480d-a4d6-dc784d028919",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:081:v1",
@@ -4243,18 +4429,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Open-Source License Compliance API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "731fdb9c-c8ad-4b69-800a-b5d6e99c6e82",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:086:v1",
@@ -4288,18 +4476,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Payment Reconciliation Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f7cce1a3-0660-4936-abab-b28203e64b7a",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:076:v1",
@@ -4333,18 +4523,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "PII Discovery & Classification API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "eb571d4e-76ef-4308-aa9c-84e53676b11c",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:007:v1",
@@ -4378,18 +4570,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Pricing Intelligence Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "e9473996-7816-4e01-80df-4b6db43b75ee",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:047:v1",
@@ -4423,18 +4617,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Privacy Request / DSAR Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "d4db263a-36b7-418f-a537-2cee7dba2638",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:104:v1",
@@ -4468,18 +4664,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Privacy-Preserving Data Collaboration Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ba1ba210-35bc-4ba5-8f98-5149d173af16",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:055:v1",
@@ -4513,18 +4711,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Product Catalog Intelligence Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "638e5f22-e3ba-44a3-a9ae-9fea2631a5c1",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:108:v1",
@@ -4558,18 +4758,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Product Recall Intelligence",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f653dae7-754e-4157-948d-4aa2f5011090",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:067:v1",
@@ -4603,18 +4805,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Prompt-Injection Firewall API",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ad1c3da2-62d2-48c2-85ed-b34c3435c627",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:114:v1",
@@ -4648,18 +4852,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Real Estate Wholesaling & Acquisition Intelligence",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "edeabf89-49be-4b5d-a6d3-0581b9d337f9",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:016:v1",
@@ -4693,18 +4899,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Regulation Change Monitor",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "e25dcdaf-da34-466f-87b0-61a4bc512b50",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:034:v1",
@@ -4738,18 +4946,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Returns Intelligence Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f4f51a56-cf2a-4205-bb1c-e7dccb6fb934",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:085:v1",
@@ -4783,18 +4993,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Revenue Leakage Detection Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "f6b82e4f-7341-4438-9ca7-7088537890b2",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:027:v1",
@@ -4828,18 +5040,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Review & Reputation Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "41277f9d-34b4-4ea6-84aa-e35ece683c94",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:revocapture:v1",
@@ -4873,20 +5087,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "RevoCapture",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "328f2210-5fd3-4817-9acf-2c25d1f8a523",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:036:v1",
@@ -4920,18 +5136,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "RFP / Tender Intelligence SaaS",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "d09453d5-1fa0-4f9c-9669-287aecfa69e1",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:107:v1",
@@ -4965,18 +5183,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Rights, Royalties & Licensing Operations Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "5e9f4ef1-9b76-4294-b273-fe3ab3b37f9e",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:017:v1",
@@ -5010,18 +5230,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "SaaS Spend Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "550b065e-f8ad-49e8-a56b-c2c03875c383",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:073:v1",
@@ -5055,18 +5277,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Secrets & Credential Rotation Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ff027d31-6648-4d66-81a1-00f4f5e9a69d",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:109:v1",
@@ -5100,18 +5324,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Shipping Exception & Refund Recovery",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "71e5623c-0f75-46a7-8a8f-996279b3d750",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:080:v1",
@@ -5145,18 +5371,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Software Dependency Risk Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "c4a2bd62-43fe-4187-9509-52b5d1f998a4",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:060:v1",
@@ -5190,18 +5418,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Software Migration Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b4ccece3-c9ab-4947-9fc3-ac3e5662e1bc",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:053:v1",
@@ -5232,21 +5462,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Software Release Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "009149ed-557c-4cc3-a160-adf445015384",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "1aaad9c6849e13e7bf8e33a4aaf03da58b53e799b3e6277ea7aed5c8cc6d41e2"
     },
     {
       "brainKey": "brain:company:future:010:v1",
@@ -5280,18 +5512,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Subscription Revenue Recovery Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6816cd0f-bbc6-4e42-a3a9-a034a24eaeda",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:056:v1",
@@ -5325,18 +5559,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Synthetic Data Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "ce8b82b1-5305-4fae-9ff7-86c79dea649c",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:torevi:v1",
@@ -5370,20 +5606,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Torevi",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "6cb16a4d-2199-4750-9cbc-d4bad065b56a",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:113:v1",
@@ -5417,18 +5655,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Ultimate Commerce Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "a9f61f4a-e234-4860-8264-f4a745898fcd",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:069:v1",
@@ -5462,18 +5702,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Usage Billing Infrastructure",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b2c5fa63-792c-4991-b3db-01398b7f4b92",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:legacy:velo-clip:v1",
@@ -5507,20 +5749,22 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "deployed_legacy_route_missing",
         "source_provenance_requires_reconciliation",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "VeloClip \u2014 AI Content Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "b0f709de-0380-48e0-924c-aeb45f2b2fda",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:063:v1",
@@ -5554,18 +5798,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Vendor Onboarding Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "e7499cdc-3c85-42ce-8489-d45455695823",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:024:v1",
@@ -5599,18 +5845,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Vendor Risk Autopilot",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "3c2c6d4c-34a3-4a42-b2e4-cd2cae1726b7",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:029:v1",
@@ -5641,21 +5889,23 @@
       "workspaceVersion": 2,
       "blockers": [
         "provider_company_scope_missing",
-        "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Vertical Business OS Generator",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "completed",
+      "diagnosticRequestId": "01928a77-f2e7-4e1b-9c50-4481337a97e3",
+      "diagnosticInferenceVerified": true,
+      "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+      "diagnosticOutputHash": "bc1057829504bdb3f409dcf03d938c6806d3b60088ba85ad8a83d75060f14c25"
     },
     {
       "brainKey": "brain:company:future:035:v1",
@@ -5689,18 +5939,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Warranty / Claims Automation Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "2c7c09d6-0736-4289-be0f-744286c7638c",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:071:v1",
@@ -5734,18 +5986,20 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Webhook Reliability Platform",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "e5e216d9-d3a3-4be3-98b0-b3624ab7da2b",
+      "diagnosticInferenceVerified": false
     },
     {
       "brainKey": "brain:company:future:014:v1",
@@ -5779,22 +6033,32 @@
         "live_specialist_response_unverified",
         "live_project_tools_unverified",
         "live_job_executor_unverified",
-        "activation_probe_candidate_not_deployed",
-        "routing_release_not_deployed",
         "job_capability_route_contract_unverified",
         "live_permission_enforcement_unverified",
-        "installed_model_digest_unverified"
+        "installed_model_digest_unverified",
+        "application_execution_gateway_not_deployed"
       ],
       "capabilityDescriptionPreserved": true,
       "name": "Website Change Intelligence",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": false,
       "boundedProbeIsolatedTested": true,
-      "liveDiagnosticVerified": false
+      "liveDiagnosticVerified": false,
+      "diagnosticState": "queued",
+      "diagnosticRequestId": "4b4b5f78-3140-4bd3-a670-2014ae61b610",
+      "diagnosticInferenceVerified": false
     }
   ],
   "includingCommandCenter": 129,
   "installedWorkerSourceRecovered": true,
-  "probeCandidateDeployed": false,
-  "workerClientUpdateApplied": false
+  "probeCandidateDeployed": true,
+  "workerClientUpdateApplied": true,
+  "workerActivationProtocolLiveVerified": true,
+  "verifiedSpecialistDiagnosticConnections": 9,
+  "diagnosticQueueStates": {
+    "queued": 118,
+    "claimed": 1,
+    "completed": 9,
+    "failed": 0
+  }
 }

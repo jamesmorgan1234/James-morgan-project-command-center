@@ -1,5 +1,5 @@
 // An adapter over the existing owner-scoped registries, not a second scheduler.
-import { readCompanyBuildPreparation, PreparationReadError, scopedCompanyId } from './preparation-read.mjs';
+import { readCompanyBuildPreparation, PreparationReadError } from './preparation-read.mjs';
 import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
 import { requestPcInference, PcInferenceError } from './pc-inference-adapter.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
@@ -67,8 +67,11 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         if (typeof body.projectId !== 'string' || !body.projectId.trim() || body.projectId.length > 240 || typeof body.objective !== 'string' || !body.objective.trim() || body.objective.length > 4000 || !UUID.test(body.requestId ?? '')) throw new GatewayError('invalid_start',400);
         // Existing owner-controlled worker uses an authenticated, durable Supabase
         // queue, not a synchronous Supabase Function executor. Never report a
-        // queued task as executed. This branch is STRICTLY for the in-scope 116.
-        if (scopedCompanyId(body.projectId)) {
+        // queued task as executed. Registry membership replaces the import-batch limit.
+        const projects = await rows('command_center_project_profiles',user.id,{project_id:`eq.${body.projectId}`,select:'project_id,type_key,company_id',limit:'2'});
+        if(projects.length!==1||projects[0].project_id!==body.projectId)throw new GatewayError('project_not_available',404);
+        const project = projects[0];
+        if (body.projectId.startsWith('project:company:')||project.company_id?.startsWith('company:')) {
           const receipt = await queueOnExistingNormalChatWorker({
             projectId:body.projectId,objective:body.objective,requestId:body.requestId,
             readRows:(table,params)=>rows(table,user.id,params),
@@ -77,9 +80,6 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
           return reply(receipt,receipt.duplicate?200:202);
         }
 
-        const projects = await rows('command_center_project_profiles',user.id,{project_id:`eq.${body.projectId}`,select:'project_id,type_key',limit:'1'});
-        const project = projects[0];
-        if (!project) throw new GatewayError('project_not_available',404);
         const executors = await rows('command_center_agency_executors',user.id,{enabled:'eq.true',cost_class:'eq.free',health:'eq.available',retired_at:'is.null',select:'executor_key,executor_ref,project_type_keys,environments,capabilities,authority_class',order:'executor_key.asc',limit:'200'});
         const executor = executors.find(e => Array.isArray(e.project_type_keys) && (!e.project_type_keys.length || e.project_type_keys.includes(project.type_key)) && Array.isArray(e.environments) && e.environments.some(v => ['normal_chat','deterministic'].includes(v)) && Array.isArray(e.capabilities) && e.capabilities.includes('project.execute') && ['read_only','propose','execute_reversible'].includes(e.authority_class));
         if (!executor) throw new GatewayError('no_eligible_executor');

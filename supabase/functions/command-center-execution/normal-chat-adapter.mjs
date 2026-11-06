@@ -1,24 +1,35 @@
 // Bind owner-initiated agency starts to the EXISTING hosted ChatGPT Task worker.
 // This is durable queue admission, not a new worker or an immediate execution claim.
-// Scope is limited to the prepared 116 companies; #014 is never read or dispatched.
-import { scopedCompanyId, PreparationReadError } from './preparation-read.mjs';
+// Membership is resolved from the existing owner/project/Brain registry.
+import { PreparationReadError } from './preparation-read.mjs';
+import { projectIdentity } from './brain-readiness.mjs';
 
 export const NORMAL_CHAT_WORKER_KEY='executor:chatgpt-tasks-normal-chat';
 export const NORMAL_CHAT_WORKER_REF='chatgpt-task:6ada7af0b254819184456ca1246e3f69';
 const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 function checked(state,code,status=409){if(!state)throw new PreparationReadError(code,status);}
-async function one(read,table,params,code){const rows=await read(table,{...params,limit:'1'});checked(Array.isArray(rows)&&rows.length===1,code);return rows[0];}
+async function one(read,table,params,code,status=409){const rows=await read(table,{...params,limit:'2'});checked(Array.isArray(rows)&&rows.length===1,code,status);return rows[0];}
 
 export async function queueOnExistingNormalChatWorker({projectId,objective,requestId,readRows,rpc}) {
-  // Deny all out-of-scope company IDs before project-specific database reads.
-  const companyId=scopedCompanyId(projectId);
-  checked(companyId,'project_outside_preparation_scope',403);
+  // Syntax only identifies a candidate; it never grants membership or authority.
+  let identity;
+  try { identity=projectIdentity(projectId); } catch { throw new PreparationReadError('invalid_company_project',403); }
+  checked(!identity.central,'invalid_company_project',403);
+  const companyId=identity.companyId;
   checked(typeof objective==='string'&&objective.trim().length>0&&objective.trim().length<=4000&&UUID.test(requestId??''),'invalid_start',400);
   checked(typeof readRows==='function'&&typeof rpc==='function','adapter_not_configured',503);
   const project=await one(readRows,'command_center_project_profiles',{
-    project_id:'eq.'+projectId,select:'project_id,company_id,status,type_key'
+    project_id:'eq.'+projectId,select:'project_id,company_id,status,type_key,protected'
   },'project_not_available');
   checked(project.project_id===projectId&&project.company_id===companyId&&project.status==='active','project_identity_mismatch',403);
+  checked(!companyId.startsWith('company:legacy:')||project.protected===true,'project_identity_mismatch',403);
+  const brain=await one(readRows,'command_center_specialist_brains',{
+    project_id:'eq.'+projectId,select:'project_id,brain_key,control_plane,supported_project_ids,supported_company_ids'
+  },'specialist_registration_missing',403);
+  checked(brain.project_id===projectId&&brain.brain_key===`brain:${companyId}:v1`&&brain.control_plane==='command_center'&&
+    Array.isArray(brain.supported_project_ids)&&brain.supported_project_ids.length===1&&brain.supported_project_ids[0]===projectId&&
+    Array.isArray(brain.supported_company_ids)&&brain.supported_company_ids.length===1&&brain.supported_company_ids[0]===companyId,
+    'specialist_identity_mismatch',403);
   // Health=degraded means immediate execution must not be claimed; it does not
   // invalidate the registered free hosted Task as a durable queue consumer.
   const workers=await readRows('command_center_agency_executors',{

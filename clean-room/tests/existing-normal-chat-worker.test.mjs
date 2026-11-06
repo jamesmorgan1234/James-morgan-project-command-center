@@ -1,15 +1,19 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { queueOnExistingNormalChatWorker, NORMAL_CHAT_WORKER_KEY, NORMAL_CHAT_WORKER_REF } from '../../supabase/functions/command-center-execution/normal-chat-adapter.mjs';
+import { createExecutionHandler } from '../../supabase/functions/command-center-execution/handler.mjs';
 const projectId='project:company:future:001';
 const companyId='company:future:001';
 const requestId='00000000-0000-4000-8000-000000000001';
 const runId='agency-run:'+requestId;
 const objective='Prepare the next approved company build task';
-function fixture(changes={}) {
+function fixture(changes={},selectedProject=projectId) {
+ const projectId=selectedProject;
+ const companyId=projectId.startsWith('project:')?projectId.slice(8):'company:legacy:'+projectId;
  const calls=[];
  const tables={
-   command_center_project_profiles:[{project_id:projectId,company_id:companyId,status:'active',type_key:'software'}],
+   command_center_project_profiles:[{project_id:projectId,company_id:companyId,status:'active',type_key:'software',protected:true}],
+   command_center_specialist_brains:[{project_id:projectId,brain_key:`brain:${companyId}:v1`,control_plane:'command_center',supported_project_ids:[projectId],supported_company_ids:[companyId]}],
    command_center_agency_executors:[{executor_key:NORMAL_CHAT_WORKER_KEY,executor_ref:NORMAL_CHAT_WORKER_REF,enabled:true,health:'degraded',cost_class:'free',retired_at:null,environments:['normal_chat'],capabilities:['project.execute'],authority_class:'execute_reversible'}],
    command_center_project_roadmaps:[{version:2,state:'current',structure_verified:true}],
    command_center_project_checkpoints:[{checkpoint_id:'00000000-0000-4000-8000-000000000002',roadmap_version:2,exact_next_work_unit_id:projectId+':recovery:source-integrity'}],
@@ -36,14 +40,42 @@ test('bound old worker queues durably; degraded health never implies immediate e
  assert.deepEqual(rpcCalls[0].payload,{p_project_id:projectId,p_run_id:runId,p_objective:objective});
  assert.equal(calls.filter(c=>c.kind==='read'&&c.table==='command_center_agency_runs').length,1);
 });
-test('excluded company 014 returns 403 BEFORE any database read or queue action',async()=>{
- const {calls,invoke}=fixture();
- await assert.rejects(invoke({projectId:'project:company:future:014'}),e=>e.status===403&&e.message==='project_outside_preparation_scope');
- assert.equal(calls.length,0);
+test('all 128 registry identities and new registered companies use the same existing worker',async()=>{
+ const legacy=['aro','fanvue-veyla','edge-finder','mini-movies','revocapture','loopwren','coupon-autopilot','torevi','velo-clip','crowdskein','margincrafttools'];
+ const ids=[...Array.from({length:117},(_,i)=>'project:company:future:'+String(i+1).padStart(3,'0')),...legacy,'project:company:future:118','project:company:future:1000','new-company'];
+ for(const id of ids){const{invoke}=fixture({},id);const result=await invoke();assert.equal(result.projectId,id);assert.equal(result.executionVerified,false);assert.equal(result.workerImmediatelyInvoked,false);assert.equal(result.workerKey,NORMAL_CHAT_WORKER_KEY)}
 });
 test('rejects invalid IDs and out-of-scope projects before any database read',async()=>{
- for(const id of ['project:company:future:000','project:company:future:118','project:company:future:1','project:company:future:014:task','project:another:001']) {
-   const {calls,invoke}=fixture();await assert.rejects(invoke({projectId:id}),/project_outside_preparation_scope/);assert.equal(calls.length,0);
+ for(const id of [null,'../aro','project:company:future:000','project:company:future:1','project:company:future:014:task','project:another:001']) {
+   const {calls,invoke}=fixture();await assert.rejects(invoke({projectId:id}),/invalid_company_project/);assert.equal(calls.length,0);
+ }
+});
+test('a plausible new company ID cannot queue without its exact registered profile and Brain',async()=>{
+ for(const changes of [{command_center_project_profiles:[]},{command_center_specialist_brains:[]},{command_center_specialist_brains:[{project_id:'aro',brain_key:'brain:company:legacy:aro:v1',control_plane:'command_center',supported_project_ids:['aro'],supported_company_ids:['company:legacy:aro']}]},{command_center_project_profiles:[{project_id:'new-company',company_id:'company:legacy:new-company',status:'active',protected:false}]}]){
+   const f=fixture(changes,'new-company');await assert.rejects(f.invoke(),/project_not_available|specialist_registration_missing|specialist_identity_mismatch|project_identity_mismatch/);assert.equal(f.calls.filter(c=>c.kind==='rpc').length,0);
+ }
+});
+test('authenticated gateway routes all registered companies through the existing hosted adapter without invoking a new worker',async()=>{
+ const legacy=['aro','fanvue-veyla','edge-finder','mini-movies','revocapture','loopwren','coupon-autopilot','torevi','velo-clip','crowdskein','margincrafttools'];
+ for(const id of [...Array.from({length:117},(_,i)=>'project:company:future:'+String(i+1).padStart(3,'0')),...legacy,'project:company:future:1000','new-company']){
+  const f=fixture({},id);
+  const fetcher=async(input,init)=>{
+   const u=new URL(input);assert.equal(u.origin,'https://gmlsucpwliegwlxymjvp.supabase.co');assert.equal(init.headers.authorization,'Bearer exact-owner');
+   if(u.pathname==='/auth/v1/user')return Response.json({id:'owner-existing'});
+   if(u.pathname.endsWith('/is_command_center_authorized'))return Response.json(true);
+   if(u.pathname.endsWith('/command_center_agency_start_normal_chat'))return Response.json(await f.rpc('command_center_agency_start_normal_chat',JSON.parse(init.body)));
+   assert.ok(u.pathname.startsWith('/rest/v1/'));assert.equal(u.searchParams.get('owner_id'),'eq.owner-existing');
+   return Response.json(await f.readRows(u.pathname.split('/').pop(),Object.fromEntries(u.searchParams)));
+  };
+  const handler=createExecutionHandler({supabaseUrl:'https://gmlsucpwliegwlxymjvp.supabase.co',publishableKey:'fixture-key',fetcher});
+  const response=await handler(new Request('https://gmlsucpwliegwlxymjvp.supabase.co/functions/v1/command-center-execution',{method:'POST',headers:{authorization:'Bearer exact-owner'},body:JSON.stringify({action:'agency_start',projectId:id,objective,requestId})}));
+  assert.equal(response.status,202,id);const result=await response.json();assert.equal(result.projectId,id);assert.equal(result.executionVerified,false);assert.equal(result.workerImmediatelyInvoked,false);
+ }
+});
+test('ambiguous project or Brain records cannot admit a run',async()=>{
+ for(const table of ['command_center_project_profiles','command_center_specialist_brains']){
+  const f=fixture();const readRows=async(t,p)=>{const rows=await f.readRows(t,p);return t===table?[...rows,...rows]:rows};
+  await assert.rejects(f.invoke({readRows}),/project_not_available|specialist_registration_missing/);assert.equal(f.calls.filter(c=>c.kind==='rpc').length,0);
  }
 });
 test('rejects wrong company identity',async()=>{
