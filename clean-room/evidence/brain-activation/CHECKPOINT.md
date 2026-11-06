@@ -1,3 +1,9 @@
+# Tool execution implementation checkpoint
+
+Implemented exact-action runtime, persistent uncertain-effect journal, immutable project-artifact handlers, and execution lane with canonical commit/readback requirement. 68 focused tests pass with real local file effects. Full regression: 2,697/2,699 initially passed; two stale inventory/audit checks corrected by refreshing existing evidence, then all 7 affected audit tests passed. Latest-source focused checks: 68/68 passed. This code is not installed on the owner PC and has no live canonical job transport binding. No worker credential scope, registry enabled flags, seven stopped Agency runs, or paid infrastructure changed. Next boundary is canonical job transport plus actual PC installation, not more inference tests. Artifact-only handlers do not cover the remaining browser/research/coding/account tools.
+
+---
+
 # Current recovery boundary — 2026-11-06T19:17:19.725274+00:00
 
 128/128 inference proofs complete and independently verified; 128 live context reads and 256 negative identity checks pass. Diagnostic queue empty. Existing worker online. Authenticated owner UI returned saved response 42. Deployed execution gateway ACTIVE. Latest repaired-source CI: 2,652/2,652 pass.

@@ -1,0 +1,71 @@
+{
+  "status": "implemented_isolated_verified_not_installed",
+  "controlPlane": "command_center",
+  "scope": "existing_brain_activation_no_company_builds",
+  "focusedTests": {
+    "tests": 68,
+    "pass": 68,
+    "fail": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "legacyImportCheck": "passed",
+  "architectureCheck": "passed",
+  "fullRegression": {
+    "tests": 2699,
+    "initialPass": 2697,
+    "initialFail": 2,
+    "failures": "stale semantic inventory and repository audit records",
+    "correctiveAction": "Regenerated existing authority, semantic inventory, and repository audits without weakening their checks.",
+    "affectedAuditRecheck": {
+      "tests": 7,
+      "pass": 7,
+      "fail": 0
+    },
+    "finalFocusedRecheck": {
+      "tests": 68,
+      "pass": 68,
+      "fail": 0
+    },
+    "latestSourceBuild": "passed"
+  },
+  "realEffectsVerified": [
+    "project artifact immutable file write and actual readback",
+    "scoped artifact read",
+    "persistent local journal survives runtime recreation",
+    "same result resubmitted after lost canonical response without repeating file write"
+  ],
+  "negativeChecks": [
+    "wrong owner/company/project/account",
+    "missing callable implementation",
+    "expired authority/lease and stale tool version",
+    "Stop during tool invocation",
+    "unknown and paid route rejection",
+    "symlink/hardlink and traversal rejection",
+    "uncertain prior effect requires reconciliation",
+    "saved output corruption and canonical receipt mismatch"
+  ],
+  "files": [
+    "clean-room/src/brain/tool-runtime.ts",
+    "clean-room/src/worker/pc-tool-journal.mjs",
+    "clean-room/src/worker/pc-project-file-tool.mjs",
+    "clean-room/src/worker/pc-tool-execution-lane.mjs"
+  ],
+  "liveInstalled": false,
+  "liveTransportBound": false,
+  "liveSpecialistToolBindingsChanged": false,
+  "workerCredentialScopeExpanded": false,
+  "companyRunsStarted": false,
+  "paidActions": false,
+  "remaining": [
+    "Bind exact saved tool invocations and leases to authenticated canonical job transport; read-only inference token is not job authority.",
+    "Install verified execution lane through a controllable authenticated PC update channel. No remote update channel is currently exposed by the installed client.",
+    "Connect and verify additional project-required browser, research, coding, memory and account tools; artifact handlers do not establish those connections."
+  ],
+  "limitations": [
+    "Filesystem tests executed on Linux, not Windows.",
+    "Journal directories must be trusted and isolated from untrusted local writers.",
+    "Handlers must honor AbortSignal; uncertain effects are blocked from automatic retry.",
+    "Local journal proof is not by itself a canonical Agency commit; lane requires canonical commit and matching readback adapters."
+  ]
+}

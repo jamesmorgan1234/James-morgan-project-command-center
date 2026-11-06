@@ -17,3 +17,5 @@ export * from "./improvements.js";
 export * from "./improvement-governor.js";
 export * from "./local.js";
 export * from "./truth-discipline.js";
+export * from "./tool-access.js";
+export * from "./tool-runtime.js";
