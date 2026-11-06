@@ -333,13 +333,19 @@ function composer(
         window.history.replaceState({}, "", brainHref(projectId, conversationId));
         submit.textContent = "Waiting for Brain…";
         message.textContent = "Your message is saved. Requesting a Brain response…";
-        if (typeof provider.enqueuePcBrainResponse === "function" && !projectId) {
+        if (typeof provider.enqueuePcBrainResponse === "function") {
+          // Only the centrally admitted read-only PC route serves specialists;
+          // do not silently fall through to the general Agency/execution gateway.
+          if (projectId && snapshot.brain?.specialistReadiness?.[projectId] !== "available")
+            throw new Error("This specialist is not independently verified for PC inference");
           const queued = await provider.enqueuePcBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
           if (!queued.requestId || !["queued", "claimed", "completed"].includes(queued.state))
             throw new Error("The PC did not return a verified queue receipt");
           message.textContent = queued.state === "completed"
             ? "Response saved. Loading the canonical conversation…"
             : "Your message is queued for your Windows PC. It will remain queued if you close the app.";
+        } else if (projectId) {
+          throw new Error("No verified specialist PC inference provider is available");
         } else {
           await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
         }
