@@ -1,3 +1,13 @@
+# Authenticated interface diagnostic verified — November 6, 2026
+
+Owner signed in successfully. The real authenticated browser interface saved and dispatched activation-only diagnostic request 51d3a097-18e8-4434-b52d-d6746bff6ebd. It completed on the existing PC worker in one attempt with response 42 at 15:55:36 UTC. Independent persisted SHA256 verification passed (73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049), and the signed-in browser visibly displayed the saved OWNER diagnostic and BRAIN response. No credential/session token was read or exported. Login is resolved, not a current blocker. Do not ask the owner to repeat sign-in or Windows setup.
+
+Interface testing exposed ordinary-message starvation behind the activation batch. The bounded repair checks the existing ordinary owner-message claim procedure before diagnostic claims. Its exact original identity, owner, worker, scope, lease, fencing and stop checks remain in force. All 37 affected real-PostgreSQL tests passed, including a queued ordinary request being claimed before a queued specialist probe; service-only ACLs were read back as unchanged. Applied only the existing private claim function via pc_interactive_messages_before_activation_batch. Candidate source and standalone repair SQL retain the exact applied procedure. No client update or download was required. The previously deployed application gateway source is unchanged.
+
+The deployed older UI initially reports a queued response as 'Brain did not confirm a saved response'; its canonical refresh subsequently displays the actual saved reply without duplicating the request. The newer already-tested UI source handles pending queue receipts explicitly; that UI source has not been promoted to a new Vercel release. Do not fake a brainTurnId or completed response to hide pending work. Current specialist diagnostics continue independently of Work; 67 completed, 1 claimed, 60 queued and zero failed at the 15:57 UTC readback. Fully operational tool/job activation remains unverified and all seven Agency runs remain stopped.
+
+---
+
 # Gateway deployed under renewed owner authorization — November 6, 2026
 
 James explicitly authorized finishing the gateway deployment; do not request that same permission again. command-center-execution v1 is ACTIVE in the exact existing Supabase project with JWT verification enabled. Retrieved deployed source and confirmed all seven files match tested source candidate a311ab8dfbe95552208a6c20c040e42b2ffef16a. Actual unauthenticated HTTP request returned 401. Existing PC gateway remains v4. No Vercel release, alias promotion, company workflow or spending occurred. Both source QA workflows succeeded; 2651 tests passed with zero failures/skips/cancellations.

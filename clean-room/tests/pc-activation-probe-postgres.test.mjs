@@ -96,6 +96,16 @@ test('bounded activation SQL executes real PostgreSQL state transitions without 
    assert.equal(await scalar('select enabled from command_center_specialist_brains'),false);
    assert.equal(await claim(null),null,'old client never receives a probe');
   });
+  await suite.test('ordinary owner messages use the real legacy claim path ahead of queued activation diagnostics',async()=>{
+   await db.exec('begin');try{
+    const tid='99999999-9999-4999-8999-999999999991',rid='99999999-9999-4999-8999-999999999992';
+    await db.query(`insert into command_center_brain_conversation_turns(owner_id,turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_hash,evidence_refs,canonical_writes_authorized,created_at) values($1,$2,$3,null,'owner','question',false,'safe_text','42',encode(sha256(convert_to('42','UTF8')),'hex'),'{}',false,now())`,[owner,tid,centralConversation]);
+    await db.query(`insert into command_center_pc_inference_requests(request_id,owner_id,project_id,conversation_id,owner_turn_id) values($1,$2,null,$3,$4)`,[rid,owner,centralConversation,tid]);
+    const interactive=await claim();assert.equal(interactive.requestId,rid);assert.equal(interactive.projectId,null);
+    assert.equal(await scalar("select state from command_center_pc_inference_requests where activation_contract is not null"),'queued');
+    assert.equal(await scalar('select enabled from command_center_specialist_brains'),false);
+   }finally{await db.exec('rollback')}
+  });
   const task=await claim();assert.equal(task.purpose,'activation_probe');assert.equal(task.projectId,project);
   const context=await buildActivationContext({task,snapshot:JSON.parse(task.activationContractText).routeSnapshot,ownerId:owner,workerId:worker});
   assert.equal(context.specialistEnabled,false);assert.equal(context.specialistLiveVerified,false);

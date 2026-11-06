@@ -40,9 +40,25 @@
     "enabledSpecialists": 0
   },
   "ownerUiTest": {
-    "state": "blocked_at_owner_sign_in",
-    "url": "https://command-center-preview-alpha.vercel.app",
-    "ownerCredentialsRead": false
+    "state": "live_response_visible_in_signed_in_interface",
+    "url": "https://command-center-preview-alpha.vercel.app/brain?conversation=cb22437e-8a2e-4875-ad06-3a647266e64a&mode=conversation",
+    "requestId": "51d3a097-18e8-4434-b52d-d6746bff6ebd",
+    "completedAt": "2026-11-06T15:55:36.719704+00:00",
+    "response": "42",
+    "responseHash": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+    "responseHashIndependentlyVerified": true,
+    "attempts": 1,
+    "ownerCredentialsRead": false,
+    "inputRecordedAsDelegatedDiagnostic": true,
+    "browserReadbackVerified": true
   },
-  "operationalActivationClaimed": false
+  "operationalActivationClaimed": false,
+  "interactivePriorityRepair": {
+    "applied": true,
+    "migration": "pc_interactive_messages_before_activation_batch",
+    "focusedTests": 37,
+    "failed": 0,
+    "skipped": 0,
+    "description": "Existing ordinary claim path is checked before bulk diagnostic claims; no identity, role, lease, model, context or stop protections removed."
+  }
 }

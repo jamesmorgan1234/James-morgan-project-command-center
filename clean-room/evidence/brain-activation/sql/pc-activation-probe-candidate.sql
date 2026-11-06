@@ -221,9 +221,13 @@ end $f$;
 
 create function command_center_pc_private.command_center_pc_claim_v4_service(p_owner uuid,p_worker uuid,p_client text)
 returns jsonb language plpgsql security definer set search_path='' as $f$
-declare q public.command_center_pc_inference_requests%rowtype;t public.command_center_brain_conversation_turns%rowtype;s jsonb;
+declare q public.command_center_pc_inference_requests%rowtype;t public.command_center_brain_conversation_turns%rowtype;s jsonb;regular jsonb;
 begin
  if p_client is distinct from 'cc-pc-inference-activation-v1' then return public.command_center_pc_claim_service(p_owner,p_worker);end if;
+ -- Interactive owner messages must not wait behind the portfolio diagnostic batch.
+ -- The existing ordinary claim procedure retains all identity/lease/scope checks.
+ regular:=public.command_center_pc_claim_service(p_owner,p_worker);
+ if regular is not null then return regular;end if;
  update public.command_center_pc_inference_requests set state='failed',error_code='activation_authority_expired',lease_expires_at=null,updated_at=now()
  where owner_id=p_owner and activation_contract is not null and state in ('queued','claimed') and (activation_contract->>'expiresAt')::timestamptz<=now();
  select * into q from public.command_center_pc_inference_requests where owner_id=p_owner and activation_contract is not null
