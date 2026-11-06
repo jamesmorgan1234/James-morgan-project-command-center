@@ -762,6 +762,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       // Specialist availability is derived from current, independent owner-readable
       // identity, roadmap, checkpoint, verified provider and live worker evidence.
       // A mere provider mapping or historical heartbeat is never sufficient.
+      try {
       const [specialistRows, projectRows, roadmapRows, checkpointRows, providerRows] = await Promise.all([
         this.#selectRows("command_center_specialist_brains", session,
           "project_id,brain_key,enabled,health,verification_state,lifecycle,cost_class,control_plane,provider_keys,supported_project_ids,supported_company_ids",
@@ -812,6 +813,10 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
         readiness[projectId] = "available";
       }
       specialistReadiness = Object.freeze(readiness);
+      } catch {
+        // Specialist telemetry is independent; it cannot take central Brain inference offline.
+        specialistReadiness = Object.freeze({});
+      }
       pcRequests = Object.freeze(pcQueueRows.map(row => {
       const requestId = stringValue(row.request_id);
       const conversationId = stringValue(row.conversation_id);
