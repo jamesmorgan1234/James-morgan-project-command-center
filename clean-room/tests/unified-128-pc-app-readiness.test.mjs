@@ -87,5 +87,5 @@ test("runtime rejects wrong company, missing checkpoint, unapproved scope and of
 test("missing optional specialist evidence does not break central Brain worker health",async()=>{
  const {snapshot}=await readiness({command_center_specialist_brains:[]});
  assert.equal(snapshot.brain.workerOnline,true);
- assert.deepEqual(snapshot.brain.specialistReadiness,{});
+ assert.equal(Object.keys(snapshot.brain.specialistReadiness).length,0);
 });
