@@ -233,7 +233,7 @@ if (requirementTraceabilityRepositoryEvidence.errors.length) {
       : "OTHER";
     byReason[category] = (byReason[category] ?? 0) + 1;
   }
-  console.log("P15.1 repository evidence diagnostics", JSON.stringify({
+  console.error("P15.1 repository evidence diagnostics", JSON.stringify({
     total:errors.length,
     byReason,
     firstErrors:errors.slice(0,20).map(({id,message})=>({id,message}))
