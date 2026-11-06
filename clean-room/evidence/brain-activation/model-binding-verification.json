@@ -1,0 +1,3082 @@
+{
+  "rows": [
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:fanvue-veyla:v1",
+      "lifecycle": "suspended",
+      "project_id": "fanvue-veyla",
+      "permission_keys": [
+        "project:fanvue-veyla:context.read",
+        "project:fanvue-veyla:inference.read_only",
+        "project:fanvue-veyla:memory.read",
+        "project:fanvue-veyla:memory.write",
+        "project:fanvue-veyla:roadmap.read",
+        "project:fanvue-veyla:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:fanvue-veyla:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:108:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:108",
+      "permission_keys": [
+        "project:project:company:future:108:context.read",
+        "project:project:company:future:108:inference.read_only",
+        "project:project:company:future:108:memory.read",
+        "project:project:company:future:108:memory.write",
+        "project:project:company:future:108:roadmap.read",
+        "project:project:company:future:108:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:108:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:109:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:109",
+      "permission_keys": [
+        "project:project:company:future:109:context.read",
+        "project:project:company:future:109:inference.read_only",
+        "project:project:company:future:109:memory.read",
+        "project:project:company:future:109:memory.write",
+        "project:project:company:future:109:roadmap.read",
+        "project:project:company:future:109:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:109:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:110:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:110",
+      "permission_keys": [
+        "project:project:company:future:110:context.read",
+        "project:project:company:future:110:inference.read_only",
+        "project:project:company:future:110:memory.read",
+        "project:project:company:future:110:memory.write",
+        "project:project:company:future:110:roadmap.read",
+        "project:project:company:future:110:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:110:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:111:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:111",
+      "permission_keys": [
+        "project:project:company:future:111:context.read",
+        "project:project:company:future:111:inference.read_only",
+        "project:project:company:future:111:memory.read",
+        "project:project:company:future:111:memory.write",
+        "project:project:company:future:111:roadmap.read",
+        "project:project:company:future:111:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:111:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:001:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:001",
+      "permission_keys": [
+        "project:project:company:future:001:context.read",
+        "project:project:company:future:001:inference.read_only",
+        "project:project:company:future:001:memory.read",
+        "project:project:company:future:001:memory.write",
+        "project:project:company:future:001:roadmap.read",
+        "project:project:company:future:001:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:001:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:002:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:002",
+      "permission_keys": [
+        "project:project:company:future:002:context.read",
+        "project:project:company:future:002:inference.read_only",
+        "project:project:company:future:002:memory.read",
+        "project:project:company:future:002:memory.write",
+        "project:project:company:future:002:roadmap.read",
+        "project:project:company:future:002:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:002:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:003:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:003",
+      "permission_keys": [
+        "project:project:company:future:003:context.read",
+        "project:project:company:future:003:inference.read_only",
+        "project:project:company:future:003:memory.read",
+        "project:project:company:future:003:memory.write",
+        "project:project:company:future:003:roadmap.read",
+        "project:project:company:future:003:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:003:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:004:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:004",
+      "permission_keys": [
+        "project:project:company:future:004:context.read",
+        "project:project:company:future:004:inference.read_only",
+        "project:project:company:future:004:memory.read",
+        "project:project:company:future:004:memory.write",
+        "project:project:company:future:004:roadmap.read",
+        "project:project:company:future:004:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:004:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:005:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:005",
+      "permission_keys": [
+        "project:project:company:future:005:context.read",
+        "project:project:company:future:005:inference.read_only",
+        "project:project:company:future:005:memory.read",
+        "project:project:company:future:005:memory.write",
+        "project:project:company:future:005:roadmap.read",
+        "project:project:company:future:005:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:005:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:006:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:006",
+      "permission_keys": [
+        "project:project:company:future:006:context.read",
+        "project:project:company:future:006:inference.read_only",
+        "project:project:company:future:006:memory.read",
+        "project:project:company:future:006:memory.write",
+        "project:project:company:future:006:roadmap.read",
+        "project:project:company:future:006:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:006:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:007:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:007",
+      "permission_keys": [
+        "project:project:company:future:007:context.read",
+        "project:project:company:future:007:inference.read_only",
+        "project:project:company:future:007:memory.read",
+        "project:project:company:future:007:memory.write",
+        "project:project:company:future:007:roadmap.read",
+        "project:project:company:future:007:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:007:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:008:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:008",
+      "permission_keys": [
+        "project:project:company:future:008:context.read",
+        "project:project:company:future:008:inference.read_only",
+        "project:project:company:future:008:memory.read",
+        "project:project:company:future:008:memory.write",
+        "project:project:company:future:008:roadmap.read",
+        "project:project:company:future:008:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:008:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:009:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:009",
+      "permission_keys": [
+        "project:project:company:future:009:context.read",
+        "project:project:company:future:009:inference.read_only",
+        "project:project:company:future:009:memory.read",
+        "project:project:company:future:009:memory.write",
+        "project:project:company:future:009:roadmap.read",
+        "project:project:company:future:009:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:009:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:010:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:010",
+      "permission_keys": [
+        "project:project:company:future:010:context.read",
+        "project:project:company:future:010:inference.read_only",
+        "project:project:company:future:010:memory.read",
+        "project:project:company:future:010:memory.write",
+        "project:project:company:future:010:roadmap.read",
+        "project:project:company:future:010:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:010:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:011:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:011",
+      "permission_keys": [
+        "project:project:company:future:011:context.read",
+        "project:project:company:future:011:inference.read_only",
+        "project:project:company:future:011:memory.read",
+        "project:project:company:future:011:memory.write",
+        "project:project:company:future:011:roadmap.read",
+        "project:project:company:future:011:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:011:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:012:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:012",
+      "permission_keys": [
+        "project:project:company:future:012:context.read",
+        "project:project:company:future:012:inference.read_only",
+        "project:project:company:future:012:memory.read",
+        "project:project:company:future:012:memory.write",
+        "project:project:company:future:012:roadmap.read",
+        "project:project:company:future:012:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:012:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:013:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:013",
+      "permission_keys": [
+        "project:project:company:future:013:context.read",
+        "project:project:company:future:013:inference.read_only",
+        "project:project:company:future:013:memory.read",
+        "project:project:company:future:013:memory.write",
+        "project:project:company:future:013:roadmap.read",
+        "project:project:company:future:013:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:013:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:015:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:015",
+      "permission_keys": [
+        "project:project:company:future:015:context.read",
+        "project:project:company:future:015:inference.read_only",
+        "project:project:company:future:015:memory.read",
+        "project:project:company:future:015:memory.write",
+        "project:project:company:future:015:roadmap.read",
+        "project:project:company:future:015:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:015:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:016:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:016",
+      "permission_keys": [
+        "project:project:company:future:016:context.read",
+        "project:project:company:future:016:inference.read_only",
+        "project:project:company:future:016:memory.read",
+        "project:project:company:future:016:memory.write",
+        "project:project:company:future:016:roadmap.read",
+        "project:project:company:future:016:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:016:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:017:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:017",
+      "permission_keys": [
+        "project:project:company:future:017:context.read",
+        "project:project:company:future:017:inference.read_only",
+        "project:project:company:future:017:memory.read",
+        "project:project:company:future:017:memory.write",
+        "project:project:company:future:017:roadmap.read",
+        "project:project:company:future:017:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:017:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:018:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:018",
+      "permission_keys": [
+        "project:project:company:future:018:context.read",
+        "project:project:company:future:018:inference.read_only",
+        "project:project:company:future:018:memory.read",
+        "project:project:company:future:018:memory.write",
+        "project:project:company:future:018:roadmap.read",
+        "project:project:company:future:018:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:018:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:019:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:019",
+      "permission_keys": [
+        "project:project:company:future:019:context.read",
+        "project:project:company:future:019:inference.read_only",
+        "project:project:company:future:019:memory.read",
+        "project:project:company:future:019:memory.write",
+        "project:project:company:future:019:roadmap.read",
+        "project:project:company:future:019:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:019:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:020:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:020",
+      "permission_keys": [
+        "project:project:company:future:020:context.read",
+        "project:project:company:future:020:inference.read_only",
+        "project:project:company:future:020:memory.read",
+        "project:project:company:future:020:memory.write",
+        "project:project:company:future:020:roadmap.read",
+        "project:project:company:future:020:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:020:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:021:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:021",
+      "permission_keys": [
+        "project:project:company:future:021:context.read",
+        "project:project:company:future:021:inference.read_only",
+        "project:project:company:future:021:memory.read",
+        "project:project:company:future:021:memory.write",
+        "project:project:company:future:021:roadmap.read",
+        "project:project:company:future:021:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:021:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:022:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:022",
+      "permission_keys": [
+        "project:project:company:future:022:context.read",
+        "project:project:company:future:022:inference.read_only",
+        "project:project:company:future:022:memory.read",
+        "project:project:company:future:022:memory.write",
+        "project:project:company:future:022:roadmap.read",
+        "project:project:company:future:022:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:022:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:023:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:023",
+      "permission_keys": [
+        "project:project:company:future:023:context.read",
+        "project:project:company:future:023:inference.read_only",
+        "project:project:company:future:023:memory.read",
+        "project:project:company:future:023:memory.write",
+        "project:project:company:future:023:roadmap.read",
+        "project:project:company:future:023:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:023:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:024:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:024",
+      "permission_keys": [
+        "project:project:company:future:024:context.read",
+        "project:project:company:future:024:inference.read_only",
+        "project:project:company:future:024:memory.read",
+        "project:project:company:future:024:memory.write",
+        "project:project:company:future:024:roadmap.read",
+        "project:project:company:future:024:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:024:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:025:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:025",
+      "permission_keys": [
+        "project:project:company:future:025:context.read",
+        "project:project:company:future:025:inference.read_only",
+        "project:project:company:future:025:memory.read",
+        "project:project:company:future:025:memory.write",
+        "project:project:company:future:025:roadmap.read",
+        "project:project:company:future:025:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:025:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:026:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:026",
+      "permission_keys": [
+        "project:project:company:future:026:context.read",
+        "project:project:company:future:026:inference.read_only",
+        "project:project:company:future:026:memory.read",
+        "project:project:company:future:026:memory.write",
+        "project:project:company:future:026:roadmap.read",
+        "project:project:company:future:026:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:026:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:027:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:027",
+      "permission_keys": [
+        "project:project:company:future:027:context.read",
+        "project:project:company:future:027:inference.read_only",
+        "project:project:company:future:027:memory.read",
+        "project:project:company:future:027:memory.write",
+        "project:project:company:future:027:roadmap.read",
+        "project:project:company:future:027:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:027:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:028:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:028",
+      "permission_keys": [
+        "project:project:company:future:028:context.read",
+        "project:project:company:future:028:inference.read_only",
+        "project:project:company:future:028:memory.read",
+        "project:project:company:future:028:memory.write",
+        "project:project:company:future:028:roadmap.read",
+        "project:project:company:future:028:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:028:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:029:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:029",
+      "permission_keys": [
+        "project:project:company:future:029:context.read",
+        "project:project:company:future:029:inference.read_only",
+        "project:project:company:future:029:memory.read",
+        "project:project:company:future:029:memory.write",
+        "project:project:company:future:029:roadmap.read",
+        "project:project:company:future:029:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:029:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:030:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:030",
+      "permission_keys": [
+        "project:project:company:future:030:context.read",
+        "project:project:company:future:030:inference.read_only",
+        "project:project:company:future:030:memory.read",
+        "project:project:company:future:030:memory.write",
+        "project:project:company:future:030:roadmap.read",
+        "project:project:company:future:030:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:030:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:031:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:031",
+      "permission_keys": [
+        "project:project:company:future:031:context.read",
+        "project:project:company:future:031:inference.read_only",
+        "project:project:company:future:031:memory.read",
+        "project:project:company:future:031:memory.write",
+        "project:project:company:future:031:roadmap.read",
+        "project:project:company:future:031:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:031:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:032:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:032",
+      "permission_keys": [
+        "project:project:company:future:032:context.read",
+        "project:project:company:future:032:inference.read_only",
+        "project:project:company:future:032:memory.read",
+        "project:project:company:future:032:memory.write",
+        "project:project:company:future:032:roadmap.read",
+        "project:project:company:future:032:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:032:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:033:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:033",
+      "permission_keys": [
+        "project:project:company:future:033:context.read",
+        "project:project:company:future:033:inference.read_only",
+        "project:project:company:future:033:memory.read",
+        "project:project:company:future:033:memory.write",
+        "project:project:company:future:033:roadmap.read",
+        "project:project:company:future:033:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:033:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:034:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:034",
+      "permission_keys": [
+        "project:project:company:future:034:context.read",
+        "project:project:company:future:034:inference.read_only",
+        "project:project:company:future:034:memory.read",
+        "project:project:company:future:034:memory.write",
+        "project:project:company:future:034:roadmap.read",
+        "project:project:company:future:034:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:034:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:035:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:035",
+      "permission_keys": [
+        "project:project:company:future:035:context.read",
+        "project:project:company:future:035:inference.read_only",
+        "project:project:company:future:035:memory.read",
+        "project:project:company:future:035:memory.write",
+        "project:project:company:future:035:roadmap.read",
+        "project:project:company:future:035:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:035:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:036:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:036",
+      "permission_keys": [
+        "project:project:company:future:036:context.read",
+        "project:project:company:future:036:inference.read_only",
+        "project:project:company:future:036:memory.read",
+        "project:project:company:future:036:memory.write",
+        "project:project:company:future:036:roadmap.read",
+        "project:project:company:future:036:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:036:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:037:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:037",
+      "permission_keys": [
+        "project:project:company:future:037:context.read",
+        "project:project:company:future:037:inference.read_only",
+        "project:project:company:future:037:memory.read",
+        "project:project:company:future:037:memory.write",
+        "project:project:company:future:037:roadmap.read",
+        "project:project:company:future:037:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:037:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:038:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:038",
+      "permission_keys": [
+        "project:project:company:future:038:context.read",
+        "project:project:company:future:038:inference.read_only",
+        "project:project:company:future:038:memory.read",
+        "project:project:company:future:038:memory.write",
+        "project:project:company:future:038:roadmap.read",
+        "project:project:company:future:038:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:038:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:039:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:039",
+      "permission_keys": [
+        "project:project:company:future:039:context.read",
+        "project:project:company:future:039:inference.read_only",
+        "project:project:company:future:039:memory.read",
+        "project:project:company:future:039:memory.write",
+        "project:project:company:future:039:roadmap.read",
+        "project:project:company:future:039:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:039:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:040:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:040",
+      "permission_keys": [
+        "project:project:company:future:040:context.read",
+        "project:project:company:future:040:inference.read_only",
+        "project:project:company:future:040:memory.read",
+        "project:project:company:future:040:memory.write",
+        "project:project:company:future:040:roadmap.read",
+        "project:project:company:future:040:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:040:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:041:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:041",
+      "permission_keys": [
+        "project:project:company:future:041:context.read",
+        "project:project:company:future:041:inference.read_only",
+        "project:project:company:future:041:memory.read",
+        "project:project:company:future:041:memory.write",
+        "project:project:company:future:041:roadmap.read",
+        "project:project:company:future:041:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:041:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:042:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:042",
+      "permission_keys": [
+        "project:project:company:future:042:context.read",
+        "project:project:company:future:042:inference.read_only",
+        "project:project:company:future:042:memory.read",
+        "project:project:company:future:042:memory.write",
+        "project:project:company:future:042:roadmap.read",
+        "project:project:company:future:042:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:042:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:043:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:043",
+      "permission_keys": [
+        "project:project:company:future:043:context.read",
+        "project:project:company:future:043:inference.read_only",
+        "project:project:company:future:043:memory.read",
+        "project:project:company:future:043:memory.write",
+        "project:project:company:future:043:roadmap.read",
+        "project:project:company:future:043:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:043:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:044:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:044",
+      "permission_keys": [
+        "project:project:company:future:044:context.read",
+        "project:project:company:future:044:inference.read_only",
+        "project:project:company:future:044:memory.read",
+        "project:project:company:future:044:memory.write",
+        "project:project:company:future:044:roadmap.read",
+        "project:project:company:future:044:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:044:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:045:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:045",
+      "permission_keys": [
+        "project:project:company:future:045:context.read",
+        "project:project:company:future:045:inference.read_only",
+        "project:project:company:future:045:memory.read",
+        "project:project:company:future:045:memory.write",
+        "project:project:company:future:045:roadmap.read",
+        "project:project:company:future:045:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:045:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:046:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:046",
+      "permission_keys": [
+        "project:project:company:future:046:context.read",
+        "project:project:company:future:046:inference.read_only",
+        "project:project:company:future:046:memory.read",
+        "project:project:company:future:046:memory.write",
+        "project:project:company:future:046:roadmap.read",
+        "project:project:company:future:046:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:046:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:047:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:047",
+      "permission_keys": [
+        "project:project:company:future:047:context.read",
+        "project:project:company:future:047:inference.read_only",
+        "project:project:company:future:047:memory.read",
+        "project:project:company:future:047:memory.write",
+        "project:project:company:future:047:roadmap.read",
+        "project:project:company:future:047:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:047:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:048:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:048",
+      "permission_keys": [
+        "project:project:company:future:048:context.read",
+        "project:project:company:future:048:inference.read_only",
+        "project:project:company:future:048:memory.read",
+        "project:project:company:future:048:memory.write",
+        "project:project:company:future:048:roadmap.read",
+        "project:project:company:future:048:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:048:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:049:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:049",
+      "permission_keys": [
+        "project:project:company:future:049:context.read",
+        "project:project:company:future:049:inference.read_only",
+        "project:project:company:future:049:memory.read",
+        "project:project:company:future:049:memory.write",
+        "project:project:company:future:049:roadmap.read",
+        "project:project:company:future:049:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:049:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:050:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:050",
+      "permission_keys": [
+        "project:project:company:future:050:context.read",
+        "project:project:company:future:050:inference.read_only",
+        "project:project:company:future:050:memory.read",
+        "project:project:company:future:050:memory.write",
+        "project:project:company:future:050:roadmap.read",
+        "project:project:company:future:050:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:050:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:051:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:051",
+      "permission_keys": [
+        "project:project:company:future:051:context.read",
+        "project:project:company:future:051:inference.read_only",
+        "project:project:company:future:051:memory.read",
+        "project:project:company:future:051:memory.write",
+        "project:project:company:future:051:roadmap.read",
+        "project:project:company:future:051:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:051:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:052:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:052",
+      "permission_keys": [
+        "project:project:company:future:052:context.read",
+        "project:project:company:future:052:inference.read_only",
+        "project:project:company:future:052:memory.read",
+        "project:project:company:future:052:memory.write",
+        "project:project:company:future:052:roadmap.read",
+        "project:project:company:future:052:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:052:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:053:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:053",
+      "permission_keys": [
+        "project:project:company:future:053:context.read",
+        "project:project:company:future:053:inference.read_only",
+        "project:project:company:future:053:memory.read",
+        "project:project:company:future:053:memory.write",
+        "project:project:company:future:053:roadmap.read",
+        "project:project:company:future:053:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:053:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:054:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:054",
+      "permission_keys": [
+        "project:project:company:future:054:context.read",
+        "project:project:company:future:054:inference.read_only",
+        "project:project:company:future:054:memory.read",
+        "project:project:company:future:054:memory.write",
+        "project:project:company:future:054:roadmap.read",
+        "project:project:company:future:054:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:054:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:055:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:055",
+      "permission_keys": [
+        "project:project:company:future:055:context.read",
+        "project:project:company:future:055:inference.read_only",
+        "project:project:company:future:055:memory.read",
+        "project:project:company:future:055:memory.write",
+        "project:project:company:future:055:roadmap.read",
+        "project:project:company:future:055:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:055:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:056:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:056",
+      "permission_keys": [
+        "project:project:company:future:056:context.read",
+        "project:project:company:future:056:inference.read_only",
+        "project:project:company:future:056:memory.read",
+        "project:project:company:future:056:memory.write",
+        "project:project:company:future:056:roadmap.read",
+        "project:project:company:future:056:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:056:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:057:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:057",
+      "permission_keys": [
+        "project:project:company:future:057:context.read",
+        "project:project:company:future:057:inference.read_only",
+        "project:project:company:future:057:memory.read",
+        "project:project:company:future:057:memory.write",
+        "project:project:company:future:057:roadmap.read",
+        "project:project:company:future:057:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:057:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:058:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:058",
+      "permission_keys": [
+        "project:project:company:future:058:context.read",
+        "project:project:company:future:058:inference.read_only",
+        "project:project:company:future:058:memory.read",
+        "project:project:company:future:058:memory.write",
+        "project:project:company:future:058:roadmap.read",
+        "project:project:company:future:058:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:058:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:059:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:059",
+      "permission_keys": [
+        "project:project:company:future:059:context.read",
+        "project:project:company:future:059:inference.read_only",
+        "project:project:company:future:059:memory.read",
+        "project:project:company:future:059:memory.write",
+        "project:project:company:future:059:roadmap.read",
+        "project:project:company:future:059:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:059:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:060:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:060",
+      "permission_keys": [
+        "project:project:company:future:060:context.read",
+        "project:project:company:future:060:inference.read_only",
+        "project:project:company:future:060:memory.read",
+        "project:project:company:future:060:memory.write",
+        "project:project:company:future:060:roadmap.read",
+        "project:project:company:future:060:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:060:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:061:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:061",
+      "permission_keys": [
+        "project:project:company:future:061:context.read",
+        "project:project:company:future:061:inference.read_only",
+        "project:project:company:future:061:memory.read",
+        "project:project:company:future:061:memory.write",
+        "project:project:company:future:061:roadmap.read",
+        "project:project:company:future:061:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:061:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:062:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:062",
+      "permission_keys": [
+        "project:project:company:future:062:context.read",
+        "project:project:company:future:062:inference.read_only",
+        "project:project:company:future:062:memory.read",
+        "project:project:company:future:062:memory.write",
+        "project:project:company:future:062:roadmap.read",
+        "project:project:company:future:062:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:062:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:063:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:063",
+      "permission_keys": [
+        "project:project:company:future:063:context.read",
+        "project:project:company:future:063:inference.read_only",
+        "project:project:company:future:063:memory.read",
+        "project:project:company:future:063:memory.write",
+        "project:project:company:future:063:roadmap.read",
+        "project:project:company:future:063:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:063:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:064:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:064",
+      "permission_keys": [
+        "project:project:company:future:064:context.read",
+        "project:project:company:future:064:inference.read_only",
+        "project:project:company:future:064:memory.read",
+        "project:project:company:future:064:memory.write",
+        "project:project:company:future:064:roadmap.read",
+        "project:project:company:future:064:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:064:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:065:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:065",
+      "permission_keys": [
+        "project:project:company:future:065:context.read",
+        "project:project:company:future:065:inference.read_only",
+        "project:project:company:future:065:memory.read",
+        "project:project:company:future:065:memory.write",
+        "project:project:company:future:065:roadmap.read",
+        "project:project:company:future:065:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:065:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:066:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:066",
+      "permission_keys": [
+        "project:project:company:future:066:context.read",
+        "project:project:company:future:066:inference.read_only",
+        "project:project:company:future:066:memory.read",
+        "project:project:company:future:066:memory.write",
+        "project:project:company:future:066:roadmap.read",
+        "project:project:company:future:066:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:066:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:067:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:067",
+      "permission_keys": [
+        "project:project:company:future:067:context.read",
+        "project:project:company:future:067:inference.read_only",
+        "project:project:company:future:067:memory.read",
+        "project:project:company:future:067:memory.write",
+        "project:project:company:future:067:roadmap.read",
+        "project:project:company:future:067:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:067:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:068:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:068",
+      "permission_keys": [
+        "project:project:company:future:068:context.read",
+        "project:project:company:future:068:inference.read_only",
+        "project:project:company:future:068:memory.read",
+        "project:project:company:future:068:memory.write",
+        "project:project:company:future:068:roadmap.read",
+        "project:project:company:future:068:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:068:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:069:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:069",
+      "permission_keys": [
+        "project:project:company:future:069:context.read",
+        "project:project:company:future:069:inference.read_only",
+        "project:project:company:future:069:memory.read",
+        "project:project:company:future:069:memory.write",
+        "project:project:company:future:069:roadmap.read",
+        "project:project:company:future:069:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:069:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:070:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:070",
+      "permission_keys": [
+        "project:project:company:future:070:context.read",
+        "project:project:company:future:070:inference.read_only",
+        "project:project:company:future:070:memory.read",
+        "project:project:company:future:070:memory.write",
+        "project:project:company:future:070:roadmap.read",
+        "project:project:company:future:070:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:070:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:071:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:071",
+      "permission_keys": [
+        "project:project:company:future:071:context.read",
+        "project:project:company:future:071:inference.read_only",
+        "project:project:company:future:071:memory.read",
+        "project:project:company:future:071:memory.write",
+        "project:project:company:future:071:roadmap.read",
+        "project:project:company:future:071:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:071:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:072:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:072",
+      "permission_keys": [
+        "project:project:company:future:072:context.read",
+        "project:project:company:future:072:inference.read_only",
+        "project:project:company:future:072:memory.read",
+        "project:project:company:future:072:memory.write",
+        "project:project:company:future:072:roadmap.read",
+        "project:project:company:future:072:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:072:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:073:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:073",
+      "permission_keys": [
+        "project:project:company:future:073:context.read",
+        "project:project:company:future:073:inference.read_only",
+        "project:project:company:future:073:memory.read",
+        "project:project:company:future:073:memory.write",
+        "project:project:company:future:073:roadmap.read",
+        "project:project:company:future:073:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:073:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:074:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:074",
+      "permission_keys": [
+        "project:project:company:future:074:context.read",
+        "project:project:company:future:074:inference.read_only",
+        "project:project:company:future:074:memory.read",
+        "project:project:company:future:074:memory.write",
+        "project:project:company:future:074:roadmap.read",
+        "project:project:company:future:074:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:074:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:075:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:075",
+      "permission_keys": [
+        "project:project:company:future:075:context.read",
+        "project:project:company:future:075:inference.read_only",
+        "project:project:company:future:075:memory.read",
+        "project:project:company:future:075:memory.write",
+        "project:project:company:future:075:roadmap.read",
+        "project:project:company:future:075:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:075:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:076:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:076",
+      "permission_keys": [
+        "project:project:company:future:076:context.read",
+        "project:project:company:future:076:inference.read_only",
+        "project:project:company:future:076:memory.read",
+        "project:project:company:future:076:memory.write",
+        "project:project:company:future:076:roadmap.read",
+        "project:project:company:future:076:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:076:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:077:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:077",
+      "permission_keys": [
+        "project:project:company:future:077:context.read",
+        "project:project:company:future:077:inference.read_only",
+        "project:project:company:future:077:memory.read",
+        "project:project:company:future:077:memory.write",
+        "project:project:company:future:077:roadmap.read",
+        "project:project:company:future:077:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:077:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:078:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:078",
+      "permission_keys": [
+        "project:project:company:future:078:context.read",
+        "project:project:company:future:078:inference.read_only",
+        "project:project:company:future:078:memory.read",
+        "project:project:company:future:078:memory.write",
+        "project:project:company:future:078:roadmap.read",
+        "project:project:company:future:078:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:078:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:079:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:079",
+      "permission_keys": [
+        "project:project:company:future:079:context.read",
+        "project:project:company:future:079:inference.read_only",
+        "project:project:company:future:079:memory.read",
+        "project:project:company:future:079:memory.write",
+        "project:project:company:future:079:roadmap.read",
+        "project:project:company:future:079:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:079:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:080:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:080",
+      "permission_keys": [
+        "project:project:company:future:080:context.read",
+        "project:project:company:future:080:inference.read_only",
+        "project:project:company:future:080:memory.read",
+        "project:project:company:future:080:memory.write",
+        "project:project:company:future:080:roadmap.read",
+        "project:project:company:future:080:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:080:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:081:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:081",
+      "permission_keys": [
+        "project:project:company:future:081:context.read",
+        "project:project:company:future:081:inference.read_only",
+        "project:project:company:future:081:memory.read",
+        "project:project:company:future:081:memory.write",
+        "project:project:company:future:081:roadmap.read",
+        "project:project:company:future:081:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:081:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:082:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:082",
+      "permission_keys": [
+        "project:project:company:future:082:context.read",
+        "project:project:company:future:082:inference.read_only",
+        "project:project:company:future:082:memory.read",
+        "project:project:company:future:082:memory.write",
+        "project:project:company:future:082:roadmap.read",
+        "project:project:company:future:082:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:082:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:083:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:083",
+      "permission_keys": [
+        "project:project:company:future:083:context.read",
+        "project:project:company:future:083:inference.read_only",
+        "project:project:company:future:083:memory.read",
+        "project:project:company:future:083:memory.write",
+        "project:project:company:future:083:roadmap.read",
+        "project:project:company:future:083:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:083:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:084:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:084",
+      "permission_keys": [
+        "project:project:company:future:084:context.read",
+        "project:project:company:future:084:inference.read_only",
+        "project:project:company:future:084:memory.read",
+        "project:project:company:future:084:memory.write",
+        "project:project:company:future:084:roadmap.read",
+        "project:project:company:future:084:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:084:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:085:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:085",
+      "permission_keys": [
+        "project:project:company:future:085:context.read",
+        "project:project:company:future:085:inference.read_only",
+        "project:project:company:future:085:memory.read",
+        "project:project:company:future:085:memory.write",
+        "project:project:company:future:085:roadmap.read",
+        "project:project:company:future:085:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:085:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:086:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:086",
+      "permission_keys": [
+        "project:project:company:future:086:context.read",
+        "project:project:company:future:086:inference.read_only",
+        "project:project:company:future:086:memory.read",
+        "project:project:company:future:086:memory.write",
+        "project:project:company:future:086:roadmap.read",
+        "project:project:company:future:086:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:086:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:087:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:087",
+      "permission_keys": [
+        "project:project:company:future:087:context.read",
+        "project:project:company:future:087:inference.read_only",
+        "project:project:company:future:087:memory.read",
+        "project:project:company:future:087:memory.write",
+        "project:project:company:future:087:roadmap.read",
+        "project:project:company:future:087:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:087:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:088:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:088",
+      "permission_keys": [
+        "project:project:company:future:088:context.read",
+        "project:project:company:future:088:inference.read_only",
+        "project:project:company:future:088:memory.read",
+        "project:project:company:future:088:memory.write",
+        "project:project:company:future:088:roadmap.read",
+        "project:project:company:future:088:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:088:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:089:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:089",
+      "permission_keys": [
+        "project:project:company:future:089:context.read",
+        "project:project:company:future:089:inference.read_only",
+        "project:project:company:future:089:memory.read",
+        "project:project:company:future:089:memory.write",
+        "project:project:company:future:089:roadmap.read",
+        "project:project:company:future:089:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:089:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:090:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:090",
+      "permission_keys": [
+        "project:project:company:future:090:context.read",
+        "project:project:company:future:090:inference.read_only",
+        "project:project:company:future:090:memory.read",
+        "project:project:company:future:090:memory.write",
+        "project:project:company:future:090:roadmap.read",
+        "project:project:company:future:090:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:090:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:091:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:091",
+      "permission_keys": [
+        "project:project:company:future:091:context.read",
+        "project:project:company:future:091:inference.read_only",
+        "project:project:company:future:091:memory.read",
+        "project:project:company:future:091:memory.write",
+        "project:project:company:future:091:roadmap.read",
+        "project:project:company:future:091:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:091:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:092:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:092",
+      "permission_keys": [
+        "project:project:company:future:092:context.read",
+        "project:project:company:future:092:inference.read_only",
+        "project:project:company:future:092:memory.read",
+        "project:project:company:future:092:memory.write",
+        "project:project:company:future:092:roadmap.read",
+        "project:project:company:future:092:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:092:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:093:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:093",
+      "permission_keys": [
+        "project:project:company:future:093:context.read",
+        "project:project:company:future:093:inference.read_only",
+        "project:project:company:future:093:memory.read",
+        "project:project:company:future:093:memory.write",
+        "project:project:company:future:093:roadmap.read",
+        "project:project:company:future:093:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:093:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:094:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:094",
+      "permission_keys": [
+        "project:project:company:future:094:context.read",
+        "project:project:company:future:094:inference.read_only",
+        "project:project:company:future:094:memory.read",
+        "project:project:company:future:094:memory.write",
+        "project:project:company:future:094:roadmap.read",
+        "project:project:company:future:094:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:094:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:095:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:095",
+      "permission_keys": [
+        "project:project:company:future:095:context.read",
+        "project:project:company:future:095:inference.read_only",
+        "project:project:company:future:095:memory.read",
+        "project:project:company:future:095:memory.write",
+        "project:project:company:future:095:roadmap.read",
+        "project:project:company:future:095:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:095:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:096:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:096",
+      "permission_keys": [
+        "project:project:company:future:096:context.read",
+        "project:project:company:future:096:inference.read_only",
+        "project:project:company:future:096:memory.read",
+        "project:project:company:future:096:memory.write",
+        "project:project:company:future:096:roadmap.read",
+        "project:project:company:future:096:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:096:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:097:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:097",
+      "permission_keys": [
+        "project:project:company:future:097:context.read",
+        "project:project:company:future:097:inference.read_only",
+        "project:project:company:future:097:memory.read",
+        "project:project:company:future:097:memory.write",
+        "project:project:company:future:097:roadmap.read",
+        "project:project:company:future:097:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:097:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:098:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:098",
+      "permission_keys": [
+        "project:project:company:future:098:context.read",
+        "project:project:company:future:098:inference.read_only",
+        "project:project:company:future:098:memory.read",
+        "project:project:company:future:098:memory.write",
+        "project:project:company:future:098:roadmap.read",
+        "project:project:company:future:098:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:098:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:099:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:099",
+      "permission_keys": [
+        "project:project:company:future:099:context.read",
+        "project:project:company:future:099:inference.read_only",
+        "project:project:company:future:099:memory.read",
+        "project:project:company:future:099:memory.write",
+        "project:project:company:future:099:roadmap.read",
+        "project:project:company:future:099:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:099:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:100:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:100",
+      "permission_keys": [
+        "project:project:company:future:100:context.read",
+        "project:project:company:future:100:inference.read_only",
+        "project:project:company:future:100:memory.read",
+        "project:project:company:future:100:memory.write",
+        "project:project:company:future:100:roadmap.read",
+        "project:project:company:future:100:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:100:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:101:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:101",
+      "permission_keys": [
+        "project:project:company:future:101:context.read",
+        "project:project:company:future:101:inference.read_only",
+        "project:project:company:future:101:memory.read",
+        "project:project:company:future:101:memory.write",
+        "project:project:company:future:101:roadmap.read",
+        "project:project:company:future:101:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:101:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:102:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:102",
+      "permission_keys": [
+        "project:project:company:future:102:context.read",
+        "project:project:company:future:102:inference.read_only",
+        "project:project:company:future:102:memory.read",
+        "project:project:company:future:102:memory.write",
+        "project:project:company:future:102:roadmap.read",
+        "project:project:company:future:102:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:102:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:103:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:103",
+      "permission_keys": [
+        "project:project:company:future:103:context.read",
+        "project:project:company:future:103:inference.read_only",
+        "project:project:company:future:103:memory.read",
+        "project:project:company:future:103:memory.write",
+        "project:project:company:future:103:roadmap.read",
+        "project:project:company:future:103:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:103:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:104:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:104",
+      "permission_keys": [
+        "project:project:company:future:104:context.read",
+        "project:project:company:future:104:inference.read_only",
+        "project:project:company:future:104:memory.read",
+        "project:project:company:future:104:memory.write",
+        "project:project:company:future:104:roadmap.read",
+        "project:project:company:future:104:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:104:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:105:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:105",
+      "permission_keys": [
+        "project:project:company:future:105:context.read",
+        "project:project:company:future:105:inference.read_only",
+        "project:project:company:future:105:memory.read",
+        "project:project:company:future:105:memory.write",
+        "project:project:company:future:105:roadmap.read",
+        "project:project:company:future:105:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:105:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:014:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:014",
+      "permission_keys": [
+        "project:project:company:future:014:context.read",
+        "project:project:company:future:014:inference.read_only",
+        "project:project:company:future:014:memory.read",
+        "project:project:company:future:014:memory.write",
+        "project:project:company:future:014:roadmap.read",
+        "project:project:company:future:014:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:014:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:106:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:106",
+      "permission_keys": [
+        "project:project:company:future:106:context.read",
+        "project:project:company:future:106:inference.read_only",
+        "project:project:company:future:106:memory.read",
+        "project:project:company:future:106:memory.write",
+        "project:project:company:future:106:roadmap.read",
+        "project:project:company:future:106:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:106:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:107:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:107",
+      "permission_keys": [
+        "project:project:company:future:107:context.read",
+        "project:project:company:future:107:inference.read_only",
+        "project:project:company:future:107:memory.read",
+        "project:project:company:future:107:memory.write",
+        "project:project:company:future:107:roadmap.read",
+        "project:project:company:future:107:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:107:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:112:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:112",
+      "permission_keys": [
+        "project:project:company:future:112:context.read",
+        "project:project:company:future:112:inference.read_only",
+        "project:project:company:future:112:memory.read",
+        "project:project:company:future:112:memory.write",
+        "project:project:company:future:112:roadmap.read",
+        "project:project:company:future:112:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:112:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:113:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:113",
+      "permission_keys": [
+        "project:project:company:future:113:context.read",
+        "project:project:company:future:113:inference.read_only",
+        "project:project:company:future:113:memory.read",
+        "project:project:company:future:113:memory.write",
+        "project:project:company:future:113:roadmap.read",
+        "project:project:company:future:113:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:113:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:114:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:114",
+      "permission_keys": [
+        "project:project:company:future:114:context.read",
+        "project:project:company:future:114:inference.read_only",
+        "project:project:company:future:114:memory.read",
+        "project:project:company:future:114:memory.write",
+        "project:project:company:future:114:roadmap.read",
+        "project:project:company:future:114:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:114:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:115:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:115",
+      "permission_keys": [
+        "project:project:company:future:115:context.read",
+        "project:project:company:future:115:inference.read_only",
+        "project:project:company:future:115:memory.read",
+        "project:project:company:future:115:memory.write",
+        "project:project:company:future:115:roadmap.read",
+        "project:project:company:future:115:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:115:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:116:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:116",
+      "permission_keys": [
+        "project:project:company:future:116:context.read",
+        "project:project:company:future:116:inference.read_only",
+        "project:project:company:future:116:memory.read",
+        "project:project:company:future:116:memory.write",
+        "project:project:company:future:116:roadmap.read",
+        "project:project:company:future:116:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:116:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:future:117:v1",
+      "lifecycle": "suspended",
+      "project_id": "project:company:future:117",
+      "permission_keys": [
+        "project:project:company:future:117:context.read",
+        "project:project:company:future:117:inference.read_only",
+        "project:project:company:future:117:memory.read",
+        "project:project:company:future:117:memory.write",
+        "project:project:company:future:117:roadmap.read",
+        "project:project:company:future:117:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:117:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:aro:v1",
+      "lifecycle": "suspended",
+      "project_id": "aro",
+      "permission_keys": [
+        "project:aro:context.read",
+        "project:aro:inference.read_only",
+        "project:aro:memory.read",
+        "project:aro:memory.write",
+        "project:aro:roadmap.read",
+        "project:aro:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:aro:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:coupon-autopilot:v1",
+      "lifecycle": "suspended",
+      "project_id": "coupon-autopilot",
+      "permission_keys": [
+        "project:coupon-autopilot:context.read",
+        "project:coupon-autopilot:inference.read_only",
+        "project:coupon-autopilot:memory.read",
+        "project:coupon-autopilot:memory.write",
+        "project:coupon-autopilot:roadmap.read",
+        "project:coupon-autopilot:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:coupon-autopilot:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:crowdskein:v1",
+      "lifecycle": "suspended",
+      "project_id": "crowdskein",
+      "permission_keys": [
+        "project:crowdskein:context.read",
+        "project:crowdskein:inference.read_only",
+        "project:crowdskein:memory.read",
+        "project:crowdskein:memory.write",
+        "project:crowdskein:roadmap.read",
+        "project:crowdskein:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:crowdskein:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:edge-finder:v1",
+      "lifecycle": "suspended",
+      "project_id": "edge-finder",
+      "permission_keys": [
+        "project:edge-finder:context.read",
+        "project:edge-finder:inference.read_only",
+        "project:edge-finder:memory.read",
+        "project:edge-finder:memory.write",
+        "project:edge-finder:roadmap.read",
+        "project:edge-finder:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:edge-finder:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:loopwren:v1",
+      "lifecycle": "suspended",
+      "project_id": "loopwren",
+      "permission_keys": [
+        "project:loopwren:context.read",
+        "project:loopwren:inference.read_only",
+        "project:loopwren:memory.read",
+        "project:loopwren:memory.write",
+        "project:loopwren:roadmap.read",
+        "project:loopwren:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:loopwren:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 3,
+      "brain_key": "brain:company:legacy:margincrafttools:v1",
+      "lifecycle": "suspended",
+      "project_id": "margincrafttools",
+      "permission_keys": [
+        "project:margincrafttools:context.read",
+        "project:margincrafttools:inference.read_only",
+        "project:margincrafttools:memory.read",
+        "project:margincrafttools:memory.write",
+        "project:margincrafttools:roadmap.read",
+        "project:margincrafttools:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:margincrafttools:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:mini-movies:v1",
+      "lifecycle": "suspended",
+      "project_id": "mini-movies",
+      "permission_keys": [
+        "project:mini-movies:context.read",
+        "project:mini-movies:inference.read_only",
+        "project:mini-movies:memory.read",
+        "project:mini-movies:memory.write",
+        "project:mini-movies:roadmap.read",
+        "project:mini-movies:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:mini-movies:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:revocapture:v1",
+      "lifecycle": "suspended",
+      "project_id": "revocapture",
+      "permission_keys": [
+        "project:revocapture:context.read",
+        "project:revocapture:inference.read_only",
+        "project:revocapture:memory.read",
+        "project:revocapture:memory.write",
+        "project:revocapture:roadmap.read",
+        "project:revocapture:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:revocapture:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:torevi:v1",
+      "lifecycle": "suspended",
+      "project_id": "torevi",
+      "permission_keys": [
+        "project:torevi:context.read",
+        "project:torevi:inference.read_only",
+        "project:torevi:memory.read",
+        "project:torevi:memory.write",
+        "project:torevi:roadmap.read",
+        "project:torevi:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:torevi:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    },
+    {
+      "health": "unavailable",
+      "enabled": false,
+      "version": 2,
+      "brain_key": "brain:company:legacy:velo-clip:v1",
+      "lifecycle": "suspended",
+      "project_id": "velo-clip",
+      "permission_keys": [
+        "project:velo-clip:context.read",
+        "project:velo-clip:inference.read_only",
+        "project:velo-clip:memory.read",
+        "project:velo-clip:memory.write",
+        "project:velo-clip:roadmap.read",
+        "project:velo-clip:tools.request"
+      ],
+      "model_assignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:velo-clip:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ]
+    }
+  ],
+  "enabled": 0,
+  "versions": 257,
+  "registered": 128,
+  "model_bound": 128,
+  "observed_at": "2026-11-06T04:27:21.105654+00:00",
+  "context_bound": 128
+}

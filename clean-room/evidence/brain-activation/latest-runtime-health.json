@@ -1,0 +1,42 @@
+{
+  "workers": [
+    {
+      "enabled": true,
+      "revoked": false,
+      "worker_id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+      "last_seen_at": "2026-11-06T04:43:53.641+00:00"
+    }
+  ],
+  "executors": [
+    {
+      "health": "degraded",
+      "enabled": true,
+      "cost_class": "free",
+      "capabilities": [
+        "project.execute"
+      ],
+      "executor_key": "executor:chatgpt-tasks-normal-chat"
+    }
+  ],
+  "providers": [
+    {
+      "cost": "free",
+      "health": "available",
+      "scopes": [
+        "owner-central-brain",
+        "owner-local-inference"
+      ],
+      "enabled": true,
+      "model_id": "qwen3:4b-instruct",
+      "capabilities": [
+        "brain.respond.read_only"
+      ],
+      "provider_key": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f",
+      "verification": "live_verified"
+    }
+  ],
+  "observedAt": "2026-11-06T04:44:22.05676+00:00",
+  "queueStates": {
+    "completed": 2
+  }
+}

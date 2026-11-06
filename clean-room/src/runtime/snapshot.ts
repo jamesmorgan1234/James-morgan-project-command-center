@@ -210,6 +210,21 @@ export interface RuntimeBrainImprovementProposal {
 }
 
 export interface RuntimeBrainSnapshot {
+  readonly specialistReadiness?: Readonly<Record<string, "available" | "unavailable">>;
+  readonly specialistBlockers?: Readonly<Record<string, readonly string[]>>;
+  readonly workerOnline?: boolean;
+  readonly verifiedCentralInference?: boolean;
+  readonly inferenceAvailability?: SurfaceAvailability;
+  readonly pcRequests?: readonly {
+    readonly requestId: string;
+    readonly conversationId: string;
+    readonly ownerTurnId: string;
+    readonly projectId?: string;
+    readonly state: "queued" | "claimed" | "completed" | "failed" | "cancelled";
+    readonly brainTurnId?: string;
+    readonly createdAt: string;
+    readonly updatedAt: string;
+  }[];
   readonly availability: SurfaceAvailability;
   readonly conversations: readonly RuntimeBrainConversation[];
   readonly workspaces: readonly RuntimeBrainProjectWorkspace[];

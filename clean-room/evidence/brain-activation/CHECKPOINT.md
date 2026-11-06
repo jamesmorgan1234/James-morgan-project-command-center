@@ -2,7 +2,7 @@
 
 Scope is ONLY activation and verification of the existing 128 specialist Brains under COMMAND CENTER. No company building or business roadmap execution is authorized by this checkpoint. Source branch: `build/spec-lock-v2-clean-room`. Inspected starting HEAD: `39801ce12f0344b2d52167d9e1d48f22e92aa406`. Backend: `gmlsucpwliegwlxymjvp` only.
 
-## Verified live findings
+## Historical initial findings (superseded configuration counts below)
 
 - 128 distinct registry identities, 128 exact singleton project/company mappings, all controlled by `command_center`. 117 future-company records and 11 legacy-project records. All disabled, suspended, unavailable, experimental. No model assignments, tool keys, permission keys, evaluation evidence, or rollback evidence in these records. No specialist meets the requested operational standard.
 - One enabled free provider, `provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f`, model `qwen3:4b-instruct`, local Ollama. Fresh worker heartbeat observed. Scope is central Brain/local inference only; `company-brain-read-only` is missing.
@@ -30,6 +30,21 @@ All 128 row-level results are in `activation-results.json` and `activation-resul
 4. After the candidate and installed client are verified and the applicable production boundary is satisfied, apply each eligible scoped configuration and run real per-Brain inference/tool/isolation/recovery probes, persisting outputs and truthful health. Only then activate a Brain. No arbitrary scores, missing model version, or generic enabled flag substitutes for evidence.
 5. The paused hosted Task is preserved. Do not resume it or start company work merely to test Brain activation. A dedicated activation-only execution verification must respect this task's scope.
 
-No spending, new accounts, OAuth broadening, company artifacts, protected asset changes, deployments, roadmap execution, or changes to another chat occurred. Existing source, protected assets, seven stopped runs, worker identity and original acceptance boundaries are preserved. The only live write was the bounded diagnostic conversation/turn/request and the existing worker's genuine inference result/heartbeat.
+No spending, new accounts, OAuth broadening, company artifacts, protected asset changes, deployments, roadmap execution, or changes to another chat occurred. Existing source, protected assets, seven stopped runs, worker identity and original acceptance boundaries are preserved. Initial writes were the bounded diagnostic and the existing worker result/heartbeat. Subsequent configuration writes are recorded below.
 
 See `validation-results.md` for final exact test results. Resume the first remaining technical prerequisite, not old company work or previous development phases.
+
+
+## November 6 continuation — current state
+
+Recovery of the existing workflow and isolated source is documented in WORKFLOW_RECOVERY_2026-11-06.md. The original worker was not rebuilt. Full requested chat transcript could not be retrieved; the exact repository checkpoint was read instead.
+
+128 existing Brains now have versioned model assignments to the existing free local provider and exact per-project context/roadmap/memory/tool-request permission records. All 128 remain disabled/suspended/unavailable pending actual specialist execution. Existing model assignments were preserved if present; no new provider, paid inference or unrestricted tool grant was introduced. A model tag is not an immutable model digest.
+
+128 project workspaces now bind exact existing roadmap/checkpoint/project/Brain identities. Context version 2 appends current Brain version/model assignments without rewriting original turns. Independent readback verified all 128 identity/hash/version/model chains; 256 context turns and 256 workspace versions persist. The initial context refresh transaction was rejected by the existing recorded_at time constraint and rolled back; the operation was corrected to use canonical recorded_at behavior, the exact constraint was added to the isolated regression fixture, and the corrected operation succeeded. No partial failed context writes persist.
+
+Configuration SQL and isolated tests live under evidence/brain-activation/sql and tests/brain-*. Recovery reused the existing 128 gateway/SQL/rollback candidates; these are UNDEPLOYED. Current app source includes the existing PC bridge, truthful pending/response distinction and canonical 128 parser. Tool policy permits discovery of all relevant tool families, including browser/code/research/files/planning, and checks the specific account/action/cost authority. Current-session tool discovery is not a background-worker tool binding. No blanket capability exclusions were added.
+
+Current results: current-activation-results.json/md; new live readbacks: workspace-binding-verification.json, model-binding-verification.json, context-refresh-verification.json. Original snapshots remain historical. All 128 model/context bindings verified; 0 fully operational specialists; 0 live specialist tool/provider connections; 1 central provider diagnostic. Seven stopped runs remain stopped. The paused hosted Task was untouched.
+
+Remaining technical work: recover/inspect the installed existing Windows client contract; finish a bounded activation-only bootstrap and claim/completion revocation checks without falsifying readiness flags; bind real scoped tool execution; satisfy applicable exact-candidate release prerequisites; then real 128 specialist inference/tool/isolation/recovery probes and only activate passing Brains. Existing routing candidate alone does not solve the bootstrap or job executor. P15.17/P15.18 remain excluded. No production deployment or company build has been performed.

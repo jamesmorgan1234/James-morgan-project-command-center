@@ -1,0 +1,2182 @@
+{
+  "rows": [
+    {
+      "brain_key": "brain:company:future:001:v1",
+      "project_id": "project:company:future:001",
+      "context_hash": "901e90ad8d1e20b63c31076bd57dfb478e0e5918c2e5b748ebcc5eb8017d7a1d",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/001_API_AS_A_BUSINESS_FACTORY.md#sha256=3912da73d2e49d831ccd8196592a907918b2509158a02cf142d2e066130848e3",
+        "roadmap/portfolio-future-architecture/companies/conformance/001_API_AS_A_BUSINESS_FACTORY_CURRENT_STANDARD.md#sha256=2038f7c2f3c224e99e099f2aad5f0e0f8b32d87c6cbb7ab37d0a8e9adf8bef60",
+        "supabase:command_center_project_checkpoints:a978a08a-9780-4380-8c3a-0858ff8eac6e",
+        "supabase:command_center_project_profiles:project:company:future:001@1",
+        "supabase:command_center_project_roadmaps:project:company:future:001@2",
+        "supabase:command_center_specialist_brains:brain:company:future:001:v1@1"
+      ],
+      "context_turn_id": "68c16c42-73a2-4e29-b202-e15bad91ab51",
+      "conversation_id": "f9c2629e-146e-468a-9466-38c570cccd2a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:002:v1",
+      "project_id": "project:company:future:002",
+      "context_hash": "2d0b0fa3e0da954b1de002eead9dae33200739ba135012d99a6c0de2c575f708",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/002_AI_AGENT_CONTROL_CENTER.md#sha256=a32c68ecc51efea13635d1418955995b96a4cdb5d3bef6c4ec63e08f5d3e6001",
+        "roadmap/portfolio-future-architecture/companies/conformance/002_AI_AGENT_CONTROL_CENTER_CURRENT_STANDARD.md#sha256=ca0b2bc616241227e4b9c64a3829d7aa7c560a5e50e9a48708eec269958745f8",
+        "supabase:command_center_project_checkpoints:e8bbee48-55b7-47dd-aec6-0f138dc55ef4",
+        "supabase:command_center_project_profiles:project:company:future:002@1",
+        "supabase:command_center_project_roadmaps:project:company:future:002@2",
+        "supabase:command_center_specialist_brains:brain:company:future:002:v1@1"
+      ],
+      "context_turn_id": "65c80d1e-f413-46d1-8d61-c327cb76c90f",
+      "conversation_id": "8f4e8741-a10c-467d-b5a7-85ea2c36ea87",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:003:v1",
+      "project_id": "project:company:future:003",
+      "context_hash": "180eda7d083b17ee81637e233ce44e872a544b33cfb71dc8feb985474b44229a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/003_AI_QUALITY_CONTROL_PLATFORM.md#sha256=3e80c3c82f4f2f5a508cbbd5d7fd9ef7161d1641f757f7e5b21b189a18076b31",
+        "roadmap/portfolio-future-architecture/companies/conformance/003_AI_QUALITY_CONTROL_PLATFORM_CURRENT_STANDARD.md#sha256=fd4901abae151f86218269bacfe9aa35d90ec7ad3394c8d8bb3290057d7bbbb5",
+        "supabase:command_center_project_checkpoints:f1e52049-6354-4e88-a58c-43221b2e4186",
+        "supabase:command_center_project_profiles:project:company:future:003@1",
+        "supabase:command_center_project_roadmaps:project:company:future:003@2",
+        "supabase:command_center_specialist_brains:brain:company:future:003:v1@1"
+      ],
+      "context_turn_id": "78b7658e-d2e1-42a4-884f-c3744bd5b368",
+      "conversation_id": "00685094-e129-4207-871d-7497e0686527",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:004:v1",
+      "project_id": "project:company:future:004",
+      "context_hash": "2addd757df1beb05dd5190d750d5ad3936214340c8ed0bd361fcf1d367ae33a9",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/004_AI_PERMISSION_GOVERNANCE_PLATFORM.md#sha256=ef599ac90c48a419e6c515cb571b0c7d182b99a4fbe9913a12de342e9f616725",
+        "roadmap/portfolio-future-architecture/companies/conformance/004_AI_PERMISSION_GOVERNANCE_PLATFORM_CURRENT_STANDARD.md#sha256=1b9fe69f2ec5569c897521e759afd2efab40d6d1cd41bb85c2fed635600b49ac",
+        "supabase:command_center_project_checkpoints:4eae3aaa-e4c4-4d46-9622-de79ba67fc3e",
+        "supabase:command_center_project_profiles:project:company:future:004@1",
+        "supabase:command_center_project_roadmaps:project:company:future:004@2",
+        "supabase:command_center_specialist_brains:brain:company:future:004:v1@1"
+      ],
+      "context_turn_id": "9708b1d3-2fb2-48d8-8c3d-68015df50bf4",
+      "conversation_id": "d377efff-90ea-42f2-a8c7-95877f575644",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:005:v1",
+      "project_id": "project:company:future:005",
+      "context_hash": "a27d9a1947983f741dbc407f24f56aa298478171241c90b6ea1678d373db1422",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/005_AI_AUDIT_TRAIL_INFRASTRUCTURE.md#sha256=5e957d688fda9379a1d8a898e462d1464a2bc444839373a875692e920f0e5690",
+        "roadmap/portfolio-future-architecture/companies/conformance/005_AI_AUDIT_TRAIL_INFRASTRUCTURE_CURRENT_STANDARD.md#sha256=2afe3842bb96c9f610c7fdf13f6b14226a7cc39870452383353f973b28102da0",
+        "supabase:command_center_project_checkpoints:49bb61da-7923-42c5-ad88-76eb6bda961c",
+        "supabase:command_center_project_profiles:project:company:future:005@1",
+        "supabase:command_center_project_roadmaps:project:company:future:005@2",
+        "supabase:command_center_specialist_brains:brain:company:future:005:v1@1"
+      ],
+      "context_turn_id": "f6a00b86-197d-48e8-b77e-d05584d496b9",
+      "conversation_id": "d9f53788-2e16-48f4-8b69-dc23bc3d914f",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:006:v1",
+      "project_id": "project:company:future:006",
+      "context_hash": "3e30536cebca3333644cf0b8a085dffd7efedbbb7deb97b5a8a5c9e4cfc9eb4e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/006_DATA_SUBSCRIPTION_COMPANY.md#sha256=340286d68daaabb2330b426e875153850d3c3f8018eebaddc9d693e6daf9cf8e",
+        "roadmap/portfolio-future-architecture/companies/conformance/006_DATA_SUBSCRIPTION_COMPANY_CURRENT_STANDARD.md#sha256=6e636bf6370b9ac0b62f2d08d6204dd6415e12eecf983cdf538341e85176cfa7",
+        "supabase:command_center_project_checkpoints:771bc338-9aed-4cb9-bf06-c59bab6e82c9",
+        "supabase:command_center_project_profiles:project:company:future:006@1",
+        "supabase:command_center_project_roadmaps:project:company:future:006@2",
+        "supabase:command_center_specialist_brains:brain:company:future:006:v1@1"
+      ],
+      "context_turn_id": "06483ba8-0e1b-4208-bde1-01278cc60967",
+      "conversation_id": "f6a434f3-adce-4081-9df1-a342a5bbd4ce",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:007:v1",
+      "project_id": "project:company:future:007",
+      "context_hash": "5072982421d1434bb22bba7b2d4f16b4900889bb213bf2cb6916d42c808f252c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/007_PRICING_INTELLIGENCE_ENGINE.md#sha256=9e02ca601258cc1b67fac36a1d4e11f609705d1f2e9d7c2eba9de82c640821e0",
+        "roadmap/portfolio-future-architecture/companies/conformance/007_PRICING_INTELLIGENCE_ENGINE_CURRENT_STANDARD.md#sha256=3fe2b3d571dc706c3133b5a46b778b8e86fdb39447e17b4c4d926e84673fe1bb",
+        "supabase:command_center_project_checkpoints:8bf2fcd7-11ca-4d08-941f-850ca67eba47",
+        "supabase:command_center_project_profiles:project:company:future:007@1",
+        "supabase:command_center_project_roadmaps:project:company:future:007@2",
+        "supabase:command_center_specialist_brains:brain:company:future:007:v1@1"
+      ],
+      "context_turn_id": "dd96e62c-cb1b-4e48-8a36-0c0f6c9c8d52",
+      "conversation_id": "feec8f0e-49ca-4f39-a195-d0e571d8eff0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:008:v1",
+      "project_id": "project:company:future:008",
+      "context_hash": "17679acaa7ce24a4a0e040b309b5a94c237bf483295b868b660c62b0f84760c8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/008_BUSINESS_WORKFLOW_AUTOPILOT.md#sha256=093cd4d7149a09d7121b7ac063f4ec8e570becad90ff847d6536427f0693e387",
+        "roadmap/portfolio-future-architecture/companies/conformance/008_BUSINESS_WORKFLOW_AUTOPILOT_CURRENT_STANDARD.md#sha256=89bcb9ebc92e3137803b3af29af83f6ebe3e40a37e01085c86aa6dfea4fda275",
+        "supabase:command_center_project_checkpoints:35e5a175-e13c-465a-b8ac-0f5cacbf2ae4",
+        "supabase:command_center_project_profiles:project:company:future:008@1",
+        "supabase:command_center_project_roadmaps:project:company:future:008@2",
+        "supabase:command_center_specialist_brains:brain:company:future:008:v1@1"
+      ],
+      "context_turn_id": "f5906780-168f-4581-a2c8-388d6572a6ab",
+      "conversation_id": "9edecc66-f97f-47d9-84a1-26e520fe5c80",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:009:v1",
+      "project_id": "project:company:future:009",
+      "context_hash": "0210647c88570a16ea71becd99adb1268ce20c076d455497cd3c7fa171fa9854",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/009_DOCUMENT_TO_WORKFLOW_ENGINE.md#sha256=fefd6e8ea38c79ce4189b04b073058b706958a7f150f19c72a3fde592a232346",
+        "roadmap/portfolio-future-architecture/companies/conformance/009_DOCUMENT_TO_WORKFLOW_ENGINE_CURRENT_STANDARD.md#sha256=6fd9f8730d53955a1901a6e16e79ae75267a4d3229b3018227ee35f4f687a7f2",
+        "supabase:command_center_project_checkpoints:2fbd89f6-d430-4353-b63e-d754e5a0a7bf",
+        "supabase:command_center_project_profiles:project:company:future:009@1",
+        "supabase:command_center_project_roadmaps:project:company:future:009@2",
+        "supabase:command_center_specialist_brains:brain:company:future:009:v1@1"
+      ],
+      "context_turn_id": "5c1ce44f-2af2-480c-b0d7-df6575c96e46",
+      "conversation_id": "c125c724-9c71-48b9-8216-51d7f2510c0e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:010:v1",
+      "project_id": "project:company:future:010",
+      "context_hash": "ff87524b886fc9b708bd536a2b39fe78a73245348a44d0a40bde5470dc210e84",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/010_SUBSCRIPTION_REVENUE_RECOVERY_PLATFORM.md#sha256=4ed622a1f92a8083e0c0b25046ed2c980f6c9e024f5d6ee497a9e4c43d501489",
+        "roadmap/portfolio-future-architecture/companies/conformance/010_SUBSCRIPTION_REVENUE_RECOVERY_PLATFORM_CURRENT_STANDARD.md#sha256=0b6eed10caaeee89b51283fa5c4880e43302a10c5fc4c5b6783d45ce3d6a0475",
+        "supabase:command_center_project_checkpoints:ed5fc077-de0e-401c-b374-224470cb055f",
+        "supabase:command_center_project_profiles:project:company:future:010@1",
+        "supabase:command_center_project_roadmaps:project:company:future:010@2",
+        "supabase:command_center_specialist_brains:brain:company:future:010:v1@1"
+      ],
+      "context_turn_id": "bf714f86-2b5d-4ed9-b5d6-7213232a38ec",
+      "conversation_id": "7a8be6d9-8c7a-4438-ab08-9c21bbb872cb",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:011:v1",
+      "project_id": "project:company:future:011",
+      "context_hash": "35c47ccc5d6d10fb3cea5cd46fa66a14c8fbf63eb430e2f8b78ca3ebeff33704",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/011_AUTOMATED_BENCHMARKING_PLATFORM.md#sha256=9a2b619f69572b1b599b5a20d78372d631bc90aff7bf405a8bba7e2949b09e3e",
+        "roadmap/portfolio-future-architecture/companies/conformance/011_AUTOMATED_BENCHMARKING_PLATFORM_CURRENT_STANDARD.md#sha256=bfb7ad571d0779b626a12e583029b3be07130e69550b0f39127cab2c30ffe04c",
+        "supabase:command_center_project_checkpoints:4513961e-5aad-467b-b87c-05a04300b37d",
+        "supabase:command_center_project_profiles:project:company:future:011@1",
+        "supabase:command_center_project_roadmaps:project:company:future:011@2",
+        "supabase:command_center_specialist_brains:brain:company:future:011:v1@1"
+      ],
+      "context_turn_id": "88626e53-db59-49a2-ad4e-7d447c8c2cb1",
+      "conversation_id": "9bb52e8f-3389-4db2-ac15-ba943f492770",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:012:v1",
+      "project_id": "project:company:future:012",
+      "context_hash": "a4cccbdb0b3c39be788175fce95b72952dfd45cdada116de020cc374f760625d",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/012_AI_COMPLIANCE_AUTOPILOT.md#sha256=230668197034e330f32fef662d762be47b2e5c340137d6ff2e2e048910b24953",
+        "roadmap/portfolio-future-architecture/companies/conformance/012_AI_COMPLIANCE_AUTOPILOT_CURRENT_STANDARD.md#sha256=d727c4dcc5ea7697472fc5960460b7b52d5bb2cb583e48c706ed086372dd96e4",
+        "supabase:command_center_project_checkpoints:685792b8-a193-4ed7-a326-edad4980ff3c",
+        "supabase:command_center_project_profiles:project:company:future:012@1",
+        "supabase:command_center_project_roadmaps:project:company:future:012@2",
+        "supabase:command_center_specialist_brains:brain:company:future:012:v1@1"
+      ],
+      "context_turn_id": "8fc5ce90-86ab-45a9-9d12-eabab37a5606",
+      "conversation_id": "5d131d12-daef-45e3-8d05-a756f72c1780",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:013:v1",
+      "project_id": "project:company:future:013",
+      "context_hash": "e70e3c7b20e1cc2c59da0d45e5f42ad5fd963d0fe2bf24dc59fd17375745b039",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/013_COMPETITIVE_INTELLIGENCE_SUBSCRIPTION.md#blob=6c04bde63ee6d93e143033d2435bc43d6a1f14c6",
+        "roadmap/portfolio-future-architecture/companies/conformance/013_COMPETITIVE_INTELLIGENCE_SUBSCRIPTION_CURRENT_STANDARD.md#blob=e18f9435c9a50052c4d5b42cf899a10eebbafde6",
+        "supabase:command_center_project_checkpoints:45309c4e-5112-432f-af95-046230e67033",
+        "supabase:command_center_project_profiles:project:company:future:013@1",
+        "supabase:command_center_project_roadmaps:project:company:future:013@2",
+        "supabase:command_center_specialist_brains:brain:company:future:013:v1@1"
+      ],
+      "context_turn_id": "bf5f7914-7ea6-4687-a163-269633f226f8",
+      "conversation_id": "558e36b2-a43c-45dd-ae70-529c2501baaa",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:014:v1",
+      "project_id": "project:company:future:014",
+      "context_hash": "830b52ebc8b43b34f80192633b7991e1ad4ec2f3937ff69bdc5746a3faffd95c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/014_WEBSITE_CHANGE_INTELLIGENCE.md#blob=526c247089678f6ba54945a427ac829b6cee8ae5",
+        "roadmap/portfolio-future-architecture/companies/conformance/014_WEBSITE_CHANGE_INTELLIGENCE_CURRENT_STANDARD.md#blob=343677d4aafc7b0156e69fec6b5b12cf32050a19",
+        "supabase:command_center_project_checkpoints:8c87d43b-87ed-4824-aaa9-0e2583ccef25",
+        "supabase:command_center_project_profiles:project:company:future:014@5",
+        "supabase:command_center_project_roadmaps:project:company:future:014@2",
+        "supabase:command_center_specialist_brains:brain:company:future:014:v1@1"
+      ],
+      "context_turn_id": "7be46f8d-e8d3-4794-b020-ae95ddd0c5ac",
+      "conversation_id": "fdd75709-c8de-4a22-8747-caffa0b478a8",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:015:v1",
+      "project_id": "project:company:future:015",
+      "context_hash": "46d1f6f53eb75e2728e7390e1dd8c411a9457d8fb4cb4b40a3171e41bfba54d8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/015_BUSINESS_INTELLIGENCE_AUTOPILOT.md#sha256=b167346464512c9760e42803ab1ddb94db1458db945e96ce402ce212e622ee99",
+        "roadmap/portfolio-future-architecture/companies/conformance/015_BUSINESS_INTELLIGENCE_AUTOPILOT_CURRENT_STANDARD.md#sha256=63190c5225ed60004ecf162c0d222369e98b711681e310e7fb593131152dc965",
+        "supabase:command_center_project_checkpoints:917b1cc1-fddf-4c0b-9c5b-1b0e10d15d7e",
+        "supabase:command_center_project_profiles:project:company:future:015@1",
+        "supabase:command_center_project_roadmaps:project:company:future:015@2",
+        "supabase:command_center_specialist_brains:brain:company:future:015:v1@1"
+      ],
+      "context_turn_id": "3a00ebec-27f8-4a47-b6a7-88d509552fbb",
+      "conversation_id": "0c344c56-0f6e-4b11-ad23-c41d4529cca8",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:016:v1",
+      "project_id": "project:company:future:016",
+      "context_hash": "64a1b5781b68a888e2f8883c578794cc60d3cbc3003da997303cdb7df083f9f6",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/016_REGULATION_CHANGE_MONITOR.md#sha256=215e3db1bf9d60ae24300bf8059e66d511ddd1930467303a58a9896d771f60b2",
+        "roadmap/portfolio-future-architecture/companies/conformance/016_REGULATION_CHANGE_MONITOR_CURRENT_STANDARD.md#sha256=8630803327a84541c55a75fb5181ebcef1ce170bf69258f1f8de0390d40a1822",
+        "supabase:command_center_project_checkpoints:8ae7349e-6963-4b93-bb56-543cd675e5da",
+        "supabase:command_center_project_profiles:project:company:future:016@1",
+        "supabase:command_center_project_roadmaps:project:company:future:016@2",
+        "supabase:command_center_specialist_brains:brain:company:future:016:v1@1"
+      ],
+      "context_turn_id": "8f22dd08-0855-483e-afa0-b8110f756cc1",
+      "conversation_id": "549ceff2-b42e-4f5f-9a4e-ce7eaf3e4b29",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:017:v1",
+      "project_id": "project:company:future:017",
+      "context_hash": "740b9704bb7c798cfe02e202e67702d15c5fde48e22ef13cc1d45a27f0023462",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/017_SAAS_SPEND_AUTOPILOT.md#sha256=effe131ee56d08b5c65b94d43243c3abcb880985bab4da941353fe74fe47b014",
+        "roadmap/portfolio-future-architecture/companies/conformance/017_SAAS_SPEND_AUTOPILOT_CURRENT_STANDARD.md#sha256=64395fba190c3bd29e003194d9ff346c520ddf5d6e176795e4cbf15a24ad45a3",
+        "supabase:command_center_project_checkpoints:6496520e-9778-4e29-8ca6-2919b0a7a9de",
+        "supabase:command_center_project_profiles:project:company:future:017@1",
+        "supabase:command_center_project_roadmaps:project:company:future:017@2",
+        "supabase:command_center_specialist_brains:brain:company:future:017:v1@1"
+      ],
+      "context_turn_id": "90a3693d-f474-47cd-a9b3-46d50849a6e7",
+      "conversation_id": "0871b359-f496-4e6c-b988-3d6b88fa5112",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:018:v1",
+      "project_id": "project:company:future:018",
+      "context_hash": "5a62baf6bf9a5b77c49f26e94c2fa265acd48afc2e11b95379edd666a6cc1b9a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/018_CUSTOMER_CHURN_PREVENTION_AI.md#sha256=66f58b83a732d77348fe6f8023166f3579fa5f29f7a13da7214bee6b1f87a797",
+        "roadmap/portfolio-future-architecture/companies/conformance/018_CUSTOMER_CHURN_PREVENTION_AI_CURRENT_STANDARD.md#sha256=0b8428b8f50a84cb33d774b582132fddb71ea57fb226b66d5810458cf97062e4",
+        "supabase:command_center_project_checkpoints:1110724f-faca-4c7d-94e0-8146e4eee867",
+        "supabase:command_center_project_profiles:project:company:future:018@1",
+        "supabase:command_center_project_roadmaps:project:company:future:018@2",
+        "supabase:command_center_specialist_brains:brain:company:future:018:v1@1"
+      ],
+      "context_turn_id": "3b61dad3-725a-4ee0-a186-7baa52d46543",
+      "conversation_id": "8e845f0e-cb6a-45e1-9065-e3804d2884da",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:019:v1",
+      "project_id": "project:company:future:019",
+      "context_hash": "5086744d536405882476ee14323c727a6511469c72b541cbd54967b660df4df5",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/019_INVENTORY_FORECASTING_API.md#sha256=bd1b9e1c622744e1a74917a392a0122125d5087e346bcb9d2a6725bd72aeefea",
+        "roadmap/portfolio-future-architecture/companies/conformance/019_INVENTORY_FORECASTING_API_CURRENT_STANDARD.md#sha256=79a0af2d4626fe3c525964e04d7bd3e8b65435f40b1817841a3fdac3a3784cba",
+        "supabase:command_center_project_checkpoints:9dccad51-6b11-4ef0-855b-a5c8fdac959d",
+        "supabase:command_center_project_profiles:project:company:future:019@1",
+        "supabase:command_center_project_roadmaps:project:company:future:019@2",
+        "supabase:command_center_specialist_brains:brain:company:future:019:v1@1"
+      ],
+      "context_turn_id": "3b17a6bd-5921-4a73-b150-29c55a5e0d95",
+      "conversation_id": "081005e8-98db-48ac-814f-7bc4baca548a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:020:v1",
+      "project_id": "project:company:future:020",
+      "context_hash": "fd89b89ddbc0ab9d9db710d554a34debcc27f706bbabc335c58c985b61606480",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/020_DATA_CLEANUP_AUTOPILOT.md#sha256=98cbb9a40b4867ddd7f2394af4e14c789a83109f1cfcdb255de6378748720d34",
+        "roadmap/portfolio-future-architecture/companies/conformance/020_DATA_CLEANUP_AUTOPILOT_CURRENT_STANDARD.md#sha256=214f2e3fbf398dba64d6ddab7a3c7e519d03a1868e7bad0a5c31a4c202f409c2",
+        "supabase:command_center_project_checkpoints:f914f16b-4a9b-4895-b1ea-9d0ac4c5e2e2",
+        "supabase:command_center_project_profiles:project:company:future:020@1",
+        "supabase:command_center_project_roadmaps:project:company:future:020@2",
+        "supabase:command_center_specialist_brains:brain:company:future:020:v1@1"
+      ],
+      "context_turn_id": "10f8de5f-06db-4124-86a1-7365a001c096",
+      "conversation_id": "c65e32ec-d939-4c7d-80e2-71b866d26e14",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:021:v1",
+      "project_id": "project:company:future:021",
+      "context_hash": "5cad031e9fdc5df32c71d57ffe5a07a98a2cc49e397aacea91081372cc7963e8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/021_LEAD_QUALIFICATION_INFRASTRUCTURE.md#sha256=04b7ff7fa6038a86d3889808661992864131fd154ece64aa1b99a590a4416aaf",
+        "roadmap/portfolio-future-architecture/companies/conformance/021_LEAD_QUALIFICATION_INFRASTRUCTURE_CURRENT_STANDARD.md#sha256=dcacfb0d0819af75613285c49689d4d7c64b946b6096b810b65e54b9f83db944",
+        "supabase:command_center_project_checkpoints:d2e4add5-2338-4253-aea6-54d04214fad2",
+        "supabase:command_center_project_profiles:project:company:future:021@1",
+        "supabase:command_center_project_roadmaps:project:company:future:021@2",
+        "supabase:command_center_specialist_brains:brain:company:future:021:v1@1"
+      ],
+      "context_turn_id": "2c15a5d5-97a4-4078-b5d1-7d82b26b221a",
+      "conversation_id": "4b190b3b-db27-4757-a4fe-373b53981d79",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:022:v1",
+      "project_id": "project:company:future:022",
+      "context_hash": "950e5b4be54579277b12d04d601141d77414e5697f68d1b2fa6245be2a81e728",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/022_CYBERSECURITY_HYGIENE_AUTOPILOT_FOR_SMBS.md#sha256=46baa2643168a6c139bd1e65c9356891d32c7cddea044703600014b9222626be",
+        "roadmap/portfolio-future-architecture/companies/conformance/022_CYBERSECURITY_HYGIENE_AUTOPILOT_FOR_SMBS_CURRENT_STANDARD.md#sha256=3f74a262b43e162643c4db97d744ecb5c8ab8720b9ee1469e88bd6cca7ac4984",
+        "supabase:command_center_project_checkpoints:c8514a1b-09f5-4a56-bf21-bf8712e53eba",
+        "supabase:command_center_project_profiles:project:company:future:022@1",
+        "supabase:command_center_project_roadmaps:project:company:future:022@2",
+        "supabase:command_center_specialist_brains:brain:company:future:022:v1@1"
+      ],
+      "context_turn_id": "166b49b3-ce3e-4e2c-a9cc-77f1997f87f5",
+      "conversation_id": "3033454f-78c8-46bd-9bed-e33f1e403130",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:023:v1",
+      "project_id": "project:company:future:023",
+      "context_hash": "1259c1a2294ad0cbcd85b7c81a616781cbc9028314db2efa70752306f493d081",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/023_CONTRACT_OBLIGATION_TRACKER.md#sha256=844799e3e70900950b3cea43856771eb29880c18ee0107e85ea852b6213dafb5",
+        "roadmap/portfolio-future-architecture/companies/conformance/023_CONTRACT_OBLIGATION_TRACKER_CURRENT_STANDARD.md#sha256=3b29c42de05c41826b1791690695a4c8eb4b35667dcd5df9fc2faf0e2f557a47",
+        "supabase:command_center_project_checkpoints:06ddf62a-2fc3-4911-91a8-ca16d91d4226",
+        "supabase:command_center_project_profiles:project:company:future:023@1",
+        "supabase:command_center_project_roadmaps:project:company:future:023@2",
+        "supabase:command_center_specialist_brains:brain:company:future:023:v1@1"
+      ],
+      "context_turn_id": "e19e9a3d-8f83-49c8-afce-06852398f42d",
+      "conversation_id": "c9b60204-a6ff-46a4-ac34-d26bb029f565",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:024:v1",
+      "project_id": "project:company:future:024",
+      "context_hash": "bca534e4b2183d52fc48147fda8861fdafbaf63e8a8c002d9e7238ea4d5dd3d7",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/024_VENDOR_RISK_AUTOPILOT.md#sha256=d920eebc02d5fe197da58d2c894bbfc5d7ffacfe40463c09c3ad8fb896010cd6",
+        "roadmap/portfolio-future-architecture/companies/conformance/024_VENDOR_RISK_AUTOPILOT_CURRENT_STANDARD.md#sha256=57ab620bdb932aac2e1b07d597e525132c8352555620f48e6036f2b9239d1d4b",
+        "supabase:command_center_project_checkpoints:882a72de-9a80-4a3e-8436-5185c9d9a06e",
+        "supabase:command_center_project_profiles:project:company:future:024@1",
+        "supabase:command_center_project_roadmaps:project:company:future:024@2",
+        "supabase:command_center_specialist_brains:brain:company:future:024:v1@1"
+      ],
+      "context_turn_id": "c97c3e4c-9038-4b9a-a16c-287f264a0c1c",
+      "conversation_id": "8d1905d0-d128-40eb-b518-a68d64cb29fd",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:025:v1",
+      "project_id": "project:company:future:025",
+      "context_hash": "912a9895aaccced6d8cc4d95aaf4580a0dafb49e005bed0f3da5d96bd7f33b36",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/025_NICHE_RESEARCH_SUBSCRIPTION.md#sha256=2dd7b772b2d259b92afb0ddb80e8984df82de51c3b58d8ddd31778f2e90ee8b9",
+        "roadmap/portfolio-future-architecture/companies/conformance/025_NICHE_RESEARCH_SUBSCRIPTION_CURRENT_STANDARD.md#sha256=8c5b1f1b71ec6cb72b1200e7c7f97916ea05286989dd2edb2200d8d2a6f9a489",
+        "supabase:command_center_project_checkpoints:81a49f67-6078-46ac-bd0e-e6a11b2c8744",
+        "supabase:command_center_project_profiles:project:company:future:025@1",
+        "supabase:command_center_project_roadmaps:project:company:future:025@2",
+        "supabase:command_center_specialist_brains:brain:company:future:025:v1@1"
+      ],
+      "context_turn_id": "1fede0d0-321f-4779-a76f-510f22dd70b5",
+      "conversation_id": "6641db94-f22f-4686-9b20-8cd976f930db",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:026:v1",
+      "project_id": "project:company:future:026",
+      "context_hash": "07dadc51bbee378472220b2a114c31c3bfa621e81a3b7630aff198b84bbde8ee",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/026_LICENSE_CERTIFICATION_TRACKER.md#sha256=4250f61ba8d3a30c2a2e07779411903273ead1f832d823a7a155a3b4c1444bd2",
+        "roadmap/portfolio-future-architecture/companies/conformance/026_LICENSE_CERTIFICATION_TRACKER_CURRENT_STANDARD.md#sha256=03c87f5f9252997af67247720e42d9c1ae3073daec11b4a1650f4c418ab7ab3f",
+        "supabase:command_center_project_checkpoints:06d92e53-446e-44b3-9213-43bf551140db",
+        "supabase:command_center_project_profiles:project:company:future:026@1",
+        "supabase:command_center_project_roadmaps:project:company:future:026@2",
+        "supabase:command_center_specialist_brains:brain:company:future:026:v1@1"
+      ],
+      "context_turn_id": "cbc7c760-d3ef-4d1b-8c1e-cee2f417bdd4",
+      "conversation_id": "0b4c7d74-773b-4e61-ac4e-a12ac4a95db3",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:027:v1",
+      "project_id": "project:company:future:027",
+      "context_hash": "08b522dd6a41e4b6709335240a3625a174b481d57f60ae4cb3e3de43a154c683",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/027_REVIEW_REPUTATION_AUTOPILOT.md#sha256=e63f61c959776f4a5083b6b54ee86d16c7281a25580bcec080cca248756db149",
+        "roadmap/portfolio-future-architecture/companies/conformance/027_REVIEW_REPUTATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=42b3675347bf63fee7272e0ee01caac2ba42ffad10ba1779048aa1cb22520a30",
+        "supabase:command_center_project_checkpoints:24924fe2-a861-4f8e-946c-b6082170d5c2",
+        "supabase:command_center_project_profiles:project:company:future:027@1",
+        "supabase:command_center_project_roadmaps:project:company:future:027@2",
+        "supabase:command_center_specialist_brains:brain:company:future:027:v1@1"
+      ],
+      "context_turn_id": "2cd6356f-fe24-4f62-9567-43c3d1d2220e",
+      "conversation_id": "62b77dcb-ede9-4678-bb86-98e24da4fc5a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:028:v1",
+      "project_id": "project:company:future:028",
+      "context_hash": "68bf929fbf01257a231c9d971212f78180c9131c3735857ef40fb76138be80f9",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/028_AI_KNOWLEDGE_BASE_MAINTAINER.md#sha256=bc5784a77f50dc99aebe36591bb603501ad4af44b0d44516d3c5bb0dd1fccadd",
+        "roadmap/portfolio-future-architecture/companies/conformance/028_AI_KNOWLEDGE_BASE_MAINTAINER_CURRENT_STANDARD.md#sha256=0c044f9da848d833553c549bf910883652f7d04746672f3cdf6e32da54aa9368",
+        "supabase:command_center_project_checkpoints:6bf09f30-2def-45ee-bd4f-241c5d540229",
+        "supabase:command_center_project_profiles:project:company:future:028@1",
+        "supabase:command_center_project_roadmaps:project:company:future:028@2",
+        "supabase:command_center_specialist_brains:brain:company:future:028:v1@1"
+      ],
+      "context_turn_id": "0caa4e58-ca4e-4a66-a31f-e54ea36f4bb5",
+      "conversation_id": "86af110c-b965-420e-a4fa-a0c06f756a15",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:029:v1",
+      "project_id": "project:company:future:029",
+      "context_hash": "2a8fe7de8842783dbf91aaf7cbb7f8b474b056283f9a52095533781fca258bb5",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/029_VERTICAL_BUSINESS_OS_GENERATOR.md#sha256=3138b02cd3a71c558c1b0955bd923559f9a74a1cd5124f773a4da1af6b4c0ded",
+        "roadmap/portfolio-future-architecture/companies/conformance/029_VERTICAL_BUSINESS_OS_GENERATOR_CURRENT_STANDARD.md#sha256=3a3fbb8e24335ac78862f707cb03594078c7e0c63a7b3323e1b7ee975e49aa6a",
+        "supabase:command_center_project_checkpoints:10436e9c-e593-42de-a564-a43034c14b71",
+        "supabase:command_center_project_profiles:project:company:future:029@1",
+        "supabase:command_center_project_roadmaps:project:company:future:029@2",
+        "supabase:command_center_specialist_brains:brain:company:future:029:v1@1"
+      ],
+      "context_turn_id": "da1bc3cc-7a56-43d1-bfa6-1eaa5d7d5c56",
+      "conversation_id": "d4359a9d-7547-426b-9d64-95e81c213013",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:030:v1",
+      "project_id": "project:company:future:030",
+      "context_hash": "f70dee17ce2f07c2af54d4cd28489c8f4afcece7cb6bb6a7cfda0abf3286a743",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/030_INVOICE_PAYMENT_RECOVERY_AI.md#sha256=4782614dac70775c963c625caab1ec69c4d0f3337d2be7e48bd1239496d5e24f",
+        "roadmap/portfolio-future-architecture/companies/conformance/030_INVOICE_PAYMENT_RECOVERY_AI_CURRENT_STANDARD.md#sha256=c73ce43ae1e993e59ef83ca58d07cf04e3059a4b697de473822d84a353f4d6dd",
+        "supabase:command_center_project_checkpoints:4e3e9e06-a916-4a9a-beb1-4445bbdf953a",
+        "supabase:command_center_project_profiles:project:company:future:030@1",
+        "supabase:command_center_project_roadmaps:project:company:future:030@2",
+        "supabase:command_center_specialist_brains:brain:company:future:030:v1@1"
+      ],
+      "context_turn_id": "f1ce95f3-325b-4add-b240-994f220b5a28",
+      "conversation_id": "5d5a8721-976c-4668-80cd-cf4e971c964b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:031:v1",
+      "project_id": "project:company:future:031",
+      "context_hash": "16f4e246c8dd57f7bf506d74d47e7df84b7e026749972dd5346f1e86634a82a5",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/031_BUSINESS_FORM_AUTOMATION_PLATFORM.md#sha256=1f703701cc61a0d2dc4df2b5434a23a4cc4bc59f5a596cdd3a7062eb7dc49cb5",
+        "roadmap/portfolio-future-architecture/companies/conformance/031_BUSINESS_FORM_AUTOMATION_PLATFORM_CURRENT_STANDARD.md#sha256=b0844590dd81c2d2dbf78aca2a7ade0a11f314110e2cbb7ddde7998b4e6bbaec",
+        "supabase:command_center_project_checkpoints:a033a5e4-0a5b-4964-bdd5-3f40feba9cf1",
+        "supabase:command_center_project_profiles:project:company:future:031@1",
+        "supabase:command_center_project_roadmaps:project:company:future:031@2",
+        "supabase:command_center_specialist_brains:brain:company:future:031:v1@1"
+      ],
+      "context_turn_id": "d9dc0cf9-efd8-4881-a4d7-0d6aa3d29fd9",
+      "conversation_id": "21416267-95d0-4f8a-91ea-5aa8378948b7",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:032:v1",
+      "project_id": "project:company:future:032",
+      "context_hash": "a91863133efba485064b2796523cbf4572421b971cbc1e6d3ed1ff20aa956f09",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/032_AI_PROCUREMENT_ASSISTANT.md#sha256=e9914aa38c0357708f2332a4fbfede22f2d1595e1bc7a9442bb05b18372416b6",
+        "roadmap/portfolio-future-architecture/companies/conformance/032_AI_PROCUREMENT_ASSISTANT_CURRENT_STANDARD.md#sha256=9b392c2c00c43d0aed54f452aea8efbfd7f6cb12e2d68c42cfcb42d36419ff73",
+        "supabase:command_center_project_checkpoints:306c3f44-cec9-4dc9-b22c-61905ec9bb14",
+        "supabase:command_center_project_profiles:project:company:future:032@1",
+        "supabase:command_center_project_roadmaps:project:company:future:032@2",
+        "supabase:command_center_specialist_brains:brain:company:future:032:v1@1"
+      ],
+      "context_turn_id": "336383b9-2ab8-40c1-b38c-3b68e0312976",
+      "conversation_id": "b0e14586-abc7-4d4d-b11b-93e965d12661",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:033:v1",
+      "project_id": "project:company:future:033",
+      "context_hash": "6804ccd01a6613b595ce67632a05c8a7677db8adb080ae85565cd494d7db0e6e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/033_ACCESSIBILITY_COMPLIANCE_MONITOR.md#sha256=6ac3f29157ebd8f9e7326b92396b617fd61b2d69fb8eecb74d50e96783de1ab9",
+        "roadmap/portfolio-future-architecture/companies/conformance/033_ACCESSIBILITY_COMPLIANCE_MONITOR_CURRENT_STANDARD.md#sha256=ddf213acfabefe6c8cc6be27454583f32aa2963a711bc5df6a8adc4834c4ceec",
+        "supabase:command_center_project_checkpoints:2a6eafc1-2060-4dd0-acba-37fbdcc85cd9",
+        "supabase:command_center_project_profiles:project:company:future:033@1",
+        "supabase:command_center_project_roadmaps:project:company:future:033@2",
+        "supabase:command_center_specialist_brains:brain:company:future:033:v1@1"
+      ],
+      "context_turn_id": "0c6d8300-7560-48c5-a1ed-41b30e0bdf2f",
+      "conversation_id": "f5e2b47a-cf6c-4da2-8ab3-920d39d4e70e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:034:v1",
+      "project_id": "project:company:future:034",
+      "context_hash": "4d43c12eaffaf3f8b4c29bfdb9f79bc4ab3650f94ec5d337b3df27ac529dc85a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/034_RETURNS_INTELLIGENCE_PLATFORM.md#sha256=40cc211ce172d56ec343562bb70e66ce3c0f6a825f11b0e0aebb73a6933c904d",
+        "roadmap/portfolio-future-architecture/companies/conformance/034_RETURNS_INTELLIGENCE_PLATFORM_CURRENT_STANDARD.md#sha256=df84d7d2cdcf65406b8648502f800652e3c9e122f35813cab1b2d21aee0e8335",
+        "supabase:command_center_project_checkpoints:ee78c1f8-293e-4488-8a8f-2896f2a2cfa4",
+        "supabase:command_center_project_profiles:project:company:future:034@1",
+        "supabase:command_center_project_roadmaps:project:company:future:034@2",
+        "supabase:command_center_specialist_brains:brain:company:future:034:v1@1"
+      ],
+      "context_turn_id": "b6c0b24f-9317-41f1-83ab-2765cbabb096",
+      "conversation_id": "68ff5e30-b0b5-42c8-b258-3a94e70cd184",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:035:v1",
+      "project_id": "project:company:future:035",
+      "context_hash": "7324023ee2d0c41bc5e059e1e19184f8bc1659daa7d0b47593fcce757fa93b85",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/035_WARRANTY_CLAIMS_AUTOMATION_PLATFORM.md#sha256=cc54bdc6b42f17b3ac9afdfc6e141f38a23c5613b8c65b3245ee319fb5d3cec2",
+        "roadmap/portfolio-future-architecture/companies/conformance/035_WARRANTY_CLAIMS_AUTOMATION_PLATFORM_CURRENT_STANDARD.md#sha256=110915d6f71c612c4e5c7a6d1d39f93c079f842ff386dd3e3021c5403f3158f0",
+        "supabase:command_center_project_checkpoints:fc7a48cd-0ba8-4bba-a990-9da877ea7a6b",
+        "supabase:command_center_project_profiles:project:company:future:035@1",
+        "supabase:command_center_project_roadmaps:project:company:future:035@2",
+        "supabase:command_center_specialist_brains:brain:company:future:035:v1@1"
+      ],
+      "context_turn_id": "56b45704-8580-4cd6-b7fd-8da1994dd516",
+      "conversation_id": "e22b683c-e9e2-46fc-9eff-a7ef2c6d079e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:036:v1",
+      "project_id": "project:company:future:036",
+      "context_hash": "925ed6ed55804ec13ba99b500ff18495daa05461c94534d44de52fe9be5f1589",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/036_RFP_TENDER_INTELLIGENCE_SAAS.md#sha256=c12b197fd28772dfeef73eefccfb7fabc1f3b1e7d172b6a39fc02c791bdf26ac",
+        "roadmap/portfolio-future-architecture/companies/conformance/036_RFP_TENDER_INTELLIGENCE_SAAS_CURRENT_STANDARD.md#sha256=e69136743329918be2fb04471e6f48b1083fb42be7417e7fd062e64dfc6bcabc",
+        "supabase:command_center_project_checkpoints:6bfda734-5c16-4732-a83f-3abe72700a3b",
+        "supabase:command_center_project_profiles:project:company:future:036@1",
+        "supabase:command_center_project_roadmaps:project:company:future:036@2",
+        "supabase:command_center_specialist_brains:brain:company:future:036:v1@1"
+      ],
+      "context_turn_id": "0adf80d2-9380-4ef4-9319-d15bcaafbf86",
+      "conversation_id": "8ed54a3b-a860-4dd4-9ed9-e8eaabfed47f",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:037:v1",
+      "project_id": "project:company:future:037",
+      "context_hash": "38ce32a527860594ef3995d267869fa1d0b31f57240ef9f68e9bc633900fea5c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/037_INTERNAL_POLICY_AUTOPILOT.md#sha256=47acc427725f3c23d332ac3b8052623456967e2335d247689236a3d05d4fb0bd",
+        "roadmap/portfolio-future-architecture/companies/conformance/037_INTERNAL_POLICY_AUTOPILOT_CURRENT_STANDARD.md#sha256=3299a09ca179fb47c171a81154ffdcf4783aa44cd4f81780796a35ebeb771dea",
+        "supabase:command_center_project_checkpoints:dd4c3ce5-dac7-4517-ad6f-16c4cb9103aa",
+        "supabase:command_center_project_profiles:project:company:future:037@1",
+        "supabase:command_center_project_roadmaps:project:company:future:037@2",
+        "supabase:command_center_specialist_brains:brain:company:future:037:v1@1"
+      ],
+      "context_turn_id": "a2b3809d-c464-4fd2-b3db-463ad823f926",
+      "conversation_id": "5d3b8496-e7e7-46b3-b60b-8400537375b4",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:038:v1",
+      "project_id": "project:company:future:038",
+      "context_hash": "93bd61ddfc13788febb868db5a4e16380ce00eecab44e9990e24d681819935a1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/038_GRANT_MANAGEMENT_SOFTWARE.md#sha256=ac70dfe66afee71792aea880e96a4c5fe9fe79ab059c9c3dc4f102b36b28ffbb",
+        "roadmap/portfolio-future-architecture/companies/conformance/038_GRANT_MANAGEMENT_SOFTWARE_CURRENT_STANDARD.md#sha256=01963498acd1e3abcbf731f0699240cc3d53a366a9683b8c677c42f38aea7838",
+        "supabase:command_center_project_checkpoints:e13351d7-b673-47ef-956e-44cda983edf7",
+        "supabase:command_center_project_profiles:project:company:future:038@1",
+        "supabase:command_center_project_roadmaps:project:company:future:038@2",
+        "supabase:command_center_specialist_brains:brain:company:future:038:v1@1"
+      ],
+      "context_turn_id": "11f3066c-4b5c-4a16-8e3b-17280fd46f12",
+      "conversation_id": "2f21950b-c1fc-4db3-b4eb-68e8b1cf8f94",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:039:v1",
+      "project_id": "project:company:future:039",
+      "context_hash": "63278c3aa90ce7717154dc18e79ccabdc9f458c3c4e968a2246fd4ad6bb5a712",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/039_DIGITAL_ASSET_LICENSING_MARKETPLACE.md#sha256=2c873bd00d58d4be715d824d7af77973da0a5e8b7a6ccdac371c157883f02c1c",
+        "roadmap/portfolio-future-architecture/companies/conformance/039_DIGITAL_ASSET_LICENSING_MARKETPLACE_CURRENT_STANDARD.md#sha256=d6c3d78b0c02ef0fb7fd0de1876ceff707e7ae8295eac8a28a5ee81d26a1a813",
+        "supabase:command_center_project_checkpoints:541c8bc8-be6c-43a2-a1f6-62ccd07cf6e6",
+        "supabase:command_center_project_profiles:project:company:future:039@1",
+        "supabase:command_center_project_roadmaps:project:company:future:039@2",
+        "supabase:command_center_specialist_brains:brain:company:future:039:v1@1"
+      ],
+      "context_turn_id": "d057b4f6-a37e-4ebc-949c-aa928363273b",
+      "conversation_id": "06613bcf-2424-46be-8176-b5786baa769d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:040:v1",
+      "project_id": "project:company:future:040",
+      "context_hash": "13a8c31f12ed760e405e5de00fbe7993c4e06a59c415723f0dd29188115de54b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/040_DIGITAL_ESTATE_ACCOUNT_ORGANIZER.md#sha256=fea9f4b9d7329d69671fb4562c23b02a2a5953a74f6600d5cc9c476c92f37cbf",
+        "roadmap/portfolio-future-architecture/companies/conformance/040_DIGITAL_ESTATE_ACCOUNT_ORGANIZER_CURRENT_STANDARD.md#sha256=01c84e66362f7dd6b716a96656f202b3c89a71d06dcae7cf7fc9687f37778176",
+        "supabase:command_center_project_checkpoints:03d2474c-bb08-430b-8714-9e90f64786fd",
+        "supabase:command_center_project_profiles:project:company:future:040@1",
+        "supabase:command_center_project_roadmaps:project:company:future:040@2",
+        "supabase:command_center_specialist_brains:brain:company:future:040:v1@1"
+      ],
+      "context_turn_id": "d799619f-2bc5-4f64-9bac-fdb38a576701",
+      "conversation_id": "b02a4bf9-a070-44fe-8bc2-787403b6a2db",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:041:v1",
+      "project_id": "project:company:future:041",
+      "context_hash": "f062f9d9b5ecabe25874357bc7782ee3dd5a0cd66c0141469f43aeb5dd7d2ea3",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/041_AUTONOMOUS_MICRO_SAAS_FACTORY.md#sha256=95ddc0560aca791f0000d8df158c96241e89bfc0946781b27030bf9f899db75a",
+        "roadmap/portfolio-future-architecture/companies/conformance/041_AUTONOMOUS_MICRO_SAAS_FACTORY_CURRENT_STANDARD.md#sha256=513d17b328c78c43cc316fddf8e46c57eefd07b662e3c7762f0ea03e1a746e86",
+        "supabase:command_center_project_checkpoints:5f40d3fb-3f50-4103-9482-7cf81bd7a78b",
+        "supabase:command_center_project_profiles:project:company:future:041@1",
+        "supabase:command_center_project_roadmaps:project:company:future:041@2",
+        "supabase:command_center_specialist_brains:brain:company:future:041:v1@1"
+      ],
+      "context_turn_id": "b36831fa-842b-4428-8ed8-200c4248c9d8",
+      "conversation_id": "16843584-c57f-4b22-a556-7ccecdf5823b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:042:v1",
+      "project_id": "project:company:future:042",
+      "context_hash": "6bad7834c7727d11b61bfbf7d31560fb90f002e125d4dd56c1c17d2412700775",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/042_LEGACY_BROWSER_WORKER_PLATFORM.md#sha256=c7c0f9c7845c562af6e0b8164eeac417291080f1bf01ecc7402f283b6a7eed22",
+        "roadmap/portfolio-future-architecture/companies/conformance/042_LEGACY_BROWSER_WORKER_PLATFORM_CURRENT_STANDARD.md#sha256=8c05d55530ccf314a392bd1e77b2d88aed5938ca99f38c64fddd4e2ab3b426c0",
+        "supabase:command_center_project_checkpoints:56940980-0a69-4d6d-9926-176683eb72b0",
+        "supabase:command_center_project_profiles:project:company:future:042@1",
+        "supabase:command_center_project_roadmaps:project:company:future:042@2",
+        "supabase:command_center_specialist_brains:brain:company:future:042:v1@1"
+      ],
+      "context_turn_id": "ccbe173d-5ad1-4adf-9408-bef47b42b320",
+      "conversation_id": "c90ba6c2-d1b5-4dbb-b897-25c385578871",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:043:v1",
+      "project_id": "project:company:future:043",
+      "context_hash": "9e31587bab4e467682eb63a8fc22f9d9a69a712255ad600798a026acf7a46e32",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/043_CLOUD_COST_OPTIMIZATION_AUTOPILOT.md#sha256=ada6fed3d7671662604b51f11c37eb43290de2f3ca338dd1913873c1fa4e97d3",
+        "roadmap/portfolio-future-architecture/companies/conformance/043_CLOUD_COST_OPTIMIZATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=a92fc4b262cdbee745e6b837f315ed4783b005909616d38ef0f71d48b9bc0810",
+        "supabase:command_center_project_checkpoints:21ca52cc-cf54-4e2a-b213-3c348274539f",
+        "supabase:command_center_project_profiles:project:company:future:043@1",
+        "supabase:command_center_project_roadmaps:project:company:future:043@2",
+        "supabase:command_center_specialist_brains:brain:company:future:043:v1@1"
+      ],
+      "context_turn_id": "d2ebbd82-a88f-4b41-bfab-099b3f508d0e",
+      "conversation_id": "6428410c-489a-434c-b5a4-e26bdcff8899",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:044:v1",
+      "project_id": "project:company:future:044",
+      "context_hash": "bca1901ff1716f4978004f4e3e6c4c7810dc1439a6480823c31a0351a8e75937",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/044_CHARGEBACK_DISPUTE_RECOVERY_AUTOPILOT.md#sha256=14e72e25e47dc529431d149c53e16ee9706ac3e35cbf3c4e836f9e552b4463f4",
+        "roadmap/portfolio-future-architecture/companies/conformance/044_CHARGEBACK_DISPUTE_RECOVERY_AUTOPILOT_CURRENT_STANDARD.md#sha256=8e225ffde416a54724992364363d3fbe71d4a28a5b8c9302409222cb4f85ed0c",
+        "supabase:command_center_project_checkpoints:7425e7a3-df0f-4513-a1de-9bc72642e4ff",
+        "supabase:command_center_project_profiles:project:company:future:044@1",
+        "supabase:command_center_project_roadmaps:project:company:future:044@2",
+        "supabase:command_center_specialist_brains:brain:company:future:044:v1@1"
+      ],
+      "context_turn_id": "67a4b078-1e70-43fb-941d-d549330a24bb",
+      "conversation_id": "79e4e74e-0424-4260-a682-45ab494e62ec",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:045:v1",
+      "project_id": "project:company:future:045",
+      "context_hash": "b9b28dba8d756d6552a0113f6ea3a111bddba6e551ec29953205f6b058d2f43b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/045_AUTONOMOUS_CUSTOMER_SUPPORT_COMPANY.md#sha256=ca9684ab6652e0943cc89c01bbe76f87b6163891b4258b1c03f9bdf3e87aa17d",
+        "roadmap/portfolio-future-architecture/companies/conformance/045_AUTONOMOUS_CUSTOMER_SUPPORT_COMPANY_CURRENT_STANDARD.md#sha256=2f5c12d6f4f07b5a80d709c02600b293865ce0b5f224934f9c62eec7559caf90",
+        "supabase:command_center_project_checkpoints:a0d807cb-e095-463a-a2fb-56eb8d1c49a4",
+        "supabase:command_center_project_profiles:project:company:future:045@1",
+        "supabase:command_center_project_roadmaps:project:company:future:045@2",
+        "supabase:command_center_specialist_brains:brain:company:future:045:v1@1"
+      ],
+      "context_turn_id": "8097be7a-e1b1-4760-b926-e53e9bb92e12",
+      "conversation_id": "7c00caca-2c56-4fd9-8145-ecaac8e0deef",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:046:v1",
+      "project_id": "project:company:future:046",
+      "context_hash": "d2d35a784c40a6e7ed9776f86caa5126c8f776e4204f590ee14f63718fef9983",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/046_CUSTOMER_ONBOARDING_AUTOPILOT.md#sha256=5bb224628ad7d96ad4ea5c3af3a864884736bb6c11ea248098ffe8695d59e222",
+        "roadmap/portfolio-future-architecture/companies/conformance/046_CUSTOMER_ONBOARDING_AUTOPILOT_CURRENT_STANDARD.md#sha256=f26148131ceedb16ecc0ace96f9496cc483ce5fa8ceac410cac1113f1299df62",
+        "supabase:command_center_project_checkpoints:42c774b3-53b6-4122-92b5-6f8e1d2abe84",
+        "supabase:command_center_project_profiles:project:company:future:046@1",
+        "supabase:command_center_project_roadmaps:project:company:future:046@2",
+        "supabase:command_center_specialist_brains:brain:company:future:046:v1@1"
+      ],
+      "context_turn_id": "877bbf1c-e5f1-4759-a472-be240011cdd3",
+      "conversation_id": "087aed68-d911-4464-88bc-bb8e6281ff05",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:047:v1",
+      "project_id": "project:company:future:047",
+      "context_hash": "3a5228e330ac56dd30e3ea7100db81031fea1d8319f01fe9344eba82433991fa",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/047_PRIVACY_REQUEST_DSAR_AUTOPILOT.md#sha256=052deba05e40e40eecbedb19ba03bcf4012f47dd51caf7dc6d17ec1ff18ae387",
+        "roadmap/portfolio-future-architecture/companies/conformance/047_PRIVACY_REQUEST_DSAR_AUTOPILOT_CURRENT_STANDARD.md#sha256=9c873df751577888f944cf466b7485bbd72a8d95dbc20219064c0dc75a437413",
+        "supabase:command_center_project_checkpoints:95beff24-33a0-4d24-8b47-8f407c298b0c",
+        "supabase:command_center_project_profiles:project:company:future:047@1",
+        "supabase:command_center_project_roadmaps:project:company:future:047@2",
+        "supabase:command_center_specialist_brains:brain:company:future:047:v1@1"
+      ],
+      "context_turn_id": "324c20e6-1dde-430a-bef1-55af9648b198",
+      "conversation_id": "ded1307e-3231-4bf5-a2b4-8a670b80fcdc",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:048:v1",
+      "project_id": "project:company:future:048",
+      "context_hash": "961a5bd7705a61cc47faaa6564fe95c310ed5609f6c80f0934a1b48213b319a8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/048_ACCOUNTS_PAYABLE_VERIFICATION_BRAIN.md#sha256=145eae6a528ca65d2e459f2455669ffa81c831edf84a302c55ded415b37c8716",
+        "roadmap/portfolio-future-architecture/companies/conformance/048_ACCOUNTS_PAYABLE_VERIFICATION_BRAIN_CURRENT_STANDARD.md#sha256=201a808376abcce7aa84e46f69b9216c52e4d4fa0c9cacbfdf25159e2c9350eb",
+        "supabase:command_center_project_checkpoints:6305c8a8-39a2-4220-83cb-574825b22748",
+        "supabase:command_center_project_profiles:project:company:future:048@1",
+        "supabase:command_center_project_roadmaps:project:company:future:048@2",
+        "supabase:command_center_specialist_brains:brain:company:future:048:v1@1"
+      ],
+      "context_turn_id": "52698361-a94b-4352-89cc-dd1514e4bbb0",
+      "conversation_id": "554ea833-a9ad-4fce-8dd2-56796ee04734",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:049:v1",
+      "project_id": "project:company:future:049",
+      "context_hash": "e7166374f2e83bb030ffaa7a1dd61ee21414abf83e148bf425db3aab7854da6b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/049_CLOUD_SOFTWARE_RELIABILITY_AUTOPILOT.md#sha256=9e68a1bad709be5a8d0247ca07cd1e7578fe22b6ae512405565859f0e59fdc0b",
+        "roadmap/portfolio-future-architecture/companies/conformance/049_CLOUD_SOFTWARE_RELIABILITY_AUTOPILOT_CURRENT_STANDARD.md#sha256=4535993decf6c7dbbd139a522a896290f14d0ac8551f6fa0a452780b6fcf9390",
+        "supabase:command_center_project_checkpoints:6607b443-f6ab-49eb-a916-25559e561a04",
+        "supabase:command_center_project_profiles:project:company:future:049@1",
+        "supabase:command_center_project_roadmaps:project:company:future:049@2",
+        "supabase:command_center_specialist_brains:brain:company:future:049:v1@1"
+      ],
+      "context_turn_id": "fb14fecb-2254-410a-846e-ab0c8f4ab992",
+      "conversation_id": "f326328f-f4f3-4678-907e-4ec7b159c783",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:050:v1",
+      "project_id": "project:company:future:050",
+      "context_hash": "a8488d7710774d0f0a36c61a9a9dd70997972e195d71fcc59d43dd57e9160310",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/050_AI_FRONT_DESK_PLATFORM.md#sha256=4b710a7e19067f248a6e8376006891d518c9fe89f61e309434396655039a37b8",
+        "roadmap/portfolio-future-architecture/companies/conformance/050_AI_FRONT_DESK_PLATFORM_CURRENT_STANDARD.md#sha256=509322784e83119e15223453ca72fe3c036a97710b68e9e3e143ee2398322a13",
+        "supabase:command_center_project_checkpoints:5f421e45-32a1-4314-b196-27c9e104d5b1",
+        "supabase:command_center_project_profiles:project:company:future:050@1",
+        "supabase:command_center_project_roadmaps:project:company:future:050@2",
+        "supabase:command_center_specialist_brains:brain:company:future:050:v1@1"
+      ],
+      "context_turn_id": "82360ec9-3e80-4cf5-9625-7c11b80c0485",
+      "conversation_id": "02aca08c-2977-4f19-acc5-3266f64aa84c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:051:v1",
+      "project_id": "project:company:future:051",
+      "context_hash": "5ead86f2487bacb4b86a4d17bd4c70650ccdf939589823d780220dc3e1b7122b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/051_DATA_PIPELINE_WATCHDOG.md#sha256=d435d671bedfffe720d2020c37a4875c01885c6a5a8dbf02df2b8807579712fd",
+        "roadmap/portfolio-future-architecture/companies/conformance/051_DATA_PIPELINE_WATCHDOG_CURRENT_STANDARD.md#sha256=6f04b9258a42b4cf87199908398491f179fdbc66ddb211cfcf9678c1239bc607",
+        "supabase:command_center_project_checkpoints:8b7ad9ed-c5af-4a30-9d84-2a939ccd2b55",
+        "supabase:command_center_project_profiles:project:company:future:051@1",
+        "supabase:command_center_project_roadmaps:project:company:future:051@2",
+        "supabase:command_center_specialist_brains:brain:company:future:051:v1@1"
+      ],
+      "context_turn_id": "d8564b4a-6ddc-40fb-9a22-76c4d25b5e0a",
+      "conversation_id": "63e90d34-a8f5-4258-a5bc-9901d97b927c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:052:v1",
+      "project_id": "project:company:future:052",
+      "context_hash": "97aaf4a7326234b3811ea3bd414c460bf5d585167e87ba0f02668761ca541ba4",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/052_CERTIFICATE_OF_INSURANCE_AUTOPILOT.md#sha256=1284799fbf11475d3da99bbd25ae51ef883d6793e30b19a8973d672d9b1f1b59",
+        "roadmap/portfolio-future-architecture/companies/conformance/052_CERTIFICATE_OF_INSURANCE_AUTOPILOT_CURRENT_STANDARD.md#sha256=daf98c98ba69ca99581787a7e21f2a482081ad31f6e9030acda4d9908ffd033c",
+        "supabase:command_center_project_checkpoints:626b3864-c329-4443-8b53-63cdfede70ab",
+        "supabase:command_center_project_profiles:project:company:future:052@1",
+        "supabase:command_center_project_roadmaps:project:company:future:052@2",
+        "supabase:command_center_specialist_brains:brain:company:future:052:v1@1"
+      ],
+      "context_turn_id": "e752841a-8bbd-4402-9bca-23b8136ebfa6",
+      "conversation_id": "5cfb9fe9-7742-40fd-ad24-770c8091dc41",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:053:v1",
+      "project_id": "project:company:future:053",
+      "context_hash": "35f2533912536b6dde68431ef2c04cef51b378142b8cc256bc0830887dc642f3",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/053_SOFTWARE_RELEASE_AUTOPILOT.md#sha256=f8070696936710eea571f0b424e7bb6d7e7866d9aa7a5fbeab2f361f714f09ba",
+        "roadmap/portfolio-future-architecture/companies/conformance/053_SOFTWARE_RELEASE_AUTOPILOT_CURRENT_STANDARD.md#sha256=d8f52df61117cfe34f61f93677a455fbe28d97f82be6b288f287236ed93e3673",
+        "supabase:command_center_project_checkpoints:9af4f079-4209-4542-ba1b-4b3b10bc204f",
+        "supabase:command_center_project_profiles:project:company:future:053@1",
+        "supabase:command_center_project_roadmaps:project:company:future:053@2",
+        "supabase:command_center_specialist_brains:brain:company:future:053:v1@1"
+      ],
+      "context_turn_id": "43cbfa2f-a0a6-47f3-9a35-0c380a11509b",
+      "conversation_id": "ea912fe2-b89f-48e4-a186-012c32a5fe94",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:054:v1",
+      "project_id": "project:company:future:054",
+      "context_hash": "53e6c1c8840220da87b7a95d439b0c617ea465699c04545d50998701f23b730a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/054_LOCALIZATION_AUTOPILOT.md#sha256=b30e9e784e846eb90aeaba6372c33ed605e46f1004600ebf80a916b0b54cabe1",
+        "roadmap/portfolio-future-architecture/companies/conformance/054_LOCALIZATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=034995c3b92c1b90b66cce5f1bb4c724cb531dfe3dd5be17be9cfdc2db2d9a41",
+        "supabase:command_center_project_checkpoints:2662b2bd-21ad-4805-a82e-4d48e8d644a1",
+        "supabase:command_center_project_profiles:project:company:future:054@1",
+        "supabase:command_center_project_roadmaps:project:company:future:054@2",
+        "supabase:command_center_specialist_brains:brain:company:future:054:v1@1"
+      ],
+      "context_turn_id": "b7b9fb75-8d9b-4a31-a771-f135da139266",
+      "conversation_id": "afc99a29-7333-4b5d-ac56-ba4de506a6bc",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:055:v1",
+      "project_id": "project:company:future:055",
+      "context_hash": "3ee38d2aae0de164c8cd0dc9a3ba20d04fad7f4b6bdf7883ccea4f332dbd8c5c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/055_PRODUCT_CATALOG_INTELLIGENCE_ENGINE.md#sha256=f5e1e85c006ced0bc4e13e26f20a7b60ac665dd1ece26768e83976356bef4135",
+        "roadmap/portfolio-future-architecture/companies/conformance/055_PRODUCT_CATALOG_INTELLIGENCE_ENGINE_CURRENT_STANDARD.md#sha256=b67c69ca089e26ecfd1b9a0f34d87e11afbe2a3929e45e566880defd2f104c78",
+        "supabase:command_center_project_checkpoints:007daea4-951e-49f7-9603-3a52c4cf39e8",
+        "supabase:command_center_project_profiles:project:company:future:055@1",
+        "supabase:command_center_project_roadmaps:project:company:future:055@2",
+        "supabase:command_center_specialist_brains:brain:company:future:055:v1@1"
+      ],
+      "context_turn_id": "41f04841-be9e-434a-a14b-899b3c3039bd",
+      "conversation_id": "5ac17ca2-b368-43bf-8f53-412d22c55d2c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:056:v1",
+      "project_id": "project:company:future:056",
+      "context_hash": "7be542c66bf75d19efd56e7d47fb7c75d19ce3c35264e8fe9c0a00eb1abfc90a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/056_SYNTHETIC_DATA_PLATFORM.md#sha256=51b0b0db1123c3d3977d4b2178dc467c40af61e40140d144c950773dc75b2da0",
+        "roadmap/portfolio-future-architecture/companies/conformance/056_SYNTHETIC_DATA_PLATFORM_CURRENT_STANDARD.md#sha256=e08e057a0e1925e62d10e4810d8137733042e3a49f1e019ec9ee324a6b657da5",
+        "supabase:command_center_project_checkpoints:648ffc45-acc9-484a-9e83-164d507c5833",
+        "supabase:command_center_project_profiles:project:company:future:056@1",
+        "supabase:command_center_project_roadmaps:project:company:future:056@2",
+        "supabase:command_center_specialist_brains:brain:company:future:056:v1@1"
+      ],
+      "context_turn_id": "69543cff-4e86-47b1-9abb-00a83641e897",
+      "conversation_id": "1338abbf-63e5-4345-9915-dae210b074b8",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:057:v1",
+      "project_id": "project:company:future:057",
+      "context_hash": "c8b4db125db3f537557cbf56a14a1c7024e55a59f20c73f4fea103e69abcbad7",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/057_FRAUD_DETECTION_API.md#sha256=d43cf24edf1e06af4d5b8ffce2f29c750943dbbb47cb0c1ab60b9786f0b2cc07",
+        "roadmap/portfolio-future-architecture/companies/conformance/057_FRAUD_DETECTION_API_CURRENT_STANDARD.md#sha256=b59b9bd338ef16420cc24838b8dbe51355367fa3a50b356f7e861e8d966ba371",
+        "supabase:command_center_project_checkpoints:4007778e-1824-4ea2-8be4-c761d02d733f",
+        "supabase:command_center_project_profiles:project:company:future:057@1",
+        "supabase:command_center_project_roadmaps:project:company:future:057@2",
+        "supabase:command_center_specialist_brains:brain:company:future:057:v1@1"
+      ],
+      "context_turn_id": "8e80c322-fe2c-49ce-a520-47ba6c64f536",
+      "conversation_id": "982a1ac7-317b-4080-a734-d3e1ee1114f0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:058:v1",
+      "project_id": "project:company:future:058",
+      "context_hash": "9af35ee698350b06499a7f51d0e7b812a09eb90532a9c6b780c251e833b75b91",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/058_EMPLOYEE_ONBOARDING_OFFBOARDING_AUTOPILOT.md#sha256=db21021b33d77cc776043ba011c2e5dec786e228ba0a5d613260575cdc11d674",
+        "roadmap/portfolio-future-architecture/companies/conformance/058_EMPLOYEE_ONBOARDING_OFFBOARDING_AUTOPILOT_CURRENT_STANDARD.md#sha256=aa7a63aabe3a60ea27607f30625d3c3683a54a30d5937635a45dced39db80c76",
+        "supabase:command_center_project_checkpoints:89c2ac96-b9de-4571-9eaf-bbd9718953c7",
+        "supabase:command_center_project_profiles:project:company:future:058@1",
+        "supabase:command_center_project_roadmaps:project:company:future:058@2",
+        "supabase:command_center_specialist_brains:brain:company:future:058:v1@1"
+      ],
+      "context_turn_id": "bbcf7636-0693-4e43-abf9-1080a214403d",
+      "conversation_id": "3addcb44-c1b8-4080-a6b5-d4da95594290",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:059:v1",
+      "project_id": "project:company:future:059",
+      "context_hash": "852c47106453a8672c4835b5c60822cb255db04d294ca8be67348908cb2bcb2e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/059_MARKETPLACE_LISTING_AUTOPILOT.md#sha256=86c8ae368200649d8c4772b29769900d94d24ee93e8f145ba5dd5dadade2673e",
+        "roadmap/portfolio-future-architecture/companies/conformance/059_MARKETPLACE_LISTING_AUTOPILOT_CURRENT_STANDARD.md#sha256=3e12b3f26a746a25de5f79271bda7df2061afe0999c2752908aee3930e0c33d8",
+        "supabase:command_center_project_checkpoints:87d53ce4-1349-4b26-a149-48c82f6060b7",
+        "supabase:command_center_project_profiles:project:company:future:059@1",
+        "supabase:command_center_project_roadmaps:project:company:future:059@2",
+        "supabase:command_center_specialist_brains:brain:company:future:059:v1@1"
+      ],
+      "context_turn_id": "9eadee84-bbd5-4613-ab0e-d3e392cfcc79",
+      "conversation_id": "b683d8ee-cc58-49a1-bc23-ec1afcebb8b5",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:060:v1",
+      "project_id": "project:company:future:060",
+      "context_hash": "398a2283452136e3b8c97de9fff3729eb0497c3c216638a19ffdfcb1cb09ba7f",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/060_SOFTWARE_MIGRATION_AUTOPILOT.md#sha256=2750963a7d21ef8289d25a4db7e8695e8a5f88cd1b930800ec45d6d76e0f36a0",
+        "roadmap/portfolio-future-architecture/companies/conformance/060_SOFTWARE_MIGRATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=4124ba20eb3da78c9d2229207b0a9931a8f53db7cca4926db91c9d1e8a76f8f3",
+        "supabase:command_center_project_checkpoints:1fbb858c-32ef-4938-be60-0dab8a1afbb7",
+        "supabase:command_center_project_profiles:project:company:future:060@1",
+        "supabase:command_center_project_roadmaps:project:company:future:060@2",
+        "supabase:command_center_specialist_brains:brain:company:future:060:v1@1"
+      ],
+      "context_turn_id": "34cb5f28-9620-405c-b816-65aea9cab83d",
+      "conversation_id": "128cd7e5-21c9-498e-ab14-244d2dfdc46b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:061:v1",
+      "project_id": "project:company:future:061",
+      "context_hash": "2fc0d4380fca71d9fcd75064d0c64dd1bab497f04e441783d8512b57789f91e1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/061_AUTONOMOUS_COLLECTIONS_PLATFORM.md#sha256=893b9d1f5f7242b46d2ee801ff86be881a7728586003e1806fc824bd6985161e",
+        "roadmap/portfolio-future-architecture/companies/conformance/061_AUTONOMOUS_COLLECTIONS_PLATFORM_CURRENT_STANDARD.md#sha256=20e23620f3dc2f0e46125a7daae8d655d0888c3a80c79c27add631b1ea9e5e7f",
+        "supabase:command_center_project_checkpoints:53f0a1ed-bffc-4e06-b125-c5f3c0e685d2",
+        "supabase:command_center_project_profiles:project:company:future:061@1",
+        "supabase:command_center_project_roadmaps:project:company:future:061@2",
+        "supabase:command_center_specialist_brains:brain:company:future:061:v1@1"
+      ],
+      "context_turn_id": "a1ec6db0-51ec-491e-a9cb-d41af062447b",
+      "conversation_id": "00513741-1788-4423-89dd-3e9c2d7a308d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:062:v1",
+      "project_id": "project:company:future:062",
+      "context_hash": "8138ab17d3902abc657ede4c55210a0e367508b9426a8634a32de2f99c400ffc",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/062_CREDENTIALING_AUTOPILOT.md#sha256=ee9a6ace3376e5f6f032d231f0eabde6dbc741adbd6f1cea148bc1da8e90f7c1",
+        "roadmap/portfolio-future-architecture/companies/conformance/062_CREDENTIALING_AUTOPILOT_CURRENT_STANDARD.md#sha256=74c31cbc92526d71e5c0341d4eb89c260b179affd3d2d381fab873d388248b0a",
+        "supabase:command_center_project_checkpoints:80633f69-5bac-4f43-9af4-41789282cc2a",
+        "supabase:command_center_project_profiles:project:company:future:062@1",
+        "supabase:command_center_project_roadmaps:project:company:future:062@2",
+        "supabase:command_center_specialist_brains:brain:company:future:062:v1@1"
+      ],
+      "context_turn_id": "f10be7e9-1932-4b7a-b850-30c60a2e27a2",
+      "conversation_id": "c6ec4b42-b33b-4047-9549-abebaa47ff0c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:063:v1",
+      "project_id": "project:company:future:063",
+      "context_hash": "e07988bc684791b44303dcb524d1111cd7e6e7ec5ecc49ae18b4492046abf24e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/063_VENDOR_ONBOARDING_AUTOPILOT.md#sha256=012793b757049d1b96e7389238523e659a4d8972f86c9e487d321244999b27c9",
+        "roadmap/portfolio-future-architecture/companies/conformance/063_VENDOR_ONBOARDING_AUTOPILOT_CURRENT_STANDARD.md#sha256=123c678351b6207fcd785ea4c24d62c5e4e56f163bd1c3770e18c8a9188fed5e",
+        "supabase:command_center_project_checkpoints:e42e593f-6a00-4027-a63f-85c4bf06a3e8",
+        "supabase:command_center_project_profiles:project:company:future:063@1",
+        "supabase:command_center_project_roadmaps:project:company:future:063@2",
+        "supabase:command_center_specialist_brains:brain:company:future:063:v1@1"
+      ],
+      "context_turn_id": "14e989e0-fd00-483d-8951-f1b20118cc76",
+      "conversation_id": "7ffa6527-6cf3-4513-850d-2f6c6c61f142",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:064:v1",
+      "project_id": "project:company:future:064",
+      "context_hash": "227ebd620c48c5779a61ac726f67b0d3a9193315630c96fb73df6767db4634ea",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/064_BUSINESS_INBOX_AUTOPILOT.md#sha256=ea89b231495e2e2f429fe305f0281cb94e12f1edc445cc3da14362e711d18725",
+        "roadmap/portfolio-future-architecture/companies/conformance/064_BUSINESS_INBOX_AUTOPILOT_CURRENT_STANDARD.md#sha256=748be5edad0d9be02ac631d47acba9edcdc2281075b7c32573f3a91073733223",
+        "supabase:command_center_project_checkpoints:bd25ca31-f330-4ec8-844a-41f6ecd6f4eb",
+        "supabase:command_center_project_profiles:project:company:future:064@1",
+        "supabase:command_center_project_roadmaps:project:company:future:064@2",
+        "supabase:command_center_specialist_brains:brain:company:future:064:v1@1"
+      ],
+      "context_turn_id": "85379e11-356b-4c0b-ba3c-e9d5dedfced4",
+      "conversation_id": "aa62e295-388b-4358-84dd-659c131ccc4d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:065:v1",
+      "project_id": "project:company:future:065",
+      "context_hash": "dc9383dba3e03908ee4f4a35c00d400557af3db15038c624da8ac6ac1a73a237",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/065_AUTONOMOUS_QA_AS_A_SERVICE.md#sha256=cbcb5a10f9cf8d20c2e41a1277f85a427abdeb3a242a8a719702a4395503bd60",
+        "roadmap/portfolio-future-architecture/companies/conformance/065_AUTONOMOUS_QA_AS_A_SERVICE_CURRENT_STANDARD.md#sha256=e01dfe9f4ce6575cd9d9dfccd996c746e09cfe130fbfe21c4f075314283dfa08",
+        "supabase:command_center_project_checkpoints:1fbec30b-b954-44d8-ba3c-0848a9f40115",
+        "supabase:command_center_project_profiles:project:company:future:065@1",
+        "supabase:command_center_project_roadmaps:project:company:future:065@2",
+        "supabase:command_center_specialist_brains:brain:company:future:065:v1@1"
+      ],
+      "context_turn_id": "0c457fed-c3ea-462a-94cb-642f4b54a5bd",
+      "conversation_id": "38a7c405-7b3d-4ef3-a3a7-f60397e2d25f",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:066:v1",
+      "project_id": "project:company:future:066",
+      "context_hash": "cc9dc94b9b98244e2ad8802d622e3d2973a356376554ba6b168045b785744db3",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/066_AI_RUNTIME_SECURITY_GATEWAY.md#sha256=bff721856d992e8677af4eb033e705d9436501431841797f1bc4eb306ad6bd66",
+        "roadmap/portfolio-future-architecture/companies/conformance/066_AI_RUNTIME_SECURITY_GATEWAY_CURRENT_STANDARD.md#sha256=e7d6268527b8f532126b726fbf8b069cf10121ce834be16e8ad69ba041aee17e",
+        "supabase:command_center_project_checkpoints:df103da1-256e-43b8-94b2-da5e8bca5c20",
+        "supabase:command_center_project_profiles:project:company:future:066@1",
+        "supabase:command_center_project_roadmaps:project:company:future:066@2",
+        "supabase:command_center_specialist_brains:brain:company:future:066:v1@1"
+      ],
+      "context_turn_id": "48981345-67d4-4cbd-8198-53286d4b8b83",
+      "conversation_id": "2f9af5a0-100d-4dd8-bd6d-10dabc4fc679",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:067:v1",
+      "project_id": "project:company:future:067",
+      "context_hash": "452f96f7c08743e1b288d17f70db8046b824a61e6907533ca673526ba632682b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/067_PROMPT_INJECTION_FIREWALL_API.md#sha256=547436fe553d9c7a42775e2b5e9857be038ed7cfff28e54607e7a8a2924a9def",
+        "roadmap/portfolio-future-architecture/companies/conformance/067_PROMPT_INJECTION_FIREWALL_API_CURRENT_STANDARD.md#sha256=4c038180e867c7f01eda0a410d929e585435ef7bb434ea2e47e6c6799576b3c7",
+        "supabase:command_center_project_checkpoints:c98e9a8f-a644-43c4-ae5f-31b4986b6b41",
+        "supabase:command_center_project_profiles:project:company:future:067@1",
+        "supabase:command_center_project_roadmaps:project:company:future:067@2",
+        "supabase:command_center_specialist_brains:brain:company:future:067:v1@1"
+      ],
+      "context_turn_id": "96c23142-7840-44ea-ae4e-81f427843c02",
+      "conversation_id": "155308f3-31e6-4445-bd97-3525066966c0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:068:v1",
+      "project_id": "project:company:future:068",
+      "context_hash": "c3d66e55a4c5f41e6942d6b3d8882d17bbbacaab60ac0cb44405b0beb31b349b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/068_AI_COST_MODEL_ROUTING_OPTIMIZER.md#sha256=fa9fb34abe891d39b616e23b6a79e20c23ad31aecf20c24eef03fedeb0af312f",
+        "roadmap/portfolio-future-architecture/companies/conformance/068_AI_COST_MODEL_ROUTING_OPTIMIZER_CURRENT_STANDARD.md#sha256=f605827703796c0d4f386c85d2e99b456e4aa26d154b3d535d233e911f3233b1",
+        "supabase:command_center_project_checkpoints:b26d22ae-761a-40dd-96b9-509a660552c4",
+        "supabase:command_center_project_profiles:project:company:future:068@1",
+        "supabase:command_center_project_roadmaps:project:company:future:068@2",
+        "supabase:command_center_specialist_brains:brain:company:future:068:v1@1"
+      ],
+      "context_turn_id": "478968a0-39e9-414e-86e2-a4dec136fd55",
+      "conversation_id": "abcf65cc-3134-4523-b31d-5c2cf64c6263",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:069:v1",
+      "project_id": "project:company:future:069",
+      "context_hash": "290f888b98eb2ab631ee0687243b63df513f3840593f3aa1970a4447e0038218",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/069_USAGE_BILLING_INFRASTRUCTURE.md#sha256=9269e430738eb4cf7aa6fa8af3d69ae67b9384f78bcc6b783899e4dd1e495325",
+        "roadmap/portfolio-future-architecture/companies/conformance/069_USAGE_BILLING_INFRASTRUCTURE_CURRENT_STANDARD.md#sha256=6f7c305f1d0f91b3f9aca0945ccf5d4699fcaa342e7022462fb9226ba94615e6",
+        "supabase:command_center_project_checkpoints:881f71f5-a510-433d-8c11-e3d556397e4d",
+        "supabase:command_center_project_profiles:project:company:future:069@1",
+        "supabase:command_center_project_roadmaps:project:company:future:069@2",
+        "supabase:command_center_specialist_brains:brain:company:future:069:v1@1"
+      ],
+      "context_turn_id": "353663d6-a71e-43f2-bc9a-024ed1367c56",
+      "conversation_id": "f68ed0ec-a32c-4787-b1f1-f8bb08d4fa3a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:070:v1",
+      "project_id": "project:company:future:070",
+      "context_hash": "f33eba38ea8f840ce6476b75e94a74cf4777266ba66ecfa0eb750a2cd3e75246",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/070_ENTITLEMENT_MANAGEMENT_API.md#sha256=99c4a568a3c748d4a62db55b5965e96beac614071886cd41d6902511104b268f",
+        "roadmap/portfolio-future-architecture/companies/conformance/070_ENTITLEMENT_MANAGEMENT_API_CURRENT_STANDARD.md#sha256=4c9d9815e5d2a6c3ff14642cce33f339651a626b604ce8f33a5ef71d2191c61f",
+        "supabase:command_center_project_checkpoints:6584e1d3-bc14-4438-ad8b-af1488bdfccc",
+        "supabase:command_center_project_profiles:project:company:future:070@1",
+        "supabase:command_center_project_roadmaps:project:company:future:070@2",
+        "supabase:command_center_specialist_brains:brain:company:future:070:v1@1"
+      ],
+      "context_turn_id": "330fd22d-4151-4f52-9e7b-b181fdd0e59b",
+      "conversation_id": "2f9cd8ba-31f6-4df5-ae19-f8b3ecf1c29a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:071:v1",
+      "project_id": "project:company:future:071",
+      "context_hash": "a2cbde470ec3ecddcbf98e657676be9611e5e1dd6a5b10e60937a195ea1bdbe1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/071_WEBHOOK_RELIABILITY_PLATFORM.md#sha256=1da889b415747bd45c734157d0408fe7b51cffa0017fbafa416e268eafe4c61d",
+        "roadmap/portfolio-future-architecture/companies/conformance/071_WEBHOOK_RELIABILITY_PLATFORM_CURRENT_STANDARD.md#sha256=dd375f1854730d9e5a86e4b40f24f7203caf592fd5d6bfecfe87a8b37dd16a0d",
+        "supabase:command_center_project_checkpoints:10a83d61-48c7-43eb-8309-88ab6ddc9936",
+        "supabase:command_center_project_profiles:project:company:future:071@1",
+        "supabase:command_center_project_roadmaps:project:company:future:071@2",
+        "supabase:command_center_specialist_brains:brain:company:future:071:v1@1"
+      ],
+      "context_turn_id": "f3da1e65-eb5f-4f06-8553-58fca9d85efc",
+      "conversation_id": "20f8e889-a959-4226-9a40-801a10066f5d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:072:v1",
+      "project_id": "project:company:future:072",
+      "context_hash": "1fa7b66874784cdfdebd16460666aae5812ed028b4b7c4bb065bf877380ba0b9",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/072_API_CONTRACT_DRIFT_MONITOR.md#sha256=086753f5175d3fd2747d640b5a4fa6e4d6be063488847aa63508d37825610adf",
+        "roadmap/portfolio-future-architecture/companies/conformance/072_API_CONTRACT_DRIFT_MONITOR_CURRENT_STANDARD.md#sha256=83154955812dd06db44b165b4b6644862e5173990f11631d775415977f711e27",
+        "supabase:command_center_project_checkpoints:14bc6111-4305-4369-a289-9fabffd49329",
+        "supabase:command_center_project_profiles:project:company:future:072@1",
+        "supabase:command_center_project_roadmaps:project:company:future:072@2",
+        "supabase:command_center_specialist_brains:brain:company:future:072:v1@1"
+      ],
+      "context_turn_id": "8e31641f-4fad-4711-b561-35f60b5766c9",
+      "conversation_id": "83e577f7-5f89-4ce7-844e-a48d23f35ac1",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:073:v1",
+      "project_id": "project:company:future:073",
+      "context_hash": "44605859bcb73568d79116beea835a1582ec42db2fb4915d3977e1c4ba524bc8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/073_SECRETS_CREDENTIAL_ROTATION_AUTOPILOT.md#sha256=63263b45779102f3c603debb4be2b11a8b04ea8fc06e3a722e5f54d0c6ead0d1",
+        "roadmap/portfolio-future-architecture/companies/conformance/073_SECRETS_CREDENTIAL_ROTATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=9fbbf344866773f4c58b8d5f806bb1298b9e63512b019b4c9eaae16314e6b4a4",
+        "supabase:command_center_project_checkpoints:119ef95c-4ea3-4054-88fc-7cdc0c7a7e46",
+        "supabase:command_center_project_profiles:project:company:future:073@1",
+        "supabase:command_center_project_roadmaps:project:company:future:073@2",
+        "supabase:command_center_specialist_brains:brain:company:future:073:v1@1"
+      ],
+      "context_turn_id": "16b02015-0947-4369-b616-ae635c0feaff",
+      "conversation_id": "8904113e-bc00-49a8-b411-d39540de167c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:074:v1",
+      "project_id": "project:company:future:074",
+      "context_hash": "22629adec0e62f51f531a4a668e9f61bad4de69bf1b5808b0ec183d85ab38e70",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/074_CLOUD_PERMISSION_OPTIMIZER.md#sha256=555c74c3a31364079c27ce78e6efb60b8307bb7024f268f8322244b87760409d",
+        "roadmap/portfolio-future-architecture/companies/conformance/074_CLOUD_PERMISSION_OPTIMIZER_CURRENT_STANDARD.md#sha256=d8acb52df37271c885e58e9eafa5bb5b147ae41a0639177b5853555c963b1932",
+        "supabase:command_center_project_checkpoints:8cbd0c1a-ba04-482f-92f2-831972300fee",
+        "supabase:command_center_project_profiles:project:company:future:074@1",
+        "supabase:command_center_project_roadmaps:project:company:future:074@2",
+        "supabase:command_center_specialist_brains:brain:company:future:074:v1@1"
+      ],
+      "context_turn_id": "e2e5b988-1bef-4cf4-8062-84f4f55e54de",
+      "conversation_id": "a9db262c-b53a-4b90-9312-a7b9c790f277",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:075:v1",
+      "project_id": "project:company:future:075",
+      "context_hash": "7c372f7e0d9c85021b59b66c83fc74c7f3e7b2e9db4358bda91634c5fc3d86f1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/075_IDENTITY_ACCESS_REVIEW_AUTOPILOT.md#sha256=f317bc1953dfdb2c7ef9e9c915dceeda98221414dc2263f2eec06f289e17503b",
+        "roadmap/portfolio-future-architecture/companies/conformance/075_IDENTITY_ACCESS_REVIEW_AUTOPILOT_CURRENT_STANDARD.md#sha256=0ec7e84e078bd185dead661fd080d2abf5cfb5429330c9020709905555b02700",
+        "supabase:command_center_project_checkpoints:579f9896-e445-4981-a693-8fb2d72b748c",
+        "supabase:command_center_project_profiles:project:company:future:075@1",
+        "supabase:command_center_project_roadmaps:project:company:future:075@2",
+        "supabase:command_center_specialist_brains:brain:company:future:075:v1@1"
+      ],
+      "context_turn_id": "b30cd9db-f046-4c1a-b54f-3b90018a272e",
+      "conversation_id": "e58f2c91-3de0-4b33-acee-0773fa3bea06",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:076:v1",
+      "project_id": "project:company:future:076",
+      "context_hash": "e79fe818b64f1aa5a084330d959dac2c22e00e667031523add7a5bb898bafac0",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/076_PII_DISCOVERY_CLASSIFICATION_API.md#sha256=2d965b9348d1e92303755c2e329e9df916de46d59de005f28561e40fe56ae857",
+        "roadmap/portfolio-future-architecture/companies/conformance/076_PII_DISCOVERY_CLASSIFICATION_API_CURRENT_STANDARD.md#sha256=4984e6b3ea340ac7c16bee02b64585bf6a9d978171840a5e8fc0057f8549373f",
+        "supabase:command_center_project_checkpoints:a5af8b35-2a72-4c52-b7fa-5dc6324ece30",
+        "supabase:command_center_project_profiles:project:company:future:076@1",
+        "supabase:command_center_project_roadmaps:project:company:future:076@2",
+        "supabase:command_center_specialist_brains:brain:company:future:076:v1@1"
+      ],
+      "context_turn_id": "a791ae29-89e1-4ba9-b8e3-c000ebde870d",
+      "conversation_id": "4d2fc571-c62c-4bf9-a987-113df70a46c0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:077:v1",
+      "project_id": "project:company:future:077",
+      "context_hash": "7554c59113c5102dde344785a662f110e06ac172dc13aff38d8b445bbab5a4b6",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/077_DATA_REDACTION_TOKENIZATION_API.md#sha256=0d8c7e3c74147724dffb7283c9f3a0e0dcdbdc70b0c16c7d23e52acfb6cc40e1",
+        "roadmap/portfolio-future-architecture/companies/conformance/077_DATA_REDACTION_TOKENIZATION_API_CURRENT_STANDARD.md#sha256=a4423008866fca02eda8c18708d35e2d7d833a2ddab36daece793f65e4bfc2da",
+        "supabase:command_center_project_checkpoints:ea939570-3686-4d13-890f-b655f4c3456c",
+        "supabase:command_center_project_profiles:project:company:future:077@1",
+        "supabase:command_center_project_roadmaps:project:company:future:077@2",
+        "supabase:command_center_specialist_brains:brain:company:future:077:v1@1"
+      ],
+      "context_turn_id": "01a9ac92-3bfc-495f-b1af-30c1e2e3b860",
+      "conversation_id": "95a7dc06-8494-492b-a60d-38a458831929",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:078:v1",
+      "project_id": "project:company:future:078",
+      "context_hash": "90567f123157df35ea1c454ec53e8c627b396f2d787a565fd2edf43bd7a7667c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/078_DATA_RETENTION_DELETION_AUTOPILOT.md#sha256=cbf57dfe745d8c10ecf30436a9814e8db90aebd8ee650f4ccb42fa0b16f45fce",
+        "roadmap/portfolio-future-architecture/companies/conformance/078_DATA_RETENTION_DELETION_AUTOPILOT_CURRENT_STANDARD.md#sha256=989ab94b5eee59da60d0cb3406e64da51356a454904eef95bed8ed2665e59155",
+        "supabase:command_center_project_checkpoints:420c6192-b1d4-4b69-adeb-b83de5941b40",
+        "supabase:command_center_project_profiles:project:company:future:078@1",
+        "supabase:command_center_project_roadmaps:project:company:future:078@2",
+        "supabase:command_center_specialist_brains:brain:company:future:078:v1@1"
+      ],
+      "context_turn_id": "4b9c6d3e-7e9f-43bc-b624-ad30af75c44a",
+      "conversation_id": "3c1a5928-ba16-4fa9-a1e9-604a7b13128c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:079:v1",
+      "project_id": "project:company:future:079",
+      "context_hash": "e9dd64421c25774ef1783a812e5563337497e5a1c7440a90e313b7f95b0ad3fc",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/079_DIGITAL_PROVENANCE_AUTHENTICITY_PLATFORM.md#sha256=723854a8c2d05302b90134a3b95c1708aab90a59769c2c48d658c1567775c093",
+        "roadmap/portfolio-future-architecture/companies/conformance/079_DIGITAL_PROVENANCE_AUTHENTICITY_PLATFORM_CURRENT_STANDARD.md#sha256=af8d85b66f0b3a5b011f089479b9f98924bbbe1d4d4dcfad0d8a68e08c753164",
+        "supabase:command_center_project_checkpoints:a4e9271a-23a8-4cad-8e55-326a33496ec6",
+        "supabase:command_center_project_profiles:project:company:future:079@1",
+        "supabase:command_center_project_roadmaps:project:company:future:079@2",
+        "supabase:command_center_specialist_brains:brain:company:future:079:v1@1"
+      ],
+      "context_turn_id": "7367dd87-1633-43d8-9d9d-522f0f8ebd34",
+      "conversation_id": "a1dce787-115d-4203-a8d5-1887fe7375e5",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:080:v1",
+      "project_id": "project:company:future:080",
+      "context_hash": "22612a11d2628b72860319a015cfac04307a6a6bd4eb464013302adf0a69ae64",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/080_SOFTWARE_DEPENDENCY_RISK_AUTOPILOT.md#sha256=a2f32c36bec2cbfab2d3e00168c414b7d4a016473897d94b14dff9e59eb2edef",
+        "roadmap/portfolio-future-architecture/companies/conformance/080_SOFTWARE_DEPENDENCY_RISK_AUTOPILOT_CURRENT_STANDARD.md#sha256=685d9f74a42f5a250e3ecc579b36105b3a060195818e61c8ef564dc902b957c8",
+        "supabase:command_center_project_checkpoints:01c21de2-3e20-41dc-ab04-03af626cbfbc",
+        "supabase:command_center_project_profiles:project:company:future:080@1",
+        "supabase:command_center_project_roadmaps:project:company:future:080@2",
+        "supabase:command_center_specialist_brains:brain:company:future:080:v1@1"
+      ],
+      "context_turn_id": "4459d686-019b-4b2f-9124-9795762edab7",
+      "conversation_id": "1ad725de-05c3-4f92-9c79-bcd98a373629",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:081:v1",
+      "project_id": "project:company:future:081",
+      "context_hash": "1d5cde1d9a6d6cbc2c43e92e7d10b25e1404de9092ef0dad36eae62fcd90281a",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/081_OPEN_SOURCE_LICENSE_COMPLIANCE_API.md#sha256=2f68a31bda4d131c798673430d59816a4fe653b4c9f1f62fdef1d163bc6453df",
+        "roadmap/portfolio-future-architecture/companies/conformance/081_OPEN_SOURCE_LICENSE_COMPLIANCE_API_CURRENT_STANDARD.md#sha256=d9b4f7d1baf972429a758d7d686e3404768ce9950abf546fe92a7a525903a5eb",
+        "supabase:command_center_project_checkpoints:11fe20b7-27ba-4a3f-8521-87fb45b97502",
+        "supabase:command_center_project_profiles:project:company:future:081@1",
+        "supabase:command_center_project_roadmaps:project:company:future:081@2",
+        "supabase:command_center_specialist_brains:brain:company:future:081:v1@1"
+      ],
+      "context_turn_id": "83c79b24-5927-4441-9120-3d6f8a427fb8",
+      "conversation_id": "e9e69159-91d7-422b-8871-0bb95f1002c3",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:082:v1",
+      "project_id": "project:company:future:082",
+      "context_hash": "9562707034b4b3901cec46c4f8926415f2db7367fd023b6e91e181c289833cc1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/082_BACKUP_INTEGRITY_VERIFICATION_SERVICE.md#sha256=61ad8106dc81a4a4a28bd232be7c4990000922908dfc6f5fe04bb03e1d9a7272",
+        "roadmap/portfolio-future-architecture/companies/conformance/082_BACKUP_INTEGRITY_VERIFICATION_SERVICE_CURRENT_STANDARD.md#sha256=818e6849e13678325b4919b4d03f87e6602dd28536461c3cc9b372be4cab1c12",
+        "supabase:command_center_project_checkpoints:49ae5420-f37c-4e4a-afd7-42a5d0096104",
+        "supabase:command_center_project_profiles:project:company:future:082@1",
+        "supabase:command_center_project_roadmaps:project:company:future:082@2",
+        "supabase:command_center_specialist_brains:brain:company:future:082:v1@1"
+      ],
+      "context_turn_id": "70252c34-426a-4034-973d-63fa50a5a6ce",
+      "conversation_id": "25bb6254-5a86-48af-a3d8-4a3d089c9032",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:083:v1",
+      "project_id": "project:company:future:083",
+      "context_hash": "3d6a6cf29deeeec9992554e8d814c092b1eaab87bc9216ef71c92b407b0b83c3",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/083_DOMAIN_DNS_SSL_AUTOPILOT.md#blob=8709b940d0111b6950c172a6a7b7e2bb2a880681",
+        "roadmap/portfolio-future-architecture/companies/conformance/083_DOMAIN_DNS_SSL_AUTOPILOT_CURRENT_STANDARD.md#blob=444740fd673128c2e0da5c24d9b480c6560520c5",
+        "supabase:command_center_project_checkpoints:a429e561-0179-419f-840c-a230ff33233f",
+        "supabase:command_center_project_profiles:project:company:future:083@1",
+        "supabase:command_center_project_roadmaps:project:company:future:083@2",
+        "supabase:command_center_specialist_brains:brain:company:future:083:v1@1"
+      ],
+      "context_turn_id": "c0732a7d-699a-47df-a118-ec1933f276e5",
+      "conversation_id": "026342a8-706b-4c44-bf58-5ae184bf9a6c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:084:v1",
+      "project_id": "project:company:future:084",
+      "context_hash": "ebd66142f8a6466cccb2bf6cdbe336db3e657e38f4f07c34b9d5a0f8c193c14b",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/084_EMAIL_DELIVERABILITY_AUTOPILOT.md#sha256=93e9506e315b5a91396454510bc254c5f965689c74eae149cc12198051ea28e4",
+        "roadmap/portfolio-future-architecture/companies/conformance/084_EMAIL_DELIVERABILITY_AUTOPILOT_CURRENT_STANDARD.md#sha256=85c4251d4cfc333c32974332cc74046b64fad4d5d7d68330d2023900ac79e757",
+        "supabase:command_center_project_checkpoints:eb4267ce-ef0b-4b36-97ec-7a112408a1cd",
+        "supabase:command_center_project_profiles:project:company:future:084@1",
+        "supabase:command_center_project_roadmaps:project:company:future:084@2",
+        "supabase:command_center_specialist_brains:brain:company:future:084:v1@1"
+      ],
+      "context_turn_id": "a31fcfaf-4fa1-401c-9ccb-ad8a37c50175",
+      "conversation_id": "0bc15604-4e19-4f83-84a6-03146488af35",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:085:v1",
+      "project_id": "project:company:future:085",
+      "context_hash": "07cbf723ba918061b0896541971e3527ed423db9e54a287c40d139ca2fbbee23",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/085_REVENUE_LEAKAGE_DETECTION_ENGINE.md#sha256=163d64ded3e3ac513297a8dd724eeb247146b9e77c826339bfef88be2281cb75",
+        "roadmap/portfolio-future-architecture/companies/conformance/085_REVENUE_LEAKAGE_DETECTION_ENGINE_CURRENT_STANDARD.md#sha256=f1e7d3068a4217f102fbc7d52bd5bb38b5d9e01bdeacaba8fe68ef3b27716d89",
+        "supabase:command_center_project_checkpoints:6ad16cc8-48bc-4af7-95ef-d1b17ddc43aa",
+        "supabase:command_center_project_profiles:project:company:future:085@1",
+        "supabase:command_center_project_roadmaps:project:company:future:085@2",
+        "supabase:command_center_specialist_brains:brain:company:future:085:v1@1"
+      ],
+      "context_turn_id": "d7c2245a-0dfe-4469-bfeb-16dbe52fe5c9",
+      "conversation_id": "188221da-b6cf-4180-9af2-4b45b9e5869d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:086:v1",
+      "project_id": "project:company:future:086",
+      "context_hash": "9dd23020a0653dcece0919834fd0c3ba81fb48a0f304975a1b761a30c929cd17",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/086_PAYMENT_RECONCILIATION_AUTOPILOT.md#sha256=520f63ebe9dc522d9cc553575dd64b3f4b146686194abd4289854440ec67b6d9",
+        "roadmap/portfolio-future-architecture/companies/conformance/086_PAYMENT_RECONCILIATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=87b7b7758d95ca72ee97ea8b9a06c3c34c9717ac0984e13d39d62c49c193811a",
+        "supabase:command_center_project_checkpoints:e8f93f0e-bc60-43e2-8778-1573ee8d08d6",
+        "supabase:command_center_project_profiles:project:company:future:086@1",
+        "supabase:command_center_project_roadmaps:project:company:future:086@2",
+        "supabase:command_center_specialist_brains:brain:company:future:086:v1@1"
+      ],
+      "context_turn_id": "139faa1b-791c-4fec-9fdc-129b76fbf15a",
+      "conversation_id": "b00ab2e9-8d83-4d53-830e-24c833047937",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:087:v1",
+      "project_id": "project:company:future:087",
+      "context_hash": "46e5ab166a2bf70167e0ce9dc585ccdf2fd93f31a2b2a599541e8087e894c452",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/087_MARKETPLACE_PAYOUT_RECONCILIATION_ENGINE.md#sha256=3349786e8532f86b524a1b740a9814eb36802234965bc7f8a0405e81cc50e70d",
+        "roadmap/portfolio-future-architecture/companies/conformance/087_MARKETPLACE_PAYOUT_RECONCILIATION_ENGINE_CURRENT_STANDARD.md#sha256=0e0a63ecea100bcebbd01bbb04c10bf72698a78f070618823e38edd0cf061415",
+        "supabase:command_center_project_checkpoints:c955cebe-c6ef-4444-a84a-bb042e1b6f35",
+        "supabase:command_center_project_profiles:project:company:future:087@1",
+        "supabase:command_center_project_roadmaps:project:company:future:087@2",
+        "supabase:command_center_specialist_brains:brain:company:future:087:v1@1"
+      ],
+      "context_turn_id": "fb1ab574-7395-4432-85cd-03cbf8b2d46f",
+      "conversation_id": "863a091e-cf65-410d-ad92-b3af8f18dd74",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:088:v1",
+      "project_id": "project:company:future:088",
+      "context_hash": "71720e81cc22ab4016d4fb51ff0615d70b9f4d35974472ec319546d25e8adb96",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/088_COMMISSION_CALCULATION_AUDIT_ENGINE.md#sha256=94cb55d7b7c8a12bbcefe1c1558af3c9d510dcff5d9fc3c121c099e5763f2d4c",
+        "roadmap/portfolio-future-architecture/companies/conformance/088_COMMISSION_CALCULATION_AUDIT_ENGINE_CURRENT_STANDARD.md#sha256=7953cee34f12895923452b47786574b534fcc0bbb11bb8ecee6cd41cff7ee550",
+        "supabase:command_center_project_checkpoints:4d5ac0f5-e3c6-4e63-8e8d-b62c34cc8332",
+        "supabase:command_center_project_profiles:project:company:future:088@1",
+        "supabase:command_center_project_roadmaps:project:company:future:088@2",
+        "supabase:command_center_specialist_brains:brain:company:future:088:v1@1"
+      ],
+      "context_turn_id": "bd83a6de-03c7-41f4-a886-59aefd442e4f",
+      "conversation_id": "5a7c4506-9ea9-40ed-9ce9-3dc723cb1159",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:089:v1",
+      "project_id": "project:company:future:089",
+      "context_hash": "38b351acd86b1ee27fd578ce2c0fb34ae39c693904b50e6a8202d8c5012a81c1",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/089_AUTOMATED_SUPPORT_QA_PLATFORM.md#sha256=5f3cbd832ff9b84a8514461c9d50fa8ad104cd46b033f3c959ad971c19159dd2",
+        "roadmap/portfolio-future-architecture/companies/conformance/089_AUTOMATED_SUPPORT_QA_PLATFORM_CURRENT_STANDARD.md#sha256=e8710aa7e03233163c78a137dabaa54ad80f0957997b6d46214c0373cfee5290",
+        "supabase:command_center_project_checkpoints:5a6d706e-e215-4ba5-9bc0-ff897a7597ea",
+        "supabase:command_center_project_profiles:project:company:future:089@1",
+        "supabase:command_center_project_roadmaps:project:company:future:089@2",
+        "supabase:command_center_specialist_brains:brain:company:future:089:v1@1"
+      ],
+      "context_turn_id": "6647c7c9-04b3-4b55-9142-3ba53cd47722",
+      "conversation_id": "eaa3a5f7-8433-46fc-b651-00367ea9c13e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:090:v1",
+      "project_id": "project:company:future:090",
+      "context_hash": "7594b2184dd72722ec5f2d66ecd92996e1a008b695c095548066a6d2f56a7d09",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/090_CONTENT_MODERATION_INFRASTRUCTURE_API.md#sha256=5d4756b2e05d34c216f3e9e079c8276c3bb9643769e3c40e5d8775b4a8862675",
+        "roadmap/portfolio-future-architecture/companies/conformance/090_CONTENT_MODERATION_INFRASTRUCTURE_API_CURRENT_STANDARD.md#sha256=ee1b86bdc9560d8f9d85ba0a5b2581fd428520fb5f93a602161e8dc46f1fd1e6",
+        "supabase:command_center_project_checkpoints:6acf7e8e-3101-4f17-abf5-de3cd14ddbd2",
+        "supabase:command_center_project_profiles:project:company:future:090@1",
+        "supabase:command_center_project_roadmaps:project:company:future:090@2",
+        "supabase:command_center_specialist_brains:brain:company:future:090:v1@1"
+      ],
+      "context_turn_id": "c1a564e6-e454-450c-8fce-f3b365156a11",
+      "conversation_id": "581d5319-bd46-4aed-a07e-36fd0cea1553",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:091:v1",
+      "project_id": "project:company:future:091",
+      "context_hash": "ace412d783539c90e7a0682158a878d0e2061c82975088fb471d93a62a169182",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/091_AI_AGENT_IDENTITY_TRUST_AUTHORITY.md#sha256=e5f806d815b7f9358eb5eceaafa576a0e6465b8b044bcb28c16dc36b493962ec",
+        "roadmap/portfolio-future-architecture/companies/conformance/091_AI_AGENT_IDENTITY_TRUST_AUTHORITY_CURRENT_STANDARD.md#sha256=1d5471c93bd3d1f5515e765ae67a55ffc44b1a52ee72f5ced2ef0f64ff0afd8e",
+        "supabase:command_center_project_checkpoints:0e1a41f0-584e-40f6-84b7-7541ff4c1e3e",
+        "supabase:command_center_project_profiles:project:company:future:091@1",
+        "supabase:command_center_project_roadmaps:project:company:future:091@2",
+        "supabase:command_center_specialist_brains:brain:company:future:091:v1@1"
+      ],
+      "context_turn_id": "0736baaa-b403-4bab-904a-e9b014f26bfe",
+      "conversation_id": "d94ac99c-1675-47f8-8873-d1a221d5120f",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:092:v1",
+      "project_id": "project:company:future:092",
+      "context_hash": "0d132c13cd735be281c53331567f8d1581901123e0a59863a3bc9bc619889943",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/092_AGENTIC_COMMERCE_TRANSACTION_GATEWAY.md#sha256=77b5f9863b47ddf8709ed8d935250f6eab089178a76542d238dca933806689a2",
+        "roadmap/portfolio-future-architecture/companies/conformance/092_AGENTIC_COMMERCE_TRANSACTION_GATEWAY_CURRENT_STANDARD.md#sha256=c882d144176e936e44e8e9003d374c07377fb619d4afb8ac6e69d6e5c868844e",
+        "supabase:command_center_project_checkpoints:ed972e1b-7c8d-4be2-9cb7-fc021846a5a2",
+        "supabase:command_center_project_profiles:project:company:future:092@1",
+        "supabase:command_center_project_roadmaps:project:company:future:092@2",
+        "supabase:command_center_specialist_brains:brain:company:future:092:v1@1"
+      ],
+      "context_turn_id": "73cc4693-3884-48a6-a268-fbcf08f91584",
+      "conversation_id": "1466ea41-fa2d-4da3-a1cc-3f8176e017df",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:093:v1",
+      "project_id": "project:company:future:093",
+      "context_hash": "b7d7ac67aec4898c41bb18213440fd140c9cdcdf0b48281c201a2fa2b508751f",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/093_CONSENT_PREFERENCE_MANAGEMENT_AUTOPILOT.md#sha256=b96d1d979b7790462b145b110478c21b91af3faaddcf33b3b6ac89173959ed9f",
+        "roadmap/portfolio-future-architecture/companies/conformance/093_CONSENT_PREFERENCE_MANAGEMENT_AUTOPILOT_CURRENT_STANDARD.md#sha256=7c04020364e97111f2da5542683c49c05cedab8fa6403544840a0357dfeeec64",
+        "supabase:command_center_project_checkpoints:5dbbd2de-5675-4538-a510-50b28b432fdc",
+        "supabase:command_center_project_profiles:project:company:future:093@1",
+        "supabase:command_center_project_roadmaps:project:company:future:093@2",
+        "supabase:command_center_specialist_brains:brain:company:future:093:v1@1"
+      ],
+      "context_turn_id": "fbcfd8d1-00fe-4451-b1ca-f01757781b21",
+      "conversation_id": "1671bcd7-a87f-41d5-997f-31c3b8b3912b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:094:v1",
+      "project_id": "project:company:future:094",
+      "context_hash": "cc1acf0a1cd3da75fa022f4c4a89212d86baa9ae7a2d33d73cfcd16f58ec7198",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/094_ENTERPRISE_DATA_LINEAGE_PROVENANCE_GRAPH.md#sha256=6c8eb0b7d7c9e174e389b20eadfbf62e39226f8a04da1fe19c1bae09bf46aee4",
+        "roadmap/portfolio-future-architecture/companies/conformance/094_ENTERPRISE_DATA_LINEAGE_PROVENANCE_GRAPH_CURRENT_STANDARD.md#sha256=aa78935c903495edec201c4d951d242335b60278e632d308c6ed800a335d669a",
+        "supabase:command_center_project_checkpoints:f8529748-c7f9-4bbd-b811-c09ce67197a6",
+        "supabase:command_center_project_profiles:project:company:future:094@1",
+        "supabase:command_center_project_roadmaps:project:company:future:094@2",
+        "supabase:command_center_specialist_brains:brain:company:future:094:v1@1"
+      ],
+      "context_turn_id": "ab98e3a1-fd11-434b-9a35-b77d22f6b7b9",
+      "conversation_id": "4ac04e4e-cd58-4d13-ad6f-1ad8f52480cd",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:095:v1",
+      "project_id": "project:company:future:095",
+      "context_hash": "81d0b091af2f47145e14d59d19f4dbb9793c545ffb3c4255b9477a917fc60c0e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/095_AI_ROI_VALUE_ATTRIBUTION_PLATFORM.md#sha256=0af80e9997477c6870d6e2432104c3099fbb81aa5a848cbce0efd870572fe716",
+        "roadmap/portfolio-future-architecture/companies/conformance/095_AI_ROI_VALUE_ATTRIBUTION_PLATFORM_CURRENT_STANDARD.md#sha256=528a42f5fa789a44f509db47c51229b04d7d1bab8808fac05f92bd56070bdc43",
+        "supabase:command_center_project_checkpoints:1eb211c5-fd08-4992-9df6-6a6cef57af18",
+        "supabase:command_center_project_profiles:project:company:future:095@1",
+        "supabase:command_center_project_roadmaps:project:company:future:095@2",
+        "supabase:command_center_specialist_brains:brain:company:future:095:v1@1"
+      ],
+      "context_turn_id": "9558555d-31a8-4f55-aada-e7d4a4957827",
+      "conversation_id": "f26ec8f4-2fb6-49eb-8ee4-21485bd54927",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:096:v1",
+      "project_id": "project:company:future:096",
+      "context_hash": "6d2c1d08310cf4c6300b4952943f0cffe818d29df9ab17a0f83933c397e240d2",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/096_EXPENSE_AUDIT_RECOVERY_ENGINE.md#sha256=efba01caaba6a70ffc835d3937e9d03ef6a4b26add30af8da0dc7e8c83a1db8a",
+        "roadmap/portfolio-future-architecture/companies/conformance/096_EXPENSE_AUDIT_RECOVERY_ENGINE_CURRENT_STANDARD.md#sha256=dc024b663e1333cc074639fb302899c7739ae4ff1085e5309c50ba047d74262e",
+        "supabase:command_center_project_checkpoints:c6fde84a-f1e7-4a6b-9e2f-60eb2cbdbc25",
+        "supabase:command_center_project_profiles:project:company:future:096@1",
+        "supabase:command_center_project_roadmaps:project:company:future:096@2",
+        "supabase:command_center_specialist_brains:brain:company:future:096:v1@1"
+      ],
+      "context_turn_id": "a32c02c7-37a0-4945-93bd-40d069ac0951",
+      "conversation_id": "79f81ee8-8766-4f94-a182-c29ff68a2b1d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:097:v1",
+      "project_id": "project:company:future:097",
+      "context_hash": "9747817f2cfb67fe7b307afe5fe8bf88802893b54f6b033aeea45dcd1ae081ce",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/097_INDIRECT_TAX_SALES_TAX_COMPLIANCE_AUTOPILOT.md#sha256=c859af24bdbc2efb5af063bfb2914fa768b271161ad04448cc743727b29a2ddb",
+        "roadmap/portfolio-future-architecture/companies/conformance/097_INDIRECT_TAX_SALES_TAX_COMPLIANCE_AUTOPILOT_CURRENT_STANDARD.md#sha256=6ea5d01289fd628cc02408a9c6e9284f0490c1d20341a0090db8fb0b55cd0056",
+        "supabase:command_center_project_checkpoints:ded1e7e3-b93f-41e6-8400-02985c66acdb",
+        "supabase:command_center_project_profiles:project:company:future:097@1",
+        "supabase:command_center_project_roadmaps:project:company:future:097@2",
+        "supabase:command_center_specialist_brains:brain:company:future:097:v1@1"
+      ],
+      "context_turn_id": "d898465e-7054-470f-8ad0-b85f6093d3f2",
+      "conversation_id": "2fe0cfc1-19c1-468a-a635-dc95402a62a2",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:098:v1",
+      "project_id": "project:company:future:098",
+      "context_hash": "ca112038e8eb954191ed772219d14a9086d788ea42ccf57f67e89afa2930fe62",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/098_DATA_SOVEREIGNTY_WORKLOAD_ROUTING_PLATFORM.md#sha256=3897a7f2a3638792ce5933d566c5260068b20e13cd970b5cdc1de405c534eb16",
+        "roadmap/portfolio-future-architecture/companies/conformance/098_DATA_SOVEREIGNTY_WORKLOAD_ROUTING_PLATFORM_CURRENT_STANDARD.md#sha256=f3b7ebf456c736fdfe5ec319025c1b0492fade012c5597d8f4cb7d6d4c6e07c7",
+        "supabase:command_center_project_checkpoints:406de84c-f647-43ba-b785-f785d21a44a4",
+        "supabase:command_center_project_profiles:project:company:future:098@1",
+        "supabase:command_center_project_roadmaps:project:company:future:098@2",
+        "supabase:command_center_specialist_brains:brain:company:future:098:v1@1"
+      ],
+      "context_turn_id": "8f762850-0285-4b72-81eb-4b459f23fbf0",
+      "conversation_id": "be1ccde3-2b6d-4994-b40f-1906984096e0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:099:v1",
+      "project_id": "project:company:future:099",
+      "context_hash": "87d18aad7be86716b0ffc1ef9d15098bdd20b020939a4209ec3ce3c0790abf22",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/099_MACHINE_ENFORCED_DATA_CONTRACT_PLATFORM.md#sha256=a56345f9868b7d2e290127bd3d92a63377e3b81065aa91e4348ff066535dd2dd",
+        "roadmap/portfolio-future-architecture/companies/conformance/099_MACHINE_ENFORCED_DATA_CONTRACT_PLATFORM_CURRENT_STANDARD.md#sha256=2105a9873947d236a17fdc8e445b39c9be28944550d7cbd09907c0c027219645",
+        "supabase:command_center_project_checkpoints:84c1d5db-395a-4cd0-9391-62ca939e638a",
+        "supabase:command_center_project_profiles:project:company:future:099@1",
+        "supabase:command_center_project_roadmaps:project:company:future:099@2",
+        "supabase:command_center_specialist_brains:brain:company:future:099:v1@1"
+      ],
+      "context_turn_id": "271f33ef-1673-4acc-bff5-5d63d3c43ab6",
+      "conversation_id": "1ad1f084-9092-4707-b99d-f6d9e665327c",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:100:v1",
+      "project_id": "project:company:future:100",
+      "context_hash": "a90ea9594555020986191156cd4af3932a634463366b7e56c1d9bc492fcf896c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/100_LEGACY_SOFTWARE_MODERNIZATION_AUTOPILOT.md#sha256=e6069dc906d41bc98e4b05adbd6bb1c3e5021868025b651912740fe7c5fce9bd",
+        "roadmap/portfolio-future-architecture/companies/conformance/100_LEGACY_SOFTWARE_MODERNIZATION_AUTOPILOT_CURRENT_STANDARD.md#sha256=9621a7021f2985935a61794929b17b444423bebb26804905deb7daedcf8c40fb",
+        "supabase:command_center_project_checkpoints:898bfd0f-6066-4671-b87a-9a35606ff8eb",
+        "supabase:command_center_project_profiles:project:company:future:100@1",
+        "supabase:command_center_project_roadmaps:project:company:future:100@2",
+        "supabase:command_center_specialist_brains:brain:company:future:100:v1@1"
+      ],
+      "context_turn_id": "d6e195e3-fa39-4995-9a52-0218686a551b",
+      "conversation_id": "6958fc13-1b07-4752-bf11-ceca754a385b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:101:v1",
+      "project_id": "project:company:future:101",
+      "context_hash": "8bea1ad996e1cbb7b684237816fbcaff885fccb5c73764fb042d8df88562a1db",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/101_HEALTHCARE_ADMINISTRATIVE_AUTOMATION_OS.md#sha256=728383236246d6d4baea62c87f4d61e2378378e66eb07ec6a54f56fe30b10a0b",
+        "supabase:command_center_project_checkpoints:b19de57d-b85e-4597-9c5c-a305b78537ae",
+        "supabase:command_center_project_profiles:project:company:future:101@1",
+        "supabase:command_center_project_roadmaps:project:company:future:101@2",
+        "supabase:command_center_specialist_brains:brain:company:future:101:v1@1"
+      ],
+      "context_turn_id": "9244e398-65d9-4714-9fe8-9abe0eabe63c",
+      "conversation_id": "4b456c01-edf4-4daf-97c5-8e54570c186d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:102:v1",
+      "project_id": "project:company:future:102",
+      "context_hash": "b5eb9fdadfe1998f4ad150e1ded51c670ed6492cb88c358f0571f7612d44b70d",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/102_E_DISCOVERY_AND_LITIGATION_EVIDENCE_INTELLIGENCE_PLATFORM.md#sha256=6d25070a768563b9ec13575b852be6fe586306dcf377c59fa78faac0d5e31c5b",
+        "supabase:command_center_project_checkpoints:767f801a-788f-4859-8494-074e5250240a",
+        "supabase:command_center_project_profiles:project:company:future:102@1",
+        "supabase:command_center_project_roadmaps:project:company:future:102@2",
+        "supabase:command_center_specialist_brains:brain:company:future:102:v1@1"
+      ],
+      "context_turn_id": "27ad3000-3a4c-4460-8c9a-0539f23e66bd",
+      "conversation_id": "f64d4bac-343b-4d34-a73d-8d829f8f395a",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:103:v1",
+      "project_id": "project:company:future:103",
+      "context_hash": "97183ba7a0d01607506fbad6fdc3f800e45618f83ef0c9f0e5f1d0877948b196",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/103_KYC_KYB_AML_COMPLIANCE_INFRASTRUCTURE.md#sha256=5e76209c75bfa1395c485710ae375e5a7610a816234d59a870cbed116bd720ca",
+        "supabase:command_center_project_checkpoints:404980e7-40d3-4179-82d1-96c38ca2d722",
+        "supabase:command_center_project_profiles:project:company:future:103@1",
+        "supabase:command_center_project_roadmaps:project:company:future:103@2",
+        "supabase:command_center_specialist_brains:brain:company:future:103:v1@1"
+      ],
+      "context_turn_id": "091b3fee-7369-4e46-8b67-1c0ac45c3a8c",
+      "conversation_id": "b9dfc3aa-5d89-49b3-9cfd-d6c7a8238eb0",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:104:v1",
+      "project_id": "project:company:future:104",
+      "context_hash": "182e28f87ecc48ea83d94c8ae357f7ff635a3687f74c8d0889229d711ccace9c",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/104_PRIVACY_PRESERVING_DATA_COLLABORATION_PLATFORM.md#sha256=ebd8b91ca5ac9939f929a1229ef4e9ffd101ecdd372669d3eaf06af3e85c48cf",
+        "supabase:command_center_project_checkpoints:698edcf2-d2b4-46d2-878e-786a109b9006",
+        "supabase:command_center_project_profiles:project:company:future:104@1",
+        "supabase:command_center_project_roadmaps:project:company:future:104@2",
+        "supabase:command_center_specialist_brains:brain:company:future:104:v1@1"
+      ],
+      "context_turn_id": "5e617c83-a1ec-404b-a06f-f165f0cc5d84",
+      "conversation_id": "f657bacb-624a-4545-8378-913bf1189e9b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:105:v1",
+      "project_id": "project:company:future:105",
+      "context_hash": "5e46853f9d5e685f073417210fa5f4db72968216bcb0fa46de4684afb30aeebd",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/105_GLOBAL_TRADE_AND_CUSTOMS_COMPLIANCE_AUTOPILOT.md#sha256=3991880c45772b99f48d1cb4fe418db40ab333aac3fee58aac18dfe356a85582",
+        "supabase:command_center_project_checkpoints:bc55d373-0d9f-4524-bbb3-6093413970d3",
+        "supabase:command_center_project_profiles:project:company:future:105@1",
+        "supabase:command_center_project_roadmaps:project:company:future:105@2",
+        "supabase:command_center_specialist_brains:brain:company:future:105:v1@1"
+      ],
+      "context_turn_id": "d78a22cd-162a-47c3-bbe7-df60612013b7",
+      "conversation_id": "7af7ef7d-ea0b-4c0a-809d-8579c3b7c791",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:106:v1",
+      "project_id": "project:company:future:106",
+      "context_hash": "9f072c83805c6677284afa3925237973238d0a4f31eab16e247c5e2a303af8cd",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/106_INSURANCE_CLAIMS_AUTOMATION_AND_CLAIMS_INTELLIGENCE_PLATFORM.md#sha256=409246890b5354e7730c014816e491394d8df1e48251ee8c67da9c2b36c21cc4",
+        "supabase:command_center_project_checkpoints:582ea97b-a78d-4555-be86-2e047f13a9d3",
+        "supabase:command_center_project_profiles:project:company:future:106@1",
+        "supabase:command_center_project_roadmaps:project:company:future:106@2",
+        "supabase:command_center_specialist_brains:brain:company:future:106:v1@1"
+      ],
+      "context_turn_id": "2b676973-3444-4d74-8982-fd637cd17b04",
+      "conversation_id": "f8fed2e1-dbb2-43aa-b440-e3baef062b41",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:107:v1",
+      "project_id": "project:company:future:107",
+      "context_hash": "90785f132a566e160b42466dd60a6c9bfc47b540cbc0a7a08ecfa8ebc4a43abd",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/107_RIGHTS_ROYALTIES_AND_LICENSING_OPERATIONS_PLATFORM.md#sha256=c18577dfd2710b071c7eb8cb024eaa90cda2d6a85753fb33ddf9f8b755fa4cdd",
+        "supabase:command_center_project_checkpoints:cb44e51c-4aea-434d-abb2-919813c0d67b",
+        "supabase:command_center_project_profiles:project:company:future:107@1",
+        "supabase:command_center_project_roadmaps:project:company:future:107@2",
+        "supabase:command_center_specialist_brains:brain:company:future:107:v1@1"
+      ],
+      "context_turn_id": "258a2421-060f-4a95-9a60-0ae9cfd48e09",
+      "conversation_id": "31863dd3-0a98-46eb-9c43-1ce2883b4224",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:108:v1",
+      "project_id": "project:company:future:108",
+      "context_hash": "cf257cf594821e7081dc4a17f23975f0eb29e30c2ec4eee13441e62b7a2ee538",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/108_PRODUCT_RECALL_INTELLIGENCE.md#sha256=dd4edbcd8c8ffd4c1cd6f71fc3893bd49c97ae546095c8e5039db32cd3fb3275",
+        "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/108_product_recall_intelligence/SPECIALIZED_BRAIN.md",
+        "supabase:command_center_project_checkpoints:22c4da1b-b585-463e-a6b7-2ab24c3c7134",
+        "supabase:command_center_project_profiles:project:company:future:108@1",
+        "supabase:command_center_project_roadmaps:project:company:future:108@1",
+        "supabase:command_center_specialist_brains:brain:company:future:108:v1@1"
+      ],
+      "context_turn_id": "cbc88864-73e3-4908-8094-e37efffd0c7c",
+      "conversation_id": "60aa9fd8-6519-459d-b95d-929437a80aee",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:109:v1",
+      "project_id": "project:company:future:109",
+      "context_hash": "4630169badaf67a012f6f38666d7a54d6484f1897eb9fe023146408d3f99a3b5",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/109_SHIPPING_EXCEPTION_RECOVERY.md#sha256=6ab0f9293f793c49c3512b929a308fc57607142961ae1b7ab576a7977d725fec",
+        "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/109_shipping_exception_recovery/SPECIALIZED_BRAIN.md",
+        "supabase:command_center_project_checkpoints:417e6eb5-a5cb-44c7-a29e-01506b6bd828",
+        "supabase:command_center_project_profiles:project:company:future:109@1",
+        "supabase:command_center_project_roadmaps:project:company:future:109@1",
+        "supabase:command_center_specialist_brains:brain:company:future:109:v1@1"
+      ],
+      "context_turn_id": "c5a62f13-cbdd-4108-9f70-a52c433699ff",
+      "conversation_id": "734e1ff6-70c6-4e67-9da2-09b15a79bd38",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:110:v1",
+      "project_id": "project:company:future:110",
+      "context_hash": "bb54a53a23ace438cf5a3f3ee82691a2f3928fbb89a687f7d5bccc2962293053",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/110_BOOK_FORMATTING_PUBLISHING_PREPARATION.md#sha256=b1d2fa5f31603a4efc8fb052a0ff0ac960974003d9630a1386d3d5d4f96d4229",
+        "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/110_book_formatting_publishing_preparation/SPECIALIZED_BRAIN.md",
+        "supabase:command_center_project_checkpoints:5545e04b-ef32-4393-8fdd-31f3b454732a",
+        "supabase:command_center_project_profiles:project:company:future:110@1",
+        "supabase:command_center_project_roadmaps:project:company:future:110@1",
+        "supabase:command_center_specialist_brains:brain:company:future:110:v1@1"
+      ],
+      "context_turn_id": "437a3d70-c474-4cea-a57e-1d70eefb595e",
+      "conversation_id": "0f98e1e4-9be0-4f30-9aea-6b9db474e45d",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:111:v1",
+      "project_id": "project:company:future:111",
+      "context_hash": "70fd0f7ad96ade3798079c5d6d3ac18e593dcd3f9e2b233b6d9e19878f690569",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/111_CONTRACTOR_WEBSITES_ONLINE_BOOKING.md#sha256=254017d6fa4e5ee9961789d215453ca01989c8799f539be65f1280555c3871a3",
+        "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/111_contractor_websites_online_booking/SPECIALIZED_BRAIN.md",
+        "supabase:command_center_project_checkpoints:7e77d41e-931b-4223-8c71-c7e9df28a48a",
+        "supabase:command_center_project_profiles:project:company:future:111@1",
+        "supabase:command_center_project_roadmaps:project:company:future:111@1",
+        "supabase:command_center_specialist_brains:brain:company:future:111:v1@1"
+      ],
+      "context_turn_id": "8782d9bd-0c97-4e56-b109-1ffb6c76676c",
+      "conversation_id": "ca76e6b6-bc3e-4557-a7a4-dda4732ab018",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:112:v1",
+      "project_id": "project:company:future:112",
+      "context_hash": "1b391920034723bbbf2e2bc3adbc815a34192745e94aaea16f243cbce642688e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/companies/112_AUTOMATED_VIDEO_REPURPOSING.md#sha256=6d30b686dd9363640458dcc696affc2f8a3d967bceb0fc62d453f2bb8181aa3b",
+        "roadmap/portfolio-future-architecture/five-company-import-2026-11-03/companies/112_automated_video_repurposing/SPECIALIZED_BRAIN.md",
+        "supabase:command_center_project_checkpoints:b4e4006c-1da4-4378-a201-247ae92073de",
+        "supabase:command_center_project_profiles:project:company:future:112@1",
+        "supabase:command_center_project_roadmaps:project:company:future:112@1",
+        "supabase:command_center_specialist_brains:brain:company:future:112:v1@1"
+      ],
+      "context_turn_id": "f858fa3e-9d01-4de5-96a6-509c279e19fc",
+      "conversation_id": "2f9ebd8b-c082-4676-ae66-a2ea908b62fb",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:113:v1",
+      "project_id": "project:company:future:113",
+      "context_hash": "9aaa7fbb3c594ec1ec712fba6f026e9b5c58b6362415b2e1624d113409ff475e",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/113_ultimate_commerce_platform/SPECIALIZED_BRAIN.md",
+        "roadmap/portfolio-future-architecture/companies/113_ULTIMATE_COMMERCE_PLATFORM.md#sha256=e54fbba0d9beca3d20bac6ef2cb10e7ae098b8544d5ef8c8383d317c16757f04",
+        "supabase:command_center_project_checkpoints:13f507d7-2fef-4c87-b99c-3f33d2e9ea7c",
+        "supabase:command_center_project_profiles:project:company:future:113@1",
+        "supabase:command_center_project_roadmaps:project:company:future:113@1",
+        "supabase:command_center_specialist_brains:brain:company:future:113:v1@1"
+      ],
+      "context_turn_id": "4c12d0f0-b985-45b7-bdb1-329b56c8a99e",
+      "conversation_id": "8711a0d4-da60-40e9-8fe7-d12cf42dd760",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:114:v1",
+      "project_id": "project:company:future:114",
+      "context_hash": "be3f5cf76f3b8cec5a09f32d1f1898b111fe1a5b55bde32747687e7013ab2c5f",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/114_real_estate_wholesaling_acquisition/SPECIALIZED_BRAIN.md",
+        "roadmap/portfolio-future-architecture/companies/114_REAL_ESTATE_WHOLESALING_ACQUISITION.md#sha256=e63d4a29d5833fee32e16c673c9bb21da176d2de03c8449524b76fd29229045d",
+        "supabase:command_center_project_checkpoints:5e40aecc-b4ce-4877-9ea4-d770b2ab6225",
+        "supabase:command_center_project_profiles:project:company:future:114@1",
+        "supabase:command_center_project_roadmaps:project:company:future:114@1",
+        "supabase:command_center_specialist_brains:brain:company:future:114:v1@1"
+      ],
+      "context_turn_id": "236b2cd5-ced4-41b0-a481-23f5134a7ac2",
+      "conversation_id": "9a231ba9-c58c-4486-a4be-5e315245d38b",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:115:v1",
+      "project_id": "project:company:future:115",
+      "context_hash": "cd39f6991701862e6fe9a35ae816da3c8162d7f400c317711a403014467491cd",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/115_contract_opportunity_discovery_matching/SPECIALIZED_BRAIN.md",
+        "roadmap/portfolio-future-architecture/companies/115_CONTRACT_OPPORTUNITY_DISCOVERY_MATCHING.md#sha256=b8fb50d25ed8908101e5ea5c8308759dfab7dbc5488116a60f8bf7f92c59f6fe",
+        "supabase:command_center_project_checkpoints:0c730eb3-5744-4c01-8bd3-098eb820ce49",
+        "supabase:command_center_project_profiles:project:company:future:115@1",
+        "supabase:command_center_project_roadmaps:project:company:future:115@1",
+        "supabase:command_center_specialist_brains:brain:company:future:115:v1@1"
+      ],
+      "context_turn_id": "52153721-408b-4240-bbce-a1153b599410",
+      "conversation_id": "71bf493c-8d56-41b2-a3b8-ccc2da33eae3",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:116:v1",
+      "project_id": "project:company:future:116",
+      "context_hash": "03cdc85a7c4e07dd9e3dc2e65c343302dd4e12d890857a8921e114ea5fc3e378",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/116_building_permit_inspection_intelligence/SPECIALIZED_BRAIN.md",
+        "roadmap/portfolio-future-architecture/companies/116_BUILDING_PERMIT_INSPECTION_INTELLIGENCE.md#sha256=feb98d39c26aefc3d88355aa55b9653225cb9b821208cd55433c3dd8ba725c46",
+        "supabase:command_center_project_checkpoints:0ca9a10b-9124-4233-b3e2-869e53601a44",
+        "supabase:command_center_project_profiles:project:company:future:116@1",
+        "supabase:command_center_project_roadmaps:project:company:future:116@1",
+        "supabase:command_center_specialist_brains:brain:company:future:116:v1@1"
+      ],
+      "context_turn_id": "d87bfde6-5c17-42a3-95e8-a0b9b7a9c405",
+      "conversation_id": "db0e823f-05c3-4d6d-8369-c44f620852d8",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:future:117:v1",
+      "project_id": "project:company:future:117",
+      "context_hash": "83200e208a67ecc888edf1d00a7fb9bd1ca55c0f4c0de3d7ef45e9e5e14c4591",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "roadmap/portfolio-future-architecture/additional-five-company-import-2026-11-03/companies/117_industrial_maintenance_downtime_intelligence/SPECIALIZED_BRAIN.md",
+        "roadmap/portfolio-future-architecture/companies/117_INDUSTRIAL_MAINTENANCE_DOWNTIME_INTELLIGENCE.md#sha256=958a4b4da4307e2dfe3febb1641e554db25d2c60368daceaf64c3b6151a624ec",
+        "supabase:command_center_project_checkpoints:4ed04c41-c507-4964-b38a-01fe79645a3a",
+        "supabase:command_center_project_profiles:project:company:future:117@1",
+        "supabase:command_center_project_roadmaps:project:company:future:117@1",
+        "supabase:command_center_specialist_brains:brain:company:future:117:v1@1"
+      ],
+      "context_turn_id": "e21b90fb-7e8d-418d-b772-dc1929f81cdb",
+      "conversation_id": "a8bad484-56fe-48f1-8db0-32653ece5567",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:aro:v1",
+      "project_id": "aro",
+      "context_hash": "37f9aafc38c7f006725c02ecbbfa0bd9e4ed8b6876d0b3d1835bc8689c78dd0b",
+      "evidence_refs": [
+        "history:aro-specialist",
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:command_center_project_checkpoints:83850005-ec31-4e74-8987-cee338781326",
+        "supabase:command_center_project_profiles:aro",
+        "supabase:command_center_project_profiles:aro@2",
+        "supabase:command_center_project_roadmaps:aro@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:aro:v1@1"
+      ],
+      "context_turn_id": "00887709-c05c-4580-9618-0c30bdb0bb54",
+      "conversation_id": "042079e9-31da-4d74-aab9-65619b025d5e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:coupon-autopilot:v1",
+      "project_id": "coupon-autopilot",
+      "context_hash": "5b2bc15547c7ae44812b503d4abbea234d4802a1f6015649fa610c5557ba1077",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:coupon-autopilot",
+        "supabase:command_center_project_checkpoints:a777e3e9-2437-4292-a9dd-3742143bf650",
+        "supabase:command_center_project_profiles:coupon-autopilot",
+        "supabase:command_center_project_profiles:coupon-autopilot@1",
+        "supabase:command_center_project_roadmaps:coupon-autopilot@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:coupon-autopilot:v1@1"
+      ],
+      "context_turn_id": "90c19213-7e8d-4a23-87eb-df173afad8c7",
+      "conversation_id": "4c7f2007-7f63-41be-8a64-1b0e4b09c23e",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:crowdskein:v1",
+      "project_id": "crowdskein",
+      "context_hash": "3b615f06601b5db5580e451082e7a8743fcc8cbbb611466af6402902686d13d8",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:crowdskein",
+        "supabase:command_center_project_checkpoints:204561d9-0211-471c-9d82-0a6e302af455",
+        "supabase:command_center_project_profiles:crowdskein",
+        "supabase:command_center_project_profiles:crowdskein@1",
+        "supabase:command_center_project_roadmaps:crowdskein@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:crowdskein:v1@1"
+      ],
+      "context_turn_id": "31ea727c-c00a-4c23-8efc-e28736891ca5",
+      "conversation_id": "9fb1457b-8898-477f-990f-7ca86dce494f",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:edge-finder:v1",
+      "project_id": "edge-finder",
+      "context_hash": "4a5ad88e90b16d369d109ae464996ce5a7f35edbf8d5b3a0a0f2bb69d457def2",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:edge-finder",
+        "supabase:command_center_project_checkpoints:b27eb361-1d73-41e5-b23a-e411ab05aca3",
+        "supabase:command_center_project_profiles:edge-finder",
+        "supabase:command_center_project_profiles:edge-finder@1",
+        "supabase:command_center_project_roadmaps:edge-finder@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:edge-finder:v1@1"
+      ],
+      "context_turn_id": "aa241007-4d7b-4a2b-8c94-5b2b260afa35",
+      "conversation_id": "ab8186b2-ecce-42b2-ab97-7cc6ee643441",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:fanvue-veyla:v1",
+      "project_id": "fanvue-veyla",
+      "context_hash": "5120f51723105f60943edda7c2c53545ce1ea9bac0b5eef4a6d58d3c2f19d483",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:fanvue-veyla",
+        "supabase:command_center_project_checkpoints:9964706f-f55a-44ec-acff-1abaa444c796",
+        "supabase:command_center_project_profiles:fanvue-veyla",
+        "supabase:command_center_project_profiles:fanvue-veyla@1",
+        "supabase:command_center_project_roadmaps:fanvue-veyla@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:fanvue-veyla:v1@1"
+      ],
+      "context_turn_id": "d48dbc5f-b420-4afb-8215-9aa531cb2d1d",
+      "conversation_id": "6106f6dc-f0a8-4dfc-9f02-7b642f1e80b4",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:loopwren:v1",
+      "project_id": "loopwren",
+      "context_hash": "c4d76b44333840897d5b29b063c76f682f955561e480e777aa527c73fb91aeec",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:loopwren",
+        "supabase:command_center_project_checkpoints:bbcbac6a-7d30-4e13-999a-7988a70fa6b9",
+        "supabase:command_center_project_profiles:loopwren",
+        "supabase:command_center_project_profiles:loopwren@1",
+        "supabase:command_center_project_roadmaps:loopwren@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:loopwren:v1@1"
+      ],
+      "context_turn_id": "254988f9-69a3-4ebc-8c4d-7bc1ac7fe061",
+      "conversation_id": "4b4297df-93fe-40d5-872e-3388d1b54f16",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:margincrafttools:v1",
+      "project_id": "margincrafttools",
+      "context_hash": "d8df0f6c357309eaffb3dbf0255505a417f1128bf9c68c9ef8c21e172a20778d",
+      "evidence_refs": [
+        "conversation-upload:file_0000000037e882129925958cafa716cb#sha256=8139039c0e9edca02a2fbbe318650a05acaeed7ca53c72fe8baf054440b3a8f8",
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:margincrafttools",
+        "supabase:command_center_project_checkpoints:50f6e6ce-71a5-48a1-8913-e8763228baf5",
+        "supabase:command_center_project_profiles:margincrafttools",
+        "supabase:command_center_project_profiles:margincrafttools@1",
+        "supabase:command_center_project_roadmaps:margincrafttools@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:margincrafttools:v1@2"
+      ],
+      "context_turn_id": "8b8bd446-949d-4ac8-920e-6f695aa43001",
+      "conversation_id": "7d714028-81a6-4816-9dfe-66eb79fde2ad",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:mini-movies:v1",
+      "project_id": "mini-movies",
+      "context_hash": "ba49278abbe0ac9a6261cad7581c797944a2360518bd4214a1627c2aa6de62ff",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:mini-movies",
+        "supabase:command_center_project_checkpoints:2de3de2f-3dba-47a0-b541-a453bee0165a",
+        "supabase:command_center_project_profiles:mini-movies",
+        "supabase:command_center_project_profiles:mini-movies@1",
+        "supabase:command_center_project_roadmaps:mini-movies@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:mini-movies:v1@1"
+      ],
+      "context_turn_id": "92d5a91d-3255-4228-b2fb-bf2183247d60",
+      "conversation_id": "024a6207-f497-4df3-b388-001bc66f8bbf",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:revocapture:v1",
+      "project_id": "revocapture",
+      "context_hash": "cf5f9afe1fe217a2872e21d3575089e1eb0a8b73dc2822b29c2e46cf8f52eca7",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:revocapture",
+        "supabase:command_center_project_checkpoints:6b17b813-6aa1-44ed-817e-5bd3dca456dd",
+        "supabase:command_center_project_profiles:revocapture",
+        "supabase:command_center_project_profiles:revocapture@1",
+        "supabase:command_center_project_roadmaps:revocapture@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:revocapture:v1@1"
+      ],
+      "context_turn_id": "f022a2e4-fccb-4059-a9b5-f049720498a9",
+      "conversation_id": "ce5fcf00-093b-4449-88a7-cdf6849680cd",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:torevi:v1",
+      "project_id": "torevi",
+      "context_hash": "c859559e3196a40397436087ee2324783ed8d34cd9ff848d5114f4740e74b52d",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:torevi",
+        "supabase:command_center_project_checkpoints:9692cece-d2fe-4c35-8845-1d5adcf8bdd5",
+        "supabase:command_center_project_profiles:torevi",
+        "supabase:command_center_project_profiles:torevi@1",
+        "supabase:command_center_project_roadmaps:torevi@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:torevi:v1@1"
+      ],
+      "context_turn_id": "96821b99-a345-4f50-bf27-2d4d5cc1da0a",
+      "conversation_id": "369dd7df-f235-49ce-8763-c1e3100045b3",
+      "workspace_version": 1
+    },
+    {
+      "brain_key": "brain:company:legacy:velo-clip:v1",
+      "project_id": "velo-clip",
+      "context_hash": "1d077daf201535a21804e7dfe21f687e1b001234e30e877cd31ffc3f84c65d39",
+      "evidence_refs": [
+        "owner:brain-activation-only:2026-11-05",
+        "supabase:cc7_projects:velo-clip",
+        "supabase:command_center_project_checkpoints:e83ee20d-d743-4241-8651-a3123e253717",
+        "supabase:command_center_project_profiles:velo-clip",
+        "supabase:command_center_project_profiles:velo-clip@2",
+        "supabase:command_center_project_roadmaps:velo-clip@1",
+        "supabase:command_center_specialist_brains:brain:company:legacy:velo-clip:v1@1"
+      ],
+      "context_turn_id": "bea82d94-2963-4ef3-8037-b76158ada6fa",
+      "conversation_id": "173d6c20-d46f-44ca-b3e8-ee0a9a13dfc5",
+      "workspace_version": 1
+    }
+  ],
+  "enabled": 0,
+  "other_runs": 0,
+  "registered": 128,
+  "observed_at": "2026-11-06T04:21:43.660483+00:00",
+  "stopped_runs": 7,
+  "valid_bindings": 128,
+  "workspace_count": 128,
+  "workspace_version_count": 128
+}

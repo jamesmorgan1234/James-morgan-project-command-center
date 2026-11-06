@@ -332,7 +332,13 @@ function composer(
         window.history.replaceState({}, "", brainHref(projectId, conversationId));
         submit.textContent = "Waiting for Brain…";
         message.textContent = "Your message is saved. Requesting a Brain response…";
-        await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+        if (typeof provider.enqueuePcBrainResponse === "function" && (!projectId || snapshot.brain?.specialistReadiness?.[projectId] === "available")) {
+          const queued = await provider.enqueuePcBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+          if (!queued.requestId || !["queued", "claimed", "completed"].includes(queued.state)) throw new Error("The PC did not return a verified queue receipt");
+          message.textContent = queued.state === "completed" ? "Response saved. Loading the conversation…" : "Your saved message is queued for your Windows PC.";
+        } else {
+          await provider.requestBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
+        }
         pendingResponse = undefined;
         await rerender();
       } catch (reason) {
@@ -403,7 +409,28 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   layout.append(conversationList(scopedConversations, selected?.id, projectId, rerender));
   const main = el("div", "brain-main");
   if (projectId) main.append(workspaceCard(workspace));
-  main.append(conversationPanel(selected), composer(snapshot, provider, projectId, selected, rerender));
+  main.append(conversationPanel(selected));
+  const requests = (brain.pcRequests ?? []).filter(r => r.conversationId === selected?.id);
+  const latest = requests[0];
+  if (latest) {
+    const status = card("brain-pc-request-status");
+    const descriptions: Readonly<Record<string, string>> = {
+      queued: "Waiting for your Windows PC to claim the read-only request.",
+      claimed: "Your Windows PC has claimed the request.",
+      completed: "Canonical response saved; refresh to view the reply.",
+      failed: "The read-only request failed. No company build was started.",
+      cancelled: "The read-only request was cancelled."
+    };
+    status.append(el("h2", "section-title", "PC WORKER REQUEST"),
+      pill(latest.state.toUpperCase(), latest.state === "completed" ? "available" : "candidate"),
+      el("p", "muted", descriptions[latest.state] ?? "Unverified request state."));
+    const refresh = el("button", "cc-button cc-button--secondary", "Refresh response status");
+    refresh.type = "button";
+    refresh.addEventListener("click", () => { refresh.disabled = true; void rerender(); });
+    status.append(refresh);
+    main.append(status);
+  }
+  main.append(composer(snapshot, provider, projectId, selected, rerender));
   layout.append(main);
   section.append(layout);
   return section;

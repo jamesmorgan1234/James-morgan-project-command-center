@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "a6ff95d35403d3d444b3c804e5ac1aa11d04e8db",
+  "gitSha": "98a483d87a90dadb0f486a6e0b528b21d85b03f4",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2229,
-  "inventoryDigest": "1ceae263e2c49ca0ede7cc04549d0a31da9f099497ae166c5566a26e79ffcbdb",
+  "reviewedFileCount": 2252,
+  "inventoryDigest": "87a3c4c41fcd59e45ab87da4a784dd73f6828068a436f42a83db4e306308e165",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2230,
-    "reviewedFileCount": 2229,
+    "trackedFileCount": 2253,
+    "reviewedFileCount": 2252,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 209,
+      "EVID": 222,
       "APUB": 15,
       "SCRP": 143,
-      "ASRC": 348,
-      "TEST": 466,
+      "ASRC": 350,
+      "TEST": 473,
       "RDMAP": 407,
-      "SBAS": 250,
+      "SBAS": 251,
       "HTST": 43
     },
     "defectCount": 0,
@@ -689,7 +689,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 209,
+      "fileCount": 222,
       "roles": [
         "EVID"
       ]
@@ -731,14 +731,14 @@
     },
     {
       "directory": "clean-room/src",
-      "fileCount": 348,
+      "fileCount": 350,
       "roles": [
         "ASRC"
       ]
     },
     {
       "directory": "clean-room/tests",
-      "fileCount": 466,
+      "fileCount": 473,
       "roles": [
         "TEST"
       ]
@@ -1788,7 +1788,7 @@
     },
     {
       "directory": "supabase/functions",
-      "fileCount": 9,
+      "fileCount": 10,
       "roles": [
         "SBAS"
       ]
@@ -3656,6 +3656,24 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/CC_UNIFIED_128_PC_READONLY_ROLLBACK_CANDIDATE.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "fa0980cdffd32887f0bffe05e99f7ddb4c1a550c88d0072832d373ea8783fcfd",
+      "bytes": 7203,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/CC_UNIFIED_128_PC_READONLY_ROUTING_CANDIDATE.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "c6815d675bbbfe2c72a58c5303b644b9284d74744d602afce3b4391979b37165",
+      "bytes": 8062,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/CHECKPOINT_2026-10-24_100_COMPANY_PORTFOLIO_INTERLOCK.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -5009,8 +5027,17 @@
       "path": "clean-room/evidence/brain-activation/CHECKPOINT.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "cdf03366c9dc38f9555bc439be01786f8e2bbd77c5d188d73574db35d5730382",
-      "bytes": 7223,
+      "sha256": "54654a9dff1d2cad275f008552939b1d0a5533b7beb14c553ae97b860d28fc0b",
+      "bytes": 10239,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/WORKFLOW_RECOVERY_2026-11-06.md",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "548afadcf173b76476f6ac6b4b83f9ce3d8f077208980d0912411fcf53d7eb97",
+      "bytes": 2492,
       "contentKind": "text",
       "findings": []
     },
@@ -5029,6 +5056,33 @@
       "disposition": "retain-authority-evidence",
       "sha256": "bdd958d04202ecce5f726b83add658d6faef423ba55299a3f96c69fc7854ea5f",
       "bytes": 70969,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/context-refresh-verification.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "cae1252eb90f1eb47957502106691b5205ccdea0eb4aa86515eb146396420bd5",
+      "bytes": 72623,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/current-activation-results.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "2c0967082c0fa25b9f42ce7f4e5ee671bc124e0c8ebe8e645a30681402d94d15",
+      "bytes": 187036,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/current-activation-results.md",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "0937388b749f00133e7a00ddb7fb28ed9aa582a3046a3293c6f00348e2bc5b17",
+      "bytes": 34976,
       "contentKind": "text",
       "findings": []
     },
@@ -5060,11 +5114,38 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/brain-activation/job-connection-manifest.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "30e5757a1a9f06e539bcdc603952da0f0a458a0070e5ad969007a73679282263",
+      "bytes": 521806,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/latest-runtime-health.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "eeb4667c170030ac804f8c81d9e825d75c0cad468284ddc13171c8a521e700ad",
+      "bytes": 942,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/brain-activation/live-registry-snapshot.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
       "sha256": "f6757372792f6fad04778c5d0ae093bce9650ac8bdfe125977cc103ee94fe2f9",
       "bytes": 194579,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/model-binding-verification.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "fcd9c535655b95bc2f5cef3fbbff721e60700179596ca992e573924747f7150e",
+      "bytes": 124563,
       "contentKind": "text",
       "findings": []
     },
@@ -5081,8 +5162,35 @@
       "path": "clean-room/evidence/brain-activation/scope-checkpoint.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "847a5224f42735d61c0a8183b79acc173739977b042de288325996819173dbaa",
-      "bytes": 6389,
+      "sha256": "7ce2167437e86bb100774228edc1192cbc0ad9e63c238c27fad865a389f63388",
+      "bytes": 6628,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/sql/bind-existing-local-model.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "b715233098739c356c8ad0c86055e155e3d20fd03bfa466b6acc7e4e909e7d95",
+      "bytes": 4186,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/sql/bind-project-workspaces.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "cbaa92c1c6a38c0feef5b25227e97b718004f793a0a1ecb66fdc2f0f274bbd3b",
+      "bytes": 5618,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/sql/refresh-context-model-references.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "de50a80bc6f0e9d69c5671a3047e9a97430210626f847bcf7e1b6b86bb24f78d",
+      "bytes": 3521,
       "contentKind": "text",
       "findings": []
     },
@@ -5090,8 +5198,17 @@
       "path": "clean-room/evidence/brain-activation/validation-results.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "1f548baf01084dbcaca5169910c350142ca67f02870936f35fbc442da7829c36",
-      "bytes": 2749,
+      "sha256": "d588860e1ad0484a77a74cdba2abf3fbffa437a9306a44f14fec205b4ba414c3",
+      "bytes": 5649,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/workspace-binding-verification.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "3eb189f0a7ec524cefe7f85e18a3e03e5009a420b1d9b0a6ecc141996b8dfc21",
+      "bytes": 142472,
       "contentKind": "text",
       "findings": []
     },
@@ -7376,8 +7493,8 @@
       "path": "clean-room/src/brain/activation.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "36642b9e323c1bbeedb91b72c1abb9c98b9aed6cf9f372e03b31edb833ad1566",
-      "bytes": 6082,
+      "sha256": "85d4bf074bef93060699f67bb2ad5c8fa48b8354618a2de98bf2c04fc6898381",
+      "bytes": 8494,
       "contentKind": "text",
       "findings": []
     },
@@ -7535,6 +7652,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/src/brain/specialist-readiness.ts",
+      "role": "ASRC",
+      "disposition": "retain-active",
+      "sha256": "c75a61a8450a083867d78d18125a06ff5ed8cde180598708771009d50abf44e0",
+      "bytes": 4145,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/src/brain/specialists.ts",
       "role": "ASRC",
       "disposition": "retain-active",
@@ -7549,6 +7675,15 @@
       "disposition": "retain-active",
       "sha256": "5ed701cc3212e3c4b0dbea867c98021774363674be27574cb257997a102340f9",
       "bytes": 1320,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/src/brain/tool-access.ts",
+      "role": "ASRC",
+      "disposition": "retain-active",
+      "sha256": "eedd0191616d5c04256831a1fe57bb39314eb5125c63d132e3c005658996fcf7",
+      "bytes": 5933,
       "contentKind": "text",
       "findings": []
     },
@@ -8924,8 +9059,8 @@
       "path": "clean-room/src/runtime/brain-view.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "19a7e5719e090b3b7d52fa6cbf5bd348ba2e61cfcea6b575dbc7a8ad8ca3c38f",
-      "bytes": 23105,
+      "sha256": "48668dbc9a6443af336b25671baf89a1049c9ab8a78c370ba338e9da6a0547db",
+      "bytes": 24869,
       "contentKind": "text",
       "findings": []
     },
@@ -9068,8 +9203,8 @@
       "path": "clean-room/src/runtime/owner-security-provider.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "a8af63f428b78aa5ba0ff57d1a3a0a61885db5df27a6bb97b23081b5ef0966b0",
-      "bytes": 47474,
+      "sha256": "9d7b5b1b2bcb0a53c81487e9c686949e55b5898b0c73ad7a7ef97a3659e7e550",
+      "bytes": 54960,
       "contentKind": "text",
       "findings": []
     },
@@ -9176,8 +9311,8 @@
       "path": "clean-room/src/runtime/snapshot.ts",
       "role": "ASRC",
       "disposition": "retain-active",
-      "sha256": "b71578342a5d6d147a37586846c68c16575a8e9994980eb7f097dbd52a04d519",
-      "bytes": 12189,
+      "sha256": "b6c21e4de8b894cc259c1a470b99cae30083c026052828661570d2dbe57dc43e",
+      "bytes": 12850,
       "contentKind": "text",
       "findings": []
     },
@@ -9896,8 +10031,8 @@
       "path": "clean-room/tests/brain-activation.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "a41a05c36f65803a57eac434287ebffd212b4805ed704d17fad16264d3bce1f3",
-      "bytes": 5380,
+      "sha256": "531a5d989f273c0d2d67a55435d3eb49194e4c4ba32be3f9cc6bc3dc94444235",
+      "bytes": 7539,
       "contentKind": "text",
       "findings": []
     },
@@ -9907,6 +10042,51 @@
       "disposition": "retain-active",
       "sha256": "fdf0d6424b1fa821acd50fb818488aa3682a272192007452141d8f24de5f37e1",
       "bytes": 9222,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/brain-model-binding.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "0e710af48abfeab7a052682517c472dd1d4bf569595cd5d589013f7e55f00344",
+      "bytes": 4294,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/brain-pc-queue-client.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "d9cde3938573d2e689ad3cd29f29317de9e74529cf4e9ca093f9e750e05f630c",
+      "bytes": 3105,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/brain-specialist-projection.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "4ccff51fda22b7b0a166133f6a91cc10130e05921d8e77d10a9498aef0510967",
+      "bytes": 3185,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/brain-tool-access.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "f3d8cbb20c6357bc486d455510a8d1a8bd042158ec5a5bf5114717b1d71f20df",
+      "bytes": 4111,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/brain-workspace-binding.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "11c6a2c15a475727467bdcfe196e59c935274f3abab64fbb5b34e2651fb8f73f",
+      "bytes": 7279,
       "contentKind": "text",
       "findings": []
     },
@@ -11336,8 +11516,8 @@
       "path": "clean-room/tests/category6-brain-runtime-view.test.mjs",
       "role": "TEST",
       "disposition": "retain-active",
-      "sha256": "1ab40dc62cb6d26b9331e1af1e4a49d17a5f0558c7f1ef618c02d68eae87a328",
-      "bytes": 11785,
+      "sha256": "81fbfbbf9baea178f4fe5a7d394a61097d29ec8f065e5deefd87c14d2b34c92f",
+      "bytes": 12139,
       "contentKind": "text",
       "findings": []
     },
@@ -14031,6 +14211,24 @@
       "disposition": "retain-active",
       "sha256": "a3f0c9653a453d2f15ca99d82dd56bdcd4cff42d86ca121e92f7e8672f41be0e",
       "bytes": 7219,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/unified-128-pc-readonly-routing.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "a4d33a745a7a9758a6d48ea04e7035f0538976d5e5af86feedb0b9b8cb4fc45a",
+      "bytes": 4964,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/tests/unified-128-pc-sql-isolated-integration.test.mjs",
+      "role": "TEST",
+      "disposition": "retain-active",
+      "sha256": "a2816478f8a8528fa23e9796690e377ba3fb76969001e10f1bbc5aa4671de2c9",
+      "bytes": 9262,
       "contentKind": "text",
       "findings": []
     },
@@ -19680,6 +19878,15 @@
       "disposition": "retain-active",
       "sha256": "32430e40a2187838feccee75893c6e7c567b6d8ed4c6499417851595bd295335",
       "bytes": 1971,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/functions/command-center-pc-worker/index.ts",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "611ebe3ebe160683b3793f277beb820cf11b1638b8398524e5b0262707681470",
+      "bytes": 13910,
       "contentKind": "text",
       "findings": []
     },

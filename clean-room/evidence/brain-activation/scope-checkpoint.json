@@ -176,13 +176,18 @@
       }
     ]
   },
-  "nextResumableUnit": "recover-installed-Windows-worker-client-source-and-model-contract",
-  "resultsRef": "activation-results.json",
+  "nextResumableUnit": "reconcile-recovered-existing-routing-and-installed-worker-contract",
+  "resultsRef": "current-activation-results.json",
   "existingBusinessRoadmapManifestsModified": false,
   "validation": {
-    "passed": 2531,
+    "localFullSuitePassed": 2576,
+    "additionalClientTestsPassed": 2,
     "failed": 0,
     "skipped": 0,
-    "productionAcceptance": false
-  }
+    "productionAcceptance": false,
+    "category15ReleaseGate": "blocked-source-requalification-and-exact-head-CI"
+  },
+  "modelBindingsVerified": 128,
+  "contextBindingsVerified": 128,
+  "operationalSpecialists": 0
 }

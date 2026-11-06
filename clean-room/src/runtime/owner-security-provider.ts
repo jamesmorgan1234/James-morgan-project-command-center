@@ -1,3 +1,4 @@
+import { projectSpecialistBindings } from "../brain/specialist-readiness.js";
 import { invokeExecutionGateway } from "./execution-gateway.js";
 import { preparedCompanyId, validateCompanyBuildStart, type CompanyBuildStartView } from "./company-build-start.js";
 import { known, unknown } from "../data/canonical.js";
@@ -34,6 +35,7 @@ export interface BrainConversationRuntimeProvider {
   createBrainConversation(projectId: string | undefined, title: string): Promise<string>;
   recordBrainOwnerTurn(conversationId: string, text: string): Promise<BrainTurnWriteResult>;
   requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string>;
+  enqueuePcBrainResponse?(conversationId: string, ownerTurnId: string): Promise<{ readonly requestId: string; readonly state: "queued" | "claimed" | "completed"; }>;
   decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void>;
   convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
@@ -451,6 +453,45 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     return receipt.brainTurnId;
   }
 
+  /**
+   * Queue an authenticated, already-saved owner turn for the local Windows AI.
+   * No GitHub operation, payment, company build, or protected action is authorized.
+   * Stable owner-turn UUID prevents duplicate work when the phone reconnects.
+   */
+  async enqueuePcBrainResponse(conversationId: string, ownerTurnId: string): Promise<{
+    readonly requestId: string; readonly state: "queued" | "claimed" | "completed";
+  }> {
+    const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/iu;
+    if (!uuid.test(conversationId) || !uuid.test(ownerTurnId)) throw new Error("A saved conversation and owner turn are required");
+    const session = this.#currentSession();
+    const conversations = await this.#selectRows("command_center_brain_conversations", session,
+      "conversation_id,project_id,state", { conversation_id: `eq.${conversationId}`, limit: "1" });
+    const record = conversations[0];
+    if (!record || record.conversation_id !== conversationId || record.state !== "active")
+      throw new Error("Owner Brain conversation is unavailable");
+    const projectId = stringValue(record.project_id) ?? null;
+    if (projectId !== null) {
+      // These are syntactic bounds only. The server must verify exact owner,
+      // project/company/specialist identity and live-read-only permissions.
+      const match = /^project:company:future:(\d{3})$/u.exec(projectId);
+      const validFuture = !!match && Number(match[1]) >= 1 && Number(match[1]) <= 117;
+      const validLegacy = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(projectId);
+      if (!validFuture && !validLegacy)
+        throw new Error("PC Brain responses require a canonical company project ID");
+    }
+    const saved = await this.#rpcPayload("command_center_pc_enqueue_inference", session.accessToken, {
+      p_request_id: ownerTurnId,
+      p_conversation_id: conversationId,
+      p_owner_turn_id: ownerTurnId,
+      p_project_id: projectId
+    });
+    if (!isRecord(saved) || saved.request_id !== ownerTurnId ||
+      saved.owner_turn_id !== ownerTurnId || (saved.project_id ?? null) !== projectId ||
+      !["queued", "claimed", "completed"].includes(String(saved.state)))
+      throw new Error("The PC queue did not verify the exact authenticated owner request");
+    return Object.freeze({requestId: ownerTurnId, state: saved.state as "queued" | "claimed" | "completed"});
+  }
+
   async stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void> {
     const session = await this.#assertProject(projectId);
     const rows = await this.#selectRows("command_center_agency_runs", session, "project_id,run_id", { project_id: `eq.${projectId}`, run_id: `eq.${runId}`, limit: "1" });
@@ -530,7 +571,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const session = this.#currentSession();
     const [conversationRows, turnRows, workspaceRows, improvementRows] = await Promise.all([
       this.#selectRows("command_center_brain_conversations", session, "conversation_id,project_id,title,state,created_at,updated_at", { order: "updated_at.desc", limit: "200" }),
-      this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
+      this.#selectRows("command_center_brain_conversation_turns", session, "turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized,created_at,recorded_at", { order: "created_at.asc,turn_id.asc", limit: "2000" }),
       this.#selectRows("command_center_brain_project_workspaces", session, "project_id,version,spec_version,conversation_id,turn_ids,decision_refs,execution_run_id,blocker_refs,evidence_refs,verified_result_refs,updated_at,recorded_at", { order: "updated_at.desc", limit: "500" }),
       this.#selectRows("command_center_brain_improvement_proposals", session, "improvement_id,project_id,area,title,detail_ref,detail_hash,confidence,evidence_refs,state,installs_automatically,created_at,decided_at", { order: "created_at.desc,improvement_id.asc", limit: "500" })
     ]);
@@ -663,8 +704,86 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
       });
     });
 
+    // PC telemetry is auxiliary: its failure cannot erase persisted Brain history.
+    let workerOnline = false;
+    let verifiedCentralInference = false;
+    const verifiedResponseRefs: string[] = [];
+    let specialistReadiness: Readonly<Record<string, "available" | "unavailable">> = Object.freeze({});
+    let specialistBlockers: Readonly<Record<string, readonly string[]>> = Object.freeze({});
+    let pcRequests: NonNullable<RuntimeBrainSnapshot["pcRequests"]> = Object.freeze([]);
+    try {
+      const [workerStatusRows, pcQueueRows] = await Promise.all([
+        this.#rpcRows("command_center_pc_owner_worker_status", session.accessToken, {}),
+        this.#selectRows("command_center_pc_inference_requests", session,
+          "request_id,conversation_id,owner_turn_id,project_id,state,brain_turn_id,content_hash,created_at,updated_at",
+          { order: "created_at.desc", limit: "500" })
+      ]);
+      workerOnline = workerStatusRows.some(row =>
+        row.enabled === true && row.revoked !== true && row.online === true);
+      pcRequests = Object.freeze(pcQueueRows.map(row => {
+      const requestId = stringValue(row.request_id);
+      const conversationId = stringValue(row.conversation_id);
+      const ownerTurnId = stringValue(row.owner_turn_id);
+      const projectId = stringValue(row.project_id);
+      const state = stringValue(row.state);
+      const brainTurnId = stringValue(row.brain_turn_id);
+      if (!requestId || !conversationId || !ownerTurnId ||
+        !["queued", "claimed", "completed", "failed", "cancelled"].includes(state ?? ""))
+        throw new Error("PC queue contains an invalid state");
+      return Object.freeze({
+        requestId, conversationId, ownerTurnId,
+        ...(projectId ? {projectId} : {}),
+        state: state as "queued" | "claimed" | "completed" | "failed" | "cancelled",
+        ...(brainTurnId ? {brainTurnId} : {}),
+        createdAt: stringValue(row.created_at) ?? "",
+        updatedAt: stringValue(row.updated_at) ?? ""
+      });
+      }));
+      for (const request of pcQueueRows) {
+      if (request.state !== "completed") continue;
+      const turn = turnRows.find(row =>
+        row.turn_id === request.brain_turn_id &&
+        row.conversation_id === request.conversation_id &&
+        row.project_id === request.project_id && row.role === "brain" &&
+        row.redaction_state === "safe_text" &&
+        row.canonical_writes_authorized === false &&
+        row.content_hash === request.content_hash &&
+        stringArray(row.evidence_refs).includes(`brain:response-to:${request.owner_turn_id}`) &&
+        stringArray(row.evidence_refs).includes(`brain:workstation-claim:${request.request_id}`));
+      if (turn && typeof turn.safe_text === "string" &&
+        await this.#sha256(turn.safe_text.trim()) === request.content_hash) {
+        if (request.project_id === null) verifiedCentralInference = true;
+        verifiedResponseRefs.push(...stringArray(turn.evidence_refs).filter(ref => ref.startsWith("brain:specialist:")));
+      }
+      }
+    } catch {
+      // Fail closed on missing, untrusted, or unavailable PC state. Keep canonical history.
+      workerOnline = false;
+      verifiedCentralInference = false;
+      pcRequests = Object.freeze([]);
+    }
+    try {
+      const [specialists, profiles, providers, executors, tools] = await Promise.all([
+        this.#selectRows("command_center_specialist_brains", session, "brain_key,project_id,version,enabled,lifecycle,health,verification_state,control_plane,supported_project_ids,supported_company_ids,provider_keys,model_assignments,permission_keys,tool_keys,revalidate_after", {limit:"500"}),
+        this.#selectRows("command_center_project_profiles", session, "project_id,company_id", {limit:"500"}),
+        this.#selectRows("command_center_provider_registry", session, "provider_key,enabled,cost,health,verification,scopes,model_id:configuration->>model_id", {limit:"200"}),
+        this.#selectRows("command_center_agency_executors", session, "executor_key,enabled,health,cost_class,retired_at,capabilities,evidence_refs", {limit:"200"}),
+        this.#selectRows("agent_tool_registry", session, "tool_key,availability,free_status,auth_state,action_scope", {limit:"2000"})
+      ]);
+      const projected = projectSpecialistBindings({specialists,profiles,providers,executors,tools,workspaces:workspaceRows,verifiedResponseRefs,now:new Date().toISOString()});
+      specialistReadiness = projected.readiness;
+      specialistBlockers = projected.blockers;
+    } catch {
+      // Missing optional binding telemetry cannot erase saved project contexts.
+    }
     return Object.freeze({
       availability: "available" as const,
+      workerOnline,
+      specialistReadiness,
+      specialistBlockers,
+      verifiedCentralInference,
+      pcRequests,
+      inferenceAvailability: workerOnline ? "available" as const : "unavailable" as const,
       conversations: Object.freeze(conversations),
       workspaces: Object.freeze(workspaces),
       improvements: Object.freeze(improvements),

@@ -1,0 +1,4644 @@
+{
+  "observedAt": "2026-11-06T04:41:43.064427+00:00",
+  "registered": 128,
+  "modelBound": 128,
+  "contextBound": 128,
+  "operational": 0,
+  "blocked": 128,
+  "verifiedSpecialistToolConnections": 0,
+  "verifiedSpecialistProviderConnections": 0,
+  "verifiedCentralProviderConnections": 1,
+  "modelTagPinnedNotImmutableDigest": true,
+  "rows": [
+    {
+      "brainKey": "brain:company:future:001:v1",
+      "projectId": "project:company:future:001",
+      "companyId": "company:future:001",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:001:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:001:context.read",
+        "project:project:company:future:001:inference.read_only",
+        "project:project:company:future:001:memory.read",
+        "project:project:company:future:001:memory.write",
+        "project:project:company:future:001:roadmap.read",
+        "project:project:company:future:001:tools.request"
+      ],
+      "contextHash": "1836cf8506b5fa0034f9c6d43c4eae25c29c898201109ace6b985ae3f1ff7b3d",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:002:v1",
+      "projectId": "project:company:future:002",
+      "companyId": "company:future:002",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:002:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:002:context.read",
+        "project:project:company:future:002:inference.read_only",
+        "project:project:company:future:002:memory.read",
+        "project:project:company:future:002:memory.write",
+        "project:project:company:future:002:roadmap.read",
+        "project:project:company:future:002:tools.request"
+      ],
+      "contextHash": "17ea485342f21a711466c4263c065239b33b6e3cb8c89663c62c60b819fda4bb",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:003:v1",
+      "projectId": "project:company:future:003",
+      "companyId": "company:future:003",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:003:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:003:context.read",
+        "project:project:company:future:003:inference.read_only",
+        "project:project:company:future:003:memory.read",
+        "project:project:company:future:003:memory.write",
+        "project:project:company:future:003:roadmap.read",
+        "project:project:company:future:003:tools.request"
+      ],
+      "contextHash": "791b33a9437cc25c9a619413e707a321ff9f7d8f22b80fa05cf890dfef8e20ef",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:004:v1",
+      "projectId": "project:company:future:004",
+      "companyId": "company:future:004",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:004:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:004:context.read",
+        "project:project:company:future:004:inference.read_only",
+        "project:project:company:future:004:memory.read",
+        "project:project:company:future:004:memory.write",
+        "project:project:company:future:004:roadmap.read",
+        "project:project:company:future:004:tools.request"
+      ],
+      "contextHash": "a5d2ba3f0795d97f1ed64922f2016a21dd6b96ef5c8265dd526900818cb63027",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:005:v1",
+      "projectId": "project:company:future:005",
+      "companyId": "company:future:005",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:005:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:005:context.read",
+        "project:project:company:future:005:inference.read_only",
+        "project:project:company:future:005:memory.read",
+        "project:project:company:future:005:memory.write",
+        "project:project:company:future:005:roadmap.read",
+        "project:project:company:future:005:tools.request"
+      ],
+      "contextHash": "44c6f263b40a6b03ecba8e7b7d0310a93f969ffad4dd414c003b337e34fa0f3a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:006:v1",
+      "projectId": "project:company:future:006",
+      "companyId": "company:future:006",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:006:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:006:context.read",
+        "project:project:company:future:006:inference.read_only",
+        "project:project:company:future:006:memory.read",
+        "project:project:company:future:006:memory.write",
+        "project:project:company:future:006:roadmap.read",
+        "project:project:company:future:006:tools.request"
+      ],
+      "contextHash": "ac2c4bb560279bf65363115e432c06a64126f46721a660533936a5640c0c8457",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:007:v1",
+      "projectId": "project:company:future:007",
+      "companyId": "company:future:007",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:007:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:007:context.read",
+        "project:project:company:future:007:inference.read_only",
+        "project:project:company:future:007:memory.read",
+        "project:project:company:future:007:memory.write",
+        "project:project:company:future:007:roadmap.read",
+        "project:project:company:future:007:tools.request"
+      ],
+      "contextHash": "804fc6e916159fe3c588af6bc14aced5c186c70fb03f2b4557c4bf8b3bfc0d9e",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:008:v1",
+      "projectId": "project:company:future:008",
+      "companyId": "company:future:008",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:008:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:008:context.read",
+        "project:project:company:future:008:inference.read_only",
+        "project:project:company:future:008:memory.read",
+        "project:project:company:future:008:memory.write",
+        "project:project:company:future:008:roadmap.read",
+        "project:project:company:future:008:tools.request"
+      ],
+      "contextHash": "350c6081bfaedc37ec94e78071cfd3718af30b6a7bef9d450d17a73c9ac927c7",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:009:v1",
+      "projectId": "project:company:future:009",
+      "companyId": "company:future:009",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:009:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:009:context.read",
+        "project:project:company:future:009:inference.read_only",
+        "project:project:company:future:009:memory.read",
+        "project:project:company:future:009:memory.write",
+        "project:project:company:future:009:roadmap.read",
+        "project:project:company:future:009:tools.request"
+      ],
+      "contextHash": "2f06564fff0ffd5628853bb37228520f43cfc484dc6a08be02df796f007801f4",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:010:v1",
+      "projectId": "project:company:future:010",
+      "companyId": "company:future:010",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:010:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:010:context.read",
+        "project:project:company:future:010:inference.read_only",
+        "project:project:company:future:010:memory.read",
+        "project:project:company:future:010:memory.write",
+        "project:project:company:future:010:roadmap.read",
+        "project:project:company:future:010:tools.request"
+      ],
+      "contextHash": "ae07c16fb860ad14d03571fb68ddab38525315ffe69acc7db9cf1674ffa90b01",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:011:v1",
+      "projectId": "project:company:future:011",
+      "companyId": "company:future:011",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:011:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:011:context.read",
+        "project:project:company:future:011:inference.read_only",
+        "project:project:company:future:011:memory.read",
+        "project:project:company:future:011:memory.write",
+        "project:project:company:future:011:roadmap.read",
+        "project:project:company:future:011:tools.request"
+      ],
+      "contextHash": "d77c2a4cfa3f3387ff2034e80139449af54110651c7ece19336a577cab74a498",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:012:v1",
+      "projectId": "project:company:future:012",
+      "companyId": "company:future:012",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:012:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:012:context.read",
+        "project:project:company:future:012:inference.read_only",
+        "project:project:company:future:012:memory.read",
+        "project:project:company:future:012:memory.write",
+        "project:project:company:future:012:roadmap.read",
+        "project:project:company:future:012:tools.request"
+      ],
+      "contextHash": "0d4d56072ffda62c2dc4f0b5b95a0ed5c94e82c3cf3a8861dfe9a373eac5d8b1",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:013:v1",
+      "projectId": "project:company:future:013",
+      "companyId": "company:future:013",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:013:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:013:context.read",
+        "project:project:company:future:013:inference.read_only",
+        "project:project:company:future:013:memory.read",
+        "project:project:company:future:013:memory.write",
+        "project:project:company:future:013:roadmap.read",
+        "project:project:company:future:013:tools.request"
+      ],
+      "contextHash": "d6a2f432dd6f1b85be86566d0e4788c238eca7128c365f88f3086639a42412f0",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:014:v1",
+      "projectId": "project:company:future:014",
+      "companyId": "company:future:014",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:014:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:014:context.read",
+        "project:project:company:future:014:inference.read_only",
+        "project:project:company:future:014:memory.read",
+        "project:project:company:future:014:memory.write",
+        "project:project:company:future:014:roadmap.read",
+        "project:project:company:future:014:tools.request"
+      ],
+      "contextHash": "25d049098ef0f78b07c1b704b6ae0b161a7705f873040ce408caf5002e541975",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:015:v1",
+      "projectId": "project:company:future:015",
+      "companyId": "company:future:015",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:015:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:015:context.read",
+        "project:project:company:future:015:inference.read_only",
+        "project:project:company:future:015:memory.read",
+        "project:project:company:future:015:memory.write",
+        "project:project:company:future:015:roadmap.read",
+        "project:project:company:future:015:tools.request"
+      ],
+      "contextHash": "1302e96224ba4c2544d4b98b098887c758ef308e653cb9bbd61291938406b213",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:016:v1",
+      "projectId": "project:company:future:016",
+      "companyId": "company:future:016",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:016:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:016:context.read",
+        "project:project:company:future:016:inference.read_only",
+        "project:project:company:future:016:memory.read",
+        "project:project:company:future:016:memory.write",
+        "project:project:company:future:016:roadmap.read",
+        "project:project:company:future:016:tools.request"
+      ],
+      "contextHash": "df863cb8f96a2b54ead5cafb19dc9b9fad8eff6228d913632ce994d23da23053",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:017:v1",
+      "projectId": "project:company:future:017",
+      "companyId": "company:future:017",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:017:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:017:context.read",
+        "project:project:company:future:017:inference.read_only",
+        "project:project:company:future:017:memory.read",
+        "project:project:company:future:017:memory.write",
+        "project:project:company:future:017:roadmap.read",
+        "project:project:company:future:017:tools.request"
+      ],
+      "contextHash": "96f62a193bb05c023600fdbcf0705d0c120545baaadd938e442695bc13811d8b",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:018:v1",
+      "projectId": "project:company:future:018",
+      "companyId": "company:future:018",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:018:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:018:context.read",
+        "project:project:company:future:018:inference.read_only",
+        "project:project:company:future:018:memory.read",
+        "project:project:company:future:018:memory.write",
+        "project:project:company:future:018:roadmap.read",
+        "project:project:company:future:018:tools.request"
+      ],
+      "contextHash": "e018876e78b20ac5b458cf6a4e02a0f4a4523125c97fbfb244d768dcb73f7050",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:019:v1",
+      "projectId": "project:company:future:019",
+      "companyId": "company:future:019",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:019:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:019:context.read",
+        "project:project:company:future:019:inference.read_only",
+        "project:project:company:future:019:memory.read",
+        "project:project:company:future:019:memory.write",
+        "project:project:company:future:019:roadmap.read",
+        "project:project:company:future:019:tools.request"
+      ],
+      "contextHash": "d984abf10fd048a54908f0c22d7d120da866ee5cf4936b727d76391495084b03",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:020:v1",
+      "projectId": "project:company:future:020",
+      "companyId": "company:future:020",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:020:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:020:context.read",
+        "project:project:company:future:020:inference.read_only",
+        "project:project:company:future:020:memory.read",
+        "project:project:company:future:020:memory.write",
+        "project:project:company:future:020:roadmap.read",
+        "project:project:company:future:020:tools.request"
+      ],
+      "contextHash": "b6a71e46a6814d567d485bbfd44e2d3d4b41fb0615794fe826774f524a6e35af",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:021:v1",
+      "projectId": "project:company:future:021",
+      "companyId": "company:future:021",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:021:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:021:context.read",
+        "project:project:company:future:021:inference.read_only",
+        "project:project:company:future:021:memory.read",
+        "project:project:company:future:021:memory.write",
+        "project:project:company:future:021:roadmap.read",
+        "project:project:company:future:021:tools.request"
+      ],
+      "contextHash": "207523d7211a75b4c7e5f677979d6a2b5487e75397440a018c510aa7c769ab1a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:022:v1",
+      "projectId": "project:company:future:022",
+      "companyId": "company:future:022",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:022:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:022:context.read",
+        "project:project:company:future:022:inference.read_only",
+        "project:project:company:future:022:memory.read",
+        "project:project:company:future:022:memory.write",
+        "project:project:company:future:022:roadmap.read",
+        "project:project:company:future:022:tools.request"
+      ],
+      "contextHash": "41cb3dfb2cbd6cbb9081f2ba25681a419a120ed4f9ce772f79d09e89c72e2d6c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:023:v1",
+      "projectId": "project:company:future:023",
+      "companyId": "company:future:023",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:023:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:023:context.read",
+        "project:project:company:future:023:inference.read_only",
+        "project:project:company:future:023:memory.read",
+        "project:project:company:future:023:memory.write",
+        "project:project:company:future:023:roadmap.read",
+        "project:project:company:future:023:tools.request"
+      ],
+      "contextHash": "5dbbda42d82d958c2cf40a12ca1fab8915c5b3b8dfb7a2430fe406741aa8276a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:024:v1",
+      "projectId": "project:company:future:024",
+      "companyId": "company:future:024",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:024:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:024:context.read",
+        "project:project:company:future:024:inference.read_only",
+        "project:project:company:future:024:memory.read",
+        "project:project:company:future:024:memory.write",
+        "project:project:company:future:024:roadmap.read",
+        "project:project:company:future:024:tools.request"
+      ],
+      "contextHash": "3f517ce1414a76758d62191bedb9d613566252ab021fce309a06031820876bd5",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:025:v1",
+      "projectId": "project:company:future:025",
+      "companyId": "company:future:025",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:025:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:025:context.read",
+        "project:project:company:future:025:inference.read_only",
+        "project:project:company:future:025:memory.read",
+        "project:project:company:future:025:memory.write",
+        "project:project:company:future:025:roadmap.read",
+        "project:project:company:future:025:tools.request"
+      ],
+      "contextHash": "3556ad8dfdbf8fd3eb0039e9891b2009396c84636f93ea0e98a3cd7229f547f8",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:026:v1",
+      "projectId": "project:company:future:026",
+      "companyId": "company:future:026",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:026:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:026:context.read",
+        "project:project:company:future:026:inference.read_only",
+        "project:project:company:future:026:memory.read",
+        "project:project:company:future:026:memory.write",
+        "project:project:company:future:026:roadmap.read",
+        "project:project:company:future:026:tools.request"
+      ],
+      "contextHash": "789797b985f224952423513bb53501490dcc9d406e5067031032dc78ff8af48a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:027:v1",
+      "projectId": "project:company:future:027",
+      "companyId": "company:future:027",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:027:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:027:context.read",
+        "project:project:company:future:027:inference.read_only",
+        "project:project:company:future:027:memory.read",
+        "project:project:company:future:027:memory.write",
+        "project:project:company:future:027:roadmap.read",
+        "project:project:company:future:027:tools.request"
+      ],
+      "contextHash": "54f7ce866be56dc9fa030e1f4fd85f29850c63e75b8cf0b51cc5e88a5fba3458",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:028:v1",
+      "projectId": "project:company:future:028",
+      "companyId": "company:future:028",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:028:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:028:context.read",
+        "project:project:company:future:028:inference.read_only",
+        "project:project:company:future:028:memory.read",
+        "project:project:company:future:028:memory.write",
+        "project:project:company:future:028:roadmap.read",
+        "project:project:company:future:028:tools.request"
+      ],
+      "contextHash": "039c48f98ef52553e5887d02e9c587bd4e4945bd356722e5dffa81d90c4ae8f8",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:029:v1",
+      "projectId": "project:company:future:029",
+      "companyId": "company:future:029",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:029:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:029:context.read",
+        "project:project:company:future:029:inference.read_only",
+        "project:project:company:future:029:memory.read",
+        "project:project:company:future:029:memory.write",
+        "project:project:company:future:029:roadmap.read",
+        "project:project:company:future:029:tools.request"
+      ],
+      "contextHash": "c74467ba4d33048c32e1c065e56bee4bbf57cd0f5df9f0762fb475df12e63ecc",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:030:v1",
+      "projectId": "project:company:future:030",
+      "companyId": "company:future:030",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:030:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:030:context.read",
+        "project:project:company:future:030:inference.read_only",
+        "project:project:company:future:030:memory.read",
+        "project:project:company:future:030:memory.write",
+        "project:project:company:future:030:roadmap.read",
+        "project:project:company:future:030:tools.request"
+      ],
+      "contextHash": "0f7355164f86e92e768cf5d0e80850df25b0328ab7ea64bf83a3e62c2107db05",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:031:v1",
+      "projectId": "project:company:future:031",
+      "companyId": "company:future:031",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:031:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:031:context.read",
+        "project:project:company:future:031:inference.read_only",
+        "project:project:company:future:031:memory.read",
+        "project:project:company:future:031:memory.write",
+        "project:project:company:future:031:roadmap.read",
+        "project:project:company:future:031:tools.request"
+      ],
+      "contextHash": "1ca7e8a1a95d223853219229faa5c3d2b2f503a591f4205f79eea11cb555e4f0",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:032:v1",
+      "projectId": "project:company:future:032",
+      "companyId": "company:future:032",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:032:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:032:context.read",
+        "project:project:company:future:032:inference.read_only",
+        "project:project:company:future:032:memory.read",
+        "project:project:company:future:032:memory.write",
+        "project:project:company:future:032:roadmap.read",
+        "project:project:company:future:032:tools.request"
+      ],
+      "contextHash": "8e1bed20202e346982dfad51a31ba31bf87f3e30f491daaff9950a7dc9c936c2",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:033:v1",
+      "projectId": "project:company:future:033",
+      "companyId": "company:future:033",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:033:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:033:context.read",
+        "project:project:company:future:033:inference.read_only",
+        "project:project:company:future:033:memory.read",
+        "project:project:company:future:033:memory.write",
+        "project:project:company:future:033:roadmap.read",
+        "project:project:company:future:033:tools.request"
+      ],
+      "contextHash": "a33e4f9193c0c4e4557a3bea6263a950d49e6d416c6212c009443665e53c08d5",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:034:v1",
+      "projectId": "project:company:future:034",
+      "companyId": "company:future:034",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:034:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:034:context.read",
+        "project:project:company:future:034:inference.read_only",
+        "project:project:company:future:034:memory.read",
+        "project:project:company:future:034:memory.write",
+        "project:project:company:future:034:roadmap.read",
+        "project:project:company:future:034:tools.request"
+      ],
+      "contextHash": "e57e3d57999d1e7fb2dba55a1e96f559210775e44ac6a2a6f9a80de400160235",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:035:v1",
+      "projectId": "project:company:future:035",
+      "companyId": "company:future:035",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:035:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:035:context.read",
+        "project:project:company:future:035:inference.read_only",
+        "project:project:company:future:035:memory.read",
+        "project:project:company:future:035:memory.write",
+        "project:project:company:future:035:roadmap.read",
+        "project:project:company:future:035:tools.request"
+      ],
+      "contextHash": "b153bac64c8e24517c7fc859a8f8763059500fcd8a31319501b3a05ea505456f",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:036:v1",
+      "projectId": "project:company:future:036",
+      "companyId": "company:future:036",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:036:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:036:context.read",
+        "project:project:company:future:036:inference.read_only",
+        "project:project:company:future:036:memory.read",
+        "project:project:company:future:036:memory.write",
+        "project:project:company:future:036:roadmap.read",
+        "project:project:company:future:036:tools.request"
+      ],
+      "contextHash": "8c4486688e9d7be14f953a74f6585c3f9232d7751944f705a2aac4c5ec0e59d7",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:037:v1",
+      "projectId": "project:company:future:037",
+      "companyId": "company:future:037",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:037:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:037:context.read",
+        "project:project:company:future:037:inference.read_only",
+        "project:project:company:future:037:memory.read",
+        "project:project:company:future:037:memory.write",
+        "project:project:company:future:037:roadmap.read",
+        "project:project:company:future:037:tools.request"
+      ],
+      "contextHash": "69936dd7f120c93e109d3036d49498189f3caa1486acde13b338282d1f745364",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:038:v1",
+      "projectId": "project:company:future:038",
+      "companyId": "company:future:038",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:038:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:038:context.read",
+        "project:project:company:future:038:inference.read_only",
+        "project:project:company:future:038:memory.read",
+        "project:project:company:future:038:memory.write",
+        "project:project:company:future:038:roadmap.read",
+        "project:project:company:future:038:tools.request"
+      ],
+      "contextHash": "f8e59be5fdb6a3775a012dbf4e4775c9b6f34159a70be556700ebf76902f8975",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:039:v1",
+      "projectId": "project:company:future:039",
+      "companyId": "company:future:039",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:039:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:039:context.read",
+        "project:project:company:future:039:inference.read_only",
+        "project:project:company:future:039:memory.read",
+        "project:project:company:future:039:memory.write",
+        "project:project:company:future:039:roadmap.read",
+        "project:project:company:future:039:tools.request"
+      ],
+      "contextHash": "abe3a81f34b3802d0b734d3999129b1fdb07904b9a9ead7d2b8bc045e30e58d8",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:040:v1",
+      "projectId": "project:company:future:040",
+      "companyId": "company:future:040",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:040:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:040:context.read",
+        "project:project:company:future:040:inference.read_only",
+        "project:project:company:future:040:memory.read",
+        "project:project:company:future:040:memory.write",
+        "project:project:company:future:040:roadmap.read",
+        "project:project:company:future:040:tools.request"
+      ],
+      "contextHash": "5aeb8717e641e0a87b0acbc7d3a0df46c14d4adbdeff6a7f96b2fcff5bf4ff55",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:041:v1",
+      "projectId": "project:company:future:041",
+      "companyId": "company:future:041",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:041:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:041:context.read",
+        "project:project:company:future:041:inference.read_only",
+        "project:project:company:future:041:memory.read",
+        "project:project:company:future:041:memory.write",
+        "project:project:company:future:041:roadmap.read",
+        "project:project:company:future:041:tools.request"
+      ],
+      "contextHash": "8b1ab59b30a856b6f9a4a2d77ae00f87700250648b49e45d551555ac9351ec15",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:042:v1",
+      "projectId": "project:company:future:042",
+      "companyId": "company:future:042",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:042:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:042:context.read",
+        "project:project:company:future:042:inference.read_only",
+        "project:project:company:future:042:memory.read",
+        "project:project:company:future:042:memory.write",
+        "project:project:company:future:042:roadmap.read",
+        "project:project:company:future:042:tools.request"
+      ],
+      "contextHash": "917f307436bbe5e0f4daf7496a279440ae0dbfc583cd07b840ff536fb459bb6e",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:043:v1",
+      "projectId": "project:company:future:043",
+      "companyId": "company:future:043",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:043:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:043:context.read",
+        "project:project:company:future:043:inference.read_only",
+        "project:project:company:future:043:memory.read",
+        "project:project:company:future:043:memory.write",
+        "project:project:company:future:043:roadmap.read",
+        "project:project:company:future:043:tools.request"
+      ],
+      "contextHash": "9b895e82493767365210c99cab9f639e67a5901912abb92cb4d77f59fbbd9dbf",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:044:v1",
+      "projectId": "project:company:future:044",
+      "companyId": "company:future:044",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:044:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:044:context.read",
+        "project:project:company:future:044:inference.read_only",
+        "project:project:company:future:044:memory.read",
+        "project:project:company:future:044:memory.write",
+        "project:project:company:future:044:roadmap.read",
+        "project:project:company:future:044:tools.request"
+      ],
+      "contextHash": "8e7df6b3f10595fa81f0cc12b9abc0fddc38a781c04b8966ae994faa7ff5267f",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:045:v1",
+      "projectId": "project:company:future:045",
+      "companyId": "company:future:045",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:045:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:045:context.read",
+        "project:project:company:future:045:inference.read_only",
+        "project:project:company:future:045:memory.read",
+        "project:project:company:future:045:memory.write",
+        "project:project:company:future:045:roadmap.read",
+        "project:project:company:future:045:tools.request"
+      ],
+      "contextHash": "bf7b6bd056ba1a019e77f4c5bfa3312d9d58261992c91bf7bb25b3672b541926",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:046:v1",
+      "projectId": "project:company:future:046",
+      "companyId": "company:future:046",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:046:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:046:context.read",
+        "project:project:company:future:046:inference.read_only",
+        "project:project:company:future:046:memory.read",
+        "project:project:company:future:046:memory.write",
+        "project:project:company:future:046:roadmap.read",
+        "project:project:company:future:046:tools.request"
+      ],
+      "contextHash": "88c2e98f1cc715a44f2940fe4df061ca2948d9fe5862f1080fa9b904016653ef",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:047:v1",
+      "projectId": "project:company:future:047",
+      "companyId": "company:future:047",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:047:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:047:context.read",
+        "project:project:company:future:047:inference.read_only",
+        "project:project:company:future:047:memory.read",
+        "project:project:company:future:047:memory.write",
+        "project:project:company:future:047:roadmap.read",
+        "project:project:company:future:047:tools.request"
+      ],
+      "contextHash": "3bbbac6d9f45220ffde3e08da5386a57128644b3e77d107f0a981efa9472dd9a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:048:v1",
+      "projectId": "project:company:future:048",
+      "companyId": "company:future:048",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:048:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:048:context.read",
+        "project:project:company:future:048:inference.read_only",
+        "project:project:company:future:048:memory.read",
+        "project:project:company:future:048:memory.write",
+        "project:project:company:future:048:roadmap.read",
+        "project:project:company:future:048:tools.request"
+      ],
+      "contextHash": "32d637917224be6f6ad2aa548fa8ca3d9e11f62b44d53bdc7f16c0e9dd206937",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:049:v1",
+      "projectId": "project:company:future:049",
+      "companyId": "company:future:049",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:049:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:049:context.read",
+        "project:project:company:future:049:inference.read_only",
+        "project:project:company:future:049:memory.read",
+        "project:project:company:future:049:memory.write",
+        "project:project:company:future:049:roadmap.read",
+        "project:project:company:future:049:tools.request"
+      ],
+      "contextHash": "8ea4c249956b67677f51b9d8d1796fe6d8e1a821ecb7c8b206b8044f71d9f288",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:050:v1",
+      "projectId": "project:company:future:050",
+      "companyId": "company:future:050",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:050:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:050:context.read",
+        "project:project:company:future:050:inference.read_only",
+        "project:project:company:future:050:memory.read",
+        "project:project:company:future:050:memory.write",
+        "project:project:company:future:050:roadmap.read",
+        "project:project:company:future:050:tools.request"
+      ],
+      "contextHash": "38dc36dfcf1274c25eebea65af45593209f5fa8bb96d9b733ac814941bc85152",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:051:v1",
+      "projectId": "project:company:future:051",
+      "companyId": "company:future:051",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:051:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:051:context.read",
+        "project:project:company:future:051:inference.read_only",
+        "project:project:company:future:051:memory.read",
+        "project:project:company:future:051:memory.write",
+        "project:project:company:future:051:roadmap.read",
+        "project:project:company:future:051:tools.request"
+      ],
+      "contextHash": "15d3f1d569bfca1237590011ef079b0c1af2b933af856902b15cf28ce69ac80f",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:052:v1",
+      "projectId": "project:company:future:052",
+      "companyId": "company:future:052",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:052:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:052:context.read",
+        "project:project:company:future:052:inference.read_only",
+        "project:project:company:future:052:memory.read",
+        "project:project:company:future:052:memory.write",
+        "project:project:company:future:052:roadmap.read",
+        "project:project:company:future:052:tools.request"
+      ],
+      "contextHash": "4703d1da033e5c2c2dd7f10324fa8ea209798e4021600be03276a93b6939f739",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:053:v1",
+      "projectId": "project:company:future:053",
+      "companyId": "company:future:053",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:053:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:053:context.read",
+        "project:project:company:future:053:inference.read_only",
+        "project:project:company:future:053:memory.read",
+        "project:project:company:future:053:memory.write",
+        "project:project:company:future:053:roadmap.read",
+        "project:project:company:future:053:tools.request"
+      ],
+      "contextHash": "067a1e9d7ba405eda669ded6a218c1cd9bfe898fe78b4e493754a0cf89adb569",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:054:v1",
+      "projectId": "project:company:future:054",
+      "companyId": "company:future:054",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:054:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:054:context.read",
+        "project:project:company:future:054:inference.read_only",
+        "project:project:company:future:054:memory.read",
+        "project:project:company:future:054:memory.write",
+        "project:project:company:future:054:roadmap.read",
+        "project:project:company:future:054:tools.request"
+      ],
+      "contextHash": "17bc9c56abb2d7a1e05f6e44c34610c4b9e3bb63f398c2d7fb85d96745e04e94",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:055:v1",
+      "projectId": "project:company:future:055",
+      "companyId": "company:future:055",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:055:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:055:context.read",
+        "project:project:company:future:055:inference.read_only",
+        "project:project:company:future:055:memory.read",
+        "project:project:company:future:055:memory.write",
+        "project:project:company:future:055:roadmap.read",
+        "project:project:company:future:055:tools.request"
+      ],
+      "contextHash": "fefca1400e4f7bd17b64e1bdc22ce296688ffd815b163934d2a2aeafe0a98397",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:056:v1",
+      "projectId": "project:company:future:056",
+      "companyId": "company:future:056",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:056:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:056:context.read",
+        "project:project:company:future:056:inference.read_only",
+        "project:project:company:future:056:memory.read",
+        "project:project:company:future:056:memory.write",
+        "project:project:company:future:056:roadmap.read",
+        "project:project:company:future:056:tools.request"
+      ],
+      "contextHash": "d37c025bd417f2e230592d4d2fbea2db57b42fcc0e37c092061062bf2d530a33",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:057:v1",
+      "projectId": "project:company:future:057",
+      "companyId": "company:future:057",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:057:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:057:context.read",
+        "project:project:company:future:057:inference.read_only",
+        "project:project:company:future:057:memory.read",
+        "project:project:company:future:057:memory.write",
+        "project:project:company:future:057:roadmap.read",
+        "project:project:company:future:057:tools.request"
+      ],
+      "contextHash": "bd0eb3af4b9d34359ade25eb370671fe24618e815080c7c292a639d54465f082",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:058:v1",
+      "projectId": "project:company:future:058",
+      "companyId": "company:future:058",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:058:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:058:context.read",
+        "project:project:company:future:058:inference.read_only",
+        "project:project:company:future:058:memory.read",
+        "project:project:company:future:058:memory.write",
+        "project:project:company:future:058:roadmap.read",
+        "project:project:company:future:058:tools.request"
+      ],
+      "contextHash": "d9dc7b1a20d99146ccf22c0489fb7b27152acc0c33b6906f6c5bbb303cf1e936",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:059:v1",
+      "projectId": "project:company:future:059",
+      "companyId": "company:future:059",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:059:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:059:context.read",
+        "project:project:company:future:059:inference.read_only",
+        "project:project:company:future:059:memory.read",
+        "project:project:company:future:059:memory.write",
+        "project:project:company:future:059:roadmap.read",
+        "project:project:company:future:059:tools.request"
+      ],
+      "contextHash": "a916723939963f3595e093122be2fa848d1f82908a59270b7406a7dea79eff73",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:060:v1",
+      "projectId": "project:company:future:060",
+      "companyId": "company:future:060",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:060:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:060:context.read",
+        "project:project:company:future:060:inference.read_only",
+        "project:project:company:future:060:memory.read",
+        "project:project:company:future:060:memory.write",
+        "project:project:company:future:060:roadmap.read",
+        "project:project:company:future:060:tools.request"
+      ],
+      "contextHash": "c54e546685a69228aee1d1da13565d5fdb6795920629d5c8aba4bb829b605a0e",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:061:v1",
+      "projectId": "project:company:future:061",
+      "companyId": "company:future:061",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:061:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:061:context.read",
+        "project:project:company:future:061:inference.read_only",
+        "project:project:company:future:061:memory.read",
+        "project:project:company:future:061:memory.write",
+        "project:project:company:future:061:roadmap.read",
+        "project:project:company:future:061:tools.request"
+      ],
+      "contextHash": "50cf4064d4b710c4f25c50921cd73cbb538d1c09affb4dd75c82b12182225b29",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:062:v1",
+      "projectId": "project:company:future:062",
+      "companyId": "company:future:062",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:062:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:062:context.read",
+        "project:project:company:future:062:inference.read_only",
+        "project:project:company:future:062:memory.read",
+        "project:project:company:future:062:memory.write",
+        "project:project:company:future:062:roadmap.read",
+        "project:project:company:future:062:tools.request"
+      ],
+      "contextHash": "a3a535660f607f68e9920e40f38c6ebafc92a579387e1cb356d16818caf7dfce",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:063:v1",
+      "projectId": "project:company:future:063",
+      "companyId": "company:future:063",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:063:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:063:context.read",
+        "project:project:company:future:063:inference.read_only",
+        "project:project:company:future:063:memory.read",
+        "project:project:company:future:063:memory.write",
+        "project:project:company:future:063:roadmap.read",
+        "project:project:company:future:063:tools.request"
+      ],
+      "contextHash": "1f5ecfcdeefcd6d2bca215f3d06fa99b53f972e82a569f692ae96fc492105b4c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:064:v1",
+      "projectId": "project:company:future:064",
+      "companyId": "company:future:064",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:064:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:064:context.read",
+        "project:project:company:future:064:inference.read_only",
+        "project:project:company:future:064:memory.read",
+        "project:project:company:future:064:memory.write",
+        "project:project:company:future:064:roadmap.read",
+        "project:project:company:future:064:tools.request"
+      ],
+      "contextHash": "dd70176f5ee36d615b08f4613ef5f789144f47f7a8ebbf88eb4745610895e6e5",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:065:v1",
+      "projectId": "project:company:future:065",
+      "companyId": "company:future:065",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:065:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:065:context.read",
+        "project:project:company:future:065:inference.read_only",
+        "project:project:company:future:065:memory.read",
+        "project:project:company:future:065:memory.write",
+        "project:project:company:future:065:roadmap.read",
+        "project:project:company:future:065:tools.request"
+      ],
+      "contextHash": "7a8212511d726c5cb5943c39ea572185aecda14cbfa8e2105f6649ee3844da7a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:066:v1",
+      "projectId": "project:company:future:066",
+      "companyId": "company:future:066",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:066:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:066:context.read",
+        "project:project:company:future:066:inference.read_only",
+        "project:project:company:future:066:memory.read",
+        "project:project:company:future:066:memory.write",
+        "project:project:company:future:066:roadmap.read",
+        "project:project:company:future:066:tools.request"
+      ],
+      "contextHash": "64c3989350cce7634b45c446ec121ec7c5f256a9b3bfa9a94914cd3c1f32ea2a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:067:v1",
+      "projectId": "project:company:future:067",
+      "companyId": "company:future:067",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:067:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:067:context.read",
+        "project:project:company:future:067:inference.read_only",
+        "project:project:company:future:067:memory.read",
+        "project:project:company:future:067:memory.write",
+        "project:project:company:future:067:roadmap.read",
+        "project:project:company:future:067:tools.request"
+      ],
+      "contextHash": "b73db4341a67baddec7b1d948a72dc992c44f6d114ce6f359ac3b8bef7ecb43d",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:068:v1",
+      "projectId": "project:company:future:068",
+      "companyId": "company:future:068",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:068:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:068:context.read",
+        "project:project:company:future:068:inference.read_only",
+        "project:project:company:future:068:memory.read",
+        "project:project:company:future:068:memory.write",
+        "project:project:company:future:068:roadmap.read",
+        "project:project:company:future:068:tools.request"
+      ],
+      "contextHash": "2aa51b1bc5aa3fb620b466b77eecbd282b11fc46f75425398f6dc84a19374dea",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:069:v1",
+      "projectId": "project:company:future:069",
+      "companyId": "company:future:069",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:069:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:069:context.read",
+        "project:project:company:future:069:inference.read_only",
+        "project:project:company:future:069:memory.read",
+        "project:project:company:future:069:memory.write",
+        "project:project:company:future:069:roadmap.read",
+        "project:project:company:future:069:tools.request"
+      ],
+      "contextHash": "4d7c8a1831341d198586d3a29d99d105a99df5bbc4e39093f0247eb6829d0b14",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:070:v1",
+      "projectId": "project:company:future:070",
+      "companyId": "company:future:070",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:070:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:070:context.read",
+        "project:project:company:future:070:inference.read_only",
+        "project:project:company:future:070:memory.read",
+        "project:project:company:future:070:memory.write",
+        "project:project:company:future:070:roadmap.read",
+        "project:project:company:future:070:tools.request"
+      ],
+      "contextHash": "3c5dd2937965c1c1d46e0cd683a6c39634fa0bd1735ead4943fdc688a5b4c8e7",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:071:v1",
+      "projectId": "project:company:future:071",
+      "companyId": "company:future:071",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:071:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:071:context.read",
+        "project:project:company:future:071:inference.read_only",
+        "project:project:company:future:071:memory.read",
+        "project:project:company:future:071:memory.write",
+        "project:project:company:future:071:roadmap.read",
+        "project:project:company:future:071:tools.request"
+      ],
+      "contextHash": "3a1822c896804c5df3d8e031b3a0b2d73b63d7b6e6d505ac851488a8f2e7f55b",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:072:v1",
+      "projectId": "project:company:future:072",
+      "companyId": "company:future:072",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:072:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:072:context.read",
+        "project:project:company:future:072:inference.read_only",
+        "project:project:company:future:072:memory.read",
+        "project:project:company:future:072:memory.write",
+        "project:project:company:future:072:roadmap.read",
+        "project:project:company:future:072:tools.request"
+      ],
+      "contextHash": "078e0bad6e098f2c612841d73bb499e47836f5b5a6682351cf5fff8822876a71",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:073:v1",
+      "projectId": "project:company:future:073",
+      "companyId": "company:future:073",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:073:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:073:context.read",
+        "project:project:company:future:073:inference.read_only",
+        "project:project:company:future:073:memory.read",
+        "project:project:company:future:073:memory.write",
+        "project:project:company:future:073:roadmap.read",
+        "project:project:company:future:073:tools.request"
+      ],
+      "contextHash": "3bfcb5e9649f6d9d512e1c0c6c06d9f196125115b90e86c14d4760ecc14079d6",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:074:v1",
+      "projectId": "project:company:future:074",
+      "companyId": "company:future:074",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:074:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:074:context.read",
+        "project:project:company:future:074:inference.read_only",
+        "project:project:company:future:074:memory.read",
+        "project:project:company:future:074:memory.write",
+        "project:project:company:future:074:roadmap.read",
+        "project:project:company:future:074:tools.request"
+      ],
+      "contextHash": "b34132fbb76108ed929f78d38c84c392277d8ec2d2c82b7b0e24986c13e1f45c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:075:v1",
+      "projectId": "project:company:future:075",
+      "companyId": "company:future:075",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:075:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:075:context.read",
+        "project:project:company:future:075:inference.read_only",
+        "project:project:company:future:075:memory.read",
+        "project:project:company:future:075:memory.write",
+        "project:project:company:future:075:roadmap.read",
+        "project:project:company:future:075:tools.request"
+      ],
+      "contextHash": "cbdd402f1b129703576b1f513966300ce77ddd013c8389e5137fd0b5cf39f372",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:076:v1",
+      "projectId": "project:company:future:076",
+      "companyId": "company:future:076",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:076:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:076:context.read",
+        "project:project:company:future:076:inference.read_only",
+        "project:project:company:future:076:memory.read",
+        "project:project:company:future:076:memory.write",
+        "project:project:company:future:076:roadmap.read",
+        "project:project:company:future:076:tools.request"
+      ],
+      "contextHash": "233a9736cd17d35bbe5f2547d9cece9affd914defd245b11a50fa6d5b8574841",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:077:v1",
+      "projectId": "project:company:future:077",
+      "companyId": "company:future:077",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:077:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:077:context.read",
+        "project:project:company:future:077:inference.read_only",
+        "project:project:company:future:077:memory.read",
+        "project:project:company:future:077:memory.write",
+        "project:project:company:future:077:roadmap.read",
+        "project:project:company:future:077:tools.request"
+      ],
+      "contextHash": "bdf5ff8d99d99bc0badf37faef40572d9c695b02b10e0c3bc467506a7e4d6420",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:078:v1",
+      "projectId": "project:company:future:078",
+      "companyId": "company:future:078",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:078:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:078:context.read",
+        "project:project:company:future:078:inference.read_only",
+        "project:project:company:future:078:memory.read",
+        "project:project:company:future:078:memory.write",
+        "project:project:company:future:078:roadmap.read",
+        "project:project:company:future:078:tools.request"
+      ],
+      "contextHash": "1c9dba57cb9d35849ab80688f5afbf7844d3f769da7bade920f6ab4c71f1d312",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:079:v1",
+      "projectId": "project:company:future:079",
+      "companyId": "company:future:079",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:079:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:079:context.read",
+        "project:project:company:future:079:inference.read_only",
+        "project:project:company:future:079:memory.read",
+        "project:project:company:future:079:memory.write",
+        "project:project:company:future:079:roadmap.read",
+        "project:project:company:future:079:tools.request"
+      ],
+      "contextHash": "28475badd5301f7f9241e95c5368dbf23e69da5586fdadac86cce4780140ed30",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:080:v1",
+      "projectId": "project:company:future:080",
+      "companyId": "company:future:080",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:080:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:080:context.read",
+        "project:project:company:future:080:inference.read_only",
+        "project:project:company:future:080:memory.read",
+        "project:project:company:future:080:memory.write",
+        "project:project:company:future:080:roadmap.read",
+        "project:project:company:future:080:tools.request"
+      ],
+      "contextHash": "2cf6c52b3bd5a27e1d28a513e5ee0ea5d7736a56c4c218d8ddf3c72593b558bc",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:081:v1",
+      "projectId": "project:company:future:081",
+      "companyId": "company:future:081",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:081:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:081:context.read",
+        "project:project:company:future:081:inference.read_only",
+        "project:project:company:future:081:memory.read",
+        "project:project:company:future:081:memory.write",
+        "project:project:company:future:081:roadmap.read",
+        "project:project:company:future:081:tools.request"
+      ],
+      "contextHash": "429dc37e7057a449c7477f23bf84983154a0f434e97e06336b2fdbd6004acdf4",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:082:v1",
+      "projectId": "project:company:future:082",
+      "companyId": "company:future:082",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:082:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:082:context.read",
+        "project:project:company:future:082:inference.read_only",
+        "project:project:company:future:082:memory.read",
+        "project:project:company:future:082:memory.write",
+        "project:project:company:future:082:roadmap.read",
+        "project:project:company:future:082:tools.request"
+      ],
+      "contextHash": "d7d7822f740eab6e275e9976e2444c3e6367e5e8a88a2b7617e95cd42a7ad689",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:083:v1",
+      "projectId": "project:company:future:083",
+      "companyId": "company:future:083",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:083:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:083:context.read",
+        "project:project:company:future:083:inference.read_only",
+        "project:project:company:future:083:memory.read",
+        "project:project:company:future:083:memory.write",
+        "project:project:company:future:083:roadmap.read",
+        "project:project:company:future:083:tools.request"
+      ],
+      "contextHash": "a4d7e6e1493e81d6c219527531becd135f751ff243a83f8c7aaadf22d07afe67",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:084:v1",
+      "projectId": "project:company:future:084",
+      "companyId": "company:future:084",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:084:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:084:context.read",
+        "project:project:company:future:084:inference.read_only",
+        "project:project:company:future:084:memory.read",
+        "project:project:company:future:084:memory.write",
+        "project:project:company:future:084:roadmap.read",
+        "project:project:company:future:084:tools.request"
+      ],
+      "contextHash": "a03537baa99315e92ff3ea61cced2bf04da96e76e3a88fb77b5da219e1f5d100",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:085:v1",
+      "projectId": "project:company:future:085",
+      "companyId": "company:future:085",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:085:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:085:context.read",
+        "project:project:company:future:085:inference.read_only",
+        "project:project:company:future:085:memory.read",
+        "project:project:company:future:085:memory.write",
+        "project:project:company:future:085:roadmap.read",
+        "project:project:company:future:085:tools.request"
+      ],
+      "contextHash": "6f5379cc5b670b8aa04b517667fd6aadb42f817797f20dd45b5699f12163eec0",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:086:v1",
+      "projectId": "project:company:future:086",
+      "companyId": "company:future:086",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:086:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:086:context.read",
+        "project:project:company:future:086:inference.read_only",
+        "project:project:company:future:086:memory.read",
+        "project:project:company:future:086:memory.write",
+        "project:project:company:future:086:roadmap.read",
+        "project:project:company:future:086:tools.request"
+      ],
+      "contextHash": "a92b88fc80a77dd6a0c9b609f8e13983ebe05723e5d601e1b903d96e7d7a976d",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:087:v1",
+      "projectId": "project:company:future:087",
+      "companyId": "company:future:087",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:087:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:087:context.read",
+        "project:project:company:future:087:inference.read_only",
+        "project:project:company:future:087:memory.read",
+        "project:project:company:future:087:memory.write",
+        "project:project:company:future:087:roadmap.read",
+        "project:project:company:future:087:tools.request"
+      ],
+      "contextHash": "e71dfd0b9df50e65964d63dcca3f6624db7434940511ba837f79c10c59b6477b",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:088:v1",
+      "projectId": "project:company:future:088",
+      "companyId": "company:future:088",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:088:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:088:context.read",
+        "project:project:company:future:088:inference.read_only",
+        "project:project:company:future:088:memory.read",
+        "project:project:company:future:088:memory.write",
+        "project:project:company:future:088:roadmap.read",
+        "project:project:company:future:088:tools.request"
+      ],
+      "contextHash": "2337d085bd0a986e5346cf9be24f0f1d3c229c59dfaeaff64c9943828624a266",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:089:v1",
+      "projectId": "project:company:future:089",
+      "companyId": "company:future:089",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:089:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:089:context.read",
+        "project:project:company:future:089:inference.read_only",
+        "project:project:company:future:089:memory.read",
+        "project:project:company:future:089:memory.write",
+        "project:project:company:future:089:roadmap.read",
+        "project:project:company:future:089:tools.request"
+      ],
+      "contextHash": "9be2da243e7898c02c97d45adbbf1c4b12381116019c890764ee6989fd670b62",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:090:v1",
+      "projectId": "project:company:future:090",
+      "companyId": "company:future:090",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:090:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:090:context.read",
+        "project:project:company:future:090:inference.read_only",
+        "project:project:company:future:090:memory.read",
+        "project:project:company:future:090:memory.write",
+        "project:project:company:future:090:roadmap.read",
+        "project:project:company:future:090:tools.request"
+      ],
+      "contextHash": "4877fb5b6c16ee3abd651fe2c5b74740cde6e9332be0a59e0c8fff7479283c9a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:091:v1",
+      "projectId": "project:company:future:091",
+      "companyId": "company:future:091",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:091:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:091:context.read",
+        "project:project:company:future:091:inference.read_only",
+        "project:project:company:future:091:memory.read",
+        "project:project:company:future:091:memory.write",
+        "project:project:company:future:091:roadmap.read",
+        "project:project:company:future:091:tools.request"
+      ],
+      "contextHash": "7839f5fcd65e11a25cb9bed1c78e05f9b9488b46cd6a11d84c7b3d4af191ba20",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:092:v1",
+      "projectId": "project:company:future:092",
+      "companyId": "company:future:092",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:092:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:092:context.read",
+        "project:project:company:future:092:inference.read_only",
+        "project:project:company:future:092:memory.read",
+        "project:project:company:future:092:memory.write",
+        "project:project:company:future:092:roadmap.read",
+        "project:project:company:future:092:tools.request"
+      ],
+      "contextHash": "498ac9acb360eceef8567f1ae211861d918de7230cdbf2cbfbcf077dde5c367c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:093:v1",
+      "projectId": "project:company:future:093",
+      "companyId": "company:future:093",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:093:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:093:context.read",
+        "project:project:company:future:093:inference.read_only",
+        "project:project:company:future:093:memory.read",
+        "project:project:company:future:093:memory.write",
+        "project:project:company:future:093:roadmap.read",
+        "project:project:company:future:093:tools.request"
+      ],
+      "contextHash": "2df0e736749ec6d031133048e465fe4a507e61760870853a4a14a24337af868c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:094:v1",
+      "projectId": "project:company:future:094",
+      "companyId": "company:future:094",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:094:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:094:context.read",
+        "project:project:company:future:094:inference.read_only",
+        "project:project:company:future:094:memory.read",
+        "project:project:company:future:094:memory.write",
+        "project:project:company:future:094:roadmap.read",
+        "project:project:company:future:094:tools.request"
+      ],
+      "contextHash": "692c55905104a1a33070cfd5bace1d94130d8326e1668e6fa51616e496ad6c23",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:095:v1",
+      "projectId": "project:company:future:095",
+      "companyId": "company:future:095",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:095:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:095:context.read",
+        "project:project:company:future:095:inference.read_only",
+        "project:project:company:future:095:memory.read",
+        "project:project:company:future:095:memory.write",
+        "project:project:company:future:095:roadmap.read",
+        "project:project:company:future:095:tools.request"
+      ],
+      "contextHash": "4a2d4bb50f91d6c25aafc34b699b0643479e0a2cf0710e214e0d8f27ecd012a9",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:096:v1",
+      "projectId": "project:company:future:096",
+      "companyId": "company:future:096",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:096:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:096:context.read",
+        "project:project:company:future:096:inference.read_only",
+        "project:project:company:future:096:memory.read",
+        "project:project:company:future:096:memory.write",
+        "project:project:company:future:096:roadmap.read",
+        "project:project:company:future:096:tools.request"
+      ],
+      "contextHash": "eed039437b5fad036d58b15f469340a53ad1fc44789b7b79ab25fe67f451bcee",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:097:v1",
+      "projectId": "project:company:future:097",
+      "companyId": "company:future:097",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:097:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:097:context.read",
+        "project:project:company:future:097:inference.read_only",
+        "project:project:company:future:097:memory.read",
+        "project:project:company:future:097:memory.write",
+        "project:project:company:future:097:roadmap.read",
+        "project:project:company:future:097:tools.request"
+      ],
+      "contextHash": "cc3831955a1b6dcca13c04ec3579675b939e5db58d6ecc192aded6d661cb25c0",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:098:v1",
+      "projectId": "project:company:future:098",
+      "companyId": "company:future:098",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:098:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:098:context.read",
+        "project:project:company:future:098:inference.read_only",
+        "project:project:company:future:098:memory.read",
+        "project:project:company:future:098:memory.write",
+        "project:project:company:future:098:roadmap.read",
+        "project:project:company:future:098:tools.request"
+      ],
+      "contextHash": "9643c5e871b917618e689d80b21671402aabe6a00cf96aed89d9d115c5e8f8b1",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:099:v1",
+      "projectId": "project:company:future:099",
+      "companyId": "company:future:099",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:099:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:099:context.read",
+        "project:project:company:future:099:inference.read_only",
+        "project:project:company:future:099:memory.read",
+        "project:project:company:future:099:memory.write",
+        "project:project:company:future:099:roadmap.read",
+        "project:project:company:future:099:tools.request"
+      ],
+      "contextHash": "1470309951d1a683ee4f4ba7ff29a899b5a127fc2fac2c929cece0a2b9af1bb5",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:100:v1",
+      "projectId": "project:company:future:100",
+      "companyId": "company:future:100",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:100:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:100:context.read",
+        "project:project:company:future:100:inference.read_only",
+        "project:project:company:future:100:memory.read",
+        "project:project:company:future:100:memory.write",
+        "project:project:company:future:100:roadmap.read",
+        "project:project:company:future:100:tools.request"
+      ],
+      "contextHash": "3ffb59fb23c9f19c0bf64ff51c3df313e127cb10115943ec1c9316b8785d1c38",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:101:v1",
+      "projectId": "project:company:future:101",
+      "companyId": "company:future:101",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:101:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:101:context.read",
+        "project:project:company:future:101:inference.read_only",
+        "project:project:company:future:101:memory.read",
+        "project:project:company:future:101:memory.write",
+        "project:project:company:future:101:roadmap.read",
+        "project:project:company:future:101:tools.request"
+      ],
+      "contextHash": "e68208608ff8124b53a6b85f8a32392fb9057b9a7a4d8c7aee0d106c6c3052fd",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:102:v1",
+      "projectId": "project:company:future:102",
+      "companyId": "company:future:102",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:102:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:102:context.read",
+        "project:project:company:future:102:inference.read_only",
+        "project:project:company:future:102:memory.read",
+        "project:project:company:future:102:memory.write",
+        "project:project:company:future:102:roadmap.read",
+        "project:project:company:future:102:tools.request"
+      ],
+      "contextHash": "2ef8e3b1eed68363bfb3bfa129a6ef2a8de2db603071ea79353f71b796cbe0a4",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:103:v1",
+      "projectId": "project:company:future:103",
+      "companyId": "company:future:103",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:103:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:103:context.read",
+        "project:project:company:future:103:inference.read_only",
+        "project:project:company:future:103:memory.read",
+        "project:project:company:future:103:memory.write",
+        "project:project:company:future:103:roadmap.read",
+        "project:project:company:future:103:tools.request"
+      ],
+      "contextHash": "e56b43c10ab77aef9efeeceb63ca3fb76b37671eed25ddae20ff08833c36cfa1",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:104:v1",
+      "projectId": "project:company:future:104",
+      "companyId": "company:future:104",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:104:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:104:context.read",
+        "project:project:company:future:104:inference.read_only",
+        "project:project:company:future:104:memory.read",
+        "project:project:company:future:104:memory.write",
+        "project:project:company:future:104:roadmap.read",
+        "project:project:company:future:104:tools.request"
+      ],
+      "contextHash": "8c552590682068d71911fec687be9936a1eb7132bddaae3a7b1aa0f206e37d5e",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:105:v1",
+      "projectId": "project:company:future:105",
+      "companyId": "company:future:105",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:105:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:105:context.read",
+        "project:project:company:future:105:inference.read_only",
+        "project:project:company:future:105:memory.read",
+        "project:project:company:future:105:memory.write",
+        "project:project:company:future:105:roadmap.read",
+        "project:project:company:future:105:tools.request"
+      ],
+      "contextHash": "47bb9321f83928585dd236468e5fd18c8b53bc85fd33ea6c52815d832fb2d336",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:106:v1",
+      "projectId": "project:company:future:106",
+      "companyId": "company:future:106",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:106:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:106:context.read",
+        "project:project:company:future:106:inference.read_only",
+        "project:project:company:future:106:memory.read",
+        "project:project:company:future:106:memory.write",
+        "project:project:company:future:106:roadmap.read",
+        "project:project:company:future:106:tools.request"
+      ],
+      "contextHash": "c0ee80939ffb627def707e4e339f4642e58a9ffb5411e58b43ac249704746d23",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:107:v1",
+      "projectId": "project:company:future:107",
+      "companyId": "company:future:107",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:107:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:107:context.read",
+        "project:project:company:future:107:inference.read_only",
+        "project:project:company:future:107:memory.read",
+        "project:project:company:future:107:memory.write",
+        "project:project:company:future:107:roadmap.read",
+        "project:project:company:future:107:tools.request"
+      ],
+      "contextHash": "3c07ac09df2d3dbc689e5964ae49a2aeb8afc53f57f35283a5f25fa7ae2df9d4",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:108:v1",
+      "projectId": "project:company:future:108",
+      "companyId": "company:future:108",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:108:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:108:context.read",
+        "project:project:company:future:108:inference.read_only",
+        "project:project:company:future:108:memory.read",
+        "project:project:company:future:108:memory.write",
+        "project:project:company:future:108:roadmap.read",
+        "project:project:company:future:108:tools.request"
+      ],
+      "contextHash": "472917c5499a423194f72fd2a839f78f711d655ad76f5e8fd1ad8f7c767e78ca",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:109:v1",
+      "projectId": "project:company:future:109",
+      "companyId": "company:future:109",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:109:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:109:context.read",
+        "project:project:company:future:109:inference.read_only",
+        "project:project:company:future:109:memory.read",
+        "project:project:company:future:109:memory.write",
+        "project:project:company:future:109:roadmap.read",
+        "project:project:company:future:109:tools.request"
+      ],
+      "contextHash": "2edcf93067077d16e756a37b81edfdcc61f1d147a8b96185617db954a9df15ce",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:110:v1",
+      "projectId": "project:company:future:110",
+      "companyId": "company:future:110",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:110:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:110:context.read",
+        "project:project:company:future:110:inference.read_only",
+        "project:project:company:future:110:memory.read",
+        "project:project:company:future:110:memory.write",
+        "project:project:company:future:110:roadmap.read",
+        "project:project:company:future:110:tools.request"
+      ],
+      "contextHash": "7c482451fe97e3a95948ce8c0bb977eb5af5a0521b940aa9543edf226826c266",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:111:v1",
+      "projectId": "project:company:future:111",
+      "companyId": "company:future:111",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:111:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:111:context.read",
+        "project:project:company:future:111:inference.read_only",
+        "project:project:company:future:111:memory.read",
+        "project:project:company:future:111:memory.write",
+        "project:project:company:future:111:roadmap.read",
+        "project:project:company:future:111:tools.request"
+      ],
+      "contextHash": "49abe1153a36ec0061d3e6b67747a570164e963b4d78e26ef4a439c151b561fb",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:112:v1",
+      "projectId": "project:company:future:112",
+      "companyId": "company:future:112",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:112:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:112:context.read",
+        "project:project:company:future:112:inference.read_only",
+        "project:project:company:future:112:memory.read",
+        "project:project:company:future:112:memory.write",
+        "project:project:company:future:112:roadmap.read",
+        "project:project:company:future:112:tools.request"
+      ],
+      "contextHash": "4bd3cc6dae86004fe4e0da113e8c25fba3da9435f22582dfe853dfbb2917675a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:113:v1",
+      "projectId": "project:company:future:113",
+      "companyId": "company:future:113",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:113:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:113:context.read",
+        "project:project:company:future:113:inference.read_only",
+        "project:project:company:future:113:memory.read",
+        "project:project:company:future:113:memory.write",
+        "project:project:company:future:113:roadmap.read",
+        "project:project:company:future:113:tools.request"
+      ],
+      "contextHash": "d10851d82201ebe6fd822e773a03cb67f16d7fabf362e366c687b0e241134284",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:114:v1",
+      "projectId": "project:company:future:114",
+      "companyId": "company:future:114",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:114:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:114:context.read",
+        "project:project:company:future:114:inference.read_only",
+        "project:project:company:future:114:memory.read",
+        "project:project:company:future:114:memory.write",
+        "project:project:company:future:114:roadmap.read",
+        "project:project:company:future:114:tools.request"
+      ],
+      "contextHash": "4ba5a65556326b690f5aa89557ffd6328359e2bc6da99d11a80fd64bd92c6970",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:115:v1",
+      "projectId": "project:company:future:115",
+      "companyId": "company:future:115",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:115:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:115:context.read",
+        "project:project:company:future:115:inference.read_only",
+        "project:project:company:future:115:memory.read",
+        "project:project:company:future:115:memory.write",
+        "project:project:company:future:115:roadmap.read",
+        "project:project:company:future:115:tools.request"
+      ],
+      "contextHash": "aee0ea9d0ef85a2ebccff1388c775d25c49934c0878b22d4c2c0e627c58dad1c",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:116:v1",
+      "projectId": "project:company:future:116",
+      "companyId": "company:future:116",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:116:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:116:context.read",
+        "project:project:company:future:116:inference.read_only",
+        "project:project:company:future:116:memory.read",
+        "project:project:company:future:116:memory.write",
+        "project:project:company:future:116:roadmap.read",
+        "project:project:company:future:116:tools.request"
+      ],
+      "contextHash": "d680b6b3482b03fc35f8c8d3fac307ee52b9849d0ac21aa429a9abd702140075",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:future:117:v1",
+      "projectId": "project:company:future:117",
+      "companyId": "company:future:117",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:future:117:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:project:company:future:117:context.read",
+        "project:project:company:future:117:inference.read_only",
+        "project:project:company:future:117:memory.read",
+        "project:project:company:future:117:memory.write",
+        "project:project:company:future:117:roadmap.read",
+        "project:project:company:future:117:tools.request"
+      ],
+      "contextHash": "19d558110fed7f15f9e4a68d2e23959c2f4fa3dca70d568f668bb82e50b47ecd",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:aro:v1",
+      "projectId": "aro",
+      "companyId": "company:legacy:aro",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:aro:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:aro:context.read",
+        "project:aro:inference.read_only",
+        "project:aro:memory.read",
+        "project:aro:memory.write",
+        "project:aro:roadmap.read",
+        "project:aro:tools.request"
+      ],
+      "contextHash": "a77c5f457811644df79af28b63a4ef8e9a88a047124026eae697837d9b9b4808",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:coupon-autopilot:v1",
+      "projectId": "coupon-autopilot",
+      "companyId": "company:legacy:coupon-autopilot",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:coupon-autopilot:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:coupon-autopilot:context.read",
+        "project:coupon-autopilot:inference.read_only",
+        "project:coupon-autopilot:memory.read",
+        "project:coupon-autopilot:memory.write",
+        "project:coupon-autopilot:roadmap.read",
+        "project:coupon-autopilot:tools.request"
+      ],
+      "contextHash": "ab062be0f9ad93ecca57d4d02c26b5bd0ac2909a779a83df7caeb2d602f0684d",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:crowdskein:v1",
+      "projectId": "crowdskein",
+      "companyId": "company:legacy:crowdskein",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:crowdskein:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:crowdskein:context.read",
+        "project:crowdskein:inference.read_only",
+        "project:crowdskein:memory.read",
+        "project:crowdskein:memory.write",
+        "project:crowdskein:roadmap.read",
+        "project:crowdskein:tools.request"
+      ],
+      "contextHash": "e4261d9ab6f6c2b56cd1b424f436887967f490fdc4fed636c1325a29997be91a",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:edge-finder:v1",
+      "projectId": "edge-finder",
+      "companyId": "company:legacy:edge-finder",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:edge-finder:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:edge-finder:context.read",
+        "project:edge-finder:inference.read_only",
+        "project:edge-finder:memory.read",
+        "project:edge-finder:memory.write",
+        "project:edge-finder:roadmap.read",
+        "project:edge-finder:tools.request"
+      ],
+      "contextHash": "1bc5c2a8a2ddb0ded5c249184f9fd40d1d12ea5fee5788cb7b1153644843c0da",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:fanvue-veyla:v1",
+      "projectId": "fanvue-veyla",
+      "companyId": "company:legacy:fanvue-veyla",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:fanvue-veyla:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:fanvue-veyla:context.read",
+        "project:fanvue-veyla:inference.read_only",
+        "project:fanvue-veyla:memory.read",
+        "project:fanvue-veyla:memory.write",
+        "project:fanvue-veyla:roadmap.read",
+        "project:fanvue-veyla:tools.request"
+      ],
+      "contextHash": "ec05d8b88d7ec44d12f2ec60da546c213e8723ac7b667047ad28ecd914854562",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:loopwren:v1",
+      "projectId": "loopwren",
+      "companyId": "company:legacy:loopwren",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:loopwren:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:loopwren:context.read",
+        "project:loopwren:inference.read_only",
+        "project:loopwren:memory.read",
+        "project:loopwren:memory.write",
+        "project:loopwren:roadmap.read",
+        "project:loopwren:tools.request"
+      ],
+      "contextHash": "9607bb5f11cf7777c631cc45b4b54cecc91ab311dcb880aa673f406839099e55",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:margincrafttools:v1",
+      "projectId": "margincrafttools",
+      "companyId": "company:legacy:margincrafttools",
+      "brainVersion": 3,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:margincrafttools:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:margincrafttools:context.read",
+        "project:margincrafttools:inference.read_only",
+        "project:margincrafttools:memory.read",
+        "project:margincrafttools:memory.write",
+        "project:margincrafttools:roadmap.read",
+        "project:margincrafttools:tools.request"
+      ],
+      "contextHash": "b40719792f00b0b8ecd9ae8da29bf92571be230229db4773542f4de95eaf3e1b",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:mini-movies:v1",
+      "projectId": "mini-movies",
+      "companyId": "company:legacy:mini-movies",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:mini-movies:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:mini-movies:context.read",
+        "project:mini-movies:inference.read_only",
+        "project:mini-movies:memory.read",
+        "project:mini-movies:memory.write",
+        "project:mini-movies:roadmap.read",
+        "project:mini-movies:tools.request"
+      ],
+      "contextHash": "5513c3a2bbc86c1623171249544922a2fcff18ee476dd159e626bc703bfd4e26",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:revocapture:v1",
+      "projectId": "revocapture",
+      "companyId": "company:legacy:revocapture",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:revocapture:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:revocapture:context.read",
+        "project:revocapture:inference.read_only",
+        "project:revocapture:memory.read",
+        "project:revocapture:memory.write",
+        "project:revocapture:roadmap.read",
+        "project:revocapture:tools.request"
+      ],
+      "contextHash": "4b913a3ebc7f82559a376743250e50a90773dbfa231062b06f11901d318f8a28",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:torevi:v1",
+      "projectId": "torevi",
+      "companyId": "company:legacy:torevi",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:torevi:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:torevi:context.read",
+        "project:torevi:inference.read_only",
+        "project:torevi:memory.read",
+        "project:torevi:memory.write",
+        "project:torevi:roadmap.read",
+        "project:torevi:tools.request"
+      ],
+      "contextHash": "2d1474948b60230139083cda0e41dbea9ae1c6e2a5133dde879b3a7aa834c8f7",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    },
+    {
+      "brainKey": "brain:company:legacy:velo-clip:v1",
+      "projectId": "velo-clip",
+      "companyId": "company:legacy:velo-clip",
+      "brainVersion": 2,
+      "registered": true,
+      "operational": false,
+      "enabled": false,
+      "modelAssignments": [
+        {
+          "modelId": "qwen3:4b-instruct",
+          "routeKey": "ai-route:brain:company:legacy:velo-clip:v1:owner-pc",
+          "versionRef": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f@1/model-tag:qwen3:4b-instruct",
+          "providerKey": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f"
+        }
+      ],
+      "permissionKeys": [
+        "project:velo-clip:context.read",
+        "project:velo-clip:inference.read_only",
+        "project:velo-clip:memory.read",
+        "project:velo-clip:memory.write",
+        "project:velo-clip:roadmap.read",
+        "project:velo-clip:tools.request"
+      ],
+      "contextHash": "53dcfecd7c6e6f11e8473d31127c348349abeb0afdf8dece04395e0a0b891a1e",
+      "contextChecksVerified": true,
+      "workspaceVersion": 2,
+      "blockers": [
+        "provider_company_scope_missing",
+        "live_specialist_response_unverified",
+        "live_project_tools_unverified",
+        "live_job_executor_unverified",
+        "activation_probe_bootstrap_unimplemented",
+        "routing_release_not_deployed",
+        "deployed_legacy_route_missing",
+        "source_provenance_requires_reconciliation"
+      ]
+    }
+  ]
+}
