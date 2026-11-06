@@ -12,7 +12,7 @@
 - 117 future-company specialist rows and 11 existing-business specialist rows in live `command_center_specialist_brains` = **128 total**. Plus 1 separately implemented COMMAND CENTER central Brain = **129 identities**.
 - All 128 project/company/Brain identity chains pass exact canonical matching (117 numbered identities, 11 legacy protected identities).
 - All 128 specialist registrations have a provider key but **0 specialist rows enabled**, **0 company-provider scope enabled**, and **0 company-scoped completions**.
-- 117/128 roadmap checkpoints exist, all for future-company projects; the 11 protected legacy businesses require verified existing-roadmap/checkpoint reconciliation.
+- 128/128 specialist projects now have a source-backed **checkpoint record**: 117 future projects and 11 protected existing-business recovery checkpoints created from their actual first planned work units. **No company-development work was marked complete.** All 128 full company roadmap denominators remain untrusted/pending complete source reconciliation.
 - Existing MarginCraftTools Brain registration version 2 preserves the 19-role/46-phase design evidence. Dedicated runtime remains unverified.
 - Provider currently has `brain.respond.read_only` for owner-central/local inference. It **does not** carry `company-brain-read-only`; do not conflate provider mapping with executable access.
 - Company 014's company build remains paused. Nothing here permits resumption.
@@ -27,13 +27,18 @@
 
 ## QA performed and evidence limitations
 
-- Current live DB: **128/128 canonical identity matches**; **0** company provider scopes, **0** enabled specialist records, **0** requests admitted under live-ready gates, **117** recorded roadmap checkpoints (future companies only) / **11** missing legacy checkpoints. Checkpoint presence alone does not prove any task completed.
+- Current live DB: **128/128 canonical identity matches**, **128/128 project checkpoint presence**, **0** company provider scopes, **0** enabled specialist records, **0** requests admitted under live-ready gates, **0** company inference receipts. Eleven legacy checkpoints are explicitly **read-only recovery baselines**, not operational progress. Full roadmap denominators remain untrusted.
 - Staged Deno scope parser evaluated against **128 positive identifiers** (001–117 + exact 11 legacy) and **11 invalid identifiers**, all correctly accepted/rejected.
 - Staged source reviewed for owner turn authorization, company/project binding, provider scope, exact worker, disabled state, checkpoint, and unsafe execution fallback.
 - GitHub exact-head staged changes are isolated to gateway candidate, SQL candidate, app parser/readiness/queue, and two test files.
 - Existing **Vercel preview build** returned **READY** at commit `120c7204523a416fdb5be0fdeb08c33ffdec824e`. That preview result **is not** evidence of production deployment, end-to-end specialist inference, or running the full standalone Node test suite.
-- The two staged source-contract suites were fetched from this isolated branch and their assertions executed in an isolated JavaScript runtime: **16 passing / 0 failing checks**. This validates pure scope functions and source contracts, **not** a full Node/TypeScript end-to-end integration run.
-- The end-to-end database/gateway integration and full Node test suite **have not been run on the staged branch in an independently deployed integration environment**. No false PASS is claimed.
+- The two staged source-contract suites were fetched from this isolated branch and their assertions executed in an isolated JavaScript runtime: **16 passing / 0 failing checks**.
+- The exact-branch GitHub Actions QA on the candidate including the SQL integration test passed the TypeScript, architecture, P15.2 repository review, build, embedded-module, exact-head module, artifact and release-audit stages. The PGlite SQL test compiled both new candidate stored procedures and tested enqueue, two company scopes, idempotency, wrong-project rejection, disabled-claim denial, and read-only claim positive fixtures within **an ephemeral in-memory database only**.
+- The app readiness regression suite also checks positive verified availability and negative wrong-company, no provider scope, no checkpoint, disabled/unverified specialist and offline worker cases. Actual live company inference remains unverified.
+- The entire live Supabase+Edge+Windows-worker end-to-end company route **has not** run. This QA is repository tests, disposable PostgreSQL integration, and read-only live-DB identity decision tests only. No false production PASS is claimed.
+- Independent live-DB decision replay: **134 cases, 134 expected outcomes, 0 unexpected** (128 valid identities plus six negative or mismatched IDs).
+- The full project-level Category 15 nonproduction gate is still **blocked by the same pre-existing upstream traceability/release prerequisites on the exact parent branch**. The candidate was not marked production-ready. No gate was bypassed to force a green result.
+- A separate **tool-coverage contract** surveys the 128 source capability profiles without disclosing private company details, granting tools, or falsely claiming readiness.
 
 ## Before operational promotion
 
@@ -41,7 +46,7 @@
 2. Preserve old production Edge function v3 and exact database function definitions/constraint; document rollback order and source hashes.
 3. Obtain separate owner authorization for the specific production gateway/DB release; no prior P15 candidate authorization is permission for this different change.
 4. Deploy the exact tested candidate atomically through the approved release path, with rollback.
-5. Reconcile project-specific roadmap/checkpoints for 11 legacy businesses, without resetting any company state or inventing progress.
+5. Preserve and independently validate the 11 newly recorded source-backed legacy recovery checkpoints; reconcile their complete original project-specific roadmaps without resetting state, inventing completion, or replacing existing specialist designs.
 6. Establish company-only `brain.respond.read_only` provider scope **after** verified policy, no-spend, identity, and negative-gate tests; do not grant tools or operational autonomy by default.
 7. Run owner-authorized read-only pilot with real worker model response, exact canonical hash/turn receipt and independent wrong-project/paid/action-denial tests.
 8. Only after that may a specialist independently move to `verified` + `enabled`. Assign actual tools later by business-specific capability/role, with exact account and owner permissions.
