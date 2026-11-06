@@ -211,9 +211,9 @@ begin
  'projectId',p_project,'companyId',s->>'companyId','brainKey',s->>'brainKey','brainVersion',p_brain_version,
  'roadmapVersion',(s->>'roadmapVersion')::bigint,'checkpointId',s->>'checkpointId','nonce',rid,
  'companyBuildStarted',false,'paidUsageAuthorized',false)::text;
- insert into public.command_center_brain_conversation_turns(owner_id,turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized)
+ insert into public.command_center_brain_conversation_turns(owner_id,turn_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized,created_at)
  values(p_owner,tid,(s->>'conversationId')::uuid,p_project,'owner','question',false,'safe_text',question,'brain:owner-authorized-activation-diagnostic:'||rid,
- encode(sha256(convert_to(question,'UTF8')),'hex'),array[p_authority,'brain:diagnostic-question:system-generated-under-owner-task'],false);
+ encode(sha256(convert_to(question,'UTF8')),'hex'),array[p_authority,'brain:diagnostic-question:system-generated-under-owner-task'],false,now());
  insert into public.command_center_pc_inference_requests(request_id,owner_id,project_id,conversation_id,owner_turn_id,activation_contract,route_snapshot)
  values(rid,p_owner,p_project,(s->>'conversationId')::uuid,tid,ac,s);
  return jsonb_build_object('requestId',rid,'state','queued','duplicate',false);
@@ -267,13 +267,13 @@ begin
  expected:=jsonb_build_object('projectId',q.project_id,'companyId',s->>'companyId','brainKey',s->>'brainKey','brainVersion',(s->>'brainVersion')::bigint,
  'roadmapVersion',(s->>'roadmapVersion')::bigint,'checkpointId',s->>'checkpointId','nonce',q.request_id,'companyBuildStarted',false,'paidUsageAuthorized',false);
  if actual is distinct from expected then raise exception 'Actual model diagnostic response did not satisfy context contract';end if;
- insert into public.command_center_brain_conversation_turns(owner_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized)
+ insert into public.command_center_brain_conversation_turns(owner_id,conversation_id,project_id,role,intent,protected_action_possible,redaction_state,safe_text,content_ref,content_hash,evidence_refs,canonical_writes_authorized,created_at)
  values(p_owner,q.conversation_id,q.project_id,'brain','question',false,'safe_text',btrim(p_text),'brain:pc-response:'||q.request_id,
  encode(sha256(convert_to(btrim(p_text),'UTF8')),'hex'),array['brain:response-to:'||q.owner_turn_id,'brain:pc-worker:'||p_worker,
  'brain:model:'||p_model,'brain:workstation-claim:'||q.request_id,
  'brain:activation-contract:'||encode(sha256(convert_to(q.activation_contract::text,'UTF8')),'hex'),
  'brain:diagnostic-specialist:'||(s->>'brainKey')||'@'||(s->>'brainVersion'),'brain:model-digest:'||p_digest,
- 'brain:diagnostic-only:not-full-operational-activation'],false) returning turn_id into new_turn;
+ 'brain:diagnostic-only:not-full-operational-activation'],false,now()) returning turn_id into new_turn;
  update public.command_center_pc_inference_requests set state='completed',brain_turn_id=new_turn,model_id=p_model,model_digest=p_digest,
  content_hash=encode(sha256(convert_to(btrim(p_text),'UTF8')),'hex'),lease_expires_at=null,completed_at=now(),updated_at=now()
  where owner_id=p_owner and request_id=p_request;

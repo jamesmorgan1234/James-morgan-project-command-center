@@ -1,3 +1,23 @@
+# Latest live recovery result — 2026-11-06, 09:49 EST
+
+This section supersedes historical undeployed-probe claims. The recovered live system already has PC gateway v4 and diagnostic procedures. Applied only the explicit immutable-turn timestamp correction and verified both functions, preserved service-only execution ACLs, and successful real seed persistence. All 128 exact live context/route snapshots passed. The queued first specialist probe is 2e7909d7-eebf-439c-8f7b-87a6c6f061d5; attempts remain zero because the running original PC client does not advertise the new activation protocol. It expires at 20:47:41 UTC November 6. No specialist response or activation is claimed. Seven Agency runs remain stopped.
+
+58 focused checks passed with zero failures/skips/cancellations. Updater ZIP passed integrity/hash checks, and its ten payload/helper files are byte-identical to the previously qualified 68ebed14 package; only sourceCommit metadata changed. Saved package: COMMAND_CENTER_EXISTING_PC_UPDATE_3dd050c9.zip (libfile_94e692b633048191b905fa330eb51350). Existing Windows task, pairing and credentials were not changed. Windows execution remains owner-only with the current connection.
+
+Source correction saved in local commit 3dd050c9be98407e0640a38742b540598557a84f. Two push attempts were rejected by automatic approval review for insufficient authorization to mutate/disclose to the GitHub destination, including after repository ownership/access verification. Do not retry or use an indirect upload as a workaround. Remote was last verified at e11976ab6d56f3f51fbb2b1775588d93b2d35be1. Obtain explicit approval before the next push. Local source and this recovery evidence remain saved.
+
+Exact next step: owner runs UPDATE_EXISTING_WORKER.cmd from the extracted verified archive on the Acer; then inspect the existing diagnostic before creating more requests. Further full tool/job execution and permissions verification remains necessary before operational activation. This is not completion or authorization to start company builds. Full current readback and test references: freeze-recovery-live-verification.json.
+
+---
+
+# Freeze recovery — November 6, 2026, 09:46 EST
+
+Recovered remote HEAD e11976ab6d56f3f51fbb2b1775588d93b2d35be1; role correction fa5a9b6412c7f749e10c84b0e283d217268abd8e is saved. Two modified files and two untracked SQL files survived locally. Live gateway is already version 4; diagnostic procedures already exist. Do not redeploy or reapply their original migration blindly. Fresh central request 0a3e3195-086b-4662-9119-fd57fd7532a7 completed at 14:44:58 UTC with text 128 and valid persisted SHA256. Three central requests completed; no specialist probe exists. 128 registered specialists, zero enabled.
+
+Interrupted step: live immutable conversation-turn created_at has no default; the two private diagnostic INSERTs omitted it. Exact recovered correction supplies now() explicitly without changing authorization, function ACLs, worker pairing, Brain flags or company runs. Candidate and role-aware regression fixture now match this live schema. Fresh run: 27 PostgreSQL tests passed, zero failed/skipped/cancelled. The timestamp correction is not yet applied at this checkpoint. Next: apply only this bounded correction, verify it, then seed one diagnostic and verify client eligibility; do not claim operational activation from inference alone.
+
+---
+
 # Live-role preflight correction — 2026-11-06
 
 Candidate source `68ebed1420a725de4b271a0e183aaf0845e04e71` passed exact-source GitHub QA (2647/2647, zero failed/skipped/cancelled), 5852 requirement mappings, artifact checks and real nonproduction browser lifecycle. Qualification evidence was saved by `700df2df3fc4e04f8ede5182c4886d65602c3399`. A subsequent live permission preflight caught an actual deployment gap: service_role has no direct read/write access to either Brain workspace table, and share-row locks also need privileges not present on read-only provider/profile/member records. No migration or deployment was attempted before discovering this.

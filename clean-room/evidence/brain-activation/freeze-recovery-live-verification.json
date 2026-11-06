@@ -1,0 +1,52 @@
+{
+  "observedAt": "2026-11-06T14:49:20.339473+00:00",
+  "registeredSpecialists": 128,
+  "enabledSpecialists": 0,
+  "fullyOperationalSpecialists": 0,
+  "projectWorkspaces": 128,
+  "liveContextRoutePreflightPassed": 128,
+  "liveSpecialistResponses": 0,
+  "centralCompletedRequests": 3,
+  "centralGatewayV4Smoke": {
+    "requestId": "0a3e3195-086b-4662-9119-fd57fd7532a7",
+    "text": "128",
+    "contentHash": "2747b7c718564ba5f066f0523b03e17f6a496b06851333d2d59ab6d863225848",
+    "hashVerified": true
+  },
+  "gatewayVersion": 4,
+  "explicitTimestampCorrectionApplied": true,
+  "rpcAnonymousAndAuthenticatedAccessDenied": true,
+  "pcWorkerOnline": true,
+  "pcClientUpdateApplied": false,
+  "stoppedAgencyRunsPreserved": 7,
+  "diagnostic": {
+    "requestId": "2e7909d7-eebf-439c-8f7b-87a6c6f061d5",
+    "state": "queued",
+    "attempts": 0,
+    "expiresAt": "2026-11-06T20:47:41.07202+00:00",
+    "projectId": "project:company:future:001"
+  },
+  "focusedTests": {
+    "passed": 58,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "files": [
+      "pc-activation-probe-postgres.test.mjs",
+      "pc-worker-update-package.test.mjs",
+      "recovered-pc-client.test.mjs",
+      "unified-128-pc-readonly-routing.test.mjs",
+      "unified-128-pc-sql-isolated-integration.test.mjs"
+    ]
+  },
+  "sourceCommit": "3dd050c9be98407e0640a38742b540598557a84f",
+  "remoteHeadLastVerified": "e11976ab6d56f3f51fbb2b1775588d93b2d35be1",
+  "remotePushBlockedByApprovalReview": true,
+  "package": {
+    "name": "COMMAND_CENTER_EXISTING_PC_UPDATE_3dd050c9.zip",
+    "libraryFileId": "libfile_94e692b633048191b905fa330eb51350",
+    "sha256": "0797f14fb450ba2869e44994463a405679e8918a8658c7bec8bbd35b26c0958d",
+    "previouslyQualifiedPayloadUnchanged": true
+  },
+  "nextStep": "Run verified update on the existing Windows PC; observe one real specialist diagnostic before expanding. Obtain approval for rejected remote push. Do not resume company workflows or claim tool execution from inference."
+}
