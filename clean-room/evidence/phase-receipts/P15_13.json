@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.13",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
+  "gitSha": "e50958749284cb45b54548f17b606cb67801689d",
   "inputs": [
     "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
     "clean-room/public/assets/command-center-approved-icon-512.png",
@@ -14,7 +14,7 @@
     "clean-room/scripts/p15-13-release-artifact-audit.mjs",
     "clean-room/tests/p15-13-release-artifact.test.mjs"
   ],
-  "inputsDigest": "754c6e1601f6a0b9ba6554ba1333178db95200c0f7d9d093333e46197819eaef",
+  "inputsDigest": "9c87dc430aa66fa9979fe3ec859210879fe3c0ad56cf49a8b13e35201d3d873e",
   "evidence": [
     "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
     "clean-room/scripts/p15-13-release-artifact-audit.mjs",
@@ -25,11 +25,11 @@
   "summary": {
     "phaseId": "P15.13",
     "schemaVersion": "cc-p15-13-release-artifact-audit-v1",
-    "headSha": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
+    "headSha": "e50958749284cb45b54548f17b606cb67801689d",
     "releaseIdentity": {
-      "releaseId": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
-      "buildHash": "22c886b2d84fff3f5ecee5916ba077a1d4a221d2d2e6f8c90afc24cd4e852017",
-      "assetManifestHash": "f8ec54bd7835af576b7db9ab9300c4bcbaf689136f9a34642c04be4abce795bb",
+      "releaseId": "e50958749284cb45b54548f17b606cb67801689d",
+      "buildHash": "45ca0e0ea2d39025cd051cd4947388197b2b7ad7f10ebc3509f4ba24e5c8264c",
+      "assetManifestHash": "d4ec52a6c91a49c38350d1594d41269cdb22be36ad4ee9e41a31bcf501c34535",
       "schemaCompatibility": "cc-runtime-snapshot-v1"
     },
     "artifactFileCount": 1070,
@@ -89,23 +89,23 @@
       {
         "name": "release identity is present",
         "passed": true,
-        "detail": "a311ab8dfbe95552208a6c20c040e42b2ffef16a"
+        "detail": "e50958749284cb45b54548f17b606cb67801689d"
       },
       {
         "name": "release identity is the immutable audited commit",
         "passed": true,
         "detail": {
-          "releaseId": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
-          "headSha": "a311ab8dfbe95552208a6c20c040e42b2ffef16a"
+          "releaseId": "e50958749284cb45b54548f17b606cb67801689d",
+          "headSha": "e50958749284cb45b54548f17b606cb67801689d"
         }
       },
       {
         "name": "release build hash and asset manifest hash are SHA-256",
         "passed": true,
         "detail": {
-          "releaseId": "a311ab8dfbe95552208a6c20c040e42b2ffef16a",
-          "buildHash": "22c886b2d84fff3f5ecee5916ba077a1d4a221d2d2e6f8c90afc24cd4e852017",
-          "assetManifestHash": "f8ec54bd7835af576b7db9ab9300c4bcbaf689136f9a34642c04be4abce795bb",
+          "releaseId": "e50958749284cb45b54548f17b606cb67801689d",
+          "buildHash": "45ca0e0ea2d39025cd051cd4947388197b2b7ad7f10ebc3509f4ba24e5c8264c",
+          "assetManifestHash": "d4ec52a6c91a49c38350d1594d41269cdb22be36ad4ee9e41a31bcf501c34535",
           "schemaCompatibility": "cc-runtime-snapshot-v1"
         }
       },
@@ -117,12 +117,12 @@
       {
         "name": "service worker embeds the audited release id",
         "passed": true,
-        "detail": "a311ab8dfbe95552208a6c20c040e42b2ffef16a"
+        "detail": "e50958749284cb45b54548f17b606cb67801689d"
       },
       {
         "name": "document head advertises the audited release id",
         "passed": true,
-        "detail": "a311ab8dfbe95552208a6c20c040e42b2ffef16a"
+        "detail": "e50958749284cb45b54548f17b606cb67801689d"
       },
       {
         "name": "no unreplaced release placeholders remain",
