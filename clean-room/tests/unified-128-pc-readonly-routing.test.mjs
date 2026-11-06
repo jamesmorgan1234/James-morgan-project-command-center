@@ -79,5 +79,7 @@ test("client parser is expanded, but UI specialist execution stays closed",()=>{
  assert.match(app,/const validLegacy = \/\^\[a-z0-9\]\+\(\?:-\[a-z0-9\]\+\)\*\$\/u\.test\(projectId\)/);
  assert.match(app,/if \(!validFuture && !validLegacy\)/);
  assert.match(ui,/specialistReadiness\?\.\[projectId\] === "available"/);
- assert.match(app,/specialistReadiness: Object\.freeze\(\{\}\)/);
+ assert.match(app,/specialistReadiness = Object\.freeze\(readiness\)/);
+ assert.match(app,/stringArray\(row\.scopes\)\.includes\("company-brain-read-only"\)/);
+ assert.match(app,/checkpointReady/);
 });
