@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "c2a130914b048ac067845584c5abdc9947f6f76f",
+  "gitSha": "efb14f74e0f01cc936058b8d87c2c19d7336289e",
   "reviewScope": "all-git-tracked-files",
   "reviewedFileCount": 2255,
-  "inventoryDigest": "fd2f912b4bdf63a227b185d4a63c09370b8ffb8bfc08ac8b13ae43137ce3123e",
+  "inventoryDigest": "0cfd64716fa39391595caf42202c86839871276afcf48e5737b7126413b30900",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -3911,7 +3911,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "3cdfc0bce466fc754d5fd7e80c2c367701acc8e2bc7a38542d027c39c689ce76",
+      "sha256": "fb88a6b841d42511e5aeeebf045ec9b533b20e19519f995fb2dde28266e9b88b",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3920,7 +3920,7 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "9013d4dba458eecf2d1d95a7e3a327a62475c1f2d4e8911281b090afa0ec61c9",
+      "sha256": "fc36ec69cb74fdfd4686ca85ff0012bf4999e2414e6cab121485ea27262dab7d",
       "bytes": 2027,
       "contentKind": "text",
       "findings": []
@@ -5306,7 +5306,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "ee59e9376b6f887d81d5d47179392ac15b47a0166c0c405a728254d4f898c82a",
+      "sha256": "9ee63ecc2b81948b7557b5a5c1a0aebf618569ccd6ba1f45fbbde5d3743a1972",
       "bytes": 13200845,
       "contentKind": "text",
       "findings": []
@@ -5342,7 +5342,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "208b8f58850201ce6c3fd9d8bb5ba1fab9bcb28a60d0a85d55ddf10b31a8be51",
+      "sha256": "e2b900c3505bffed088e684f4ecb66945e118bdaf16541a0e002a10980d8e3ad",
       "bytes": 5330,
       "contentKind": "text",
       "findings": []
@@ -5351,7 +5351,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "9953d69fea7e48a69fcf86d4d765bb42613d6ce73bb8094daae0581009400141",
+      "sha256": "3e52cfc3bed0ef529075f01b52bbc7720ca279bcdc0d86bdec01d7d5955b5471",
       "bytes": 3276,
       "contentKind": "text",
       "findings": []
