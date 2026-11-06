@@ -39,15 +39,16 @@ export function createPcLocalOllama({fetcher = fetch, modelId, timeoutMs = 12000
     executionMode: 'pc-local-background',
     get readiness() { return Object.freeze({actualInferenceVerified: verified, requiresPoweredOnComputer: true, noCloudFallback: true, freeApiOnly: true}); },
     verifyInstalledModel,
-    async generate({system, user, signal} = {}) {
+    async generate({system, user, signal, json=false} = {}) {
       requireState(nonEmpty(system, 12000) && nonEmpty(user, 12000), 'local_prompt_invalid');
       requireState(!busy, 'local_model_busy');
       busy = true;
+      verified = false;
       try {
         const modelDigest=await verifyInstalledModel(signal);
         const reply = await localCall('/api/chat', {
           method: 'POST', headers: {'content-type':'application/json'},
-          body: JSON.stringify({model:modelId, messages:[{role:'system',content:system},{role:'user',content:user}], stream:false, options:{temperature:0.2,num_predict:1200}})
+          body: JSON.stringify({model:modelId, messages:[{role:'system',content:system},{role:'user',content:user}], stream:false, ...(json?{format:'json'}:{}), options:{temperature:0.2,num_predict:1200}})
         },signal);
         requireState(reply?.model === modelId && reply?.done === true && nonEmpty(reply?.message?.content, 8000), 'local_inference_not_verified');
         // A truncated output must not count as completed inference.

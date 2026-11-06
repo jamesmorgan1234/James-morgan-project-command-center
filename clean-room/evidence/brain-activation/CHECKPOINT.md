@@ -1,3 +1,29 @@
+# Verified QA update — 2026-11-06
+
+The refreshed authority/repository/every-file metadata and full module suite passed **2643 tests, 0 failures, 0 skipped/cancelled**. Four additional focused SQL null-boundary cases were then added for missing lease/fence and unknown provider health/permissions; the updated 26-case PostgreSQL probe suite passed. No general test assertion or release gate was relaxed. The exact new source will also require its normal CI qualification. Source/new evidence is not a production release.
+
+The 13:03:36 UTC live readback independently verified every existing project's current context hash, Brain/version, model assignment and company mapping: 128/128. Registered 128, enabled/fully operational 0, assigned specialist tools 0, workspaces 128; zero unexpired active task claims and seven stopped runs. The current three tool records report agent_browser unavailable/unknown authorization, search_fetch degraded/unknown authorization, and command_center_agent_runner available/authenticated but without a proven immediate dispatcher. The hosted Task is paused, its schedule was not changed, and no stopped run was restarted. Current-session ChatGPT connector tools have not been falsely exported or marked as permanently connected worker tools.
+
+`current-activation-results.json` and `.md` contain one complete per-128 list with current source recovery and deployment blockers, replacing stale "bootstrap unimplemented" labels with the tested-but-undeployed candidate state. The baseline reports and exact original worker source remain preserved.
+
+---
+
+# Latest activation probe candidate — 2026-11-06 (not deployed)
+
+Source recovery and dynamic registry work is saved in `6ecb3fb4c0f1544ab6443da776fc58253db40bcb`; the current source still has 128 specialists and COMMAND CENTER as the 129th governing Brain. Fixed 117-company membership/number ceilings were removed from the candidate PC inference path. No new Brain identity or company build was created.
+
+The new bounded service-side diagnostic candidate extends the existing queue, rather than inventing new Brains or pretending they are active. A version-bound owner task, exact current project/company/provider/model/permission/context snapshot, strict six-hour contract, canonical output hash, immutable installed model digest, fenced claim and lease renewal are required. Normal clients cannot receive diagnostic probes. Provider/Brain/worker/owner revocation, context/version changes, cancellation, stale fence and expired lease reject completion. Actual diagnostic JSON must match its project checkpoint and request nonce; failed model output is never corrected into passing evidence. Successful diagnostics append existing project workspace/history while leaving full-execution blockers and Brain enabled/lifecycle fields unchanged. Rollback cancels only pending diagnostics and preserves completed proof, registry identities, ordinary read-only chat and stopped Agency runs.
+
+Forty-five focused isolated checks passed: 22 PostgreSQL probe/path/rollback checks, 21 recovered-client checks and two Windows package/content checks. The integrated test uses actual candidate SQL, gateway context builder, client and Ollama adapter with an explicitly isolated model fixture; it is not real specialist inference evidence. Edge TypeScript syntax and app typecheck passed. Windows PowerShell runtime execution is not available in this Linux workspace and is not claimed. The updater package is intentionally refused while its source is uncommitted. A final package will contain only seven source modules, its updater/README and manifest, preserve existing credentials and Task definition, verify original/new hashes, test actual local inference before replacement, and never restart a disabled/stopped Task or re-pair the device.
+
+Live queue ACL inspection found authenticated SELECT plus historical REFERENCES/TRIGGER/TRUNCATE privileges, without INSERT/UPDATE. The candidate explicitly preserves owner reads while revoking direct mutation and RLS-bypassing TRUNCATE authority. This has not been applied or reported as a live fix.
+
+The first full run had 2617/2618 passing with one stale UI audit receipt. The real P15.5 audit was rerun against committed source `6ecb3fb4...` and all four affected receipt checks passed. A second 2617/2618 run then detected stale generated authority audit metadata after the HEAD changed; current authority/repository/every-file metadata must be regenerated before the next full run. Neither failure was skipped or hidden. No production release, schema migration, Edge deployment, PC update or specialist activation has occurred.
+
+Still unfinished: qualify the exact candidate, apply only authorized integration repairs through existing release controls, update/verify the existing Windows client, measure real per-specialist inference, and connect/verify a genuine project tool/job executor. The paused/degraded normal-chat Task is not resumed. Read-only inference diagnostics cannot satisfy full tool/job operation. Existing UI production authorization binds a different exact candidate and is not silently reused. P15.17/P15.18 remain excluded.
+
+---
+
 # Latest worker recovery and unified registry checkpoint — 2026-11-06
 
 This section supersedes historical missing-source and 117-company assumptions below. The installed worker source is recovered, not blocked. `COMMAND_CENTER_EXISTING_WORKER_SOURCE_9027_7148.zip` passed ZIP integrity and all seven installed files matched the original manifest hashes; exact originals are preserved in `recovered-worker-source/`. No token, DPAPI credential, pairing JSON, raw token fingerprint, task restart or installer execution is included.

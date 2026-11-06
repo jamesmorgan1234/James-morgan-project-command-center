@@ -1,0 +1,73 @@
+{
+  "observed_at": "2026-11-06 13:02:19.463477+00",
+  "registered": 128,
+  "enabled": 0,
+  "model_bound": 128,
+  "specialist_tool_bindings": 0,
+  "project_workspaces": 128,
+  "tools": [
+    {
+      "key": "search_fetch",
+      "auth": "unknown",
+      "cost": "free",
+      "actionScope": {
+        "agent": false,
+        "fetch": true,
+        "search": true,
+        "browser": false
+      },
+      "availability": "degraded"
+    },
+    {
+      "key": "agent_browser",
+      "auth": "unknown",
+      "cost": "unknown",
+      "actionScope": {
+        "agent": false,
+        "browser": false
+      },
+      "availability": "unavailable"
+    },
+    {
+      "key": "command_center_agent_runner",
+      "auth": "authenticated",
+      "cost": "free",
+      "actionScope": {
+        "description": "Supabase/normal-chat orchestration"
+      },
+      "availability": "available"
+    }
+  ],
+  "executors": [
+    {
+      "key": "executor:chatgpt-tasks-normal-chat",
+      "ref": "chatgpt-task:6ada7af0b254819184456ca1246e3f69",
+      "cost": "free",
+      "health": "degraded",
+      "enabled": true,
+      "permissions": [
+        "owner-started-normal-chat-only"
+      ],
+      "accountScopes": []
+    }
+  ],
+  "stopped_runs": 7,
+  "hostedTask": {
+    "id": "6ada7af0b254819184456ca1246e3f69",
+    "enabled": false,
+    "lastRun": {
+      "id": "76433be8-a5b0-8325-b4d4-a015f0b38f64",
+      "recorded_status": "completed",
+      "scheduled_for": "2026-11-05T12:00:00Z",
+      "started_at": "2026-11-05T11:59:36.687747Z",
+      "completed_at": "2026-11-05T12:00:01.193822Z",
+      "chat_ref": {
+        "type": "chatgpt",
+        "id": "6adb0040-65ac-83e9-95ec-8ccd660680ae"
+      }
+    },
+    "lastResult": "The live Command Center database check confirmed that `executor:chatgpt-tasks-normal-chat` is enabled, free, non-retired, and scoped to owner-started normal-chat execution. Its recorded health remains degraded. The exact owner-scoped eligibility query returned **zero queued or working runs** satisfying the required authorization, `until_work` control mode, and Stop/Pause checks. Consequently, no task was claimed or executed. Previously completed Company 014 work was not restarted, and no database records, artifacts, infrastructure, or schedules were changed. The existing worker remains available for eligible runs.",
+    "scheduleChanged": false,
+    "resumed": false
+  }
+}

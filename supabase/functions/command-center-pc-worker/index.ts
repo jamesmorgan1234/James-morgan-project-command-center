@@ -1,4 +1,5 @@
 import { createClient } from "npm:@supabase/supabase-js@2.79.0";
+import { buildActivationContext } from "./activation-context.mjs";
 const url = Deno.env.get("SUPABASE_URL") ?? "";
 const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
 const anon = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
@@ -151,21 +152,26 @@ Deno.serve(async (req:Request)=>{
   const w=await worker(req);
   if(action==="health")return json({authorized:true,workerId:w.workerId,scope:"brain.respond.read_only",companyBuildAuthorized:false,paymentActionsAuthorized:false},200,cors);
   if(action==="claim"){
-   const task=err(await admin.rpc("command_center_pc_claim_service",{p_owner_id:w.ownerId,p_worker_id:w.workerId}));
+   const task=err(await admin.rpc("command_center_pc_claim_v4_service",{p_owner:w.ownerId,p_worker:w.workerId,p_client:input.clientContract??null}));
    if(task===null)return json({task:null,context:null},200,cors);
    if(!UUID.test(task?.requestId??"")||task.workerId!==w.workerId||
       task.action!=="brain.respond.read_only"||!projectIdOk(task.projectId??null))throw failure("claim_invalid",503);
-   const ctx=await context(w.ownerId,w.workerId,task.projectId??null);
+   let ctx:any;
+   if(task.purpose==="activation_probe"){
+    if(input.clientContract!=="cc-pc-inference-activation-v1")throw failure("activation_client_not_verified",409);
+    const snapshot=err(await admin.rpc("command_center_pc_activation_snapshot_service",{p_owner:w.ownerId,p_worker:w.workerId,p_project:task.projectId}));
+    ctx=await buildActivationContext({task,snapshot,ownerId:w.ownerId,workerId:w.workerId});
+   }else ctx=await context(w.ownerId,w.workerId,task.projectId??null);
    if(ctx.verified!==true||ctx.projectId!==(task.projectId??null)||
-       (task.projectId!==null&&ctx.specialistLiveVerified!==true))
+       (task.projectId!==null&&ctx.specialistLiveVerified!==true&&ctx.activationProbeVerified!==true))
        throw failure("context_not_verified",503);
    return json({task,context:ctx},200,cors);
   }
   if(!UUID.test(input.requestId??"")||!Number.isSafeInteger(input.fencingToken)||input.fencingToken<1)
    throw failure("fence_invalid",400);
   if(action==="heartbeat"){
-   const ok=err(await admin.rpc("command_center_pc_heartbeat_service",{
-    p_owner_id:w.ownerId,p_worker_id:w.workerId,p_request_id:input.requestId,p_fencing_token:input.fencingToken}));
+   const ok=err(await admin.rpc("command_center_pc_heartbeat_v4_service",{
+    p_owner:w.ownerId,p_worker:w.workerId,p_request:input.requestId,p_fence:input.fencingToken}));
    if(ok!==true)throw failure("claim_expired",409);
    return json({renewed:true,requestId:input.requestId},200,cors);
   }
@@ -173,16 +179,17 @@ Deno.serve(async (req:Request)=>{
    if(typeof input.text!=="string"||input.text.trim().length<1||input.text.length>8000||
       !MODEL.test(input.modelId??"")||input.modelId.endsWith(":cloud")||input.modelId.includes(".."))
       throw failure("local_model_response_invalid",400);
-   const saved=err(await admin.rpc("command_center_pc_complete_service",{
-    p_owner_id:w.ownerId,p_worker_id:w.workerId,p_request_id:input.requestId,
-    p_fencing_token:input.fencingToken,p_model_id:input.modelId,p_text:input.text}));
+   const saved=err(await admin.rpc("command_center_pc_complete_v4_service",{
+    p_owner:w.ownerId,p_worker:w.workerId,p_request:input.requestId,
+    p_fence:input.fencingToken,p_model:input.modelId,p_digest:input.modelDigest??null,p_text:input.text}));
    if(saved?.requestId!==input.requestId||!UUID.test(saved?.brainTurnId??"")||
     saved?.canonicalWritesAuthorized!==false)throw failure("commit_not_verified",503);
    return json({requestId:input.requestId,projectId:saved.projectId??null,
-    brainTurnId:saved.brainTurnId,workerAttestedInference:true,projectExecutionVerified:false},200,cors);
+    brainTurnId:saved.brainTurnId,workerAttestedInference:true,projectExecutionVerified:false,
+    ...(saved.diagnosticOnly===true?{modelDigest:saved.modelDigest,resultHash:saved.resultHash,activationContractHash:saved.activationContractHash,diagnosticOnly:true}:{})},200,cors);
   }
   const q=err(await admin.from("command_center_pc_inference_requests")
-   .select("request_id,project_id,conversation_id,owner_turn_id,brain_turn_id,state,content_hash,fencing_token")
+   .select("request_id,project_id,conversation_id,owner_turn_id,brain_turn_id,state,content_hash,fencing_token,model_id,model_digest,activation_contract")
    .eq("owner_id",w.ownerId).eq("worker_id",w.workerId)
    .eq("request_id",input.requestId).eq("fencing_token",input.fencingToken).maybeSingle());
   if(q?.state!=="completed")throw failure("completed_result_missing",409);
@@ -195,8 +202,20 @@ Deno.serve(async (req:Request)=>{
    t?.evidence_refs?.includes("brain:response-to:"+q.owner_turn_id)&&
    t?.evidence_refs?.includes("brain:workstation-claim:"+input.requestId);
   if(!valid)throw failure("canonical_readback_not_verified",503);
+  let diagnosticProof={};
+  if(q.activation_contract!==null){
+   // JSON serialization differs from PostgreSQL jsonb::text: hash the exact
+   // canonical SQL representation rather than manufacturing equivalent bytes.
+   const canonicalContract=err(await admin.rpc("command_center_pc_activation_contract_service",{p_owner:w.ownerId,p_worker:w.workerId,p_request:input.requestId,p_fence:input.fencingToken}));
+   if(!canonicalContract||canonicalContract.resultHash!==q.content_hash||canonicalContract.modelDigest!==q.model_digest||
+     !t.evidence_refs?.includes("brain:activation-contract:"+canonicalContract.activationContractHash)||
+     !t.evidence_refs?.includes("brain:model-digest:"+q.model_digest)||
+     !t.evidence_refs?.includes("brain:pc-worker:"+w.workerId)||!t.evidence_refs?.includes("brain:model:"+q.model_id))
+     throw failure("activation_readback_not_verified",503);
+   diagnosticProof=canonicalContract;
+  }
   return json({requestId:input.requestId,projectId:q.project_id,brainTurnId:q.brain_turn_id,state:"completed",
-   text:t.safe_text,role:"brain",canonicalWritesAuthorized:false,evidenceVerified:true},200,cors);
+   text:t.safe_text,role:"brain",canonicalWritesAuthorized:false,evidenceVerified:true,...diagnosticProof},200,cors);
  }catch(e:any){return json({error:e?.message&&typeof e.status==="number"?e.message:"pc_worker_gateway_unavailable"},
    typeof e?.status==="number"?e.status:503,cors)}
 });

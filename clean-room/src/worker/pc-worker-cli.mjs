@@ -11,7 +11,7 @@ if(!modelId || (!workerToken && !onlySelfTest)){
  try{
   if(onlySelfTest){
     const result=await createPcLocalOllama({modelId}).generate({system:'You are a read-only local AI.',user:'Respond with the word ready.'});
-    console.log(JSON.stringify({localModelId:result.modelId,realInferenceVerified:result.verifiedInference,remoteInference:false}));
+    console.log(JSON.stringify({localModelId:result.modelId,modelDigest:result.modelDigest,realInferenceVerified:result.verifiedInference,remoteInference:false}));
   }else{
     const runner=createPcWorkstationRunner({workerToken,modelId,log:v=>console.log(JSON.stringify(v))});
     process.on('SIGINT',()=>runner.stop());process.on('SIGTERM',()=>runner.stop());

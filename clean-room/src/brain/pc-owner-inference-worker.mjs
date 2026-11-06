@@ -36,7 +36,7 @@ export function createOwnerPcInferenceWorker({claim,context,model,persist,readBa
           if(!activation)ensure(scope.specialistEnabled===true&&scope.specialistLiveVerified===true,'specialist_not_operational');
         }
         ensure(text(scope.system,12000),'system_context_invalid');
-        const response=await model.generate({system:scope.system,user:task.ownerText});
+        const response=await model.generate({system:scope.system,user:task.ownerText,json:activation!==null});
         ensure(response?.verifiedInference===true&&text(response?.text,8000)&&text(response?.modelId,150),'inference_not_verified');
         ensure(/^[a-f0-9]{64}$/.test(response.modelDigest??''),'model_digest_not_verified');
         if(activation)ensure(response.modelId===activation.routeSnapshot.modelId,'activation_model_mismatch');

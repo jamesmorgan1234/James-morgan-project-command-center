@@ -66,3 +66,10 @@ test('stop prevents another claim without touching original worker registration 
  let calls=0;const runner=createPcWorkstationRunner({workerToken:'ccpc_'+'0'.repeat(64),modelId:'qwen3:4b-instruct',fetcher:async()=>{calls++;throw Error('must not call')}});
  runner.stop();assert.equal((await runner.once()).state,'stopped');assert.equal(calls,0);
 });
+
+test('a model failure clears current inference health after an earlier successful response',async()=>{
+ const change={};const {model}=ollama(change);await model.generate({system:'read only',user:'diagnostic'});
+ assert.equal(model.readiness.actualInferenceVerified,true);
+ change.reply={done:false};await assert.rejects(model.generate({system:'read only',user:'diagnostic'}));
+ assert.equal(model.readiness.actualInferenceVerified,false);
+});
