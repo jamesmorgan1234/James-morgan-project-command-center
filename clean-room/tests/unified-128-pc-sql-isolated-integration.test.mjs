@@ -4,6 +4,7 @@ import {readFileSync} from "node:fs";
 import {PGlite} from "@electric-sql/pglite";
 
 const candidate=readFileSync(new URL("../evidence/CC_UNIFIED_128_PC_READONLY_ROUTING_CANDIDATE.sql",import.meta.url),"utf8");
+const rollbackCandidate=readFileSync(new URL("../evidence/CC_UNIFIED_128_PC_READONLY_ROLLBACK_CANDIDATE.sql",import.meta.url),"utf8");
 const owner="11111111-1111-4111-8111-111111111111";
 const worker="22222222-2222-4222-8222-222222222222";
 const provider="provider:owner-pc:"+worker;
@@ -72,5 +73,20 @@ test("real candidate SQL runs in disposable PGlite, enqueues both scopes, denies
   assert.equal(receipt.workerId,worker);
   assert.equal(await claim(),null,"the other unverified company stays queued");
   assert.equal((await db.query("select count(*)::int as n from public.command_center_pc_inference_requests where state='claimed'")).rows[0].n,1);
+
+  // A real rollback must NOT erase or silently strand a legacy in-flight request.
+  await assert.rejects(db.exec(rollbackCandidate),/Cannot rollback: preserved legacy requests require reconciliation/i);
+  await db.exec("ROLLBACK;");
+  assert.equal((await db.query("select count(*)::int as n from public.command_center_pc_inference_requests where project_id='margincrafttools'")).rows[0].n,1,
+    "failed rollback preserves legacy claim evidence");
+  // Cleanup is performed exclusively on the disposable mock fixture, never live data.
+  await db.query("delete from public.command_center_pc_inference_requests where project_id='margincrafttools'");
+  await db.exec(rollbackCandidate);
+  const oldScope=(await db.query("select pg_get_constraintdef(oid) as scope from pg_constraint where conname='cc_pc_scope'")).rows[0].scope;
+  assert.match(oldScope,/project:company:future/);
+  assert.doesNotMatch(oldScope,/company:legacy/);
+  await assert.rejects(queue(ids.wrong,ids.lc,ids.lt,"margincrafttools"),/outside 001\.\.117/i);
+  assert.equal((await db.query("select count(*)::int as n from public.command_center_pc_inference_requests where project_id='project:company:future:001'")).rows[0].n,1,
+    "existing future request preserved after rollback");
  } finally {await db.close();}
 });
