@@ -43,8 +43,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:002:v1",
@@ -79,8 +83,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:003:v1",
@@ -115,8 +123,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:004:v1",
@@ -151,8 +163,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:005:v1",
@@ -187,8 +203,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:006:v1",
@@ -223,8 +243,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:007:v1",
@@ -259,8 +283,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:008:v1",
@@ -295,8 +323,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:009:v1",
@@ -331,8 +363,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:010:v1",
@@ -367,8 +403,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:011:v1",
@@ -403,8 +443,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:012:v1",
@@ -439,8 +483,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:013:v1",
@@ -475,8 +523,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:014:v1",
@@ -511,8 +563,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:015:v1",
@@ -547,8 +603,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:016:v1",
@@ -583,8 +643,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:017:v1",
@@ -619,8 +683,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:018:v1",
@@ -655,8 +723,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:019:v1",
@@ -691,8 +763,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:020:v1",
@@ -727,8 +803,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:021:v1",
@@ -763,8 +843,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:022:v1",
@@ -799,8 +883,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:023:v1",
@@ -835,8 +923,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:024:v1",
@@ -871,8 +963,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:025:v1",
@@ -907,8 +1003,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:026:v1",
@@ -943,8 +1043,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:027:v1",
@@ -979,8 +1083,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:028:v1",
@@ -1015,8 +1123,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:029:v1",
@@ -1051,8 +1163,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:030:v1",
@@ -1087,8 +1203,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:031:v1",
@@ -1123,8 +1243,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:032:v1",
@@ -1159,8 +1283,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:033:v1",
@@ -1195,8 +1323,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:034:v1",
@@ -1231,8 +1363,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:035:v1",
@@ -1267,8 +1403,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:036:v1",
@@ -1303,8 +1443,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:037:v1",
@@ -1339,8 +1483,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:038:v1",
@@ -1375,8 +1523,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:039:v1",
@@ -1411,8 +1563,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:040:v1",
@@ -1447,8 +1603,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:041:v1",
@@ -1483,8 +1643,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:042:v1",
@@ -1519,8 +1683,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:043:v1",
@@ -1555,8 +1723,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:044:v1",
@@ -1591,8 +1763,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:045:v1",
@@ -1627,8 +1803,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:046:v1",
@@ -1663,8 +1843,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:047:v1",
@@ -1699,8 +1883,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:048:v1",
@@ -1735,8 +1923,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:049:v1",
@@ -1771,8 +1963,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:050:v1",
@@ -1807,8 +2003,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:051:v1",
@@ -1843,8 +2043,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:052:v1",
@@ -1879,8 +2083,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:053:v1",
@@ -1915,8 +2123,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:054:v1",
@@ -1951,8 +2163,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:055:v1",
@@ -1987,8 +2203,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:056:v1",
@@ -2023,8 +2243,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:057:v1",
@@ -2059,8 +2283,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:058:v1",
@@ -2095,8 +2323,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:059:v1",
@@ -2131,8 +2363,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:060:v1",
@@ -2167,8 +2403,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:061:v1",
@@ -2203,8 +2443,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:062:v1",
@@ -2239,8 +2483,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:063:v1",
@@ -2275,8 +2523,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:064:v1",
@@ -2311,8 +2563,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:065:v1",
@@ -2347,8 +2603,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:066:v1",
@@ -2383,8 +2643,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:067:v1",
@@ -2419,8 +2683,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:068:v1",
@@ -2455,8 +2723,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:069:v1",
@@ -2491,8 +2763,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:070:v1",
@@ -2527,8 +2803,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:071:v1",
@@ -2563,8 +2843,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:072:v1",
@@ -2599,8 +2883,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:073:v1",
@@ -2635,8 +2923,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:074:v1",
@@ -2671,8 +2963,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:075:v1",
@@ -2707,8 +3003,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:076:v1",
@@ -2743,8 +3043,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:077:v1",
@@ -2779,8 +3083,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:078:v1",
@@ -2815,8 +3123,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:079:v1",
@@ -2851,8 +3163,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:080:v1",
@@ -2887,8 +3203,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:081:v1",
@@ -2923,8 +3243,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:082:v1",
@@ -2959,8 +3283,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:083:v1",
@@ -2995,8 +3323,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:084:v1",
@@ -3031,8 +3363,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:085:v1",
@@ -3067,8 +3403,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:086:v1",
@@ -3103,8 +3443,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:087:v1",
@@ -3139,8 +3483,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:088:v1",
@@ -3175,8 +3523,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:089:v1",
@@ -3211,8 +3563,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:090:v1",
@@ -3247,8 +3603,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:091:v1",
@@ -3283,8 +3643,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:092:v1",
@@ -3319,8 +3683,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:093:v1",
@@ -3355,8 +3723,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:094:v1",
@@ -3391,8 +3763,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:095:v1",
@@ -3427,8 +3803,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:096:v1",
@@ -3463,8 +3843,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:097:v1",
@@ -3499,8 +3883,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:098:v1",
@@ -3535,8 +3923,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:099:v1",
@@ -3571,8 +3963,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:100:v1",
@@ -3607,8 +4003,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:101:v1",
@@ -3643,8 +4043,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:102:v1",
@@ -3679,8 +4083,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:103:v1",
@@ -3715,8 +4123,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:104:v1",
@@ -3751,8 +4163,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:105:v1",
@@ -3787,8 +4203,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:106:v1",
@@ -3823,8 +4243,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:107:v1",
@@ -3859,8 +4283,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:108:v1",
@@ -3895,8 +4323,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:109:v1",
@@ -3931,8 +4363,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:110:v1",
@@ -3967,8 +4403,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:111:v1",
@@ -4003,8 +4443,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:112:v1",
@@ -4039,8 +4483,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:113:v1",
@@ -4075,8 +4523,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:114:v1",
@@ -4111,8 +4563,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:115:v1",
@@ -4147,8 +4603,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:116:v1",
@@ -4183,8 +4643,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:future:117:v1",
@@ -4219,8 +4683,12 @@
         "live_project_tools_unverified",
         "live_job_executor_unverified",
         "activation_probe_bootstrap_unimplemented",
-        "routing_release_not_deployed"
-      ]
+        "routing_release_not_deployed",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:aro:v1",
@@ -4257,8 +4725,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:coupon-autopilot:v1",
@@ -4295,8 +4767,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:crowdskein:v1",
@@ -4333,8 +4809,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:edge-finder:v1",
@@ -4371,8 +4851,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:fanvue-veyla:v1",
@@ -4409,8 +4893,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:loopwren:v1",
@@ -4447,8 +4935,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:margincrafttools:v1",
@@ -4485,8 +4977,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:mini-movies:v1",
@@ -4523,8 +5019,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:revocapture:v1",
@@ -4561,8 +5061,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:torevi:v1",
@@ -4599,8 +5103,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     },
     {
       "brainKey": "brain:company:legacy:velo-clip:v1",
@@ -4637,8 +5145,12 @@
         "activation_probe_bootstrap_unimplemented",
         "routing_release_not_deployed",
         "deployed_legacy_route_missing",
-        "source_provenance_requires_reconciliation"
-      ]
+        "source_provenance_requires_reconciliation",
+        "job_capability_route_contract_unverified",
+        "live_permission_enforcement_unverified",
+        "installed_model_digest_unverified"
+      ],
+      "capabilityDescriptionPreserved": true
     }
   ]
 }

@@ -27,6 +27,8 @@ export interface SpecialistActivationRequest {
   readonly routes: readonly AiModelRoute[];
   readonly permittedToolKeys: readonly string[];
   readonly permittedPermissionKeys?: readonly string[];
+  /** Resolve from approved canonical project policy, never model assertions. */
+  readonly requiredProtectedActionBoundaries?: readonly string[];
   readonly requiredCapabilityKeys?: readonly string[];
   readonly permittedExecutionModes?: readonly AiModelRoute["executionMode"][];
   readonly permittedPrivacyClasses?: readonly AiModelRoute["privacy"][];
@@ -86,8 +88,8 @@ export function assessSpecialistActivation(request: SpecialistActivationRequest)
   const permittedPermissions = request.permittedPermissionKeys ?? requiredPermissions;
   if (brain.permissionKeys.some(key => !permittedPermissions.includes(key))) blockers.push("permission_scope_requires_review");
   if (!brain.toolKeys.length || brain.toolKeys.some(key => !request.permittedToolKeys.includes(key))) blockers.push("tools_missing_or_not_permitted");
-  const boundaries = ["no-spend", "no-live-external-action", "no-publication", "no-cross-company-data"];
-  if (!boundaries.every(key => brain.protectedActionBoundaries.includes(key))) blockers.push("protected_action_boundaries_missing");
+  const boundaries = request.requiredProtectedActionBoundaries ?? (purpose === "diagnostic" ? ["no-spend", "no-live-external-action", "no-publication", "no-cross-company-data"] : []);
+  if (!boundaries.length || !boundaries.every(key => brain.protectedActionBoundaries.includes(key)) || !brain.protectedActionBoundaries.includes("no-cross-company-data")) blockers.push("protected_action_boundaries_missing");
   if (!request.allowedMemoryKinds.length || request.allowedMemoryKinds.some(kind => !kind.trim() || kind === "*")) blockers.push("memory_scope_requires_review");
   const executionModes = request.permittedExecutionModes ?? ["local"];
   const privacyClasses = request.permittedPrivacyClasses ?? ["local"];

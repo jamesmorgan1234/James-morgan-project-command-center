@@ -28,7 +28,7 @@ test('live registry recovery has 128 distinct identities, exact company mappings
  }
 });
 test('full job readiness accepts approved browser/code/memory capabilities without a read-only ceiling',()=>{
- const r=fixture();r.purpose='project_operation';r.requiredCapabilityKeys=['brain.respond.read_only','project.execute','browser.use','code.edit','memory.write'];r.brain.capabilityKeys=r.requiredCapabilityKeys;
+ const r=fixture();r.purpose='project_operation';r.requiredProtectedActionBoundaries=[...r.brain.protectedActionBoundaries];r.requiredCapabilityKeys=['brain.respond.read_only','project.execute','browser.use','code.edit','memory.write'];r.brain.capabilityKeys=r.requiredCapabilityKeys;
  r.brain.toolKeys=['tool:context:001','tool:browser:001','tool:code:001'];r.permittedToolKeys=[...r.brain.toolKeys];
  r.brain.permissionKeys.push('project:project:company:future:001:browser.use','project:project:company:future:001:code.edit');r.permittedPermissionKeys=[...r.brain.permissionKeys];r.allowedMemoryKinds.push('project-instructions','roadmap','approved-assets');
  r.expectedExecutorKeys=['executor:included'];r.executionEvidence={brainKey:r.brain.key,brainVersion:r.brain.version,projectId:r.projectId,companyId:r.companyId,executorKey:'executor:included',outputRef:'evidence:tool-output',outputHash:'b'.repeat(64),recomputedHash:'b'.repeat(64),observedAt:r.now,cost:'free',mode:'live',verifiedToolKeys:[...r.brain.toolKeys],stoppedOrPaused:false,checkpointVerified:true,fencingVerified:true};
@@ -37,3 +37,5 @@ test('full job readiness accepts approved browser/code/memory capabilities witho
 });
 test('a working read-only model alone never qualifies as full project operation',()=>{const r=fixture();delete r.purpose;const x=assessSpecialistActivation(r);assert.equal(x.operational,false);assert.ok(x.blockers.includes('live_job_executor_and_tools_not_verified'));assert.ok(x.blockers.includes('required_job_capability_missing'))});
 test('approved included remote inference remains eligible behind explicit privacy and cost policy',()=>{const r=fixture();r.routes[0].executionMode='remote';r.routes[0].privacy='private_remote';r.permittedExecutionModes=['remote'];r.permittedPrivacyClasses=['private_remote'];assert.equal(assessSpecialistActivation(r).operational,true);r.routes[0].cost='paid';assert.equal(assessSpecialistActivation(r).operational,false)});
+
+test('approved company-specific action policy is preserved without an arbitrary publication/tool capability ceiling',()=>{const r=fixture();const policy=['owner-source-rights','owner-external-publication','owner-financial-commitments','no-cross-company-data'];r.requiredProtectedActionBoundaries=policy;r.brain.protectedActionBoundaries=[...policy];assert.equal(assessSpecialistActivation(r).operational,true);r.brain.protectedActionBoundaries=r.brain.protectedActionBoundaries.filter(p=>p!=='owner-external-publication');assert.equal(assessSpecialistActivation(r).operational,false)});

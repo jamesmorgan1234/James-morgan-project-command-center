@@ -13,5 +13,21 @@
     "requirements": 5852,
     "repositoryErrors": 0
   },
-  "scope": "repository QA only, not specialist operational execution"
+  "scope": "repository QA only, not specialist operational execution",
+  "subsequentQualification": {
+    "sourceCommit": "e969660ce25fe69e8da15b24cb62607c711b5aef",
+    "qualificationCommit": "c2a13091",
+    "workflowRunId": 42191057035,
+    "coreJobId": 127802885200,
+    "assemblyJobId": 127804412800,
+    "coreConclusion": "success",
+    "assemblyConclusion": "success",
+    "testsPassed": 2590,
+    "testsFailed": 0,
+    "testsSkipped": 0,
+    "artifactAuditChecksPassed": 18,
+    "browserAuditChecksPassed": 9,
+    "realBrowserLifecycleVerified": true,
+    "scope": "nonproduction QA only; no specialist execution"
+  }
 }
