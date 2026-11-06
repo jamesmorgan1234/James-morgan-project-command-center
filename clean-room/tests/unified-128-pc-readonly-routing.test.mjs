@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 
 const gateway=readFileSync(new URL("../../supabase/functions/command-center-pc-worker/index.ts",import.meta.url),"utf8");
-const sql=readFileSync(new URL("../patches/cc-unified-128-pc-readonly-routing-CANDIDATE.sql",import.meta.url),"utf8");
+const sql=readFileSync(new URL("../evidence/CC_UNIFIED_128_PC_READONLY_ROUTING_CANDIDATE.sql",import.meta.url),"utf8");
 const app=readFileSync(new URL("../src/runtime/owner-security-provider.ts",import.meta.url),"utf8");
 const ui=readFileSync(new URL("../src/runtime/brain-view.ts",import.meta.url),"utf8");
 
