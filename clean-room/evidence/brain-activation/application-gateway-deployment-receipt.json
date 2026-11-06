@@ -60,5 +60,34 @@
     "failed": 0,
     "skipped": 0,
     "description": "Existing ordinary claim path is checked before bulk diagnostic claims; no identity, role, lease, model, context or stop protections removed."
+  },
+  "latestSourceQa": {
+    "sourceCommit": "6f3bf2124455805e809258c6e31183bc43988396",
+    "tests": 2652,
+    "pass": 2652,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "coreJob": 127996470470
+  },
+  "latestActivationDiagnostics": {
+    "failed": 0,
+    "queued": 0,
+    "claimed": 0,
+    "completed": 128,
+    "observedAt": "2026-11-06T19:17:19.725274+00:00",
+    "modelDigests": [
+      "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0"
+    ],
+    "invalidCompleted": [],
+    "independentlyVerified": 128,
+    "registeredDiagnostics": 128
+  },
+  "latestContextAccessVerification": {
+    "scope": "live activation context RPC only; not general tool or job execution",
+    "observedAt": "2026-11-06T19:16:56.416037+00:00",
+    "changedPersistentRows": false,
+    "exactProjectContextsRead": 128,
+    "wrongOwnerAndWorkerDenials": 256
   }
 }

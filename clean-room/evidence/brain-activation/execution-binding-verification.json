@@ -1,5 +1,5 @@
 {
-  "observed_at": "2026-11-06 13:02:19.463477+00",
+  "observed_at": "2026-11-06T19:17:37.566594+00:00",
   "registered": 128,
   "enabled": 0,
   "model_bound": 128,
@@ -55,19 +55,9 @@
   "hostedTask": {
     "id": "6ada7af0b254819184456ca1246e3f69",
     "enabled": false,
-    "lastRun": {
-      "id": "76433be8-a5b0-8325-b4d4-a015f0b38f64",
-      "recorded_status": "completed",
-      "scheduled_for": "2026-11-05T12:00:00Z",
-      "started_at": "2026-11-05T11:59:36.687747Z",
-      "completed_at": "2026-11-05T12:00:01.193822Z",
-      "chat_ref": {
-        "type": "chatgpt",
-        "id": "6adb0040-65ac-83e9-95ec-8ccd660680ae"
-      }
-    },
-    "lastResult": "The live Command Center database check confirmed that `executor:chatgpt-tasks-normal-chat` is enabled, free, non-retired, and scoped to owner-started normal-chat execution. Its recorded health remains degraded. The exact owner-scoped eligibility query returned **zero queued or working runs** satisfying the required authorization, `until_work` control mode, and Stop/Pause checks. Consequently, no task was claimed or executed. Previously completed Company 014 work was not restarted, and no database records, artifacts, infrastructure, or schedules were changed. The existing worker remains available for eligible runs.",
-    "scheduleChanged": false,
-    "resumed": false
-  }
+    "nextRun": null,
+    "environments": null
+  },
+  "fullOperationalActivation": false,
+  "remainingExecutionBoundary": "The installed PC client implements read-only inference only. No callable project-action handler is installed or connected. The only registered project.execute Task is paused/degraded, with no on-demand invocation bridge from the application. Session tools are not permanent worker bindings."
 }

@@ -4,7 +4,7 @@
       "enabled": true,
       "revoked": false,
       "worker_id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
-      "last_seen_at": "2026-11-06T08:52:28.859+00:00"
+      "last_seen_at": "2026-11-06T19:17:33.884+00:00"
     }
   ],
   "executors": [
@@ -15,28 +15,15 @@
       "capabilities": [
         "project.execute"
       ],
-      "executor_key": "executor:chatgpt-tasks-normal-chat"
+      "executor_key": "executor:chatgpt-tasks-normal-chat",
+      "executor_ref": "chatgpt-task:6ada7af0b254819184456ca1246e3f69"
     }
   ],
-  "providers": [
-    {
-      "cost": "free",
-      "health": "available",
-      "scopes": [
-        "owner-central-brain",
-        "owner-local-inference"
-      ],
-      "enabled": true,
-      "model_id": "qwen3:4b-instruct",
-      "capabilities": [
-        "brain.respond.read_only"
-      ],
-      "provider_key": "provider:owner-pc:737f5e7c-3884-4c61-81ac-634bdfc4828f",
-      "verification": "live_verified"
-    }
-  ],
-  "observedAt": "2026-11-06T08:53:05.488043+00:00",
+  "observedAt": "2026-11-06T19:17:37.566594+00:00",
+  "registered": 128,
   "queueStates": {
-    "completed": 2
-  }
+    "completed": 128
+  },
+  "enabledBrains": 0,
+  "configuredToolBindings": 0
 }

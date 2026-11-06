@@ -1,3 +1,13 @@
+# Current recovery boundary — 2026-11-06T19:17:19.725274+00:00
+
+128/128 inference proofs complete and independently verified; 128 live context reads and 256 negative identity checks pass. Diagnostic queue empty. Existing worker online. Authenticated owner UI returned saved response 42. Deployed execution gateway ACTIVE. Latest repaired-source CI: 2,652/2,652 pass.
+
+Next unfinished work: callable project tool/job execution runtime. Installed PC client handles read-only inference only; no action dispatcher is installed. No specialist tool binding exists. Existing hosted Task is paused, registry degraded, no on-demand application invocation bridge verified. Do not mark 128 Brains operational or enable paused scheduling as a substitute. This is an implementation/capability boundary, not missing owner authorization. No further Windows Settings/Unblock/ZIP repetition. Preserve all identities, credentials, seven stopped runs, company build exclusions, and zero spend.
+
+Authoritative current evidence: completed-diagnostic-verification.json and current-activation-results.json/.md. Older snapshots below are historical.
+
+---
+
 # Authenticated interface diagnostic verified — November 6, 2026
 
 Owner signed in successfully. The real authenticated browser interface saved and dispatched activation-only diagnostic request 51d3a097-18e8-4434-b52d-d6746bff6ebd. It completed on the existing PC worker in one attempt with response 42 at 15:55:36 UTC. Independent persisted SHA256 verification passed (73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049), and the signed-in browser visibly displayed the saved OWNER diagnostic and BRAIN response. No credential/session token was read or exported. Login is resolved, not a current blocker. Do not ask the owner to repeat sign-in or Windows setup.
