@@ -10,6 +10,7 @@ import {createPcToolJobTransport} from '../src/worker/pc-tool-job-transport.mjs'
 import {createPcToolExecutionLane} from '../dist/worker/pc-tool-execution-lane.mjs';
 import {createPcArtifactJobRunner} from '../dist/worker/pc-artifact-job-runner.mjs';
 const migration=readFileSync(new URL('../../supabase/migrations/20261106194500_pc_exact_artifact_jobs.sql',import.meta.url),'utf8');
+const activationMigration=readFileSync(new URL('../../supabase/migrations/20261106203000_pc_artifact_activation_status.sql',import.meta.url),'utf8');
 const owner='11111111-1111-4111-8111-111111111111',worker='22222222-2222-4222-8222-222222222222',id='33333333-3333-4333-8333-333333333333',other='44444444-4444-4444-8444-444444444444';
 const hash=s=>createHash('sha256').update(s).digest('hex');
 test('exact owner artifact jobs execute real PostgreSQL authorization, leases and canonical commits',async suite=>{
@@ -30,7 +31,12 @@ test('exact owner artifact jobs execute real PostgreSQL authorization, leases an
  insert into command_center_project_profiles values('${owner}','aro','company:legacy:aro');
  create table command_center_specialist_brains(owner_id uuid,project_id text,brain_key text,version bigint,control_plane text,cost_class text,supported_project_ids text[],supported_company_ids text[],permission_keys text[]);
  insert into command_center_specialist_brains values('${owner}','aro','brain:company:legacy:aro:v1',2,'command_center','free',array['aro'],array['company:legacy:aro'],array['project:aro:tools.request']);set fixture.owner='${owner}';`);
- await db.exec(migration);
+ await db.exec(`alter table command_center_specialist_brains add column scope text default 'project',add column specialist_id text default 'specialist:aro',add column provider_keys text[] default array['provider:owner-pc:${worker}'];
+ create table command_center_specialist_brain_versions(owner_id uuid,specialist_id text,version bigint,authority_evidence_ids text[]);
+ insert into command_center_specialist_brain_versions values('${owner}','specialist:aro',2,array['evd_owner-command-center-brain-activation-20261105']);
+ create table command_center_pc_inference_requests(owner_id uuid,worker_id uuid,project_id text,state text,activation_contract jsonb,route_snapshot jsonb,model_digest text);
+ insert into command_center_pc_inference_requests values('${owner}','${worker}','aro','completed','{}','{"brainKey":"brain:company:legacy:aro:v1","brainVersion":2}',repeat('a',64));`);
+ await db.exec(migration);await db.exec(activationMigration);
  await suite.test('owner admission is idempotent with exact saved bytes; conflicting input is rejected',async()=>{assert.equal((await enqueue()).state,'queued');assert.equal((await enqueue()).state,'queued');await assert.rejects(enqueue({name:'different.txt',content:'different'}),/already bound/);assert.equal(await one('select count(*)::int value from command_center_pc_tool_jobs'),1)});
  await suite.test('anonymous callers cannot queue or invoke service routines and service_role cannot mutate raw rows',async()=>{
   await db.exec('set role anon');await assert.rejects(enqueue(),/permission denied/);await assert.rejects(exchange('next',null,null),/permission denied/);await db.exec('reset role;set role service_role');await assert.rejects(db.query('update command_center_pc_tool_jobs set state=\'completed\''),/permission denied/);await db.exec('reset role');
@@ -78,6 +84,30 @@ test('exact owner artifact jobs execute real PostgreSQL authorization, leases an
    const partition=hash(JSON.stringify([owner,'aro','company:legacy:aro']));assert.equal(await readFile(join(dir,'managed',partition,'artifacts','proof.txt'),'utf8'),'actual content');
    runner.stop();assert.deepEqual(await runner.once(),{state:'stopped',executed:false});
   }finally{await rm(dir,{recursive:true,force:true})}
+ });
+ await suite.test('operator activation check has separate provenance, bounded content and per-Brain idempotency',async()=>{
+  await reset();
+  const queue=nextId=>one('select command_center_pc_queue_activation_artifact_service($1,$2,$3,$4) value',[owner,worker,'aro',nextId]);
+  const first=await queue(id),second=await queue(other);assert.equal(first.invocationId,id);assert.equal(second.invocationId,id);assert.equal(first.admissionAuthority,'delegated-activation-check');
+  const claimed=await exchange('next',null,null);assert.equal(claimed.saved.action.authority.reference,'command-center:activation-artifact-check:'+id);
+  assert.deepEqual(JSON.parse(claimed.saved.inputText),{name:'activation-check-'+id+'.txt',content:'COMMAND_CENTER_ACTIVATION_CHECK:aro:'+id});
+  assert.equal(await one('select client_contract value from command_center_pc_tool_client_status'),'cc-pc-tools-v1');
+  await assert.rejects(db.query(`update command_center_pc_tool_jobs set input_text='{"name":"other","content":"not an activation check"}'`),/pc_tool_activation_input/);
+  const forged=structuredClone(claimed);forged.saved.inputText='{"name":"other.txt","content":"outside diagnostic contract"}';
+  await assert.rejects(createPcToolJobTransport({workerToken:'ccpc_'+'a'.repeat(64),fetcher:async()=>({ok:true,json:async()=>({result:forged})})}).next(),/activation_artifact_scope_invalid/);
+  const root=await mkdtemp(join(tmpdir(),'cc-activation-job-'));let delivered=false;
+  try{
+   const runner=createPcArtifactJobRunner({workerToken:'ccpc_'+'a'.repeat(64),baseDirectory:join(root,'managed'),fetcher:async(url,options)=>{
+    const body=JSON.parse(options.body),action=url.split('/tool-')[1];
+    if(action==='next'){const result=delivered?null:claimed;delivered=true;return{ok:true,json:async()=>({result})}}
+    return{ok:true,json:async()=>({result:await exchange(action,body.invocationId,body.fencingToken,body.result??null)})};
+   }});
+   const proof=await runner.once();assert.equal(proof.purpose,'activation_artifact_check');assert.equal(proof.canonicalCommitVerified,true);assert.equal(await one('select state value from command_center_pc_tool_jobs'),'completed');
+  }finally{await rm(root,{recursive:true,force:true})}
+ });
+ await suite.test('anonymous/ordinary owner roles cannot invoke operator admission; missing live proof blocks the operator',async()=>{
+  await reset();await db.exec('set role authenticated');await assert.rejects(one('select command_center_pc_queue_activation_artifact_service($1,$2,$3,$4) value',[owner,worker,'aro',id]),/permission denied/);await db.exec('reset role');
+  await db.exec('update command_center_pc_inference_requests set state=\'failed\'');await assert.rejects(one('select command_center_pc_queue_activation_artifact_service($1,$2,$3,$4) value',[owner,worker,'aro',id]),/live specialist inference proof/);
  });
  }finally{await db.close()}
 });

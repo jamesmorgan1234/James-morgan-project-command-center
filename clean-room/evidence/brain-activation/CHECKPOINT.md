@@ -1,3 +1,13 @@
+# Concrete in-place client update prepared
+
+Corrected real updater defect: manifest contained 14 files while updater still allowed 7. Validator now requires the exact 14 unique whitelisted paths. Payload dependency closure is explicit ESM. Self-contained installer builder avoids ZIP/extraction and cleans temporary staging. Seven Linux PowerShell fixture scenarios passed, including actual file copies, forced rollback, corrupt payload, disabled task, repeat install, and outer-wrapper success/failure cleanup. This is not native Windows acceptance.
+
+Deployed pc_artifact_activation_status forward migration. New client-contract status signal is distinct from execution proof. 128 delegated activation-only artifact checks are queued under service-only operator admission; provenance does not pretend an owner JWT call. Each check is fixed to an immutable project-specific nonce marker and cannot start company builds or spend. Old inference client ignores this queue. New client can process checks promptly while retaining owner-message priority.
+
+Next: commit/publish this exact source, generate the self-contained installer from committed source, publish its immutable hash, present the single genuine Windows-only action, then observe authenticated client signal and real job outputs from the backend. Do not finish with another progress-only report. No full activation yet.
+
+---
+
 # Application artifact dispatcher connected
 
 command-center-execution v2 ACTIVE, JWT verification retained, all 8 deployed files independently matched. Owner-authenticated artifact start/status/cancel route through the existing gateway and canonical RPCs. ManagedOwnerRuntimeProvider source exposes all 3 operations after project membership checks. 57 affected dispatcher/inference/Agency checks pass. Unfinished jobs cannot report execution; completed output requires exact lease/project/worker/commit/hash proof. No frontend deployment promoted, no company run started, no PC tool job falsely verified, no spend.

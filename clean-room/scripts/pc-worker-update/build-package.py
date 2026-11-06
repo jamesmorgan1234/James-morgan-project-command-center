@@ -15,19 +15,23 @@ FILES = [
  'clean-room/src/worker/pc-tool-execution-lane.mjs',
  'clean-room/src/worker/pc-tool-journal.mjs',
  'clean-room/src/worker/pc-project-file-tool.mjs',
- 'clean-room/src/brain/tool-runtime.js',
- 'clean-room/src/brain/tool-access.js',
+ 'clean-room/src/brain/tool-runtime.mjs',
+ 'clean-room/src/brain/tool-access.mjs',
 ]
-COMPILED = {p:ROOT/p.replace('/src/','/dist/') for p in FILES if p.endswith('.js')}
+COMPILED = {f'clean-room/src/brain/{name}.mjs':ROOT/f'clean-room/dist/brain/{name}.js' for name in ['tool-runtime','tool-access']}
 TS_SOURCES = ['clean-room/src/brain/tool-runtime.ts','clean-room/src/brain/tool-access.ts']
 BASELINE = 'clean-room/evidence/brain-activation/installed-client-update-baseline.json'
-def build(output, allow_working_tree=False):
+def reviewed_payload(allow_working_tree=False):
     dirty = subprocess.check_output(['git','status','--porcelain','--',*FILES,*TS_SOURCES,BASELINE,str(HERE.relative_to(ROOT))],cwd=ROOT).decode().strip()
     if dirty and not allow_working_tree:
         raise SystemExit('Commit and verify source before publishing the worker update package.')
     head = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT).decode().strip()
     subprocess.run(['npm','run','build:modules'],cwd=ROOT/'clean-room',check=True,capture_output=True)
     contents={p:(COMPILED.get(p,ROOT/p)).read_bytes() for p in FILES}
+    # The installed app has no package.json. Keep its entire dependency closure
+    # explicitly ESM on every supported Node 22 minor version.
+    contents['clean-room/src/brain/tool-runtime.mjs']=contents['clean-room/src/brain/tool-runtime.mjs'].replace(b'./tool-access.js',b'./tool-access.mjs')
+    contents['clean-room/src/worker/pc-tool-execution-lane.mjs']=contents['clean-room/src/worker/pc-tool-execution-lane.mjs'].replace(b'../brain/tool-runtime.js',b'../brain/tool-runtime.mjs')
     recovered = json.loads((ROOT/BASELINE).read_text())
     manifest = dict(schema='cc-existing-pc-worker-update-v1',sourceCommit=head,
         candidateState='working-tree-unapproved' if dirty else 'source-committed',
@@ -36,6 +40,10 @@ def build(output, allow_working_tree=False):
         originalFiles=[dict(path=p['path'],sha256=p['sha256']) for p in recovered['files']],
         installedBaselineCommit=recovered['sourceCommit'],
         pairingRecreated=False,spendingAuthorized=False,companyBuildAuthorized=False)
+    return manifest,contents
+def build(output, allow_working_tree=False):
+    manifest,contents=reviewed_payload(allow_working_tree)
+    head=manifest['sourceCommit']
     output = pathlib.Path(output);output.parent.mkdir(parents=True,exist_ok=True)
     with zipfile.ZipFile(output,'w',compression=zipfile.ZIP_DEFLATED) as archive:
         for p in FILES: archive.writestr('payload/'+p,contents[p])

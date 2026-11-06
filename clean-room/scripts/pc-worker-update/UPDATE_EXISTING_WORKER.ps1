@@ -10,9 +10,25 @@ $taskName='COMMAND CENTER Owner PC Brain Worker'
 $expectedWorker='737f5e7c-3884-4c61-81ac-634bdfc4828f'
 $stopped=$false;$changed=@();$backup=$null;$taskXml=$null
 $oldModel=$env:CC_PC_LOCAL_MODEL
+$allowedPaths=@(
+ 'clean-room/src/worker/pc-worker-cli.mjs',
+ 'clean-room/src/worker/pc-worker-supervisor.mjs',
+ 'clean-room/src/worker/pc-worker-transport.mjs',
+ 'clean-room/src/worker/pc-artifact-job-runner.mjs',
+ 'clean-room/src/worker/pc-tool-job-transport.mjs',
+ 'clean-room/src/worker/pc-tool-execution-lane.mjs',
+ 'clean-room/src/worker/pc-tool-journal.mjs',
+ 'clean-room/src/worker/pc-project-file-tool.mjs',
+ 'clean-room/src/brain/pc-local-ollama.mjs',
+ 'clean-room/src/brain/pc-owner-inference-worker.mjs',
+ 'clean-room/src/brain/pc-brain-readiness.mjs',
+ 'clean-room/src/brain/pc-activation-contract.mjs',
+ 'clean-room/src/brain/tool-runtime.mjs',
+ 'clean-room/src/brain/tool-access.mjs'
+)
 function Hash-File([string]$path){return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()}
 function Safe-Path([string]$root,[string]$relative){
- if($relative -notmatch '^(clean-room/src/(worker/pc-worker-(cli|supervisor|transport)|brain/pc-(local-ollama|owner-inference-worker|brain-readiness|activation-contract))\.mjs|supabase/functions/command-center-execution/brain-readiness\.mjs|COMMAND_CENTER_PC_WINDOWS\.ps1)$'){throw 'Unexpected source path; update refused.'}
+ if($relative -cnotin $allowedPaths){throw 'Unexpected source path; update refused.'}
  $path=Join-Path $root ($relative.Replace('/',[IO.Path]::DirectorySeparatorChar))
  $check=$path
  while($check -and $check.Length -ge $root.Length){
@@ -30,7 +46,9 @@ try{
  if($manifest.schema -ne 'cc-existing-pc-worker-update-v1' -or $manifest.candidateState -ne 'source-committed' -or $manifest.sourceCommit -notmatch '^[0-9a-f]{40}$'){throw 'Package is not a committed source candidate.'}
  if($manifest.workerId -ne $expectedWorker -or -not(Test-Path -LiteralPath $app)){throw 'Existing registered worker not found; nothing installed.'}
  if((Get-Content -LiteralPath (Join-Path $base 'worker-id.txt') -Raw).Trim() -ne $expectedWorker){throw 'Different worker identity; update refused.'}
- if(@($manifest.files).Count -ne 7 -or @($manifest.originalFiles).Count -ne 7){throw 'Incomplete source manifest.'}
+ if(@($manifest.files).Count -ne 14 -or @($manifest.originalFiles).Count -ne 7 -or
+    @($manifest.files.path | Sort-Object -Unique).Count -ne 14 -or
+    @(Compare-Object $allowedPaths @($manifest.files.path) -CaseSensitive).Count -ne 0){throw 'Incomplete source manifest.'}
  foreach($file in $manifest.files){if($file.sha256 -notmatch '^[0-9a-f]{64}$' -or (Hash-File (Safe-Path $payload $file.path)) -ne $file.sha256){throw 'Payload hash mismatch.'}}
  $already=$true
  foreach($file in $manifest.files){$target=Safe-Path $app $file.path;if(-not(Test-Path -LiteralPath $target) -or (Hash-File $target) -ne $file.sha256){$already=$false}}

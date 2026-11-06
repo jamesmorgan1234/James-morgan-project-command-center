@@ -22,7 +22,13 @@ export function createPcToolJobTransport({workerToken,fetcher=fetch}){
     l.ownerId===s.action?.ownerId&&l.projectId===s.action?.projectId&&l.companyId===s.action?.companyId&&
     Number.isSafeInteger(l.fencingToken)&&l.fencingToken>=1&&l.generation===1&&
     s.action?.toolKey==='owner-pc-artifacts'&&['artifact.write','artifact.read'].includes(s.action?.actionKey)&&
-    s.action?.authority?.reference==='owner:explicit-artifact-job:'+s.invocationId,'tool_job_claim_identity_invalid');
+    ['owner:explicit-artifact-job:'+s.invocationId,'command-center:activation-artifact-check:'+s.invocationId].includes(s.action?.authority?.reference),'tool_job_claim_identity_invalid');
+   if(s.action.authority.reference.startsWith('command-center:activation-artifact-check:')){
+    let input;try{input=JSON.parse(s.inputText)}catch{throw Error('activation_artifact_input_invalid')}
+    ensure(s.action.actionKey==='artifact.write'&&Object.keys(input).length===2&&
+     input.name==='activation-check-'+s.invocationId+'.txt'&&input.content==='COMMAND_CENTER_ACTIVATION_CHECK:'+s.action.projectId+':'+s.invocationId,
+     'activation_artifact_scope_invalid');
+   }
    active.set(s.invocationId,structuredClone(result));return structuredClone(result);
   },
   async resolve(id){return structuredClone(current(id).saved)},

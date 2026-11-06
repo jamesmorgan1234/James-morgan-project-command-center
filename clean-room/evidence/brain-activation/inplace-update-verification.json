@@ -1,0 +1,70 @@
+{
+  "installer": "self_contained_no_zip",
+  "installedBaseline": "3dd050c9be98407e0640a38742b540598557a84f",
+  "payloadFiles": 14,
+  "validatorPathCountMismatchCorrected": true,
+  "explicitEsmDependencyClosureVerified": true,
+  "isolatedPowerShell": {
+    "environment": "Linux PowerShell with scheduler/CIM/Ollama fixtures",
+    "nativeWindowsVerified": false,
+    "payloadFiles": 14,
+    "scenarios": [
+      {
+        "scenario": "success",
+        "passed": true
+      },
+      {
+        "scenario": "copy_failure",
+        "passed": true
+      },
+      {
+        "scenario": "corrupted_payload",
+        "passed": true
+      },
+      {
+        "scenario": "disabled_task",
+        "passed": true
+      },
+      {
+        "scenario": "already_installed",
+        "passed": true
+      },
+      {
+        "scenario": "outer_success",
+        "passed": true
+      },
+      {
+        "scenario": "outer_failure",
+        "passed": true
+      }
+    ]
+  },
+  "affectedNodeChecks": {
+    "tests": 37,
+    "pass": 37,
+    "fail": 0
+  },
+  "operatorPostgresChecks": {
+    "tests": 14,
+    "pass": 14,
+    "fail": 0
+  },
+  "latestPackagingChecks": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0
+  },
+  "liveActivationAdmission": {
+    "queued": 128,
+    "admitted": 128,
+    "completed": 0,
+    "observedAt": "2026-11-06T20:48:04.9367+00:00",
+    "companyBuildsStarted": false,
+    "paidActionsAuthorized": false,
+    "operatorAdmissionDistinctFromOwnerJwt": true
+  },
+  "nativeWindowsVerified": false,
+  "fullActivationClaimed": false,
+  "temporaryStagingCleanedInSuccessAndFailure": true,
+  "ownerCredentialFilesReadByUpdater": false
+}

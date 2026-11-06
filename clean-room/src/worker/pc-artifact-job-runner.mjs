@@ -34,7 +34,7 @@ export function createPcArtifactJobRunner({workerToken,baseDirectory,fetcher=fet
      journalRoot:await realpath(journalRoot),resolve:transport.resolve,catalog:async()=>[descriptor],createLease:transport.createLease,
      assertCurrent:async lease=>{if(stopping)throw Error('artifact_worker_stopped');return transport.assertCurrent(lease)},commitCanonical:transport.commitCanonical,readCanonical:transport.readCanonical});
     const completed=await lane.execute(id);
-    return{state:'verified_artifact_job',invocationId:id,canonicalCommitVerified:completed.canonicalCommitVerified,companyBuildExecuted:false};
+    return{purpose:a.authority.reference.startsWith('command-center:activation-artifact-check:')?'activation_artifact_check':'owner_artifact_job',state:'verified_artifact_job',invocationId:id,canonicalCommitVerified:completed.canonicalCommitVerified,companyBuildExecuted:false};
    }finally{if(id)transport.abandon(id);busy=false}
   }
  });

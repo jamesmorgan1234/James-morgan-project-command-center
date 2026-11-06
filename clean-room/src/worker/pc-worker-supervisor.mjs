@@ -64,7 +64,9 @@ export function createPcWorkstationRunner({workerToken,modelId,fetcher=fetch,log
    while(!stopping){
     let result;try{result=await this.once()}catch{}
     if(failures>=maxConsecutiveFailures){log({event:'worker_stopped_after_failures'});stopping=true;break;}
-    if(!stopping)await sleep(result?.purpose==='activation_probe'&&result?.state==='verified_response'?500:pollMs*Math.min(4,1+failures));
+    const boundedCheck=(result?.purpose==='activation_probe'&&result?.state==='verified_response')||
+      (result?.purpose==='activation_artifact_check'&&result?.state==='verified_artifact_job');
+    if(!stopping)await sleep(boundedCheck?500:pollMs*Math.min(4,1+failures));
    }
    return {stopped:true,consecutiveFailures:failures};
   }
