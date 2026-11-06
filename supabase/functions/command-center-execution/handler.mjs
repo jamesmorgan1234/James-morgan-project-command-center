@@ -2,6 +2,7 @@
 import { readCompanyBuildPreparation, PreparationReadError } from './preparation-read.mjs';
 import { queueOnExistingNormalChatWorker } from './normal-chat-adapter.mjs';
 import { requestPcInference, PcInferenceError } from './pc-inference-adapter.mjs';
+import { dispatchOwnerArtifactJob, ArtifactJobError } from './artifact-job-adapter.mjs';
 const ORIGINS = new Set(['https://command-center-preview-alpha.vercel.app', 'https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const object = value => !!value && typeof value === 'object' && !Array.isArray(value);
@@ -46,17 +47,24 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
         while (true) {
           const part = await reader.read(); if (part.done) break;
           size += part.value.byteLength;
-          if (size > 8192) { await reader.cancel(); throw new GatewayError('body_too_large',413); }
+          if (size > 750000) { await reader.cancel(); throw new GatewayError('body_too_large',413); }
           text += decoder.decode(part.value,{stream:true});
         }
         text += decoder.decode();
       }
       let body; try { body = JSON.parse(text); } catch { throw new GatewayError('invalid_json',400); }
-      if (!object(body) || !['agency_start','brain_response','preparation_read'].includes(body.action)) throw new GatewayError('invalid_action',400);
+      if (!object(body) || !['agency_start','brain_response','preparation_read','artifact_job_start','artifact_job_status','artifact_job_cancel'].includes(body.action)) throw new GatewayError('invalid_action',400);
+      if(size>8192&&body.action!=='artifact_job_start')throw new GatewayError('body_too_large',413);
       const user = await upstream('/auth/v1/user');
       if (!user?.id) throw new GatewayError('unauthorized',401);
       const authorized = await upstream('/rest/v1/rpc/is_command_center_authorized',{method:'POST',body:'{}'});
       if (authorized !== true) throw new GatewayError('unauthorized',403);
+
+      if(body.action.startsWith('artifact_job_')){
+        const result=await dispatchOwnerArtifactJob({request:body,ownerId:user.id,
+          readRows:(table,params)=>rows(table,user.id,params),rpc:(name,payload)=>upstream('/rest/v1/rpc/'+name,{method:'POST',body:JSON.stringify(payload)})});
+        return reply(result,result.state==='queued'||result.state==='claimed'?202:200);
+      }
 
       if (body.action === 'preparation_read') {
         const result = await readCompanyBuildPreparation(body.projectId, (table, params) => rows(table, user.id, params));
@@ -124,7 +132,7 @@ export function createExecutionHandler({supabaseUrl, publishableKey, fetcher = f
       if (!response || response.project_id !== turns[0].project_id || response.redaction_state !== 'safe_text' || !response.safe_text?.trim() || response.canonical_writes_authorized !== false || !response.evidence_refs?.includes(`brain:response-to:${body.ownerTurnId}`)) throw new GatewayError('response_not_verified');
       return reply({brainTurnId:response.turn_id});
     } catch (error) {
-      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError ? error.status : 503);
+      return reply({error:error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError || error instanceof ArtifactJobError ? error.message : 'execution_unavailable'},error instanceof GatewayError || error instanceof PreparationReadError || error instanceof PcInferenceError || error instanceof ArtifactJobError ? error.status : 503);
     }
   };
 }

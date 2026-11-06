@@ -1,3 +1,11 @@
+# Application artifact dispatcher connected
+
+command-center-execution v2 ACTIVE, JWT verification retained, all 8 deployed files independently matched. Owner-authenticated artifact start/status/cancel route through the existing gateway and canonical RPCs. ManagedOwnerRuntimeProvider source exposes all 3 operations after project membership checks. 57 affected dispatcher/inference/Agency checks pass. Unfinished jobs cannot report execution; completed output requires exact lease/project/worker/commit/hash proof. No frontend deployment promoted, no company run started, no PC tool job falsely verified, no spend.
+
+Previous stop was premature: this application integration was independent of PC installation. Next critical verification boundary remains installation on the real Windows host, where this session has no OS execution/control connection. Other project tools remain unverified.
+
+---
+
 # Deployed exact owner-job connection
 
 Gateway command-center-pc-worker v5 ACTIVE; deployed source independently matched. Additive pc_exact_artifact_jobs migration applied. Owner admission is authenticated and exact-project scoped; service routines are unavailable to anon/authenticated; raw service table writes denied. Live unauthenticated inference/tool HTTP requests denied401. Existing paired PC still online. 130 affected tests and 23 packaging/legacy client checks pass. No live tool job queued, no worker installed, no Brain enabled, no company run resumed, no paid action.

@@ -61,7 +61,7 @@
     "Install updated client code on the existing Windows worker using an authenticated device-control channel. This session exposes no Windows OS execution/control channel; the installed inference client cannot install new code.",
     "Verify actual owner-PC artifact jobs through the deployed canonical transport and register only the proven tool bindings.",
     "Implement/connect and verify the remaining project-required browser, research, coding, memory and account tools; artifact jobs alone do not establish full activation.",
-    "Connect explicit owner tool-job admission to the application dispatcher; the owner RPC is deployed, but the existing company Start route still uses its preserved Agency worker path."
+    "Frontend owner-provider source is integrated but has not been promoted to the live frontend deployment."
   ],
   "limitations": [
     "Filesystem tests executed on Linux, not Windows.",
@@ -83,6 +83,13 @@
   "finalClientAndPostgresChecks": {
     "tests": 35,
     "pass": 35,
+    "fail": 0
+  },
+  "applicationDispatcherGatewayVersion": 2,
+  "applicationProviderSourceIntegrated": true,
+  "applicationDispatcherChecks": {
+    "tests": 57,
+    "pass": 57,
     "fail": 0
   }
 }

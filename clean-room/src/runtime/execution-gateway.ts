@@ -29,6 +29,60 @@ export async function invokeExecutionGateway(options: ExecutionGatewayOptions, r
   return payload as Record<string, unknown>;
 }
 
+export interface OwnerArtifactJobReceipt {
+  readonly invocationId: string;
+  readonly projectId: string;
+  readonly companyId: string;
+  readonly workerId: string;
+  readonly state: "queued" | "claimed" | "completed" | "cancelled" | "uncertain";
+  readonly executionVerified: boolean;
+  readonly companyBuildStarted: false;
+  readonly allowPaid: false;
+  readonly commitId?: string;
+  readonly outputText?: string;
+  readonly outputHash?: string;
+}
+
+export interface OwnerArtifactJobRequest {
+  readonly projectId: string;
+  readonly invocationId: string;
+  readonly workerId: string;
+  readonly actionKey: "artifact.read" | "artifact.write";
+  readonly input: { readonly name: string; readonly content?: string; };
+}
+
+/** Exact owner tool commands are separate from company Start and Brain chat. */
+export async function requestOwnerArtifactJob(options: ExecutionGatewayOptions, request: OwnerArtifactJobRequest): Promise<OwnerArtifactJobReceipt> {
+  const receipt = await invokeExecutionGateway(options, { ...request, action: "artifact_job_start", executionAuthorized: true, allowPaid: false, allowProtected: false });
+  const verified = await verifyArtifactReceipt(receipt, request.projectId, request.invocationId);
+  if (verified.workerId !== request.workerId) throw new Error("Artifact worker identity did not match the saved command");
+  return verified;
+}
+
+export async function readOwnerArtifactJob(options: ExecutionGatewayOptions, projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
+  return verifyArtifactReceipt(await invokeExecutionGateway(options, { action: "artifact_job_status", projectId, invocationId }), projectId, invocationId);
+}
+
+export async function cancelOwnerArtifactJob(options: ExecutionGatewayOptions, projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
+  // A job that committed before cancellation remains completed, not cancelled.
+  return verifyArtifactReceipt(await invokeExecutionGateway(options, { action: "artifact_job_cancel", projectId, invocationId }), projectId, invocationId);
+}
+
+async function verifyArtifactReceipt(r: Record<string, unknown>, projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
+  const uuid = /^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+  const companyId = projectId.startsWith("project:company:future:") ? projectId.slice(8) : `company:legacy:${projectId}`;
+  if (r.projectId !== projectId || r.companyId !== companyId || r.invocationId !== invocationId ||
+      !uuid.test(String(r.workerId ?? "")) || r.companyBuildStarted !== false || r.allowPaid !== false ||
+      !["queued", "claimed", "completed", "cancelled", "uncertain"].includes(String(r.state))) throw new Error("Artifact job receipt identity is inconsistent");
+  if (r.state === "completed") {
+    if (r.executionVerified !== true || r.scope !== "exact_owner_artifact_job" || !uuid.test(String(r.commitId ?? "")) ||
+        typeof r.outputText !== "string" || typeof r.outputHash !== "string" || !/^[a-f0-9]{64}$/.test(r.outputHash)) throw new Error("Artifact completion proof is missing");
+    const actual = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(r.outputText))), b => b.toString(16).padStart(2, "0")).join("");
+    if (actual !== r.outputHash) throw new Error("Artifact completion hash does not match saved output");
+  } else if (r.executionVerified !== false) throw new Error("An unfinished artifact job cannot report execution");
+  return r as unknown as OwnerArtifactJobReceipt;
+}
+
 
 /** Read a prepared company's source-verified starting packet without dispatching a worker.
  * This is an authenticated owner-only read. Company products and Brains are not started. */

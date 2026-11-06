@@ -1,0 +1,29 @@
+{
+  "gateway": {
+    "id": "40743823-5529-432f-9ddb-51fe7d4eb9a7",
+    "slug": "command-center-execution",
+    "name": "command-center-execution",
+    "status": "ACTIVE",
+    "version": 2,
+    "created_at": 1793979780406,
+    "updated_at": 1793996359746,
+    "verify_jwt": true,
+    "import_map": false,
+    "entrypoint_path": "file:///tmp/user_fn_gmlsucpwliegwlxymjvp_40743823-5529-432f-9ddb-51fe7d4eb9a7_2/source/supabase/functions/command-center-execution/index.ts",
+    "ezbr_sha256": "6e8adad3b77b0fbedcda19d485732f752d85ed60931662d6e867921253d976c3"
+  },
+  "deployedFilesIndependentlyMatched": 8,
+  "ownerJwtRequired": true,
+  "affectedChecks": {
+    "tests": 57,
+    "pass": 57,
+    "fail": 0
+  },
+  "legacyImportCheck": "passed",
+  "architectureCheck": "passed",
+  "frontendProviderSourceIntegrated": true,
+  "frontendDeploymentPromoted": false,
+  "liveOwnerPcJobVerified": false,
+  "companyRunsStarted": false,
+  "paidActions": false
+}

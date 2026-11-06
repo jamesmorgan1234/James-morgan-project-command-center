@@ -1,5 +1,5 @@
 import { projectSpecialistBindings } from "../brain/specialist-readiness.js";
-import { invokeExecutionGateway } from "./execution-gateway.js";
+import { invokeExecutionGateway, requestOwnerArtifactJob, readOwnerArtifactJob, cancelOwnerArtifactJob, type OwnerArtifactJobReceipt, type OwnerArtifactJobRequest } from "./execution-gateway.js";
 import { preparedCompanyId, validateCompanyBuildStart, type CompanyBuildStartView } from "./company-build-start.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
@@ -46,6 +46,9 @@ export interface ProjectWorkspaceRuntimeProvider {
   readCompanyBuildStart?(projectId: string): Promise<CompanyBuildStartView>;
   stopProjectAgencyRun(projectId: string, runId: string, generation: number): Promise<void>;
   continueProjectAgencyRun?(projectId: string, runId: string, generation: number): Promise<void>;
+  requestOwnerArtifactJob?(request: OwnerArtifactJobRequest): Promise<OwnerArtifactJobReceipt>;
+  readOwnerArtifactJob?(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt>;
+  cancelOwnerArtifactJob?(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt>;
 }
 export function isProjectWorkspaceRuntimeProvider(value: unknown): value is ProjectWorkspaceRuntimeProvider {
   if (!value || typeof value !== "object") return false;
@@ -441,6 +444,21 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
     if (!isRecord(receipt) || receipt.run_id !== runId || !["queued", "working", "needs_user", "blocked", "paused", "completed"].includes(String(receipt.state))) throw new Error("Start did not confirm a durable normal-chat run");
     return runId;
+  }
+
+  async requestOwnerArtifactJob(request: OwnerArtifactJobRequest): Promise<OwnerArtifactJobReceipt> {
+    const session = await this.#assertProject(request.projectId);
+    return requestOwnerArtifactJob({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,accessToken:session.accessToken,fetcher:this.#fetcher},request);
+  }
+
+  async readOwnerArtifactJob(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
+    const session = await this.#assertProject(projectId);
+    return readOwnerArtifactJob({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,accessToken:session.accessToken,fetcher:this.#fetcher},projectId,invocationId);
+  }
+
+  async cancelOwnerArtifactJob(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
+    const session = await this.#assertProject(projectId);
+    return cancelOwnerArtifactJob({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,accessToken:session.accessToken,fetcher:this.#fetcher},projectId,invocationId);
   }
 
   async requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string> {
