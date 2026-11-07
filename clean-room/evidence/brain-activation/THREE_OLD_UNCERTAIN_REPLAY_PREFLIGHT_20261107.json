@@ -1,0 +1,66 @@
+{
+  "schema": "cc-activation-three-old-uncertain-noncommit-audit-v1",
+  "observed": {
+    "utc": "2026-11-07T09:20:44.273357+00:00",
+    "rest": [
+      {
+        "n": 3,
+        "state": "uncertain"
+      },
+      {
+        "n": 54,
+        "state": "completed"
+      },
+      {
+        "n": 1,
+        "state": "claimed"
+      },
+      {
+        "n": 70,
+        "state": "queued"
+      }
+    ],
+    "worker": {
+      "enabled": true,
+      "revoked": false,
+      "lastSeen": "2026-11-07T09:20:33.842+00:00"
+    },
+    "oldClaims": [
+      {
+        "fence": 1,
+        "state": "uncertain",
+        "projectId": "edge-finder",
+        "exchangeId": "332601c4-2482-467a-b877-195ab060f60b",
+        "completedAt": null,
+        "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+        "commitAbsent": true,
+        "resultAbsent": true,
+        "leaseExpiredAt": "2026-11-07T08:10:10.680151+00:00"
+      },
+      {
+        "fence": 1,
+        "state": "uncertain",
+        "projectId": "margincrafttools",
+        "exchangeId": "295139b4-fdc2-4ea7-88c1-ce64ad2f599e",
+        "completedAt": null,
+        "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+        "commitAbsent": true,
+        "resultAbsent": true,
+        "leaseExpiredAt": "2026-11-07T08:06:49.286693+00:00"
+      },
+      {
+        "fence": 1,
+        "state": "uncertain",
+        "projectId": "project:company:future:004",
+        "exchangeId": "020f6ec9-9405-48c7-9506-ad9e9e32941a",
+        "completedAt": null,
+        "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+        "commitAbsent": true,
+        "resultAbsent": true,
+        "leaseExpiredAt": "2026-11-07T08:04:27.126483+00:00"
+      }
+    ]
+  },
+  "interpretation": "Three old free-only local Qwen model acknowledgements were claimed before the structured output fix; their leases expired without any commit. Reconciliation must not mark these successes or blindly repeat completed work. Local Ollama diagnostic 307.8s and mutated UUID supports failure mechanism but does not prove every original exception.",
+  "approvedScope": "Only after the other 125 exchanges pass exact canonical verification; safe uncommitted, activation-only replay with old exchange identities, new fence and preserved forensic audit, no general Brain permissions or company operations."
+}
