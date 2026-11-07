@@ -1,0 +1,83 @@
+{
+  "schema": "cc-specialist-activation-exchange-live-proof-v1",
+  "observedAtUtc": "2026-11-07T08:00:08.879406Z",
+  "project": "COMMAND CENTER",
+  "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+  "sourceBranch": "build/spec-lock-v2-clean-room",
+  "installedUpdate": {
+    "ownerScreenshot": "2026-11-07 02:59 Eastern reports Existing PC client source updated and locally tested, same worker credentials and task definition preserved",
+    "liveActivationConfirmed": true,
+    "newDownloadZipRequired": false
+  },
+  "firstSpecialist": {
+    "projectId": "project:company:future:014",
+    "brainKey": "brain:company:future:014:v1",
+    "brainVersion": 2,
+    "exchangeId": "ad34eea7-3e6f-4e5a-a686-8839c34a6126",
+    "parentTurnId": "c2d43d16-07e3-4ac6-97cd-8bcf5d7d5f83",
+    "parentResponseHash": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+    "commitId": "9b74753a-cf74-4396-bd7c-b3a94cf46d08",
+    "completedAtUtc": "2026-11-07T07:59:53.259944Z",
+    "fence": 1,
+    "state": "completed",
+    "modelId": "qwen3:4b-instruct",
+    "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "inputHash": "f0f459244416b726cc3bbd19619b95805fa5c82b538edbda8f2af66e747ba8dc",
+    "outputHash": "337c83b9509684d7a2859d4d445d9bd66dad57187aac3af246aac5c15fcf8a55",
+    "independentSqlValidation": {
+      "outputHashMatches": true,
+      "inputHashMatches": true,
+      "parentHashMatches": true,
+      "identityMatches": true,
+      "modelRouteMatches": true,
+      "brainVersionMatches": true,
+      "canonicalServiceReadback": true,
+      "accepted": true,
+      "companyBuildStarted": false,
+      "paidUsageAuthorized": false,
+      "generalToolsExecuted": false
+    }
+  },
+  "catalog": {
+    "registered": 128,
+    "eligibleForBoundedExchange": 128,
+    "previousDiagnosticVerified": 128,
+    "previousNativeArtifactsCompleted": 128,
+    "generalBrainEnabled": 0,
+    "generalToolBindings": 0,
+    "delegationBindings": 0
+  },
+  "additionalQueues": {
+    "created": 16,
+    "queuedProjects": [
+      "project:company:future:013",
+      "aro",
+      "coupon-autopilot",
+      "crowdskein",
+      "edge-finder",
+      "fanvue-veyla",
+      "loopwren",
+      "margincrafttools",
+      "mini-movies",
+      "project:company:future:001",
+      "project:company:future:002",
+      "project:company:future:003",
+      "project:company:future:004",
+      "project:company:future:005",
+      "project:company:future:006",
+      "project:company:future:007"
+    ],
+    "stateAtTime": "queued",
+    "completedReceiptNotYetClaimed": true
+  },
+  "boundaries": {
+    "noPaidUsage": true,
+    "noCompanyBuild": true,
+    "noFullOperationalClaim": true,
+    "preserveOriginal128Jobs": true,
+    "preserveWorkerCredentials": true,
+    "preserveStoppedAgencyRuns": true,
+    "preserveProductionP1517P1518": true
+  },
+  "next": "Continue checking already-queued 16 bounded exchanges, independently verify receipts. Queue additional eligible existing specialists in guarded batches as free local worker progresses. Preserve full-operation distinction; do not flip general enable/tool permission based solely on bounded exchange."
+}
