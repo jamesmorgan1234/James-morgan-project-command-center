@@ -365,6 +365,24 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
   box.append(el('h2','section-title','FREE READ-ONLY TOOL CHECK'),
     el('p','muted','Uses the existing PC worker only. Checks JavaScript syntax or public documentation. Neither check executes company work, installs software, opens signed-in browser tabs or grants general Brain tool permissions.'));
   const status=el('p','brain-safe-tool-status__message muted','No safe-tool check has been started for this project in this view.');
+  const sourceLabel=document.createElement('label');
+  sourceLabel.textContent='JavaScript to check (syntax only; never executed)';
+  const sourceInput=document.createElement('textarea');
+  sourceInput.className='cc-input brain-safe-tool__source';
+  sourceInput.rows=4;
+  sourceInput.maxLength=12000;
+  sourceInput.value='const commandCenterSyntaxCheck = 42;';
+  sourceLabel.append(sourceInput);
+  const docsLabel=document.createElement('label');
+  docsLabel.textContent='Public documentation URL (only approved documentation hosts)';
+  const docsInput=document.createElement('input');
+  docsInput.className='cc-input brain-safe-tool__url';
+  docsInput.type='url';
+  docsInput.maxLength=700;
+  docsInput.value='https://nodejs.org/api/fs.html';
+  docsLabel.append(docsInput);
+  const output=el('pre','brain-safe-tool__output');
+  output.setAttribute('aria-live','polite');
   const actions=el('div','brain-overview__actions');
   const code=el('button','cc-button cc-button--secondary','Check JS syntax');
   const docs=el('button','cc-button cc-button--secondary','Check public docs');
@@ -373,12 +391,20 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
   for(const btn of [code,docs,refresh,cancel])btn.type='button';
   const savedJob=new URLSearchParams(window.location.search).get('safeJob')??'';
   let id=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(savedJob)?savedJob:'';
-  const busy=(v:boolean):void=>{for(const btn of [code,docs,refresh,cancel])btn.disabled=v;};
+  const busy=(v:boolean):void=>{for(const btn of [code,docs,refresh,cancel])btn.disabled=v;
+    sourceInput.disabled=v;docsInput.disabled=v;};
   const keepId=(value:string):void=>{
     id=value;const params=new URLSearchParams(window.location.search);
     params.set('safeJob',value);window.history.replaceState({},'',window.location.pathname+'?'+params);
   };
   const run=(action:'code.js_syntax_check'|'research.public_docs_read',inputText:string):void=>{
+    if(action==='code.js_syntax_check'&&(!sourceInput.value.trim()||sourceInput.value.length>12000)){
+      status.textContent='Enter up to 12,000 characters of JavaScript to check without executing it.';return;
+    }
+    if(action==='research.public_docs_read'&&(!docsInput.value.trim()||docsInput.value.length>700)){
+      status.textContent='Enter a public documentation HTTPS URL of up to 700 characters.';return;
+    }
+    output.textContent='';
     busy(true);status.textContent='Submitting one owner-approved free read-only check...';
     void provider.requestSafeReadOnlyTool!(projectId,action,inputText).then(receipt=>{
       keepId(receipt.jobId);
@@ -386,15 +412,34 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
     }).catch(()=>{status.textContent='The safe-tool request was not verified. No result was claimed.';})
       .finally(()=>busy(false));
   };
-  code.addEventListener('click',()=>run('code.js_syntax_check',JSON.stringify({source:'const commandCenterSyntaxCheck = 42;'})));
-  docs.addEventListener('click',()=>run('research.public_docs_read',JSON.stringify({url:'https://nodejs.org/api/fs.html'})));
+  code.addEventListener('click',()=>run('code.js_syntax_check',JSON.stringify({source:sourceInput.value})));
+  docs.addEventListener('click',()=>run('research.public_docs_read',JSON.stringify({url:docsInput.value.trim()})));
   refresh.addEventListener('click',()=>{
     if(!id){status.textContent='No saved check ID in this project view.';return;}
     busy(true);status.textContent='Checking the canonical owner-scoped receipt...';
     void provider.readSafeReadOnlyTool!(projectId,id).then(receipt=>{
-      status.textContent=receipt.state==='completed'&&receipt.executionVerified===true?
-        'COMPLETED: exact project, commit and output hash independently checked. This confirms only the free read-only tool action.':
-        'Saved state: '+receipt.state.toUpperCase()+'. No completed execution proof yet.';
+      output.textContent='';
+      if(receipt.state==='completed'&&receipt.executionVerified===true) {
+        status.textContent='COMPLETED: saved worker receipt and output hash verified. General company execution remains disabled.';
+        const raw=receipt.result?.outputText;
+        if(typeof raw==='string') {
+          try {
+            const data:unknown=JSON.parse(raw);
+            if(data&&typeof data==='object'&&!Array.isArray(data)) {
+              const tool=data as Record<string,unknown>;
+              if(tool.tool==='code.js_syntax_check') {
+                output.textContent='JavaScript syntax: '+(tool.syntaxValid===true?'valid':'invalid')+
+                  (typeof tool.errorCode==='string'?' ('+tool.errorCode+')':'')+
+                  '. Source was not executed.';
+              } else if(tool.tool==='research.public_docs_read'&&typeof tool.excerpt==='string') {
+                output.textContent='UNTRUSTED PUBLIC DOCUMENT EXCERPT (display only, never executed):\n'+tool.excerpt.slice(0,4000);
+              }
+            }
+          } catch {output.textContent='Saved output was not valid JSON; do not assume execution.';}
+        }
+      } else {
+        status.textContent='Saved state: '+receipt.state.toUpperCase()+'. No completed execution proof yet.';
+      }
     }).catch(()=>{status.textContent='Saved proof unavailable or mismatched. No success recorded.';})
       .finally(()=>busy(false));
   });
@@ -407,7 +452,7 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
       .finally(()=>busy(false));
   });
   actions.append(code,docs,refresh,cancel);
-  box.append(status,actions);
+  box.append(sourceLabel,docsLabel,status,actions,output);
   return box;
 }
 
