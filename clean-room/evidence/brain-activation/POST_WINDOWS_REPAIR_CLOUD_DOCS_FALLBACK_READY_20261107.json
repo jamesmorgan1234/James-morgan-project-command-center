@@ -1,0 +1,107 @@
+{
+  "schema": "cc-post-windows-safe-docs-and-free-cloud-continuation-v1",
+  "observedAtUtc": "2026-11-07T13:44:59.458136Z",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "scope": "COMMAND CENTER activation recovery; existing owner PC worker and 128 specialist Brain registrations preserved; no company builds, external business actions, Work usage, paid provider, new Scheduled Task, or P15.17/P15.18 change",
+  "worker": {
+    "id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "oneFileDocsRepairInstalledConfirmedByOwnerScreenshot": true,
+    "localNegativeReceiptAndDNSBoundaryTests": "PASS on owner's Windows",
+    "liveHeartbeat": "active and enabled; last checked 2026-11-07T13:44:59Z",
+    "model": "qwen3:4b-instruct",
+    "credentialsAndTaskPreserved": true
+  },
+  "permanentCompleted": {
+    "specialistsRegistered": 128,
+    "boundedExchangesCanonical": 128,
+    "oldActivationUncertain": 0,
+    "nativeArtifactJobsVerified": 128,
+    "scopedReadOnlyLocalModelBindings": 128,
+    "safeSyntaxNative": {
+      "jobId": "8ac2e9b4-2f3d-4c71-9fe8-55cabd43d929",
+      "commit": "7102986a-8e41-4187-a743-8b1d2434fb26",
+      "fullSHA256AndCanonicalReadbackVerified": true,
+      "registry": "available for syntax-only",
+      "codeExecuted": false
+    }
+  },
+  "documentation": {
+    "originalHistoricalPCJob": {
+      "id": "ca4c72e1-40ea-42a1-bf3e-6019c74c6f0e",
+      "state": "uncertain",
+      "result": null,
+      "commit": null,
+      "untouched": true
+    },
+    "newWindowsCanaries": [
+      {
+        "id": "3b151130-6672-4196-b42d-a2cc13b72819",
+        "url": "https://www.rfc-editor.org/rfc/rfc2549.txt",
+        "state": "completed",
+        "readSucceeded": false,
+        "errorCode": "docs_fetch_unavailable",
+        "commit": "e1f3921e-5f3f-4677-bd33-163cf40e94e9",
+        "hashAndCanonicalReadbackVerified": true
+      },
+      {
+        "id": "9e8c083c-c961-42b9-86a2-74a81e2a0cbd",
+        "url": "https://docs.python.org/3/",
+        "state": "completed",
+        "readSucceeded": false,
+        "errorCode": "docs_fetch_unavailable",
+        "commit": "6288af9e-8e39-4cec-a746-287f408a25e0",
+        "successNotClaimed": true
+      }
+    ],
+    "pcResearchRegistry": "degraded; no verified content retrieval"
+  },
+  "cloudReadOnlyFallback": {
+    "organization": "Crestven Holdings",
+    "plan": "free",
+    "newAccountOrProject": false,
+    "migration": "supabase/migrations/20261107134500_cloud_public_docs_owner_readonly_receipts.sql",
+    "applied": true,
+    "newTable": "public.command_center_cloud_public_docs_receipts",
+    "ownerRlsEnabledAndForced": true,
+    "authenticatedSelectOnly": true,
+    "anonymousSelect": false,
+    "authenticatedInsertAndUpdate": false,
+    "uniqueActivePerOwner": true,
+    "limitPerOwnerPerDay": 10,
+    "approvedHostsCount": 5,
+    "httpsOnly": true,
+    "redirectAllowed": false,
+    "maxResponseBytes": 65536,
+    "timeoutMs": 8500,
+    "noPaidFallback": true,
+    "noCompanyBuildOrGeneralExecution": true,
+    "resultJsonSHA256CanonicalSorted": true,
+    "signedInOwnerAuthRequired": true,
+    "strictlyOwnedProjectAndBrainRequired": true,
+    "edgeFunction": "command-center-safe-tools",
+    "edgeVersion": 6,
+    "edgeState": "ACTIVE",
+    "exactSourceMatchesGithub": true,
+    "gatewayCommit": "12d50962208737f1047af82112022e7336785a4c",
+    "uiCommit": "02036c37b8f7b173f16c735f0fedf9b8fdb9342a",
+    "previewUrl": "https://command-center-preview-g0927l9dk-crestven-holdings.vercel.app/brain?project=project%3Acompany%3Afuture%3A004&mode=conversation",
+    "previewBuild": "READY",
+    "moduleEmulatedChecks": 8,
+    "signedInOwnerCloudRead": "NOT YET TESTED",
+    "persistedCloudChecks": 0,
+    "registry": "degraded pending authenticated successful cloud document retrieval",
+    "registryMigration": "supabase/migrations/20261107135500_cloud_public_docs_capability_pending_registry.sql"
+  },
+  "generalOperationalStatus": {
+    "enabledBrains": 0,
+    "generalToolBoundBrains": 0,
+    "delegationBoundBrains": 0,
+    "orphanedHistoricalChatGPTTasksExecutor": "degraded; old task reference missing; no actual live general job executor",
+    "browserAutomationConnectedToApp": false,
+    "generalCodeExecutionConnectedToApp": false,
+    "stoppedAgencyRunsPreserved": 7
+  },
+  "nextExactAction": "Owner signs into the READY branch preview (provided URL) and clicks 'Read public docs using free cloud' once. Then normal chat checks owner-scoped cloud receipt, recomputes output SHA and project/Brain ID, promotes only verified cloud capability if content actually retrieved, and continues general Agency executor work. Do not require Windows downloads or repeat 128 completed jobs.",
+  "exclusion": "No assertion of full 128 general operational Brains or production release acceptance"
+}
