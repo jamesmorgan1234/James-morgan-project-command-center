@@ -1,0 +1,87 @@
+{
+  "schema": "cc-native-activation-structured-output-correction-v1",
+  "observedAtUtc": "2026-11-07T08:44:36.076818Z",
+  "source": "COMMAND CENTER existing registered Windows worker",
+  "projectRef": "gmlsucpwliegwlxymjvp",
+  "repo": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "reportedNativeDiagnostic": {
+    "durationSeconds": 307.8,
+    "done": true,
+    "doneReason": "stop",
+    "validJson": true,
+    "exactRequiredFields": false,
+    "expectedExchangeId": "020f6ec9-9405-48c7-9506-ad9e9e32941a",
+    "actualModelExchangeId": "020f6ec9-9405-40c7-9506-ad9e9e32941a",
+    "reason": "Model mutated identity (48c7 -> 40c7) and standalone inference exceeded former 150-second lease. The exact prior 3 local failures remain unclassified; no result invented."
+  },
+  "correctedSource": {
+    "localOllama": {
+      "path": "clean-room/src/brain/pc-local-ollama.mjs",
+      "blobSha": "47e2e9072cf45b064c3edc419de0c90f5cdcb845",
+      "sha256": "4965b5ab518f72d18420236828f225f266831def62b3be180692c3c4ed7317dd"
+    },
+    "exchangeRunner": {
+      "path": "clean-room/src/worker/pc-activation-exchange-runner.mjs",
+      "blobSha": "38d58c7cd4de8a7bf14e0709be5688d9706ca0a5",
+      "sha256": "da9ce5eb85585c6e01be0cfcafdcd398f3d3e0bdbce76d37297f6e0c9f0c3893"
+    },
+    "workerEntry": {
+      "path": "clean-room/src/worker/pc-worker-cli.mjs",
+      "blobSha": "ddb175859f461ddd29c2beaa28373e6cbc1e4e06",
+      "sha256": "f6b718a8aabd6a82054baa23d6637aa722c8502422f9932cb45f6b656eaa3476"
+    },
+    "pinnedRevision": "455748f30474951ab2e60dfb350f61aaff7908d0",
+    "change": "Activation-only structured JSON schema with server-bound exact identifier enums; model may choose accepted true/false. Activation-only inference 540s and 256 output tokens, ordinary owner inference timeout and default settings untouched."
+  },
+  "tests": {
+    "sourceV8DynamicTestsPassed": 16,
+    "scenarios": [
+      "exact-bound identity, model refusal, no company spending, 590s lease accepted, 600.001s refused, canonical readback verified, mutated ID denied, Ollama schema sent, 256 output tokens, unchanged normal-chat defaults"
+    ],
+    "testFile": "clean-room/tests/pc-activation-exchange-correction.test.mjs",
+    "testCommit": "b7d1a16e975367f617b8806796430f800359eddc",
+    "notYetRunOnNativeWindows": true,
+    "notYetClaimedAsLiveProof": true
+  },
+  "backend": {
+    "migration": "supabase/migrations/20261107085000_pc_activation_exchange_lease_for_slow_local_ollama.sql",
+    "sourceCommit": "105f8799f5eeb4db28cc00cad1442483f99bc192",
+    "deployedToExistingPrivateRpc": true,
+    "claimLeaseSeconds": 600,
+    "guardStillInstalled": true,
+    "functionMd5": "83ef3c3a23778b1508d34bf144ab7b8b",
+    "previousGuardedFunctionRestoredByReversingOnlyLeaseMd5": "3c9a75fb2e4cb9b5b7a5fe6932a29376",
+    "serviceOnlyRpcPermissionsPreserved": true
+  },
+  "ownerPcAction": {
+    "status": "not yet performed",
+    "installerPath": "clean-room/evidence/brain-activation/UPDATE_EXISTING_ACTIVATION_LANE_HARDENED.ps1",
+    "installerCommit": "35b53c024c5631c6cf16e004aefb66f87c619d49",
+    "installerSha256": "5b517cdd48ab2092f6167a8a50d21b24e3ef9897ced3cc3c7b9cd775ad58150e",
+    "sizeBytes": 10411,
+    "updatesExactly": 3,
+    "checksEntirePreviousInstalledBaseline": 16,
+    "preserves": "Worker ID, credentials, original Task, local model/digest, verified artifacts, protected production-release boundaries, Agency stopped runs",
+    "requiresOnlyOneOwnerExecutedTemporaryVerifiedPowerShellCommand": true,
+    "noZipOrManualExtraction": true,
+    "noWorkerRePairing": true,
+    "noNewTask": true,
+    "noSpend": true
+  },
+  "preservedLiveState": {
+    "brainRegistrations": 128,
+    "commandCenterIncludedTotal": 129,
+    "artifactJobsCompleted": 128,
+    "diagnosticsIndependentlyVerified": 128,
+    "specialistCanonicalExchangesCompleted": 1,
+    "uncertainCanonicalExchanges": 3,
+    "queuedCanonicalExchanges": 13,
+    "additionalSpecialistNotYetQueued": 111,
+    "generalBrainEnablements": 0,
+    "stoppedAgencyRuns": 7,
+    "workerEnabled": true,
+    "guardStopsAdditionalNewClaims": true
+  },
+  "next": "After the single owner-PC in-place patch reports local success, verify disk hashes and new process with a native read-only check. Then permit only one narrowly scoped canary activation exchange through currently deployed fail-closed guard, verify real bounded model output, canonical commit and readback, before replaying reconciled uncertain handshakes or queueing remaining specialists. Do not turn on general Brains/tool bindings on handshake alone."
+}
