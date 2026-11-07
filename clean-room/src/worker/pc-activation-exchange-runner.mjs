@@ -11,7 +11,7 @@ const HASH=/^[a-f0-9]{64}$/;
 const sha=s=>createHash('sha256').update(s,'utf8').digest('hex');
 const keys=o=>Object.keys(o).sort().join(',');
 const EXPECTED_RESPONSE_KEYS='accepted,companyBuildStarted,companyId,exchangeId,nonce,paidUsageAuthorized,parentResponseHash,projectId,targetBrainKey';
-const MAX_LEASE_MS=180_000;
+const MAX_LEASE_MS=600_000;
 
 export function validateActivationExchangeClaim(claim,{workerId,modelId,now=Date.now()}={}){
   ensure(claim&&typeof claim==='object'&&!Array.isArray(claim),'exchange_claim_missing');
@@ -67,9 +67,19 @@ export function createPcActivationExchangeRunner({transport,model,workerId,model
         const expected={exchangeId:s.exchangeId,projectId:s.projectId,companyId:s.companyId,
           targetBrainKey:s.targetBrainKey,nonce:s.nonce,parentResponseHash:s.parentResponseHash,accepted:true,
           companyBuildStarted:false,paidUsageAuthorized:false};
+        // Only trusted, lease-bound values become schema enums. The model is
+        // allowed to decline acceptance, but never to reinterpret a UUID,
+        // project identity, parent hash, or spending/build prohibition.
+        // This prevents the observed 48c7 -> 40c7 identifier mutation.
+        const jsonSchema={type:'object',properties:Object.fromEntries(
+          Object.entries(expected).map(([key,value])=>[key,{
+            type:typeof value==='boolean'?'boolean':'string',
+            ...(key==='accepted'?{}:{enum:[value]})
+          }])
+        ),required:Object.keys(expected),additionalProperties:false};
         const response=await model.generate({
           system:'You are a bounded local specialist activation exchange under COMMAND CENTER. Return ONLY the requested JSON object without markdown. You have no tools, no company execution permission, no spending authority, and no authority to access other projects.',
-          user:'Return exactly this JSON object with the same field names and values: '+JSON.stringify(expected),json:true
+          user:'Return exactly this JSON object with the same field names and values: '+JSON.stringify(expected),json:true,jsonSchema,maxTokens:256,temperature:0
         });
         ensure(response?.verifiedInference===true&&response.modelId===s.modelId&&
           response.modelDigest===s.expectedModelDigest&&typeof response.text==='string'&&
