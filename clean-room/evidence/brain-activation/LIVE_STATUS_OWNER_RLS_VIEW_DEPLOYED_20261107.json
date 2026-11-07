@@ -1,0 +1,39 @@
+{
+  "schema": "cc-live-status-source-of-truth-v1",
+  "verifiedAtUtc": "2026-11-07T09:28:06.418193Z",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "migration": "supabase/migrations/20261107093500_live_brain_activation_status_owner_rls.sql",
+  "migrationCommit": "45e2b25284566047e488cfce92e35829915c9f6e",
+  "deployedToExistingFreeSupabaseProject": "gmlsucpwliegwlxymjvp",
+  "readOnlyViews": [
+    "public.command_center_activation_live_by_project_v1",
+    "public.command_center_activation_live_summary_v1"
+  ],
+  "readOnlyPrivilegeChecks": {
+    "anonymousSelect": false,
+    "authenticatedSelect": true,
+    "securityInvokerForBoth": true
+  },
+  "snapshot": {
+    "registeredSpecialists": 128,
+    "completedBounded": 73,
+    "claimed": 1,
+    "queued": 51,
+    "uncertainHistorical": 3,
+    "locallyConsistentReceipts": 73,
+    "inconsistentReceipts": 0,
+    "generallyEnabledBrains": 0,
+    "toolBoundBrains": 0,
+    "delegationBoundBrains": 0,
+    "boundedCompletionPct": 57
+  },
+  "note": "The percentage measures bounded COMMAND CENTER-to-specialist acknowledgement consistency only. It is not company delivery completion or full operational activation. Owner UI deployment is not asserted.",
+  "scopePreserved": {
+    "workerUnchanged": true,
+    "projectBuildsNotStarted": true,
+    "generalToolPermissionsNotChanged": true,
+    "noPaidServices": true,
+    "P1517P1518Untouched": true
+  }
+}
