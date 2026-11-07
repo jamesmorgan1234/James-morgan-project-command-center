@@ -39,7 +39,16 @@ export function createPcLocalOllama({fetcher = fetch, modelId, timeoutMs = 12000
     executionMode: 'pc-local-background',
     get readiness() { return Object.freeze({actualInferenceVerified: verified, requiresPoweredOnComputer: true, noCloudFallback: true, freeApiOnly: true}); },
     verifyInstalledModel,
-    async generate({system, user, signal, json=false} = {}) {
+    async generate({system, user, signal, json=false, jsonSchema=null, maxTokens=1200, temperature=0.2} = {}) {
+      // Structured output is scoped to an existing caller. The model cannot grant
+      // privileges or supply the expected immutable IDs through a schema.
+      requireState(jsonSchema===null || (json===true && typeof jsonSchema==='object' &&
+        !Array.isArray(jsonSchema) && jsonSchema.type==='object' &&
+        JSON.stringify(jsonSchema).length<=12000), 'local_json_schema_invalid');
+      requireState(Number.isSafeInteger(maxTokens) && maxTokens>=32 && maxTokens<=1200,
+        'local_max_tokens_invalid');
+      requireState(typeof temperature==='number' && temperature>=0 && temperature<=1,
+        'local_temperature_invalid');
       requireState(nonEmpty(system, 12000) && nonEmpty(user, 12000), 'local_prompt_invalid');
       requireState(!busy, 'local_model_busy');
       busy = true;
@@ -48,7 +57,7 @@ export function createPcLocalOllama({fetcher = fetch, modelId, timeoutMs = 12000
         const modelDigest=await verifyInstalledModel(signal);
         const reply = await localCall('/api/chat', {
           method: 'POST', headers: {'content-type':'application/json'},
-          body: JSON.stringify({model:modelId, messages:[{role:'system',content:system},{role:'user',content:user}], stream:false, ...(json?{format:'json'}:{}), options:{temperature:0.2,num_predict:1200}})
+          body: JSON.stringify({model:modelId, messages:[{role:'system',content:system},{role:'user',content:user}], stream:false, ...(jsonSchema!==null?{format:jsonSchema}:(json?{format:'json'}:{})), options:{temperature,num_predict:maxTokens}})
         },signal);
         requireState(reply?.model === modelId && reply?.done === true && nonEmpty(reply?.message?.content, 8000), 'local_inference_not_verified');
         // A truncated output must not count as completed inference.
