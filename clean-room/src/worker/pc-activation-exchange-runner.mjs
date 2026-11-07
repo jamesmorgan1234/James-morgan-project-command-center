@@ -10,8 +10,8 @@ const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]
 const HASH=/^[a-f0-9]{64}$/;
 const sha=s=>createHash('sha256').update(s,'utf8').digest('hex');
 const keys=o=>Object.keys(o).sort().join(',');
-const EXPECTED_RESPONSE_KEYS='accepted,companyBuildStarted,companyId,exchangeId,nonce,paidUsageAuthorized,projectId,targetBrainKey';
-const MAX_LEASE_MS=120_000;
+const EXPECTED_RESPONSE_KEYS='accepted,companyBuildStarted,companyId,exchangeId,nonce,paidUsageAuthorized,parentResponseHash,projectId,targetBrainKey';
+const MAX_LEASE_MS=180_000;
 
 export function validateActivationExchangeClaim(claim,{workerId,modelId,now=Date.now()}={}){
   ensure(claim&&typeof claim==='object'&&!Array.isArray(claim),'exchange_claim_missing');
@@ -34,9 +34,9 @@ export function validateActivationExchangeClaim(claim,{workerId,modelId,now=Date
     s.companyExecutionAuthorized===false&&s.generalToolsAuthorized===false,
     'exchange_outside_activation_authority');
   ensure(s.modelId===modelId&&typeof modelId==='string'&&modelId.length>0&&
-    HASH.test(s.expectedModelDigest??''),'exchange_model_binding_missing');
+    HASH.test(s.expectedModelDigest??'')&&HASH.test(s.parentResponseHash??''),'exchange_model_binding_missing');
   const text=JSON.stringify({exchangeId:s.exchangeId,projectId:s.projectId,companyId:s.companyId,
-    targetBrainKey:s.targetBrainKey,nonce:s.nonce});
+    targetBrainKey:s.targetBrainKey,nonce:s.nonce,parentResponseHash:s.parentResponseHash});
   ensure(s.inputHash===sha(text),'exchange_input_hash_mismatch');
   ensure(l.fencingToken>=1&&Number.isSafeInteger(l.fencingToken)&&l.generation===1&&
     Number.isFinite(now)&&Number.isFinite(Date.parse(l.expiresAt))&&
@@ -62,7 +62,7 @@ export function createPcActivationExchangeRunner({transport,model,workerId,model
         const s=validateActivationExchangeClaim(claim,{workerId,modelId,now:now()});
         await transport.assertCurrent(claim.lease);
         const expected={exchangeId:s.exchangeId,projectId:s.projectId,companyId:s.companyId,
-          targetBrainKey:s.targetBrainKey,nonce:s.nonce,accepted:true,
+          targetBrainKey:s.targetBrainKey,nonce:s.nonce,parentResponseHash:s.parentResponseHash,accepted:true,
           companyBuildStarted:false,paidUsageAuthorized:false};
         const response=await model.generate({
           system:'You are a bounded local specialist activation exchange under COMMAND CENTER. Return ONLY the requested JSON object without markdown. You have no tools, no company execution permission, no spending authority, and no authority to access other projects.',
