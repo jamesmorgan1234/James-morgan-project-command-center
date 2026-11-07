@@ -79,8 +79,8 @@ test("SQL candidate retains exact owner/project validation and read-only claim p
 test("client parser is expanded, but UI specialist execution stays closed",()=>{
  assert.match(app,/const validLegacy = \/\^\[a-z0-9\]\+\(\?:-\[a-z0-9\]\+\)\*\$\/u\.test\(projectId\)/);
  assert.match(app,/if \(!validFuture && !validLegacy\)/);
- assert.match(ui,/shouldQueuePcBrainResponse\\(/);
- assert.match(ui,/snapshot\\.brain\\?\\.scopedReadOnlyModelVerifiedProjectIds/);
+ assert.match(ui,/shouldQueuePcBrainResponse\(/);
+ assert.match(ui,/snapshot\.brain\?\.scopedReadOnlyModelVerifiedProjectIds/);
  assert.equal(shouldQueuePcBrainResponse('project:company:future:004',['project:company:future:004'],{}),true);
  assert.equal(shouldQueuePcBrainResponse('project:company:future:004',[],{'project:company:future:004':'available'}),true);
  assert.equal(shouldQueuePcBrainResponse('project:company:future:004',[],{}),false);
