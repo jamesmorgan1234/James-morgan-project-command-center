@@ -1,7 +1,7 @@
 // COMMAND CENTER existing Supabase free project: independently scoped safe-tool gateway.
 // No reusable owner token, worker token, paid provider, company task, or browser session.
 import {createClient} from "npm:@supabase/supabase-js@2.79.0";
-import {checkedCloudDocUrl,boundedCloudPublicDocs,digestPublicDocs} from './cloud-public-docs.mjs';
+import {checkedCloudDocUrl,boundedCloudPublicDocs,digestPublicDocs,canonicalCloudReceiptJson} from './cloud-public-docs.mjs';
 const URL_BASE=Deno.env.get('SUPABASE_URL')??'';
 const SERVICE=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'';
 const ANON=Deno.env.get('SUPABASE_ANON_KEY')??'';
@@ -111,7 +111,7 @@ Deno.serve(async request=>{
        'cloud_docs_already_claimed_or_duplicate':'backend_unavailable',
        inserted.error.code==='23505'?409:503);
     const result=await boundedCloudPublicDocs(target.href);
-    const resultHash=await digestPublicDocs(JSON.stringify(result));
+    const resultHash=await digestPublicDocs(canonicalCloudReceiptJson(result));
     const saved=checked(await admin.from('command_center_cloud_public_docs_receipts')
       .update({state:'completed',result,output_hash:resultHash,
          commit_id:crypto.randomUUID(),completed_at:new Date().toISOString()})
@@ -119,7 +119,9 @@ Deno.serve(async request=>{
       .select('job_id,project_id,company_id,state,commit_id,completed_at,output_hash,result')
       .single());
     if(saved?.job_id!==input.jobId||saved.state!=='completed'||
-       saved.output_hash!==resultHash||saved.result?.readSucceeded!==result.readSucceeded)
+       saved.output_hash!==resultHash||
+       await digestPublicDocs(canonicalCloudReceiptJson(saved.result))!==resultHash||
+       saved.result?.readSucceeded!==result.readSucceeded)
        throw fail('cloud_docs_commit_not_verified',503);
     return reply({jobId:saved.job_id,projectId:saved.project_id,companyId:saved.company_id,
       state:saved.state,commitId:saved.commit_id,completedAt:saved.completed_at,
@@ -140,7 +142,7 @@ Deno.serve(async request=>{
     if(saved.state==='completed'){
       if(!UUID.test(saved.commit_id??'')||!saved.completed_at||
          !isObject(saved.result)||typeof saved.output_hash!=='string'||
-         saved.output_hash!==await digestPublicDocs(JSON.stringify(saved.result)))
+         saved.output_hash!==await digestPublicDocs(canonicalCloudReceiptJson(saved.result)))
         throw fail('cloud_docs_receipt_invalid',503);
       verified=true;
     }
