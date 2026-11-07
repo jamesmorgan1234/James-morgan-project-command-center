@@ -18,6 +18,13 @@ export function checkedCloudDocUrl(raw){
    u.pathname.includes('..')||u.href!==raw)fail('docs_scope_denied');
  return u;
 }
+export function canonicalCloudReceiptJson(value){
+ if(Array.isArray(value))return '['+value.map(canonicalCloudReceiptJson).join(',')+']';
+ if(value!==null&&typeof value==='object')
+   return '{'+Object.keys(value).sort().map(key=>JSON.stringify(key)+':'+
+      canonicalCloudReceiptJson(value[key])).join(',')+'}';
+ return JSON.stringify(value);
+}
 const hex=bytes=>Array.from(bytes,b=>b.toString(16).padStart(2,'0')).join('');
 export async function digestPublicDocs(value){
  const bytes=typeof value==='string'?new TextEncoder().encode(value):value;
