@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "phaseId": "P15.14",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "c15a443a25b06eec7050a87a7142d5df2c48264d",
+  "gitSha": "6f8d9c5df204bf68c64403a82ccfe75475a25645",
   "inputs": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/public/sw.js",
@@ -12,7 +12,7 @@
     "clean-room/tests/owner-auth-proxy-routing.test.mjs",
     "clean-room/tests/p15-14-nonproduction-acceptance.test.mjs"
   ],
-  "inputsDigest": "f882191a341594d168768808c76dbcbf7985043400b7d347c8ec90c7de573ad8",
+  "inputsDigest": "900d39b284353aede08f69c863f3d1bfc6801cd3299516005d735ec6748ef87d",
   "evidence": [
     "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
     "clean-room/scripts/p15-14-nonproduction-acceptance-audit.mjs",
@@ -24,7 +24,7 @@
   "summary": {
     "phaseId": "P15.14",
     "schemaVersion": "cc-p15-14-nonproduction-acceptance-v1",
-    "headSha": "c15a443a25b06eec7050a87a7142d5df2c48264d",
+    "headSha": "6f8d9c5df204bf68c64403a82ccfe75475a25645",
     "contractSuites": [
       "tests/category15-nonproduction-contract-acceptance.test.mjs",
       "tests/owner-auth-proxy-routing.test.mjs"
