@@ -31,6 +31,16 @@ function mock({claim=base,text=JSON.stringify(expected),digest=modelDigest,mutat
  async readback(){calls.push('readback');return mutateReadback({...result,commitId:'e25c3960-d76f-4510-a1c7-790977f0ba7e',canonicalCommitVerified:true})},
  abandon(id){calls.push('abandon:'+id)}};
  const model={async generate(args){calls.push('generate');assert.equal(args.json,true);
+  assert.equal(args.maxTokens,256);
+  assert.equal(args.temperature,0);
+  assert.equal(args.jsonSchema.type,'object');
+  assert.equal(args.jsonSchema.additionalProperties,false);
+  assert.deepEqual(args.jsonSchema.required,Object.keys(expected));
+  for(const [k,v] of Object.entries(expected)){
+    assert.equal(args.jsonSchema.properties[k].type,typeof v==='boolean'?'boolean':'string');
+    if(k==='accepted')assert.equal(args.jsonSchema.properties[k].enum,undefined);
+    else assert.deepEqual(args.jsonSchema.properties[k].enum,[v]);
+  }
  return{verifiedInference:true,modelId,modelDigest:digest,text}}};
  return {runner:createPcActivationExchangeRunner({transport,model,workerId,modelId,now:()=>clock}),calls};
 }
@@ -82,6 +92,8 @@ test('model output mismatch or unverified digest cannot produce canonical commit
   {text:JSON.stringify({...expected,extra:'extra'})},
   {text:JSON.stringify({...expected,targetBrainKey:'brain:company:future:013:v1'})},
   {text:JSON.stringify({...expected,parentResponseHash:'f'.repeat(64)})},
+  {text:JSON.stringify({...expected,exchangeId:'d9b63121-41f0-4010-a181-1cd2fd638bef'})},
+  {text:JSON.stringify({...expected,nonce:'b5e52ca0-3c63-4560-9702-2a52c526d980'})},
   {digest:'a'.repeat(64)}];
  for(const c of cases){const {runner,calls}=mock(c);await assert.rejects(()=>runner.once());assert.ok(!calls.includes('commit'));}
 });
@@ -90,4 +102,17 @@ test('canonical readback mismatch never counts as complete',async()=>{
   x=>({...x,commitId:'bad'}),x=>({...x,projectId:'project:company:future:013'}),
   x=>({...x,generalToolsExecuted:true}),x=>({...x,outputText:'fabricated'})];
  for(const mutateReadback of cases){const {runner}=mock({mutateReadback});await assert.rejects(()=>runner.once(),/exchange_canonical_readback_mismatch/)}
+});
+
+test('bounded long-lived claim can accommodate slow free local model without accepting unbounded leases',()=>{
+ const valid={...base,lease:{...base.lease,expiresAt:new Date(clock+590_000).toISOString()}};
+ assert.equal(validateActivationExchangeClaim(valid,{workerId,modelId,now:clock}).exchangeId,exchangeId);
+ const invalid={...base,lease:{...base.lease,expiresAt:new Date(clock+600_001).toISOString()}};
+ assert.throws(()=>validateActivationExchangeClaim(invalid,{workerId,modelId,now:clock}),/exchange_lease_invalid/);
+});
+test('observed local hallucination of an immutable UUID never reaches commit',async()=>{
+ const wrong=JSON.stringify({...expected,exchangeId:'d9b63121-41f0-4010-a181-1cd2fd638bef'});
+ const {runner,calls}=mock({text:wrong});
+ await assert.rejects(()=>runner.once(),/exchange_model_response_scope_mismatch/);
+ assert.ok(!calls.includes('commit'));
 });
