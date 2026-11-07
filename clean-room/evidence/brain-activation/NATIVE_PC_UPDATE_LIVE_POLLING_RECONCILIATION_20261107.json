@@ -60,5 +60,29 @@
     "activationExchangeNextRequests": 0,
     "status": "Old inference/artifact polling observed; new activation endpoint never called; cannot yet conclude why (old process or task restart/launcher mismatch).",
     "userVisualEvidence": "Worker PowerShell window remained open without new output and may predate update."
+  },
+  "afterUserTaskRestart": {
+    "userConfirmedEndedAndRanExistingScheduledTask": true,
+    "observedAtUtc": "2026-11-07T07:40:43.817Z",
+    "workerLastSeenUtc": "2026-11-07T07:39:42.848Z",
+    "exchangeState": "queued",
+    "fence": 0,
+    "commitId": null,
+    "logEvidence": {
+      "windowUtc": [
+        "2026-11-07T07:26:00Z",
+        "2026-11-07T07:41:00Z"
+      ],
+      "workerPath": "/functions/v1/command-center-pc-worker/",
+      "observed": {
+        "claimRequests": 13,
+        "artifactToolNextRequests": 13,
+        "activationExchangeNextRequests": 0
+      },
+      "interruptedPolling": "~07:35:34Z to ~07:38:42Z, consistent with user restart, but not proof of which process/version was launched",
+      "lastObserved": "07:40:43Z claim/tool-next HTTP 200"
+    },
+    "verifiedConclusion": "Worker resumed legacy inference and artifact polling after task restart. New activation exchange endpoint still absent; first queued exchange not yet claimed. Do not equate this with exchange failure or completed agent activation.",
+    "recommendedNextEvidence": "Read the existing Scheduled Task Actions launch path and inspect launcher target/version using an owner-approved read-only diagnostic. Avoid new downloads, ZIPs, re-pairing, reinstalls, task recreation, deployment or company runs."
   }
 }
