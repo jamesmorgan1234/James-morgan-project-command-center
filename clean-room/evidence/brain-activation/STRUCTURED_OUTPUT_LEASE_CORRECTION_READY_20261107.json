@@ -55,7 +55,7 @@
     "serviceOnlyRpcPermissionsPreserved": true
   },
   "ownerPcAction": {
-    "status": "not yet performed",
+    "status": "owner reports guarded three-module update succeeded and displayed source hashes verified; cloud source version not yet independently confirmed",
     "installerPath": "clean-room/evidence/brain-activation/UPDATE_EXISTING_ACTIVATION_LANE_HARDENED.ps1",
     "installerCommit": "35b53c024c5631c6cf16e004aefb66f87c619d49",
     "installerSha256": "5b517cdd48ab2092f6167a8a50d21b24e3ef9897ced3cc3c7b9cd775ad58150e",
@@ -67,7 +67,9 @@
     "noZipOrManualExtraction": true,
     "noWorkerRePairing": true,
     "noNewTask": true,
-    "noSpend": true
+    "noSpend": true,
+    "userEvidenceLocalTime": "2026-11-07 03:47 Eastern screenshot",
+    "resultLine": "Activation-only modules updated in place and hashes verified. Same worker, credentials, model, and Task definition preserved."
   },
   "preservedLiveState": {
     "brainRegistrations": 128,
@@ -83,5 +85,33 @@
     "workerEnabled": true,
     "guardStopsAdditionalNewClaims": true
   },
-  "next": "After the single owner-PC in-place patch reports local success, verify disk hashes and new process with a native read-only check. Then permit only one narrowly scoped canary activation exchange through currently deployed fail-closed guard, verify real bounded model output, canonical commit and readback, before replaying reconciled uncertain handshakes or queueing remaining specialists. Do not turn on general Brains/tool bindings on handshake alone."
+  "next": "Monitor this one and only pre-queued Company 013 canonical exchange; validate exact model output, record commit and independent database readback. Do not release other 12 queued or 111 unqueued before a valid canary. Preserve all old results and protected production boundaries.",
+  "postInstallObserved": {
+    "checkedUtc": "2026-11-07T08:49:43.944177Z",
+    "workerEnabled": true,
+    "workerRevoked": false,
+    "workerHeartbeatsObserved": true,
+    "gatewayPolling": "Supabase function_edge_logs: activation-exchange-next HTTP 200; 4 hits between 08:46:50 and 08:49:05 UTC.",
+    "workerLog": "Owner screenshot of worker-events.log shows worker_started mode read_only_inference_artifacts_and_activation_exchange, but log might show pre-update worker and does not independently prove new schema runtime",
+    "completedExchanges": 1,
+    "uncertain": 3,
+    "queued": 13,
+    "completedArtifacts": 128,
+    "stoppedAgencyRuns": 7,
+    "generalBrainsEnabled": 0
+  },
+  "liveCanary": {
+    "migration": "supabase/migrations/20261107085300_pc_activation_one_shot_013_canary.sql",
+    "migrationCommit": "2adab6e29e4b843c0117020efe77e217a5545aa2",
+    "deployed": true,
+    "verifiedFunctionMd5": "a9e537aa0082426db72979de4e6d062d",
+    "specificExistingExchangeId": "8223bb84-fdbc-4030-9e76-a05041d0a3ca",
+    "project": "project:company:future:013",
+    "admission": "With three preexisting uncertain outcomes, exchange-next is allowed to claim only this exact prequeued exchange once; after claim, every subsequent next returns null until separate reviewed changes",
+    "generalToolsAllowed": false,
+    "companyBuildAllowed": false,
+    "paidUsageAllowed": false,
+    "canaryStateAtUtc": "2026-11-07T08:51:51.841023Z",
+    "canaryState": "queued; no verified result yet"
+  }
 }
