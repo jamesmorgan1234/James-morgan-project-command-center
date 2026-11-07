@@ -3,6 +3,8 @@
 import {createPcWorkstationRunner} from './pc-worker-supervisor.mjs';
 import {createPcLocalOllama} from '../brain/pc-local-ollama.mjs';
 import {createPcArtifactJobRunner} from './pc-artifact-job-runner.mjs';
+import {createPcActivationExchangeRunner} from './pc-activation-exchange-runner.mjs';
+import {createPcActivationExchangeTransport} from './pc-activation-exchange-transport.mjs';
 import {resolve} from 'node:path';
 const {CC_PC_WORKER_TOKEN:workerToken,CC_PC_LOCAL_MODEL:modelId}=process.env;
 const onlySelfTest=process.argv.includes('--self-test');
@@ -17,9 +19,14 @@ if(!modelId || (!workerToken && !onlySelfTest)){
   }else{
     const artifactJobs=process.platform==='win32'&&process.env.LOCALAPPDATA
       ?createPcArtifactJobRunner({workerToken,baseDirectory:resolve(process.env.LOCALAPPDATA,'COMMAND_CENTER_PC_WORKER','project-artifacts')}):null;
-    const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,log:v=>console.log(JSON.stringify(v))});
+    const activationExchanges=process.platform==='win32'&&process.env.LOCALAPPDATA
+      ?createPcActivationExchangeRunner({
+        transport:createPcActivationExchangeTransport({workerToken}),
+        model:createPcLocalOllama({modelId}),modelId
+       }):null;
+    const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,activationExchanges,log:v=>console.log(JSON.stringify(v))});
     process.on('SIGINT',()=>runner.stop());process.on('SIGTERM',()=>runner.stop());
-    console.log(JSON.stringify({event:'worker_started',mode:artifactJobs?'read_only_inference_and_explicit_artifact_jobs':'read_only',destination:'existing_supabase',noPaidFallback:true}));
+    console.log(JSON.stringify({event:'worker_started',mode:activationExchanges?'read_only_inference_artifacts_and_activation_exchange':'read_only',destination:'existing_supabase',noPaidFallback:true}));
     await runner.loop();
   }
  }catch(e){console.error('Workstation initialization failed (no work was claimed).');process.exitCode=1}
