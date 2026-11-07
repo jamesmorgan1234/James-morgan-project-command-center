@@ -912,7 +912,7 @@
         "provider_company_execution_scope_missing"
       ],
       "capabilityDescriptionPreserved": true,
-      "name": "ARO \u2014 Autonomous Revenue Organization",
+      "name": "ARO — Autonomous Revenue Organization",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": true,
       "boundedProbeIsolatedTested": true,
@@ -6216,7 +6216,7 @@
         "provider_company_execution_scope_missing"
       ],
       "capabilityDescriptionPreserved": true,
-      "name": "VeloClip \u2014 AI Content Engine",
+      "name": "VeloClip — AI Content Engine",
       "installedWorkerSourceRecovered": true,
       "workerClientUpdateApplied": true,
       "boundedProbeIsolatedTested": true,
@@ -6557,10 +6557,24 @@
   "ownerInterfaceResponseVerified": true,
   "installedModelDigestVerified": true,
   "fullOperationalActivation": false,
-  "remainingExecutionBoundary": "The installed PC client implements read-only inference only. No callable project-action handler is installed or connected. The only registered project.execute Task is paused/degraded, with no on-demand invocation bridge from the application. Session tools are not permanent worker bindings.",
+  "remainingExecutionBoundary": "The existing Windows client is confirmed connected as cc-pc-tools-v1 and has independently executed 128 canonical, scoped artifact.write jobs; this disproves the historical inference-only description. General per-Brain browser/research/coding/account actions are not yet bound or verified; live specialist registry has zero enabled Brains, zero tool_keys and zero delegation_targets. Hosted project.execute Task remains paused/degraded, and the exact interrupted agent-to-agent verification sequence is not recovered from inspected durable records. Do not rerun completed diagnostics or artifact jobs, enable company runs, spend, or promote P15.17/P15.18.",
   "verifiedSpecialistArtifactJobs": 128,
   "artifactJobQueuePending": 0,
   "artifactJobQueueUncertain": 0,
   "installedArtifactClientLiveVerified": true,
-  "artifactEvidenceRef": "completed-artifact-job-verification.json"
+  "artifactEvidenceRef": "completed-artifact-job-verification.json",
+  "evidenceReconciliation": {
+    "classification": "supersedes_stale_inference_only_checkpoint_prose_without_reclassifying_general_operation",
+    "checkedAt": "2026-11-07T00:28:23.044365Z",
+    "nativeWorkerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "connectedWorkerClientContract": "cc-pc-tools-v1",
+    "verifiedArtifactAction": "artifact.write",
+    "independentlyVerifiedArtifactJobs": 128,
+    "artifactJobsPending": 0,
+    "fullGeneralToolOperationVerified": false,
+    "persistentSpecialistDelegationTargetsConfigured": 0,
+    "interruptedIndividualAgentToAgentSequence": "precise_completed_attempted_failed_per_brain_sequence_not_recoverable_from_inspected_records",
+    "commandCenterRemainsControlPlane": true,
+    "sourceEvidence": "RECOVERY_AND_AGENT_TO_AGENT_RECONCILIATION_2026-11-06.md"
+  }
 }

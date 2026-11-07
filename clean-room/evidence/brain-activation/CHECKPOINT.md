@@ -1,3 +1,9 @@
+# Superseding activation recovery — November 6, 2026 (19:28 EST)
+
+Recovered live client contract `cc-pc-tools-v1` on enabled, unrevoked existing Windows worker; 128/128 actual `artifact.write` PC jobs are complete and independently verified. Historical checkpoint text below saying the client is `read-only inference only` is superseded, not current truth. The live specialist registry still has 0 enabled, 0 bound general tools and 0 delegation targets, and the precise user-observed agent-to-agent test sequence has not been recovered. Do not conflate verified native artifact execution with full operational activation or disprove transient exchanges. See `RECOVERY_AND_AGENT_TO_AGENT_RECONCILIATION_2026-11-06.md`. Preserve all seven stopped runs, the existing worker and free-only protected release exclusions.
+
+---
+
 # Installer ready for the actual Windows-only action
 
 Self-contained installer EXISTING_PC_CLIENT_IN_PLACE.ps1 is 95,075 bytes, SHA256 1daf137aba9a687e4cd64bf9c71afe001e2c7e29c995607f37e00f3087796e00, generated from committed source 41f46935f8524c47355199ca02651b5d4ecc6dce. Candidate state source-committed. Seven isolated PowerShell scenarios and parser check passed. No native Windows verification claimed. No ZIP/extraction needed; installer removes staging.
