@@ -1,6 +1,7 @@
 // COMMAND CENTER existing Supabase free project: independently scoped safe-tool gateway.
 // No reusable owner token, worker token, paid provider, company task, or browser session.
 import {createClient} from "npm:@supabase/supabase-js@2.79.0";
+import {checkedCloudDocUrl,boundedCloudPublicDocs,digestPublicDocs} from './cloud-public-docs.mjs';
 const URL_BASE=Deno.env.get('SUPABASE_URL')??'';
 const SERVICE=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'';
 const ANON=Deno.env.get('SUPABASE_ANON_KEY')??'';
@@ -9,7 +10,7 @@ const admin=createClient(URL_BASE,SERVICE,{auth:{persistSession:false,autoRefres
 const ORIGINS=new Set(['https://command-center-preview-alpha.vercel.app','https://command-center-preview-crestven-holdings.vercel.app','https://command-center-preview-d9ecu6ajm-crestven-holdings.vercel.app','https://command-center-preview-reh8c43xe-crestven-holdings.vercel.app','https://command-center-preview-86sz3x3lk-crestven-holdings.vercel.app']);
 const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 const TOKEN=/^ccpc_[a-f0-9]{64}$/;
-const ACTIONS=new Set(['safe-start','safe-status','safe-cancel','worker-next','worker-current','worker-commit','worker-readback']);
+const ACTIONS=new Set(['safe-start','safe-status','safe-cancel','worker-next','worker-current','worker-commit','worker-readback','cloud-doc-start','cloud-doc-status']);
 const isObject=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);
 const fail=(error,status)=>({error,status});
 const checked=(r)=>{if(r?.error)throw fail('backend_unavailable',503);return r?.data};
@@ -75,6 +76,80 @@ Deno.serve(async request=>{
    return reply({result:data});
   }
   const owner=await ownerSession(request);
+  if(input.action==='cloud-doc-start'){
+    rejectUnknown(input,['action','allowPaid','allowProtected','companyBuildAuthorized','jobId','projectId','url']);
+    if(!UUID.test(input.jobId??'')||typeof input.projectId!=='string'||
+      input.projectId.length<2||input.projectId.length>200)throw fail('cloud_docs_identity_invalid',400);
+    let target;
+    try{target=checkedCloudDocUrl(input.url)}catch{throw fail('public_docs_scope_refused',403)}
+    // Owner's existing protected project and specialist registration are
+    // independently resolved. No caller-supplied company/account permissions.
+    const project=checked(await owner.client.from('command_center_project_profiles')
+       .select('project_id,company_id').eq('owner_id',owner.ownerId)
+       .eq('project_id',input.projectId).maybeSingle());
+    if(!project?.company_id)throw fail('cloud_docs_project_not_found',404);
+    const brain=checked(await owner.client.from('command_center_specialist_brains')
+       .select('brain_key,version,control_plane,cost_class,supported_project_ids,supported_company_ids')
+       .eq('owner_id',owner.ownerId).eq('project_id',project.project_id)
+       .eq('control_plane','command_center').eq('cost_class','free')
+       .order('version',{ascending:false}).limit(1).maybeSingle());
+    if(!brain?.brain_key||!brain.supported_project_ids?.includes(project.project_id)||
+       !brain.supported_company_ids?.includes(project.company_id))
+       throw fail('cloud_docs_specialist_not_scoped',403);
+    // Quota on existing free project; no automatic loop or pay-as-you-go fallback.
+    const since=new Date(Date.now()-86400000).toISOString();
+    const quota=await admin.from('command_center_cloud_public_docs_receipts')
+      .select('job_id',{count:'exact',head:true}).eq('owner_id',owner.ownerId).gte('created_at',since);
+    if(quota.error)throw fail('backend_unavailable',503);
+    if((quota.count??0)>=10)throw fail('cloud_docs_daily_free_limit',429);
+    const inputHash=await digestPublicDocs(JSON.stringify({projectId:project.project_id,url:target.href}));
+    const inserted=await admin.from('command_center_cloud_public_docs_receipts')
+      .insert({job_id:input.jobId,owner_id:owner.ownerId,project_id:project.project_id,
+         company_id:project.company_id,brain_key:brain.brain_key,url:target.href,
+         input_hash:inputHash,state:'claimed'}).select('job_id').single();
+    if(inserted.error)throw fail(inserted.error.code==='23505'?
+       'cloud_docs_already_claimed_or_duplicate':'backend_unavailable',
+       inserted.error.code==='23505'?409:503);
+    const result=await boundedCloudPublicDocs(target.href);
+    const resultHash=await digestPublicDocs(JSON.stringify(result));
+    const saved=checked(await admin.from('command_center_cloud_public_docs_receipts')
+      .update({state:'completed',result,output_hash:resultHash,
+         commit_id:crypto.randomUUID(),completed_at:new Date().toISOString()})
+      .eq('owner_id',owner.ownerId).eq('job_id',input.jobId).eq('state','claimed')
+      .select('job_id,project_id,company_id,state,commit_id,completed_at,output_hash,result')
+      .single());
+    if(saved?.job_id!==input.jobId||saved.state!=='completed'||
+       saved.output_hash!==resultHash||saved.result?.readSucceeded!==result.readSucceeded)
+       throw fail('cloud_docs_commit_not_verified',503);
+    return reply({jobId:saved.job_id,projectId:saved.project_id,companyId:saved.company_id,
+      state:saved.state,commitId:saved.commit_id,completedAt:saved.completed_at,
+      outputHash:saved.output_hash,result:saved.result,
+      executionVerified:true,readSucceeded:result.readSucceeded,
+      companyBuildStarted:false,paidUsageAuthorized:false});
+  }
+  if(input.action==='cloud-doc-status'){
+    rejectUnknown(input,['action','allowPaid','allowProtected','companyBuildAuthorized','jobId','projectId']);
+    if(!UUID.test(input.jobId??'')||typeof input.projectId!=='string'||!input.projectId.trim())
+      throw fail('cloud_docs_identity_invalid',400);
+    const saved=checked(await owner.client.from('command_center_cloud_public_docs_receipts')
+      .select('job_id,project_id,company_id,state,commit_id,completed_at,output_hash,result')
+      .eq('owner_id',owner.ownerId).eq('job_id',input.jobId)
+      .eq('project_id',input.projectId).maybeSingle());
+    if(!saved)throw fail('cloud_docs_receipt_missing',404);
+    let verified=false;
+    if(saved.state==='completed'){
+      if(!UUID.test(saved.commit_id??'')||!saved.completed_at||
+         !isObject(saved.result)||typeof saved.output_hash!=='string'||
+         saved.output_hash!==await digestPublicDocs(JSON.stringify(saved.result)))
+        throw fail('cloud_docs_receipt_invalid',503);
+      verified=true;
+    }
+    return reply({jobId:saved.job_id,projectId:saved.project_id,companyId:saved.company_id,
+      state:saved.state,commitId:saved.commit_id,completedAt:saved.completed_at,
+      outputHash:saved.output_hash,result:verified?saved.result:null,
+      executionVerified:verified,readSucceeded:verified&&saved.result?.readSucceeded===true,
+      companyBuildStarted:false,paidUsageAuthorized:false});
+  }
   if(input.action==='safe-start'){
     rejectUnknown(input,['action','allowPaid','allowProtected','companyBuildAuthorized','jobId','projectId','actionKey','inputText']);
     if(!UUID.test(input.jobId??'')||typeof input.projectId!=='string'||typeof input.inputText!=='string'||input.inputText.length>16000
