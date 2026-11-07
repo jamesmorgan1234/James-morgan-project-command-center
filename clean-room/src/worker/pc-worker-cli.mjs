@@ -5,6 +5,7 @@ import {createPcLocalOllama} from '../brain/pc-local-ollama.mjs';
 import {createPcArtifactJobRunner} from './pc-artifact-job-runner.mjs';
 import {createPcActivationExchangeRunner} from './pc-activation-exchange-runner.mjs';
 import {createPcActivationExchangeTransport} from './pc-activation-exchange-transport.mjs';
+import {createPcSafeToolRunner} from './pc-safe-tool-runner.mjs';
 import {resolve} from 'node:path';
 const {CC_PC_WORKER_TOKEN:workerToken,CC_PC_LOCAL_MODEL:modelId}=process.env;
 const onlySelfTest=process.argv.includes('--self-test');
@@ -26,9 +27,12 @@ if(!modelId || (!workerToken && !onlySelfTest)){
         // Ordinary owner inference remains on its existing 120-second setting.
         model:createPcLocalOllama({modelId,timeoutMs:540000}),modelId
        }):null;
-    const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,activationExchanges,log:v=>console.log(JSON.stringify(v))});
+    const safeTools=process.platform==='win32'&&process.env.LOCALAPPDATA
+      ?createPcSafeToolRunner({workerToken}):null;
+    const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,activationExchanges,safeTools,
+      log:v=>console.log(JSON.stringify(v))});
     process.on('SIGINT',()=>runner.stop());process.on('SIGTERM',()=>runner.stop());
-    console.log(JSON.stringify({event:'worker_started',mode:activationExchanges?'read_only_inference_artifacts_and_activation_exchange':'read_only',destination:'existing_supabase',noPaidFallback:true}));
+    console.log(JSON.stringify({event:'worker_started',mode:safeTools?'read_only_inference_artifacts_activation_and_safe_tools':(activationExchanges?'read_only_inference_artifacts_and_activation_exchange':'read_only'),destination:'existing_supabase',noPaidFallback:true}));
     await runner.loop();
   }
  }catch(e){console.error('Workstation initialization failed (no work was claimed).');process.exitCode=1}
