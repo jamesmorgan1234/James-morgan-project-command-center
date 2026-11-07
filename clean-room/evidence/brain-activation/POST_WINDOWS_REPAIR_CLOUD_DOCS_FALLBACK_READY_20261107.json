@@ -91,7 +91,18 @@
     "signedInOwnerCloudRead": "NOT YET TESTED",
     "persistedCloudChecks": 0,
     "registry": "degraded pending authenticated successful cloud document retrieval",
-    "registryMigration": "supabase/migrations/20261107135500_cloud_public_docs_capability_pending_registry.sql"
+    "registryMigration": "supabase/migrations/20261107135500_cloud_public_docs_capability_pending_registry.sql",
+    "authenticatedReadOnlyRlsProbe": {
+      "atUtc": "2026-11-07T13:50:00Z",
+      "method": "transaction-local simulated active owner session claims; NO real browser JWT issued or used",
+      "authenticatedRole": true,
+      "ownerAuthorized": true,
+      "exactProjectVisible": true,
+      "exactSpecialistVisible": true,
+      "ownerCloudTableVisible": true,
+      "anonymousSelectDenied": true,
+      "realSignedInEndToEnd": "NOT TESTED"
+    }
   },
   "generalOperationalStatus": {
     "enabledBrains": 0,
@@ -102,6 +113,23 @@
     "generalCodeExecutionConnectedToApp": false,
     "stoppedAgencyRunsPreserved": 7
   },
-  "nextExactAction": "Owner signs into the READY branch preview (provided URL) and clicks 'Read public docs using free cloud' once. Then normal chat checks owner-scoped cloud receipt, recomputes output SHA and project/Brain ID, promotes only verified cloud capability if content actually retrieved, and continues general Agency executor work. Do not require Windows downloads or repeat 128 completed jobs.",
-  "exclusion": "No assertion of full 128 general operational Brains or production release acceptance"
+  "nextExactAction": "Open the existing READY branch-preview Brain link for project:company:future:004 while signed in; click the separate FREE CLOUD PUBLIC DOCUMENTS panel's 'Read public docs using free cloud' button once (default public RFC URL); ChatGPT will then independently inspect the owner-scoped stored cloud receipt and promote that single cloud capability ONLY if actual page content was retrieved. Do not rerun any PC worker update or the old uncertain job. Continue the general executor bridge separately afterward.",
+  "exclusion": "No assertion of full 128 general operational Brains or production release acceptance",
+  "generalExecutorSourceReconciliation": {
+    "legacyExecutor": "executor:chatgpt-tasks-normal-chat",
+    "historicalTaskRef": "chatgpt-task:6ada7af0b254819184456ca1246e3f69",
+    "health": "degraded",
+    "priorLiveTaskLookup": "NOT_FOUND",
+    "agencyClaimAndCommitRpc": "public.command_center_agency_claim_task / public.command_center_agency_commit_task",
+    "requireOwnerSessionJwt": true,
+    "existingPairedPcTokenCannotDirectlyCallRpcs": true,
+    "existingRunQueueStatesAtLastReview": {
+      "queued": 1,
+      "needsUser": 1,
+      "verified": 3
+    },
+    "stoppedRunsPreserved": 7,
+    "validatedGeneralWorkerBridge": "NOT PRESENT; owner scoped credential-safe delegation needed",
+    "safety": "No general run started, replayed, claimed, or falsely marked active"
+  }
 }
