@@ -62,5 +62,35 @@
     ]
   },
   "interpretation": "Three old free-only local Qwen model acknowledgements were claimed before the structured output fix; their leases expired without any commit. Reconciliation must not mark these successes or blindly repeat completed work. Local Ollama diagnostic 307.8s and mutated UUID supports failure mechanism but does not prove every original exception.",
-  "approvedScope": "Only after the other 125 exchanges pass exact canonical verification; safe uncommitted, activation-only replay with old exchange identities, new fence and preserved forensic audit, no general Brain permissions or company operations."
+  "approvedScope": "Only after the other 125 exchanges pass exact canonical verification; safe uncommitted, activation-only replay with old exchange identities, new fence and preserved forensic audit, no general Brain permissions or company operations.",
+  "recoverySourceQA": {
+    "migration": "supabase/migrations/20261107100000_pc_activation_audited_exact_three_retry.sql",
+    "migrationCommit": "18585ca98361eb0eab4f97f103b084417f7bd354",
+    "migrationApplied": false,
+    "checksPassed": 11,
+    "checkedGuards": [
+      "only after exactly 125 other canonical acknowledgements and original 128 jobs",
+      "three precise old exchange UUIDs with fence=1 and no stored results",
+      "original lease expired over 30 minutes",
+      "unmodified worker/model/permission scopes",
+      "immutable row snapshots in private owner RLS-disabled-for-anon audit",
+      "source guard and selector exact match verified against live RPC",
+      "new guard stops any new uncertain or active claim",
+      "reclaim only three original IDs",
+      "rollback on changed row or wrong count",
+      "no company builds, spending, scheduled services, or production release actions",
+      "original 125 receipts independently recomputed before replay"
+    ],
+    "liveRpcSourceMd5": "7154595cbe3b696ec265b8f758ee5c59",
+    "originalGuardOneMatch": true,
+    "originalSelectorOneMatch": true
+  },
+  "currentMainWaveProgress": {
+    "checkedAtUtc": "2026-11-07T09:34:17.977497Z",
+    "completed": 90,
+    "claimed": 1,
+    "queued": 34,
+    "historicalUncertain": 3,
+    "consistencyFailures": 0
+  }
 }
