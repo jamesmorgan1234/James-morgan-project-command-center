@@ -48,5 +48,17 @@
     "preserve P15.17/P15.18",
     "do not mark 128 operational from registration or an unclaimed exchange"
   ],
-  "remaining": "Establish that newly installed 16-file worker process is actually running and polling activation-exchange-next; reconcile local worker logs/version before repeating any installation. Then obtain canonical live specialist acknowledgement, verify hash/digest and persisted readback. Queue existing first exchange only once."
+  "remaining": "No more downloads or reinstallation. Safely reconcile which Windows process and Scheduled Task instance is running, then restart the existing task only once if appropriate; confirm first activation-exchange-next call in Supabase logs before making further changes; verify existing queued exchange ad34eea7-3e6f-4e5a-a686-8839c34a6126 through canonical receipt and readback. Do not queue duplicate exchanges.",
+  "logVerification": {
+    "windowUtc": [
+      "2026-11-07T07:24:00Z",
+      "2026-11-07T07:34:00Z"
+    ],
+    "source": "Supabase function_edge_logs",
+    "inferenceClaimRequests": 9,
+    "artifactToolNextRequests": 9,
+    "activationExchangeNextRequests": 0,
+    "status": "Old inference/artifact polling observed; new activation endpoint never called; cannot yet conclude why (old process or task restart/launcher mismatch).",
+    "userVisualEvidence": "Worker PowerShell window remained open without new output and may predate update."
+  }
 }
