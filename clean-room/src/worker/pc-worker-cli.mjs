@@ -22,7 +22,9 @@ if(!modelId || (!workerToken && !onlySelfTest)){
     const activationExchanges=process.platform==='win32'&&process.env.LOCALAPPDATA
       ?createPcActivationExchangeRunner({
         transport:createPcActivationExchangeTransport({workerToken}),
-        model:createPcLocalOllama({modelId}),modelId
+        // Only the activation-only exchange gets the extended local time budget.
+        // Ordinary owner inference remains on its existing 120-second setting.
+        model:createPcLocalOllama({modelId,timeoutMs:540000}),modelId
        }):null;
     const runner=createPcWorkstationRunner({workerToken,modelId,artifactJobs,activationExchanges,log:v=>console.log(JSON.stringify(v))});
     process.on('SIGINT',()=>runner.stop());process.on('SIGTERM',()=>runner.stop());
