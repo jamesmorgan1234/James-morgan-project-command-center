@@ -1,6 +1,8 @@
 import { projectSpecialistBindings } from "../brain/specialist-readiness.js";
 import { invokeExecutionGateway, requestOwnerArtifactJob, readOwnerArtifactJob, cancelOwnerArtifactJob, type OwnerArtifactJobReceipt, type OwnerArtifactJobRequest } from "./execution-gateway.js";
-import { requestSafeReadOnlyTool, readSafeReadOnlyTool, cancelSafeReadOnlyTool, type SafeToolAction, type SafeToolJobReceipt } from "./safe-capability-gateway.js";
+import { requestSafeReadOnlyTool, readSafeReadOnlyTool, cancelSafeReadOnlyTool,
+  requestCloudPublicDocs, readCloudPublicDocs, type CloudPublicDocsReceipt,
+  type SafeToolAction, type SafeToolJobReceipt } from "./safe-capability-gateway.js";
 import { preparedCompanyId, validateCompanyBuildStart, type CompanyBuildStartView } from "./company-build-start.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
@@ -53,6 +55,9 @@ export interface ProjectWorkspaceRuntimeProvider {
   requestSafeReadOnlyTool?(projectId:string,actionKey:SafeToolAction,inputText:string,jobId?:string):Promise<SafeToolJobReceipt>;
   readSafeReadOnlyTool?(projectId:string,jobId:string):Promise<SafeToolJobReceipt>;
   cancelSafeReadOnlyTool?(projectId:string,jobId:string):Promise<SafeToolJobReceipt>;
+  /** Existing free Supabase cloud route; public docs only, no PC or general browser. */
+  requestCloudPublicDocs?(projectId:string,url:string,jobId?:string):Promise<CloudPublicDocsReceipt>;
+  readCloudPublicDocs?(projectId:string,jobId:string):Promise<CloudPublicDocsReceipt>;
 }
 export function isProjectWorkspaceRuntimeProvider(value: unknown): value is ProjectWorkspaceRuntimeProvider {
   if (!value || typeof value !== "object") return false;
@@ -481,6 +486,19 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   async cancelSafeReadOnlyTool(projectId:string,jobId:string):Promise<SafeToolJobReceipt>{
     const session=await this.#assertProject(projectId);
     return cancelSafeReadOnlyTool({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,jobId);
+  }
+
+  /** A separately owner-authorized, bounded $0 cloud documentation fetch. */
+  async requestCloudPublicDocs(projectId:string,url:string,jobId?:string):Promise<CloudPublicDocsReceipt>{
+    const session=await this.#assertProject(projectId);
+    return requestCloudPublicDocs({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,url,jobId??this.#randomId());
+  }
+
+  async readCloudPublicDocs(projectId:string,jobId:string):Promise<CloudPublicDocsReceipt>{
+    const session=await this.#assertProject(projectId);
+    return readCloudPublicDocs({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
       accessToken:session.accessToken,fetcher:this.#fetcher},projectId,jobId);
   }
 
