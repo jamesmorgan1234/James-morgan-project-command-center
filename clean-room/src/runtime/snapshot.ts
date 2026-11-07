@@ -210,6 +210,8 @@ export interface RuntimeBrainImprovementProposal {
 }
 
 export interface RuntimeBrainSnapshot {
+  /** Scoped proof of completed local read-only inference, not general Brain activation. */
+  readonly scopedReadOnlyModelVerifiedProjectIds?: readonly string[];
   readonly specialistReadiness?: Readonly<Record<string, "available" | "unavailable">>;
   readonly specialistBlockers?: Readonly<Record<string, readonly string[]>>;
   readonly workerOnline?: boolean;
