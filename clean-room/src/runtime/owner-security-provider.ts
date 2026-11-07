@@ -727,6 +727,7 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     const verifiedResponseRefs: string[] = [];
     let specialistReadiness: Readonly<Record<string, "available" | "unavailable">> = Object.freeze({});
     let specialistBlockers: Readonly<Record<string, readonly string[]>> = Object.freeze({});
+    let scopedReadOnlyModelVerifiedProjectIds: readonly string[] = Object.freeze([]);
     let pcRequests: NonNullable<RuntimeBrainSnapshot["pcRequests"]> = Object.freeze([]);
     try {
       const [workerStatusRows, pcQueueRows] = await Promise.all([
@@ -793,9 +794,25 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     } catch {
       // Missing optional binding telemetry cannot erase saved project contexts.
     }
+    try {
+      // Owner-RLS canonical evidence for the already-tested local read-only route.
+      // Never promote the general project executor/tool readiness flags from this.
+      const rows = await this.#selectRows("command_center_activation_live_by_project_v1", session,
+        "project_id,scoped_read_only_model_evidence_verified",
+        {scoped_read_only_model_evidence_verified:"eq.true",order:"project_id.asc"},true);
+      const ids = rows.filter(row => row.scoped_read_only_model_evidence_verified === true &&
+        typeof row.project_id === "string" && row.project_id.trim().length > 0)
+        .map(row => row.project_id as string);
+      if (new Set(ids).size !== ids.length) throw new Error("Duplicate scoped Brain verification identity");
+      scopedReadOnlyModelVerifiedProjectIds = Object.freeze(ids);
+    } catch {
+      // Optional evidence read failure is not permission to substitute a different project.
+      scopedReadOnlyModelVerifiedProjectIds = Object.freeze([]);
+    }
     return Object.freeze({
       availability: "available" as const,
       workerOnline,
+      scopedReadOnlyModelVerifiedProjectIds,
       specialistReadiness,
       specialistBlockers,
       verifiedCentralInference,
