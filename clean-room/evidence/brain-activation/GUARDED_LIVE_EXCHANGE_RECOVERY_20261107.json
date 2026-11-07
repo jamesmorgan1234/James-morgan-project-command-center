@@ -1,0 +1,58 @@
+{
+  "schema": "cc-specialist-activation-guarded-recovery-v1",
+  "observedAtUtc": "2026-11-07T08:11:09.316640Z",
+  "authority": "evd_owner-command-center-brain-activation-20261105",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+  "verified": {
+    "previousDiagnosticModelResponses": 128,
+    "previousNativePcArtifactJobs": 128,
+    "firstBoundedSpecialistExchange": {
+      "project": "project:company:future:014",
+      "state": "completed",
+      "commit": "9b74753a-cf74-4396-bd7c-b3a94cf46d08",
+      "outputHash": "337c83b9509684d7a2859d4d445d9bd66dad57187aac3af246aac5c15fcf8a55",
+      "independentSqlIdentityHashModelParentAndReadback": true,
+      "noCompanyBuild": true,
+      "noPaidTools": true
+    },
+    "overallRegistration": 128,
+    "enabledGeneralBrainOperation": 0,
+    "generalToolBindings": 0,
+    "delegationTargets": 0,
+    "zeroCostProvider": "qwen3:4b-instruct",
+    "producer": "owner-paired-native-windows-worker"
+  },
+  "additionalBatch": {
+    "queuedTotalInitially": 16,
+    "independentlyCompleted": 0,
+    "uncertain": [
+      "project:company:future:004",
+      "margincrafttools"
+    ],
+    "claimedWithoutCommitAtObservation": [
+      "edge-finder"
+    ],
+    "stillQueued": 13,
+    "notYetQueuedExistingSpecialists": 111,
+    "source": "Supabase command_center_pc_activation_exchanges and function_edge_logs",
+    "gatewaySequence": "next HTTP 200 and current HTTP 200; no commit or readback for 004/MarginCraft; failure narrowed to after current and before commit; root exception unavailable from server because local worker emits only generic worker_failed",
+    "doNotTreatAsSucceeded": true
+  },
+  "circuitBreaker": {
+    "migration": "supabase/migrations/20261107082000_pc_activation_exchange_uncertainty_circuit_breaker.sql",
+    "commit": "35294a79ce86d947c4c9cb6f198665c6ee387a49",
+    "dbFunction": "command_center_pc_private.command_center_pc_activation_exchange_service(uuid,uuid,text,uuid,bigint,jsonb)",
+    "newFunctionMd5": "3c9a75fb2e4cb9b5b7a5fe6932a29376",
+    "installedVerifiedByPgGetFunctionDef": true,
+    "behavior": "Activation-next returns null after transitioning expired claims to uncertain when >=2 uncertain exchanges on same owner/worker; does not dequeue or cancel pending, does not change current/commit/readback, and does not modify normal inference/artifact paths",
+    "existingAgencyRunsPreserved": true,
+    "protectedP1517P1518Preserved": true
+  },
+  "next": {
+    "automatic": "Verify the already-claimed Edge Finder outcome and guard stopping further activation claims while normal PC service still polls. Reconcile errors without copying credentials or repeating completed 128 diagnostics/artifacts.",
+    "correctiveBoundary": "Actual local-model result or safe error classification is unavailable from cloud logs, so a once-only local diagnostic or source-tested patched Windows client may ultimately be necessary. Do not request another ZIP/re-pairing/Task recreation or make up successful receipts.",
+    "remaining": "Preserve 13 queued records, 111 unqueued. Do not mark 128 fully operational; exact general browser/research/coding capability remains unverified and general Brains remain disabled."
+  }
+}
