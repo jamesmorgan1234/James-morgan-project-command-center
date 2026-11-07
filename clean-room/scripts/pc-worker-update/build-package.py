@@ -11,6 +11,9 @@ FILES = [
  'clean-room/src/brain/pc-brain-readiness.mjs',
  'clean-room/src/brain/pc-activation-contract.mjs',
  'clean-room/src/worker/pc-artifact-job-runner.mjs',
+ 'clean-room/src/worker/pc-safe-tool-runner.mjs',
+ 'clean-room/src/worker/pc-safe-tool-transport.mjs',
+ 'clean-room/src/worker/pc-safe-readonly-tools.mjs',
  'clean-room/src/worker/pc-activation-exchange-runner.mjs',
  'clean-room/src/worker/pc-activation-exchange-transport.mjs',
  'clean-room/src/worker/pc-tool-job-transport.mjs',
@@ -35,7 +38,7 @@ def reviewed_payload(allow_working_tree=False):
     contents['clean-room/src/brain/tool-runtime.mjs']=contents['clean-room/src/brain/tool-runtime.mjs'].replace(b'./tool-access.js',b'./tool-access.mjs')
     contents['clean-room/src/worker/pc-tool-execution-lane.mjs']=contents['clean-room/src/worker/pc-tool-execution-lane.mjs'].replace(b'../brain/tool-runtime.js',b'../brain/tool-runtime.mjs')
     recovered = json.loads((ROOT/BASELINE).read_text())
-    if len(FILES)!=16 or len(recovered['files'])!=14 or recovered['sourceCommit']!='41f46935f8524c47355199ca02651b5d4ecc6dce' or recovered['workerId']!='737f5e7c-3884-4c61-81ac-634bdfc4828f':
+    if len(FILES)!=19 or len(recovered['files'])!=14 or recovered['sourceCommit']!='41f46935f8524c47355199ca02651b5d4ecc6dce' or recovered['workerId']!='737f5e7c-3884-4c61-81ac-634bdfc4828f':
         raise SystemExit('Exact installed 14-file tool-client baseline is required')
     if not all(f['path'] in FILES and len(f['sha256'])==64 for f in recovered['files']):
         raise SystemExit('Installed source manifest contains an invalid path or hash')

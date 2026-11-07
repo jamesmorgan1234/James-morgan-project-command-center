@@ -15,6 +15,9 @@ $allowedPaths=@(
  'clean-room/src/worker/pc-worker-supervisor.mjs',
  'clean-room/src/worker/pc-worker-transport.mjs',
  'clean-room/src/worker/pc-artifact-job-runner.mjs',
+ 'clean-room/src/worker/pc-safe-tool-runner.mjs',
+ 'clean-room/src/worker/pc-safe-tool-transport.mjs',
+ 'clean-room/src/worker/pc-safe-readonly-tools.mjs',
  'clean-room/src/worker/pc-activation-exchange-runner.mjs',
  'clean-room/src/worker/pc-activation-exchange-transport.mjs',
  'clean-room/src/worker/pc-tool-job-transport.mjs',
@@ -48,10 +51,11 @@ try{
  if($manifest.schema -ne 'cc-existing-pc-worker-update-v1' -or $manifest.candidateState -ne 'source-committed' -or $manifest.sourceCommit -notmatch '^[0-9a-f]{40}$'){throw 'Package is not a committed source candidate.'}
  if($manifest.workerId -ne $expectedWorker -or -not(Test-Path -LiteralPath $app)){throw 'Existing registered worker not found; nothing installed.'}
  if((Get-Content -LiteralPath (Join-Path $base 'worker-id.txt') -Raw).Trim() -ne $expectedWorker){throw 'Different worker identity; update refused.'}
- if(@($manifest.files).Count -ne 16 -or @($manifest.originalFiles).Count -ne 14 -or
-    @($manifest.files.path | Sort-Object -Unique).Count -ne 16 -or
+ if(@($manifest.files).Count -ne 19 -or @($manifest.originalFiles).Count -ne 14 -or
+    @($manifest.files.path | Sort-Object -Unique).Count -ne 19 -or
     @(Compare-Object $allowedPaths @($manifest.files.path) -CaseSensitive).Count -ne 0){throw 'Incomplete source manifest.'}
-$added=@('clean-room/src/worker/pc-activation-exchange-runner.mjs','clean-room/src/worker/pc-activation-exchange-transport.mjs')
+$added=@('clean-room/src/worker/pc-activation-exchange-runner.mjs','clean-room/src/worker/pc-activation-exchange-transport.mjs',
+ 'clean-room/src/worker/pc-safe-tool-runner.mjs', 'clean-room/src/worker/pc-safe-tool-transport.mjs', 'clean-room/src/worker/pc-safe-readonly-tools.mjs')
 $expectedPrevious=@($allowedPaths | Where-Object {$_ -cnotin $added})
 if($manifest.installedBaselineCommit -ne '41f46935f8524c47355199ca02651b5d4ecc6dce' -or
    @($manifest.originalFiles.path | Sort-Object -Unique).Count -ne 14 -or
