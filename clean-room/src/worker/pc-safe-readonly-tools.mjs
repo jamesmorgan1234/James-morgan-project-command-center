@@ -36,17 +36,36 @@ export function publicIpv4(value){
     a===255)return false;
  return true;
 }
-export async function readAllowedPublicDocs(rawUrl,{dns=dnsLookup,https=httpsRequest}={}){
+export async function readAllowedPublicDocs(rawUrl,{
+  dns=dnsLookup,https=httpsRequest,dnsTimeoutMs=7000,httpsTimeoutMs=12000
+}={}){
  const url=canonicalPublicDocsUrl(rawUrl);
- const addresses=await dns(url.hostname,{family:4,all:true,verbatim:true});
- ensure(Array.isArray(addresses)&&addresses.length>0&&addresses.every(r=>r.family===4&&publicIpv4(r.address)),'docs_public_dns_required');
+ // DNS and TLS are independently bounded; a no-network PC cannot strand
+ // a three-minute canonical lease. These deadlines are shorter than its lease.
+ ensure(Number.isSafeInteger(dnsTimeoutMs)&&dnsTimeoutMs>=10&&dnsTimeoutMs<=7000&&
+   Number.isSafeInteger(httpsTimeoutMs)&&httpsTimeoutMs>=10&&httpsTimeoutMs<=12000,
+   'docs_timeout_configuration_invalid');
+ let dnsTimer;
+ let addresses;
+ try {
+   addresses=await Promise.race([
+     Promise.resolve().then(()=>dns(url.hostname,{family:4,all:true,verbatim:true})),
+     new Promise((_,reject)=>{dnsTimer=setTimeout(()=>reject(Error('docs_dns_timeout')),dnsTimeoutMs)})
+   ]);
+ } finally { clearTimeout(dnsTimer); }
+ ensure(Array.isArray(addresses)&&addresses.length>0&&addresses.every(r=>r.family===4&&publicIpv4(r.address)),
+   'docs_public_dns_required');
  const address=addresses[0].address;
  return new Promise((resolve,reject)=>{
-   let done=false,bytes=0;
-   const stop=(err)=>{if(!done){done=true;reject(err instanceof Error?err:Error('docs_fetch_error'))}};
+   let done=false,bytes=0,requestTimer=null;
+   const stop=(err)=>{
+     if(done)return;
+     done=true;clearTimeout(requestTimer);
+     reject(err instanceof Error?err:Error('docs_fetch_error'));
+   };
    const req=https({
     protocol:'https:',hostname:url.hostname,servername:url.hostname,method:'GET',port:443,
-    path:url.pathname,timeout:8500,
+    path:url.pathname,timeout:httpsTimeoutMs,
     lookup:(host,options,callback)=>callback(null,address,4),
     headers:{accept:'text/plain,text/html','user-agent':'CommandCenter-FreeReadonlyDocs/1.0','cache-control':'no-store'},
     agent:false
@@ -62,15 +81,20 @@ export async function readAllowedPublicDocs(rawUrl,{dns=dnsLookup,https=httpsReq
     });
     res.on('end',()=>{
       if(done)return;
-      done=true;
+      done=true;clearTimeout(requestTimer);
+      const body=Buffer.concat(chunks);
       resolve(Object.freeze({url:url.href,status:200,contentType:ct.slice(0,80),
-         bytes,sha256:createHash('sha256').update(Buffer.concat(chunks)).digest('hex'),
-         excerpt:Buffer.concat(chunks).toString('utf8').slice(0,45000),
+         bytes,sha256:createHash('sha256').update(body).digest('hex'),
+         excerpt:body.toString('utf8').slice(0,45000),
          untrustedPublicContent:true,executedCompanyWork:false}));
     });
     res.on('error',stop);
    });
-   req.on('timeout',()=>req.destroy(Error('docs_timeout')));
+   requestTimer=setTimeout(()=>{
+      stop(Error('docs_timeout'));
+      req.destroy();
+   },httpsTimeoutMs);
+   req.on('timeout',()=>{stop(Error('docs_timeout'));req.destroy()});
    req.on('error',stop);
    req.end();
  });
@@ -89,10 +113,29 @@ export async function executePcSafeReadOnly(actionKey,inputText,{readDocs=readAl
  }
  if(actionKey==='research.public_docs_read'){
    ensure(Object.keys(input).length===1&&typeof input.url==='string','docs_input_scope_invalid');
-   const result=await readDocs(input.url);
-   ensure(result?.url===canonicalPublicDocsUrl(input.url).href&&result?.untrustedPublicContent===true &&
-     result?.executedCompanyWork===false&&result?.status===200&&typeof result?.excerpt==='string','docs_receipt_invalid');
-   return JSON.stringify({tool:'research.public_docs_read',...result,executed:false,paidUsageAuthorized:false});
+   // Unsafe URLs must still be rejected BEFORE any network attempt.
+   const url=canonicalPublicDocsUrl(input.url).href;
+   try {
+     const result=await readDocs(url);
+     ensure(result?.url===url&&result?.untrustedPublicContent===true &&
+       result?.executedCompanyWork===false&&result?.status===200&&
+       typeof result?.excerpt==='string','docs_receipt_invalid');
+     return JSON.stringify({tool:'research.public_docs_read',readSucceeded:true,...result,
+       executed:false,paidUsageAuthorized:false});
+   } catch (error) {
+     // A trusted, allowlisted document that cannot be reached must produce
+     // an explicit canonical failure receipt rather than strand the lease.
+     // Never return raw network or system error text.
+     const name=error instanceof Error?error.message:'';
+     const errorCode=[
+       'docs_dns_timeout','docs_public_dns_required','docs_http_not_200',
+       'docs_not_text','docs_body_limit','docs_timeout','docs_fetch_error',
+       'docs_receipt_invalid'
+     ].includes(name)?name:'docs_fetch_unavailable';
+     return JSON.stringify({tool:'research.public_docs_read',readSucceeded:false,
+       url,errorCode,executed:false,paidUsageAuthorized:false,
+       untrustedPublicContent:true,executedCompanyWork:false});
+   }
  }
  throw Error('unapproved_safe_tool');
 }
