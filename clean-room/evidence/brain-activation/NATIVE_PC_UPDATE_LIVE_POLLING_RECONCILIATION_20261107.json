@@ -84,5 +84,19 @@
     },
     "verifiedConclusion": "Worker resumed legacy inference and artifact polling after task restart. New activation exchange endpoint still absent; first queued exchange not yet claimed. Do not equate this with exchange failure or completed agent activation.",
     "recommendedNextEvidence": "Read the existing Scheduled Task Actions launch path and inspect launcher target/version using an owner-approved read-only diagnostic. Avoid new downloads, ZIPs, re-pairing, reinstalls, task recreation, deployment or company runs."
+  },
+  "launcherEvidence": {
+    "source": "clean-room/evidence/brain-activation/recovered-worker-source/COMMAND_CENTER_PC_WINDOWS.ps1",
+    "verifiedFromCommittedSource": true,
+    "task_action": "Windows PowerShell -> COMMAND_CENTER_PC_WINDOWS.ps1 -Action Run",
+    "actualNodeEntrypoint": "%LOCALAPPDATA%\\COMMAND_CENTER_PC_WORKER\\app\\clean-room\\src\\worker\\pc-worker-cli.mjs",
+    "outputRedirection": "All Node stdout and stderr appended to %LOCALAPPDATA%\\COMMAND_CENTER_PC_WORKER\\worker-events.log",
+    "workerRestartBehavior": "PowerShell launcher loops Node execution and sleeps 90 seconds following child process exit; empty launcher console is expected",
+    "guiEvidence": "User screenshot of Task Scheduler Edit Action shows Windows PowerShell and AppData working directory; Add arguments truncated, original updater code checks expected launcher action before reporting success",
+    "currentLiveCheckUtc": "2026-11-07T07:48:16.926302Z",
+    "currentExchange": "queued, fence=0, no completed receipt",
+    "workerAgeSeconds": 25.2,
+    "artifactJobsCompleted": 128,
+    "nextEvidence": "Read-only local tail of worker-events.log, without copying token files or modifying Scheduled Task. Inspect worker_started mode and worker_failed events to determine if old Node code remains loaded or new activation adapter errors. No new installer is justified pending this evidence."
   }
 }
