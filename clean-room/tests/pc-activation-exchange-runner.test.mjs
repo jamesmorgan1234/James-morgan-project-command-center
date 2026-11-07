@@ -13,15 +13,16 @@ const targetBrainKey='brain:company:future:014:v1';
 const modelId='qwen3:4b-instruct';
 const modelDigest='0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0';
 const clock=Date.parse('2026-11-07T01:10:00Z');
-const inputText=JSON.stringify({exchangeId,projectId,companyId,targetBrainKey,nonce});
+const parentResponseHash='73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049';
+const inputText=JSON.stringify({exchangeId,projectId,companyId,targetBrainKey,nonce,parentResponseHash});
 const base={saved:{exchangeId,workerId,ownerId,projectId,companyId,targetBrainKey,brainVersion:2,
   parentBrainKey:'command_center',controlPlane:'command_center',purpose:'activation_exchange',
   authorityRef:'evd_owner-command-center-brain-activation-20261105',nonce,modelId,
-  expectedModelDigest:modelDigest,inputHash:sha(inputText),allowPaid:false,allowProtected:false,
+  expectedModelDigest:modelDigest,parentResponseHash,inputHash:sha(inputText),allowPaid:false,allowProtected:false,
   companyBuildAuthorized:false,companyExecutionAuthorized:false,generalToolsAuthorized:false},
  lease:{exchangeId,workerId,ownerId,projectId,companyId,targetBrainKey,brainVersion:2,
   generation:1,fencingToken:1,expiresAt:new Date(clock+90_000).toISOString()}};
-const expected={exchangeId,projectId,companyId,targetBrainKey,nonce,accepted:true,
+const expected={exchangeId,projectId,companyId,targetBrainKey,nonce,parentResponseHash,accepted:true,
  companyBuildStarted:false,paidUsageAuthorized:false};
 function mock({claim=base,text=JSON.stringify(expected),digest=modelDigest,mutateReadback=x=>x}={}){
  const calls=[];let result;
@@ -60,6 +61,7 @@ test('identity, authorization, version and no-spend violations fail closed befor
   {saved:{...base.saved,generalToolsAuthorized:true}},
   {saved:{...base.saved,modelId:'qwen3:cloud'}},
   {saved:{...base.saved,expectedModelDigest:'foo'}},
+  {saved:{...base.saved,parentResponseHash:'foo'}},
   {saved:{...base.saved,brainVersion:3}},
   {saved:{...base.saved,inputHash:'0'.repeat(64)}},
   {saved:{...base.saved,ownerId:'239c3c40-b9d9-42f4-b807-f2172c7dbc8b'}},
@@ -79,6 +81,7 @@ test('model output mismatch or unverified digest cannot produce canonical commit
   {text:JSON.stringify({...expected,paidUsageAuthorized:true})},
   {text:JSON.stringify({...expected,extra:'extra'})},
   {text:JSON.stringify({...expected,targetBrainKey:'brain:company:future:013:v1'})},
+  {text:JSON.stringify({...expected,parentResponseHash:'f'.repeat(64)})},
   {digest:'a'.repeat(64)}];
  for(const c of cases){const {runner,calls}=mock(c);await assert.rejects(()=>runner.once());assert.ok(!calls.includes('commit'));}
 });
