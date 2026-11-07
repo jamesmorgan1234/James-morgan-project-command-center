@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "114c9df7c7608170e91014ba6cb018d700df8751",
+  "gitSha": "b023c8dd746e600669fbe54c925be4e74c01ac10",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2349,
-  "inventoryDigest": "5f906011c8d5681d424a358dcd990141a3e03105946d78e492cbeccc2d873e30",
+  "reviewedFileCount": 2356,
+  "inventoryDigest": "c8353842ea070861f55d84c350aa6378c68a8b1f4f085e4ca341aa5554374376",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2350,
-    "reviewedFileCount": 2349,
+    "trackedFileCount": 2357,
+    "reviewedFileCount": 2356,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,13 +45,13 @@
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 272,
+      "EVID": 276,
       "APUB": 15,
       "SCRP": 149,
       "ASRC": 366,
       "TEST": 486,
       "RDMAP": 407,
-      "SBAS": 263,
+      "SBAS": 266,
       "HTST": 43
     },
     "defectCount": 0,
@@ -689,7 +689,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 272,
+      "fileCount": 276,
       "roles": [
         "EVID"
       ]
@@ -1795,7 +1795,7 @@
     },
     {
       "directory": "supabase/migrations",
-      "fileCount": 243,
+      "fileCount": 246,
       "roles": [
         "SBAS"
       ]
@@ -3911,7 +3911,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "a310cc676bf153d0d1d3e28478bc4e4f36a61f7cba96fc44a0bea6d290d538e4",
+      "sha256": "be2024dda10055dea7db7d9c539ee58a82f2e954a760df8d5fd96b5042223449",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3920,7 +3920,7 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "5c710493b79f39acda1f2d6ebe728a45f86c775044aee18cc94b02747b5f7995",
+      "sha256": "c9e6d6d6e98f92bac94ad1174f6bd0154ea20d21950bf9f92c82a635018d0f45",
       "bytes": 2027,
       "contentKind": "text",
       "findings": []
@@ -5051,6 +5051,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/brain-activation/DEGRADED_GENERAL_EXECUTOR_RECOVERY_20261107.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "14c17dd61bf04de59d0e22f47cf605bdd3c3b7a53580d3cc1e654e04d7a4edc3",
+      "bytes": 1656,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/brain-activation/EXISTING_PC_ACTIVATION_EXCHANGE_IN_PLACE.ps1",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -5105,11 +5114,29 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/brain-activation/LIVE_STATUS_OWNER_RLS_VIEW_DEPLOYED_20261107.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "f404c6464f2464e362358ee16988d434e346a8ca5d848fadd5cadaa3dc6330db",
+      "bytes": 1473,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/brain-activation/NATIVE_PC_UPDATE_LIVE_POLLING_RECONCILIATION_20261107.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
       "sha256": "7a312735f5ce4f822fa7ff33c6d2c709bf4207d51067c69099b291b937ff5b9f",
       "bytes": 9229,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/README_LIVE_CONTINUATION_20261107.md",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "822414bf13403a65ac2d6eaca9ea891058a0ec5916258bf0db07b4891a88f849",
+      "bytes": 5619,
       "contentKind": "text",
       "findings": []
     },
@@ -5128,6 +5155,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "e918da5d9bdf25b4e2aedb99101c0c2a7df8bf5e87cce5aee59f041c9ba51bbd",
       "bytes": 6281,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/THREE_OLD_UNCERTAIN_REPLAY_PREFLIGHT_20261107.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "4bf0e4990823e14daaa74a930955e72cd221261b5f41d3609c813a12968bc260",
+      "bytes": 3739,
       "contentKind": "text",
       "findings": []
     },
@@ -5738,8 +5774,8 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "1bd1a715a2c588c2e3d8b69c650e6dc86e0bcd047f96b50f499a1beabc4dd877",
-      "bytes": 13206208,
+      "sha256": "9438d7822fbf7571768b6b2b5745bf8e1243050f790c76140defd80548572524",
+      "bytes": 13206652,
       "contentKind": "text",
       "findings": []
     },
@@ -5774,7 +5810,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "434db420d143ccd9e3e9001d98ba2e6d11ae12f27d47e5d2df01c5e00e0f682a",
+      "sha256": "dae2f0e696f6a95e6b22bc5cf4f73d934304f34af706eae4e6d7def9ba61468c",
       "bytes": 5330,
       "contentKind": "text",
       "findings": []
@@ -5783,7 +5819,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "9c352bf34db6a08584d8932ab881431e827ad4570fe10e0349aaf3f74e80b4cd",
+      "sha256": "671129007e9b003016da66255887ec4ecc2d8ee1c40d67d60e5c1ca192cc3ceb",
       "bytes": 3276,
       "contentKind": "text",
       "findings": []
@@ -22884,6 +22920,33 @@
       "disposition": "retain-active",
       "sha256": "c9bf5067413dd085bc70af489f2151dbadc8e7a28faf897f5e6d6bf0d4a56a2a",
       "bytes": 15604,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261107093500_live_brain_activation_status_owner_rls.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "8dd9b4c643656476729d6b950845e6534c6dc730720bfc5fc7266390f2fd3027",
+      "bytes": 4775,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261107094500_live_status_add_native_artifact_verified.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "d096a2193ef2786b891c5220be444fce732d35be4eb3fa76c46e6309be92249f",
+      "bytes": 6393,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "supabase/migrations/20261107100000_pc_activation_audited_exact_three_retry.sql",
+      "role": "SBAS",
+      "disposition": "retain-active",
+      "sha256": "16b9e1db1abf20db1cf83bc4af0853dd56b7c401e24b596f7e51e6104cca6942",
+      "bytes": 14748,
       "contentKind": "text",
       "findings": []
     },

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "cc-p15-14-nonproduction-acceptance-v1",
-  "headSha": "114c9df7c7608170e91014ba6cb018d700df8751",
+  "headSha": "b023c8dd746e600669fbe54c925be4e74c01ac10",
   "contractSuites": [
     "tests/category15-nonproduction-contract-acceptance.test.mjs",
     "tests/owner-auth-proxy-routing.test.mjs"
