@@ -125,9 +125,31 @@ Deno.serve(async (req:Request)=>{
   if(req.method==="OPTIONS")return new Response(null,{status:204,headers:cors});
   if(req.method!=="POST")throw failure("method_not_allowed",405);
   const action=new URL(req.url).pathname.split("/").filter(Boolean).at(-1);
-  if(!["enroll","revoke","claim","heartbeat","complete","readback","health","tool-next","tool-current","tool-commit","tool-readback"].includes(action??""))throw failure("unknown_action",404);
+  if(!["enroll","revoke","claim","heartbeat","complete","readback","health","tool-next","tool-current","tool-commit","tool-readback","activation-exchange-next","activation-exchange-current","activation-exchange-commit","activation-exchange-readback"].includes(action??""))throw failure("unknown_action",404);
   const input=await body(req,action?.startsWith("tool-")?750000:12000);
   if(input.allowPaid!==false||input.allowProtected!==false)throw failure("scope_expansion_refused",403);
+  if(action?.startsWith("activation-exchange-")){
+   // Separate, bounded COMMAND CENTER -> specialist handshake. It cannot
+   // execute company runs or browser/coding tools and cannot reuse the
+   // artifact-only queue or read-only inference authority.
+   if(input.clientContract!=="cc-pc-activation-exchange-v1"||
+      input.executionAuthorized!==false||input.companyBuildAuthorized!==false)
+      throw failure("activation_exchange_client_contract_required",403);
+   const w=await worker(req);
+   const operation=action.slice("activation-exchange-".length);
+   if(operation!=="next"&&(!UUID.test(input.exchangeId??"")||
+      !Number.isSafeInteger(input.fencingToken)||input.fencingToken<1))
+      throw failure("activation_exchange_fence_invalid",400);
+   if(operation==="commit"&&(!input.result||typeof input.result!=="object"||Array.isArray(input.result)))
+      throw failure("activation_exchange_result_invalid",400);
+   const result=err(await admin.rpc("command_center_pc_activation_exchange_service",{
+     p_owner:w.ownerId,p_worker:w.workerId,p_action:operation,
+     p_exchange:operation==="next"?null:input.exchangeId,
+     p_fence:operation==="next"?null:input.fencingToken,
+     p_result:operation==="commit"?input.result:null
+   }));
+   return json({result},200,cors);
+  }
   if(action?.startsWith("tool-")){
    // New clients may execute only exact owner-queued immutable artifact jobs.
    // Existing inference clients never receive these jobs or gain shell access.
