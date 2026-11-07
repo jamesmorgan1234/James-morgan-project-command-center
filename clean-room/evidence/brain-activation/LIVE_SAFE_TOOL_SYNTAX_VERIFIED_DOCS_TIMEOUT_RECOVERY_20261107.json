@@ -1,0 +1,86 @@
+{
+  "schema": "cc-safe-tool-live-acceptance-and-recovery-v1",
+  "verifiedAtUtc": "2026-11-07T13:23:30.330328Z",
+  "repo": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "preserved": {
+    "registeredBrains": 128,
+    "boundedCanonicalExchanges": 128,
+    "nativeArtifactJobs": 128,
+    "localModelBindings": 128,
+    "stoppedAgencyRuns": 7,
+    "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "generallyEnabledBrains": 0,
+    "generalToolBindings": 0,
+    "delegationTargets": 0
+  },
+  "windowsOriginalUpdate": {
+    "userScreenshot": "five-file safe-tool extension updated in place; all local and mocked canonical tests passed; existing worker/Task/model preserved",
+    "verifiedByLiveRun": true
+  },
+  "syntax": {
+    "jobId": "8ac2e9b4-2f3d-4c71-9fe8-55cabd43d929",
+    "project": "project:company:future:004",
+    "commit": "7102986a-8e41-4187-a743-8b1d2434fb26",
+    "fence": 1,
+    "completedAt": "2026-11-07T13:02:10.888417Z",
+    "identityInputOutputSHA256Verified": true,
+    "canonicalRpcReadbackVerified": true,
+    "executed": false,
+    "paidUsage": false,
+    "companyBuild": false,
+    "registry": "available, syntax-only"
+  },
+  "docs": {
+    "jobId": "ca4c72e1-40ea-42a1-bf3e-6019c74c6f0e",
+    "state": "uncertain",
+    "fence": 1,
+    "commitId": null,
+    "result": null,
+    "preservedWithoutReplay": true,
+    "registry": "degraded",
+    "pendingNativeResult": true
+  },
+  "recovery": {
+    "rpcMigration": "supabase/migrations/20261107131500_quarantine_one_uncertain_safe_docs_without_replay.sql",
+    "applied": true,
+    "originalUncertainRetained": true,
+    "newUnknownUncertainStillBlocksAdmission": true,
+    "registryMigration": "supabase/migrations/20261107132300_native_syntax_verified_docs_timeout_preserved.sql"
+  },
+  "cloud": {
+    "supabaseProject": "gmlsucpwliegwlxymjvp",
+    "gateway": "command-center-safe-tools",
+    "version": 5,
+    "active": true,
+    "sourceMatchedGithub": true,
+    "ownerAuthAndWorkerAuthPreserved": true,
+    "allowPaid": false
+  },
+  "code": {
+    "docsSourceCommit": "a07603d0bc7bb6136758298d0f6e6d01539c9691",
+    "docsSourceSha256": "c98f5a88e16b08debda82a8f889f6d3a66ea3300a9484b9a9a7a04e2ef5fa878",
+    "dnsTimeoutMs": 7000,
+    "httpsTimeoutMs": 12000,
+    "sanitizedFailedReadReceipts": true,
+    "emulatedTestsPassed": 6,
+    "readyPreview": "https://command-center-preview-86sz3x3lk-crestven-holdings.vercel.app",
+    "readyDeployment": "dpl_EcKF4i9Sey1RomW1aVRczbxxZNsa",
+    "signedInE2E": "not tested"
+  },
+  "ownerOnlyBoundary": {
+    "installer": "clean-room/evidence/brain-activation/UPDATE_EXISTING_PC_DOCS_TIMEOUT_IN_PLACE_20261107.ps1",
+    "installerRevision": "965d91a6ddd81244a4f8931cefb7c11c51f375f8",
+    "installerSha256": "4ccd9a97acd9e16aa956bdaae3e7d6fd8fdd1855e4c209567547ea4687745a53",
+    "onlyOneExistingModuleChanges": true,
+    "full19FileHashManifest": true,
+    "staticChecksPassed": 18,
+    "installed": false,
+    "next": "Owner runs one hash-verified in-place patch; independently check heartbeat and a new public-docs canary, no retry of original uncertain job"
+  },
+  "unresolved": {
+    "generalAgencyExecutorDegraded": true,
+    "generalCodingBrowserAndCompanyExecutionUnverified": true,
+    "p1517P1518Untouched": true
+  }
+}
