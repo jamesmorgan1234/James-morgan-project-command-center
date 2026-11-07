@@ -1,0 +1,42 @@
+{
+  "schema": "cc-executor-live-source-reconciliation-v1",
+  "observedAtUtc": "2026-11-07T09:30:30.786669Z",
+  "project": "COMMAND CENTER",
+  "sourceOfTruth": "Supabase public.command_center_agency_executors and read-only ChatGPT Automations lookup",
+  "executor": {
+    "key": "executor:chatgpt-tasks-normal-chat",
+    "ref": "chatgpt-task:6ada7af0b254819184456ca1246e3f69",
+    "health": "degraded",
+    "enabled": true,
+    "costClass": "free",
+    "environments": [
+      "normal_chat"
+    ],
+    "capabilities": [
+      "project.execute"
+    ],
+    "authorityClass": "execute_reversible",
+    "directLookup": "NOT_FOUND 404. Existing saved reference cannot be treated as a callable executor; no replacement created or schedule changed."
+  },
+  "existingOwnerPC": {
+    "id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "actualBoundedSpecialistExchange": true,
+    "actualPerProjectArtifactWriteReadback": true,
+    "generalJobExecutorConfirmed": false,
+    "externalBrowserCallableFromAppConfirmed": false,
+    "researchCallableFromAppConfirmed": false,
+    "codingCallableFromAppConfirmed": false
+  },
+  "preserved": {
+    "agencyRunsStopped": 7,
+    "specialistsRegistered": 128,
+    "completePreviousNativeArtifactJobs": 128,
+    "activationAtSnapshot": {
+      "completed": 80,
+      "claimed": 1,
+      "queued": 44,
+      "oldUncertain": 3
+    }
+  },
+  "next": "Trace exact source and free local execution adapter that can be safely connected to Command Center. Do not mark missing historical Task healthy, do not schedule/start company runs, do not spend, and preserve P15.17/P15.18. Continue existing bounded acknowledgements concurrently."
+}
