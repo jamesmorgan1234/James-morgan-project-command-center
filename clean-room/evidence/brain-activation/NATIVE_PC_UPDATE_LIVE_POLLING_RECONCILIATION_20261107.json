@@ -98,5 +98,31 @@
     "workerAgeSeconds": 25.2,
     "artifactJobsCompleted": 128,
     "nextEvidence": "Read-only local tail of worker-events.log, without copying token files or modifying Scheduled Task. Inspect worker_started mode and worker_failed events to determine if old Node code remains loaded or new activation adapter errors. No new installer is justified pending this evidence."
+  },
+  "userProvidedWorkerLog": {
+    "observedAtLocal": "2026-11-07 approximately 02:50 Eastern",
+    "source": "User screenshot of %LOCALAPPDATA%\\COMMAND_CENTER_PC_WORKER\\worker-events.log, bottom of file",
+    "visibleEvents": [
+      {
+        "event": "worker_started",
+        "mode": "read_only_inference_and_explicit_artifact_jobs",
+        "occurrences": 2
+      },
+      {
+        "event": "worker_failed",
+        "consecutiveFailures": 1,
+        "category": "transport_or_verification",
+        "occurrences": 1
+      }
+    ],
+    "interpretation": "The latest visible worker_started mode is the old CLI mode, whereas current committed CLI prints read_only_inference_artifacts_and_activation_exchange when started on Windows. The worker logs no activation-exchange mode. This establishes a runtime source/version mismatch, but not whether it is from stale log content, an old Node process, wrong on-disk source, or alternate path.",
+    "githubCurrentCliBlobSha": "8e014148448f53f9ee73a27e17deb3436b1a5d4f",
+    "githubActivationMarker": "read_only_inference_artifacts_and_activation_exchange",
+    "liveStatusAtUtc": "2026-11-07T07:51:45.236987+00:00",
+    "exchangeState": "queued",
+    "fence": 0,
+    "commitId": null,
+    "completedArtifactJobs": 128,
+    "safeNextStep": "Verify installed pc-worker-cli.mjs activation marker and running node.exe process IDs/start times using one read-only PowerShell inspection. Never access or print worker token. Do not download, install, update task, kill processes or requeue first exchange until exact mismatch is identified."
   }
 }
