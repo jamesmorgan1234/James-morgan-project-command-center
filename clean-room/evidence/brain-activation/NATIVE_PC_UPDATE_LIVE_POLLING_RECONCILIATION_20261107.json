@@ -124,5 +124,30 @@
     "commitId": null,
     "completedArtifactJobs": 128,
     "safeNextStep": "Verify installed pc-worker-cli.mjs activation marker and running node.exe process IDs/start times using one read-only PowerShell inspection. Never access or print worker token. Do not download, install, update task, kill processes or requeue first exchange until exact mismatch is identified."
+  },
+  "diskHashConfirmed": {
+    "source": "Owner-provided read-only PowerShell output 2026-11-07 02:54 Eastern",
+    "installedCliPath": "%LOCALAPPDATA%\\COMMAND_CENTER_PC_WORKER\\app\\clean-room\\src\\worker\\pc-worker-cli.mjs",
+    "fileExists": true,
+    "activationCodeOnDisk": false,
+    "installedCliSha256": "e826a8682ac955813ef287a296d494df13f8b334d5a21befe04c16febc08b615",
+    "matchesVerified14FileInstalledBaseline": true,
+    "runningNode": {
+      "pid": 3516,
+      "createdAtLocal": "2026-11-07T02:38:27"
+    },
+    "diagnosis": "Earlier visible PowerShell invocation fetched the old 14-file EXISTING_PC_CLIENT_IN_PLACE.ps1 at pinned source 3754a983f52248b640a2d2df51966c03fdd0eaa2; it returned success for that release, not the newer 16-file activation exchange. Restart loaded same old installed CLI. This is not evidence that previously completed artifact jobs or specialist registration vanished.",
+    "newScript": {
+      "url": "https://raw.githubusercontent.com/jamesmorgan1234/James-morgan-project-command-center/e19aa0318523a9523881ca33d81d80490af7170a/clean-room/evidence/brain-activation/EXISTING_PC_ACTIVATION_EXCHANGE_IN_PLACE.ps1",
+      "blob_sha": "6de344ec737e57c90ffafbe184e67e416ff54d3b",
+      "sha256": "bc2d3e87ddaefae1e858d5a9facc41c56a2bbee49e34247d376985ab4f1ba27d",
+      "sha256IndependentlyComputed": true,
+      "bytes": 112836,
+      "payloadFiles": 16,
+      "expectedOldFiles": 14,
+      "noZipOrManualExtraction": true,
+      "preflightBoundToCurrentInstalledCliHash": true
+    },
+    "nextAction": "Run only latest verified 16-file activation updater once on existing Windows laptop if user chooses. Supply single pinned, SHA256-checked, temporary-download PowerShell command, no manual ZIP/file copying, no policy alteration, no re-pairing or Task recreation. If any preflight reports error, STOP and inspect output, not repeat. Then verify local disk activation marker and new gateway request, first queued exchange canonical commit/readback."
   }
 }
