@@ -1,0 +1,57 @@
+{
+  "schema": "cc-owner-routed-local-inference-ui-qa-v1",
+  "evidenceAtUtc": "2026-11-07T09:54:13.849879+00:00",
+  "project": "COMMAND CENTER",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "commits": {
+    "scopedOwnerRlsSql": "f98a4428b547d9f681235843c647eec3464404bd",
+    "scopedRouteModule": "b1a6fab07640d8a8df0b16f3d3da1cb0344ce8c6",
+    "routeUnitTests": "47aae07a191781dcc3b041186a7040cf9098cd5c",
+    "snapshotType": "66d9cebb40a74d0dd9291113e917b2d02e8b7ad6",
+    "ownerProvider": "2eab4c171da25bf4299105d8f27b26f7abad8b6d",
+    "brainUi": "86b12fc2fbbd84e14903e76bf630a2ef594fe561"
+  },
+  "runtime": {
+    "supabaseProject": "gmlsucpwliegwlxymjvp",
+    "ownerRlsAuthenticatedSelect": true,
+    "anonymousSelect": false,
+    "scopedReadOnlyModelEvidenceProjects": 128,
+    "distinctNativeArtifacts": 128,
+    "generalBrainsEnabled": 0,
+    "generalToolBindings": 0
+  },
+  "behavior": [
+    "Scoped authenticated owner-RLS project IDs are loaded separately from general specialistReadiness",
+    "Verified project-scoped owner-turn messages route to the existing durable PC inference queue even while general executor/tool readiness is unavailable",
+    "Server verifies exact owner/project/company/Brain/worker/turn; client selection grants no protected action",
+    "Central and already-operational routing behavior preserved",
+    "Unavailable or other-company membership cannot be inferred from a different project",
+    "No local fake replies, double queue, paid service, company build or alias promotion"
+  ],
+  "validation": {
+    "sourceState": "reviewed exact GitHub blobs",
+    "pureSourceFixtureChecks": 9,
+    "pureSourceResult": "PASS",
+    "sourceStaticChecks": 8,
+    "sourceStaticResult": "PASS",
+    "vercel": {
+      "deploymentId": "dpl_Br6jeyW5B6HbFrx4pwkJd4kvGRwn",
+      "state": "READY",
+      "commit": "86b12fc2fbbd84e14903e76bf630a2ef594fe561",
+      "buildCommandObserved": "tsc -p tsconfig.build.json; node scripts/build-browser.mjs",
+      "buildErrorObserved": false,
+      "environment": "non-production branch preview, Vercel Hobby"
+    },
+    "signedInBrowserEndToEnd": "NOT TESTED: no authenticated browser execution under normal chat",
+    "fullNodeRegressionSuite": "NOT RUN: source repo not accessible locally to execute full test suite"
+  },
+  "protected": {
+    "mainPreviewAliasPromotion": false,
+    "productionDeployment": false,
+    "agencyRunsStarted": false,
+    "paidActions": false,
+    "manualWindowsInstall": false
+  },
+  "state": "read-only PC model UI routing compiled into Git branch preview, not declared complete live owner-device acceptance or general operational activation"
+}
