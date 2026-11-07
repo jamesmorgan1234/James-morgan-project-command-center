@@ -89,5 +89,28 @@
     "hypothesisRejected": "The three uncommitted exchanges are NOT explained by default Qwen thinking mode. No /no_think patch has been created or deployed.",
     "trace": "Each failed exchange passed activation-exchange-next and activation-exchange-current with HTTP 200, but lacked post-generation current, commit, and canonical readback. The worker emits only generic local failure events, so exact error class and raw model text remain unavailable from cloud.",
     "need": "A one-time $0 local Ollama strict-JSON reproduction with no downloads, credentials or Task changes is the minimal evidence needed before changing the installed worker."
+  },
+  "localDiagnostic20261107": {
+    "screenTimeLocal": "2026-11-07 around 03:27 EST",
+    "executionMode": "Read-only localhost Ollama /api/chat, no company build or network tool",
+    "targetProject": "project:company:future:004",
+    "sourceExchangeId": "020f6ec9-9405-48c7-9506-ad9e9e32941a",
+    "returnedExchangeId": "020f6ec9-9405-40c7-9506-ad9e9e32941a",
+    "identityMismatch": "8 replaced with 0 in fourth UUID group",
+    "durationSeconds": 307.8,
+    "done": true,
+    "doneReason": "stop",
+    "validJson": true,
+    "exactFields": false,
+    "outputBytesApprox": 381,
+    "serverLeaseSeconds": 150,
+    "workerLocalModelTimeoutSeconds": 120,
+    "findings": [
+      "A live local Qwen3 response was produced, but at least one immutable security identifier was changed.",
+      "Observed standalone local test lasted longer than current server claim lease; previous uncommitted claims are consistent with timing and identity failure but exact per-attempt error remains unknown.",
+      "Continue to enforce exact code-level identity/hash checks. Do not substitute model transcript for immutable canonical identity."
+    ],
+    "expectedSafetyState": "1 verified specialist exchange, 3 uncertain, 13 queued and guarded, 111 not queued, 128 earlier diagnostics and native artifact jobs preserved",
+    "recommendation": "Prepare focused activation-only fix with constrained structured outputs and a safely extended lease/model budget, independently test; do not unlock claim guard or reinstall blindly. Changes require explicit versioned installed-PC verification, no paid services or Work."
   }
 }
