@@ -1,5 +1,6 @@
 import { projectSpecialistBindings } from "../brain/specialist-readiness.js";
 import { invokeExecutionGateway, requestOwnerArtifactJob, readOwnerArtifactJob, cancelOwnerArtifactJob, type OwnerArtifactJobReceipt, type OwnerArtifactJobRequest } from "./execution-gateway.js";
+import { requestSafeReadOnlyTool, readSafeReadOnlyTool, cancelSafeReadOnlyTool, type SafeToolAction, type SafeToolJobReceipt } from "./safe-capability-gateway.js";
 import { preparedCompanyId, validateCompanyBuildStart, type CompanyBuildStartView } from "./company-build-start.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
@@ -49,6 +50,9 @@ export interface ProjectWorkspaceRuntimeProvider {
   requestOwnerArtifactJob?(request: OwnerArtifactJobRequest): Promise<OwnerArtifactJobReceipt>;
   readOwnerArtifactJob?(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt>;
   cancelOwnerArtifactJob?(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt>;
+  requestSafeReadOnlyTool?(projectId:string,actionKey:SafeToolAction,inputText:string,jobId?:string):Promise<SafeToolJobReceipt>;
+  readSafeReadOnlyTool?(projectId:string,jobId:string):Promise<SafeToolJobReceipt>;
+  cancelSafeReadOnlyTool?(projectId:string,jobId:string):Promise<SafeToolJobReceipt>;
 }
 export function isProjectWorkspaceRuntimeProvider(value: unknown): value is ProjectWorkspaceRuntimeProvider {
   if (!value || typeof value !== "object") return false;
@@ -459,6 +463,25 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
   async cancelOwnerArtifactJob(projectId: string, invocationId: string): Promise<OwnerArtifactJobReceipt> {
     const session = await this.#assertProject(projectId);
     return cancelOwnerArtifactJob({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,accessToken:session.accessToken,fetcher:this.#fetcher},projectId,invocationId);
+  }
+
+  /** Only explicit owner action can enqueue the two free read-only tools. */
+  async requestSafeReadOnlyTool(projectId:string,actionKey:SafeToolAction,inputText:string,jobId?:string):Promise<SafeToolJobReceipt>{
+    const session=await this.#assertProject(projectId);
+    return requestSafeReadOnlyTool({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,actionKey,inputText,jobId??this.#randomId());
+  }
+
+  async readSafeReadOnlyTool(projectId:string,jobId:string):Promise<SafeToolJobReceipt>{
+    const session=await this.#assertProject(projectId);
+    return readSafeReadOnlyTool({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,jobId);
+  }
+
+  async cancelSafeReadOnlyTool(projectId:string,jobId:string):Promise<SafeToolJobReceipt>{
+    const session=await this.#assertProject(projectId);
+    return cancelSafeReadOnlyTool({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,jobId);
   }
 
   async requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string> {
