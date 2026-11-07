@@ -1,0 +1,72 @@
+{
+  "schema": "cc-activation-first-wave-independently-verified-v1",
+  "verifiedAtUtc": "2026-11-07T09:01:07.535491+00:00",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+  "modelId": "qwen3:4b-instruct",
+  "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "nativePatch": {
+    "sourceCommit": "455748f30474951ab2e60dfb350f61aaff7908d0",
+    "sourceAudit": "clean-room/evidence/brain-activation/STRUCTURED_OUTPUT_LEASE_CORRECTION_READY_20261107.json",
+    "ownerPowerShell": "Activation-only modules updated in place and hashes verified. Same worker, credentials, model, and Task definition preserved.",
+    "activatedClientValidatedByRealModelAcknowledgements": true
+  },
+  "canonicalExchangeProofs": {
+    "completed": 14,
+    "independentlyVerified": 14,
+    "projects": [
+      "project:company:future:014",
+      "project:company:future:013",
+      "aro",
+      "project:company:future:003",
+      "crowdskein",
+      "project:company:future:006",
+      "project:company:future:007",
+      "fanvue-veyla",
+      "mini-movies",
+      "loopwren",
+      "coupon-autopilot",
+      "project:company:future:002",
+      "project:company:future:001",
+      "project:company:future:005"
+    ],
+    "checks": [
+      "parent hash verified against canonical central turn",
+      "input SHA256 recomputed",
+      "output SHA256 recomputed",
+      "model returned exact UUID, nonce, project, company and Brain key",
+      "worker/owner/model digest/fence/brain version matched",
+      "output JSON exact accepted=true, no company build and no paid usage",
+      "server-side canonical commit and independent readback true"
+    ],
+    "failureProjects": [],
+    "newUncertain": 0,
+    "historicalUncertain": [
+      "project:company:future:004",
+      "margincrafttools",
+      "edge-finder"
+    ],
+    "historicalUncertainStatePreserved": true
+  },
+  "preflightRemaining": {
+    "unstarted": 111,
+    "eligibleUnderExistingAuthority": 111,
+    "invalid": 0
+  },
+  "completedPrior128PcArtifactsPreserved": true,
+  "existingSevenAgencyStopsPreserved": true,
+  "generalBrainsEnabled": 0,
+  "generalToolBindings": 0,
+  "fullOperationalActivationNotClaimed": true,
+  "gateway": {
+    "boundedFirstTest": "supabase/migrations/20261107085300_pc_activation_one_shot_013_canary.sql",
+    "firstWave": "supabase/migrations/20261107085800_pc_activation_bounded_prequeued_wave.sql",
+    "functionSourceMd5": "97b3247f5921c1ca1031c74484922708",
+    "tenMinuteLease": true,
+    "failClosedIfNewUncertain": true,
+    "oneClaimAtATime": true,
+    "noOtherBusinessOperations": true
+  },
+  "next": "Safely queue the 111 never-before-claimed specialist bounded exchanges using the existing no-spend service under authoritative parent hash; admit with an exact pinned cohort, preserve 3 old uncertain and stop on first new uncertainty. Do not use completed diagnostic/artifact batches again; do not general-enable without executor/tool proof."
+}
