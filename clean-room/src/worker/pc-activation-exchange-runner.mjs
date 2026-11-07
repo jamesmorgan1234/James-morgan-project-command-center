@@ -59,7 +59,10 @@ export function createPcActivationExchangeRunner({transport,model,workerId,model
         const claim=await transport.next();
         if(claim===null)return {state:'idle',executed:false};
         exchangeId=claim?.saved?.exchangeId;
-        const s=validateActivationExchangeClaim(claim,{workerId,modelId,now:now()});
+        // The paired token is authenticated by the pinned gateway; a supplied local
+        // worker ID must also match the server-bound claim when available.
+        const boundWorkerId=workerId??claim?.saved?.workerId;
+        const s=validateActivationExchangeClaim(claim,{workerId:boundWorkerId,modelId,now:now()});
         await transport.assertCurrent(claim.lease);
         const expected={exchangeId:s.exchangeId,projectId:s.projectId,companyId:s.companyId,
           targetBrainKey:s.targetBrainKey,nonce:s.nonce,parentResponseHash:s.parentResponseHash,accepted:true,
@@ -77,7 +80,7 @@ export function createPcActivationExchangeRunner({transport,model,workerId,model
           Object.entries(expected).every(([k,v])=>parsed[k]===v),
           'exchange_model_response_scope_mismatch');
         await transport.assertCurrent(claim.lease);
-        const receipt={exchangeId:s.exchangeId,workerId,ownerId:s.ownerId,projectId:s.projectId,
+        const receipt={exchangeId:s.exchangeId,workerId:boundWorkerId,ownerId:s.ownerId,projectId:s.projectId,
           companyId:s.companyId,targetBrainKey:s.targetBrainKey,brainVersion:s.brainVersion,
           generation:claim.lease.generation,fencingToken:claim.lease.fencingToken,
           modelId:s.modelId,modelDigest:response.modelDigest,inputHash:s.inputHash,
