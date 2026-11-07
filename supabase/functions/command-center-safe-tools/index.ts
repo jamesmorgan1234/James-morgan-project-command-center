@@ -4,7 +4,7 @@ import {createClient} from "npm:@supabase/supabase-js@2.79.0";
 const URL_BASE=Deno.env.get('SUPABASE_URL')??'';
 const SERVICE=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'';
 const ANON=Deno.env.get('SUPABASE_ANON_KEY')??'';
-if(!URL_BASE.startsWith('https://gmlsucpwliegwlxymjvp.supabase.co')||!SERVICE||!ANON)throw Error('safe_tool_server_config_missing');
+if(new URL(URL_BASE).origin!=='https://gmlsucpwliegwlxymjvp.supabase.co'||!SERVICE||!ANON)throw Error('safe_tool_server_config_missing');
 const admin=createClient(URL_BASE,SERVICE,{auth:{persistSession:false,autoRefreshToken:false}});
 const ORIGINS=new Set(['https://command-center-preview-alpha.vercel.app','https://command-center-preview-crestven-holdings.vercel.app']);
 const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
@@ -79,6 +79,20 @@ Deno.serve(async request=>{
     rejectUnknown(input,['action','allowPaid','allowProtected','companyBuildAuthorized','jobId','projectId','actionKey','inputText']);
     if(!UUID.test(input.jobId??'')||typeof input.projectId!=='string'||typeof input.inputText!=='string'||input.inputText.length>16000
       ||!['code.js_syntax_check','research.public_docs_read'].includes(input.actionKey))throw fail('safe_job_invalid',400);
+    // Reject non-public research destinations before a job ever reaches Windows.
+    let body;try{body=JSON.parse(input.inputText)}catch{throw fail('safe_tool_input_invalid',400)}
+    if(!isObject(body))throw fail('safe_tool_input_invalid',400);
+    if(input.actionKey==='research.public_docs_read'){
+      let target;try{target=new URL(body.url)}catch{throw fail('docs_url_invalid',400)}
+      const roots={'developer.mozilla.org':'/en-US/docs/','nodejs.org':'/api/',
+        'docs.python.org':'/3/','www.w3.org':'/TR/','www.rfc-editor.org':'/rfc/'};
+      if(Object.keys(body).length!==1||target.protocol!=='https:'||target.port||target.username||
+         target.password||target.search||target.hash||!Object.hasOwn(roots,target.hostname)||
+         !target.pathname.startsWith(roots[target.hostname])||target.href.length>700)
+           throw fail('public_docs_scope_refused',403);
+    }else if(Object.keys(body).length!==1||typeof body.source!=='string'||body.source.length>12000){
+      throw fail('code_syntax_scope_refused',403);
+    }
     const receipt=checked(await owner.client.rpc('command_center_pc_safe_tool_enqueue',{
       p_job:input.jobId,p_project:input.projectId,p_action:input.actionKey,p_input:input.inputText
     }));
