@@ -1,0 +1,52 @@
+{
+  "schema": "cc-activation-exchange-live-reconciliation-v1",
+  "observedAt": "2026-11-07T07:29:46.792095Z",
+  "project": "COMMAND CENTER",
+  "branch": "build/spec-lock-v2-clean-room",
+  "installerReported": {
+    "sourceUpdated": true,
+    "localSelfTestPassed": true,
+    "taskDefinitionPreserved": true,
+    "workerCredentialsPreserved": true,
+    "source": "Owner-provided Windows PowerShell screenshots 2026-11-07 ~02:23 Eastern",
+    "nativeFileHashIndependentReadback": false
+  },
+  "worker": {
+    "id": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "enabled": true,
+    "revoked": false,
+    "cloudHeartbeatObserved": true,
+    "lastObservedAgeSeconds": 21.4
+  },
+  "firstExchange": {
+    "id": "ad34eea7-3e6f-4e5a-a686-8839c34a6126",
+    "projectId": "project:company:future:014",
+    "brainKey": "brain:company:future:014:v1",
+    "brainVersion": 2,
+    "parentTurnId": "c2d43d16-07e3-4ac6-97cd-8bcf5d7d5f83",
+    "parentHash": "73475cb40a568e8da8a045ced110137e159f890ac4da883b6b17dc651b3a8049",
+    "queuedAt": "2026-11-07T07:26:53.579321Z",
+    "state": "queued",
+    "fencingToken": 0,
+    "commitId": null,
+    "canonicalReadbackVerified": false,
+    "spendAuthorized": false,
+    "companyBuildStarted": false
+  },
+  "previouslyVerified": {
+    "specialistsRegistered": 128,
+    "diagnosticModelProofs": 128,
+    "artifactJobsCompleted": 128,
+    "agencyRunsStopped": 7
+  },
+  "runtimeObservation": "Cloud worker registration checks in and normal inference and artifact polling occurs at ~60-second cadence; no activation-exchange claim observed as of this checkpoint. Do not infer new installed code is loaded from installer success alone.",
+  "restrictions": [
+    "no new ZIP/download/re-pairing",
+    "no company builds, billing or subscription",
+    "preserve PC task/credentials",
+    "preserve completed artifact/diagnostic proofs",
+    "preserve P15.17/P15.18",
+    "do not mark 128 operational from registration or an unclaimed exchange"
+  ],
+  "remaining": "Establish that newly installed 16-file worker process is actually running and polling activation-exchange-next; reconcile local worker logs/version before repeating any installation. Then obtain canonical live specialist acknowledgement, verify hash/digest and persisted readback. Queue existing first exchange only once."
+}
