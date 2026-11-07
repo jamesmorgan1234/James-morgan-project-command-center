@@ -1,0 +1,65 @@
+{
+  "sourceCommit": "41f46935f8524c47355199ca02651b5d4ecc6dce",
+  "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+  "clientContract": "cc-pc-tools-v1",
+  "source": "clean-room/evidence/brain-activation/EXISTING_PC_CLIENT_IN_PLACE.ps1 embedded UPDATE_MANIFEST.json",
+  "evidence": "128 independently verified native PC artifact.write jobs and original installation evidence; local updater must read and match every current installed file before replacement",
+  "files": [
+    {
+      "path": "clean-room/src/worker/pc-worker-cli.mjs",
+      "sha256": "e826a8682ac955813ef287a296d494df13f8b334d5a21befe04c16febc08b615"
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-supervisor.mjs",
+      "sha256": "e066348f89aeaf61b8c33e3b3fecde4dd512bdd72ae2429a79695fb0d2123e8f"
+    },
+    {
+      "path": "clean-room/src/worker/pc-worker-transport.mjs",
+      "sha256": "572fd5f28efa9c65d59260de14a00faa0dec813f2beaa390b87827aff91758e0"
+    },
+    {
+      "path": "clean-room/src/brain/pc-local-ollama.mjs",
+      "sha256": "16c4a0c79a78a5103e06ec669610f18a9651900da4e799d2fbd819e4890d6994"
+    },
+    {
+      "path": "clean-room/src/brain/pc-owner-inference-worker.mjs",
+      "sha256": "eaff92020cae4a0e1155cbd20a8520de0818ce6e9d916478963a2c84721dae41"
+    },
+    {
+      "path": "clean-room/src/brain/pc-brain-readiness.mjs",
+      "sha256": "9aedb4292e97c768643c886ac853d72cc6514381eb2c9ebf4f77e3aed859d6e6"
+    },
+    {
+      "path": "clean-room/src/brain/pc-activation-contract.mjs",
+      "sha256": "674b9ef0f50b9898336785732218494e6aa538890d31a40989c46c1132202062"
+    },
+    {
+      "path": "clean-room/src/worker/pc-artifact-job-runner.mjs",
+      "sha256": "0d75969d549d51e5403e7d6e3ca7e381bed455d8bdc373f474c9ab668fdcbf13"
+    },
+    {
+      "path": "clean-room/src/worker/pc-tool-job-transport.mjs",
+      "sha256": "272f18beaff201edf173e91726d459ce507f5f404da95e5f8477ac3c7842e673"
+    },
+    {
+      "path": "clean-room/src/worker/pc-tool-execution-lane.mjs",
+      "sha256": "0bfa9aef34fefc0b9acbf0e6a3b067787556ce66f9addaa1debdfd6c8ad81fed"
+    },
+    {
+      "path": "clean-room/src/worker/pc-tool-journal.mjs",
+      "sha256": "45431510115657c42d98a9d5dc4ccedcead00f20f279f8d24a3ac37784d82ec0"
+    },
+    {
+      "path": "clean-room/src/worker/pc-project-file-tool.mjs",
+      "sha256": "1e17349eaddff1a416921ce78ec0d7f0e7065bcb2672ab2b377b0179d2a9956b"
+    },
+    {
+      "path": "clean-room/src/brain/tool-runtime.mjs",
+      "sha256": "ae16b8defb2fc3a5c5f5a702dc137140d8f408916c371eb6ddafb50e2fec5f03"
+    },
+    {
+      "path": "clean-room/src/brain/tool-access.mjs",
+      "sha256": "2f40b5d33c9a5bc466bbe588ff3eea67c6a3a055dceed17b5679d944d43bb7b4"
+    }
+  ]
+}
