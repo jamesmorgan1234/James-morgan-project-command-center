@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "3754a983f52248b640a2d2df51966c03fdd0eaa2",
+  "gitSha": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2322,
-  "inventoryDigest": "e0e4a4d0b34a0d9474e7902cfefc617ea4627a16c0740751a3b923e45b3ff510",
+  "reviewedFileCount": 2324,
+  "inventoryDigest": "4dcd81d3d045f5457dcf8bc1a734c98486feb3bab1d07c7b1f5d1d5f28a183be",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2323,
-    "reviewedFileCount": 2322,
+    "trackedFileCount": 2325,
+    "reviewedFileCount": 2324,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,7 +45,7 @@
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 258,
+      "EVID": 260,
       "APUB": 15,
       "SCRP": 149,
       "ASRC": 364,
@@ -689,7 +689,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 258,
+      "fileCount": 260,
       "roles": [
         "EVID"
       ]
@@ -3911,7 +3911,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "57994dfa7b33c23d93f83fdc9aa248bb9c9ef2443c87be3d2409ca85b1974f7f",
+      "sha256": "f3a7bd681c3a9a4bdf6762941a5784fc213b5c92d50f6f73daa44850e48f40c6",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3920,7 +3920,7 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "9d21f341eefe509e2f676212a24650d0476e836919b57373d96a7ae403ff3b66",
+      "sha256": "bab812d1db0329f2e8b84f5fe165255c8f30656634681536c6c862b0f7c43fe4",
       "bytes": 2027,
       "contentKind": "text",
       "findings": []
@@ -5096,6 +5096,15 @@
       "findings": []
     },
     {
+      "path": "clean-room/evidence/brain-activation/completed-artifact-job-verification.json",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "8ea6a42cd0b71c6d0cc66eff009955f7a444380a4fec07f0b1d3a85e2f67b39a",
+      "bytes": 58608,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
       "path": "clean-room/evidence/brain-activation/completed-diagnostic-verification.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
@@ -5117,8 +5126,8 @@
       "path": "clean-room/evidence/brain-activation/current-activation-results.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "6831751d34f85d36313a97fca232d4c9bccc46572e237ca30674c443a47f489c",
-      "bytes": 272671,
+      "sha256": "d50b20f5b203ae069c39d9ac2048b9168af42a2adb7c1c7efd784a6ff7218e50",
+      "bytes": 287742,
       "contentKind": "text",
       "findings": []
     },
@@ -5126,8 +5135,8 @@
       "path": "clean-room/evidence/brain-activation/current-activation-results.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "734f1349e175adbad9b7c0d5e716d5126217550aaded806e30e3903a83306a2e",
-      "bytes": 18027,
+      "sha256": "d84b8003a624469d236532373f4a7f714d38cd8a7e3aa865d5e0bd1595d5b4d1",
+      "bytes": 19208,
       "contentKind": "text",
       "findings": []
     },
@@ -5198,8 +5207,8 @@
       "path": "clean-room/evidence/brain-activation/inplace-update-verification.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "0ad89a52ef1a37a3a688936efe5dbc43af2a25fb4a841c6a51ee718933990b96",
-      "bytes": 1632,
+      "sha256": "cabf2d4fa2d771d2bb9186426b99658812a848f222eb8d6200347890eb6df72c",
+      "bytes": 1872,
       "contentKind": "text",
       "findings": []
     },
@@ -5387,8 +5396,8 @@
       "path": "clean-room/evidence/brain-activation/scope-checkpoint.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "7ce2167437e86bb100774228edc1192cbc0ad9e63c238c27fad865a389f63388",
-      "bytes": 6628,
+      "sha256": "c6f0f6d122e0a7cfad66c75c761e190e7fbaee6c67f377818454390e373d1c0a",
+      "bytes": 7156,
       "contentKind": "text",
       "findings": []
     },
@@ -5461,6 +5470,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "de50a80bc6f0e9d69c5671a3047e9a97430210626f847bcf7e1b6b86bb24f78d",
       "bytes": 3521,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/sql/verify-live-artifact-jobs.sql",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "689162aff42b7c0afafd8c1bc7ccebba31cf50f08940ab3a1835720c3065ecb3",
+      "bytes": 2995,
       "contentKind": "text",
       "findings": []
     },
@@ -5612,7 +5630,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "094947639aca2f203e4113196c5e84dead11d58343c4877f820b5572f2a1c301",
+      "sha256": "17564ab4c2c36a5f3871d0ab03d83d43ae0ca50ffa846dc4bc99c3825caf69c7",
       "bytes": 13204406,
       "contentKind": "text",
       "findings": []
@@ -5648,7 +5666,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "b3db27ed6112a29aa0a37c94e535619facfd283697ccba4b257c7440f823ab40",
+      "sha256": "185fc0edb99356f6d8aa9be155beb03179953552bd4fc29e9248c0cac1fc9e69",
       "bytes": 5330,
       "contentKind": "text",
       "findings": []
@@ -5657,7 +5675,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "d705a76b684cd62b4cd3ddd592189ac0b2f857e3773b22caf7e05474f345da2d",
+      "sha256": "8e8348b35828c4eb917c614eb1717f535973a61a40b87ada5cef84c3f903d0f1",
       "bytes": 3276,
       "contentKind": "text",
       "findings": []
