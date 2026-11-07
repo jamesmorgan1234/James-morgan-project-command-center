@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
+import {shouldQueuePcBrainResponse} from "../src/brain/pc-scoped-route.mjs";
 
 const gateway=readFileSync(new URL("../../supabase/functions/command-center-pc-worker/index.ts",import.meta.url),"utf8");
 const sql=readFileSync(new URL("../evidence/CC_UNIFIED_128_PC_READONLY_ROUTING_CANDIDATE.sql",import.meta.url),"utf8");
@@ -78,7 +79,12 @@ test("SQL candidate retains exact owner/project validation and read-only claim p
 test("client parser is expanded, but UI specialist execution stays closed",()=>{
  assert.match(app,/const validLegacy = \/\^\[a-z0-9\]\+\(\?:-\[a-z0-9\]\+\)\*\$\/u\.test\(projectId\)/);
  assert.match(app,/if \(!validFuture && !validLegacy\)/);
- assert.match(ui,/specialistReadiness\?\.\[projectId\] === "available"/);
+ assert.match(ui,/shouldQueuePcBrainResponse\\(/);
+ assert.match(ui,/snapshot\\.brain\\?\\.scopedReadOnlyModelVerifiedProjectIds/);
+ assert.equal(shouldQueuePcBrainResponse('project:company:future:004',['project:company:future:004'],{}),true);
+ assert.equal(shouldQueuePcBrainResponse('project:company:future:004',[],{'project:company:future:004':'available'}),true);
+ assert.equal(shouldQueuePcBrainResponse('project:company:future:004',[],{}),false);
+ assert.equal(shouldQueuePcBrainResponse('project:company:future:004',['project:company:future:005'],{}),false);
  assert.match(app,/specialistReadiness = projected\.readiness/);
  assert.match(app,/projectSpecialistBindings/);
 });
