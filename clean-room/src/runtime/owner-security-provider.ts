@@ -1,4 +1,5 @@
 import { invokeExecutionGateway } from "./execution-gateway.js";
+import {requestCloudPublicDocs,readCloudPublicDocs,type CloudPublicDocsReceipt} from "./cloud-public-docs-client.js";
 import { known, unknown } from "../data/canonical.js";
 import { classifyConversationIntent, type IntentClassification } from "../brain/conversation.js";
 import { SupabasePasskeyClient, type SupabasePasskeyDescriptor } from "../security/supabase-passkeys.js";
@@ -33,6 +34,8 @@ export interface BrainConversationRuntimeProvider {
   createBrainConversation(projectId: string | undefined, title: string): Promise<string>;
   recordBrainOwnerTurn(conversationId: string, text: string): Promise<BrainTurnWriteResult>;
   requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string>;
+  requestCloudPublicDocs?(projectId:string,url:string,jobId?:string):Promise<CloudPublicDocsReceipt>;
+  readCloudPublicDocs?(projectId:string,jobId:string):Promise<CloudPublicDocsReceipt>;
   decideBrainImprovement(improvementId: string, decision: "accepted" | "rejected"): Promise<void>;
   convertBrainImprovementToScopeRequest(improvement: RuntimeBrainImprovementProposal): Promise<string>;
 }
@@ -398,6 +401,18 @@ export class ManagedOwnerRuntimeProvider implements OwnerSecurityRuntimeProvider
     });
     if (!isRecord(receipt) || receipt.run_id !== runId || !["queued", "working", "needs_user", "blocked", "paused", "completed"].includes(String(receipt.state))) throw new Error("Start did not confirm a durable normal-chat run");
     return runId;
+  }
+
+  /** Exact owner-scoped, one-shot public documentation read; never a company execution. */
+  async requestCloudPublicDocs(projectId:string,url:string,jobId?:string):Promise<CloudPublicDocsReceipt>{
+    const session=await this.#assertProject(projectId);
+    return requestCloudPublicDocs({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,url,jobId??this.#randomId());
+  }
+  async readCloudPublicDocs(projectId:string,jobId:string):Promise<CloudPublicDocsReceipt>{
+    const session=await this.#assertProject(projectId);
+    return readCloudPublicDocs({supabaseUrl:this.#supabaseUrl,publishableKey:this.#publishableKey,
+      accessToken:session.accessToken,fetcher:this.#fetcher},projectId,jobId);
   }
 
   async requestBrainResponse(conversationId: string, ownerTurnId: string): Promise<string> {
