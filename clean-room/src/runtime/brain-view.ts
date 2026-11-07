@@ -466,6 +466,83 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
   return box;
 }
 
+/** Separate from the paired Windows-worker safe tools. Never starts a company run. */
+function cloudPublicDocPanel(projectId:string,provider:RuntimeSnapshotProvider|undefined):HTMLElement|undefined {
+ if(!provider||!isProjectWorkspaceRuntimeProvider(provider)||
+    !provider.requestCloudPublicDocs||!provider.readCloudPublicDocs)return undefined;
+ const box=card('brain-cloud-docs-status');
+ box.append(el('h2','section-title','FREE CLOUD PUBLIC DOCUMENTS'),
+   el('p','muted','Owner-triggered, allowlisted public documentation over the existing Supabase Free tier. No local PC update, browser agent, paid provider, company execution or general Brain permissions.'));
+ const label=document.createElement('label');
+ label.textContent='Public documentation HTTPS URL (approved technical documentation hosts only)';
+ const urlInput=document.createElement('input');
+ urlInput.type='url';urlInput.className='cc-input';urlInput.maxLength=700;
+ urlInput.value='https://www.rfc-editor.org/rfc/rfc2549.txt';
+ label.append(urlInput);
+ const status=el('p','brain-cloud-docs-status__message muted','No cloud documentation request has been made.');
+ const output=el('pre','brain-cloud-docs-status__excerpt');
+ output.setAttribute('aria-live','polite');
+ const actions=el('div','brain-overview__actions');
+ const start=el('button','cc-button cc-button--secondary','Read public docs using free cloud');
+ const refresh=el('button','cc-button cc-button--secondary','Check saved cloud receipt');
+ for(const btn of [start,refresh])btn.type='button';
+ const saved=new URLSearchParams(window.location.search).get('cloudDoc')??'';
+ let id=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(saved)?saved:'';
+ const busy=(v:boolean):void=>{
+   start.disabled=v;refresh.disabled=v;urlInput.disabled=v;
+ };
+ const render=(receipt:{state:string;executionVerified:boolean;readSucceeded:boolean;
+   result:Record<string,unknown>|null}):void=>{
+   output.textContent='';
+   if(receipt.state!=='completed'||receipt.executionVerified!==true) {
+     status.textContent='Cloud request not canonically completed. No research success claimed.';return;
+   }
+   const data=receipt.result;
+   if(!data||data.tool!=='research.public_docs_read'||
+      data.source!=='existing_supabase_cloud_read_only'||
+      data.executed!==false||data.paidUsageAuthorized!==false||
+      data.companyBuildStarted!==false||data.generalCompanyExecution!==false){
+     status.textContent='Cloud receipt content or authority did not match.';return;
+   }
+   if(receipt.readSucceeded===true&&data.readSucceeded===true&&
+     data.untrustedPublicContent===true&&data.status===200&&
+     typeof data.excerpt==='string'){
+     status.textContent='VERIFIED: Public documentation was retrieved and committed with an independently checked output hash.';
+     output.textContent='UNTRUSTED PUBLIC TEXT (never executed):\n'+data.excerpt.slice(0,4000);
+   } else if(data.readSucceeded===false){
+     status.textContent='Cloud attempt saved, but no public document was retrieved.';
+     output.textContent='Public documentation read unsuccessful ('+
+       (typeof data.errorCode==='string'?data.errorCode:'docs_cloud_unavailable')+').';
+   } else status.textContent='Saved cloud output was not a verified document retrieval.';
+ };
+ start.addEventListener('click',()=>{
+   if(urlInput.value.length>700||!urlInput.value.trim()){
+     status.textContent='Enter an approved HTTPS technical documentation URL.';return;
+   }
+   busy(true);output.textContent='';
+   status.textContent='Requesting one bounded, owner-authorized Free-tier cloud public-document read...';
+   void provider.requestCloudPublicDocs!(projectId,urlInput.value.trim()).then(receipt=>{
+     id=receipt.jobId;
+     const params=new URLSearchParams(window.location.search);
+     params.set('cloudDoc',id);
+     window.history.replaceState({},'',window.location.pathname+'?'+params);
+     return provider.readCloudPublicDocs!(projectId,id);
+   }).then(render).catch(()=>{
+     status.textContent='Cloud request or independent readback was not verified. No success recorded.';
+   }).finally(()=>busy(false));
+ });
+ refresh.addEventListener('click',()=>{
+   if(!id){status.textContent='No saved cloud document ID to check.';return;}
+   busy(true);status.textContent='Checking saved owner-restricted cloud receipt...';
+   void provider.readCloudPublicDocs!(projectId,id).then(render).catch(()=>{
+     status.textContent='Cloud receipt missing or mismatched. No success recorded.';
+   }).finally(()=>busy(false));
+ });
+ actions.append(start,refresh);
+ box.append(label,status,actions,output);
+ return box;
+}
+
 export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider: RuntimeSnapshotProvider | undefined, rerender: () => Promise<void>): HTMLElement {
   const section = el("section", "screen-stack brain-screen");
   const brain = snapshot.brain;
@@ -522,6 +599,8 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   if(projectId && scopedReadOnlyVerified.includes(projectId)){
     const safe= safeToolCheckPanel(projectId,provider);
     if(safe)section.append(safe);
+    const cloudDocs=cloudPublicDocPanel(projectId,provider);
+    if(cloudDocs)section.append(cloudDocs);
   }
   section.append(improvementsCenter(brain.improvements, projectId, provider, rerender));
 
