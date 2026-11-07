@@ -2,6 +2,7 @@ import type { RuntimeSnapshotProvider } from "./provider.js";
 import type { CommandCenterRuntimeSnapshot, RuntimeBrainConversation, RuntimeBrainConversationTurn, RuntimeBrainImprovementProposal, RuntimeBrainProjectWorkspace } from "./snapshot.js";
 import { isBrainConversationRuntimeProvider } from "./owner-security-provider.js";
 import { createDefaultBrowserVoiceRegistry, type BrowserVoiceCapture } from "./browser-voice.js";
+import { shouldQueuePcBrainResponse } from "../brain/pc-scoped-route.mjs";
 
 function el<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const node = document.createElement(tag);
@@ -332,7 +333,9 @@ function composer(
         window.history.replaceState({}, "", brainHref(projectId, conversationId));
         submit.textContent = "Waiting for Brain…";
         message.textContent = "Your message is saved. Requesting a Brain response…";
-        if (typeof provider.enqueuePcBrainResponse === "function" && (!projectId || snapshot.brain?.specialistReadiness?.[projectId] === "available")) {
+        if (typeof provider.enqueuePcBrainResponse === "function" && shouldQueuePcBrainResponse(
+          projectId, snapshot.brain?.scopedReadOnlyModelVerifiedProjectIds, snapshot.brain?.specialistReadiness
+        )) {
           const queued = await provider.enqueuePcBrainResponse(pendingResponse.conversationId, pendingResponse.turnId);
           if (!queued.requestId || !["queued", "claimed", "completed"].includes(queued.state)) throw new Error("The PC did not return a verified queue receipt");
           message.textContent = queued.state === "completed" ? "Response saved. Loading the conversation…" : "Your saved message is queued for your Windows PC.";
@@ -395,6 +398,13 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
     el("p", "brain-overview__scope", project ? `Project context: ${project.name}` : "Command Center-wide intelligence context"),
     el("p", "muted", `${brain.conversations.length} persistent conversation${brain.conversations.length === 1 ? "" : "s"} · ${brain.workspaces.length} durable project workspace${brain.workspaces.length === 1 ? "" : "s"} · ${brain.improvements.length} evidence-backed improvement proposal${brain.improvements.length === 1 ? "" : "s"}. Conversation itself never grants protected-action authority.`)
   );
+  // These are historical canonical diagnostic/model receipts, not general job readiness.
+  const scopedReadOnlyVerified = brain.scopedReadOnlyModelVerifiedProjectIds ?? [];
+  if (projectId && scopedReadOnlyVerified.includes(projectId)) {
+    overview.append(el("p", "muted", "Scoped local read-only Brain model verified. Messages can use the existing PC queue; general company execution, browser tools and deployments are not enabled by this evidence."));
+  } else if (!projectId && scopedReadOnlyVerified.length > 0) {
+    overview.append(el("p", "muted", `${scopedReadOnlyVerified.length} project-scoped read-only local model bindings have canonical evidence. General tool and executor activation is tracked separately.`));
+  }
   const actions = el("div", "brain-overview__actions");
   if (project) actions.append(routeLink("Back to project", `/project/${encodeURIComponent(project.id)}`, "cc-button cc-button--secondary", rerender));
   if (selected || scopedConversations.length > 0) actions.append(routeLink("New conversation", brainHref(projectId, undefined, true), "cc-button", rerender));
