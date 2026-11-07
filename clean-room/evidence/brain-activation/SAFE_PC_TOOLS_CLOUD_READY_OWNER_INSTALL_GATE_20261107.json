@@ -1,0 +1,94 @@
+{
+  "schema": "cc-safe-tool-cloud-and-installer-ready-v1",
+  "checkedUtc": "2026-11-07T12:56:46.267323Z",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "authority": "COMMAND CENTER owner authorized completion of existing activation and safe connections without Work or spending",
+  "preserved": {
+    "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "modelId": "qwen3:4b-instruct",
+    "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "boundedSpecialistExchangesCanonical": 128,
+    "specialistRegistered": 128,
+    "nativeArtifactJobsPreviouslyCompleted": 128,
+    "scopedLocalInferenceDiagnosticsPreviouslyVerified": 128,
+    "safeToolJobsCreated": 0,
+    "stoppedAgencyRuns": 7,
+    "generalCompanyExecutorEnabled": 0,
+    "generalToolBindings": 0,
+    "delegationTargets": 0,
+    "protectedProductionAliasesNotChanged": true,
+    "protectedP1517P1518Untouched": true
+  },
+  "cloud": {
+    "projectId": "gmlsucpwliegwlxymjvp",
+    "function": "command-center-safe-tools",
+    "version": 4,
+    "state": "ACTIVE",
+    "sourceCommit": "2cfdc288636d45e34ed122697bffd2b266172f44",
+    "deployedSourceExactGitHub": true,
+    "originAllowlist": [
+      "https://command-center-preview-alpha.vercel.app",
+      "https://command-center-preview-crestven-holdings.vercel.app",
+      "https://command-center-preview-d9ecu6ajm-crestven-holdings.vercel.app",
+      "https://command-center-preview-reh8c43xe-crestven-holdings.vercel.app"
+    ],
+    "userOwnerAuthRequired": true,
+    "existingWorkerTokenAndOwnerCheck": true,
+    "allowsOnly": [
+      "code.js_syntax_check",
+      "research.public_docs_read"
+    ],
+    "spendAllowed": false,
+    "companyBuildAllowed": false,
+    "protectedActionsAllowed": false,
+    "databaseSafeToolJobsTable": "public.command_center_pc_safe_tool_jobs",
+    "nativeSafeToolJobsCompleted": 0,
+    "registeredToolStatus": "degraded/pending real native receipt",
+    "registryMigration": "supabase/migrations/20261107130500_safe_pc_tools_pending_and_stale_executor_reconciliation.sql",
+    "registryMigrationApplied": true,
+    "historicalChatGPTTaskExecutorCorrectedToDegraded": true
+  },
+  "ui": {
+    "sourceCommit": "6f96799e72e34e2f7fefd1e98b465d15b56f6a68",
+    "deploymentId": "dpl_5ECC7ZqotqT2PSRU6f6JL8UgWSsZ",
+    "verifiedPreviewUrl": "https://command-center-preview-reh8c43xe-crestven-holdings.vercel.app",
+    "deploymentState": "READY",
+    "typescriptBuildAndBrowserBundle": "PASS",
+    "signedInOwnerBrowserEndToEnd": "NOT YET VERIFIED",
+    "safeActions": "Owner-edited JavaScript syntax-only check and allowlisted public-docs read; read saved canonical receipt and cancel queued only; public-docs output escaped as plain text",
+    "protectedMainAliasNotPromoted": true
+  },
+  "localInstaller": {
+    "path": "clean-room/evidence/brain-activation/UPDATE_EXISTING_PC_SAFE_TOOLS_IN_PLACE_20261107.ps1",
+    "commit": "2ea88a6d6891c06d272a9593fd0d100ac7c66f1f",
+    "sha256": "9eb4daa389da439333bd30dd088218d4f6679d851d6f309677ed8209f3cfbe19",
+    "bytes": 14989,
+    "pinnedSourceRevision": "3c7726755894c0f454fc5a073539faac91de467d",
+    "existing16SourceHashesPreflight": true,
+    "updatedExistingFiles": 2,
+    "newModulesAdded": 3,
+    "newModules": [
+      "pc-safe-tool-runner.mjs",
+      "pc-safe-tool-transport.mjs",
+      "pc-safe-readonly-tools.mjs"
+    ],
+    "sourcePinsIndependentlyMatched": 5,
+    "guardChecksPassed": 14,
+    "runnerLogicMockChecksPassed": 8,
+    "nativeOnOwnerWindows": "NOT YET EXECUTED",
+    "preflightRequiresSameWorkerAndTaskModelDigest": true,
+    "rollbackOnFailure": true,
+    "newScheduledTask": false,
+    "newDownloadZip": false,
+    "newPaidService": false,
+    "credentialsChanged": false
+  },
+  "openBoundaries": {
+    "ownerWindowsOperation": "One owner-run hash-verified temporary PowerShell command to update existing 16-file client in place, then independently check worker logs and canonical free safe-tool receipts. The normal chat cannot directly write to user filesystem.",
+    "ownerBrowserOperation": "Signed-in preview acceptance of editable read-only tool controls; no protected production alias promotion.",
+    "unsupported": "General company-job executor/browser automation/real code execution not installed or proven by this bounded safe-tool extension. Never mislabel 128 specialist Brains generally enabled.",
+    "payment": "No paid browser/agent service, subscription or trial authorized."
+  },
+  "nextAfterOwnerPatch": "Verify source hashes/run mode/heartbeat and safe-tool polling; queue or have owner trigger one exact no-spend local syntax and one public-docs canary; independently verify commit/readback and only then change those two tool availability states to available. Preserve seven stopped agency runs and 128 completed prior proofs. General executor remains a distinct future scoped build/test."
+}
