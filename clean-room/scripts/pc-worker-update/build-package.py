@@ -11,6 +11,8 @@ FILES = [
  'clean-room/src/brain/pc-brain-readiness.mjs',
  'clean-room/src/brain/pc-activation-contract.mjs',
  'clean-room/src/worker/pc-artifact-job-runner.mjs',
+ 'clean-room/src/worker/pc-activation-exchange-runner.mjs',
+ 'clean-room/src/worker/pc-activation-exchange-transport.mjs',
  'clean-room/src/worker/pc-tool-job-transport.mjs',
  'clean-room/src/worker/pc-tool-execution-lane.mjs',
  'clean-room/src/worker/pc-tool-journal.mjs',
@@ -20,7 +22,7 @@ FILES = [
 ]
 COMPILED = {f'clean-room/src/brain/{name}.mjs':ROOT/f'clean-room/dist/brain/{name}.js' for name in ['tool-runtime','tool-access']}
 TS_SOURCES = ['clean-room/src/brain/tool-runtime.ts','clean-room/src/brain/tool-access.ts']
-BASELINE = 'clean-room/evidence/brain-activation/installed-client-update-baseline.json'
+BASELINE = 'clean-room/evidence/brain-activation/installed-tool-client-baseline.json'
 def reviewed_payload(allow_working_tree=False):
     dirty = subprocess.check_output(['git','status','--porcelain','--',*FILES,*TS_SOURCES,BASELINE,str(HERE.relative_to(ROOT))],cwd=ROOT).decode().strip()
     if dirty and not allow_working_tree:
@@ -33,6 +35,10 @@ def reviewed_payload(allow_working_tree=False):
     contents['clean-room/src/brain/tool-runtime.mjs']=contents['clean-room/src/brain/tool-runtime.mjs'].replace(b'./tool-access.js',b'./tool-access.mjs')
     contents['clean-room/src/worker/pc-tool-execution-lane.mjs']=contents['clean-room/src/worker/pc-tool-execution-lane.mjs'].replace(b'../brain/tool-runtime.js',b'../brain/tool-runtime.mjs')
     recovered = json.loads((ROOT/BASELINE).read_text())
+    if len(FILES)!=16 or len(recovered['files'])!=14 or recovered['sourceCommit']!='41f46935f8524c47355199ca02651b5d4ecc6dce' or recovered['workerId']!='737f5e7c-3884-4c61-81ac-634bdfc4828f':
+        raise SystemExit('Exact installed 14-file tool-client baseline is required')
+    if not all(f['path'] in FILES and len(f['sha256'])==64 for f in recovered['files']):
+        raise SystemExit('Installed source manifest contains an invalid path or hash')
     manifest = dict(schema='cc-existing-pc-worker-update-v1',sourceCommit=head,
         candidateState='working-tree-unapproved' if dirty else 'source-committed',
         workerId='737f5e7c-3884-4c61-81ac-634bdfc4828f',
