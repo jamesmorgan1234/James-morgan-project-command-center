@@ -68,5 +68,25 @@
     "oneClaimAtATime": true,
     "noOtherBusinessOperations": true
   },
-  "next": "Safely queue the 111 never-before-claimed specialist bounded exchanges using the existing no-spend service under authoritative parent hash; admit with an exact pinned cohort, preserve 3 old uncertain and stop on first new uncertainty. Do not use completed diagnostic/artifact batches again; do not general-enable without executor/tool proof."
+  "next": "Existing PC worker to process 111 previously queued, exactly pinned activation-only acknowledgements without further owner action. Verify canonical receipts progressively. Stop new claims automatically on new uncertainty; preserve 3 old uncertain, 14 verified, 128 native artifacts. Do not claim full operational Brain activation, general tool bindings remain empty.",
+  "remainingBatchPrepared": {
+    "atUtc": "2026-11-07T09:04:33.301461Z",
+    "validated111PreviouslyUntouched": true,
+    "original14IndependentCanonicalProofs": true,
+    "queueCreation": "supabase/migrations/20261107090300_pc_activation_prequeue_remaining_111.sql",
+    "queueCommit": "a12f1a5d6065dbe4b6ba37a88530fbd0aa121116",
+    "queueRows": 111,
+    "boundedAdmission": "supabase/migrations/20261107090700_pc_activation_exact_111_bounded_admission.sql",
+    "boundedAdmissionCommit": "6eedf6dc47920fded652b686bc359445a819c26c",
+    "deployedRpcMd5": "7154595cbe3b696ec265b8f758ee5c59",
+    "queuePinnedByExactExchangeIds": true,
+    "noGeneralBrainEnable": true,
+    "oneAtATime": true,
+    "failClosedOnAnyAdditionalUncertain": true,
+    "allOriginallyCompletedArtifactJobsPreserved": true,
+    "workerOnline": true,
+    "claimStatusAtSnapshot": "111 queued, none claimed; no new result claimed yet",
+    "additionalCostAuthorized": false,
+    "companyBuildAuthorized": false
+  }
 }
