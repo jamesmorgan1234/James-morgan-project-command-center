@@ -6,7 +6,7 @@ const SERVICE=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')??'';
 const ANON=Deno.env.get('SUPABASE_ANON_KEY')??'';
 if(new URL(URL_BASE).origin!=='https://gmlsucpwliegwlxymjvp.supabase.co'||!SERVICE||!ANON)throw Error('safe_tool_server_config_missing');
 const admin=createClient(URL_BASE,SERVICE,{auth:{persistSession:false,autoRefreshToken:false}});
-const ORIGINS=new Set(['https://command-center-preview-alpha.vercel.app','https://command-center-preview-crestven-holdings.vercel.app','https://command-center-preview-d9ecu6ajm-crestven-holdings.vercel.app']);
+const ORIGINS=new Set(['https://command-center-preview-alpha.vercel.app','https://command-center-preview-crestven-holdings.vercel.app','https://command-center-preview-d9ecu6ajm-crestven-holdings.vercel.app','https://command-center-preview-reh8c43xe-crestven-holdings.vercel.app']);
 const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
 const TOKEN=/^ccpc_[a-f0-9]{64}$/;
 const ACTIONS=new Set(['safe-start','safe-status','safe-cancel','worker-next','worker-current','worker-commit','worker-readback']);
