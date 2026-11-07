@@ -1,0 +1,60 @@
+{
+  "schema": "command-center-specialist-bounded-exchange-final-audit-v1",
+  "verifiedAtUtc": "2026-11-07T09:50:23.81252+00:00",
+  "scope": "existing 128 specialist brains; bounded Command Center parent-to-local-model acceptance only",
+  "sourceOfTruth": {
+    "supabaseProject": "gmlsucpwliegwlxymjvp",
+    "exchangeTable": "public.command_center_pc_activation_exchanges",
+    "liveStatusView": "public.command_center_activation_live_summary_v1",
+    "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+    "model": "qwen3:4b-instruct",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0"
+  },
+  "verified": {
+    "total": 128,
+    "fullyIndependentCanonicalReadback": 128,
+    "invalidProjects": [],
+    "fenceOne": 125,
+    "fenceTwo": 3,
+    "queuedClaimedUncertain": 0,
+    "forensicHistoricalAuditRows": 3,
+    "stoppedAgencyRunsPreserved": 7,
+    "artifactJobsEarlierVerified": 128
+  },
+  "reconciliation": [
+    {
+      "project": "project:company:future:004",
+      "fence": 2
+    },
+    {
+      "project": "edge-finder",
+      "fence": 2
+    },
+    {
+      "project": "margincrafttools",
+      "fence": 2
+    }
+  ],
+  "checks": [
+    "exact parent response SHA matches immutable parent turn",
+    "input SHA recomputed",
+    "output SHA recomputed",
+    "output parses to exact accepted identity and guard JSON",
+    "worker/owner/project/company/brain/model/version/digest/fence/generation identity exact",
+    "paidUsageAuthorized=false",
+    "companyBuildStarted=false",
+    "generalToolsExecuted=false",
+    "actual canonical readback returns receipt canonicalCommitVerified=true",
+    "all 128 commit IDs and timestamps persist",
+    "original three first-fence rows preserved in private audit"
+  ],
+  "notClaimed": [
+    "general specialist enabled or healthy",
+    "general browser, web research, coding or execution",
+    "external service or account connections",
+    "company builds or publishing",
+    "protected production acceptance P15.17–P15.18"
+  ],
+  "status": "bounded activation handshakes fully complete; actual general Brain/tool/job-executor activation still pending",
+  "cost": "$0; no spend-authorized"
+}
