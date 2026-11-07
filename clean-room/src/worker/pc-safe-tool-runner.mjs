@@ -6,6 +6,8 @@ import {executePcSafeReadOnly} from './pc-safe-readonly-tools.mjs';
 const sha=s=>createHash('sha256').update(s).digest('hex');
 const ensure=(ok,code)=>{if(!ok)throw Error(code)};
 const WORKER_ID='737f5e7c-3884-4c61-81ac-634bdfc4828f';
+const UUID=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i;
+const canonical=value=>value===null||typeof value!=='object'?JSON.stringify(value):Array.isArray(value)?'['+value.map(canonical).join(',')+']':'{'+Object.keys(value).sort().map(key=>JSON.stringify(key)+':'+canonical(value[key])).join(',')+'}';
 export function createPcSafeToolRunner({workerToken,fetcher=fetch,transport=null,execute=executePcSafeReadOnly}={}){
  const channel=transport??createPcSafeToolTransport({workerToken,fetcher});
  ensure(typeof execute==='function','safe_tool_execute_missing');
@@ -48,8 +50,8 @@ export function createPcSafeToolRunner({workerToken,fetcher=fetch,transport=null
     const receipt=await channel.readback(lease);
     ensure(receipt?.state==='completed'&&receipt?.canonicalCommitVerified===true&&
       receipt?.jobId===id&&receipt?.fencingToken===lease.fencingToken&&
-      /^[a-f0-9]{8}-[a-f0-9-]{27,}$/.test(receipt?.commitId??'')&&
-      JSON.stringify(receipt.result)===JSON.stringify(result),
+      UUID.test(receipt?.commitId??'')&&
+      canonical(receipt.result)===canonical(result),
       'safe_tool_canonical_readback_mismatch');
     return Object.freeze({state:'verified_safe_tool_job',jobId:id,actionKey:saved.actionKey,
       canonicalCommitVerified:true,companyBuildExecuted:false,paidUsageAuthorized:false});
