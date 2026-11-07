@@ -1,0 +1,50 @@
+{
+  "schema": "cc-activation-existing-pc-worker-live-wave-v1",
+  "verifiedAtUtc": "2026-11-07T09:06:28.102018Z",
+  "repository": "jamesmorgan1234/James-morgan-project-command-center",
+  "branch": "build/spec-lock-v2-clean-room",
+  "controlPlane": "COMMAND CENTER",
+  "workerId": "737f5e7c-3884-4c61-81ac-634bdfc4828f",
+  "machine": "existing owner native Windows worker; no second installation",
+  "model": "qwen3:4b-instruct",
+  "modelDigest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+  "proofs": {
+    "completedCanonicalExchanges": 16,
+    "independentlyVerifiedCanonicalExchanges": 16,
+    "canonicalReadbackVerified": 16,
+    "identityAndHashesVerified": 16,
+    "failedIndependentReadback": 0,
+    "historicalUncertain": 3,
+    "newUncertainAfterNativeCorrection": 0,
+    "currentlyQueued": 108,
+    "oldVerifiedArtifactJobs": 128,
+    "oldDiagnosticVerified": 128,
+    "registeredSpecialists": 128,
+    "commandCenterIncludedTotal": 129
+  },
+  "deployed": {
+    "structuredJsonSourceCommit": "455748f30474951ab2e60dfb350f61aaff7908d0",
+    "nativeUserVerification": "PowerShell reported source modules updated in place and hashes verified; no credential/Task changes",
+    "backendLeaseSeconds": 600,
+    "guardOneClaimAtATime": true,
+    "guardStopsWhenHistoricalUncertainCountIncreasesBeyondThree": true,
+    "guardPinsExact111NewExchangeIds": true,
+    "admissionSql": "supabase/migrations/20261107090700_pc_activation_exact_111_bounded_admission.sql",
+    "admissionCommit": "6eedf6dc47920fded652b686bc359445a819c26c",
+    "currentRpcMd5": "7154595cbe3b696ec265b8f758ee5c59"
+  },
+  "boundaries": {
+    "companyBuildExecution": false,
+    "paidServices": false,
+    "workCodex": false,
+    "newWorker": false,
+    "rePairing": false,
+    "productionP1517P1518Untouched": true,
+    "generalBrainsEnabled": 0,
+    "generalToolBindings": 0,
+    "agencyStoppedRunsPreserved": 7
+  },
+  "liveWorker": "Supabase heartbeats current and activation-exchange-next/current/commit/readback requests confirmed",
+  "next": "Existing Task continues 111 previously queued activation-only acknowledgements autonomously, one at a time. Independently verify completed receipts in Supabase; if an additional uncertain exchange appears, existing circuit breaker stops next claims. Keep old three uncertain until separately reconciled. Not full project-operation activation; browser/research/coding and hosted executor still not verified in app.",
+  "notOwnerAction": "Do not ask for more ZIPs, PowerShell windows, installers or restarts; user may minimize open diagnostics."
+}
