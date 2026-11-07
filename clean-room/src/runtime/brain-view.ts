@@ -1,6 +1,6 @@
 import type { RuntimeSnapshotProvider } from "./provider.js";
 import type { CommandCenterRuntimeSnapshot, RuntimeBrainConversation, RuntimeBrainConversationTurn, RuntimeBrainImprovementProposal, RuntimeBrainProjectWorkspace } from "./snapshot.js";
-import { isBrainConversationRuntimeProvider } from "./owner-security-provider.js";
+import { isBrainConversationRuntimeProvider, isProjectWorkspaceRuntimeProvider } from "./owner-security-provider.js";
 import { createDefaultBrowserVoiceRegistry, type BrowserVoiceCapture } from "./browser-voice.js";
 import { shouldQueuePcBrainResponse } from "../brain/pc-scoped-route.mjs";
 
@@ -357,6 +357,60 @@ function composer(
   return node;
 }
 
+/** Owner-triggered diagnostic only; no general company operation or model-granted tool permission. */
+function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|undefined):HTMLElement|undefined {
+  if(!provider||!isProjectWorkspaceRuntimeProvider(provider)||
+     !provider.requestSafeReadOnlyTool||!provider.readSafeReadOnlyTool||!provider.cancelSafeReadOnlyTool)return undefined;
+  const box=card('brain-safe-tool-status');
+  box.append(el('h2','section-title','FREE READ-ONLY TOOL CHECK'),
+    el('p','muted','Uses the existing PC worker only. Checks JavaScript syntax or public documentation. Neither check executes company work, installs software, opens signed-in browser tabs or grants general Brain tool permissions.'));
+  const status=el('p','brain-safe-tool-status__message muted','No safe-tool check has been started for this project in this view.');
+  const actions=el('div','brain-overview__actions');
+  const code=el('button','cc-button cc-button--secondary','Check JS syntax');
+  const docs=el('button','cc-button cc-button--secondary','Check public docs');
+  const refresh=el('button','cc-button cc-button--secondary','Check saved result');
+  const cancel=el('button','cc-button cc-button--secondary','Cancel if queued');
+  for(const btn of [code,docs,refresh,cancel])btn.type='button';
+  const savedJob=new URLSearchParams(window.location.search).get('safeJob')??'';
+  let id=/^[a-f0-9]{8}-[a-f0-9]{4}-[1-8][a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(savedJob)?savedJob:'';
+  const busy=(v:boolean):void=>{for(const btn of [code,docs,refresh,cancel])btn.disabled=v;};
+  const keepId=(value:string):void=>{
+    id=value;const params=new URLSearchParams(window.location.search);
+    params.set('safeJob',value);window.history.replaceState({},'',window.location.pathname+'?'+params);
+  };
+  const run=(action:'code.js_syntax_check'|'research.public_docs_read',inputText:string):void=>{
+    busy(true);status.textContent='Submitting one owner-approved free read-only check...';
+    void provider.requestSafeReadOnlyTool!(projectId,action,inputText).then(receipt=>{
+      keepId(receipt.jobId);
+      status.textContent='Saved check: '+receipt.state.toUpperCase()+'. Queue admission is not execution. Check saved result to verify the actual PC receipt.';
+    }).catch(()=>{status.textContent='The safe-tool request was not verified. No result was claimed.';})
+      .finally(()=>busy(false));
+  };
+  code.addEventListener('click',()=>run('code.js_syntax_check',JSON.stringify({source:'const commandCenterSyntaxCheck = 42;'})));
+  docs.addEventListener('click',()=>run('research.public_docs_read',JSON.stringify({url:'https://nodejs.org/api/fs.html'})));
+  refresh.addEventListener('click',()=>{
+    if(!id){status.textContent='No saved check ID in this project view.';return;}
+    busy(true);status.textContent='Checking the canonical owner-scoped receipt...';
+    void provider.readSafeReadOnlyTool!(projectId,id).then(receipt=>{
+      status.textContent=receipt.state==='completed'&&receipt.executionVerified===true?
+        'COMPLETED: exact project, commit and output hash independently checked. This confirms only the free read-only tool action.':
+        'Saved state: '+receipt.state.toUpperCase()+'. No completed execution proof yet.';
+    }).catch(()=>{status.textContent='Saved proof unavailable or mismatched. No success recorded.';})
+      .finally(()=>busy(false));
+  });
+  cancel.addEventListener('click',()=>{
+    if(!id){status.textContent='No saved check ID to cancel.';return;}
+    busy(true);
+    void provider.cancelSafeReadOnlyTool!(projectId,id).then(receipt=>{
+      status.textContent='Saved state: '+receipt.state.toUpperCase()+'. A completed result is never erased by cancellation.';
+    }).catch(()=>{status.textContent='Cancellation not verified. Existing job state was not assumed.';})
+      .finally(()=>busy(false));
+  });
+  actions.append(code,docs,refresh,cancel);
+  box.append(status,actions);
+  return box;
+}
+
 export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider: RuntimeSnapshotProvider | undefined, rerender: () => Promise<void>): HTMLElement {
   const section = el("section", "screen-stack brain-screen");
   const brain = snapshot.brain;
@@ -409,7 +463,12 @@ export function renderBrainView(snapshot: CommandCenterRuntimeSnapshot, provider
   if (project) actions.append(routeLink("Back to project", `/project/${encodeURIComponent(project.id)}`, "cc-button cc-button--secondary", rerender));
   if (selected || scopedConversations.length > 0) actions.append(routeLink("New conversation", brainHref(projectId, undefined, true), "cc-button", rerender));
   overview.append(actions);
-  section.append(overview, improvementsCenter(brain.improvements, projectId, provider, rerender));
+  section.append(overview);
+  if(projectId && scopedReadOnlyVerified.includes(projectId)){
+    const safe= safeToolCheckPanel(projectId,provider);
+    if(safe)section.append(safe);
+  }
+  section.append(improvementsCenter(brain.improvements, projectId, provider, rerender));
 
   if (requestedConversationId && !selected && !forceNew) {
     section.append(emptyState("Conversation scope mismatch", "The requested conversation is not available inside the current project scope. Command Center did not substitute another conversation.", "unavailable"));
