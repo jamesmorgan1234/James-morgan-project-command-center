@@ -1,22 +1,33 @@
-COMMAND CENTER - existing Windows worker update source
+COMMAND CENTER - existing Windows worker in-place activation-exchange update
 
-No additional owner ZIP download or extraction workflow is requested.
-The package builder is retained for automated payload/hash verification.
+This is a continuation of the already-installed worker, not new enrollment,
+re-pairing, or the completed 128 artifact.write verification batch.
 
-The candidate preserves the existing paired worker, encrypted credentials,
-local Ollama model, and Scheduled Task definition. It adds an artifact-job
-lane to the existing process. Ordinary owner inference retains priority.
-Artifact jobs require explicit authenticated owner admission for the exact
-project, account partition, action, immutable input, and paired worker.
-They cannot run arbitrary shell commands or start company builds.
+The committed previous installer (EXISTING_PC_CLIENT_IN_PLACE.ps1) embeds the
+exact 14-file source manifest from commit 41f46935f8524c47355199ca02651b5d4ecc6dce.
+Its hashes are preserved in evidence/brain-activation/installed-tool-client-baseline.json.
+The updater must match every one of these prior 14 installed hashes before
+changing a file; a mismatch stops without overwriting the installation.
 
-The updater checks the exact previously installed 3dd050c9 source baseline,
-tests local inference before stopping the worker, backs up code only, and
-restores changed files on failure. It does not change execution policy,
-re-pair, enable a stopped Task, read credential files, or authorize spending.
+This update adds only two activation-exchange client modules to the existing
+16-file source payload. Existing owner inference and scoped PC artifact jobs
+remain available; ordinary owner messages keep priority. The activation exchange
+requires a canonical COMMAND CENTER parent response, registered specialist
+target, exact owner/project/company/model version, zero spend, fencing and
+independent persisted hash readback. It cannot execute a business workflow or
+grant general browser/research/coding/account permissions.
 
-This source is not evidence of installation or full Brain activation.
-The present Work session has no Windows OS execution/control connection.
-A real authenticated device installation path is required before live PC
-tool checks. Browser/research/coding/account integrations require their own
-actual handlers, exact permissions, and live verification.
+The existing Windows updater checks every payload SHA256, Node syntax, exact
+worker identity, enabled/running original Task, local Ollama and model digest
+before stopping anything. It backs up existing code, uses the original Task,
+restores changed files on error, and does not touch worker token/pairing.
+The self-contained installer does not require ZIP/extraction and removes staging.
+
+Source commit, packaging integrity, independent tests, native Windows
+installation and backend result proofs are SEPARATE evidence gates. Until the
+real PC updates and a canonical specialist receipt is saved/read back, no live
+agent exchange or new fully operational Brain is claimed.
+
+Browser/research/coding/account runtimes still require their own installed
+handlers, explicit zero-cost authorization, and live independent verification.
+Preserve all seven stopped Agency runs and P15.17/P15.18 release exclusions.
