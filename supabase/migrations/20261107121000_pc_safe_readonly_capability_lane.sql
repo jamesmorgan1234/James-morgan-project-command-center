@@ -44,8 +44,7 @@ begin
   if p_job is null or p_project is null or length(p_project)>240
       or p_action not in ('code.js_syntax_check','research.public_docs_read')
       or p_input is null or length(p_input)>16000 then raise exception 'safe_tool_request_invalid'; end if;
-  if encode(public.digest(convert_to(p_input,'UTF8'),'sha256'),'hex') is null then raise exception 'digest_unavailable';end if;
-  digest_hex:=encode(public.digest(convert_to(p_input,'UTF8'),'sha256'),'hex');
+  digest_hex:=encode(sha256(convert_to(p_input,'UTF8')),'hex');
   if left(trim(p_input),1)<>'{' or jsonb_typeof(p_input::jsonb)<>'object' then raise exception 'safe_tool_input_invalid';end if;
   if p_action='code.js_syntax_check' then
     if (p_input::jsonb-'source')<>'{}'::jsonb
@@ -116,7 +115,6 @@ begin
    where owner_id=p_owner and worker_id=p_worker and enabled and revoked_at is null)
  then raise exception 'worker_not_authorized';end if;
  if p_action='next' then
-   -- Serialize next/claim per paired worker, even if two pollers start at once.
    perform pg_advisory_xact_lock(hashtextextended('cc-pc-safe-tool:'||p_worker::text,0));
    update public.command_center_pc_safe_tool_jobs set state='uncertain'
     where owner_id=p_owner and worker_id=p_worker and state='claimed' and lease_expires_at<=now();
@@ -169,30 +167,7 @@ begin
       or p_result->>'generation'<>'1'
       or jsonb_typeof(p_result->'outputText') IS DISTINCT FROM 'string'
       or jsonb_typeof(p_result->'outputHash') IS DISTINCT FROM 'string'
-      or p_result->>'outputHash' !~ '^[a-f0-9]{64}
-      or p_result->'companyBuildStarted'<>'false'::jsonb
-      or p_result->'generalCompanyExecution'<>'false'::jsonb
-      or length(p_result->>'outputText')>120000
-      or p_result->>'outputHash'<>encode(public.digest(convert_to(p_result->>'outputText','UTF8'),'sha256'),'hex')
-      then raise exception 'safe_tool_result_invalid';end if;
-   commit_uuid:=gen_random_uuid();
-   update public.command_center_pc_safe_tool_jobs
-     set state='completed',result=p_result,commit_id=commit_uuid,completed_at=now()
-     where job_id=j.job_id and state='claimed' and fence=j.fence;
-   if not found then raise exception 'safe_tool_commit_race';end if;
-   return jsonb_build_object('committed',true,'commitId',commit_uuid);
- end if;
- if p_action='readback' then
-   return jsonb_build_object('jobId',j.job_id,'state',j.state,'fencingToken',j.fence,
-     'commitId',j.commit_id,'result',j.result,'canonicalCommitVerified',
-      j.state='completed' and j.commit_id is not null and j.completed_at is not null
-      and j.result->>'outputHash'=encode(public.digest(convert_to(j.result->>'outputText','UTF8'),'sha256'),'hex'));
- end if;
- raise exception 'safe_tool_action_invalid';
-end $func$;
-revoke all on function public.command_center_pc_safe_tool_worker_service(uuid,uuid,text,uuid,bigint,jsonb) from public,anon,authenticated;
-grant execute on function public.command_center_pc_safe_tool_worker_service(uuid,uuid,text,uuid,bigint,jsonb) to service_role;
-
+      or p_result->>'outputHash' !~ '^[a-f0-9]{64}$'
       or (p_result - array['jobId','ownerId','workerId','projectId','companyId','brainKey',
           'brainVersion','actionKey','toolVersion','inputHash','fencingToken','generation',
           'outputText','outputHash','paidUsageAuthorized','companyBuildStarted',
@@ -201,7 +176,7 @@ grant execute on function public.command_center_pc_safe_tool_worker_service(uuid
       or p_result->'companyBuildStarted'<>'false'::jsonb
       or p_result->'generalCompanyExecution'<>'false'::jsonb
       or length(p_result->>'outputText')>120000
-      or p_result->>'outputHash'<>encode(public.digest(convert_to(p_result->>'outputText','UTF8'),'sha256'),'hex')
+      or p_result->>'outputHash'<>encode(sha256(convert_to(p_result->>'outputText','UTF8')),'hex')
       then raise exception 'safe_tool_result_invalid';end if;
    commit_uuid:=gen_random_uuid();
    update public.command_center_pc_safe_tool_jobs
@@ -214,7 +189,7 @@ grant execute on function public.command_center_pc_safe_tool_worker_service(uuid
    return jsonb_build_object('jobId',j.job_id,'state',j.state,'fencingToken',j.fence,
      'commitId',j.commit_id,'result',j.result,'canonicalCommitVerified',
       j.state='completed' and j.commit_id is not null and j.completed_at is not null
-      and j.result->>'outputHash'=encode(public.digest(convert_to(j.result->>'outputText','UTF8'),'sha256'),'hex'));
+      and j.result->>'outputHash'=encode(sha256(convert_to(j.result->>'outputText','UTF8')),'hex'));
  end if;
  raise exception 'safe_tool_action_invalid';
 end $func$;
