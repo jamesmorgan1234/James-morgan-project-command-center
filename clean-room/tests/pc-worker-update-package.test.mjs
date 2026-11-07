@@ -11,13 +11,13 @@ test('worker update archive contains exactly the scoped source payload, helper a
  try{
   const output=join(dir,'worker.zip');
   const built=JSON.parse(execFileSync('python',['scripts/pc-worker-update/build-package.py',output,'--allow-working-tree'],{encoding:'utf8'}));
-  assert.equal(built.files,18);
+  assert.equal(built.files,20);
   const inspected=JSON.parse(execFileSync('python',['-c',`import zipfile,json,hashlib,sys,re,posixpath
 with zipfile.ZipFile(sys.argv[1]) as z:
  m=json.loads(z.read('UPDATE_MANIFEST.json')); names=z.namelist()
  assert z.testzip() is None
  for f in m['files']: assert hashlib.sha256(z.read('payload/'+f['path'])).hexdigest()==f['sha256']
- assert len(names)==len(set(names))==18
+ assert len(names)==len(set(names))==20
  assert all(not x.startswith('/') and '..' not in x.split('/') for x in names)
  paths={f['path'] for f in m['files']}
  for f in m['files']:
@@ -26,11 +26,14 @@ with zipfile.ZipFile(sys.argv[1]) as z:
    if ref.startswith('.'): assert posixpath.normpath(posixpath.join(posixpath.dirname(f['path']),ref)) in paths, (f['path'],ref)
  print(json.dumps({'names':names,'manifest':m}))`,output],{encoding:'utf8'}));
   assert.equal(inspected.manifest.workerId,'737f5e7c-3884-4c61-81ac-634bdfc4828f');
-  assert.equal(inspected.manifest.installedBaselineCommit,'3dd050c9be98407e0640a38742b540598557a84f');
-  assert.equal(inspected.manifest.files.length,14);assert.equal(inspected.manifest.originalFiles.length,7);
+  assert.equal(inspected.manifest.installedBaselineCommit,'41f46935f8524c47355199ca02651b5d4ecc6dce');
+  assert.equal(inspected.manifest.files.length,16);assert.equal(inspected.manifest.originalFiles.length,14);
   const allowed=[...script.match(/\$allowedPaths=@\(([\s\S]*?)\)/)[1].matchAll(/'([^']+)'/g)].map(m=>m[1]);
   assert.deepEqual([...allowed].sort(),inspected.manifest.files.map(f=>f.path).sort());
-  assert.match(script,/@\(\$manifest\.files\)\.Count -ne 14/);
+  assert.match(script,/@\(\$manifest\.files\)\.Count -ne 16/);
+  assert.match(script,/@\(\$manifest\.originalFiles\)\.Count -ne 14/);
+  assert.ok(inspected.manifest.files.some(f=>f.path.endsWith('/pc-activation-exchange-runner.mjs')));
+  assert.ok(inspected.manifest.files.some(f=>f.path.endsWith('/pc-activation-exchange-transport.mjs')));
   assert.equal(inspected.manifest.spendingAuthorized,false);assert.equal(inspected.manifest.companyBuildAuthorized,false);
   assert.ok(inspected.names.every(n=>!/(dpapi|worker-id\.txt|token-digest|pairing_request|worker-events|node_modules)/i.test(n)));
   if(inspected.manifest.candidateState==='working-tree-unapproved'){
