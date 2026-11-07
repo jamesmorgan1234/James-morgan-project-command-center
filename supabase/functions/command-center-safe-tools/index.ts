@@ -104,7 +104,7 @@ Deno.serve(async request=>{
   if(input.action==='safe-cancel'){
     const result=checked(await owner.client.rpc('command_center_pc_safe_tool_cancel',{p_job:input.jobId}));
     if(result?.jobId!==input.jobId)throw fail('cancel_receipt_invalid',503);
-    return reply(result);
+    return reply({...result,paidUsageAuthorized:false,companyBuildStarted:false});
   }
   const row=checked(await owner.client.from('command_center_pc_safe_tool_jobs')
     .select('job_id,project_id,company_id,worker_id,action_key,state,fence,commit_id,completed_at,result')
