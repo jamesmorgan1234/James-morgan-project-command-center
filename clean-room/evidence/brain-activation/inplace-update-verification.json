@@ -55,16 +55,22 @@
     "fail": 0
   },
   "liveActivationAdmission": {
-    "queued": 128,
+    "queued": 0,
     "admitted": 128,
-    "completed": 0,
-    "observedAt": "2026-11-06T20:48:04.9367+00:00",
+    "completed": 128,
+    "observedAt": "2026-11-06T21:11:55.168297+00:00",
     "companyBuildsStarted": false,
     "paidActionsAuthorized": false,
-    "operatorAdmissionDistinctFromOwnerJwt": true
+    "operatorAdmissionDistinctFromOwnerJwt": true,
+    "claimed": 0,
+    "uncertain": 0,
+    "independentlyVerified": 128
   },
-  "nativeWindowsVerified": false,
+  "nativeWindowsVerified": true,
   "fullActivationClaimed": false,
   "temporaryStagingCleanedInSuccessAndFailure": true,
-  "ownerCredentialFilesReadByUpdater": false
+  "ownerCredentialFilesReadByUpdater": false,
+  "nativeWindowsRuntimeVerified": true,
+  "nativeWindowsEvidence": "completed-artifact-job-verification.json",
+  "nativeInstallerCleanupIndependentlyObserved": false
 }

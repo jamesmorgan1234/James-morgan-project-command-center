@@ -160,7 +160,7 @@
       },
       {
         "id": "inference-execution",
-        "state": "central-inference-live-specialists-blocked"
+        "state": "128-live-inference-and-128-native-artifact-jobs-verified-general-execution-unavailable"
       },
       {
         "id": "activate-eligible-brains",
@@ -168,7 +168,7 @@
       },
       {
         "id": "128-end-to-end-probes",
-        "state": "blocked"
+        "state": "128-inference-and-128-exact-artifact-probes-verified-general-tool-probes-unavailable"
       },
       {
         "id": "quality-assurance",
@@ -176,7 +176,7 @@
       }
     ]
   },
-  "nextResumableUnit": "reconcile-recovered-existing-routing-and-installed-worker-contract",
+  "nextResumableUnit": "connect-and-live-verify-general-project-browser-research-coding-executor",
   "resultsRef": "current-activation-results.json",
   "existingBusinessRoadmapManifestsModified": false,
   "validation": {
@@ -189,5 +189,14 @@
   },
   "modelBindingsVerified": 128,
   "contextBindingsVerified": 128,
-  "operationalSpecialists": 0
+  "operationalSpecialists": 0,
+  "observedAt": "2026-11-06T21:11:55.168297+00:00",
+  "nativeArtifactJobsVerified": 128,
+  "externalHostingInvestigation": {
+    "provider": "Render",
+    "existingDynamicToolRuntime": false,
+    "noSpendBillingBoundaryVerified": false,
+    "newServicesCreated": false,
+    "note": "Free instance plan alone does not establish zero supplementary bandwidth/build charges; no service provisioned."
+  }
 }
