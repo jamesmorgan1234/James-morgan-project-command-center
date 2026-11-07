@@ -24,6 +24,12 @@ SELECT b.owner_id,b.project_id,b.brain_key,b.version AS brain_version,
         x.result->>'modelId'=x.model_id AND
         x.result->>'modelDigest'=x.expected_model_digest AND
         x.result->>'inputHash'=x.input_hash AND
+        encode(sha256(convert_to('{"exchangeId":"'||x.exchange_id::text||
+          '","projectId":"'||x.project_id||
+          '","companyId":"'||x.company_id||
+          '","targetBrainKey":"'||x.brain_key||
+          '","nonce":"'||x.nonce::text||
+          '","parentResponseHash":"'||x.parent_response_hash||'"}','UTF8')),'hex')=x.input_hash AND
         x.result->>'fencingToken'=x.fence::text AND
         x.result->'paidUsageAuthorized'='false'::jsonb AND
         x.result->'companyBuildStarted'='false'::jsonb AND
