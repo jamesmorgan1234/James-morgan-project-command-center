@@ -1,10 +1,10 @@
 {
   "schemaVersion": "cc-p15-13-release-artifact-audit-v1",
-  "headSha": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
+  "headSha": "59633f9de362480b0a6b96623a13d61e0549c8cd",
   "releaseIdentity": {
-    "releaseId": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
-    "buildHash": "480aadf7642c92c06254a61d8767c37484921ca1f83c98bd64260a5321ffd11e",
-    "assetManifestHash": "5248e8dbf3e36464409e55995f8c51ba2a45296d28a7dd3b4e7418f8ee2be033",
+    "releaseId": "59633f9de362480b0a6b96623a13d61e0549c8cd",
+    "buildHash": "30c725bde10e85847416e8e471135c0e8fa8ca08058156034d83c81770dbf2ec",
+    "assetManifestHash": "448e7ef44b71f611776c08eb582169b3da630c7019267fb3bd75fbc78fc9bc72",
     "schemaCompatibility": "cc-runtime-snapshot-v1"
   },
   "artifactFileCount": 1088,
@@ -64,23 +64,23 @@
     {
       "name": "release identity is present",
       "passed": true,
-      "detail": "9ebd2132c220a020f67c6ec0aef0184f96fb5267"
+      "detail": "59633f9de362480b0a6b96623a13d61e0549c8cd"
     },
     {
       "name": "release identity is the immutable audited commit",
       "passed": true,
       "detail": {
-        "releaseId": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
-        "headSha": "9ebd2132c220a020f67c6ec0aef0184f96fb5267"
+        "releaseId": "59633f9de362480b0a6b96623a13d61e0549c8cd",
+        "headSha": "59633f9de362480b0a6b96623a13d61e0549c8cd"
       }
     },
     {
       "name": "release build hash and asset manifest hash are SHA-256",
       "passed": true,
       "detail": {
-        "releaseId": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
-        "buildHash": "480aadf7642c92c06254a61d8767c37484921ca1f83c98bd64260a5321ffd11e",
-        "assetManifestHash": "5248e8dbf3e36464409e55995f8c51ba2a45296d28a7dd3b4e7418f8ee2be033",
+        "releaseId": "59633f9de362480b0a6b96623a13d61e0549c8cd",
+        "buildHash": "30c725bde10e85847416e8e471135c0e8fa8ca08058156034d83c81770dbf2ec",
+        "assetManifestHash": "448e7ef44b71f611776c08eb582169b3da630c7019267fb3bd75fbc78fc9bc72",
         "schemaCompatibility": "cc-runtime-snapshot-v1"
       }
     },
@@ -92,12 +92,12 @@
     {
       "name": "service worker embeds the audited release id",
       "passed": true,
-      "detail": "9ebd2132c220a020f67c6ec0aef0184f96fb5267"
+      "detail": "59633f9de362480b0a6b96623a13d61e0549c8cd"
     },
     {
       "name": "document head advertises the audited release id",
       "passed": true,
-      "detail": "9ebd2132c220a020f67c6ec0aef0184f96fb5267"
+      "detail": "59633f9de362480b0a6b96623a13d61e0549c8cd"
     },
     {
       "name": "no unreplaced release placeholders remain",

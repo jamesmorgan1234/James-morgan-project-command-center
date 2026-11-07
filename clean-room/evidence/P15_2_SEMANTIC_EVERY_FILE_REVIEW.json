@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "phaseId": "P15.2",
   "status": "VERIFIED_COMPLETE",
-  "gitSha": "9ebd2132c220a020f67c6ec0aef0184f96fb5267",
+  "gitSha": "59633f9de362480b0a6b96623a13d61e0549c8cd",
   "reviewScope": "all-git-tracked-files",
-  "reviewedFileCount": 2324,
-  "inventoryDigest": "4dcd81d3d045f5457dcf8bc1a734c98486feb3bab1d07c7b1f5d1d5f28a183be",
+  "reviewedFileCount": 2325,
+  "inventoryDigest": "ab2b6c40f3cf9dd3a970e49f8f98c64062e233eec74d743fd6e6ea9d8d9e79b1",
   "generatedBy": "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
   "evidence": [
     "clean-room/scripts/p15-2-semantic-every-file-review.mjs",
@@ -18,8 +18,8 @@
   ],
   "summary": {
     "phaseId": "P15.2",
-    "trackedFileCount": 2325,
-    "reviewedFileCount": 2324,
+    "trackedFileCount": 2326,
+    "reviewedFileCount": 2325,
     "evidenceFileExcluded": true,
     "reviewScope": "all-git-tracked-files",
     "roleLegend": {
@@ -45,7 +45,7 @@
       "ROOTDOC": 31,
       "CONF": 6,
       "ASRV": 1,
-      "EVID": 260,
+      "EVID": 261,
       "APUB": 15,
       "SCRP": 149,
       "ASRC": 364,
@@ -689,7 +689,7 @@
     },
     {
       "directory": "clean-room/evidence",
-      "fileCount": 260,
+      "fileCount": 261,
       "roles": [
         "EVID"
       ]
@@ -3911,7 +3911,7 @@
       "path": "clean-room/evidence/P15_13_RELEASE_ARTIFACT_AUDIT.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "f3a7bd681c3a9a4bdf6762941a5784fc213b5c92d50f6f73daa44850e48f40c6",
+      "sha256": "497a8508e7cf9f6d808d9c7d33d5227b6347b59a4f861ff27fdbe4845a10cf05",
       "bytes": 4006,
       "contentKind": "text",
       "findings": []
@@ -3920,7 +3920,7 @@
       "path": "clean-room/evidence/P15_14_NONPRODUCTION_ACCEPTANCE.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "bab812d1db0329f2e8b84f5fe165255c8f30656634681536c6c862b0f7c43fe4",
+      "sha256": "bef6f3bf505e6756cfba648e2cfebd153ed38907798b654256132cd36b2e731a",
       "bytes": 2027,
       "contentKind": "text",
       "findings": []
@@ -5027,8 +5027,8 @@
       "path": "clean-room/evidence/brain-activation/CHECKPOINT.md",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "b10aeb21b4186d35ddd96504843334d28223f780c04f54fbbaa48c3adcc3e531",
-      "bytes": 43108,
+      "sha256": "fbbbe6f4e79e6fbcf83173624d4e0186058beea520a1fa49885b7b4034a4b8d9",
+      "bytes": 43932,
       "contentKind": "text",
       "findings": []
     },
@@ -5038,6 +5038,15 @@
       "disposition": "retain-authority-evidence",
       "sha256": "1daf137aba9a687e4cd64bf9c71afe001e2c7e29c995607f37e00f3087796e00",
       "bytes": 95075,
+      "contentKind": "text",
+      "findings": []
+    },
+    {
+      "path": "clean-room/evidence/brain-activation/RECOVERY_AND_AGENT_TO_AGENT_RECONCILIATION_2026-11-06.md",
+      "role": "EVID",
+      "disposition": "retain-authority-evidence",
+      "sha256": "77b0f8ea7f061a7b30f646fbc211d57d5a42f87181ebcef8a652dd8bd4c6c5a2",
+      "bytes": 7142,
       "contentKind": "text",
       "findings": []
     },
@@ -5126,8 +5135,8 @@
       "path": "clean-room/evidence/brain-activation/current-activation-results.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "d50b20f5b203ae069c39d9ac2048b9168af42a2adb7c1c7efd784a6ff7218e50",
-      "bytes": 287742,
+      "sha256": "5e8d5a814a30360759171b70768c61ee09d6e10dfeb4aa80d7573fde13546261",
+      "bytes": 288916,
       "contentKind": "text",
       "findings": []
     },
@@ -5171,8 +5180,8 @@
       "path": "clean-room/evidence/brain-activation/execution-binding-verification.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "1b06179fa93d44f7e98735d9580a146b3ca260f44e161457cc9c1cb2005208eb",
-      "bytes": 1731,
+      "sha256": "b3d3d39108d97e0fb59101b7c221b2d3be7ba1ec87c6857598982e8a7b6ca09f",
+      "bytes": 2922,
       "contentKind": "text",
       "findings": []
     },
@@ -5630,7 +5639,7 @@
       "path": "clean-room/evidence/category15-requirement-traceability.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "17564ab4c2c36a5f3871d0ab03d83d43ae0ca50ffa846dc4bc99c3825caf69c7",
+      "sha256": "b63bebe3196c6f20eb9fb30b7730acf54431ff20a0ad44c90dff44218f84b190",
       "bytes": 13204406,
       "contentKind": "text",
       "findings": []
@@ -5666,7 +5675,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_13.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "185fc0edb99356f6d8aa9be155beb03179953552bd4fc29e9248c0cac1fc9e69",
+      "sha256": "a1e96884309faa69b681be04d50dbbd8934ca55e5db11a514a4a8618f25d3667",
       "bytes": 5330,
       "contentKind": "text",
       "findings": []
@@ -5675,7 +5684,7 @@
       "path": "clean-room/evidence/phase-receipts/P15_14.json",
       "role": "EVID",
       "disposition": "retain-authority-evidence",
-      "sha256": "8e8348b35828c4eb917c614eb1717f535973a61a40b87ada5cef84c3f903d0f1",
+      "sha256": "6e7e5ac28832bdb238e5db8ffde55b9acc3a3f793e2d9b09cbcd4f2a30f12cbb",
       "bytes": 3276,
       "contentKind": "text",
       "findings": []
