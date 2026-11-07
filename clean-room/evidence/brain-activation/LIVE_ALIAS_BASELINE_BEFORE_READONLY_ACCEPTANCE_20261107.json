@@ -1,0 +1,60 @@
+{
+  "kind": "command-center-live-baseline-and-controlled-rollback-plan",
+  "observedAtUtc": "2026-11-07T14:10:53.42557Z",
+  "status": "READ_ONLY BASELINE SAVED; NO PRODUCTION DEPLOYMENT OR ALIAS CHANGE AUTHORIZED/EXECUTED BY THIS CHECKPOINT",
+  "ownerApp": {
+    "vercelProjectId": "prj_gJISweXK7OGvFk1Iy48umKXjFhGX",
+    "existingLiveDeploymentId": "dpl_HJeuaTbFbfmDbEFKNP1u2qosnLP3",
+    "existingLiveDeploymentUrl": "https://command-center-preview-gfg843ldj-crestven-holdings.vercel.app",
+    "originalSourceCommit": "25987169d15067fcbaf380b0effaccec9d3f22fd",
+    "originalSourceBranch": "build/spec-lock-v2-clean-room",
+    "deploymentState": "READY",
+    "deploymentTarget": "production",
+    "aliasMappingsVerified": [
+      {
+        "host": "command-center-preview-alpha.vercel.app",
+        "deploymentId": "dpl_HJeuaTbFbfmDbEFKNP1u2qosnLP3"
+      },
+      {
+        "host": "command-center-preview-crestven-holdings.vercel.app",
+        "deploymentId": "dpl_HJeuaTbFbfmDbEFKNP1u2qosnLP3"
+      }
+    ]
+  },
+  "backend": {
+    "supabaseProjectId": "gmlsucpwliegwlxymjvp",
+    "productionBackendNotClone": true,
+    "edgeFunction": "command-center-safe-tools",
+    "activeVersion": 6,
+    "completedBoundedExchanges": 128,
+    "verifiedNativeArtifactJobs": 128,
+    "verifiedReadOnlyModelBindings": 128,
+    "generalEnabledBrains": 0,
+    "toolBoundBrains": 0,
+    "delegationBoundBrains": 0,
+    "freeCloudDocumentReceipts": 0,
+    "stoppedAgencyRuns": 7,
+    "toolStatus": {
+      "code.js_syntax_check": "available",
+      "research.public_docs_read": "degraded",
+      "research.cloud_public_docs_read": "degraded"
+    }
+  },
+  "safeguards": {
+    "noRollbackOfDatabaseOnFrontendRollback": true,
+    "noProductionChangesYet": true,
+    "noCompanyBuild": true,
+    "noGeneralToolActivation": true,
+    "noPaidUsage": true,
+    "noWork": true,
+    "preservedReleaseGates": [
+      "P15.17",
+      "P15.18"
+    ],
+    "doNotOverwriteProtectedAssets": true,
+    "rollbackDeploymentId": "dpl_HJeuaTbFbfmDbEFKNP1u2qosnLP3",
+    "rollbackRequirement": "Verify exact live alias immediately before any candidate promotion; on test failure reassign both aliases to original deployment and separately reconcile any cloud database writes. Do not assume restoring the UI restores database schema/data.",
+    "proposedMinimalTest": "Owner-only public documentation fallback, limited to signed-in owner's project and one read-only request. Not full project production release."
+  },
+  "warning": "This file records exact immutable Vercel version identifiers and database status but is not a full point-in-time backup of production Supabase data. No schema/data restore has been created or authorized."
+}
