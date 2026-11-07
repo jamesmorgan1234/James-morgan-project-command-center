@@ -420,19 +420,29 @@ function safeToolCheckPanel(projectId:string,provider:RuntimeSnapshotProvider|un
     void provider.readSafeReadOnlyTool!(projectId,id).then(receipt=>{
       output.textContent='';
       if(receipt.state==='completed'&&receipt.executionVerified===true) {
-        status.textContent='COMPLETED: saved worker receipt and output hash verified. General company execution remains disabled.';
+        status.textContent='Worker receipt committed and hashed. Inspecting the tool-specific result; no general company execution occurred.';
         const raw=receipt.result?.outputText;
         if(typeof raw==='string') {
           try {
             const data:unknown=JSON.parse(raw);
             if(data&&typeof data==='object'&&!Array.isArray(data)) {
               const tool=data as Record<string,unknown>;
-              if(tool.tool==='code.js_syntax_check') {
-                output.textContent='JavaScript syntax: '+(tool.syntaxValid===true?'valid':'invalid')+
+              if(tool.tool==='code.js_syntax_check'&&typeof tool.syntaxValid==='boolean'&&tool.executed===false) {
+                status.textContent='VERIFIED: JavaScript was parsed for syntax only. It was not executed.';
+                output.textContent='JavaScript syntax: '+(tool.syntaxValid?'valid':'invalid')+
                   (typeof tool.errorCode==='string'?' ('+tool.errorCode+')':'')+
                   '. Source was not executed.';
-              } else if(tool.tool==='research.public_docs_read'&&typeof tool.excerpt==='string') {
+              } else if(tool.tool==='research.public_docs_read'&&tool.readSucceeded===false) {
+                status.textContent='WORKER ATTEMPT VERIFIED; DOCUMENT NOT RETRIEVED. No research success was recorded.';
+                output.textContent='Document request did not succeed ('+
+                  (typeof tool.errorCode==='string'?tool.errorCode:'docs_fetch_unavailable')+
+                  '). The claimed request is complete, but no document content was verified.';
+              } else if(tool.tool==='research.public_docs_read'&&tool.status===200&&
+                tool.untrustedPublicContent===true&&typeof tool.excerpt==='string') {
+                status.textContent='VERIFIED: Public documentation retrieved and saved with a checked output hash.';
                 output.textContent='UNTRUSTED PUBLIC DOCUMENT EXCERPT (display only, never executed):\n'+tool.excerpt.slice(0,4000);
+              } else {
+                status.textContent='The canonical output was saved but the expected tool result is unavailable.';
               }
             }
           } catch {output.textContent='Saved output was not valid JSON; do not assume execution.';}
