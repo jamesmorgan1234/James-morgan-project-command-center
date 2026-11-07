@@ -54,5 +54,40 @@
     "automatic": "Verify the already-claimed Edge Finder outcome and guard stopping further activation claims while normal PC service still polls. Reconcile errors without copying credentials or repeating completed 128 diagnostics/artifacts.",
     "correctiveBoundary": "Actual local-model result or safe error classification is unavailable from cloud logs, so a once-only local diagnostic or source-tested patched Windows client may ultimately be necessary. Do not request another ZIP/re-pairing/Task recreation or make up successful receipts.",
     "remaining": "Preserve 13 queued records, 111 unqueued. Do not mark 128 fully operational; exact general browser/research/coding capability remains unverified and general Brains remain disabled."
+  },
+  "latestLiveVerified": {
+    "atUtc": "2026-11-07T08:15:43.190270Z",
+    "stateCounts": {
+      "completed": 1,
+      "uncertain": 3,
+      "queued": 13,
+      "claimed": 0
+    },
+    "uncommitted": [
+      "project:company:future:004",
+      "margincrafttools",
+      "edge-finder"
+    ],
+    "workerLastSeen": "2026-11-07T08:15:06.773Z",
+    "workerEnabled": true,
+    "workerRevoked": false,
+    "nativeArtifactsCompleted": 128,
+    "agencyStopped": 7,
+    "brainsEnabledGeneral": 0,
+    "guardConfirmed": true,
+    "originalFunctionRestoredMd5ByRemovingGuard": "a99a55abfe23b03f7a379d273a5cd800",
+    "anonCanExecuteExchangeRpc": false,
+    "authenticatedCanExecuteExchangeRpc": false,
+    "serviceRoleCanExecuteExchangeRpc": true
+  },
+  "exactLocalModel": {
+    "modelId": "qwen3:4b-instruct",
+    "digest": "0edcdef34593eac1aa2be9c7d06c432dcf81945adca5eca2f27662c18f168ba0",
+    "ollamaTag": "qwen3:4b-instruct-2507-q4_K_M",
+    "nonThinkingModel": true,
+    "source": "https://registry.ollama.com/library/qwen3/tags ; https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507",
+    "hypothesisRejected": "The three uncommitted exchanges are NOT explained by default Qwen thinking mode. No /no_think patch has been created or deployed.",
+    "trace": "Each failed exchange passed activation-exchange-next and activation-exchange-current with HTTP 200, but lacked post-generation current, commit, and canonical readback. The worker emits only generic local failure events, so exact error class and raw model text remain unavailable from cloud.",
+    "need": "A one-time $0 local Ollama strict-JSON reproduction with no downloads, credentials or Task changes is the minimal evidence needed before changing the installed worker."
   }
 }
